@@ -10,8 +10,7 @@ const Tag = new Schema({
 	name: { type: String, trim: true, required: true },
 	team: {
 		type: Schema.Types.ObjectId,
-		ref: 'Team',
-		required: true
+		ref: 'Team'
 	}
 });
 

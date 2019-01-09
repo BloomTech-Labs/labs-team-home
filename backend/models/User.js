@@ -39,7 +39,6 @@ const User = new Schema({
 	avatar: {
 		type: String,
 		trim: true,
-		required: true,
 		validate: [
 			avatar =>
 				yup
@@ -52,7 +51,6 @@ const User = new Schema({
 	phoneNumber: {
 		type: String,
 		trim: true,
-		required: true,
 		validate: [
 			phoneNumber =>
 				yup
