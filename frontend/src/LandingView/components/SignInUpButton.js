@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import BtnStyled from '../styles/SignInSignUpButtonStyled';
 
-export default (Button = props => {
-	console.log(props);
+const Button = props => {
+	let btnLabel = props.btnprop;
+	return <BtnStyled>{btnLabel}</BtnStyled>;
+};
 
-	return (
-		// <div>{props.data.signin or up}</div>
-		<div>button</div>
-	);
-});
+export default Button;
