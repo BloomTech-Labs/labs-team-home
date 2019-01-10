@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import BtmContentStyles from '../styles/BottomStyled';
 
 const BottomContent = props => {
-	return <div>BottomContent</div>;
+	return <BtmContentStyles>BottomContent</BtmContentStyles>;
 };
 
 export default BottomContent;

@@ -1,11 +1,15 @@
 import React from 'react';
+import LogoBannerStyles, {
+	LogoStyles,
+	BannerStyles
+} from '../styles/LogoBannerStyled';
 
 const LogoBanner = props => {
 	return (
-		<div>
-			<div>Logo</div>
-			<div>Banner</div>
-		</div>
+		<LogoBannerStyles>
+			<LogoStyles>Logo</LogoStyles>
+			<BannerStyles>Banner</BannerStyles>
+		</LogoBannerStyles>
 	);
 };
 

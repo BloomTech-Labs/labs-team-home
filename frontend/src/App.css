@@ -1,4 +1,7 @@
 .App {
+	width: 100%;
+	margin: 0 auto;
+	margin-top: 2%;
 	text-align: center;
 	background-color: #282c34;
 	min-height: 100vh;
