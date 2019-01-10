@@ -4,20 +4,15 @@ const LogoBannerStyles = styled.div`
 	width: 100%;
 	display: flex;
 	flex-flow: row;
-	height: 400px;
-`;
-
-const LogoStyles = styled.div`
-	width: 100%;
-	display: flex;
-	background: aliceblue;
+	/* height: 560px; */
+	height: 70vh;
+	background: rgba(255, 255, 255, 0.6);
 `;
 
 const BannerStyles = styled.div`
 	width: 100%;
 	display: flex;
-	background: salmon;
 `;
 
 export default LogoBannerStyles;
-export { LogoStyles, BannerStyles };
+export { BannerStyles };
