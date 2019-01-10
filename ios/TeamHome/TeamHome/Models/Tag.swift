@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+struct Tag {
+    let identifier: UUID
+    let name: String
+    let team: UUID
+}

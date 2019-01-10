@@ -14,6 +14,10 @@
 		7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */; };
 		7BA77E8321E798A800C862C1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8221E798A800C862C1 /* MainTabBarController.swift */; };
 		7BA77E8521E7B2B500C862C1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8421E7B2B500C862C1 /* User.swift */; };
+		7BA77E8A21E7F3E200C862C1 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8921E7F3E200C862C1 /* Message.swift */; };
+		7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8B21E7F5BE00C862C1 /* Team.swift */; };
+		7BA77E9021E7F68300C862C1 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8F21E7F68300C862C1 /* Tag.swift */; };
+		7BA77E9221E7FCD100C862C1 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E9121E7FCD000C862C1 /* Comment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		7BA77E8221E798A800C862C1 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		7BA77E8421E7B2B500C862C1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7BA77E8921E7F3E200C862C1 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		7BA77E8B21E7F5BE00C862C1 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		7BA77E8F21E7F68300C862C1 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		7BA77E9121E7FCD000C862C1 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +98,10 @@
 			children = (
 				7BA77E8621E7BDD400C862C1 /* Mock json */,
 				7BA77E8421E7B2B500C862C1 /* User.swift */,
+				7BA77E8921E7F3E200C862C1 /* Message.swift */,
+				7BA77E9121E7FCD000C862C1 /* Comment.swift */,
+				7BA77E8B21E7F5BE00C862C1 /* Team.swift */,
+				7BA77E8F21E7F68300C862C1 /* Tag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,8 +201,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
 				7BA77E8521E7B2B500C862C1 /* User.swift in Sources */,
 				7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */,
+				7BA77E9221E7FCD100C862C1 /* Comment.swift in Sources */,
+				7BA77E9021E7F68300C862C1 /* Tag.swift in Sources */,
+				7BA77E8A21E7F3E200C862C1 /* Message.swift in Sources */,
 				7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* MainTabBarController.swift in Sources */,
 			);
