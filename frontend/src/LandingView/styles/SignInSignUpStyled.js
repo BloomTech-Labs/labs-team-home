@@ -6,6 +6,7 @@ const StyledSignInUp = styled.div`
 	display: flex;
 	flex-flow: row;
 	justify-content: flex-end;
+
 	@media (max-width: 700px) {
 		background: palevioletred;
 	}

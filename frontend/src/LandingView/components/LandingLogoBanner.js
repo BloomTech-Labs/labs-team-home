@@ -1,10 +1,11 @@
 import React from 'react';
 import LogoBannerStyles, { BannerStyles } from '../styles/LogoBannerStyled';
-
+import BottomContent from '../components/BottomContent';
 const LogoBanner = props => {
 	return (
 		<LogoBannerStyles>
-			<BannerStyles>Banner</BannerStyles>
+			<BannerStyles>TeamHome</BannerStyles>
+			<BottomContent />
 		</LogoBannerStyles>
 	);
 };

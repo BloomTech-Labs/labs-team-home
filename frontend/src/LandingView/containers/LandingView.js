@@ -10,7 +10,6 @@ export default class LandingView extends Component {
 			<div>
 				<SignInSignUp />
 				<LogoBanner />
-				<BottomContent />
 			</div>
 
 			// <XTRContent></XTRContent>
