@@ -2,6 +2,8 @@ const { Schema, model } = require('mongoose');
 const yup = require('yup');
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+//this regex checks for phone number syntax
+//'111-111-1111'
 
 // example document
 // {
