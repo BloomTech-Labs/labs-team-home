@@ -1,0 +1,11 @@
+ {
+     firstName: 'John',
+     lastName: 'Doe',
+     email: 'john@doe.com',
+     avatar: 'https://imgur.com/abcdefg',
+     phoneNumber: '111-111-1111',
+     toggles: {
+         receiveEmails: false,
+         receiveTexts: true
+     }
+ };
