@@ -4,6 +4,13 @@ import SignInSignUp from '../components/SignInSignUp';
 
 export default class LandingView extends Component {
 	render() {
-		return <SignInSignUp />;
+		return (
+			<div>
+				<SignInSignUp />
+			</div>
+			// {/* <Logo></Logo> */}
+			// <Banner></Banner>
+			// <XTRContent></XTRContent>
+		);
 	}
 }
