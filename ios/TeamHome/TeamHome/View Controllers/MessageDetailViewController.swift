@@ -13,18 +13,28 @@ class MessageDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
+    }
+    
+    
+    @IBOutlet weak var messageTitleLabel: UILabel!
+    @IBOutlet weak var userAvatarImageView: UIImageView!
+    @IBOutlet weak var firstNameLabel: UILabel!
+    @IBOutlet weak var lastNameLabel: UILabel!
+    @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var tagIconImageView: UIImageView!
+    @IBOutlet weak var messageBodyLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var addRemoveImageButton: UIButton!
+    @IBOutlet weak var addImageToCommentButton: UIButton!
+    @IBOutlet weak var sendCommentButton: UIButton!
+    @IBOutlet weak var subscribersLabel: UILabel!
+    @IBOutlet weak var subscribersCollectionView: UICollectionView!
+    
 }

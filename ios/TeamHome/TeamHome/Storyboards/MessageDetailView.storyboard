@@ -153,7 +153,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="RMK-8t-r3a">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="RMK-8t-r3a" customClass="SubscriberCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="4.5" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -171,6 +171,9 @@
                                                     <constraint firstAttribute="bottom" secondItem="Tx6-Ej-VKh" secondAttribute="bottom" id="Y6j-M5-MDk"/>
                                                     <constraint firstItem="Tx6-Ej-VKh" firstAttribute="leading" secondItem="RMK-8t-r3a" secondAttribute="leading" id="lfC-9M-WWk"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outlet property="subscriberAvatarImageView" destination="Tx6-Ej-VKh" id="Duq-nX-mOS"/>
+                                                </connections>
                                             </collectionViewCell>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="8iL-if-urk">
                                                 <rect key="frame" x="60" y="4.5" width="50" height="50"/>
@@ -280,6 +283,21 @@
                     </navigationItem>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="849"/>
+                    <connections>
+                        <outlet property="addImageToCommentButton" destination="rDC-Vd-eRS" id="DjH-h6-bzs"/>
+                        <outlet property="addRemoveImageButton" destination="a4z-Z7-gBm" id="G1j-Yh-ZUF"/>
+                        <outlet property="firstNameLabel" destination="GP9-J8-O9S" id="6Zf-bL-W15"/>
+                        <outlet property="imageView" destination="fkz-Vk-QXr" id="JOk-Kr-6cI"/>
+                        <outlet property="lastNameLabel" destination="KSw-Hp-1Fb" id="h3D-ZT-tpq"/>
+                        <outlet property="messageBodyLabel" destination="KZn-VX-Npz" id="jk8-hC-i2V"/>
+                        <outlet property="messageTitleLabel" destination="dai-gO-o6P" id="YaC-mc-Byo"/>
+                        <outlet property="sendCommentButton" destination="hqs-nM-T9Y" id="iyh-Sr-gRM"/>
+                        <outlet property="subscribersCollectionView" destination="lxy-xh-IDu" id="fGz-sk-QSk"/>
+                        <outlet property="subscribersLabel" destination="Hf5-uR-7vt" id="TQv-zO-Z2Q"/>
+                        <outlet property="tagIconImageView" destination="PAO-1l-p7t" id="HhE-Sc-PUS"/>
+                        <outlet property="tagLabel" destination="Ifr-Sx-1B4" id="8l7-Hr-iRA"/>
+                        <outlet property="userAvatarImageView" destination="axn-KX-Dn5" id="V22-MX-cdz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WhO-0z-pLr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

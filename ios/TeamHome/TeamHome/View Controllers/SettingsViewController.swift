@@ -13,18 +13,18 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
     }
+
+    @IBOutlet weak var teamNameLabel: UILabel!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var userAvatarImageView: UIImageView!
+    @IBOutlet weak var addRemoveImageButton: UIButton!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var phoneTextField: UITextField!
+    @IBOutlet weak var receiveEmails: UIButton!
+    @IBOutlet weak var receiveTexts: UIButton!
+    @IBOutlet weak var oldPasswordTextField: UITextField!
+    @IBOutlet weak var newPasswordTextField: UITextField!
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

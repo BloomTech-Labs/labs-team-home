@@ -80,6 +80,10 @@
                             <outlet property="delegate" destination="wRY-eK-AJy" id="Q3g-si-tqB"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="addMembersButton" destination="pMB-ha-jVw" id="j7z-Vf-af5"/>
+                        <outlet property="teamNameLabel" destination="qvn-0r-rCZ" id="2wk-2M-Zeg"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Za-vx-XPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -138,6 +142,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Q9s-FU-c0S"/>
                     </view>
+                    <connections>
+                        <outlet property="addSelectionButton" destination="0US-B6-3sS" id="cy5-jh-14K"/>
+                        <outlet property="searchBar" destination="S0f-8I-kdh" id="kRd-tw-YqJ"/>
+                        <outlet property="tableView" destination="uIg-aJ-Rdz" id="tQw-7k-S30"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pDP-xL-JZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

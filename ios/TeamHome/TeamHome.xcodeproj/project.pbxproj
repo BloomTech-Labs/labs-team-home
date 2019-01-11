@@ -37,6 +37,7 @@
 		7BA77EBA21E93CDE00C862C1 /* ActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EB921E93CDE00C862C1 /* ActivityCollectionViewCell.swift */; };
 		7BA77EBC21E93D1300C862C1 /* TeamDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */; };
 		7BA77EBE21E93D5600C862C1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */; };
+		7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		7BA77EB921E93CDE00C862C1 /* ActivityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailTableViewController.swift; sourceTree = "<group>"; };
 		7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriberCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				7BA77EAF21E93B1300C862C1 /* MessageDetailViewController.swift */,
 				7BA77EB121E93B2200C862C1 /* CommentsCollectionViewController.swift */,
 				7BA77EB321E93B3400C862C1 /* CommentCollectionViewCell.swift */,
+				7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */,
 				7BA77EB721E93CBA00C862C1 /* ActivityTimelineViewController.swift */,
 				7BA77EB921E93CDE00C862C1 /* ActivityCollectionViewCell.swift */,
 				7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */,
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */,
 				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
 				7BA77EAC21E9376E00C862C1 /* AddNewMessageViewController.swift in Sources */,
 				7BA77E8521E7B2B500C862C1 /* User.swift in Sources */,
