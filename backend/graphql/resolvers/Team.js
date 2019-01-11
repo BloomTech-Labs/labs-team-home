@@ -19,14 +19,14 @@ const teamResolvers = {
 			}
 		},
 		updateTeam: (_, { input }) => {
-			const { name, users, premium } = input;
+			const { name, users, premium, id } = input;
 
 			if (!name && !users && !premium)
 				throw new Error('No name or users or premium provided.');
 			return Team.findById(id).then(team => {
 				if (team) {
-					Team.findOneAndUpdate(
-						{ _id: input.id },
+					return Team.findOneAndUpdate(
+						{ _id: id },
 						{ $set: input },
 						{ new: true }
 					);
