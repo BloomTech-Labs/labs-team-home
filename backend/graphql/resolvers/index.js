@@ -5,4 +5,4 @@ const MsgComment = require('./MsgComment');
 const Team = require('./Team');
 const { merge } = require('lodash');
 
-module.exports = merge({}, Tag, User);
+module.exports = merge({}, Tag, User, Team, MsgComment, Message);
