@@ -4,10 +4,19 @@ import styled from 'styled-components';
 import Message from './Message';
 
 const Messageboard = styled.div`
-	max-width: 600px;
+	max-width: 800px;
+	width: 100%;
 	margin: 0 auto;
+	background-color: white;
+	color: black;
+
+	& p {
+		font-size: 16px;
+	}
 `;
 const TopSection = styled.section`
+	margin-left: 8%;
+	margin-right: 8%;
 	top: 20px;
 	right: 18%;
 	position: absolute;
@@ -44,7 +53,7 @@ const Logo = styled.img`
 `;
 
 const MessagesContainer = styled.div`
-	margin-top: 30px;
+	margin: 30px 20px;
 	border: 1px solid black;
 `;
 

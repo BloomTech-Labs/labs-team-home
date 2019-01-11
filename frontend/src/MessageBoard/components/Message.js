@@ -57,9 +57,9 @@ function Message(props) {
 					timestamp
 				</p>
 				<p>
-					{props.message.content.length <= 40
+					{props.message.content.length <= 50
 						? props.message.content
-						: props.message.content.slice(0, 39) + '...'}
+						: props.message.content.slice(0, 49) + '...'}
 				</p>
 			</MessagePreview>
 			<MessagePreview>
