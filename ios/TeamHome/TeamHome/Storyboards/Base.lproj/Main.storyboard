@@ -594,6 +594,15 @@
                                     </subviews>
                                 </view>
                                 <connections>
+                                    <outlet property="commentCountLabel" destination="y1f-TO-9NZ" id="M6r-jg-FvX"/>
+                                    <outlet property="commentIconImageView" destination="w4x-0L-zmJ" id="45y-xA-fld"/>
+                                    <outlet property="firstNameLabel" destination="oqM-m4-c7m" id="N7S-M1-9is"/>
+                                    <outlet property="imageAttachmentIconImageView" destination="DR8-5u-oRW" id="8ic-H6-zas"/>
+                                    <outlet property="messageBodyLabel" destination="ZUz-uS-Bmr" id="uol-Ww-qEz"/>
+                                    <outlet property="messageTitleLabel" destination="reB-Gx-yuW" id="8lR-bz-FSc"/>
+                                    <outlet property="tagIconImageView" destination="LFT-E0-cHA" id="3BL-AT-stJ"/>
+                                    <outlet property="tagLabel" destination="GUo-EJ-7xV" id="gge-Sl-Yka"/>
+                                    <outlet property="userAvatarImageView" destination="53D-sc-aPC" id="5wq-Uy-c8e"/>
                                     <segue destination="7dT-s8-dFc" kind="show" id="5La-6d-x4n"/>
                                 </connections>
                             </collectionViewCell>
