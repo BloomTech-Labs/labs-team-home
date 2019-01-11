@@ -15,16 +15,12 @@ class AddNewMessageViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    @IBOutlet weak var messageTitleTextField: UITextField!
+    @IBOutlet weak var messageBodyTextView: UITextView!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var newTagTextField: UITextField!
+    @IBOutlet weak var tag1Button: UIButton!
+    @IBOutlet weak var tag2Button: UIButton!
+    @IBOutlet weak var newTagButton: UIButton!
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

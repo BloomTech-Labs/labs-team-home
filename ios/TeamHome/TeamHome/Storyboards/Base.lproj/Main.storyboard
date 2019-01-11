@@ -672,10 +672,19 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sa1-2G-6O9">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="NWB-OH-hWv">
                                         <rect key="frame" x="0.0" y="408" width="255" height="29"/>
-                                        <state key="normal" title="Submit"/>
-                                    </button>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sa1-2G-6O9">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="29"/>
+                                                <state key="normal" title="Cancel"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncb-kP-oCj">
+                                                <rect key="frame" x="206" y="0.0" width="49" height="29"/>
+                                                <state key="normal" title="Submit"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="egZ-o6-mFb" firstAttribute="top" secondItem="yxC-vi-Chn" secondAttribute="top" constant="63" id="XG4-fi-LZ8"/>
@@ -691,6 +700,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bd3-AH-jKZ"/>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="ScB-hv-4kg" id="Qly-kH-gJU"/>
+                        <outlet property="messageBodyTextView" destination="egZ-o6-mFb" id="bhs-7a-hOL"/>
+                        <outlet property="messageTitleTextField" destination="hm0-iI-4gO" id="mgI-rQ-5Bp"/>
+                        <outlet property="newTagButton" destination="JmW-hX-to8" id="gpW-YI-ycP"/>
+                        <outlet property="newTagTextField" destination="I7V-ai-8Cg" id="4r9-zL-lYu"/>
+                        <outlet property="tag1Button" destination="1UG-t1-JLw" id="BtQ-Ol-QmN"/>
+                        <outlet property="tag2Button" destination="AKo-j0-2bg" id="k7M-8t-QHS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OvZ-uj-3Wa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
