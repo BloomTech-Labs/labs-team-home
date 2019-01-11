@@ -2,9 +2,9 @@ const MsgComment = require('../../models/MsgComment');
 
 const msgCommentResolvers = {
 	Query: {
-		MsgComments: () => MsgComment.find(),
+		MsgComments: () => MsgComment.find().populate('user message likes'),
 		findMsgComment: (_, { input: { id } }) => {
-			return MsgComment.findById(id);
+			return MsgComment.findById(id).populate('user message likes');
 		}
 	},
 	Mutation: {
@@ -12,7 +12,7 @@ const msgCommentResolvers = {
 			const { user, message, content } = input;
 			if (!user || !message || !content)
 				throw new Error('User, message and content required.');
-			return new MsgComment(input).save();
+			return new MsgComment(input).save().populate('user message likes');
 		},
 		updateMsgComment: (_, { input }) => {
 			const { id, user, message, content } = input;
@@ -24,7 +24,7 @@ const msgCommentResolvers = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					);
+					).populate('user message likes');
 				} else {
 					throw new Error('Comment does not exist');
 				}

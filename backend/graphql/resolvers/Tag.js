@@ -2,7 +2,7 @@ const Tag = require('../../models/Tag');
 
 const tagResolvers = {
 	Query: {
-		tags: () => Tag.find(),
+		tags: () => Tag.find().populate('team'),
 		findTag: (_, { input }) => {
 			return Tag.findById(input);
 		}
@@ -11,7 +11,7 @@ const tagResolvers = {
 		addTag: (_, { input }) => {
 			const { name, team } = input;
 			if (!name || !team) throw new Error('Name and team are required.');
-			return new Tag(input).save();
+			return new Tag(input).save().populate('team');
 		},
 		updateTag: (_, { input }) => {
 			const { id, name, team } = input;
@@ -22,7 +22,7 @@ const tagResolvers = {
 						{ _id: input.id },
 						{ $set: input },
 						{ new: true }
-					);
+					).populate('team');
 				} else {
 					throw new Error("Tag doesn't exist");
 				}

@@ -2,9 +2,9 @@ const Team = require('../../models/Team');
 
 const teamResolvers = {
 	Query: {
-		teams: () => Team.find(),
+		teams: () => Team.find().populate('users'),
 		findTeam: (_, { input }) => {
-			return Team.findById(input);
+			return Team.findById(input).populate('users');
 		}
 	},
 	Mutation: {

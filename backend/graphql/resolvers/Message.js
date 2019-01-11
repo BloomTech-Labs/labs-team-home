@@ -2,9 +2,12 @@ const Message = require('../../models/Message');
 
 const messageResolvers = {
 	Query: {
-		messages: () => Message.find(),
+		messages: () =>
+			Message.find().populate('user team tags comments subscribedUsers'),
 		findMessage: (_, { input: { id } }) => {
-			return Message.findById(id);
+			return Message.findById(id).populate(
+				'user team tags comments subscribedUsers'
+			);
 		}
 	},
 	Mutation: {
@@ -12,7 +15,9 @@ const messageResolvers = {
 			const { title, user, content } = input;
 			if (!title && !user && !content)
 				throw new Error('Title, user and content are required.');
-			return new Message(input).save();
+			return new Message(input)
+				.save()
+				.populate('user team tags comments subscribedUsers');
 		},
 		updateMessage: (_, { input }) => {
 			const {
@@ -46,7 +51,7 @@ const messageResolvers = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					);
+					).populate('user team tags comments subscribedUsers');
 				} else {
 					throw new Error("Message doesn't exist");
 				}
