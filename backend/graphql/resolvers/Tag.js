@@ -2,34 +2,34 @@ const Tag = require('../../models/Tag');
 
 const tagResolvers = {
 	Query: {
-		tags: () => Tag.find(),
-		findTag: (_, input) => {
+		tags: () => Tag.find().populate('team'),
+		findTag: (_, { input }) => {
 			return Tag.findById(input);
 		}
 	},
 	Mutation: {
 		addTag: (_, { input }) => {
-			// const { name, team } = input;
-			// if (!name || !team) throw new Error('Name and team are required.');
-			return new Tag(input).save();
+			const { name, team } = input;
+			if (!name || !team) throw new Error('Name and team are required.');
+			return new Tag(input).save().populate('team');
 		},
 		updateTag: (_, { input }) => {
 			const { id, name, team } = input;
 			if (!name && !team) throw new Error('No name or team provided.');
 			return Tag.findById(id).then(tag => {
 				if (tag) {
-					return Tag.findOneAndUpdate(
+					Tag.findOneAndUpdate(
 						{ _id: input.id },
 						{ $set: input },
 						{ new: true }
-					);
+					).populate('team');
 				} else {
 					throw new Error("Tag doesn't exist");
 				}
 			});
 		},
 		deleteTag: (_, { input: { id } }) => {
-			Tag.findById(id).then(tag => {
+			return Tag.findById(id).then(tag => {
 				if (tag) {
 					return Tag.findOneAndDelete({ _id: id });
 				} else {
