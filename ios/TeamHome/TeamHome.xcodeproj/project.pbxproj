@@ -23,6 +23,11 @@
 		7BA77E9A21E8033C00C862C1 /* Comment.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77E9521E8033C00C862C1 /* Comment.json */; };
 		7BA77E9B21E8033C00C862C1 /* TagExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77E9621E8033C00C862C1 /* TagExample.json */; };
 		7BA77E9C21E8033C00C862C1 /* UserExample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77E9721E8033C00C862C1 /* UserExample.json */; };
+		7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E9D21E807D200C862C1 /* MessageBoardViewController.swift */; };
+		7BA77EA021E80D6C00C862C1 /* MessagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E9F21E80D6C00C862C1 /* MessagesCollectionViewController.swift */; };
+		7BA77EA221E80E3E00C862C1 /* MessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EA121E80E3E00C862C1 /* MessageCollectionViewCell.swift */; };
+		7BA77EA421E914BE00C862C1 /* TeamDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */; };
+		7BA77EAA21E9177300C862C1 /* MessageDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77EA921E9177300C862C1 /* MessageDetailView.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +49,11 @@
 		7BA77E9521E8033C00C862C1 /* Comment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Comment.json; sourceTree = "<group>"; };
 		7BA77E9621E8033C00C862C1 /* TagExample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TagExample.json; sourceTree = "<group>"; };
 		7BA77E9721E8033C00C862C1 /* UserExample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserExample.json; sourceTree = "<group>"; };
+		7BA77E9D21E807D200C862C1 /* MessageBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBoardViewController.swift; sourceTree = "<group>"; };
+		7BA77E9F21E80D6C00C862C1 /* MessagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCollectionViewController.swift; sourceTree = "<group>"; };
+		7BA77EA121E80E3E00C862C1 /* MessageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TeamDetailView.storyboard; sourceTree = "<group>"; };
+		7BA77EA921E9177300C862C1 /* MessageDetailView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MessageDetailView.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				7B6BE7D421E5733D0099E42C /* Main.storyboard */,
+				7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */,
+				7BA77EA921E9177300C862C1 /* MessageDetailView.storyboard */,
 				7B6BE7D921E5733E0099E42C /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
@@ -99,6 +111,9 @@
 			children = (
 				7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */,
 				7BA77E8221E798A800C862C1 /* MainTabBarController.swift */,
+				7BA77E9D21E807D200C862C1 /* MessageBoardViewController.swift */,
+				7BA77E9F21E80D6C00C862C1 /* MessagesCollectionViewController.swift */,
+				7BA77EA121E80E3E00C862C1 /* MessageCollectionViewCell.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -208,9 +223,11 @@
 				7BA77E9B21E8033C00C862C1 /* TagExample.json in Resources */,
 				7BA77E9C21E8033C00C862C1 /* UserExample.json in Resources */,
 				7B6BE7DB21E5733E0099E42C /* LaunchScreen.storyboard in Resources */,
+				7BA77EAA21E9177300C862C1 /* MessageDetailView.storyboard in Resources */,
 				7B6BE7D821E5733E0099E42C /* Assets.xcassets in Resources */,
 				7B6BE7D621E5733D0099E42C /* Main.storyboard in Resources */,
 				7BA77E9A21E8033C00C862C1 /* Comment.json in Resources */,
+				7BA77EA421E914BE00C862C1 /* TeamDetailView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,11 +240,14 @@
 			files = (
 				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
 				7BA77E8521E7B2B500C862C1 /* User.swift in Sources */,
+				7BA77EA021E80D6C00C862C1 /* MessagesCollectionViewController.swift in Sources */,
 				7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */,
+				7BA77EA221E80E3E00C862C1 /* MessageCollectionViewCell.swift in Sources */,
 				7BA77E9221E7FCD100C862C1 /* Comment.swift in Sources */,
 				7BA77E9021E7F68300C862C1 /* Tag.swift in Sources */,
 				7BA77E8A21E7F3E200C862C1 /* Message.swift in Sources */,
 				7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */,
+				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

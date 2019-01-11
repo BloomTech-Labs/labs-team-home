@@ -10,16 +10,10 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        
-    }
-
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
+        //Pass user info to all child VCs
     }
 
 }
