@@ -57,7 +57,7 @@ class MessageBoard extends React.Component {
 			messages: [
 				{
 					_id: '5c358baf93b69c7c387fd843',
-					user: { firstname: 'Joe', lastname: 'Bob', avatar: null },
+					user: { firstName: 'Joe', lastName: 'Bob', avatar: null },
 					team: 'Team Home',
 					title: 'Example',
 					content:
@@ -79,7 +79,7 @@ class MessageBoard extends React.Component {
 				},
 				{
 					_id: '5c358baf93b69c7c387fb843',
-					user: { firstname: 'Joe', lastname: 'Bob', avatar: null },
+					user: { firstName: 'Joe', lastName: 'Bob', avatar: null },
 					team: 'Team Home',
 					title: 'Example',
 					content:
@@ -101,7 +101,7 @@ class MessageBoard extends React.Component {
 				},
 				{
 					_id: '5c358baf93b69c7c387fc843',
-					user: { firstname: 'Joe', lastname: 'Bob', avatar: null },
+					user: { firstName: 'Joe', lastName: 'Bob', avatar: null },
 					team: 'Team Home',
 					title: 'Example',
 					content:
