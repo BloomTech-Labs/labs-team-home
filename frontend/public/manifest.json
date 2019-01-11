@@ -14,8 +14,8 @@
 		}
 	],
 	"start_url": "/teamhome/?source=pwa",
-	"background_color": "#3367D6",
+	"background_color": "FF516A",
 	"display": "standalone",
 	"scope": "/teamhome/",
-	"theme_color": "#3367D6"
+	"theme_color": "#FF516A"
 }
