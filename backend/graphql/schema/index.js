@@ -5,8 +5,8 @@ const MsgComment = require('./MsgComment');
 const User = require('./User');
 
 module.exports = {
-	Message,
 	Tag,
+	Message,
 	Team,
 	MsgComment,
 	User
