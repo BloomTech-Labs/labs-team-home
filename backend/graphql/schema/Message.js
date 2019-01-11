@@ -2,13 +2,13 @@ const Message = /* GraphQL */ `
 	type Message {
 		_id: ID
 		title: String!
-		user: ID!
-		team: ID!
+		user: User!
+		team: Team!
 		content: String!
 		images: [String]
-		tags: [ID]
-		comments: [ID]
-		subscribedUsers: [ID]
+		tags: [Tag]
+		comments: [MsgComment]
+		subscribedUsers: [User]
 		createdAt: String
 		updatedAt: String
 	}

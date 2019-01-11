@@ -6,7 +6,7 @@ const Team = /* GraphQL */ `
 		premium: Boolean!
 	}
 	type TeamUser {
-		user: ID!
+		user: User!
 		admin: Boolean!
 	}
 	input TeamUserInput {

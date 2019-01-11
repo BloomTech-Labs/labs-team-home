@@ -1,10 +1,10 @@
 const MsgComment = /* GraphQL */ `
 	type MsgComment {
 		_id: ID
-		user: String!
-		message: ID!
+		user: User!
+		message: Message!
 		content: String!
-		likes: [ID]
+		likes: [User]
 		createdAt: String
 		updatedAt: String
 	}
