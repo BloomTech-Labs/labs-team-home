@@ -28,6 +28,15 @@
 		7BA77EA221E80E3E00C862C1 /* MessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EA121E80E3E00C862C1 /* MessageCollectionViewCell.swift */; };
 		7BA77EA421E914BE00C862C1 /* TeamDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */; };
 		7BA77EAA21E9177300C862C1 /* MessageDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77EA921E9177300C862C1 /* MessageDetailView.storyboard */; };
+		7BA77EAC21E9376E00C862C1 /* AddNewMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EAB21E9376E00C862C1 /* AddNewMessageViewController.swift */; };
+		7BA77EAE21E9385E00C862C1 /* InviteToTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EAD21E9385E00C862C1 /* InviteToTeamViewController.swift */; };
+		7BA77EB021E93B1300C862C1 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EAF21E93B1300C862C1 /* MessageDetailViewController.swift */; };
+		7BA77EB221E93B2200C862C1 /* CommentsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EB121E93B2200C862C1 /* CommentsCollectionViewController.swift */; };
+		7BA77EB421E93B3400C862C1 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EB321E93B3400C862C1 /* CommentCollectionViewCell.swift */; };
+		7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EB721E93CBA00C862C1 /* ActivityTimelineViewController.swift */; };
+		7BA77EBA21E93CDE00C862C1 /* ActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EB921E93CDE00C862C1 /* ActivityCollectionViewCell.swift */; };
+		7BA77EBC21E93D1300C862C1 /* TeamDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */; };
+		7BA77EBE21E93D5600C862C1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +63,15 @@
 		7BA77EA121E80E3E00C862C1 /* MessageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TeamDetailView.storyboard; sourceTree = "<group>"; };
 		7BA77EA921E9177300C862C1 /* MessageDetailView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MessageDetailView.storyboard; sourceTree = "<group>"; };
+		7BA77EAB21E9376E00C862C1 /* AddNewMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewMessageViewController.swift; sourceTree = "<group>"; };
+		7BA77EAD21E9385E00C862C1 /* InviteToTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteToTeamViewController.swift; sourceTree = "<group>"; };
+		7BA77EAF21E93B1300C862C1 /* MessageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
+		7BA77EB121E93B2200C862C1 /* CommentsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsCollectionViewController.swift; sourceTree = "<group>"; };
+		7BA77EB321E93B3400C862C1 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BA77EB721E93CBA00C862C1 /* ActivityTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTimelineViewController.swift; sourceTree = "<group>"; };
+		7BA77EB921E93CDE00C862C1 /* ActivityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailTableViewController.swift; sourceTree = "<group>"; };
+		7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				7B6BE7D421E5733D0099E42C /* Main.storyboard */,
-				7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */,
 				7BA77EA921E9177300C862C1 /* MessageDetailView.storyboard */,
+				7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */,
 				7B6BE7D921E5733E0099E42C /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
@@ -114,6 +132,15 @@
 				7BA77E9D21E807D200C862C1 /* MessageBoardViewController.swift */,
 				7BA77E9F21E80D6C00C862C1 /* MessagesCollectionViewController.swift */,
 				7BA77EA121E80E3E00C862C1 /* MessageCollectionViewCell.swift */,
+				7BA77EAB21E9376E00C862C1 /* AddNewMessageViewController.swift */,
+				7BA77EAF21E93B1300C862C1 /* MessageDetailViewController.swift */,
+				7BA77EB121E93B2200C862C1 /* CommentsCollectionViewController.swift */,
+				7BA77EB321E93B3400C862C1 /* CommentCollectionViewCell.swift */,
+				7BA77EB721E93CBA00C862C1 /* ActivityTimelineViewController.swift */,
+				7BA77EB921E93CDE00C862C1 /* ActivityCollectionViewCell.swift */,
+				7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */,
+				7BA77EAD21E9385E00C862C1 /* InviteToTeamViewController.swift */,
+				7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -239,15 +266,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
+				7BA77EAC21E9376E00C862C1 /* AddNewMessageViewController.swift in Sources */,
 				7BA77E8521E7B2B500C862C1 /* User.swift in Sources */,
+				7BA77EBE21E93D5600C862C1 /* SettingsViewController.swift in Sources */,
 				7BA77EA021E80D6C00C862C1 /* MessagesCollectionViewController.swift in Sources */,
+				7BA77EBC21E93D1300C862C1 /* TeamDetailTableViewController.swift in Sources */,
+				7BA77EB421E93B3400C862C1 /* CommentCollectionViewCell.swift in Sources */,
 				7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */,
 				7BA77EA221E80E3E00C862C1 /* MessageCollectionViewCell.swift in Sources */,
 				7BA77E9221E7FCD100C862C1 /* Comment.swift in Sources */,
+				7BA77EBA21E93CDE00C862C1 /* ActivityCollectionViewCell.swift in Sources */,
 				7BA77E9021E7F68300C862C1 /* Tag.swift in Sources */,
+				7BA77EAE21E9385E00C862C1 /* InviteToTeamViewController.swift in Sources */,
 				7BA77E8A21E7F3E200C862C1 /* Message.swift in Sources */,
+				7BA77EB221E93B2200C862C1 /* CommentsCollectionViewController.swift in Sources */,
 				7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */,
+				7BA77EB021E93B1300C862C1 /* MessageDetailViewController.swift in Sources */,
 				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,
+				7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

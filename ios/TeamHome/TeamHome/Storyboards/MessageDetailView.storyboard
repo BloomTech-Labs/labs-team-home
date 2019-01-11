@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--Message Detail View Controller-->
         <scene sceneID="jxC-ih-y4Q">
             <objects>
-                <viewController id="Sdh-Dm-6bQ" sceneMemberID="viewController">
+                <viewController id="Sdh-Dm-6bQ" customClass="MessageDetailViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pUQ-H7-xuz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="849"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -272,7 +272,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="759-KY-6zh"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="mXd-hQ-kv5">
+                    <navigationItem key="navigationItem" id="mXd-hQ-kv5">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="St8-EK-SAC"/>
                         <connections>
                             <outlet property="backBarButtonItem" destination="St8-EK-SAC" id="ZId-s2-92T"/>
@@ -303,10 +303,10 @@
             </objects>
             <point key="canvasLocation" x="4076" y="-1147.3763118440781"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Comments Collection View Controller-->
         <scene sceneID="6Sm-I7-oXN">
             <objects>
-                <collectionViewController id="eTr-fg-d1x" sceneMemberID="viewController">
+                <collectionViewController id="eTr-fg-d1x" customClass="CommentsCollectionViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="oGR-RR-Q7X">
                         <rect key="frame" x="0.0" y="0.0" width="284" height="270"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -318,7 +318,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="n96-ro-2Uy">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="n96-ro-2Uy" customClass="CommentCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
                                 <rect key="frame" x="-26" y="0.0" width="335.5" height="224"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
