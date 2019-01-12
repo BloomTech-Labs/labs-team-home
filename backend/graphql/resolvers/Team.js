@@ -15,7 +15,7 @@ const teamResolvers = {
 				throw new Error('Name is required.');
 			} else {
 				console.log(input);
-				return new Team(input).save();
+				return new Team(input).save().populate('users');
 			}
 		},
 		updateTeam: (_, { input }) => {
@@ -29,7 +29,7 @@ const teamResolvers = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					);
+					).populate('users');
 				} else {
 					throw new Error("Team doesn't exist");
 				}
@@ -38,7 +38,7 @@ const teamResolvers = {
 		deleteTeam: (_, { input: { id } }) => {
 			return Team.findById(id).then(team => {
 				if (team) {
-					return Team.findOneAndDelete({ _id: id });
+					return Team.findOneAndDelete({ _id: id }).populate('users');
 				} else {
 					throw new Error("Team doesn't exist");
 				}
