@@ -6,8 +6,9 @@
 
 1. Fork and Clone the `labs9-team-home` repo,
 2. `cd` into the frontend folder of the cloned repo,
-3. In your commandline-tool, run `yarn start`,
-4. The app will open on `localhost:3000`.
+3. In your commandline-tool, run `yarn install` to install packages,
+4. In your commandline-tool, run `yarn start`,
+5. The app will open on `localhost:3000`.
 
 ##### Serving Up the PWA
 
