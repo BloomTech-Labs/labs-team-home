@@ -19,7 +19,7 @@ module.exports = app => {
 			process.env.MONGODB_URI,
 			{ useNewUrlParser: true }
 		)
-		.then(() => console.log('MLab connected.'))
+		.then(() => console.log('MongoDB connected.'))
 		.catch(err => console.error(err));
 
 	const { ObjectId } = mongoose.Types; // makes mongodb ObjectIds readable by graphql
