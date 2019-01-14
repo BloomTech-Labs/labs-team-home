@@ -1,14 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
 
+const URI =
+	process.env.NODE_ENV === 'production'
+		? 'https://team-home.herokuapp.com/graphql'
+		: 'http://localhost:5000/graphql';
+
+const client = new ApolloClient({
+	uri: URI
+});
+
 ReactDOM.render(
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>,
+	<ApolloProvider client={client}>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</ApolloProvider>,
 	document.getElementById('root')
 );
 
