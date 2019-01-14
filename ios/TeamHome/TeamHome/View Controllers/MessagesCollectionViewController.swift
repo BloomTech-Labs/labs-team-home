@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Apollo
 
 class MessagesCollectionViewController: UICollectionViewController {
 

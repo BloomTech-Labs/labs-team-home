@@ -38,6 +38,7 @@
 		7BA77EBC21E93D1300C862C1 /* TeamDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */; };
 		7BA77EBE21E93D5600C862C1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */; };
 		7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */; };
+		7BA77EC821ED2CF400C862C1 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EC721ED2CF400C862C1 /* API.swift */; };
 		A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990E29AD1BA455515C611736 /* Pods_TeamHome.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailTableViewController.swift; sourceTree = "<group>"; };
 		7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriberCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BA77EC721ED2CF400C862C1 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = TeamHome/API.swift; sourceTree = SOURCE_ROOT; };
 		990E29AD1BA455515C611736 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				7BA77E6F21E6BAC400C862C1 /* Resources */,
-				7BA77E6E21E6BAB400C862C1 /* Model Controller */,
+				7BA77E6E21E6BAB400C862C1 /* Apollo Client */,
 				7BA77E6D21E6BAAF00C862C1 /* Models */,
 				7BA77E6C21E6BAA600C862C1 /* View Controllers */,
 				7BA77E6B21E6BA9600C862C1 /* Storyboards */,
@@ -176,11 +178,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		7BA77E6E21E6BAB400C862C1 /* Model Controller */ = {
+		7BA77E6E21E6BAB400C862C1 /* Apollo Client */ = {
 			isa = PBXGroup;
 			children = (
+				7BA77EC721ED2CF400C862C1 /* API.swift */,
 			);
-			path = "Model Controller";
+			path = "Apollo Client";
 			sourceTree = "<group>";
 		};
 		7BA77E6F21E6BAC400C862C1 /* Resources */ = {
@@ -360,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BA77EC821ED2CF400C862C1 /* API.swift in Sources */,
 				7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */,
 				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
 				7BA77EAC21E9376E00C862C1 /* AddNewMessageViewController.swift in Sources */,
