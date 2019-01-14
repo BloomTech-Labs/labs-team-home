@@ -3,7 +3,7 @@
 //  TeamHome
 //
 //  Created by Daniela Parra on 1/11/19.
-//  Copyright © 2019 Daniela Parra. All rights reserved.
+//  Copyright © 2019 MIT to Lambda School. All rights reserved.
 //
 
 import UIKit
