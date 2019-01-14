@@ -27,11 +27,12 @@ class MessageDetailViewController: UIViewController {
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
-    @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tagIconImageView: UIImageView!
     @IBOutlet weak var messageBodyLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var addRemoveImageButton: UIButton!
+    @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var addImageToCommentButton: UIButton!
     @IBOutlet weak var sendCommentButton: UIButton!
     @IBOutlet weak var subscribersLabel: UILabel!
