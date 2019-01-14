@@ -32,7 +32,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="127" translatesAutoresizingMaskIntoConstraints="NO" id="hoR-iD-zcH">
-                                        <rect key="frame" x="0.0" y="60.5" width="367" height="50"/>
+                                        <rect key="frame" x="0.0" y="60.5" width="303" height="50"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="W8j-z6-CuK">
                                                 <rect key="frame" x="0.0" y="0.0" width="140" height="50"/>
@@ -55,16 +55,16 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="g8H-3g-uYl">
-                                                <rect key="frame" x="267" y="0.0" width="100" height="50"/>
+                                                <rect key="frame" x="267" y="0.0" width="36" height="50"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifr-Sx-1B4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="28" height="50"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifr-Sx-1B4">
+                                                        <rect key="frame" x="0.0" y="0.0" width="36" height="50"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PAO-1l-p7t">
-                                                        <rect key="frame" x="50" y="0.0" width="50" height="50"/>
+                                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PAO-1l-p7t">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
                                                     </imageView>
                                                 </subviews>
                                             </stackView>
@@ -83,9 +83,15 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4z-Z7-gBm">
-                                        <rect key="frame" x="0.0" y="296" width="129" height="79"/>
+                                        <rect key="frame" x="0.0" y="296" width="129" height="53.5"/>
                                         <state key="normal" title="Add/remove image"/>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#tag1, #tag2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pxk-NL-cJL">
+                                        <rect key="frame" x="0.0" y="354.5" width="96.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="279" translatesAutoresizingMaskIntoConstraints="NO" id="tiT-gg-3a5">
                                         <rect key="frame" x="0.0" y="380" width="341" height="1"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -100,20 +106,24 @@
                                         </connections>
                                     </containerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xYx-fq-X6R">
-                                        <rect key="frame" x="0.0" y="661" width="270" height="30"/>
+                                        <rect key="frame" x="0.0" y="661" width="227" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDC-Vd-eRS">
-                                                <rect key="frame" x="0.0" y="0.0" width="73" height="30"/>
-                                                <state key="normal" title="Add image"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDC-Vd-eRS">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="bzr-fj-MbP"/>
+                                                    <constraint firstAttribute="height" constant="30" id="vev-hZ-ZWz"/>
+                                                </constraints>
+                                                <state key="normal" title="Add image" image="Add Image"/>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment text here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U9p-J8-9wR">
-                                                <rect key="frame" x="81" y="0.0" width="145" height="30"/>
+                                                <rect key="frame" x="38" y="0.0" width="145" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqs-nM-T9Y">
-                                                <rect key="frame" x="234" y="0.0" width="36" height="30"/>
+                                                <rect key="frame" x="191" y="0.0" width="36" height="30"/>
                                                 <state key="normal" title="Send"/>
                                             </button>
                                         </subviews>
@@ -286,6 +296,7 @@
                     <connections>
                         <outlet property="addImageToCommentButton" destination="rDC-Vd-eRS" id="DjH-h6-bzs"/>
                         <outlet property="addRemoveImageButton" destination="a4z-Z7-gBm" id="G1j-Yh-ZUF"/>
+                        <outlet property="dateLabel" destination="Ifr-Sx-1B4" id="dpd-LF-Itc"/>
                         <outlet property="firstNameLabel" destination="GP9-J8-O9S" id="6Zf-bL-W15"/>
                         <outlet property="imageView" destination="fkz-Vk-QXr" id="JOk-Kr-6cI"/>
                         <outlet property="lastNameLabel" destination="KSw-Hp-1Fb" id="h3D-ZT-tpq"/>
@@ -295,7 +306,7 @@
                         <outlet property="subscribersCollectionView" destination="lxy-xh-IDu" id="fGz-sk-QSk"/>
                         <outlet property="subscribersLabel" destination="Hf5-uR-7vt" id="TQv-zO-Z2Q"/>
                         <outlet property="tagIconImageView" destination="PAO-1l-p7t" id="HhE-Sc-PUS"/>
-                        <outlet property="tagLabel" destination="Ifr-Sx-1B4" id="8l7-Hr-iRA"/>
+                        <outlet property="tagsLabel" destination="pxk-NL-cJL" id="m7Y-vO-wa5"/>
                         <outlet property="userAvatarImageView" destination="axn-KX-Dn5" id="V22-MX-cdz"/>
                     </connections>
                 </viewController>
@@ -399,4 +410,7 @@
             <point key="canvasLocation" x="5692.8000000000002" y="-1147.8260869565217"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Add Image" width="256" height="256"/>
+    </resources>
 </document>
