@@ -38,9 +38,11 @@
 		7BA77EBC21E93D1300C862C1 /* TeamDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */; };
 		7BA77EBE21E93D5600C862C1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */; };
 		7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */; };
+		A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990E29AD1BA455515C611736 /* Pods_TeamHome.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1DE33B2919B88A10BE569E4B /* Pods-TeamHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.release.xcconfig"; sourceTree = "<group>"; };
 		7B6BE7CD21E5733D0099E42C /* TeamHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6BE7D021E5733D0099E42C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B6BE7D521E5733D0099E42C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -74,6 +76,8 @@
 		7BA77EBB21E93D1300C862C1 /* TeamDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailTableViewController.swift; sourceTree = "<group>"; };
 		7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriberCollectionViewCell.swift; sourceTree = "<group>"; };
+		990E29AD1BA455515C611736 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,17 +85,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7AC6FD5CEF8839A34B97FE2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				990E29AD1BA455515C611736 /* Pods_TeamHome.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7B6BE7C421E5733D0099E42C = {
 			isa = PBXGroup;
 			children = (
 				7B6BE7CF21E5733D0099E42C /* TeamHome */,
 				7B6BE7CE21E5733D0099E42C /* Products */,
+				7D8F9D34E6E102A713A1507E /* Pods */,
+				7AC6FD5CEF8839A34B97FE2A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,6 +205,15 @@
 			path = "Mock json";
 			sourceTree = "<group>";
 		};
+		7D8F9D34E6E102A713A1507E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */,
+				1DE33B2919B88A10BE569E4B /* Pods-TeamHome.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -197,9 +221,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B6BE7DF21E5733E0099E42C /* Build configuration list for PBXNativeTarget "TeamHome" */;
 			buildPhases = (
+				0C1D79E2557BE717442C34EE /* [CP] Check Pods Manifest.lock */,
+				7BA77EC521ED151D00C862C1 /* Generate Apollo GraphQL API */,
 				7B6BE7C921E5733D0099E42C /* Sources */,
 				7B6BE7CA21E5733D0099E42C /* Frameworks */,
 				7B6BE7CB21E5733D0099E42C /* Resources */,
+				8F47286782AEADBBA3274A7F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -262,6 +289,71 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0C1D79E2557BE717442C34EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TeamHome-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7BA77EC521ED151D00C862C1 /* Generate Apollo GraphQL API */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Apollo GraphQL API";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# The script above will invoke apollo through the check-and-run-apollo-cli.sh wrapper script, which is actually contained in the Apollo.framework bundle.\nAPOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json API.swift\n";
+		};
+		8F47286782AEADBBA3274A7F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7B6BE7C921E5733D0099E42C /* Sources */ = {
@@ -432,6 +524,7 @@
 		};
 		7B6BE7E021E5733E0099E42C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -449,6 +542,7 @@
 		};
 		7B6BE7E121E5733E0099E42C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DE33B2919B88A10BE569E4B /* Pods-TeamHome.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
