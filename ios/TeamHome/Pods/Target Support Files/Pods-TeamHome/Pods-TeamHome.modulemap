@@ -1,0 +1,6 @@
+framework module Pods_TeamHome {
+  umbrella header "Pods-TeamHome-umbrella.h"
+
+  export *
+  module * { export * }
+}
