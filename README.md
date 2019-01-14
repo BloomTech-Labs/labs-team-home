@@ -13,28 +13,110 @@
 
 ### React
 
-React offers a lightweight and modular component structure for rapid implementation and scaling of our application.<br/>[View React](https://reactjs.org/docs/getting-started.html)
+React offers a lightweight and modular component structure for rapid implementation and scaling of our application.<br/>[React info](https://reactjs.org/docs/getting-started.html)
 
 ### Redux
 
-Redux offers global state management to avoid prop drilling and excellent devtools for debugging.<br/>[View Redux](https://redux.js.org/)
+Redux offers global state management to avoid prop drilling and excellent devtools for debugging.<br/>[Redux info](https://redux.js.org/)
 
 ### Styled Components
 
-Styled Components is a popular CSS-in-JS library that provides flexibility and seamless integration with React allowing for customizable themes and styling that responds to props and JS logic.<br/>[View Styled Components](https://www.styled-components.com/docs/)
+Styled Components is a popular CSS-in-JS library that provides flexibility and seamless integration with React allowing for customizable themes and styling that responds to props and JS logic.<br/>[Styled Components info](https://www.styled-components.com/docs/)
 
 ## Front-End Development Dependencies
 
 ### Husky
 
-Used along with Prettier and Pretty-Quick to enforce coding convention with pre-commit hooks.<br/>[View Husky](https://github.com/typicode/husky)
+Used along with Prettier and Pretty-Quick to enforce coding convention with pre-commit hooks.<br/>[Husky info](https://github.com/typicode/husky)
 
 ### Prettier
 
-Used along with Husky and Pretty-Quick to enforce coding conventions.<br/>[View Prettier](https://prettier.io/docs/en/install.html)
+Used along with Husky and Pretty-Quick to enforce coding conventions.<br/>[Prettier info](https://prettier.io/docs/en/install.html)
 
 ### Pretty-Quick
 
-Used along with Husky and Prettier to enforce coding conventions.<br/>[View Pretty-Quick](https://github.com/azz/pretty-quick)
+Used along with Husky and Prettier to enforce coding conventions.<br/>[Pretty-Quick info](https://github.com/azz/pretty-quick)
 
-## Back-End Dependencies
+## Back-End Production Dependencies
+
+### Apollo Server
+
+Used for interfacing with GraphQL and creating schemas and resolvers.
+
+[Apollo Server info](https://www.apollographql.com/docs/)
+
+### Cors
+
+Used to securely connect front end to back end.
+
+[Cors info](https://github.com/expressjs/cors)
+
+### dotenv
+
+Used for managing environment variables.
+
+[dotenv info](https://github.com/motdotla/dotenv)
+
+### ExpressJS
+
+Express is a lightweight, modular and unopinionated framework for NodeJS.
+
+[ExpressJS info](http://expressjs.com/)
+
+### GraphQL
+
+GraphQL is a query language well-suited for multi-platform applications by allowing flexible data queries.
+
+[GraphQL info](https://graphql.org/)
+
+### graphql-tools
+
+[graphql-tools info](https://www.apollographql.com/docs/graphql-tools/)
+
+### Helmet
+
+A suite of ExpressJS middlewares for properly setting and securing HTTP headers.
+
+[Helmet info](https://helmetjs.github.io/)
+
+### Lodash
+
+[Lodash info](https://lodash.com/)
+
+### MongoDB
+
+An object-oriented NoSQL database.
+
+[MongoDB info](https://docs.mongodb.com/)
+
+### Mongoose
+
+Provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box.
+
+[Mongoose info](https://mongoosejs.com/docs/)
+
+### Yup
+
+Used for parsing phone numbers.
+
+[Yup info](https://github.com/jquense/yup)
+
+## Back-End Development Dependencies
+
+### Husky
+
+[See above](#husky)
+
+### Prettier
+
+[See above](#prettier)
+
+### Pretty-Quick
+
+[See above](#pretty-quick)
+
+### Nodemon
+
+Nodemon is a utility that will monitor for any changes in your source and automatically restart your server.
+
+[Nodemon info](https://nodemon.io/)
