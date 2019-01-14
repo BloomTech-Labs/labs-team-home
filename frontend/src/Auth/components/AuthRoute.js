@@ -6,10 +6,12 @@ function PrivateRoute({ component: Component, ...rest }) {
 		<Route
 			{...rest}
 			render={props => {
-				/**
+				if (localStorage.token) {
+					/**
           if (isAuth) ?
           ( <Component {...props}/> ) : ( <Redirect to={pathname: "/"}/>)
          */
+				}
 			}}
 		/>
 	);
