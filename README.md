@@ -7,6 +7,35 @@
 | [<img src="https://avatars2.githubusercontent.com/u/41486018?s=80" width="80">](https://github.com/koennecker) | [<img src="https://avatars0.githubusercontent.com/u/26748571?s=80" width="80">](https://github.com/sherlock270) | [<img src="https://avatars1.githubusercontent.com/u/41768821?s=80" width="80">](https://github.com/danielaparra) | [<img src="https://avatars2.githubusercontent.com/u/34250625?s=80" width="80">](https://github.com/david-pok) | [<img src="https://avatars0.githubusercontent.com/u/3199036?s=80" width="80">](https://github.com/ErikKimsey) | [<img src="https://avatars2.githubusercontent.com/u/36084491?s=80" width="80">](https://github.com/zacharyarney) |
 |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/koennecker)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/sherlock270)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/danielaparra)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/david-pok)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/ErikKimsey)         |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/zacharyarney)          |
 
+- [Team Home](#team-home)
+  - [Team](#team)
+- [Tech-Stack](#tech-stack)
+  - [Front-End Production Dependencies](#front-end-production-dependencies)
+    - [React](#react)
+    - [Redux](#redux)
+    - [Styled Components](#styled-components)
+  - [Front-End Development Dependencies](#front-end-development-dependencies)
+    - [Husky](#husky)
+    - [Prettier](#prettier)
+    - [Pretty-Quick](#pretty-quick)
+  - [Back-End Production Dependencies](#back-end-production-dependencies)
+    - [Apollo Server](#apollo-server)
+    - [Cors](#cors)
+    - [dotenv](#dotenv)
+    - [ExpressJS](#expressjs)
+    - [GraphQL](#graphql)
+    - [graphql-tools](#graphql-tools)
+    - [Helmet](#helmet)
+    - [Lodash](#lodash)
+    - [MongoDB](#mongodb)
+    - [Mongoose](#mongoose)
+    - [Yup](#yup)
+  - [Back-End Development Dependencies](#back-end-development-dependencies)
+    - [Husky](#husky-1)
+    - [Prettier](#prettier-1)
+    - [Pretty-Quick](#pretty-quick-1)
+    - [Nodemon](#nodemon)
+
 # Tech-Stack
 
 ## Front-End Production Dependencies
