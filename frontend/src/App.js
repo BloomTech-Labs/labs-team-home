@@ -4,7 +4,7 @@ import './App.css';
 import LandingView from './LandingView/containers/LandingView';
 import { Route } from 'react-router-dom';
 import MessageBoard from './MessageBoard/components/MessageBoard';
-import Dashboard from './DashboardView/containers/Dashboard';
+import Dashboard from './DashboardView/containers/DashBoard';
 
 class App extends Component {
 	render() {

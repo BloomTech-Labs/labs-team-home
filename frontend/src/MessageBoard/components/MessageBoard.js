@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Message from './Message';
+import AddMessage from './AddMessage';
 
 const Messageboard = styled.div`
 	max-width: 800px;
@@ -61,76 +62,10 @@ class MessageBoard extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+			showModal: false,
 			teamName: 'TeamHome',
 			user: 'some id',
-			messages: [
-				{
-					_id: '5c358baf93b69c7c387fd843',
-					user: { firstName: 'Joe', lastName: 'Bob', avatar: null },
-					team: 'Team Home',
-					title: 'Example',
-					content:
-						'This is purely an example, none of this is from the database...yet. The image is hosted',
-					images: [
-						'https://res.cloudinary.com/massamb/image/upload/v1547153046/956_IMG_3495.jpg'
-					],
-					tags: ['test', 'tags'],
-					comments: [
-						'5c358baf93b69c7c387fb843',
-						'5c358baf93b69c7c387fb234',
-						'5c358baf93b69c7c387fb234'
-					],
-					subscribedUsers: [
-						'5c358baf93b69c7c387fb843',
-						'5c358baf93b69c7c387fb234',
-						'5c358baf93b69c7c387fb234'
-					]
-				},
-				{
-					_id: '5c358baf93b69c7c387fb843',
-					user: { firstName: 'Joe', lastName: 'Bob', avatar: null },
-					team: 'Team Home',
-					title: 'Example',
-					content:
-						'This is purely an example, none of this is from the database...yet. The image is hosted',
-					images: [
-						'https://res.cloudinary.com/massamb/image/upload/v1547153046/956_IMG_3495.jpg'
-					],
-					tags: ['test', 'tags'],
-					comments: [
-						'5c358baf93b69c7c387fb843',
-						'5c358baf93b69c7c387fb234',
-						'5c358baf93b69c7c387fb234'
-					],
-					subscribedUsers: [
-						'5c358baf93b69c7c387fb843',
-						'5c358baf93b69c7c387fb234',
-						'5c358baf93b69c7c387fb234'
-					]
-				},
-				{
-					_id: '5c358baf93b69c7c387fc843',
-					user: { firstName: 'Joe', lastName: 'Bob', avatar: null },
-					team: 'Team Home',
-					title: 'Example',
-					content:
-						'This is purely an example, none of this is from the database...yet. The image is hosted',
-					images: [
-						'https://res.cloudinary.com/massamb/image/upload/v1547153046/956_IMG_3495.jpg'
-					],
-					tags: ['test', 'tags'],
-					comments: [
-						'5c358baf93b69c7c387fb843',
-						'5c358baf93b69c7c387fb234',
-						'5c358baf93b69c7c387fb234'
-					],
-					subscribedUsers: [
-						'5c358baf93b69c7c387fb843',
-						'5c358baf93b69c7c387fb234',
-						'5c358baf93b69c7c387fb234'
-					]
-				}
-			],
+			messages: [],
 			isAdmin: true
 		};
 	}
@@ -142,6 +77,7 @@ class MessageBoard extends React.Component {
 	render() {
 		return (
 			<Messageboard>
+				{this.state.showModal ? <AddMessage /> : null}
 				<TopSection>
 					<StyledLink to="#">Settings</StyledLink>
 					<StyledLink to="#">Sign Out</StyledLink>
