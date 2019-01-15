@@ -17,3 +17,15 @@
 2. Then get Serve with `yarn global add serve`,
 3. Serve the PWA with `serve -s build`,
 4. And then navigate to the hosting displayed in the command-line.
+
+## File structure
+
+```javascript
+frontend - (src)
+├── View // Each View gets its own folder
+|   ├── containers // View containers
+|   └── components // View components
+|   └── styles // View styles
+├── App.js
+├── index..js
+```
