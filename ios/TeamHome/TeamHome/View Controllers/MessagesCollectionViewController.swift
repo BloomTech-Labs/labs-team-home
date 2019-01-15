@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import Apollo
 
 class MessagesCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Load messages with watcher
+        loadMessages()
     }
     // MARK: - Navigation
 
@@ -63,5 +67,13 @@ class MessagesCollectionViewController: UICollectionViewController {
     
     }
     */
-
+    
+    // MARK - Private Methods
+    
+    private func loadMessages() {
+        
+    }
+    
+    // MARK - Properties
+    
 }
