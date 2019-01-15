@@ -14,6 +14,7 @@ class MessagesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Load messages with watcher
         loadMessages()
     }
     // MARK: - Navigation
@@ -74,6 +75,5 @@ class MessagesCollectionViewController: UICollectionViewController {
     }
     
     // MARK - Properties
-
-    var messages: [AllUserQuery.Data.User]?
+    
 }
