@@ -58,26 +58,101 @@ const MessagesContainer = styled.div`
 	border: 1px solid black;
 `;
 
+const AddMsgBtn = styled.button`
+	border-radius: 45px;
+	font-size: 40px;
+	width: 75px;
+	height: 75px;
+	margin: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+`;
+
 class MessageBoard extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			showModal: false,
+			title: '',
+			contents: '',
+			images: [],
 			teamName: 'TeamHome',
 			user: 'some id',
 			messages: [],
 			isAdmin: true
 		};
+
+		this.openModalHandler = this.openModalHandler.bind(this);
+		this.closeModalHandler = this.closeModalHandler.bind(this);
+		this.stopProp = this.stopProp.bind(this);
+		this.changeHandler = this.changeHandler.bind(this);
+		this.submitHandler = this.submitHandler.bind(this);
 	}
 
 	componentDidMount() {
 		// TODO: Get user and team info from database and store it in state
 	}
 
+	openModalHandler() {
+		this.setState({
+			showModal: true
+		});
+	}
+
+	closeModalHandler() {
+		this.setState({
+			showModal: false
+		});
+	}
+
+	stopProp(e) {
+		e.stopPropagation();
+	}
+
+	changeHandler(e) {
+		if (e.target.name === 'images') {
+			let images = this.state.images;
+			images.push(e.target.value);
+			this.setState({
+				images: images
+			});
+		} else {
+			this.setState({
+				[e.target.name]: e.target.value
+			});
+		}
+	}
+
+	submitHandler(e) {
+		e.preventDefault();
+		const newMessage = {
+			title: this.state.title,
+			user: this.state.user,
+			team: this.state.teamName,
+			content: this.state.contents,
+			images: [],
+			tags: [],
+			subscribedUsers: []
+		};
+
+		console.log('New message created: ', newMessage);
+	}
+
 	render() {
 		return (
 			<Messageboard>
-				{this.state.showModal ? <AddMessage /> : null}
+				{this.state.showModal ? (
+					<AddMessage
+						changeHandler={this.changeHandler}
+						submitHandler={this.submitHandler}
+						closeHandler={this.closeModalHandler}
+						stopProp={this.stopProp}
+						title={this.state.title}
+						contents={this.state.contents}
+					/>
+				) : null}
 				<TopSection>
 					<StyledLink to="#">Settings</StyledLink>
 					<StyledLink to="#">Sign Out</StyledLink>
@@ -90,6 +165,7 @@ class MessageBoard extends React.Component {
 					</Teamlogo>
 				</TeamName>
 				<MessagesContainer>
+					<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
 					{this.state.messages.map(message => {
 						return <Message message={message} key={message._id} />;
 					})}
