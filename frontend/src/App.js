@@ -4,7 +4,8 @@ import './App.css';
 import LandingView from './LandingView/containers/LandingView';
 import { Route } from 'react-router-dom';
 import MessageBoard from './MessageBoard/components/MessageBoard';
-import Dashboard from './DashboardView/containers/Dashboard';
+// import Dashboard from './DashboardView/containers/Dashboard';
+import AuthRoute from './Auth/components/AuthRoute';
 
 class App extends Component {
 	render() {
@@ -12,7 +13,7 @@ class App extends Component {
 			<div className="App">
 				<Route exact path="/" component={LandingView} />
 				<Route path="/home" component={MessageBoard} />
-				<Route path="/dashboard" component={Dashboard} />
+				{/* <AuthRoute path="/dashboard" component={Dashboard} /> */}
 			</div>
 		);
 	}
