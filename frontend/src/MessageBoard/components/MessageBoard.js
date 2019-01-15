@@ -78,7 +78,11 @@ class MessageBoard extends React.Component {
 			title: '',
 			contents: '',
 			images: [],
-			teamName: 'TeamHome',
+			team: {
+				name: 'TeamName',
+				_id: 'asdfasdfsa',
+				users: ['dfasdf', 'asdfsags']
+			},
 			user: 'some id',
 			messages: [],
 			isAdmin: true
@@ -89,10 +93,6 @@ class MessageBoard extends React.Component {
 		this.stopProp = this.stopProp.bind(this);
 		this.changeHandler = this.changeHandler.bind(this);
 		this.submitHandler = this.submitHandler.bind(this);
-	}
-
-	componentDidMount() {
-		// TODO: Get user and team info from database and store it in state
 	}
 
 	openModalHandler() {
