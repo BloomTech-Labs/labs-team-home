@@ -1,11 +1,6 @@
 import { Auth0Lock } from 'auth0-lock';
 
 const options = {
-	theme: {
-		// logo: logo,
-		primaryColor: '#7344c1',
-		foregroundColor: '#303A58'
-	},
 	languageDictionary: {
 		title: 'Log In'
 	},
@@ -21,10 +16,23 @@ const options = {
 export default class Auth0 {
 	lock = new Auth0Lock(
 		'uazofWna5PRTCwvCJA6vcbvVtRm8439M',
-		'teamhome.auth0.com/'
+		'teamhome.auth0.com/',
+		options
 	);
 
+	login() {
+		this.lock.show({
+			allowedConnections: ['github', 'facebook', 'linkedin'],
+			initialScreen: 'login',
+			sso: false
+		});
+	}
+
 	signUp() {
-		this.lock.show({ allowedConnections: ['twitter', 'facebook', 'linkedin'] });
+		this.lock.show({
+			allowedConnections: ['github', 'facebook', 'linkedin'],
+			initialScreen: 'signUp',
+			sso: false
+		});
 	}
 }

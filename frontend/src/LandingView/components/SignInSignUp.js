@@ -16,14 +16,23 @@ let btn1 = 'Sign In',
 	btn2 = 'Sign Up';
 
 let auth = new Auth0();
-auth.signUp();
+// auth.signUp();
+
+let saySomething = () => {
+	console.log('sometihng');
+};
 
 const SignInSignUp = () => {
 	return (
 		<StyledSignInUp>
 			<BtnContainer>
 				{/* <Link to="/signup"> */}
-				<Button btnprop={btn1} onClick={auth.signUp} />
+				<Button
+					btnprop={btn1}
+					onClick={() => {
+						saySomething();
+					}}
+				/>
 				{/* </Link> */}
 				<Link to="/signup">
 					<Button btnprop={btn2} />
