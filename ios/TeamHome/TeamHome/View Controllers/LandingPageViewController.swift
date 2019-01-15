@@ -8,14 +8,52 @@
 
 import UIKit
 import Apollo
+import Lock
+import Auth0
 
 class LandingPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Lock
+            .classic()
+            // withConnections, withOptions, withStyle, and so on
+            .withOptions {
+                $0.oidcConformant = true
+                $0.scope = "openid profile"
+            }
+            .onAuth { credentials in
+                // Let's save our credentials.accessToken value
+                guard let accessToken = credentials.accessToken else { return }
+                Auth0
+                    .authentication()
+                    .userInfo(withAccessToken: accessToken)
+                    .start { result in
+                        switch result {
+                        case .success(let profile):
+                        // You've got a UserProfile object
+                            print("Success: \(profile)")
+                        case .failure(let error):
+                            // You've got an error
+                            print ("Failure: \(error)")
+                        }
+                }
+            }
+            .present(from: self)
+        
+        
 
     }
-
+    
+    // MARK - IBActions
+    
+    @IBAction func logIn(_ sender: Any) {
+    }
+    
+    @IBAction func signUp(_ sender: Any) {
+    }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -25,7 +63,7 @@ class LandingPageViewController: UIViewController {
     // MARK - Properties
     
     //For testing connection to API
-    var users: [User] = []
+    var User: User?
     
     //All IBOutlets on storyboard view scene
     @IBOutlet weak var logoImageView: UIImageView!

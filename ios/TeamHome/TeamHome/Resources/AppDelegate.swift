@@ -8,6 +8,7 @@
 
 import UIKit
 import Apollo
+import Lock
 
 let apollo = ApolloClient(url: URL(string: "https://team-home.herokuapp.com/graphql")!)
 
@@ -20,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
+    }
+    
+    // Auth0 requires this function in the App Delegate to function.
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        return Lock.resumeAuth(url, options: options)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
