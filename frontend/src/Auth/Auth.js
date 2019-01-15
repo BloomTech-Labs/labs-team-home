@@ -10,7 +10,12 @@ const options = {
 	}
 };
 
-//
+/**
+ * Auth0 {class}:
+ * creates an instance of Auth0Lock, using the Auth0 ClientID and Auth0 domain.
+ * login() / signUp() - call the Auth0 Lock 'show()' method with their respective default screens, while displaying the listed social connections options.
+ */
+
 export default class Auth0 {
 	lock = new Auth0Lock(
 		'uazofWna5PRTCwvCJA6vcbvVtRm8439M',
