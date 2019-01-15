@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Apollo
 
 class LandingPageViewController: UIViewController {
 
@@ -18,10 +19,15 @@ class LandingPageViewController: UIViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        //Pass to tab bar controller
     }
     
+    // MARK - Properties
     
+    //For testing connection to API
+    var users: [User] = []
+    
+    //All IBOutlets on storyboard view scene
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var briefInfoLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!

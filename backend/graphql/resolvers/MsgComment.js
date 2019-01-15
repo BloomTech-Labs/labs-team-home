@@ -12,7 +12,9 @@ const msgCommentResolvers = {
 			const { user, message, content } = input;
 			if (!user || !message || !content)
 				throw new Error('User, message and content required.');
-			return new MsgComment(input).save().populate('user message likes');
+			return new MsgComment(input)
+				.save()
+				.then(comment => comment.populate('user message likes').execPopulate());
 		},
 		updateMsgComment: (_, { input }) => {
 			const { id, user, message, content } = input;

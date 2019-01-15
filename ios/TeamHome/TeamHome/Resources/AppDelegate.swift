@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Apollo
+
+let apollo = ApolloClient(url: URL(string: "https://team-home.herokuapp.com/graphql")!)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
