@@ -14,6 +14,8 @@ class MessageBoardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        displayTeamInfo()
+        
         //Load messages for user
     }
     
@@ -30,6 +32,15 @@ class MessageBoardViewController: UIViewController {
         
         //Pass Team info to add to team VC
     }
+    
+    // MARK - Private Methods
+    
+    private func displayTeamInfo() {
+    }
+    
+    // MARK - Properties
+    
+    var user: User?
     
     @IBOutlet weak var teamNameLabel: UILabel!
     
