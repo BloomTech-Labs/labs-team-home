@@ -12,28 +12,24 @@ const BtnContainer = styled.div`
 	flex-flow: row;
 `;
 
-let btn1 = 'Sign In',
+let btn1 = 'Login',
 	btn2 = 'Sign Up';
-
 let auth = new Auth0();
-// auth.signUp();
 
-let saySomething = () => {
+let handleLogin = () => {
 	auth.login();
+};
+
+let handleSignUp = () => {
+	auth.signUp();
 };
 
 const SignInSignUp = () => {
 	return (
 		<StyledSignInUp>
 			<BtnContainer>
-				<button
-					btnprop={btn1}
-					onClick={() => {
-						auth.login();
-					}}
-				/>
-				{/* <Button btnprop={btn1} onClick={() => {}} /> */}
-				<Button btnprop={btn2} />
+				<Button btnprop={btn1} handleClick={handleLogin} />
+				<Button btnprop={btn2} handleClick={handleSignUp} />
 			</BtnContainer>
 		</StyledSignInUp>
 	);
