@@ -1,5 +1,6 @@
 import { Auth0Lock } from 'auth0-lock';
 
+// 'options' object contains Auth0 Lock-specific features to customize the Auth0 widget.
 const options = {
 	languageDictionary: {
 		title: 'Log In'
@@ -9,6 +10,7 @@ const options = {
 	}
 };
 
+//
 export default class Auth0 {
 	lock = new Auth0Lock(
 		'uazofWna5PRTCwvCJA6vcbvVtRm8439M',
