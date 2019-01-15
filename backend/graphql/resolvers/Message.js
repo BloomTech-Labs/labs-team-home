@@ -8,6 +8,11 @@ const messageResolvers = {
 			return Message.findById(id).populate(
 				'user team tags comments subscribedUsers'
 			);
+		},
+		findMessagesByTeam: (_, { input: { team } }) => {
+			return Message.find({ team: team }).populate(
+				'user team tags comments subscribedUsers'
+			);
 		}
 	},
 	Mutation: {

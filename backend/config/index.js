@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
+const UserModel = require('../models/User');
 
 const { MsgComment, Tag, Team, User, Message } = require('../graphql/schema');
 const resolvers = require('../graphql/resolvers');
@@ -56,7 +57,7 @@ module.exports = app => {
 						console.error(err);
 						return reject(new Error('Authentication failed'));
 					}
-					resolve(decoded);
+					resolve({ ...decoded });
 				});
 			});
 			return {

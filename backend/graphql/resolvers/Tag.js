@@ -5,6 +5,9 @@ const tagResolvers = {
 		tags: () => Tag.find().populate('team'),
 		findTag: (_, { input }) => {
 			return Tag.findById(input).populate('team');
+		},
+		FindTagsByTeam: (_, { input: { team } }) => {
+			return Tag.find({ team: team }).populate('team');
 		}
 	},
 	Mutation: {

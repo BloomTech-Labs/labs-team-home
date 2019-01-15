@@ -16,6 +16,7 @@ const User = /* GraphQL */ `
 		id: ID!
 	}
 	input AddUserInput {
+		_id: ID!
 		firstName: String!
 		lastName: String!
 		email: String!
