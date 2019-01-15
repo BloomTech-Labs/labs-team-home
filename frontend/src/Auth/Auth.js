@@ -4,12 +4,8 @@ const options = {
 	languageDictionary: {
 		title: 'Log In'
 	},
-	socialButtonStyle: 'small',
 	auth: {
-		sso: false,
-		redirectUrl:
-			process.env.REACT_APP_REDIRECT_URL ||
-			'http://localhost:9000/auth/auth0/callback'
+		sso: false
 	}
 };
 
@@ -22,7 +18,7 @@ export default class Auth0 {
 
 	login() {
 		this.lock.show({
-			allowedConnections: ['github', 'facebook', 'linkedin'],
+			allowedConnections: ['facebook', 'linkedin', 'google-oauth2'],
 			initialScreen: 'login',
 			sso: false
 		});
@@ -30,7 +26,7 @@ export default class Auth0 {
 
 	signUp() {
 		this.lock.show({
-			allowedConnections: ['github', 'facebook', 'linkedin'],
+			allowedConnections: ['facebook', 'linkedin', 'google-oauth2'],
 			initialScreen: 'signUp',
 			sso: false
 		});

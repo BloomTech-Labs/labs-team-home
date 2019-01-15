@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const BtnStyled = styled.button`
+const BtnStyled = styled.div`
 	/* background: ${props => (props.primary ? 'palevioletred' : 'white')}; */
   /* color: ${props => (props.primary ? 'white' : 'palevioletred')}; */
   color:white;
