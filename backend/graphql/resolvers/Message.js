@@ -22,7 +22,11 @@ const messageResolvers = {
 				throw new Error('Title, user and content are required.');
 			return new Message(input)
 				.save()
-				.populate('user team tags comments subscribedUsers');
+				.then(message =>
+					message
+						.populate('user team tags comments subscribedUsers')
+						.execPopulate()
+				);
 		},
 		updateMessage: (_, { input }) => {
 			const {

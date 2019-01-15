@@ -14,6 +14,7 @@ class MessagesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Load messages with watcher
         loadMessages()
     }
     // MARK: - Navigation
@@ -29,7 +30,7 @@ class MessagesCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MessageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! MessageCollectionViewCell
     
         // Configure the cell
     
@@ -74,6 +75,5 @@ class MessagesCollectionViewController: UICollectionViewController {
     }
     
     // MARK - Properties
-
-    var messages: [AllUserQuery.Data.User]?
+    
 }

@@ -14,7 +14,9 @@ const tagResolvers = {
 		addTag: (_, { input }) => {
 			const { name, team } = input;
 			if (!name || !team) throw new Error('Name and team are required.');
-			return new Tag(input).save().populate('team');
+			return new Tag(input)
+				.save()
+				.then(tag => tag.populate('team').execPopulate());
 		},
 		updateTag: (_, { input }) => {
 			const { id, name, team } = input;

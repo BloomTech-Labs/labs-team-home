@@ -16,8 +16,9 @@ const teamResolvers = {
 			if (!name) {
 				throw new Error('Name is required.');
 			} else {
-				console.log(input);
-				return new Team(input).save().populate('users');
+				return new Team(input)
+					.save()
+					.then(team => team.populate('users').execPopulate());
 			}
 		},
 		updateTeam: (_, { input }) => {
