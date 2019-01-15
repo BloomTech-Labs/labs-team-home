@@ -4,7 +4,7 @@ import './App.css';
 import LandingView from './LandingView/containers/LandingView';
 import { Route } from 'react-router-dom';
 import MessageBoard from './MessageBoard/components/MessageBoard';
-import Dashboard from './DashboardView/containers/Dashboard';
+// import Dashboard from './DashboardView/containers/Dashboard';
 import AuthRoute from './Auth/components/AuthRoute';
 
 class App extends Component {
@@ -12,8 +12,8 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Route exact path="/" component={LandingView} />
-				<AuthRoute path="/home" component={MessageBoard} />
-				<AuthRoute path="/dashboard" component={Dashboard} />
+				<Route path="/home" component={MessageBoard} />
+				{/* <AuthRoute path="/dashboard" component={Dashboard} /> */}
 			</div>
 		);
 	}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../components/SignInUpButton';
 import StyledSignInUp from '../styles/SignInSignUpStyled';
+import Auth0 from '../../Auth/Auth';
 
 const BtnContainer = styled.div`
 	max-width: 400px;
@@ -13,13 +14,17 @@ const BtnContainer = styled.div`
 
 let btn1 = 'Sign In',
 	btn2 = 'Sign Up';
+
+let auth = new Auth0();
+auth.signUp();
+
 const SignInSignUp = () => {
 	return (
 		<StyledSignInUp>
 			<BtnContainer>
-				<Link to="/signup">
-					<Button btnprop={btn1} />
-				</Link>
+				{/* <Link to="/signup"> */}
+				<Button btnprop={btn1} onClick={auth.signUp} />
+				{/* </Link> */}
 				<Link to="/signup">
 					<Button btnprop={btn2} />
 				</Link>

@@ -1,58 +1,30 @@
-import auth0 from 'auth0-js';
+import { Auth0Lock } from 'auth0-lock';
 
-class Auth {
-	constructor() {
-		this.auth0 = new auth0.WebAuth({
-			// the following three lines MUST be updated
-			domain: '<YOUR_AUTH0_DOMAIN>',
-			audience: 'https://<YOUR_AUTH0_DOMAIN>/userinfo',
-			clientID: '<YOUR_AUTH0_CLIENT_ID>',
-			redirectUri: 'http://localhost:3000/callback',
-			responseType: 'id_token',
-			scope: 'openid profile'
-		});
+const options = {
+	theme: {
+		// logo: logo,
+		primaryColor: '#7344c1',
+		foregroundColor: '#303A58'
+	},
+	languageDictionary: {
+		title: 'Log In'
+	},
+	socialButtonStyle: 'small',
+	auth: {
+		sso: false,
+		redirectUrl:
+			process.env.REACT_APP_REDIRECT_URL ||
+			'http://localhost:9000/auth/auth0/callback'
 	}
+};
 
-	getProfile() {
-		return this.profile;
-	}
+export default class Auth0 {
+	lock = new Auth0Lock(
+		'uazofWna5PRTCwvCJA6vcbvVtRm8439M',
+		'teamhome.auth0.com/'
+	);
 
-	getIdToken() {
-		return this.idToken;
-	}
-
-	isAuthenticated() {
-		return new Date().getTime() < this.expiresAt;
-	}
-
-	signIn() {
-		this.auth0.authorize();
-	}
-
-	handleAuthentication() {
-		return new Promise((resolve, reject) => {
-			this.auth0.parseHash((err, authResult) => {
-				if (err) return reject(err);
-				if (!authResult || !authResult.idToken) {
-					return reject(err);
-				}
-				this.idToken = authResult.idToken;
-				this.profile = authResult.idTokenPayload;
-				// set the time that the id token will expire at
-				this.expiresAt = authResult.idTokenPayload.exp * 1000;
-				resolve();
-			});
-		});
-	}
-
-	signOut() {
-		// clear id token, profile, and expiration
-		this.idToken = null;
-		this.profile = null;
-		this.expiresAt = null;
+	signUp() {
+		this.lock.show({ allowedConnections: ['twitter', 'facebook', 'linkedin'] });
 	}
 }
-
-const auth0Client = new Auth();
-
-export default auth0Client;
