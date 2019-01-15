@@ -56,7 +56,7 @@ module.exports = app => {
 						console.error(err);
 						return reject(new Error('Authentication failed'));
 					}
-					resolve({ decoded });
+					resolve(decoded);
 				});
 			});
 			return {
