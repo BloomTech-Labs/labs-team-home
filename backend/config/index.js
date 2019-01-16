@@ -18,7 +18,7 @@ module.exports = app => {
 	app.use(helmet());
 	mongoose
 		.connect(
-			process.env.MONGODB_URI,
+			MONGODB_URI,
 			{ useNewUrlParser: true }
 		)
 		.then(() => console.log('MongoDB connected.'))

@@ -1,9 +1,16 @@
 require('dotenv').config();
 const Message = require('../../models/Message');
 const User = require('../../models/User');
+const sgMail = require('@sendgrid/mail');
 
-const { TWILIO_SID, TWILIO_TOKEN, TWILIO_NUMBER } = process.env;
+const {
+	TWILIO_SID,
+	TWILIO_TOKEN,
+	TWILIO_NUMBER,
+	SENDGRID_API_KEY
+} = process.env;
 const textClient = require('twilio')(TWILIO_SID, TWILIO_TOKEN);
+sgMail.setApiKey(SENDGRID_API_KEY);
 
 const messageResolvers = {
 	Query: {
@@ -26,19 +33,42 @@ const messageResolvers = {
 			if (!title && !user && !content)
 				throw new Error('Title, user and content are required.');
 			return new Message(input).save().then(message => {
-				User.findById(user).then(({ firstName, email, phoneNumber }) => {
-					phoneNumber &&
-						textClient.messages
-							.create({
-								body: `Hi ${firstName}, you created a message with the title ${
-									message.title
-								}.`,
-								from: TWILIO_NUMBER,
-								to: `+1${phoneNumber}`
-							})
-							.then(message => console.log(message.sid))
-							.done();
-				});
+				User.findById(user).then(
+					({
+						firstName,
+						email,
+						phoneNumber,
+						toggles: { receiveEmails, receiveTexts }
+					}) => {
+						const responseText = `Hi ${firstName}, you created a message with the title ${
+							message.title
+						}`;
+						phoneNumber &&
+							receiveTexts &&
+							textClient.messages
+								.create({
+									body: responseText,
+									from: TWILIO_NUMBER,
+									to: `+1${phoneNumber}`
+								})
+								.then(message => console.log(message.sid))
+								.done();
+						email &&
+							receiveEmails &&
+							sgMail.send({
+								to: email,
+								from: 'test@example.com',
+								subject: 'You added a message on Team Home',
+								text: responseText,
+								html: /* HTML */ `
+									<div>
+										<h1>Team Home</h1>
+										<p>${responseText}</p>
+									</div>
+								`
+							});
+					}
+				);
 				return message
 					.populate('user team tags comments subscribedUsers')
 					.execPopulate();
