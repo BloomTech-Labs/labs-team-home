@@ -1,20 +1,35 @@
 // import React from 'react';
-// import { Route, Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
+// import gql from "graphql-tag";
+// import { Query } from "react-apollo";
+// import { log } from 'util';
 
-// function PrivateRoute({ component: Component, ...rest }) {
+// const GET_USER = gql`
+//   {
+//     users {
+//       _id
+//     }
+//   }
+// `;
+
+// const AuthRoute = ({ component: Component, ...rest }) => {
+//   let
 // 	return (
-// 		<Route
-// 			{...rest}
-// 			render={props => {
-// 				if (localStorage.token) {
-// 					/**
-//           if (isAuth) ?
-//           ( <Component {...props}/> ) : ( <Redirect to={pathname: "/"}/>)
-//          */
-// 				}
-// 			}}
-// 		/>
+// 		<Query query={GET_USER}>
+//       {({ loading, error, data }) => {
+//       if (loading) return "Loading...";
+//       if (error) return `Error! ${error.message}`;
+//       if (data) {
+//         console.log(data);
+//       }
+//       return (
+//         <div>AKDJFKAD</div>
+//       );
+//     }}
+//     </Query>
 // 	);
-// }
+// };
 
-// export default PrivateRoute;
+// export default AuthRoute;
+
+// {/* <Redirect push to="/dashboard" />  */}
