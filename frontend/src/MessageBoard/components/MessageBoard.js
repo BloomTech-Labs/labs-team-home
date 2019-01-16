@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Message from './Message';
+import Invites from './Invites';
 
 const Messageboard = styled.div`
 	max-width: 800px;
