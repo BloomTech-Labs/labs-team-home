@@ -112,7 +112,6 @@ export default function AddMessage(props) {
 								<input
 									type="text"
 									name="title"
-									{/*create reference to the title input*/}
 									ref={node => {
 										title = node;
 									}}
@@ -122,7 +121,6 @@ export default function AddMessage(props) {
 								Contents:
 								<textarea
 									name="contents"
-									{/*create reference to the content textarea*/}
 									ref={node => {
 										content = node;
 									}}
