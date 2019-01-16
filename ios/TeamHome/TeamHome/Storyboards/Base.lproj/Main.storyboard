@@ -858,6 +858,9 @@
                                                             <constraint firstAttribute="width" constant="40" id="Wi9-6B-VmG"/>
                                                         </constraints>
                                                         <state key="normal" title="Add image" image="Add Image"/>
+                                                        <connections>
+                                                            <action selector="addPhoto:" destination="fDw-r2-haD" eventType="touchUpInside" id="dhZ-4n-4X5"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -891,6 +894,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncb-kP-oCj">
                                                         <rect key="frame" x="153" y="0.0" width="147" height="30"/>
                                                         <state key="normal" title="Submit"/>
+                                                        <connections>
+                                                            <action selector="submitMessage:" destination="fDw-r2-haD" eventType="touchUpInside" id="oID-UF-Nvc"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
