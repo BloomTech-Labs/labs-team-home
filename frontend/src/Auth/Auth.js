@@ -3,7 +3,7 @@ import { Auth0Lock } from 'auth0-lock';
 // 'options' object contains Auth0 Lock-specific features to customize the Auth0 widget.
 const options = {
 	languageDictionary: {
-		title: 'Log In'
+		title: 'TeamHome'
 	},
 	auth: {
 		sso: false
@@ -18,8 +18,8 @@ const options = {
 
 export default class Auth0 {
 	lock = new Auth0Lock(
-		'uazofWna5PRTCwvCJA6vcbvVtRm8439M',
-		'teamhome.auth0.com/',
+		process.env.REACT_APP_AUTH0_CLIENT_ID,
+		process.env.REACT_APP_AUTH0_DOMAIN,
 		options
 	);
 
