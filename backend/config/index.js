@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
+const UserModel = require('../models/User');
 
 const { MsgComment, Tag, Team, User, Message } = require('../graphql/schema');
 const resolvers = require('../graphql/resolvers');
@@ -57,6 +58,18 @@ module.exports = app => {
 						return reject(new Error('Authentication failed'));
 					}
 					resolve(decoded);
+					return (
+						decoded.sub &&
+						UserModel.findOne({ authId: decoded.sub }).then(
+							(
+								exists // looks if a user with the auth0 credentials exists in the database and creates one if there isn't
+							) =>
+								!exists &&
+								new UserModel({ authId: decoded.sub })
+									.save()
+									.then(newUser => console.log(newUser))
+						)
+					);
 				});
 			});
 			return {

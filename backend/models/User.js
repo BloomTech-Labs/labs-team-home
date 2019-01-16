@@ -27,21 +27,18 @@ const User = new Schema({
 	firstName: {
 		type: String,
 		trim: true,
-		required: true,
 		minlength: [2, 'First names must be at least 2 characters.'],
 		maxlength: [30, 'First names must be no longer than 30 characters.']
 	},
 	lastName: {
 		type: String,
 		trim: true,
-		required: true,
 		minlength: [2, 'Last names must be at least 2 characters.'],
 		maxlength: [30, 'Last names must be no longer than 30 characters.']
 	},
 	email: {
 		type: String,
-		trim: true,
-		required: true
+		trim: true
 	},
 	avatar: {
 		type: String,
