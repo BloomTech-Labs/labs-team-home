@@ -42,6 +42,7 @@
 		7BA77ED221ED51F800C862C1 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77ED121ED51F800C862C1 /* schema.json */; };
 		7BD6588721EE392C004FF34A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6588621EE392C004FF34A /* API.swift */; };
 		7BD6588921EE5A06004FF34A /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6588821EE5A06004FF34A /* Auth0.plist */; };
+		7BD6588F21EEC515004FF34A /* Auth0 Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6588E21EEC515004FF34A /* Auth0 Extra.swift */; };
 		A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990E29AD1BA455515C611736 /* Pods_TeamHome.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		7BA77ED121ED51F800C862C1 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		7BD6588621EE392C004FF34A /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		7BD6588821EE5A06004FF34A /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
+		7BD6588E21EEC515004FF34A /* Auth0 Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Auth0 Extra.swift"; sourceTree = "<group>"; };
 		990E29AD1BA455515C611736 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +197,7 @@
 		7BA77E6F21E6BAC400C862C1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7BD6588E21EEC515004FF34A /* Auth0 Extra.swift */,
 				7BD6588621EE392C004FF34A /* API.swift */,
 				7B6BE7D021E5733D0099E42C /* AppDelegate.swift */,
 				7BA77ED121ED51F800C862C1 /* schema.json */,
@@ -400,6 +403,7 @@
 				7BA77EB221E93B2200C862C1 /* CommentsCollectionViewController.swift in Sources */,
 				7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */,
 				7BA77EB021E93B1300C862C1 /* MessageDetailViewController.swift in Sources */,
+				7BD6588F21EEC515004FF34A /* Auth0 Extra.swift in Sources */,
 				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,
 				7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* MainTabBarController.swift in Sources */,
@@ -550,6 +554,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8DKFDJ8NNY;
 				INFOPLIST_FILE = "$(SRCROOT)/TeamHome/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -568,6 +573,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8DKFDJ8NNY;
 				INFOPLIST_FILE = "$(SRCROOT)/TeamHome/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
