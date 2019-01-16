@@ -75,6 +75,7 @@ const AddMsgBtn = styled.button`
 class MessageBoard extends React.Component {
 	constructor() {
 		super();
+
 		this.state = {
 			showModal: false,
 			title: '',
@@ -86,7 +87,6 @@ class MessageBoard extends React.Component {
 				users: ['dfasdf', 'asdfsags']
 			},
 			user: '5c3cdac285d92c646e97678d',
-			messages: [],
 			isAdmin: true
 		};
 
@@ -138,24 +138,53 @@ class MessageBoard extends React.Component {
 					<Query
 						query={gql`
 							{
-								teams {
+								messages {
 									_id
-									name
-									premium
+									title
+									user {
+										_id
+									}
+									team {
+										_id
+									}
+									content
+									images
+									tags {
+										_id
+									}
+									comments {
+										_id
+									}
+									subscribedUsers {
+										_id
+									}
+									createdAt
+									updatedAt
+								}
+								findUser(input: { id: "5c3cdac285d92c646e97678d" }) {
+									firstName
+									lastName
+									avatar
 								}
 							}
 						`}
 					>
-						{({ loading, error, data: { teams } }) => {
+						{({ loading, error, data: { messages, findUser } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error :(</p>;
-
-							return; //teams.map(team => <TeamCard key={team._id} team={team} />);
+							let userInfo = findUser;
+							let mess = messages.filter(message => {
+								return message.user._id === this.state.user;
+							});
+							return mess.map(message => (
+								<Message
+									message={message}
+									userInfo={userInfo}
+									key={message._id}
+								/>
+							));
 						}}
 					</Query>
-					{this.state.messages.map(message => {
-						return <Message message={message} key={message._id} />;
-					})}
 				</MessagesContainer>
 			</Messageboard>
 		);

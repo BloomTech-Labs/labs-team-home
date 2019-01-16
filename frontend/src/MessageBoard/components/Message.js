@@ -41,20 +41,24 @@ const MessagePreview = styled.div`
 const Tag = styled.p``;
 
 function Message(props) {
+	let userInfo = props.userInfo;
+	props.message.createdAt = new Date(parseInt(props.message.createdAt, 10));
+
 	return (
 		<MessageContainer>
 			<Pic
 				src={
-					props.message.user.avatar
-						? props.message.user.avatar
+					userInfo.avatar
+						? userInfo.avatar
 						: 'https://via.placeholder.com/50.png'
 				}
 			/>
 			<MessagePreview>
 				<p>{props.message.title}</p>
 				<p>
-					{props.message.user.firstName} {props.message.user.lastName} -
-					timestamp
+					{`${userInfo.firstName} ${
+						userInfo.lastName
+					} - ${props.message.createdAt.toDateString()}`}
 				</p>
 				<p>
 					{props.message.content.length <= 50
