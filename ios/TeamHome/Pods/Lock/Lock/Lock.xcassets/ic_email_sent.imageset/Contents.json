@@ -1,15 +1,15 @@
 {
-  "images": [
+  "images" : [
     {
-      "idiom": "universal",
-      "filename": "ic_email_sent.pdf"
+      "idiom" : "universal",
+      "filename" : "ic_email_sent.pdf"
     }
   ],
-  "info": {
-    "version": 1,
-    "author": "xcode"
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
   },
-  "properties": {
-    "template-rendering-intent": "original"
+  "properties" : {
+    "template-rendering-intent" : "original"
   }
 }
