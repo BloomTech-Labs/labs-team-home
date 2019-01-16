@@ -19,7 +19,7 @@ const msgCommentResolvers = {
 		updateMsgComment: (_, { input }) => {
 			const { id, user, message, content } = input;
 			if (!id && !user && !message && !content)
-				throw new Error('No user, message or content provided');
+				throw new Error('No id, user, message or content provided');
 			return MsgComment.findById(id).then(comment => {
 				if (comment) {
 					return MsgComment.findOneAndUpdate(
