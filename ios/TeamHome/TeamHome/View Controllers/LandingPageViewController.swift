@@ -11,6 +11,8 @@ import Apollo
 import Lock
 import Auth0
 
+let auth0DomainURLString = "teamhome.auth0.com"
+
 class LandingPageViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -19,10 +21,124 @@ class LandingPageViewController: UIViewController {
     
     // MARK - IBActions
     
+    // Google Authentication through Web Auth.
+    @IBAction func googleLogIn(_ sender: Any) {
+        Auth0
+            .webAuth()
+            .audience("https://" + auth0DomainURLString + "/userinfo")
+            .connection("google-oauth2")
+            .scope("openid")
+            .start { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let credentials):
+                        // For testing
+                        print("success")
+                        
+                        // Save credentials to pass through performForSegue function.
+                        self.credentials = credentials
+                        // Perform segue to dashboard.
+                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+
+                    case .failure(let error):
+                        print("failure: \(error)")
+                    }
+                }
+        }
+    }
+    
+    // Github Authentication through Web Auth.
+    @IBAction func githubLogIn(_ sender: Any) {
+        Auth0
+            .webAuth()
+            .audience("https://" + auth0DomainURLString + "/userinfo")
+            .connection("github")
+            .scope("openid")
+            .start { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let credentials):
+                        // For testing
+                        print("success")
+                        
+                        // Save credentials to pass through performForSegue function.
+                        self.credentials = credentials
+                        // Perform segue to dashboard.
+                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        
+                    //Perform segue
+                    case .failure(let error):
+                        print("failure: \(error)")
+                    }
+                }
+        }
+    }
+    
+    // LinkedIn Authentication through Web Auth.
+    @IBAction func linkedInLogIn(_ sender: Any) {
+        Auth0
+            .webAuth()
+            .audience("https://" + auth0DomainURLString + "/userinfo")
+            .connection("linkedin")
+            .scope("openid")
+            .start { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let credentials):
+                        // For testing
+                        print("success")
+                        
+                        // Save credentials to pass through performForSegue function.
+                        self.credentials = credentials
+                        // Perform segue to dashboard.
+                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        
+                    case .failure(let error):
+                        print("failure: \(error)")
+                    }
+                }
+        }
+    }
+    
     @IBAction func logIn(_ sender: Any) {
+        Auth0
+            .authentication()
+            .login(
+                usernameOrEmail: self.emailTextField.text!,
+                password: self.passwordTextField.text!,
+                realm: "Username-Password-Authentication",
+                scope: "openid profile")
+            .start { result in
+                
+                    switch result {
+                    case .success(let credentials):
+                        //success
+                        print(credentials)
+                    case .failure(let error):
+                        //show alert
+                        print(error)
+                    }
+        }
     }
     
     @IBAction func signUp(_ sender: Any) {
+        Auth0
+            .authentication()
+            .createUser(
+                email: emailTextField.text!,
+                password: passwordTextField.text!,
+                connection: "Username-Password-Authentication"
+//                userMetadata: ["first_name": "First",
+//                               "last_name": "Last"]
+            )
+            .start { result in
+                switch result {
+                case .success(let user):
+                    print("User Signed up: \(user)")
+                case .failure(let error):
+                    print("Failed with \(error)")
+                }
+        }
     }
     
     @IBAction func lockLogIn(_ sender: Any) {
@@ -51,6 +167,22 @@ class LandingPageViewController: UIViewController {
                 }
             }
             .present(from: self)
+        
+//        Auth0
+//            .webAuth()
+//            .scope("openid profile")
+//            .audience("https://teamhome.auth0.com/userinfo")
+//            .start {
+//                switch $0 {
+//                case .failure(let error):
+//                    // Handle the error
+//                    print("Error: \(error)")
+//                case .success(let credentials):
+//                    // Do something with credentials e.g.: save them.
+//                    // Auth0 will automatically dismiss the login page
+//                    print("Credentials: \(credentials)")
+//                }
+//        }
     }
     
     // MARK: - Navigation
@@ -62,7 +194,7 @@ class LandingPageViewController: UIViewController {
     // MARK - Properties
     
     //For testing connection to API
-    var User: User?
+    private var credentials: Credentials?
     
     //All IBOutlets on storyboard view scene
     @IBOutlet weak var logoImageView: UIImageView!
