@@ -48,7 +48,7 @@ class SettingsView extends Component {
 								// handleChange={this.someInputHandler}
 							/>{' '}
 							<FormInput
-								inputType={'number'}
+								inputType={'text'}
 								name={'phone'}
 								title={'Phone Number'}
 								// value={this.state.phone}
