@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 import MessageBoard from './MessageBoard/components/MessageBoard';
 import Dashboard from './DashboardView/containers/Dashboard';
 import AuthRoute from './Auth/components/AuthRoute';
+import ImageUpload from './ImageUpload/ImageUpload';
 
 class App extends Component {
 	render() {
@@ -14,6 +15,7 @@ class App extends Component {
 				<Route exact path="/" component={LandingView} />
 				<Route path="/home" component={MessageBoard} />
 				{/* <AuthRoute path="/dashboard" component={Dashboard} /> */}
+				<Route path="/upload" component={ImageUpload} />
 			</div>
 		);
 	}
