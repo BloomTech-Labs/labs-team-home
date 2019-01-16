@@ -80,10 +80,10 @@ class MessageBoard extends React.Component {
 			images: [],
 			team: {
 				name: 'TeamName',
-				_id: 'asdfasdfsa',
+				_id: '5c3e1df844c51289c59648ed',
 				users: ['dfasdf', 'asdfsags']
 			},
-			user: 'some id',
+			user: '5c3cdac285d92c646e97678d',
 			messages: [],
 			isAdmin: true
 		};
@@ -136,7 +136,6 @@ class MessageBoard extends React.Component {
 			tags: [],
 			subscribedUsers: []
 		};
-
 		console.log('New message created: ', newMessage);
 	}
 
@@ -151,6 +150,8 @@ class MessageBoard extends React.Component {
 						stopProp={this.stopProp}
 						title={this.state.title}
 						contents={this.state.contents}
+						team={this.state.team}
+						user={this.state.user}
 					/>
 				) : null}
 				<TopSection>
