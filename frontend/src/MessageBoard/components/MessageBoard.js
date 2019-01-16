@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Message from './Message';
 import AddMessage from './AddMessage';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const Messageboard = styled.div`
 	max-width: 800px;
@@ -114,12 +116,8 @@ class MessageBoard extends React.Component {
 			<Messageboard>
 				{this.state.showModal ? (
 					<AddMessage
-						changeHandler={this.changeHandler}
-						submitHandler={this.submitHandler}
 						closeHandler={this.closeModalHandler}
 						stopProp={this.stopProp}
-						title={this.state.title}
-						contents={this.state.contents}
 						team={this.state.team}
 						user={this.state.user}
 					/>
@@ -137,6 +135,24 @@ class MessageBoard extends React.Component {
 				</TeamName>
 				<MessagesContainer>
 					<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
+					<Query
+						query={gql`
+							{
+								teams {
+									_id
+									name
+									premium
+								}
+							}
+						`}
+					>
+						{({ loading, error, data: { teams } }) => {
+							if (loading) return <p>Loading...</p>;
+							if (error) return <p>Error :(</p>;
+
+							return; //teams.map(team => <TeamCard key={team._id} team={team} />);
+						}}
+					</Query>
 					{this.state.messages.map(message => {
 						return <Message message={message} key={message._id} />;
 					})}
