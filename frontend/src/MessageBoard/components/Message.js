@@ -78,6 +78,11 @@ function Message(props) {
 					return <Tag>{tag}</Tag>;
 				})}
 			</MessagePreview>
+			{message.images.length >= 1
+				? message.images.map(pic => {
+						return <img src={pic} />;
+				  })
+				: null}
 		</MessageContainer>
 	);
 }
