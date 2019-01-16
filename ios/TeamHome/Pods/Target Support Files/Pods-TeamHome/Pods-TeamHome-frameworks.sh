@@ -144,9 +144,15 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Lock/Lock.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Lock/Lock.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

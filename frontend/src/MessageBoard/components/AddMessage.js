@@ -95,12 +95,6 @@ export default function AddMessage(props) {
 									}}
 								/>
 							</label>
-							{
-								// <label>
-								// 	Select Images:
-								// 	<input type="file" name="images" onChange={props.changeHandler} />
-								// </label>
-							}
 							<label>
 								Contents:
 								<textarea
@@ -110,6 +104,12 @@ export default function AddMessage(props) {
 									}}
 								/>
 							</label>
+							{
+								// <label>
+								// 	Select Images:
+								// 	<input type="file" name="images" onChange={props.changeHandler} />
+								// </label>
+							}
 							<input type="submit" value="Submit" />
 						</form>
 					</MessageFormContainer>
