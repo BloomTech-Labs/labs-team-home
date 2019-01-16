@@ -77,9 +77,12 @@ export default function AddMessage(props) {
 
 	return (
 		<Mutation mutation={ADD_MESSAGE}>
+			{/* addMessage is the mutation request, the data object is what
+				is returned. In this case, just the id of the new message is returned*/}
 			{(addMessage, { data }) => (
 				<Overlay onClick={props.closeHandler}>
 					<MessageFormContainer onClick={props.stopProp}>
+						{/*Close button*/}
 						<button
 							onClick={props.closeHandler}
 							style={{ float: 'right', border: 'none' }}
@@ -89,6 +92,7 @@ export default function AddMessage(props) {
 						<form
 							onSubmit={e => {
 								e.preventDefault();
+								//create newMessage object using the variables created in advance
 								let newMessage = {
 									user: user,
 									title: title.value,
@@ -96,8 +100,9 @@ export default function AddMessage(props) {
 									team: team,
 									images: images
 								};
-								console.log('variables passed to addMessage: ', newMessage);
+								//pass newMessage object as a variable to addMessage mutation
 								addMessage({ variables: newMessage });
+								//reset title, content, and images
 								title.value = '';
 								content.value = '';
 							}}
@@ -107,6 +112,7 @@ export default function AddMessage(props) {
 								<input
 									type="text"
 									name="title"
+									{/*create reference to the title input*/}
 									ref={node => {
 										title = node;
 									}}
@@ -116,6 +122,7 @@ export default function AddMessage(props) {
 								Contents:
 								<textarea
 									name="contents"
+									{/*create reference to the content textarea*/}
 									ref={node => {
 										content = node;
 									}}
@@ -142,13 +149,6 @@ export default function AddMessage(props) {
 										formData.append('upload_preset', uploadPreset);
 										formData.append('api_key', apiKey);
 
-										//axios
-										//	.post(
-										//		`https://${apiKey}:${apiSecret}@api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-										//		formData
-										//	)
-										//	.then(res => console.log(res.data));
-
 										const request = new XMLHttpRequest();
 										request.open(
 											'POST',
@@ -168,7 +168,8 @@ export default function AddMessage(props) {
 											if (request.status >= 200 && request.status < 300) {
 												// the load method accepts either a string (id) or an object
 												const response = JSON.parse(request.response);
-												console.log(response.secure_url);
+												console.log(response);
+												//add new url to the images array in preparation of creating new message
 												images.push(response.secure_url);
 												load(request.responseText);
 											} else {
@@ -200,11 +201,3 @@ export default function AddMessage(props) {
 		</Mutation>
 	);
 }
-
-// mutation{
-//   addTeam(input: {
-//     name: "Go Team GO",
-// 		users: [{ user: "5c3cdac285d92c646e97678d", admin: true}],
-// 		premium: false
-//   }) {_id}
-//}
