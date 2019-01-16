@@ -22,7 +22,7 @@ const userResolvers = {
 				!toggles.receiveTexts
 			)
 				throw new Error(
-					'No first name, last name, email, or toggles provided.'
+					'No id, first name, last name, email, or toggles provided.'
 				);
 			return User.findById(id).then(user => {
 				if (user) {

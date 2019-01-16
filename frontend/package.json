@@ -6,6 +6,7 @@
 		"apollo-boost": "^0.1.23",
 		"auth0-lock": "^11.13.0",
 		"graphql": "^14.0.2",
+		"prop-types": "^15.6.2",
 		"react": "^16.7.0",
 		"react-apollo": "^2.3.3",
 		"react-dom": "^16.7.0",
