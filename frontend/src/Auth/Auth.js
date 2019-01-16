@@ -6,7 +6,8 @@ const options = {
 		title: 'TeamHome'
 	},
 	auth: {
-		sso: false
+		sso: false,
+		audience: 'http://team-home.herokuapp.com/'
 	}
 };
 
