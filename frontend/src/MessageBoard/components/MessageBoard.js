@@ -176,6 +176,11 @@ class MessageBoard extends React.Component {
 							let mess = messages.filter(message => {
 								return message.user._id === this.state.user;
 							});
+							mess.sort((a, b) => {
+								if (a.updatedAt < b.updatedAt) return 1;
+								if (a.updatedAt > b.updatedAt) return -1;
+								return 0;
+							});
 							return mess.map(message => (
 								<Message
 									message={message}
