@@ -15,7 +15,17 @@ class LandingPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    // MARK - IBActions
+    
+    @IBAction func logIn(_ sender: Any) {
+    }
+    
+    @IBAction func signUp(_ sender: Any) {
+    }
+    
+    @IBAction func lockLogIn(_ sender: Any) {
         Lock
             .classic()
             // withConnections, withOptions, withStyle, and so on
@@ -32,7 +42,7 @@ class LandingPageViewController: UIViewController {
                     .start { result in
                         switch result {
                         case .success(let profile):
-                        // You've got a UserProfile object
+                            // You've got a UserProfile object
                             print("Success: \(profile)")
                         case .failure(let error):
                             // You've got an error
@@ -41,17 +51,6 @@ class LandingPageViewController: UIViewController {
                 }
             }
             .present(from: self)
-        
-        
-
-    }
-    
-    // MARK - IBActions
-    
-    @IBAction func logIn(_ sender: Any) {
-    }
-    
-    @IBAction func signUp(_ sender: Any) {
     }
     
     // MARK: - Navigation
