@@ -1,15 +1,15 @@
 {
-  "images": [
+  "images" : [
     {
-      "idiom": "universal",
-      "filename": "ic_show_password_hidden.pdf"
+      "idiom" : "universal",
+      "filename" : "ic_show_password_hidden.pdf"
     }
   ],
-  "info": {
-    "version": 1,
-    "author": "xcode"
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
   },
-  "properties": {
-    "template-rendering-intent": "template"
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }
