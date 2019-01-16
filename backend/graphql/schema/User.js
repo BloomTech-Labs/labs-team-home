@@ -5,6 +5,7 @@ const User = /* GraphQL */ `
 	}
 	type User {
 		_id: ID
+		authId: String
 		firstName: String!
 		lastName: String!
 		email: String!
@@ -16,7 +17,7 @@ const User = /* GraphQL */ `
 		id: ID!
 	}
 	input AddUserInput {
-		_id: ID!
+		authId: String!
 		firstName: String!
 		lastName: String!
 		email: String!

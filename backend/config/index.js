@@ -10,7 +10,7 @@ const jwksClient = require('jwks-rsa');
 
 const { MsgComment, Tag, Team, User, Message } = require('../graphql/schema');
 const resolvers = require('../graphql/resolvers');
-const { AUTH0_DOMAIN } = process.env;
+const { AUTH0_DOMAIN, MONGODB_URI } = process.env;
 
 module.exports = app => {
 	app.use(express.json());
