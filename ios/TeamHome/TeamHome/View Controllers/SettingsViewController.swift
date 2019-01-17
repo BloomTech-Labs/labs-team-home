@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Cloudinary
 
 class SettingsViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class SettingsViewController: UIViewController {
         // Distinguish if you is admin or not
         
         // Load user's account settings
+        loadUserSettings()
     }
     
     // MARK - IBActions
@@ -44,6 +46,43 @@ class SettingsViewController: UIViewController {
             settingsLabel.text = "Account Settings"
             showHideBillingButton.setTitle("Looking for billing settings?", for: .normal)
         }
+    }
+    
+    private func loadUserSettings() {
+        
+//        let url = URL(string: "https://res.cloudinary.com/massamb/image/upload/v1547755535/hluogc6lsro0kye4br3e.png")!
+        
+        let downloader: CLDDownloader = cloudinary.createDownloader()
+        
+        let image = downloader.fetchImage("https://res.cloudinary.com/massamb/image/upload/v1547755535/hluogc6lsro0kye4br3e.png", { (progress) in
+            // Show progress
+        }) { (image, error) in
+            if let error = error {
+                print("error")
+            }
+            
+            guard let image = image else { return }
+            
+            DispatchQueue.main.async {
+                self.userAvatarImageView.image = image
+            }
+        }
+        
+        
+        
+//        URLSession.shared.dataTask(with: url) { (data, _, error) in
+//            if let error = error {
+//                NSLog("\(error)")
+//                return
+//            }
+//
+//            guard let data = data else { return }
+//
+//            let image = UIImage(data: data)
+//            DispatchQueue.main.async {
+//                self.userAvatarImageView.image = image
+//            }
+//        }
     }
     
     // MARK - Properties

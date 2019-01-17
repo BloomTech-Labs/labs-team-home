@@ -73,7 +73,7 @@
                                 <connections>
                                     <outlet property="largeInitialLabel" destination="9as-dM-gNc" id="Liu-VH-9dk"/>
                                     <outlet property="teamNameLabel" destination="6HO-Zn-Hyy" id="LQf-Yb-fu8"/>
-                                    <segue destination="mLE-HV-MGV" kind="show" id="dCX-P2-PBk"/>
+                                    <segue destination="mLE-HV-MGV" kind="show" identifier="ShowMainTabBar" id="dCX-P2-PBk"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -219,7 +219,7 @@
                                                 <rect key="frame" x="99" y="0.0" width="276" height="25"/>
                                                 <state key="normal" title="View team"/>
                                                 <connections>
-                                                    <segue destination="h3N-Xr-BZq" kind="show" id="wDa-xh-TdJ"/>
+                                                    <segue destination="h3N-Xr-BZq" kind="show" identifier="ViewTeam" id="wDa-xh-TdJ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -633,7 +633,7 @@
                                                 <rect key="frame" x="99" y="0.0" width="244" height="20.5"/>
                                                 <state key="normal" title="View team"/>
                                                 <connections>
-                                                    <segue destination="h3N-Xr-BZq" kind="show" id="0dT-Fb-H3z"/>
+                                                    <segue destination="h3N-Xr-BZq" kind="show" identifier="ViewTeam" id="0dT-Fb-H3z"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -680,6 +680,9 @@
                         <viewLayoutGuide key="safeArea" id="pu9-Jz-5NJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="9lm-7P-GIr"/>
+                    <connections>
+                        <outlet property="teamNameLabel" destination="5vJ-i4-0nI" id="3z4-3e-roR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cWh-6y-DQA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

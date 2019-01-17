@@ -8,13 +8,27 @@
 
 import UIKit
 import Apollo
+import Auth0
 
 class TeamDetailTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadUsers()
+        guard let credentials = credentials,
+            let idToken = credentials.idToken else { return }
+        
+        let apollo: ApolloClient = {
+            let configuration = URLSessionConfiguration.default
+            // Add additional headers as needed
+            configuration.httpAdditionalHeaders = ["Authorization": "\(idToken)"]
+            
+            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
+            
+            return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
+        }()
+        
+        loadUsers(with: apollo)
 
     }
 
@@ -30,7 +44,8 @@ class TeamDetailTableViewController: UITableViewController {
         guard let user = users?[indexPath.row] else { return UITableViewCell() }
         
         cell.textLabel?.text = user.firstName
-
+        cell.detailTextLabel?.text = user.email
+        
         return cell
     }
 
@@ -51,15 +66,15 @@ class TeamDetailTableViewController: UITableViewController {
     
     }
     
-    private func loadUsers() {
-//        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
-//            if let error = error {
-//                NSLog("\(error)")
-//            }
-//            
-//            guard let users = result?.data?.users else { return }
-//            self.users = users
-//        }
+    private func loadUsers(with apollo: ApolloClient) {
+        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let users = result?.data?.users else { return }
+            self.users = users
+        }
     }
     
     // MARK - Properties
@@ -74,6 +89,8 @@ class TeamDetailTableViewController: UITableViewController {
     }
     
     var watcher: GraphQLQueryWatcher<QueryNameQuery>?
+    var credentials: Credentials?
+    var team: AllTeamsQuery.Data.Team?
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var addMembersButton: UIButton!

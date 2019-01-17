@@ -67,11 +67,13 @@ class LandingPageViewController: UIViewController {
                         // Save credentials and user fetched to pass through performForSegue function.
                         self.credentials = credentials
                         
-                        // Perform segue to dashboard.
-//                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        // Perform segue to Dashboard VC.
+                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
 
                     case .failure(let error):
                         print("failure: \(error)")
+                        
+                        // Present alert to user and bring back to landing page
                     }
                 }
         }
@@ -222,7 +224,10 @@ class LandingPageViewController: UIViewController {
         if segue.identifier == "ShowDashboard" {
             guard let destinationVC = segue.destination as? DashboardCollectionViewController else { return }
             
-            destinationVC
+            // Pass variables to continue using API with access token and display correct user.
+            destinationVC.credentials = self.credentials
+            // Pass apollo client too?
+            // Pass user.
         }
     }
     
@@ -230,6 +235,7 @@ class LandingPageViewController: UIViewController {
     
     //For testing connection to API
     private var credentials: Credentials?
+    private var user: User?
     
     //All IBOutlets on storyboard view scene
     @IBOutlet weak var logoImageView: UIImageView!
