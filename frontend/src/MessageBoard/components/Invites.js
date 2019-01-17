@@ -52,6 +52,15 @@ export default function Invites(props) {
 							value={props.email}
 						/>
 					</label>
+					<label>
+						Mobile Number:
+						<input
+							type="text"
+							name="number"
+							onChange={props.changeHandler}
+							value={props.number}
+						/>
+					</label>
 					<button type="submit">Submit</button>
 				</form>
 			</FormContainer>
