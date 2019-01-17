@@ -42,14 +42,14 @@ class MessagesCollectionViewController: UICollectionViewController {
     // MARK - Private Methods
     
     private func loadMessages() {
-        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-            }
-            
-            guard let users = result?.data?.users else { return }
-            self.users = users
-        }
+//        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
+//            if let error = error {
+//                NSLog("\(error)")
+//            }
+//            
+//            guard let users = result?.data?.users else { return }
+//            self.users = users
+//        }
     }
     
     // MARK - Properties

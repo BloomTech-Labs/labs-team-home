@@ -45,14 +45,14 @@ class DashboardCollectionViewController: UICollectionViewController {
     // MARK - Private Methods
     
     private func loadTeams() {
-        watcher = apollo.watch(query: AllTagsQuery()) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-            }
-            
-            guard let tags = result?.data?.tags else { return }
-            self.tags = tags
-        }
+//        watcher = apollo.watch(query: AllTagsQuery()) { (result, error) in
+//            if let error = error {
+//                NSLog("\(error)")
+//            }
+//            
+//            guard let tags = result?.data?.tags else { return }
+//            self.tags = tags
+//        }
     }
 
     // MARK - Properties

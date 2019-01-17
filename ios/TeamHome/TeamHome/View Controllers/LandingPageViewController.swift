@@ -10,7 +10,9 @@ import UIKit
 import Apollo
 import Lock
 import Auth0
+import JWTDecode
 
+var apollo: ApolloClient?
 let auth0DomainURLString = "teamhome.auth0.com"
 
 class LandingPageViewController: UIViewController {
@@ -35,10 +37,38 @@ class LandingPageViewController: UIViewController {
                         // For testing
                         print("success")
                         
-                        // Save credentials to pass through performForSegue function.
+                        // Unwrap tokens to use for Apollo and to decode.
+                        guard let accessToken = credentials.accessToken,
+                            let idToken = credentials.idToken else { return }
+//                        print(accessToken)
+//                        print(credentials)
+
+                        // Set up Apollo client with accessToken from auth0.
+//                        apollo = {
+//                            let configuration = URLSessionConfiguration.default
+//                            // Add additional headers as needed
+//                            configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
+//
+//                            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
+//
+//                            return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
+//                        }()
+                        
+                        // Decode idToken into JSON Web Token for subject (also called sub) attribute.
+                        do {
+                            let jwt = try decode(jwt: idToken)
+                            let sub = jwt.subject
+                            // Fetch user with based on sub (auth0id property of User model).
+                        
+                        } catch {
+                            NSLog("Error decoding idToken")
+                        }
+                        
+                        // Save credentials and user fetched to pass through performForSegue function.
                         self.credentials = credentials
+                        
                         // Perform segue to dashboard.
-                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+//                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
 
                     case .failure(let error):
                         print("failure: \(error)")
@@ -188,7 +218,12 @@ class LandingPageViewController: UIViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //Pass to tab bar controller
+        //Pass to Dashboard Collection VC
+        if segue.identifier == "ShowDashboard" {
+            guard let destinationVC = segue.destination as? DashboardCollectionViewController else { return }
+            
+            destinationVC
+        }
     }
     
     // MARK - Properties
