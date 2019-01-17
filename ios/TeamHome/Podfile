@@ -10,5 +10,6 @@ target 'TeamHome' do
   pod "Apollo"
   pod 'Lock', '~> 2.0'
   pod 'Auth0', '~> 1.0'
+  pod 'Cloudinary', '~> 2.0'
 
 end

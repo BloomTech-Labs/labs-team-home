@@ -39,10 +39,11 @@
 		7BA77EBE21E93D5600C862C1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */; };
 		7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */; };
 		7BA77ED021ED50BB00C862C1 /* MessagesCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77ECF21ED50BA00C862C1 /* MessagesCollectionViewController.graphql */; };
-		7BA77ED221ED51F800C862C1 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77ED121ED51F800C862C1 /* schema.json */; };
-		7BD6588721EE392C004FF34A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6588621EE392C004FF34A /* API.swift */; };
 		7BD6588921EE5A06004FF34A /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6588821EE5A06004FF34A /* Auth0.plist */; };
-		7BD6588F21EEC515004FF34A /* Auth0 Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6588E21EEC515004FF34A /* Auth0 Extra.swift */; };
+		7BD6589121EF8E8B004FF34A /* DashboardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6589021EF8E8B004FF34A /* DashboardCollectionViewController.swift */; };
+		7BD6589321EF8E99004FF34A /* TeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6589221EF8E99004FF34A /* TeamCollectionViewCell.swift */; };
+		7BD6589E21F00A55004FF34A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6589D21F00A55004FF34A /* API.swift */; };
+		7BD658A021F020ED004FF34A /* DashboardCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */; };
 		A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990E29AD1BA455515C611736 /* Pods_TeamHome.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,10 +83,11 @@
 		7BA77EBD21E93D5600C862C1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriberCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BA77ECF21ED50BA00C862C1 /* MessagesCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MessagesCollectionViewController.graphql; sourceTree = "<group>"; };
-		7BA77ED121ED51F800C862C1 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
-		7BD6588621EE392C004FF34A /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		7BD6588821EE5A06004FF34A /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
-		7BD6588E21EEC515004FF34A /* Auth0 Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Auth0 Extra.swift"; sourceTree = "<group>"; };
+		7BD6589021EF8E8B004FF34A /* DashboardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewController.swift; sourceTree = "<group>"; };
+		7BD6589221EF8E99004FF34A /* TeamCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BD6589D21F00A55004FF34A /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DashboardCollectionViewController.graphql; sourceTree = "<group>"; };
 		990E29AD1BA455515C611736 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,6 +133,7 @@
 		7B6BE7CF21E5733D0099E42C /* TeamHome */ = {
 			isa = PBXGroup;
 			children = (
+				7BD6589D21F00A55004FF34A /* API.swift */,
 				7BA77E6F21E6BAC400C862C1 /* Resources */,
 				7BA77E6E21E6BAB400C862C1 /* Apollo Client */,
 				7BA77E6D21E6BAAF00C862C1 /* Models */,
@@ -155,6 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */,
+				7BD6589021EF8E8B004FF34A /* DashboardCollectionViewController.swift */,
+				7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */,
+				7BD6589221EF8E99004FF34A /* TeamCollectionViewCell.swift */,
 				7BA77E8221E798A800C862C1 /* MainTabBarController.swift */,
 				7BA77E9D21E807D200C862C1 /* MessageBoardViewController.swift */,
 				7BA77E9F21E80D6C00C862C1 /* MessagesCollectionViewController.swift */,
@@ -197,10 +203,7 @@
 		7BA77E6F21E6BAC400C862C1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7BD6588E21EEC515004FF34A /* Auth0 Extra.swift */,
-				7BD6588621EE392C004FF34A /* API.swift */,
 				7B6BE7D021E5733D0099E42C /* AppDelegate.swift */,
-				7BA77ED121ED51F800C862C1 /* schema.json */,
 				7B6BE7D721E5733E0099E42C /* Assets.xcassets */,
 				7BD6588821EE5A06004FF34A /* Auth0.plist */,
 				7B6BE7DC21E5733E0099E42C /* Info.plist */,
@@ -294,12 +297,12 @@
 				7BA77E9921E8033C00C862C1 /* TeamExample.json in Resources */,
 				7BA77E9821E8033C00C862C1 /* MessageExample.json in Resources */,
 				7BA77E9B21E8033C00C862C1 /* TagExample.json in Resources */,
-				7BA77ED221ED51F800C862C1 /* schema.json in Resources */,
 				7BA77E9C21E8033C00C862C1 /* UserExample.json in Resources */,
 				7B6BE7DB21E5733E0099E42C /* LaunchScreen.storyboard in Resources */,
 				7BA77EAA21E9177300C862C1 /* MessageDetailView.storyboard in Resources */,
 				7B6BE7D821E5733E0099E42C /* Assets.xcassets in Resources */,
 				7B6BE7D621E5733D0099E42C /* Main.storyboard in Resources */,
+				7BD658A021F020ED004FF34A /* DashboardCollectionViewController.graphql in Resources */,
 				7BA77E9A21E8033C00C862C1 /* Comment.json in Resources */,
 				7BD6588921EE5A06004FF34A /* Auth0.plist in Resources */,
 				7BA77EA421E914BE00C862C1 /* TeamDetailView.storyboard in Resources */,
@@ -347,7 +350,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "APOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}/Resources\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json API.swift\n";
+			shellScript = "APOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json API.swift\n";
 		};
 		8F47286782AEADBBA3274A7F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -358,8 +361,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 				"${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework",
+				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
 				"${BUILT_PRODUCTS_DIR}/Lock/Lock.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
 			);
@@ -367,8 +372,10 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Auth0.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lock.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
 			);
@@ -384,7 +391,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BD6588721EE392C004FF34A /* API.swift in Sources */,
 				7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */,
 				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
 				7BA77EAC21E9376E00C862C1 /* AddNewMessageViewController.swift in Sources */,
@@ -403,9 +409,11 @@
 				7BA77EB221E93B2200C862C1 /* CommentsCollectionViewController.swift in Sources */,
 				7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */,
 				7BA77EB021E93B1300C862C1 /* MessageDetailViewController.swift in Sources */,
-				7BD6588F21EEC515004FF34A /* Auth0 Extra.swift in Sources */,
 				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,
+				7BD6589121EF8E8B004FF34A /* DashboardCollectionViewController.swift in Sources */,
+				7BD6589321EF8E99004FF34A /* TeamCollectionViewCell.swift in Sources */,
 				7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */,
+				7BD6589E21F00A55004FF34A /* API.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
