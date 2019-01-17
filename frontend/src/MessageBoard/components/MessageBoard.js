@@ -78,12 +78,13 @@ class MessageBoard extends React.Component {
 	constructor() {
 		super();
 		//temporary url
-		this.url = 'http://localhost:5000/invmail';
+		this.url = 'http://localhost:5000/invite';
 
 		this.state = {
 			showModal: false,
 			showInvite: false,
 			email: '',
+			number: '',
 			images: [],
 			team: {
 				name: 'TeamName',
@@ -124,7 +125,7 @@ class MessageBoard extends React.Component {
 	inviteSubmitHandler(e) {
 		e.preventDefault();
 		axios
-			.post(this.url, { email: this.state.email })
+			.post(this.url, { email: this.state.email, number: this.state.number })
 			.then(res => {
 				this.setState({
 					email: ''
@@ -173,6 +174,7 @@ class MessageBoard extends React.Component {
 						submitHandler={this.inviteSubmitHandler}
 						changeHandler={this.inviteChangeHandler}
 						email={this.state.email}
+						number={this.state.number}
 					/>
 				) : null}
 				<TopSection>
