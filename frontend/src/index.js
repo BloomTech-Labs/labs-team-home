@@ -13,7 +13,15 @@ const URI =
 		: 'http://localhost:5000/graphql';
 
 const client = new ApolloClient({
-	uri: URI
+	uri: URI,
+	request: operation => {
+		operation.setContext(context => ({
+			headers: {
+				...context.headers,
+				authorization: localStorage.getItem('token')
+			}
+		}));
+	}
 });
 
 ReactDOM.render(
