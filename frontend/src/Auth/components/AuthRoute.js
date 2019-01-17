@@ -15,18 +15,18 @@
 // const AuthRoute = ({ component: Component, ...rest }) => {
 //   let
 // 	return (
-// 		<Query query={GET_USER}>
-//       {({ loading, error, data }) => {
-//       if (loading) return "Loading...";
-//       if (error) return `Error! ${error.message}`;
-//       if (data) {
-//         console.log(data);
-//       }
-//       return (
-//         <div>AKDJFKAD</div>
-//       );
-//     }}
-//     </Query>
+// <Query query={GET_USER}>
+//   {({ loading, error, data }) => {
+//   if (loading) return "Loading...";
+//   if (error) return `Error! ${error.message}`;
+//   if (data) {
+//     console.log(data);
+//   }
+//   return (
+//     <div>AKDJFKAD</div>
+//   );
+// }}
+// </Query>
 // 	);
 // };
 
