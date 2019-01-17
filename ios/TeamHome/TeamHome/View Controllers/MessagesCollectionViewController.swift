@@ -14,8 +14,8 @@ class MessagesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Load messages with watcher
-        loadMessages()
+        //Load messages with watcher 
+        //loadMessages()
     }
     // MARK: - Navigation
 
@@ -31,49 +31,37 @@ class MessagesCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! MessageCollectionViewCell
-    
-        // Configure the cell
+        
+//        guard let user = users?[indexPath.row] else { return UICollectionViewCell() }
+//
+//        cell.firstNameLabel.text = user.firstName
     
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
     
     // MARK - Private Methods
     
     private func loadMessages() {
-        
+        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let users = result?.data?.users else { return }
+            self.users = users
+        }
     }
     
     // MARK - Properties
+    var users: [QueryNameQuery.Data.User?]? {
+        didSet {
+            if isViewLoaded {
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
     
+    var watcher: GraphQLQueryWatcher<QueryNameQuery>?
 }

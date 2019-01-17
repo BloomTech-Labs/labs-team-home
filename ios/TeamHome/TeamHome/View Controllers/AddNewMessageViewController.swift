@@ -72,6 +72,7 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
         
         guard let image = info[.originalImage] as? UIImage else { return }
         
+        imageView.isHidden = false
         imageView.image = image
         guard let imageData: Data = image.jpegData(compressionQuality: 0) else { return }
         self.imageData = imageData

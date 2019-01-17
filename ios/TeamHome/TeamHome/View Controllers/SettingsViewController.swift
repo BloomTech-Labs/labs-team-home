@@ -15,9 +15,28 @@ class SettingsViewController: UIViewController {
 
         
     }
-
+    
+    @IBAction func billingSettings(_ sender: Any) {
+        
+        if billingStackView.isHidden {
+            accountStackView.isHidden = true
+            billingStackView.isHidden = false
+            settingsLabel.text = "Billing Settings"
+            showHideBillingButton.setTitle("Show Account Settings", for: .normal)
+            
+            
+        } else {
+            billingStackView.isHidden = true
+            accountStackView.isHidden = false
+            settingsLabel.text = "Account Settings"
+            showHideBillingButton.setTitle("Looking for billing settings?", for: .normal)
+        }
+        
+    }
+    
+    @IBOutlet weak var settingsLabel: UILabel!
+    @IBOutlet weak var showHideBillingButton: UIButton!
     @IBOutlet weak var teamNameLabel: UILabel!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var addRemoveImageButton: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
@@ -26,5 +45,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var receiveTexts: UIButton!
     @IBOutlet weak var oldPasswordTextField: UITextField!
     @IBOutlet weak var newPasswordTextField: UITextField!
+    @IBOutlet weak var accountStackView: UIStackView!
+    @IBOutlet weak var billingStackView: UIStackView!
     
 }
