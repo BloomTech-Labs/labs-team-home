@@ -51,9 +51,6 @@ export default class LandingView extends Component {
 					return;
 				}
 				console.log(profile);
-
-				localStorage.setItem('accessToken', authResult.accessToken);
-				localStorage.setItem('profile', JSON.stringify(profile));
 			});
 		});
 	}
