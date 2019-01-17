@@ -1,12 +1,12 @@
 {
-  "images": [
+  "images" : [
     {
-      "idiom": "universal",
-      "filename": "ic_switcher_both.pdf"
+      "idiom" : "universal",
+      "filename" : "ic_switcher_both.pdf"
     }
   ],
-  "info": {
-    "version": 1,
-    "author": "xcode"
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
   }
 }

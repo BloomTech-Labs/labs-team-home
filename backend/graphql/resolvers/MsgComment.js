@@ -5,6 +5,11 @@ const msgCommentResolvers = {
 		MsgComments: () => MsgComment.find().populate('user message likes'),
 		findMsgComment: (_, { input: { id } }) => {
 			return MsgComment.findById(id).populate('user message likes');
+		},
+		findMsgCommentsByMessage: (_, { input: { message } }) => {
+			return MsgComment.find({ message: message }).populate(
+				'user message likes'
+			);
 		}
 	},
 	Mutation: {
@@ -19,7 +24,7 @@ const msgCommentResolvers = {
 		updateMsgComment: (_, { input }) => {
 			const { id, user, message, content } = input;
 			if (!id && !user && !message && !content)
-				throw new Error('No user, message or content provided');
+				throw new Error('No id, user, message or content provided');
 			return MsgComment.findById(id).then(comment => {
 				if (comment) {
 					return MsgComment.findOneAndUpdate(
