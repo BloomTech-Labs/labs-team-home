@@ -1,13 +1,13 @@
 query AllUsers {
-    users {
-        _id
-        firstName
-        lastName
-        email
-        phoneNumber
-        toggles {
-            receiveEmails
-            receiveTexts
-        }
+  users {
+    _id
+    firstName
+    lastName
+    email
+    phoneNumber
+    toggles {
+      receiveEmails
+      receiveTexts
     }
+  }
 }

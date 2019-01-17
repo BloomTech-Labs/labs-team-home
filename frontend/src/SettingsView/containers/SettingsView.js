@@ -5,6 +5,7 @@ import FormInput from '../components/FormInput';
 import FormCheckbox from '../components/FormCheckbox';
 import FormButton from '../components/FormButton';
 import Checkout from '../BillingView/Checkout';
+import StripeBtn from '../BillingView/StripeBtn';
 
 const buttonStyle = {
 	margin: '10px 10px 10px 10px'
@@ -94,11 +95,12 @@ class SettingsView extends Component {
 						</form>
 					</div>
 					<div label="Team Billing">
-						<Checkout
+						{/* <Checkout
 							name={'Stripe Test Run'}
 							description={'Stripe Billing Section'}
 							amount={1}
-						/>
+						/> */}
+						<StripeBtn />
 					</div>
 				</SettingsTabs>
 			</div>
