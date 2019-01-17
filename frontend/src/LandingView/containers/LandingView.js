@@ -23,9 +23,11 @@ const BigOlQuery = id => {
 };
 
 const GET_USER = gql`
-	{
-		users {
+	query User($authId: String) {
+		findUser(authId: $authId) {
 			firstName
+			lastName
+			email
 		}
 	}
 `;
@@ -35,7 +37,8 @@ export default class LandingView extends Component {
 		super(props);
 		this.state = {
 			auth: new Auth0(),
-			id: null
+			id: null,
+			hasProfile: false
 		};
 	}
 
@@ -49,6 +52,9 @@ export default class LandingView extends Component {
 				if (error) {
 					// Handle error
 					return;
+				}
+				if (profile) {
+					this.setState({ hasProfile: true });
 				}
 				console.log(profile);
 			});
