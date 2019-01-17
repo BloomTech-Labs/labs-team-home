@@ -1,0 +1,10 @@
+ {
+     "_id": "5c358baf93b69c7c387fb317",
+     "name": "Website Team",
+     "users": [
+         { "user": "5c358baf93b69c7c387fb843", "admin": true },
+         { "user": "5c358baf93b69c7c432qdfa", "admin": false },
+         { "user": "5c358baf93b69c7ck3657kl", "admin": false }
+     ],
+     "premium": false
+ }

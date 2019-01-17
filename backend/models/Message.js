@@ -51,7 +51,7 @@ const Message = new Schema(
 		},
 		images: [{ type: String }],
 		tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
-		comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+		comments: [{ type: Schema.Types.ObjectId, ref: 'MsgComment' }],
 		subscribedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 	},
 	{ timestamps: true }

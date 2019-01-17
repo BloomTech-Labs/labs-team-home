@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-// // example document
+// example document
 // {
 // 	user: '5c358c48885c9d7c41062885',
 // 	team: '5c358baf93b69c7c387fb817',
@@ -12,7 +12,7 @@ const { Schema, model } = require('mongoose');
 // 	]
 // };
 
-const Comment = new Schema(
+const MsgComment = new Schema(
 	{
 		user: {
 			type: Schema.Types.ObjectId,
@@ -30,4 +30,4 @@ const Comment = new Schema(
 	{ timestamps: true }
 );
 
-module.exports = model('Comment', Comment);
+module.exports = model('MsgComment', MsgComment);
