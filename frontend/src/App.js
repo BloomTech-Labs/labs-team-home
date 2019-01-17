@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-// import LandingView from './LandingView/containers/LandingView';
+import LandingView from './LandingView/containers/LandingView';
 import { Route } from 'react-router-dom';
 import MessageBoard from './MessageBoard/components/MessageBoard';
 // import Dashboard from './DashboardView/containers/Dashboard';
