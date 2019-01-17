@@ -11,9 +11,9 @@ app.post('/invmail', (req, res) => {
 	const msg = {
 		to: req.body.email,
 		from: 'sender@example.org',
-		subject: 'Hello world',
-		text: 'Hello plain world!',
-		html: '<p>Hello HTML world!</p>'
+		subject: 'TeamHome invitation',
+		text: "You've been invited to a TeamHome team!",
+		html: "<p>You've been invited to a TeamHome team!</p>"
 	};
 	sgMail.send(msg);
 	res.status(200).json({ message: 'request recieved roger wilco boss man' });
