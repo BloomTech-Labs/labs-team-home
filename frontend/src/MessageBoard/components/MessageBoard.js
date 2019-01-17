@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Message from './Message';
 import AddMessage from './AddMessage';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const Messageboard = styled.div`
 	max-width: 800px;
@@ -73,6 +75,7 @@ const AddMsgBtn = styled.button`
 class MessageBoard extends React.Component {
 	constructor() {
 		super();
+
 		this.state = {
 			showModal: false,
 			title: '',
@@ -84,15 +87,12 @@ class MessageBoard extends React.Component {
 				users: ['dfasdf', 'asdfsags']
 			},
 			user: '5c3cdac285d92c646e97678d',
-			messages: [],
 			isAdmin: true
 		};
 
 		this.openModalHandler = this.openModalHandler.bind(this);
 		this.closeModalHandler = this.closeModalHandler.bind(this);
 		this.stopProp = this.stopProp.bind(this);
-		this.changeHandler = this.changeHandler.bind(this);
-		this.submitHandler = this.submitHandler.bind(this);
 	}
 
 	openModalHandler() {
@@ -111,45 +111,13 @@ class MessageBoard extends React.Component {
 		e.stopPropagation();
 	}
 
-	changeHandler(e) {
-		if (e.target.name === 'images') {
-			let images = this.state.images;
-			images.push(e.target.value);
-			this.setState({
-				images: images
-			});
-		} else {
-			this.setState({
-				[e.target.name]: e.target.value
-			});
-		}
-	}
-
-	submitHandler(e) {
-		e.preventDefault();
-		const newMessage = {
-			title: this.state.title,
-			user: this.state.user,
-			team: this.state.teamName,
-			content: this.state.contents,
-			images: [],
-			tags: [],
-			subscribedUsers: []
-		};
-		console.log('New message created: ', newMessage);
-	}
-
 	render() {
 		return (
 			<Messageboard>
 				{this.state.showModal ? (
 					<AddMessage
-						changeHandler={this.changeHandler}
-						submitHandler={this.submitHandler}
 						closeHandler={this.closeModalHandler}
 						stopProp={this.stopProp}
-						title={this.state.title}
-						contents={this.state.contents}
 						team={this.state.team}
 						user={this.state.user}
 					/>
@@ -167,9 +135,61 @@ class MessageBoard extends React.Component {
 				</TeamName>
 				<MessagesContainer>
 					<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
-					{this.state.messages.map(message => {
-						return <Message message={message} key={message._id} />;
-					})}
+					<Query
+						query={gql`
+							{
+								messages {
+									_id
+									title
+									user {
+										_id
+									}
+									team {
+										_id
+									}
+									content
+									images
+									tags {
+										_id
+									}
+									comments {
+										_id
+									}
+									subscribedUsers {
+										_id
+									}
+									createdAt
+									updatedAt
+								}
+								findUser(input: { id: "5c3cdac285d92c646e97678d" }) {
+									firstName
+									lastName
+									avatar
+								}
+							}
+						`}
+					>
+						{({ loading, error, data: { messages, findUser } }) => {
+							if (loading) return <p>Loading...</p>;
+							if (error) return <p>Error :(</p>;
+							let userInfo = findUser;
+							let mess = messages.filter(message => {
+								return message.user._id === this.state.user;
+							});
+							mess.sort((a, b) => {
+								if (a.updatedAt < b.updatedAt) return 1;
+								if (a.updatedAt > b.updatedAt) return -1;
+								return 0;
+							});
+							return mess.map(message => (
+								<Message
+									message={message}
+									userInfo={userInfo}
+									key={message._id}
+								/>
+							));
+						}}
+					</Query>
 				</MessagesContainer>
 			</Messageboard>
 		);
