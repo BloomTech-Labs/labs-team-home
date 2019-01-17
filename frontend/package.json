@@ -8,6 +8,7 @@
 		"axios": "^0.18.0",
 		"filepond": "^3.7.5",
 		"graphql": "^14.0.2",
+		"jwt-decode": "^2.2.0",
 		"prop-types": "^15.6.2",
 		"react": "^16.7.0",
 		"react-apollo": "^2.3.3",

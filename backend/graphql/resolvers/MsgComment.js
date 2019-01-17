@@ -5,6 +5,11 @@ const msgCommentResolvers = {
 		MsgComments: () => MsgComment.find().populate('user message likes'),
 		findMsgComment: (_, { input: { id } }) => {
 			return MsgComment.findById(id).populate('user message likes');
+		},
+		findMsgCommentsByMessage: (_, { input: { message } }) => {
+			return MsgComment.find({ message: message }).populate(
+				'user message likes'
+			);
 		}
 	},
 	Mutation: {
