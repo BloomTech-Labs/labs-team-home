@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 import Message from './Message';
 import AddMessage from './AddMessage';
 import { Query } from 'react-apollo';
@@ -76,11 +77,13 @@ const AddMsgBtn = styled.button`
 class MessageBoard extends React.Component {
 	constructor() {
 		super();
+		//temporary url
+		this.url = 'http://localhost:5000/invmail';
 
 		this.state = {
 			showModal: false,
-			title: '',
-			contents: '',
+			showInvite: false,
+			email: '',
 			images: [],
 			team: {
 				name: 'TeamName',
@@ -93,7 +96,47 @@ class MessageBoard extends React.Component {
 
 		this.openModalHandler = this.openModalHandler.bind(this);
 		this.closeModalHandler = this.closeModalHandler.bind(this);
+		this.openInviteHandler = this.openInviteHandler.bind(this);
+		this.closeInviteHandler = this.closeInviteHandler.bind(this);
+		this.inviteChangeHandler = this.inviteChangeHandler.bind(this);
+		this.inviteSubmitHandler = this.inviteSubmitHandler.bind(this);
 		this.stopProp = this.stopProp.bind(this);
+	}
+
+	openInviteHandler() {
+		this.setState({
+			showInvite: true
+		});
+	}
+
+	closeInviteHandler() {
+		this.setState({
+			showInvite: false
+		});
+	}
+
+	inviteChangeHandler(e) {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	}
+
+	inviteSubmitHandler(e) {
+		e.preventDefault();
+		axios
+			.post(this.url, { email: this.state.email })
+			.then(res => {
+				this.setState({
+					email: ''
+				});
+			})
+			.then(() => {
+				this.closeInviteHandler();
+				alert('Invitation sent');
+			})
+			.catch(err => {
+				console.error(err);
+			});
 	}
 
 	openModalHandler() {
@@ -123,6 +166,15 @@ class MessageBoard extends React.Component {
 						user={this.state.user}
 					/>
 				) : null}
+				{this.state.showInvite ? (
+					<Invites
+						closeHandler={this.closeInviteHandler}
+						stopProp={this.stopProp}
+						submitHandler={this.inviteSubmitHandler}
+						changeHandler={this.inviteChangeHandler}
+						email={this.state.email}
+					/>
+				) : null}
 				<TopSection>
 					<StyledLink to="#">Settings</StyledLink>
 					<StyledLink to="#">Sign Out</StyledLink>
@@ -131,7 +183,9 @@ class MessageBoard extends React.Component {
 					<h1>{this.state.teamName}</h1>
 					<Teamlogo>
 						<Logo src="https://via.placeholder.com/50.png" alt="team logo" />
-						{this.state.isAdmin ? <button>Invite</button> : null}
+						{this.state.isAdmin ? (
+							<button onClick={this.openInviteHandler}>Invite</button>
+						) : null}
 					</Teamlogo>
 				</TeamName>
 				<MessagesContainer>
