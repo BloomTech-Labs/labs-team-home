@@ -52,7 +52,9 @@ const messageResolvers = {
 									to: `+1${phoneNumber}`
 								})
 								.then(message => console.log(message.sid))
+								.catch(err => console.error(err))
 								.done();
+
 						email &&
 							receiveEmails &&
 							sgMail.send({
