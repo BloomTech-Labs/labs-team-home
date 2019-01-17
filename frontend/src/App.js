@@ -7,11 +7,14 @@ import MessageBoard from './MessageBoard/components/MessageBoard';
 // import Dashboard from './DashboardView/containers/Dashboard';
 // import AuthRoute from './Auth/components/AuthRoute';
 import SettingsView from './SettingsView/containers/SettingsView';
+import Nav from './Nav/Nav';
 
 class App extends Component {
 	render() {
 		return (
 			<div className="App">
+				<Nav />
+				<Route exact path="/" component={LandingView} />
 				{/* <Route exact path="/" component={LandingView} />*/}
 				<Route path="/home" component={MessageBoard} />
 				{/* <AuthRoute path="/dashboard" component={Dashboard} /> */}
