@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer, AuthenticationError } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -51,30 +51,23 @@ module.exports = app => {
 				iss: `${AUTH0_DOMAIN}/api/v2/`,
 				algorithms: ['RS256']
 			};
-			const user = new Promise((resolve, reject) => {
-				jwt.verify(token, getKey, options, (err, decoded) => {
-					if (err) {
-						console.error(err);
-						return reject(new Error('Authentication failed'));
-					}
-					resolve(decoded);
-					return (
-						decoded.sub &&
-						UserModel.findOne({ authId: decoded.sub }).then(
-							(
-								exists // looks if a user with the auth0 credentials exists in the database and creates one if there isn't
-							) =>
-								!exists &&
-								new UserModel({ authId: decoded.sub })
+
+			return jwt.verify(token, getKey, options, (err, decoded) => {
+				if (err) {
+					console.error(err);
+					throw new AuthenticationError('Authentication failed');
+				}
+				decoded.sub &&
+					UserModel.findOne({ authId: decoded.sub }).then((
+						existingUser // looks if a user with the auth0 credentials exists in the database and creates one if there isn't
+					) =>
+						existingUser
+							? { ...req, user: existingUser }
+							: new UserModel({ authId: decoded.sub })
 									.save()
-									.then(newUser => console.log(newUser))
-						)
+									.then(newUser => ({ ...req, user: newUser }))
 					);
-				});
 			});
-			return {
-				user
-			};
 		}
 	});
 	server.applyMiddleware({ app });
