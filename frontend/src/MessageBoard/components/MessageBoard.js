@@ -80,8 +80,8 @@ class MessageBoard extends React.Component {
 		//temporary url
 		this.URI =
 			process.env.NODE_ENV === 'production'
-				? 'https://team-home.herokuapp.com'
-				: 'http://localhost:5000';
+				? 'https://team-home.herokuapp.com/invite'
+				: 'http://localhost:5000/invite';
 
 		this.state = {
 			showModal: false,

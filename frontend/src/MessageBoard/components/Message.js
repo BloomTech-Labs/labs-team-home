@@ -78,7 +78,8 @@ function Message(props) {
 					return <Tag>{tag}</Tag>;
 				})}
 			</MessagePreview>
-			{message.images.length >= 1
+			{//note: images are shown here as a demo only. Will be removed and added to message detail
+			message.images.length >= 1
 				? message.images.map(pic => {
 						return <img src={pic} />;
 				  })
