@@ -9,9 +9,24 @@
 import UIKit
 import Auth0
 
-class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol {
+class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, UICollectionViewDataSource, UICollectionViewDelegate {
     
-
+    // MARK - UICollectionViewDataSource
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityCell", for: indexPath) as! ActivityCollectionViewCell
+        
+        //        guard let user = users?[indexPath.row] else { return UICollectionViewCell() }
+        //
+        //        cell.firstNameLabel.text = user.firstName
+        
+        return cell
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,5 +52,6 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol {
     var credentials: Credentials?
     
     @IBOutlet weak var teamNameLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
 }

@@ -325,6 +325,10 @@
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="2Ni-zb-nV9" id="DiU-1D-P73"/>
+                                            <outlet property="delegate" destination="2Ni-zb-nV9" id="uqy-jj-qTz"/>
+                                        </connections>
                                     </collectionView>
                                 </subviews>
                             </stackView>
@@ -340,6 +344,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Activity" id="Mnz-hG-cB7"/>
                     <connections>
+                        <outlet property="collectionView" destination="4BH-us-QEI" id="Jn8-Zt-iNG"/>
                         <outlet property="teamNameLabel" destination="BEs-IB-46o" id="HkQ-KJ-5t5"/>
                     </connections>
                 </viewController>

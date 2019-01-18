@@ -46,9 +46,7 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
         cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
             //Show progress
         }) { (result, error) in
-            print(error)
-            print(result)
-            print(result?.url)
+            print(result?.url!)
         }
     }
     
