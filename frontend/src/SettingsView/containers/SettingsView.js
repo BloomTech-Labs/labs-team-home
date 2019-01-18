@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import SettingsTabs from '../components/tabs/SettingsTabs';
 // import '../styles/SettingsStyles.css';
-import FormInput from '../components/FormInput';
-import FormCheckbox from '../components/FormCheckbox';
-import FormButton from '../components/FormButton';
+import FormInput from '../components/forms/FormInput';
+import FormCheckbox from '../components/forms/FormCheckbox';
+import FormButton from '../components/forms/FormButton';
 import BillingView from '../BillingView/BillingView';
-import styled from 'styled-components';
 
 const buttonStyle = {
 	margin: '10px 10px 10px 10px'
