@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 import Message from './Message';
 import AddMessage from './AddMessage';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import Invites from './Invites';
 
 const Messageboard = styled.div`
 	max-width: 800px;
@@ -73,10 +77,13 @@ const AddMsgBtn = styled.button`
 class MessageBoard extends React.Component {
 	constructor() {
 		super();
+		//temporary url
+		this.url = 'http://localhost:5000/invmail';
+
 		this.state = {
 			showModal: false,
-			title: '',
-			contents: '',
+			showInvite: false,
+			email: '',
 			images: [],
 			team: {
 				name: 'TeamName',
@@ -84,15 +91,52 @@ class MessageBoard extends React.Component {
 				users: ['dfasdf', 'asdfsags']
 			},
 			user: '5c3cdac285d92c646e97678d',
-			messages: [],
 			isAdmin: true
 		};
 
 		this.openModalHandler = this.openModalHandler.bind(this);
 		this.closeModalHandler = this.closeModalHandler.bind(this);
+		this.openInviteHandler = this.openInviteHandler.bind(this);
+		this.closeInviteHandler = this.closeInviteHandler.bind(this);
+		this.inviteChangeHandler = this.inviteChangeHandler.bind(this);
+		this.inviteSubmitHandler = this.inviteSubmitHandler.bind(this);
 		this.stopProp = this.stopProp.bind(this);
-		this.changeHandler = this.changeHandler.bind(this);
-		this.submitHandler = this.submitHandler.bind(this);
+	}
+
+	openInviteHandler() {
+		this.setState({
+			showInvite: true
+		});
+	}
+
+	closeInviteHandler() {
+		this.setState({
+			showInvite: false
+		});
+	}
+
+	inviteChangeHandler(e) {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	}
+
+	inviteSubmitHandler(e) {
+		e.preventDefault();
+		axios
+			.post(this.url, { email: this.state.email })
+			.then(res => {
+				this.setState({
+					email: ''
+				});
+			})
+			.then(() => {
+				this.closeInviteHandler();
+				alert('Invitation sent');
+			})
+			.catch(err => {
+				console.error(err);
+			});
 	}
 
 	openModalHandler() {
@@ -111,47 +155,24 @@ class MessageBoard extends React.Component {
 		e.stopPropagation();
 	}
 
-	changeHandler(e) {
-		if (e.target.name === 'images') {
-			let images = this.state.images;
-			images.push(e.target.value);
-			this.setState({
-				images: images
-			});
-		} else {
-			this.setState({
-				[e.target.name]: e.target.value
-			});
-		}
-	}
-
-	submitHandler(e) {
-		e.preventDefault();
-		const newMessage = {
-			title: this.state.title,
-			user: this.state.user,
-			team: this.state.teamName,
-			content: this.state.contents,
-			images: [],
-			tags: [],
-			subscribedUsers: []
-		};
-		console.log('New message created: ', newMessage);
-	}
-
 	render() {
 		return (
 			<Messageboard>
 				{this.state.showModal ? (
 					<AddMessage
-						changeHandler={this.changeHandler}
-						submitHandler={this.submitHandler}
 						closeHandler={this.closeModalHandler}
 						stopProp={this.stopProp}
-						title={this.state.title}
-						contents={this.state.contents}
 						team={this.state.team}
 						user={this.state.user}
+					/>
+				) : null}
+				{this.state.showInvite ? (
+					<Invites
+						closeHandler={this.closeInviteHandler}
+						stopProp={this.stopProp}
+						submitHandler={this.inviteSubmitHandler}
+						changeHandler={this.inviteChangeHandler}
+						email={this.state.email}
 					/>
 				) : null}
 				<TopSection>
@@ -162,14 +183,68 @@ class MessageBoard extends React.Component {
 					<h1>{this.state.teamName}</h1>
 					<Teamlogo>
 						<Logo src="https://via.placeholder.com/50.png" alt="team logo" />
-						{this.state.isAdmin ? <button>Invite</button> : null}
+						{this.state.isAdmin ? (
+							<button onClick={this.openInviteHandler}>Invite</button>
+						) : null}
 					</Teamlogo>
 				</TeamName>
 				<MessagesContainer>
 					<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
-					{this.state.messages.map(message => {
-						return <Message message={message} key={message._id} />;
-					})}
+					<Query
+						query={gql`
+							{
+								messages {
+									_id
+									title
+									user {
+										_id
+									}
+									team {
+										_id
+									}
+									content
+									images
+									tags {
+										_id
+									}
+									comments {
+										_id
+									}
+									subscribedUsers {
+										_id
+									}
+									createdAt
+									updatedAt
+								}
+								findUser(input: { id: "5c3cdac285d92c646e97678d" }) {
+									firstName
+									lastName
+									avatar
+								}
+							}
+						`}
+					>
+						{({ loading, error, data: { messages, findUser } }) => {
+							if (loading) return <p>Loading...</p>;
+							if (error) return <p>Error :(</p>;
+							let userInfo = findUser;
+							let mess = messages.filter(message => {
+								return message.user._id === this.state.user;
+							});
+							mess.sort((a, b) => {
+								if (a.updatedAt < b.updatedAt) return 1;
+								if (a.updatedAt > b.updatedAt) return -1;
+								return 0;
+							});
+							return mess.map(message => (
+								<Message
+									message={message}
+									userInfo={userInfo}
+									key={message._id}
+								/>
+							));
+						}}
+					</Query>
 				</MessagesContainer>
 			</Messageboard>
 		);
