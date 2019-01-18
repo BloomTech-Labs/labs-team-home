@@ -8,10 +8,10 @@ const options = {
 	auth: {
 		sso: false,
 		audience: 'http://team-home.herokuapp.com/',
-		redirectUrl: 'http://localhost:3000/home'
+		redirectUrl:
+			'http://localhost:3000/home' || 'http://team-home.herokuapp.com/home'
 	},
-	responseType: 'token id_token',
-	scope: 'openid profile email'
+	responseType: 'token id_token'
 };
 
 /**
