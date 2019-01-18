@@ -87,6 +87,7 @@ class MessageBoard extends React.Component {
 			showModal: false,
 			showInvite: false,
 			email: '',
+			number: '',
 			images: [],
 			team: {
 				name: 'TeamName',
@@ -127,7 +128,7 @@ class MessageBoard extends React.Component {
 	inviteSubmitHandler(e) {
 		e.preventDefault();
 		axios
-			.post(this.URI, { email: this.state.email })
+			.post(this.URI, { email: this.state.email, number: this.state.number })
 			.then(res => {
 				this.setState({
 					email: ''
@@ -176,6 +177,7 @@ class MessageBoard extends React.Component {
 						submitHandler={this.inviteSubmitHandler}
 						changeHandler={this.inviteChangeHandler}
 						email={this.state.email}
+						number={this.state.number}
 					/>
 				) : null}
 				<TopSection>
