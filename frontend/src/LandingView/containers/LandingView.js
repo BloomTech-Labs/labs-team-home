@@ -7,21 +7,6 @@ import Auth0 from '../../Auth/Auth';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const BigOlQuery = id => {
-	return (
-		<Query query={GET_USER}>
-			{({ loading, error, data }) => {
-				if (loading) return 'Loading...';
-				if (error) return `Error! ${error.message}`;
-				if (data) {
-					console.log('user data', data);
-				}
-				return <div> AKDJFKAD </div>;
-			}}
-		</Query>
-	);
-};
-
 const GET_USER = gql`
 	query User($authId: String) {
 		findUser(authId: $authId) {
@@ -53,9 +38,6 @@ export default class LandingView extends Component {
 					// Handle error
 					return;
 				}
-				if (profile) {
-					this.setState({ hasProfile: true });
-				}
 				console.log(profile);
 			});
 		});
@@ -76,11 +58,20 @@ export default class LandingView extends Component {
 	render() {
 		return (
 			<div>
+				<Query query={GET_USER}>
+					{({ loading, error, data }) => {
+						if (loading) return 'Loading...';
+						if (error) return `Error! ${error.message}`;
+						if (data) {
+							console.log('user data', data);
+						}
+						return <div> AKDJFKAD </div>;
+					}}
+				</Query>
 				<SignInSignUp
 					handleLogin={this.handleLogin}
 					handleSignUp={this.handleSignUp}
 				/>
-				<BigOlQuery />
 				<LogoBanner />
 			</div>
 		);

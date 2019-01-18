@@ -6,6 +6,8 @@ import { Route } from 'react-router-dom';
 import MessageBoard from './MessageBoard/components/MessageBoard';
 // import Dashboard from './DashboardView/containers/Dashboard';
 // import AuthRoute from './Auth/components/AuthRoute';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 import SettingsView from './SettingsView/containers/SettingsView';
 import Nav from './Nav/Nav';
 
