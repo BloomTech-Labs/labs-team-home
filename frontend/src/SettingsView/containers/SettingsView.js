@@ -5,10 +5,15 @@ import FormInput from '../components/FormInput';
 import FormCheckbox from '../components/FormCheckbox';
 import FormButton from '../components/FormButton';
 import BillingView from '../BillingView/BillingView';
+import styled from 'styled-components';
 
 const buttonStyle = {
 	margin: '10px 10px 10px 10px'
 };
+
+// const SettingsTabs = styled.div`
+// 	border: 1px solid #ccc;
+// `;
 
 class SettingsView extends Component {
 	constructor(props) {
