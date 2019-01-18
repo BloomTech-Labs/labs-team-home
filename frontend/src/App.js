@@ -15,9 +15,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Nav />
 				<Route exact path="/" component={LandingView} />
-				{/* <Route exact path="/" component={LandingView} />*/}
 				<Route path="/home" component={MessageBoard} />
 				{/* <AuthRoute path="/dashboard" component={Dashboard} /> */}
 				<Route path="/settings" component={SettingsView} />
