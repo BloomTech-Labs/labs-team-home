@@ -92,7 +92,9 @@ export default function AddMessage(props) {
 						<form
 							onSubmit={e => {
 								e.preventDefault();
+
 								//create newMessage object using the variables created in advance
+
 								let newMessage = {
 									user: user,
 									title: title.value,
