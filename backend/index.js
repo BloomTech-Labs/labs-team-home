@@ -6,7 +6,7 @@ const app = express();
 configureMiddleware(app);
 
 //stripe
-configureRoutes = require('./stripe/routes');
+configureRoutes = require('./stripe');
 configureRoutes(app);
 
 app.post('/invite', (req, res) => {
