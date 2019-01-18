@@ -20,6 +20,7 @@ app.post('/invite', (req, res) => {
 				to: '+1' + req.body.number
 			})
 			.then(message => console.log(message.sid))
+			.catch(err => console.error(err))
 			.done();
 	}
 

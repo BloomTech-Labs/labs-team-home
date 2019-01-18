@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { FilePond } from 'react-filepond';
-import '../../../node_modules/filepond/dist/filepond.min.css';
+import 'filepond/dist/filepond.min.css';
 
 const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 const apiKey = process.env.REACT_APP_API_KEY;
@@ -92,7 +92,9 @@ export default function AddMessage(props) {
 						<form
 							onSubmit={e => {
 								e.preventDefault();
+
 								//create newMessage object using the variables created in advance
+
 								let newMessage = {
 									user: user,
 									title: title.value,
