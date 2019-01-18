@@ -11,6 +11,9 @@ const MsgComment = /* GraphQL */ `
 	input FindMsgCommentInput {
 		id: ID!
 	}
+	input FindMsgCommentsByMessageInput {
+		message: ID!
+	}
 	input AddMsgCommentInput {
 		user: String!
 		message: String!
@@ -27,6 +30,7 @@ const MsgComment = /* GraphQL */ `
 	}
 	extend type Query {
 		MsgComments: [MsgComment]
+		findMsgCommentsByMessage(input: FindMsgCommentsByMessageInput): [MsgComment]
 		findMsgComment(input: FindMsgCommentInput): MsgComment
 	}
 	extend type Mutation {
