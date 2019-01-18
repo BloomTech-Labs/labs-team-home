@@ -78,7 +78,10 @@ class MessageBoard extends React.Component {
 	constructor() {
 		super();
 		//temporary url
-		this.url = 'http://localhost:5000/invite';
+		this.URI =
+			process.env.NODE_ENV === 'production'
+				? 'https://team-home.herokuapp.com/invite'
+				: 'http://localhost:5000/invite';
 
 		this.state = {
 			showModal: false,
@@ -125,7 +128,7 @@ class MessageBoard extends React.Component {
 	inviteSubmitHandler(e) {
 		e.preventDefault();
 		axios
-			.post(this.url, { email: this.state.email, number: this.state.number })
+			.post(this.URI, { email: this.state.email, number: this.state.number })
 			.then(res => {
 				this.setState({
 					email: ''

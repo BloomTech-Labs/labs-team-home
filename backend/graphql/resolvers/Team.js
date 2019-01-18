@@ -3,6 +3,8 @@ const Team = require('../../models/Team');
 const teamResolvers = {
 	Query: {
 		teams: () => Team.find().populate('users'),
+		findTeamsByUser: (_, { input: { user } }) =>
+			Team.find({ users: { user: user } }),
 		findTeam: (_, { input }) => {
 			return Team.findById(input).populate('users');
 		}
