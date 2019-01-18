@@ -7,25 +7,29 @@
 //
 
 import UIKit
+import Apollo
 
 class TeamDetailTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadUsers()
 
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 2
+        return users?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TeamMemberCell", for: indexPath)
 
-        // Configure the cell...
+        guard let user = users?[indexPath.row] else { return UITableViewCell() }
+        
+        cell.textLabel?.text = user.firstName
 
         return cell
     }
@@ -43,11 +47,34 @@ class TeamDetailTableViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
     }
+    
+    private func loadUsers() {
+        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let users = result?.data?.users else { return }
+            self.users = users
+        }
+    }
+    
+    // MARK - Properties
+    var users: [QueryNameQuery.Data.User?]? {
+        didSet {
+            if isViewLoaded {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    var watcher: GraphQLQueryWatcher<QueryNameQuery>?
+    
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var addMembersButton: UIButton!
     

@@ -5,6 +5,10 @@ const configureMiddleware = require('./config');
 const app = express();
 configureMiddleware(app);
 
+//stripe
+configureRoutes = require('./stripe/routes');
+configureRoutes(app);
+
 app.post('/invite', (req, res) => {
 	const sgMail = require('@sendgrid/mail');
 	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
