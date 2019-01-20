@@ -10,6 +10,9 @@ const BtnStyled = styled.button`
 	padding: 0.25em 1em;
 	border: 2px solid gray;
 	border-radius: 3px;
+	&:hover {
+		background-color: #17151b;
+	}
 `;
 
 const Button = props => {

@@ -12,6 +12,8 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   body {
+    width:100vw;
+    margin:0;
     background-color:#17151B;
     color: ${props => (props.whiteColor ? 'white' : 'black')};
   }
