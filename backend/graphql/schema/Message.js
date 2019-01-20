@@ -7,7 +7,7 @@ const Message = /* GraphQL */ `
 		content: String!
 		images: [String]
 		tags: [Tag]
-		comments: [MsgComment]
+		comments: [ID]
 		subscribedUsers: [User]
 		createdAt: String
 		updatedAt: String

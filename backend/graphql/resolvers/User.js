@@ -1,30 +1,20 @@
 const User = require('../../models/User');
+const Message = require('../../models/Message');
+const MsgComment = require('../../models/MsgComment');
+const Team = require('../../models/Team');
+
+const { ValidationError } = require('apollo-server-express');
 
 const userResolvers = {
 	Query: {
 		users: () => User.find(),
 		currentUser: (_, args, { user: { _id } }) => User.findById(_id),
-		findUser: (_, { input: { id } }) => {
-			return User.findById(id);
-		}
+		findUser: (_, { input: { id } }) => User.findById(id)
 	},
 	Mutation: {
-		addUser: (_, { input }) => {
-			return new User(input).save();
-		},
-		updateUser: (_, { input }, { user: { _id } }) => {
-			const { firstName, lastName, email, toggles } = input;
-			if (
-				!firstName &&
-				!lastName &&
-				!email &&
-				!toggles.receiveEmails &&
-				!toggles.receiveTexts
-			)
-				throw new Error(
-					'No id, first name, last name, email, or toggles provided.'
-				);
-			return User.findById(_id).then(exists => {
+		addUser: (_, { input }) => new User(input).save(),
+		updateUser: (_, { input }, { user: { _id } }) =>
+			User.findById(_id).then(exists => {
 				if (exists) {
 					return User.findOneAndUpdate(
 						{ _id: _id },
@@ -32,18 +22,29 @@ const userResolvers = {
 						{ new: true }
 					);
 				} else {
-					throw new Error("User doesn't exist");
+					throw new ValidationError("User doesn't exist");
 				}
-			});
-		},
-		deleteUser: (_, { input: { id } }) => {
-			return User.findById(id).then(user => {
-				if (user) return User.findOneAndDelete({ _id: id });
-				else {
-					throw new Error("User doesn't exist");
+			}),
+		deleteUser: (_, args, { user: { _id } }) =>
+			User.findById(_id).then(async foundUser => {
+				if (foundUser) {
+					await User.findOneAndDelete({ _id: _id });
+					const messages = await Message.find({ user: _id }); // finds all messages posted by the user
+					await Promise.all(
+						messages.map(
+							message => MsgComment.deleteMany({ message: message._id }) // deletes all comments associated with those messages
+						)
+					);
+					await Team.updateMany(
+						{ 'users.user': _id },
+						{ $pull: { users: { user: _id } } } // removes user from all teams they were on
+					);
+					await Message.deleteMany({ user: _id }); // deletes all of the messages
+					return foundUser;
+				} else {
+					throw new ValidationError("User doesn't exist");
 				}
-			});
-		}
+			})
 	}
 };
 

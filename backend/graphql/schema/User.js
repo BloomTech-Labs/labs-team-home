@@ -36,9 +36,6 @@ const User = /* GraphQL */ `
 		receiveEmails: Boolean
 		receiveTexts: Boolean
 	}
-	input DeleteUserInput {
-		id: ID!
-	}
 	extend type Query {
 		users: [User]
 		currentUser: User
@@ -47,7 +44,7 @@ const User = /* GraphQL */ `
 	extend type Mutation {
 		addUser(input: AddUserInput!): User
 		updateUser(input: UpdateUserInput!): User
-		deleteUser(input: DeleteUserInput!): User
+		deleteUser: User
 	}
 `;
 

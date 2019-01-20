@@ -84,7 +84,7 @@ module.exports = app => {
 													const altFirstName = fullName[0];
 													const altLastName = fullName.slice(1).join(' ');
 													return new UserModel({
-														authId: sub,
+														authId: decoded.sub,
 														firstName: given_name || altFirstName,
 														lastName: family_name || altLastName,
 														email: email,
