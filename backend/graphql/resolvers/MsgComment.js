@@ -20,14 +20,14 @@ const msgCommentResolvers = {
 				.then(async comment => {
 					const message = await Message.findOneAndUpdate(
 						// adds comment to parent Message
-						{ _id: message },
+						{ _id: input.message },
 						{ $push: { comments: [comment._id] } },
 						{ new: true }
 					).populate('team subscribedUsers');
 					const emails = message.subscribedUsers.map(
 						// creates an array of emails of subscribed users, if their email is on file and the user isn't the one adding the message
 						user =>
-							user.toggles.recieveEmails &&
+							user.toggles.receiveEmails &&
 							user.email &&
 							user._id !== _id &&
 							user.email
