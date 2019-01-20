@@ -1,6 +1,6 @@
 require('dotenv').config();
 const Message = require('../../models/Message');
-const User = require('../../models/User');
+const MsgComment = require('../../models/MsgComment');
 const sgMail = require('@sendgrid/mail');
 
 const {
@@ -17,9 +17,12 @@ const messageResolvers = {
 		messages: () =>
 			Message.find().populate('user team tags comments subscribedUsers'),
 		findMessage: (_, { input: { id } }) => {
-			return Message.findById(id).populate(
-				'user team tags comments subscribedUsers'
-			);
+			return Message.findById(id)
+				.populate('user team tags comments subscribedUsers')
+				.then(message => {
+					console.log(message);
+					return message;
+				});
 		},
 		findMessagesByTeam: (_, { input: { team } }) => {
 			return Message.find({ team: team }).populate(
@@ -28,53 +31,21 @@ const messageResolvers = {
 		}
 	},
 	Mutation: {
-		addMessage: (_, { input }) => {
-			const { title, user, content } = input;
-			if (!title && !user && !content)
+		addMessage: (_, { input }, { user: { _id } }) => {
+			const { title, content } = input;
+			if (!title && !content)
 				throw new Error('Title, user and content are required.');
-			return new Message(input).save().then(message => {
-				User.findById(user).then(
-					({
-						firstName,
-						email,
-						phoneNumber,
-						toggles: { receiveEmails, receiveTexts }
-					}) => {
-						const responseText = `Hi ${firstName}, you created a message with the title ${
-							message.title
-						}`;
-						phoneNumber &&
-							receiveTexts &&
-							textClient.messages
-								.create({
-									body: responseText,
-									from: TWILIO_NUMBER,
-									to: `+1${phoneNumber}`
-								})
-								.then(message => console.log(message.sid))
-								.catch(err => console.error(err))
-								.done();
-
-						email &&
-							receiveEmails &&
-							sgMail.send({
-								to: email,
-								from: 'test@example.com',
-								subject: 'You added a message on Team Home',
-								text: responseText,
-								html: /* HTML */ `
-									<div>
-										<h1>Team Home</h1>
-										<p>${responseText}</p>
-									</div>
-								`
-							});
-					}
+			return new Message({
+				...input,
+				user: _id,
+				subscribedUsers: [_id]
+			})
+				.save()
+				.then(message =>
+					message
+						.populate('user team tags comments subscribedUsers')
+						.execPopulate()
 				);
-				return message
-					.populate('user team tags comments subscribedUsers')
-					.execPopulate();
-			});
 		},
 		updateMessage: (_, { input }) => {
 			const {
@@ -116,7 +87,10 @@ const messageResolvers = {
 		},
 		deleteMessage: (_, { input: { id } }) => {
 			return Message.findById(id).then(message => {
-				if (message) return Message.findOneAndDelete({ _id: id });
+				if (message)
+					return Message.findOneAndDelete({ _id: id }).then(({ _id }) =>
+						MsgComment.deleteMany({ message: _id }).then(() => message)
+					);
 				else {
 					throw new Error("Message doesn't exist");
 				}

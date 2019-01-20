@@ -25,7 +25,6 @@ const User = /* GraphQL */ `
 		avatar: String
 	}
 	input UpdateUserInput {
-		id: ID!
 		firstName: String
 		lastName: String
 		email: String
@@ -42,6 +41,7 @@ const User = /* GraphQL */ `
 	}
 	extend type Query {
 		users: [User]
+		currentUser: User
 		findUser(input: FindUserInput): User
 	}
 	extend type Mutation {

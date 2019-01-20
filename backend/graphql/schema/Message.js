@@ -20,7 +20,6 @@ const Message = /* GraphQL */ `
 	}
 	input AddMessageInput {
 		title: String!
-		user: String!
 		team: String!
 		content: String!
 		images: [String]
@@ -30,7 +29,6 @@ const Message = /* GraphQL */ `
 	input UpdateMessageInput {
 		id: ID!
 		title: String
-		user: String
 		team: String
 		content: String
 		images: [String]

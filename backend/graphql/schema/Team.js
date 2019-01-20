@@ -16,9 +16,6 @@ const Team = /* GraphQL */ `
 	input FindTeamInput {
 		id: ID!
 	}
-	input FindTeamsByUserInput {
-		user: ID!
-	}
 	input AddTeamInput {
 		name: String!
 		users: [TeamUserInput]
@@ -36,7 +33,7 @@ const Team = /* GraphQL */ `
 	extend type Query {
 		teams: [Team]
 		findTeam(input: FindTeamInput): Team
-		findTeamsByUser(input: FindTeamsByUserInput): [Team]
+		findTeamsByUser: [Team]
 	}
 	extend type Mutation {
 		addTeam(input: AddTeamInput!): Team

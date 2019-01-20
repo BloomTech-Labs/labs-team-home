@@ -3,6 +3,7 @@ const User = require('../../models/User');
 const userResolvers = {
 	Query: {
 		users: () => User.find(),
+		currentUser: (_, args, { user: { _id } }) => User.findById(_id),
 		findUser: (_, { input: { id } }) => {
 			return User.findById(id);
 		}
@@ -11,10 +12,9 @@ const userResolvers = {
 		addUser: (_, { input }) => {
 			return new User(input).save();
 		},
-		updateUser: (_, { input }) => {
-			const { id, firstName, lastName, email, toggles } = input;
+		updateUser: (_, { input }, { user: { _id } }) => {
+			const { firstName, lastName, email, toggles } = input;
 			if (
-				!id &&
 				!firstName &&
 				!lastName &&
 				!email &&
@@ -24,10 +24,10 @@ const userResolvers = {
 				throw new Error(
 					'No id, first name, last name, email, or toggles provided.'
 				);
-			return User.findById(id).then(user => {
-				if (user) {
+			return User.findById(_id).then(exists => {
+				if (exists) {
 					return User.findOneAndUpdate(
-						{ _id: id },
+						{ _id: _id },
 						{ $set: input },
 						{ new: true }
 					);
