@@ -8,12 +8,13 @@ const BtnStyled = styled.button`
 	font-size: 1em;
 	margin: 0.5em;
 	padding: 0.25em 1em;
-	border: 2px solid gray;
-	border-radius: 3px;
+	border: 1px solid gray;
+	border-radius: 4px;
 	transition: 0.4s;
 	&:hover {
 		background-color: #f1fcef;
 		color: #17151b;
+		transform: scale(1.1, 1.1);
 	}
 `;
 
