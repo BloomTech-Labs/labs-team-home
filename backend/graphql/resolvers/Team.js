@@ -14,13 +14,10 @@ const teamResolvers = {
 	Mutation: {
 		addTeam: (_, { input }, { user: { _id } }) => {
 			const { name } = input;
-
 			if (!name) {
 				throw new Error('Name is required.');
 			} else {
-				const newTeam = { ...input, users: [{ user: _id, admin: true }] };
-				console.log(newTeam);
-				return new Team(newTeam)
+				return new Team({ ...input, users: [{ user: _id, admin: true }] })
 					.save()
 					.then(team => team.populate('users.user').execPopulate());
 			}
@@ -45,16 +42,17 @@ const teamResolvers = {
 		deleteTeam: (_, { input: { id } }) => {
 			return Team.findById(id).then(team => {
 				if (team) {
-					return Team.findOneAndDelete({ _id: id }).then(team => {
+					return Team.findOneAndDelete({ _id: id }).then(team =>
 						Message.find({ team: team._id }).then(messages =>
 							Promise.all(
 								messages.map(message =>
 									MsgComment.deleteMany({ message: message._id })
 								)
-							).then(() => Message.deleteMany({ team: team._id }))
-						);
-						return team;
-					});
+							)
+								.then(() => Message.deleteMany({ team: team._id }))
+								.then(() => team)
+						)
+					);
 				} else {
 					throw new Error("Team doesn't exist");
 				}
