@@ -18,6 +18,7 @@ module.exports = app => {
 	app.use(express.json());
 	app.use(cors());
 	app.use(helmet());
+	app.use(express.static('docs'));
 	mongoose
 		.connect(
 			MONGODB_URI,
