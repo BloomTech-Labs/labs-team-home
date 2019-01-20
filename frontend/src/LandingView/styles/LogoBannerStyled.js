@@ -9,12 +9,12 @@ const LogoBannerStyles = styled.div`
 	/* background: rgba(255, 255, 255, 0.6); */
 	background: linear-gradient(
 		to bottom,
-		rgba(255, 255, 255, 0.1) 0%,
-		rgba(255, 255, 255, 0) 20%,
-		rgba(255, 255, 255, 0) 40%,
-		rgba(255, 255, 255, 0) 60%,
-		rgba(255, 255, 255, 0) 80%,
-		rgba(255, 255, 255, 0.1) 100%
+		rgb(63, 31, 106, 0.2) 0%,
+		rgb(63, 31, 106, 0.1) 20%,
+		rgb(63, 31, 106, 0) 40%,
+		rgb(63, 31, 106, 0) 60%,
+		rgb(63, 31, 106, 0.1) 80%,
+		rgb(63, 31, 106, 0) 100%
 	);
 `;
 
@@ -23,6 +23,7 @@ const BannerStyles = styled.div`
 	width: 66%;
 	height: 160px;
 	margin: 0 auto;
+	color: #f1fcef;
 	margin-top: 3%;
 	display: flex;
 	font-size: 11rem;

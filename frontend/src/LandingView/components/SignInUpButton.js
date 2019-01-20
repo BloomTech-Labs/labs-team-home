@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // import BtnStyled from '../styles/SignInSignUpButtonStyled';
 
 const BtnStyled = styled.button`
-	color: white;
+	color: #f1fcef;
 	background: none;
 	font-size: 1em;
 	margin: 0.5em;
