@@ -10,8 +10,10 @@ const BtnStyled = styled.button`
 	padding: 0.25em 1em;
 	border: 2px solid gray;
 	border-radius: 3px;
+	transition: 0.4s;
 	&:hover {
-		background-color: #17151b;
+		background-color: #f1fcef;
+		color: #17151b;
 	}
 `;
 
