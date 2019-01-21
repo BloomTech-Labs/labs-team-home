@@ -5,7 +5,7 @@ const tagResolvers = {
 	Query: {
 		tags: () => Tag.find().populate('team'),
 		findTag: (_, { input }) => Tag.findById(input).populate('team'),
-		FindTagsByTeam: (_, { input: { team } }) =>
+		findTagsByTeam: (_, { input: { team } }) =>
 			Tag.find({ team: team }).populate('team')
 	},
 	Mutation: {
