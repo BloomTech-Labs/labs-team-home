@@ -212,9 +212,7 @@ class MessageBoard extends React.Component {
 									tags {
 										_id
 									}
-									comments {
-										_id
-									}
+									comments
 									subscribedUsers {
 										_id
 									}
@@ -234,7 +232,7 @@ class MessageBoard extends React.Component {
 							if (error) return <p>Error :(</p>;
 							let userInfo = findUser;
 							let mess = messages.filter(message => {
-								return message.user._id === this.state.user;
+								return message;
 							});
 							mess.sort((a, b) => {
 								if (a.updatedAt < b.updatedAt) return 1;
