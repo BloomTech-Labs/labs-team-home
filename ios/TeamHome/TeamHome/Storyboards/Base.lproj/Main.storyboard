@@ -96,7 +96,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="F8s-FV-Ag3">
-                                <rect key="frame" x="60" y="100" width="255" height="248.5"/>
+                                <rect key="frame" x="60" y="100" width="255" height="210.5"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Message Tab" translatesAutoresizingMaskIntoConstraints="NO" id="fw1-pX-lZQ">
                                         <rect key="frame" x="0.0" y="-259" width="255" height="255"/>
@@ -162,8 +162,8 @@
                                             <action selector="signUp:" destination="Kyj-50-e8Q" eventType="touchUpInside" id="Y0T-kN-cHc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYJ-Vp-4Df">
-                                        <rect key="frame" x="0.0" y="218.5" width="255" height="30"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYJ-Vp-4Df">
+                                        <rect key="frame" x="0.0" y="214.5" width="255" height="0.0"/>
                                         <state key="normal" title="Lock external sign up"/>
                                         <connections>
                                             <action selector="lockLogIn:" destination="Kyj-50-e8Q" eventType="touchUpInside" id="DIT-wa-hIs"/>
@@ -424,7 +424,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="18j-Cx-RBf">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test@gmail.com" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="18j-Cx-RBf">
                                                         <rect key="frame" x="57" y="0.0" width="346" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -441,7 +441,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7V6-Fa-7QN">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="800-432-4322" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7V6-Fa-7QN">
                                                         <rect key="frame" x="57" y="0.0" width="346" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>

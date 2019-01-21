@@ -12,14 +12,9 @@ import Lock
 import Auth0
 import JWTDecode
 
-var apollo: ApolloClient?
 let auth0DomainURLString = "teamhome.auth0.com"
 
 class LandingPageViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     // MARK - IBActions
     
@@ -38,34 +33,21 @@ class LandingPageViewController: UIViewController {
                         print("success")
                         
                         // Unwrap tokens to use for Apollo and to decode.
-                        guard let accessToken = credentials.accessToken,
-                            let idToken = credentials.idToken else { return }
-//                        print(accessToken)
-//                        print(credentials)
+                        guard let idToken = credentials.idToken else { return }
 
                         // Set up Apollo client with accessToken from auth0.
-//                        apollo = {
-//                            let configuration = URLSessionConfiguration.default
-//                            // Add additional headers as needed
-//                            configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
-//
-//                            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
-//
-//                            return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
-//                        }()
+                        self.setUpApollo(with: idToken)
                         
                         // Decode idToken into JSON Web Token for subject (also called sub) attribute.
                         do {
                             let jwt = try decode(jwt: idToken)
-                            let sub = jwt.subject
-                            // Fetch user with based on sub (auth0id property of User model).
-                        
+                            if let sub = jwt.subject {
+                                // Fetch user with based on sub (auth0id property of User model).
+                                self.fetchUser(with: sub)
+                            }
                         } catch {
-                            NSLog("Error decoding idToken")
+                            NSLog("Error decoding idToken for sub/user's auth0id")
                         }
-                        
-                        // Save credentials and user fetched to pass through performForSegue function.
-                        self.credentials = credentials
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -74,6 +56,7 @@ class LandingPageViewController: UIViewController {
                         print("failure: \(error)")
                         
                         // Present alert to user and bring back to landing page
+                        self.presentAlert(for: error)
                     }
                 }
         }
@@ -93,14 +76,31 @@ class LandingPageViewController: UIViewController {
                         // For testing
                         print("success")
                         
-                        // Save credentials to pass through performForSegue function.
-                        self.credentials = credentials
-                        // Perform segue to dashboard.
+                        // Unwrap tokens to use for Apollo and to decode.
+                        guard let idToken = credentials.idToken else { return }
+                        
+                        // Set up Apollo client with accessToken from auth0.
+                        self.setUpApollo(with: idToken)
+                        
+                        // Decode idToken into JSON Web Token for subject (also called sub) attribute.
+                        do {
+                            let jwt = try decode(jwt: idToken)
+                            if let sub = jwt.subject {
+                                // Fetch user with based on sub (auth0id property of User model).
+                                self.fetchUser(with: sub)
+                            }
+                        } catch {
+                            NSLog("Error decoding idToken for sub/user's auth0id")
+                        }
+                        
+                        // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         
-                    //Perform segue
                     case .failure(let error):
                         print("failure: \(error)")
+                        
+                        // Present alert to user and bring back to landing page
+                        self.presentAlert(for: error)
                     }
                 }
         }
@@ -120,13 +120,31 @@ class LandingPageViewController: UIViewController {
                         // For testing
                         print("success")
                         
-                        // Save credentials to pass through performForSegue function.
-                        self.credentials = credentials
-                        // Perform segue to dashboard.
+                        // Unwrap tokens to use for Apollo and to decode.
+                        guard let idToken = credentials.idToken else { return }
+                        
+                        // Set up Apollo client with accessToken from auth0.
+                        self.setUpApollo(with: idToken)
+                        
+                        // Decode idToken into JSON Web Token for subject (also called sub) attribute.
+                        do {
+                            let jwt = try decode(jwt: idToken)
+                            if let sub = jwt.subject {
+                                // Fetch user with based on sub (auth0id property of User model).
+                                self.fetchUser(with: sub)
+                            }
+                        } catch {
+                            NSLog("Error decoding idToken for sub/user's auth0id")
+                        }
+                        
+                        // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         
                     case .failure(let error):
                         print("failure: \(error)")
+                        
+                        // Present alert to user and bring back to landing page
+                        self.presentAlert(for: error)
                     }
                 }
         }
@@ -142,14 +160,39 @@ class LandingPageViewController: UIViewController {
                 scope: "openid profile")
             .start { result in
                 
+                DispatchQueue.main.async {
                     switch result {
                     case .success(let credentials):
-                        //success
-                        print(credentials)
+                        // For testing
+                        print("success")
+                        
+                        // Unwrap tokens to use for Apollo and to decode.
+                        guard let idToken = credentials.idToken else { return }
+                        
+                        // Set up Apollo client with accessToken from auth0.
+                        self.setUpApollo(with: idToken)
+                        
+                        // Decode idToken into JSON Web Token for subject (also called sub) attribute.
+                        do {
+                            let jwt = try decode(jwt: idToken)
+                            if let sub = jwt.subject {
+                                // Fetch user with based on sub (auth0id property of User model).
+                                self.fetchUser(with: sub)
+                            }
+                        } catch {
+                            NSLog("Error decoding idToken for sub/user's auth0id")
+                        }
+                        
+                        // Perform segue to Dashboard VC.
+                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        
                     case .failure(let error):
-                        //show alert
-                        print(error)
+                        print("failure: \(error)")
+                        
+                        // Present alert to user and bring back to landing page
+                        self.presentAlert(for: error)
                     }
+                }
         }
     }
     
@@ -199,22 +242,6 @@ class LandingPageViewController: UIViewController {
                 }
             }
             .present(from: self)
-        
-//        Auth0
-//            .webAuth()
-//            .scope("openid profile")
-//            .audience("https://teamhome.auth0.com/userinfo")
-//            .start {
-//                switch $0 {
-//                case .failure(let error):
-//                    // Handle the error
-//                    print("Error: \(error)")
-//                case .success(let credentials):
-//                    // Do something with credentials e.g.: save them.
-//                    // Auth0 will automatically dismiss the login page
-//                    print("Credentials: \(credentials)")
-//                }
-//        }
     }
     
     // MARK: - Navigation
@@ -224,18 +251,39 @@ class LandingPageViewController: UIViewController {
         if segue.identifier == "ShowDashboard" {
             guard let destinationVC = segue.destination as? DashboardCollectionViewController else { return }
             
-            // Pass variables to continue using API with access token and display correct user.
-            destinationVC.credentials = self.credentials
-            // Pass apollo client too?
+            // Pass Apollo client and user fetched from search
+            destinationVC.apollo = self.apollo
             // Pass user.
         }
     }
     
+    // MARK - Private Methods
+    
+    private func setUpApollo(with idToken: String) {
+        // Set up Apollo client with accessToken from auth0.
+        self.apollo = {
+            let configuration = URLSessionConfiguration.default
+            // Add additional headers as needed
+            configuration.httpAdditionalHeaders = ["Authorization": "\(idToken)"]
+            
+            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
+            
+            return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
+        }()
+    }
+    
+    private func fetchUser(with subId: String) {
+        
+    }
+    
+    private func presentAlert(for error: Error) {
+        
+    }
+    
     // MARK - Properties
     
-    //For testing connection to API
-    private var credentials: Credentials?
     private var user: User?
+    private var apollo: ApolloClient?
     
     //All IBOutlets on storyboard view scene
     @IBOutlet weak var logoImageView: UIImageView!

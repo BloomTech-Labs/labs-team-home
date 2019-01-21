@@ -10,8 +10,6 @@ import UIKit
 import Apollo
 import Lock
 
-//let apollo = ApolloClient(url: URL(string: "https://team-home.herokuapp.com/graphql")!)
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

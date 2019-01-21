@@ -102,4 +102,5 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     var watcher: GraphQLQueryWatcher<AllTeamsQuery>?
     var credentials: Credentials?
+    var apollo: ApolloClient?
 }

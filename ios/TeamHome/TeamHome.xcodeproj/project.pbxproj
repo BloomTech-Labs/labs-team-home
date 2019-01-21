@@ -135,7 +135,6 @@
 			children = (
 				7BD6589D21F00A55004FF34A /* API.swift */,
 				7BA77E6F21E6BAC400C862C1 /* Resources */,
-				7BA77E6E21E6BAB400C862C1 /* Apollo Client */,
 				7BA77E6D21E6BAAF00C862C1 /* Models */,
 				7BA77E6C21E6BAA600C862C1 /* View Controllers */,
 				7BA77E6B21E6BA9600C862C1 /* Storyboards */,
@@ -191,13 +190,6 @@
 				7BA77E8F21E7F68300C862C1 /* Tag.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		7BA77E6E21E6BAB400C862C1 /* Apollo Client */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Apollo Client";
 			sourceTree = "<group>";
 		};
 		7BA77E6F21E6BAC400C862C1 /* Resources */ = {
