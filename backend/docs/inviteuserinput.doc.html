@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="./styles/graphdoc.css" />
-    <title>TeamUserInput</title>
+    <title>InviteUserInput</title>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet"><link type="text/css" rel="stylesheet" href="./assets/code.css" /><link type="text/css" rel="stylesheet" href="./assets/require-by.css" />
 </head>
 <body class="slds-scrollable--y">
@@ -230,12 +230,12 @@
                 FindUserInput
             </a>
         </li>
-        <li  title="InviteUserInput">
+        <li class="slds-is-active" title="InviteUserInput">
             <a href="inviteuserinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 InviteUserInput
             </a>
         </li>
-        <li class="slds-is-active" title="TeamUserInput">
+        <li  title="TeamUserInput">
             <a href="teamuserinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 TeamUserInput
             </a>
@@ -306,7 +306,7 @@
     </div>
     <div class="container">
         <p class="slds-text-title--caps slds-text-color--weak">INPUT_OBJECT</p>
-        <h1 class="slds-text-heading--large">TeamUserInput</h1>
+        <h1 class="slds-text-heading--large">InviteUserInput</h1>
         <div class="slds-text-body--regular"></div>
     </div>
 </section>
@@ -318,7 +318,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:28px"><li><span class="keyword operator ts">input</span> <span class="identifier">TeamUserInput</span> {</li><li><span class="tab"><li><span class="tab"><span class="meta">user</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="meta">admin</span>: <a class="support type" href="boolean.doc.html">Boolean</a></span></li></span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:28px"><li><span class="keyword operator ts">input</span> <span class="identifier">InviteUserInput</span> {</li><li><span class="tab"><li><span class="tab"><span class="meta">id</span>: <a class="support type" href="id.doc.html">ID</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="meta">email</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="meta">phoneNumber</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>
@@ -329,7 +329,7 @@
             </a>
             Require by
         </h2>
-        <ul class="require-by"><li><a href="addteaminput.doc.html" title="AddTeamInput - ">AddTeamInput<em></em></a><li><li><a href="updateteaminput.doc.html" title="UpdateTeamInput - ">UpdateTeamInput<em></em></a><li></ul>
+        <ul class="require-by"><li><a href="mutation.doc.html" title="Mutation - ">Mutation<em></em></a><li></ul>
     </div>
 </section>
 <footer>
