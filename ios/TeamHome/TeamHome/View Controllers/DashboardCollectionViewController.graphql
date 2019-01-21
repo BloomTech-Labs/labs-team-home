@@ -1,5 +1,8 @@
-query AllTeams{
-    teams {
+query FindUsersTeams($userId: String){
+    findTeamsByUser(input: FindTeamsByUserInput) {
         name
     }
+}
+fragment input FindTeamsByUserInput {
+    user: $userId
 }
