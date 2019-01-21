@@ -8,7 +8,7 @@ export default class LandingView extends Component {
 	render() {
 		return (
 			<div>
-				<SignInSignUp />
+				<SignInSignUp history={this.props.history} />
 				<LogoBanner />
 			</div>
 		);

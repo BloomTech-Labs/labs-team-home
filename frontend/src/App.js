@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
+import { Switch, withRouter } from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 import LandingView from './LandingView/containers/LandingView';
-import { Route } from 'react-router-dom';
 import MessageBoard from './MessageBoard/components/MessageBoard';
-// import Dashboard from './DashboardView/containers/Dashboard';
-// import AuthRoute from './Auth/components/AuthRoute';
+import Dashboard from './DashboardView/containers/Dashboard';
 import SettingsView from './SettingsView/containers/SettingsView';
+
+import PrivateRoute from './utils/PrivateRoute';
+import PublicRoute from './utils/PublicRoute';
 
 class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Route exact path="/" component={LandingView} />
-				<Route path="/home" component={MessageBoard} />
-				{/* <AuthRoute path="/dashboard" component={Dashboard} /> */}
-				<Route path="/settings" component={SettingsView} />
+				<Switch>
+					<PublicRoute exact path="/" component={LandingView} />
+					<PrivateRoute path="/home" component={MessageBoard} />
+					<PrivateRoute path="/dashboard" component={Dashboard} />
+					<PrivateRoute path="/settings" component={SettingsView} />
+				</Switch>
 			</div>
 		);
 	}
 }
 
-export default App;
+export default withRouter(App);

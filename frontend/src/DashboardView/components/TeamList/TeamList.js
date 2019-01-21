@@ -11,7 +11,7 @@ const TeamList = () => (
 		<Query
 			query={gql`
 				{
-					teams {
+					findTeamsByUser {
 						_id
 						name
 						premium
@@ -19,11 +19,13 @@ const TeamList = () => (
 				}
 			`}
 		>
-			{({ loading, error, data: { teams } }) => {
+			{({ loading, error, data: { findTeamsByUser } }) => {
 				if (loading) return <p>Loading...</p>;
 				if (error) return <p>Error :(</p>;
 
-				return teams.map(team => <TeamCard key={team._id} team={team} />);
+				return findTeamsByUser.map(team => (
+					<TeamCard key={team._id} team={team} />
+				));
 			}}
 		</Query>
 	</s.Container>
