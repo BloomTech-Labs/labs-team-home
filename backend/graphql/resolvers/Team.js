@@ -1,7 +1,14 @@
 const Team = require('../../models/Team');
 const Message = require('../../models/Message');
 const MsgComment = require('../../models/MsgComment');
-const { ForbiddenError, ValidationError } = require('apollo-server-express');
+const User = require('../../models/User');
+const {
+	ForbiddenError,
+	ValidationError,
+	UserInputError
+} = require('apollo-server-express');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const teamResolvers = {
 	Query: {
@@ -51,7 +58,72 @@ const teamResolvers = {
 				} else {
 					throw new ValidationError("Team doesn't exist");
 				}
-			})
+			}),
+		inviteUser: (
+			_,
+			{ input: { id, email, phoneNumber } },
+			{ user: { firstName, lastName } }
+		) => {
+			let criteria;
+			if (email && phoneNumber) {
+				criteria = {
+					$or: [{ email: email }, { phoneNumber: phoneNumber }]
+				};
+			} else if (email && !phoneNumber) {
+				criteria = { email: email };
+			} else if (!email && phoneNumber) {
+				criteria = { phoneNumber: phoneNumber };
+			} else if (!email && !phoneNumber) {
+				throw new ValidationError('No email or phone number provided.');
+			}
+			return Team.findById(id).then(team => {
+				if (team) {
+					return User.find(criteria).then(users => {
+						if (users) {
+							const filteredUsers = users.filter(
+								user =>
+									!team.users.filter(
+										item => item.user.toString() !== user._id.toString()
+									).length
+							);
+							if (filteredUsers.length) {
+								const addedUsers = filteredUsers.map(({ _id }) => ({
+									user: _id,
+									admin: false
+								}));
+								sgMail.send({
+									// notifies subscribed users of the new comment
+									to: email,
+									from: `${team.name}@team.home`,
+									subject: `You been invited to ${team.name}`,
+									text: `You been invited to ${
+										team.name
+									} by ${firstName} ${lastName}`,
+									html: /* HTML */ `
+										<h1>${team.name}</h1>
+										<div>
+											<p>
+												You been invited to ${team.name} by ${firstName}
+												${lastName}
+											</p>
+										</div>
+									`
+								});
+								return Team.findOneAndUpdate(
+									{ _id: id },
+									{ $set: { users: [...team.users, ...addedUsers] } },
+									{ new: true }
+								).populate('users.user');
+							} else
+								throw new UserInputError('The user is already on the team.');
+						} else
+							throw new ValidationError(
+								'No user exists with that email or phone number.'
+							);
+					});
+				} else throw new ValidationError("Team doesn't exist");
+			});
+		}
 	}
 };
 
