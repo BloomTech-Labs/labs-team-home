@@ -233,24 +233,17 @@
                                         <rect key="frame" x="0.0" y="180.5" width="255" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BQ-VH-irT">
-                                                <rect key="frame" x="0.0" y="0.0" width="79.5" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="123.5" height="30"/>
                                                 <state key="normal" title="Google"/>
                                                 <connections>
                                                     <action selector="googleLogIn:" destination="Kyj-50-e8Q" eventType="touchUpInside" id="BSU-Cc-R2R"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yt5-n6-E0P">
-                                                <rect key="frame" x="87.5" y="0.0" width="80" height="30"/>
-                                                <state key="normal" title="Github"/>
+                                                <rect key="frame" x="131.5" y="0.0" width="123.5" height="30"/>
+                                                <state key="normal" title="Facebook"/>
                                                 <connections>
-                                                    <action selector="githubLogIn:" destination="Kyj-50-e8Q" eventType="touchUpInside" id="5xr-2Z-tse"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6aW-zx-whM">
-                                                <rect key="frame" x="175.5" y="0.0" width="79.5" height="30"/>
-                                                <state key="normal" title="LinkedIn"/>
-                                                <connections>
-                                                    <action selector="linkedInLogIn:" destination="Kyj-50-e8Q" eventType="touchUpInside" id="OkD-PD-o3o"/>
+                                                    <action selector="facebookLogIn:" destination="Kyj-50-e8Q" eventType="touchUpInside" id="50p-cq-UQe"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1157,6 +1150,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wDa-xh-TdJ"/>
-        <segue reference="bdp-MB-dr2"/>
+        <segue reference="n3L-aO-Bg3"/>
     </inferredMetricsTieBreakers>
 </document>

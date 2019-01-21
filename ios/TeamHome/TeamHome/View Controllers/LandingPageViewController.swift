@@ -63,55 +63,11 @@ class LandingPageViewController: UIViewController {
     }
     
     // Github Authentication through Web Auth.
-    @IBAction func githubLogIn(_ sender: Any) {
+    @IBAction func facebookLogIn(_ sender: Any) {
         Auth0
             .webAuth()
             .audience("https://" + auth0DomainURLString + "/userinfo")
-            .connection("github")
-            .scope("openid")
-            .start { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let credentials):
-                        // For testing
-                        print("success")
-                        
-                        // Unwrap tokens to use for Apollo and to decode.
-                        guard let idToken = credentials.idToken else { return }
-                        
-                        // Set up Apollo client with accessToken from auth0.
-                        self.setUpApollo(with: idToken)
-                        
-                        // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-                        do {
-                            let jwt = try decode(jwt: idToken)
-                            if let sub = jwt.subject {
-                                // Fetch user with based on sub (auth0id property of User model).
-                                self.fetchUser(with: sub)
-                            }
-                        } catch {
-                            NSLog("Error decoding idToken for sub/user's auth0id")
-                        }
-                        
-                        // Perform segue to Dashboard VC.
-                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
-                        
-                    case .failure(let error):
-                        print("failure: \(error)")
-                        
-                        // Present alert to user and bring back to landing page
-                        self.presentAlert(for: error)
-                    }
-                }
-        }
-    }
-    
-    // LinkedIn Authentication through Web Auth.
-    @IBAction func linkedInLogIn(_ sender: Any) {
-        Auth0
-            .webAuth()
-            .audience("https://" + auth0DomainURLString + "/userinfo")
-            .connection("linkedin")
+            .connection("facebook")
             .scope("openid")
             .start { result in
                 DispatchQueue.main.async {
