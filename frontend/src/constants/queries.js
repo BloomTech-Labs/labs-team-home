@@ -20,8 +20,8 @@ export const FIND_MESSAGES_BY_TEAM = gql`
 `;
 
 export const FIND_TAGS_BY_TEAM = gql`
-	query findTagsByTeams($id: ID) {
-		findTagsByTeams(input: { id: $id }) {
+	query findTagsByTeam($id: ID) {
+		findTagsByTeam(input: { id: $id }) {
 			...FullTag
 		}
 	}
