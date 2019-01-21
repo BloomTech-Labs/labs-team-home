@@ -13,8 +13,19 @@ const BtnContainer = styled.div`
 let btn1 = 'Login',
 	btn2 = 'Sign Up';
 
-const SignInSignUp = props => {
-	console.log(props);
+const SignInSignUp = ({ history }) => {
+	auth.lock.on('authenticated', ({ accessToken }) => {
+		localStorage.setItem('token', accessToken);
+		history.push('/dashboard');
+	});
+
+	const handleLogin = () => {
+		auth.login();
+	};
+
+	const handleSignUp = () => {
+		auth.signUp();
+	};
 	return (
 		<StyledSignInUp>
 			<BtnContainer>

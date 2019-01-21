@@ -29,10 +29,7 @@ export default class LandingView extends Component {
 	render() {
 		return (
 			<div>
-				<SignInSignUp
-					handleLogin={this.handleLogin}
-					handleSignUp={this.handleSignUp}
-				/>
+				<SignInSignUp history={this.props.history} />
 				<LogoBanner />
 			</div>
 		);

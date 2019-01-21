@@ -78,7 +78,10 @@ class MessageBoard extends React.Component {
 	constructor() {
 		super();
 		//temporary url
-		this.url = 'http://localhost:5000/invite';
+		this.URI =
+			process.env.NODE_ENV === 'production'
+				? 'https://team-home.herokuapp.com/invite'
+				: 'http://localhost:5000/invite';
 
 		this.state = {
 			showModal: false,
@@ -125,7 +128,7 @@ class MessageBoard extends React.Component {
 	inviteSubmitHandler(e) {
 		e.preventDefault();
 		axios
-			.post(this.url, { email: this.state.email, number: this.state.number })
+			.post(this.URI, { email: this.state.email, number: this.state.number })
 			.then(res => {
 				this.setState({
 					email: ''
@@ -209,9 +212,7 @@ class MessageBoard extends React.Component {
 									tags {
 										_id
 									}
-									comments {
-										_id
-									}
+									comments
 									subscribedUsers {
 										_id
 									}
@@ -231,7 +232,7 @@ class MessageBoard extends React.Component {
 							if (error) return <p>Error :(</p>;
 							let userInfo = findUser;
 							let mess = messages.filter(message => {
-								return message.user._id === this.state.user;
+								return message;
 							});
 							mess.sort((a, b) => {
 								if (a.updatedAt < b.updatedAt) return 1;
