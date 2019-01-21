@@ -21,7 +21,9 @@ export const FULL_TEAM = gql`
 		_id
 		name
 		users {
-			...FullUser
+			user {
+				...FullUser
+			}
 			admin
 		}
 		premium

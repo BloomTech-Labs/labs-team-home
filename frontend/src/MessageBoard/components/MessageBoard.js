@@ -7,6 +7,7 @@ import AddMessage from './AddMessage';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Invites from './Invites';
+import * as q from '../../constants/queries';
 
 const Messageboard = styled.div`
 	max-width: 800px;
@@ -196,50 +197,20 @@ class MessageBoard extends React.Component {
 				<MessagesContainer>
 					<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
 					<Query
-						query={gql`
-							{
-								messages {
-									_id
-									title
-									user {
-										_id
-									}
-									team {
-										_id
-									}
-									content
-									images
-									tags {
-										_id
-									}
-									comments
-									subscribedUsers {
-										_id
-									}
-									createdAt
-									updatedAt
-								}
-								findUser(input: { id: "5c3cdac285d92c646e97678d" }) {
-									firstName
-									lastName
-									avatar
-								}
-							}
-						`}
+						query={q.FIND_MESSAGES_BY_TEAM}
+						variables={{ team: this.props.match.params.team }}
 					>
-						{({ loading, error, data: { messages, findUser } }) => {
+						{({ loading, error, data: { findMessagesByTeam, findUser } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error :(</p>;
 							let userInfo = findUser;
-							let mess = messages.filter(message => {
-								return message.user._id === this.state.user;
-							});
-							mess.sort((a, b) => {
-								if (a.updatedAt < b.updatedAt) return 1;
-								if (a.updatedAt > b.updatedAt) return -1;
-								return 0;
-							});
-							return mess.map(message => (
+
+							// mess.sort((a, b) => {
+							// 	if (a.updatedAt < b.updatedAt) return 1;
+							// 	if (a.updatedAt > b.updatedAt) return -1;
+							// 	return 0;
+							// });
+							return findMessagesByTeam.map(message => (
 								<Message
 									message={message}
 									userInfo={userInfo}

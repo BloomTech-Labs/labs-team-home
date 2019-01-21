@@ -11,8 +11,8 @@ export const FIND_TEAMS_BY_USER = gql`
 `;
 
 export const FIND_MESSAGES_BY_TEAM = gql`
-	query findMessagesByTeam($id: ID) {
-		findMessagesByTeam(input: { id: $id }) {
+	query findMessagesByTeam($team: ID!) {
+		findMessagesByTeam(input: { team: $team }) {
 			...FullMessage
 		}
 	}

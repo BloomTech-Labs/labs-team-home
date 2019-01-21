@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Link } from 'react-router-dom';
 
 import * as s from './TeamList.styles';
 import * as q from '../../../constants/queries';
@@ -15,7 +15,9 @@ const TeamList = () => (
 				if (error) return <p>Error :(</p>;
 
 				return findTeamsByUser.map(team => (
-					<TeamCard key={team._id} team={team} />
+					<Link to={`/${team._id}/home`}>
+						<TeamCard key={team._id} team={team} />
+					</Link>
 				));
 			}}
 		</Query>
