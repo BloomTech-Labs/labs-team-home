@@ -18,7 +18,7 @@ class App extends Component {
 			<div className="App">
 				<Switch>
 					<PublicRoute exact path="/" component={LandingView} />
-					<PrivateRoute path="/:team/home" component={MessageBoard} />
+					<PrivateRoute path="/home" component={MessageBoard} />
 					<PrivateRoute path="/dashboard" component={Dashboard} />
 					<PrivateRoute path="/settings" component={SettingsView} />
 				</Switch>
