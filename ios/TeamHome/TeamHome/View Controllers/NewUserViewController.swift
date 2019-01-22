@@ -9,6 +9,7 @@
 
 import UIKit
 import Apollo
+import Auth0
 
 class NewUserViewController: UIViewController {
 
@@ -28,6 +29,7 @@ class NewUserViewController: UIViewController {
     
     // MARK - Properties
     var apollo: ApolloClient?
+    var user: DatabaseUser?
 
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var addRemoveAvatarButton: UIButton!

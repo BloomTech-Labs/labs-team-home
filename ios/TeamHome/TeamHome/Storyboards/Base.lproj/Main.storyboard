@@ -921,6 +921,14 @@
                                     </mask>
                                 </variation>
                                 <connections>
+                                    <outlet property="commentCountLabel" destination="xLt-Xv-KaW" id="hDo-YA-eXH"/>
+                                    <outlet property="commentIconImageView" destination="KcZ-9C-t5m" id="X5q-Yb-IgJ"/>
+                                    <outlet property="dateLabel" destination="0eM-ZR-Kny" id="oLB-2b-SYS"/>
+                                    <outlet property="firstNameLabel" destination="MLo-Zw-98i" id="WHa-Go-p0P"/>
+                                    <outlet property="imageAttachmentIconImageView" destination="0C9-XM-qbD" id="hL8-Hy-EAx"/>
+                                    <outlet property="messageBodyLabel" destination="9nz-ea-yaG" id="Cv5-06-mti"/>
+                                    <outlet property="messageTitleLabel" destination="KKc-4F-pEe" id="CWV-dj-wfc"/>
+                                    <outlet property="userAvatarImageView" destination="j21-KK-wUY" id="Tgy-XS-mWz"/>
                                     <segue destination="7dT-s8-dFc" kind="show" id="5La-6d-x4n"/>
                                 </connections>
                             </collectionViewCell>
@@ -1138,15 +1146,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Activity Tab" width="35" height="35"/>
-        <image name="Add Image" width="256" height="256"/>
-        <image name="Add Message" width="512" height="512"/>
-        <image name="Attachment Included" width="512" height="512"/>
-        <image name="Comment" width="512" height="512"/>
-        <image name="Image Included" width="512" height="512"/>
-        <image name="Message Tab" width="256" height="256"/>
-        <image name="Messages Tab" width="35" height="35"/>
-        <image name="Settings Tab" width="35" height="35"/>
+        <image name="Activity Tab" width="54.782608032226562" height="54.782608032226562"/>
+        <image name="Add Image" width="384" height="384"/>
+        <image name="Add Message" width="384" height="384"/>
+        <image name="Attachment Included" width="263.31430053710938" height="263.31430053710938"/>
+        <image name="Comment" width="460.79998779296875" height="460.79998779296875"/>
+        <image name="Image Included" width="384" height="384"/>
+        <image name="Message Tab" width="10.49957275390625" height="10.49957275390625"/>
+        <image name="Messages Tab" width="45" height="45"/>
+        <image name="Settings Tab" width="91.636360168457031" height="91.636360168457031"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wDa-xh-TdJ"/>

@@ -86,7 +86,7 @@ public final class QueryNameQuery: GraphQLQuery {
 
 public final class AllTeamsQuery: GraphQLQuery {
   public let operationDefinition =
-    "query AllTeams {\n  teams {\n    __typename\n    name\n  }\n}"
+    "query AllTeams {\n  teams {\n    __typename\n    name\n    _id\n  }\n}"
 
   public init() {
   }
@@ -123,6 +123,7 @@ public final class AllTeamsQuery: GraphQLQuery {
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -131,8 +132,8 @@ public final class AllTeamsQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String) {
-        self.init(unsafeResultMap: ["__typename": "Team", "name": name])
+      public init(name: String, id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Team", "name": name, "_id": id])
       }
 
       public var __typename: String {
@@ -150,6 +151,15 @@ public final class AllTeamsQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "name")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
         }
       }
     }

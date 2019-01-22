@@ -8,6 +8,7 @@
 
 import UIKit
 import Auth0
+import Apollo
 
 class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -41,15 +42,15 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ViewTeam" {
             guard let destinationVC = segue.destination as? TeamDetailTableViewController,
-                let credentials = credentials,
+                let apollo = apollo,
                 let team = team else { return }
-            destinationVC.credentials = credentials
+            destinationVC.apollo = apollo
             destinationVC.team = team
         }
     }
     
     var team: AllTeamsQuery.Data.Team?
-    var credentials: Credentials?
+    var apollo: ApolloClient?
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!

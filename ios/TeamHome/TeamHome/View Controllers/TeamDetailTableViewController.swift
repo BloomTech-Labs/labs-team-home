@@ -15,18 +15,7 @@ class TeamDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let credentials = credentials,
-            let idToken = credentials.idToken else { return }
-        
-        let apollo: ApolloClient = {
-            let configuration = URLSessionConfiguration.default
-            // Add additional headers as needed
-            configuration.httpAdditionalHeaders = ["Authorization": "\(idToken)"]
-            
-            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
-            
-            return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
-        }()
+        guard let apollo = apollo else { return }
         
         loadUsers(with: apollo)
 
@@ -89,7 +78,7 @@ class TeamDetailTableViewController: UITableViewController {
     }
     
     var watcher: GraphQLQueryWatcher<QueryNameQuery>?
-    var credentials: Credentials?
+    var apollo: ApolloClient?
     var team: AllTeamsQuery.Data.Team?
     
     @IBOutlet weak var teamNameLabel: UILabel!

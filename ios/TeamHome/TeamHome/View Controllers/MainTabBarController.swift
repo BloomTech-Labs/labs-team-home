@@ -12,7 +12,7 @@ import Auth0
 
 protocol TabBarChildrenProtocol: class {
     var team: AllTeamsQuery.Data.Team? { get set }
-    var credentials: Credentials? { get set }
+    var apollo: ApolloClient? { get set }
 }
 
 class MainTabBarController: UITabBarController {

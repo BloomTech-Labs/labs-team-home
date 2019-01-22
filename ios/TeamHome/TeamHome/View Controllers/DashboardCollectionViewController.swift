@@ -15,20 +15,17 @@ class DashboardCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let credentials = credentials,
-            let accessToken = credentials.accessToken,
-            let idToken = credentials.idToken else { return }
-        print (accessToken)
+        guard let apollo = apollo else { return }
 
-        let apollo: ApolloClient = {
-            let configuration = URLSessionConfiguration.default
-            
-            configuration.httpAdditionalHeaders = ["Authorization": "\(idToken)"]
-            
-            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
-            
-            return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
-        }()
+//        let apollo: ApolloClient = {
+//            let configuration = URLSessionConfiguration.default
+//
+//            configuration.httpAdditionalHeaders = ["Authorization": "\(idToken)"]
+//
+//            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
+//
+//            return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
+//        }()
         
         loadTeams(with: apollo)
     }
@@ -41,7 +38,6 @@ class DashboardCollectionViewController: UICollectionViewController {
         if segue.identifier == "ShowMainTabBar" {
             guard let destinationVC = segue.destination as? MainTabBarController,
                 let teams = teams,
-                let credentials = credentials,
                 let indexPaths = collectionView.indexPathsForSelectedItems,
                 let indexPath = indexPaths.first else { return }
             
@@ -51,7 +47,7 @@ class DashboardCollectionViewController: UICollectionViewController {
                     if let nextVC = nextVC as? TabBarChildrenProtocol {
                         let team = teams[indexPath.row]
                         nextVC.team = team
-                        nextVC.credentials = credentials
+                        nextVC.apollo = apollo
                     }
                 }
             }
@@ -78,6 +74,8 @@ class DashboardCollectionViewController: UICollectionViewController {
     // MARK - Private Methods
     
     private func loadTeams(with apollo: ApolloClient) {
+        let userId = ""
+        
         watcher = apollo.watch(query: AllTeamsQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
@@ -101,6 +99,5 @@ class DashboardCollectionViewController: UICollectionViewController {
     }
     
     var watcher: GraphQLQueryWatcher<AllTeamsQuery>?
-    var credentials: Credentials?
     var apollo: ApolloClient?
 }

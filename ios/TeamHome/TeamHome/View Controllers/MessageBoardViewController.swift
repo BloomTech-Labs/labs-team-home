@@ -32,9 +32,9 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         //Pass Team info to Team detail VC
         if segue.identifier == "ViewTeam" {
             guard let destinationVC = segue.destination as? TeamDetailTableViewController,
-                let credentials = credentials,
+                let apollo = apollo,
                 let team = team else { return }
-            destinationVC.credentials = credentials
+            destinationVC.apollo = apollo
             destinationVC.team = team
         }
         
@@ -53,7 +53,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     var user: User?
     var team: AllTeamsQuery.Data.Team?
-    var credentials: Credentials?
+    var apollo: ApolloClient?
     
     @IBOutlet weak var teamNameLabel: UILabel!
     
