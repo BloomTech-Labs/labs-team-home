@@ -501,6 +501,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlH-rI-sij">
                                                 <rect key="frame" x="0.0" y="187.5" width="403" height="30"/>
                                                 <state key="normal" title="Add/Remove Avatar"/>
+                                                <connections>
+                                                    <action selector="addRemoveAvatar:" destination="MeU-xO-Ld3" eventType="touchUpInside" id="Q5E-f7-Hfj"/>
+                                                </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Jaz-0w-qEs">
                                                 <rect key="frame" x="0.0" y="225.5" width="403" height="30"/>

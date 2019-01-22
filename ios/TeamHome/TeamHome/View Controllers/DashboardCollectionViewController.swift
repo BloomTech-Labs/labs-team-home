@@ -17,6 +17,7 @@ class DashboardCollectionViewController: UICollectionViewController {
         guard let apollo = apollo else { return }
         
         loadTeams(with: apollo)
+        presentWelcomeAlert(with: apollo)
     }
 
 
@@ -64,9 +65,7 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     private func loadTeams(with apollo: ApolloClient) {
         
-        let id = ""
-        
-        watcher = apollo.watch(query: FindTeamsByUserQuery(userId: id)) { (result, error) in
+        watcher = apollo.watch(query: FindTeamsByUserQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
@@ -76,6 +75,10 @@ class DashboardCollectionViewController: UICollectionViewController {
         }
     }
 
+    private func presentWelcomeAlert(with apollo: ApolloClient) {
+        
+    }
+    
     // MARK - Properties
     
     var teams: [FindTeamsByUserQuery.Data.FindTeamsByUser?]? {
@@ -90,4 +93,5 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     var watcher: GraphQLQueryWatcher<FindTeamsByUserQuery>?
     var apollo: ApolloClient?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
 }

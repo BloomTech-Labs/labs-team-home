@@ -7,9 +7,19 @@
 //
 
 import UIKit
+import Apollo
 
 class MessageCollectionViewCell: UICollectionViewCell {
     
+    private func updateViews() {
+        
+    }
+    
+    var message: FindMessagesByTeamQuery.Data.FindMessagesByTeam? {
+        didSet {
+            self.updateViews()
+        }
+    }
     
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!

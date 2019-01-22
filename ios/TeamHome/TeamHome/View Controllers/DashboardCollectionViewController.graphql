@@ -1,7 +1,5 @@
-query findTeamsByUser($userId: ID!){
-    findTeamsByUser(input: {
-                    user: $userId
-                    }) {
+query findTeamsByUser {
+    findTeamsByUser {
         name
         _id
     }

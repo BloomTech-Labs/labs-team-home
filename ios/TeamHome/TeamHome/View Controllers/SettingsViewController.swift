@@ -8,9 +8,10 @@
 
 import UIKit
 import Cloudinary
+import Photos
 import Apollo
 
-class SettingsViewController: UIViewController, TabBarChildrenProtocol {
+class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,22 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol {
         }
     }
     
+    @IBAction func addRemoveAvatar(_ sender: Any) {
+        let status = PHPhotoLibrary.authorizationStatus()
+        
+        if status == .authorized {
+            presentImagePickerController()
+        } else if status == .notDetermined {
+            PHPhotoLibrary.requestAuthorization { (authorizationStatus) in
+                if authorizationStatus == .authorized {
+                    self.presentImagePickerController()
+                } else {
+                    // Set alert to change settings
+                }
+            }
+        }
+    }
+    
     @IBAction func saveChanges(_ sender: Any) {
         
         guard let apollo = apollo,
@@ -61,9 +78,24 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol {
         
         let receiveEmails = emailSwitch.isOn
         let receiveTexts = textSMSSwitch.isOn
-        let id = ""
         
-        apollo.perform(mutation: UpdateUserMutation(id: id, firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: "", receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (result, error) in
+        guard let imageData = imageData else {
+            
+            
+            return
+            
+        }
+        
+        let params = CLDUploadRequestParams()
+        
+        cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
+            //Show progress
+        }) { (result, error) in
+            
+        }
+        
+        
+        apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: "", receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
@@ -72,6 +104,19 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol {
     }
     
     @IBAction func changePassword(_ sender: Any) {
+    }
+    
+    // MARK - UIImagePickerControllerDelegate
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[.originalImage] as? UIImage else { return }
+        
+        userAvatarImageView.image = image
+        guard let imageData: Data = image.jpegData(compressionQuality: 0) else { return }
+        self.imageData = imageData
+        
     }
     
     // MARK - Private Methods
@@ -95,10 +140,22 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol {
 //        }
     }
     
+    private func presentImagePickerController() {
+        
+        let imagePicker = UIImagePickerController()
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
     // MARK - Properties
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    private var imageData: Data?
     
     @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var showHideBillingButton: UIButton!

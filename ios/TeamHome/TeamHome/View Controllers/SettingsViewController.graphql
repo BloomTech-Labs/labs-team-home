@@ -1,6 +1,5 @@
-mutation UpdateUser($id: ID!, $firstName: String, $lastName: String, $email: String, $phoneNumber: String, $avatar: String, $receiveEmails: Boolean, $receiveTexts: Boolean) {
+mutation UpdateUser($firstName: String, $lastName: String, $email: String, $phoneNumber: String, $avatar: String, $receiveEmails: Boolean, $receiveTexts: Boolean) {
     updateUser(input: {
-               id: $id
                firstName: $firstName
                lastName: $lastName
                email: $email
