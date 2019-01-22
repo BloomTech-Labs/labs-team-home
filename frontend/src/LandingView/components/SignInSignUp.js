@@ -17,8 +17,8 @@ const SignInSignUp = ({ handleLogin, handleSignUp }) => {
 	return (
 		<StyledSignInUp>
 			<BtnContainer>
-				<Button btnprop={btn1} handleClick={handleLogin} />
-				<Button btnprop={btn2} handleClick={handleSignUp} />
+				<Button btnprop={btn1} handleClick={props.handleLogin} />
+				<Button btnprop={btn2} handleClick={props.handleSignUp} />
 			</BtnContainer>
 		</StyledSignInUp>
 	);
