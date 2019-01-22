@@ -93,7 +93,6 @@ export default function AddMessage(props) {
 						<form
 							onSubmit={e => {
 								e.preventDefault();
-
 								//create newMessage object using the variables created in advance
 
 								let newMessage = {
@@ -104,7 +103,15 @@ export default function AddMessage(props) {
 									images: images
 								};
 								//pass newMessage object as a variable to addMessage mutation
-								addMessage({ variables: newMessage });
+								addMessage({ variables: newMessage })
+									.then(res => {
+										console.log('response', res);
+										alert('Message added');
+										window.location.reload(true);
+									})
+									.catch(err => {
+										console.error(err);
+									});
 								//reset title, content, and images
 								title.value = '';
 								content.value = '';
