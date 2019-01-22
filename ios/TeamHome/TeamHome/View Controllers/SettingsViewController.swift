@@ -51,39 +51,66 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol {
         }
     }
     
-    private func loadUserSettings(with apollo: ApolloClient) {
+    @IBAction func saveChanges(_ sender: Any) {
         
-        let downloader: CLDDownloader = cloudinary.createDownloader()
+        guard let apollo = apollo,
+            let firstName = firstNameTextField.text,
+            let lastName = lastNameTextField.text,
+            let email = emailTextField.text,
+            let phoneNumber = phoneTextField.text else { return }
         
-        downloader.fetchImage("https://res.cloudinary.com/massamb/image/upload/v1547755535/hluogc6lsro0kye4br3e.png", { (progress) in
-            // Show progress
-        }) { (image, error) in
+        let receiveEmails = emailSwitch.isOn
+        let receiveTexts = textSMSSwitch.isOn
+        let id = ""
+        
+        apollo.perform(mutation: UpdateUserMutation(id: id, firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: "", receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (result, error) in
             if let error = error {
-                print("\(error)")
-            }
-            
-            guard let image = image else { return }
-            
-            DispatchQueue.main.async {
-                self.userAvatarImageView.image = image
+                NSLog("\(error)")
             }
         }
+        
+    }
+    
+    @IBAction func changePassword(_ sender: Any) {
+    }
+    
+    // MARK - Private Methods
+    
+    private func loadUserSettings(with apollo: ApolloClient) {
+        
+//        let downloader: CLDDownloader = cloudinary.createDownloader()
+//
+//        downloader.fetchImage("https://res.cloudinary.com/massamb/image/upload/v1547755535/hluogc6lsro0kye4br3e.png", { (progress) in
+//            // Show progress
+//        }) { (image, error) in
+//            if let error = error {
+//                print("\(error)")
+//            }
+//
+//            guard let image = image else { return }
+//
+//            DispatchQueue.main.async {
+//                self.userAvatarImageView.image = image
+//            }
+//        }
     }
     
     // MARK - Properties
     
     var apollo: ApolloClient?
-    var team: AllTeamsQuery.Data.Team?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     
     @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var showHideBillingButton: UIButton!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var addRemoveImageButton: UIButton!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
-    @IBOutlet weak var receiveEmails: UIButton!
-    @IBOutlet weak var receiveTexts: UIButton!
+    @IBOutlet weak var emailSwitch: UISwitch!
+    @IBOutlet weak var textSMSSwitch: UISwitch!
     @IBOutlet weak var oldPasswordTextField: UITextField!
     @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var accountStackView: UIStackView!

@@ -55,16 +55,16 @@ class MessagesCollectionViewController: UICollectionViewController {
     }
     
     // MARK - Properties
-    var users: [QueryNameQuery.Data.User?]? {
-        didSet {
-            if isViewLoaded {
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        }
-    }
+//    var users: [QueryNameQuery.Data.User?]? {
+//        didSet {
+//            if isViewLoaded {
+//                DispatchQueue.main.async {
+//                    self.collectionView.reloadData()
+//                }
+//            }
+//        }
+//    }
     
-    var watcher: GraphQLQueryWatcher<QueryNameQuery>?
+//    var watcher: GraphQLQueryWatcher<QueryNameQuery>?
     var apollo: ApolloClient?
 }
