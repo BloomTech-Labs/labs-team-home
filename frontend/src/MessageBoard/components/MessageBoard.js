@@ -220,6 +220,7 @@ class MessageBoard extends React.Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error :(</p>;
 							let userInfo = findUser;
+
 							// let mess = messages.filter(message => {
 							// 	return message.user._id === this.state.user;
 							// });
