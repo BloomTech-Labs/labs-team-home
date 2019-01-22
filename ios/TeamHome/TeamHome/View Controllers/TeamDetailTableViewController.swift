@@ -8,13 +8,16 @@
 
 import UIKit
 import Apollo
+import Auth0
 
 class TeamDetailTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadUsers()
+        guard let apollo = apollo else { return }
+        
+        loadUsers(with: apollo)
 
     }
 
@@ -30,7 +33,8 @@ class TeamDetailTableViewController: UITableViewController {
         guard let user = users?[indexPath.row] else { return UITableViewCell() }
         
         cell.textLabel?.text = user.firstName
-
+        cell.detailTextLabel?.text = user.email
+        
         return cell
     }
 
@@ -51,7 +55,7 @@ class TeamDetailTableViewController: UITableViewController {
     
     }
     
-    private func loadUsers() {
+    private func loadUsers(with apollo: ApolloClient) {
         watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
@@ -74,6 +78,8 @@ class TeamDetailTableViewController: UITableViewController {
     }
     
     var watcher: GraphQLQueryWatcher<QueryNameQuery>?
+    var apollo: ApolloClient?
+    var team: AllTeamsQuery.Data.Team?
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var addMembersButton: UIButton!

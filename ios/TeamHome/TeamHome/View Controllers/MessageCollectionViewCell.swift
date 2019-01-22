@@ -16,7 +16,6 @@ class MessageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var messageBodyLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var tagIconImageView: UIImageView!
     @IBOutlet weak var imageAttachmentIconImageView: UIImageView!
     @IBOutlet weak var commentCountLabel: UILabel!
     @IBOutlet weak var commentIconImageView: UIImageView!

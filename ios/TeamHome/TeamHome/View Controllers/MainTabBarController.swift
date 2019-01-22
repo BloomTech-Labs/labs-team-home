@@ -7,13 +7,28 @@
 //
 
 import UIKit
+import Apollo
+import Auth0
+
+protocol TabBarChildrenProtocol: class {
+    var team: AllTeamsQuery.Data.Team? { get set }
+    var apollo: ApolloClient? { get set }
+}
 
 class MainTabBarController: UITabBarController {
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //Pass user info to all child VCs
+        //Pass variables to all child VCs
+//        for childVC in children {
+//            if let childVC = childVC as? UINavigationController {
+//                guard let nextVC = childVC.viewControllers.first else { return }
+//                if let nextVC = nextVC as? TabBarChildrenProtocol {
+//                    guard let team = team else { return }
+//                    nextVC.team = team
+//                }
+//            }
+//        }
     }
-
 }

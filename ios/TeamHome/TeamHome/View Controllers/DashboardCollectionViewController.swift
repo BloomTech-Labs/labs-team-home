@@ -8,21 +8,50 @@
 
 import UIKit
 import Apollo
+import Auth0
 
 class DashboardCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let apollo = apollo else { return }
 
-        loadTeams()
+//        let apollo: ApolloClient = {
+//            let configuration = URLSessionConfiguration.default
+//
+//            configuration.httpAdditionalHeaders = ["Authorization": "\(idToken)"]
+//
+//            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
+//
+//            return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
+//        }()
+        
+        loadTeams(with: apollo)
     }
 
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "ShowMainTabBar" {
+            guard let destinationVC = segue.destination as? MainTabBarController,
+                let teams = teams,
+                let indexPaths = collectionView.indexPathsForSelectedItems,
+                let indexPath = indexPaths.first else { return }
+            
+            for childVC in destinationVC.children {
+                if let childVC = childVC as? UINavigationController {
+                    guard let nextVC = childVC.viewControllers.first else { return }
+                    if let nextVC = nextVC as? TabBarChildrenProtocol {
+                        let team = teams[indexPath.row]
+                        nextVC.team = team
+                        nextVC.apollo = apollo
+                    }
+                }
+            }
+        }
     }
 
 
@@ -30,13 +59,13 @@ class DashboardCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags?.count ?? 0
+        return teams?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamCell", for: indexPath) as! TeamCollectionViewCell
     
-        guard let team = tags?[indexPath.row] else { return UICollectionViewCell()}
+        guard let team = teams?[indexPath.row] else { return UICollectionViewCell()}
         cell.teamNameLabel.text = team.name
     
         return cell
@@ -44,20 +73,22 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     // MARK - Private Methods
     
-    private func loadTeams() {
-        watcher = apollo.watch(query: AllTagsQuery()) { (result, error) in
+    private func loadTeams(with apollo: ApolloClient) {
+        let userId = ""
+        
+        watcher = apollo.watch(query: AllTeamsQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
-            guard let tags = result?.data?.tags else { return }
-            self.tags = tags
+            guard let teams = result?.data?.teams else { return }
+            self.teams = teams
         }
     }
 
     // MARK - Properties
     
-    var tags: [AllTagsQuery.Data.Tag?]? {
+    var teams: [AllTeamsQuery.Data.Team?]? {
         didSet {
             if isViewLoaded {
                 DispatchQueue.main.async {
@@ -67,5 +98,6 @@ class DashboardCollectionViewController: UICollectionViewController {
         }
     }
     
-    var watcher: GraphQLQueryWatcher<AllTagsQuery>?
+    var watcher: GraphQLQueryWatcher<AllTeamsQuery>?
+    var apollo: ApolloClient?
 }

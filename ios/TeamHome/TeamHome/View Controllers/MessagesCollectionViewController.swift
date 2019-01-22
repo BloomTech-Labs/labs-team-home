@@ -14,8 +14,10 @@ class MessagesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let apollo = apollo else { return }
+        
         //Load messages with watcher 
-        //loadMessages()
+        loadMessages(with: apollo)
     }
     // MARK: - Navigation
 
@@ -41,15 +43,15 @@ class MessagesCollectionViewController: UICollectionViewController {
     
     // MARK - Private Methods
     
-    private func loadMessages() {
-        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-            }
-            
-            guard let users = result?.data?.users else { return }
-            self.users = users
-        }
+    private func loadMessages(with apollo: ApolloClient) {
+//        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
+//            if let error = error {
+//                NSLog("\(error)")
+//            }
+//            
+//            guard let users = result?.data?.users else { return }
+//            self.users = users
+//        }
     }
     
     // MARK - Properties
@@ -64,4 +66,5 @@ class MessagesCollectionViewController: UICollectionViewController {
     }
     
     var watcher: GraphQLQueryWatcher<QueryNameQuery>?
+    var apollo: ApolloClient?
 }

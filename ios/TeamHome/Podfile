@@ -11,5 +11,6 @@ target 'TeamHome' do
   pod 'Lock', '~> 2.0'
   pod 'Auth0', '~> 1.0'
   pod 'Cloudinary', '~> 2.0'
+  pod 'JWTDecode', '~> 2.2'
 
 end

@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import Cloudinary
+import Apollo
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, TabBarChildrenProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let apollo = apollo else { return }
+        
         // Distinguish if you is admin or not
         
         // Load user's account settings
+        loadUserSettings(with: apollo)
     }
     
     // MARK - IBActions
@@ -46,7 +51,29 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    private func loadUserSettings(with apollo: ApolloClient) {
+        
+        let downloader: CLDDownloader = cloudinary.createDownloader()
+        
+        downloader.fetchImage("https://res.cloudinary.com/massamb/image/upload/v1547755535/hluogc6lsro0kye4br3e.png", { (progress) in
+            // Show progress
+        }) { (image, error) in
+            if let error = error {
+                print("\(error)")
+            }
+            
+            guard let image = image else { return }
+            
+            DispatchQueue.main.async {
+                self.userAvatarImageView.image = image
+            }
+        }
+    }
+    
     // MARK - Properties
+    
+    var apollo: ApolloClient?
+    var team: AllTeamsQuery.Data.Team?
     
     @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var showHideBillingButton: UIButton!

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Apollo
 
 class MessageDetailViewController: UIViewController {
 
@@ -22,6 +23,9 @@ class MessageDetailViewController: UIViewController {
 
     }
     
+    // MARK - Properties
+    
+    var apollo: ApolloClient?
     
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var userAvatarImageView: UIImageView!

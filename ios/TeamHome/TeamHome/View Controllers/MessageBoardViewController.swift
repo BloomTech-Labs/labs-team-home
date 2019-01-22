@@ -8,8 +8,9 @@
 
 import UIKit
 import Apollo
+import Auth0
 
-class MessageBoardViewController: UIViewController {
+class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,13 @@ class MessageBoardViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //Pass Team info to Team detail VC
+        if segue.identifier == "ViewTeam" {
+            guard let destinationVC = segue.destination as? TeamDetailTableViewController,
+                let apollo = apollo,
+                let team = team else { return }
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+        }
         
         //Pass Team info to add to team VC
     }
@@ -36,11 +44,16 @@ class MessageBoardViewController: UIViewController {
     // MARK - Private Methods
     
     private func displayTeamInfo() {
+        guard let team = team else { return }
+        
+        teamNameLabel.text = team.name
     }
     
     // MARK - Properties
     
     var user: User?
+    var team: AllTeamsQuery.Data.Team?
+    var apollo: ApolloClient?
     
     @IBOutlet weak var teamNameLabel: UILabel!
     
