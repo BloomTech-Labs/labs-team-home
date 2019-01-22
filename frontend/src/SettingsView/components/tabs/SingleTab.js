@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
+const TabListItem = styled.li`
+	display: inline-block;
+	list-style: none;
+	margin-bottom: -1px;
+	padding: 0.5rem 0.75rem;
+`;
 export default class SingleTab extends Component {
 	static propTypes = {
 		activeTab: PropTypes.string.isRequired,
@@ -26,9 +33,11 @@ export default class SingleTab extends Component {
 		}
 
 		return (
-			<li className={className} onClick={onClick}>
+			// <li className={className} onClick={onClick}>
+			<TabListItem onClick={onClick}>
 				{label}
-			</li>
+				{/* </li> */}
+			</TabListItem>
 		);
 	}
 }

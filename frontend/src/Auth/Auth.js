@@ -7,9 +7,7 @@ const options = {
 	},
 	auth: {
 		sso: false,
-		audience: 'http://team-home.herokuapp.com/',
-		redirectUrl:
-			'http://localhost:3000/home' || 'http://team-home.herokuapp.com/home'
+		audience: 'http://team-home.herokuapp.com/'
 	},
 	responseType: 'token id_token'
 };

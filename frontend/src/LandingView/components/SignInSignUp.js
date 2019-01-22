@@ -13,8 +13,7 @@ const BtnContainer = styled.div`
 let btn1 = 'Login',
 	btn2 = 'Sign Up';
 
-const SignInSignUp = props => {
-	console.log(props);
+const SignInSignUp = ({ handleLogin, handleSignUp }) => {
 	return (
 		<StyledSignInUp>
 			<BtnContainer>

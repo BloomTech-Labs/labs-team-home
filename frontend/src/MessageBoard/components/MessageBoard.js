@@ -201,9 +201,7 @@ class MessageBoard extends React.Component {
 									tags {
 										_id
 									}
-									comments {
-										_id
-									}
+									comments
 									subscribedUsers {
 										_id
 									}

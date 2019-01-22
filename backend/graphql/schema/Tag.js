@@ -24,7 +24,7 @@ const Tag = /* GraphQL */ `
 	}
 	type Query {
 		tags: [Tag]
-		FindTagsByTeam(input: FindTagsByTeamInput): [Tag]
+		findTagsByTeam(input: FindTagsByTeamInput): [Tag]
 		findTag(input: FindTagInput): Tag
 	}
 	type Mutation {

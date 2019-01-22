@@ -15,6 +15,7 @@ export default class LandingView extends Component {
 		// Upon successful authentication, via Auth0, a token is set to localstorage
 		this.state.auth.lock.on('authenticated', authResult => {
 			localStorage.setItem('token', authResult.accessToken);
+			this.props.history.push('/dashboard');
 		});
 	}
 
