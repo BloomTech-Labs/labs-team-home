@@ -3,5 +3,4 @@ query QueryName {
         firstName
         email
     }
-    
 }

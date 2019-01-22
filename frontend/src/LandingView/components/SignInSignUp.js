@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../components/SignInUpButton';
 import StyledSignInUp from '../styles/SignInSignUpStyled';
@@ -15,6 +15,10 @@ const BtnContainer = styled.div`
 let btn1 = 'Login',
 	btn2 = 'Sign Up';
 let auth = new Auth0();
+
+auth.lock.on('authenticated', ({ accessToken }) =>
+	localStorage.setItem('token', accessToken)
+);
 
 let handleLogin = () => {
 	auth.login();

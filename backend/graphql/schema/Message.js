@@ -15,6 +15,9 @@ const Message = /* GraphQL */ `
 	input FindMessageInput {
 		id: ID!
 	}
+	input FindMessageByTeamInput {
+		team: ID!
+	}
 	input AddMessageInput {
 		title: String!
 		user: String!
@@ -40,6 +43,7 @@ const Message = /* GraphQL */ `
 	}
 	extend type Query {
 		messages: [Message]
+		findMessagesByTeam(input: FindMessageByTeamInput): [Message]
 		findMessage(input: FindMessageInput): Message
 	}
 	extend type Mutation {
