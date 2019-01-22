@@ -10,12 +10,13 @@
 4. This server uses [auth0](https://auth0.com/) for authentication, and [Twilio](https://www.twilio.com/) + [Sendgrid](https://sendgrid.com/) for text message/email alerts. To locally run these features you need to create an account on the respective providers and follow their instructions. Set four more environmental variables: `TWILIO_SID`, `TWILIO_TOKEN`, `TWILIO_NUMBER`, and `SENDGRID_API_KEY`.
 5. Install node modules `yarn`
 6. Run server `yarn server`
-7. Go to http://localhost:5000/graphql to view GraphQL playground
+7. Go to http://localhost:5000 the view the GraphQL documentation and http://localhost:5000/graphql to view GraphQL playground.
 
 ## File structure
 
 ```javascript
 backend
+├── docs // `graphql` schema, query and mutation documentation
 ├── models // the MongoDB database models
 ├── `graphql`
 |   ├── schema // type definitions for `graphql` queries and mutations
