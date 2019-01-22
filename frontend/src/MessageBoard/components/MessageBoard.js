@@ -193,13 +193,15 @@ class MessageBoard extends React.Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error :(</p>;
 							let userInfo = findUser;
-
+							// let mess = messages.filter(message => {
+							// 	return message.user._id === this.state.user;
+							// });
 							// mess.sort((a, b) => {
 							// 	if (a.updatedAt < b.updatedAt) return 1;
 							// 	if (a.updatedAt > b.updatedAt) return -1;
 							// 	return 0;
 							// });
-							return findMessagesByTeam.map(message => (
+							return messages.map(message => (
 								<Message
 									message={message}
 									userInfo={message.user}
