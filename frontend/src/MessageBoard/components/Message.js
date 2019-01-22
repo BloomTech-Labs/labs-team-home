@@ -44,7 +44,8 @@ function Message(props) {
 	let userInfo = props.userInfo;
 	let message = props.message;
 	//createdAt is passed as a string. Make it an int to conver to Date
-	message.createdAt = new Date(parseInt(message.createdAt, 10));
+	if (typeof message.createdAt === 'string')
+		message.createdAt = new Date(parseInt(message.createdAt, 10));
 
 	return (
 		<MessageContainer>
