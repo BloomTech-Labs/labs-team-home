@@ -14,7 +14,6 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var messageBodyClipLabel: UILabel!
-    @IBOutlet weak var tagLabel: UILabel!
     @IBOutlet weak var tagIconImageView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
 }
