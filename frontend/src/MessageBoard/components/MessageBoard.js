@@ -220,27 +220,6 @@ class MessageBoard extends React.Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error :(</p>;
 							let userInfo = findUser;
-<<<<<<< HEAD
-							if (messages) {
-								let mess = messages.filter(message => {
-									return message.user._id === this.state.user;
-								});
-								mess.sort((a, b) => {
-									if (a.updatedAt < b.updatedAt) return 1;
-									if (a.updatedAt > b.updatedAt) return -1;
-									return 0;
-								});
-								return mess.map(message => (
-									<Message
-										message={message}
-										userInfo={userInfo}
-										key={message._id}
-									/>
-								));
-							} else {
-								return <h1>No messages to display</h1>;
-							}
-=======
 							// let mess = messages.filter(message => {
 							// 	return message.user._id === this.state.user;
 							// });
@@ -256,7 +235,6 @@ class MessageBoard extends React.Component {
 									key={message._id}
 								/>
 							));
->>>>>>> 4d7ec4ccec6a3913bb674184b18c15ad5d8a82d3
 						}}
 					</Query>
 				</MessagesContainer>
