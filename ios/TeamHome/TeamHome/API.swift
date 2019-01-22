@@ -4,7 +4,7 @@ import Apollo
 
 public final class QueryNameQuery: GraphQLQuery {
   public let operationDefinition =
-    "query QueryName {\n  users {\n    __typename\n    firstName\n    lastName\n  }\n}"
+    "query QueryName {\n  users {\n    __typename\n    firstName\n    email\n  }\n}"
 
   public init() {
   }
@@ -40,8 +40,8 @@ public final class QueryNameQuery: GraphQLQuery {
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
-        GraphQLField("lastName", type: .nonNull(.scalar(String.self))),
+        GraphQLField("firstName", type: .scalar(String.self)),
+        GraphQLField("email", type: .scalar(String.self)),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -50,8 +50,8 @@ public final class QueryNameQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(firstName: String, lastName: String) {
-        self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName])
+      public init(firstName: String? = nil, email: String? = nil) {
+        self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "email": email])
       }
 
       public var __typename: String {
@@ -63,30 +63,30 @@ public final class QueryNameQuery: GraphQLQuery {
         }
       }
 
-      public var firstName: String {
+      public var firstName: String? {
         get {
-          return resultMap["firstName"]! as! String
+          return resultMap["firstName"] as? String
         }
         set {
           resultMap.updateValue(newValue, forKey: "firstName")
         }
       }
 
-      public var lastName: String {
+      public var email: String? {
         get {
-          return resultMap["lastName"]! as! String
+          return resultMap["email"] as? String
         }
         set {
-          resultMap.updateValue(newValue, forKey: "lastName")
+          resultMap.updateValue(newValue, forKey: "email")
         }
       }
     }
   }
 }
 
-public final class AllTagsQuery: GraphQLQuery {
+public final class AllTeamsQuery: GraphQLQuery {
   public let operationDefinition =
-    "query AllTags {\n  tags {\n    __typename\n    name\n  }\n}"
+    "query AllTeams {\n  teams {\n    __typename\n    name\n    _id\n  }\n}"
 
   public init() {
   }
@@ -95,7 +95,7 @@ public final class AllTagsQuery: GraphQLQuery {
     public static let possibleTypes = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("tags", type: .list(.object(Tag.selections))),
+      GraphQLField("teams", type: .list(.object(Team.selections))),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -104,25 +104,26 @@ public final class AllTagsQuery: GraphQLQuery {
       self.resultMap = unsafeResultMap
     }
 
-    public init(tags: [Tag?]? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Query", "tags": tags.flatMap { (value: [Tag?]) -> [ResultMap?] in value.map { (value: Tag?) -> ResultMap? in value.flatMap { (value: Tag) -> ResultMap in value.resultMap } } }])
+    public init(teams: [Team?]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "teams": teams.flatMap { (value: [Team?]) -> [ResultMap?] in value.map { (value: Team?) -> ResultMap? in value.flatMap { (value: Team) -> ResultMap in value.resultMap } } }])
     }
 
-    public var tags: [Tag?]? {
+    public var teams: [Team?]? {
       get {
-        return (resultMap["tags"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Tag?] in value.map { (value: ResultMap?) -> Tag? in value.flatMap { (value: ResultMap) -> Tag in Tag(unsafeResultMap: value) } } }
+        return (resultMap["teams"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Team?] in value.map { (value: ResultMap?) -> Team? in value.flatMap { (value: ResultMap) -> Team in Team(unsafeResultMap: value) } } }
       }
       set {
-        resultMap.updateValue(newValue.flatMap { (value: [Tag?]) -> [ResultMap?] in value.map { (value: Tag?) -> ResultMap? in value.flatMap { (value: Tag) -> ResultMap in value.resultMap } } }, forKey: "tags")
+        resultMap.updateValue(newValue.flatMap { (value: [Team?]) -> [ResultMap?] in value.map { (value: Team?) -> ResultMap? in value.flatMap { (value: Team) -> ResultMap in value.resultMap } } }, forKey: "teams")
       }
     }
 
-    public struct Tag: GraphQLSelectionSet {
-      public static let possibleTypes = ["Tag"]
+    public struct Team: GraphQLSelectionSet {
+      public static let possibleTypes = ["Team"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -131,8 +132,8 @@ public final class AllTagsQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String) {
-        self.init(unsafeResultMap: ["__typename": "Tag", "name": name])
+      public init(name: String, id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Team", "name": name, "_id": id])
       }
 
       public var __typename: String {
@@ -150,6 +151,15 @@ public final class AllTagsQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "name")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
         }
       }
     }

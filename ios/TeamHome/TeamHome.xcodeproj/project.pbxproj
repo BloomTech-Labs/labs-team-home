@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B157A6B21F5821B00088169 /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B157A6A21F5821B00088169 /* NewUserViewController.swift */; };
 		7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D021E5733D0099E42C /* AppDelegate.swift */; };
 		7B6BE7D621E5733D0099E42C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D421E5733D0099E42C /* Main.storyboard */; };
 		7B6BE7D821E5733E0099E42C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D721E5733E0099E42C /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		1DE33B2919B88A10BE569E4B /* Pods-TeamHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.release.xcconfig"; sourceTree = "<group>"; };
+		7B157A6A21F5821B00088169 /* NewUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserViewController.swift; sourceTree = "<group>"; };
 		7B6BE7CD21E5733D0099E42C /* TeamHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6BE7D021E5733D0099E42C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B6BE7D521E5733D0099E42C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -135,7 +137,6 @@
 			children = (
 				7BD6589D21F00A55004FF34A /* API.swift */,
 				7BA77E6F21E6BAC400C862C1 /* Resources */,
-				7BA77E6E21E6BAB400C862C1 /* Apollo Client */,
 				7BA77E6D21E6BAAF00C862C1 /* Models */,
 				7BA77E6C21E6BAA600C862C1 /* View Controllers */,
 				7BA77E6B21E6BA9600C862C1 /* Storyboards */,
@@ -158,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */,
+				7B157A6A21F5821B00088169 /* NewUserViewController.swift */,
 				7BD6589021EF8E8B004FF34A /* DashboardCollectionViewController.swift */,
 				7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */,
 				7BD6589221EF8E99004FF34A /* TeamCollectionViewCell.swift */,
@@ -191,13 +193,6 @@
 				7BA77E8F21E7F68300C862C1 /* Tag.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		7BA77E6E21E6BAB400C862C1 /* Apollo Client */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Apollo Client";
 			sourceTree = "<group>";
 		};
 		7BA77E6F21E6BAC400C862C1 /* Resources */ = {
@@ -365,6 +360,7 @@
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 				"${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework",
 				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
+				"${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework",
 				"${BUILT_PRODUCTS_DIR}/Lock/Lock.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
 			);
@@ -376,6 +372,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Auth0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lock.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
 			);
@@ -408,6 +405,7 @@
 				7BA77E8A21E7F3E200C862C1 /* Message.swift in Sources */,
 				7BA77EB221E93B2200C862C1 /* CommentsCollectionViewController.swift in Sources */,
 				7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */,
+				7B157A6B21F5821B00088169 /* NewUserViewController.swift in Sources */,
 				7BA77EB021E93B1300C862C1 /* MessageDetailViewController.swift in Sources */,
 				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,
 				7BD6589121EF8E8B004FF34A /* DashboardCollectionViewController.swift in Sources */,

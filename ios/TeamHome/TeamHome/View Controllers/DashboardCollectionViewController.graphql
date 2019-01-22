@@ -1,5 +1,7 @@
-query AllTags {
-  tags {
-    name
-  }
+query AllTeams {
+    teams {
+        name
+        _id
+    }
 }
+

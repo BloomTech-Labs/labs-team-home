@@ -9,6 +9,7 @@
 import UIKit
 import Cloudinary
 import Photos
+import Apollo
 
 let config = CLDConfiguration(cloudName: "massamb", secure: true)
 let cloudinary = CLDCloudinary(configuration: config)
@@ -38,7 +39,8 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     
     @IBAction func submitMessage(_ sender: Any) {
         
-        guard let imageData = imageData else { return }
+        guard let imageData = imageData,
+            let apollo = apollo else { return }
         
         let params = CLDUploadRequestParams()
         
@@ -46,9 +48,7 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
         cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
             //Show progress
         }) { (result, error) in
-            print(error)
-            print(result)
-            print(result?.url)
+            print(result?.url!)
         }
     }
     
@@ -82,6 +82,7 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     // MARK - Properties
     
     private var imageData: Data?
+    var apollo: ApolloClient?
     
     @IBOutlet weak var messageTitleTextField: UITextField!
     @IBOutlet weak var messageBodyTextView: UITextView!

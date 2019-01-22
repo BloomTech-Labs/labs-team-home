@@ -10,4 +10,11 @@ import UIKit
 
 class CommentCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var firstNameLabel: UILabel!
+    @IBOutlet weak var commentBodyText: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var commentImageView: UIImageView!
+    @IBOutlet weak var likeCountLabel: UILabel!
+    @IBOutlet weak var likeButton: UIButton!
 }

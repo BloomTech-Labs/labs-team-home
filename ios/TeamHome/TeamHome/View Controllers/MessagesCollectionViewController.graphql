@@ -1,6 +1,6 @@
 query QueryName {
-  users {
-    firstName
-    lastName
-  }
+    users {
+        firstName
+        email
+    }
 }

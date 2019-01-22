@@ -155,6 +155,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="59" id="EnK-zM-bjS"/>
+                                            <constraint firstAttribute="width" constant="336" id="nmE-nF-F7Y"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zt2-cX-NRk">
                                             <size key="itemSize" width="50" height="50"/>
@@ -321,6 +322,15 @@
                                         </label>
                                     </subviews>
                                 </view>
+                                <connections>
+                                    <outlet property="avatarImageView" destination="eVh-kr-V8U" id="Hvs-db-rbc"/>
+                                    <outlet property="commentBodyText" destination="upn-Ju-W5L" id="euB-5M-2IN"/>
+                                    <outlet property="commentImageView" destination="pUG-Ik-4JK" id="xaC-UM-961"/>
+                                    <outlet property="dateLabel" destination="9nU-X9-tLe" id="onN-2G-q7C"/>
+                                    <outlet property="firstNameLabel" destination="86g-ee-3Hd" id="8fC-97-upu"/>
+                                    <outlet property="likeButton" destination="p25-D6-eF5" id="Vtb-qs-2zW"/>
+                                    <outlet property="likeCountLabel" destination="SI9-YU-873" id="Fuf-oO-AR6"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -335,6 +345,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Add Image" width="256" height="256"/>
+        <image name="Add Image" width="384" height="384"/>
     </resources>
 </document>
