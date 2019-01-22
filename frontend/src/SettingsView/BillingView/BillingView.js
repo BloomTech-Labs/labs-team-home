@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 
-const StripeBtn = () => {
+const BillingView = () => {
 	const publishableKey = 'pk_test_GedRIIhEwHrV1xzzkxMsRuUX';
 
 	const onToken = token => {
@@ -10,6 +10,7 @@ const StripeBtn = () => {
 			amount: 999,
 			token: token
 		};
+
 		axios
 			.post('http://localhost:5000', body)
 			.then(response => {
@@ -37,4 +38,4 @@ const StripeBtn = () => {
 	);
 };
 
-export default StripeBtn;
+export default BillingView;

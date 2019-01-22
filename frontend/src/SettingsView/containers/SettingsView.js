@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import SettingsTabs from '../components/SettingsTabs';
-import '../styles/SettingsStyles.css';
-import FormInput from '../components/FormInput';
-import FormCheckbox from '../components/FormCheckbox';
-import FormButton from '../components/FormButton';
-import Checkout from '../BillingView/Checkout';
-import StripeBtn from '../BillingView/StripeBtn';
+import SettingsTabs from '../components/tabs/SettingsTabs';
+// import '../styles/SettingsStyles.css';
+import FormInput from '../components/forms/FormInput';
+import FormCheckbox from '../components/forms/FormCheckbox';
+import FormButton from '../components/forms/FormButton';
+import BillingView from '../BillingView/BillingView';
 
 const buttonStyle = {
 	margin: '10px 10px 10px 10px'
@@ -95,12 +94,7 @@ class SettingsView extends Component {
 						</form>
 					</div>
 					<div label="Team Billing">
-						{/* <Checkout
-							name={'Stripe Test Run'}
-							description={'Stripe Billing Section'}
-							amount={1}
-						/> */}
-						<StripeBtn />
+						<BillingView />
 					</div>
 				</SettingsTabs>
 			</div>

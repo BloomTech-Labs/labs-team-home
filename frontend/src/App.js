@@ -8,6 +8,7 @@ import MessageBoard from './MessageBoard/components/MessageBoard';
 // import AuthRoute from './Auth/components/AuthRoute';
 import SettingsView from './SettingsView/containers/SettingsView';
 import AppStyles from './app-styles';
+import Nav from './Nav/Nav';
 
 class App extends Component {
 	render() {
