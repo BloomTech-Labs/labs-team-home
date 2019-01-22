@@ -8,6 +8,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Invites from './Invites';
 import * as q from '../../constants/queries';
+import MessageDetail from './MessageDetail';
 
 const Messageboard = styled.div`
 	max-width: 800px;
@@ -80,6 +81,8 @@ class MessageBoard extends React.Component {
 		this.state = {
 			showModal: false,
 			showInvite: false,
+			currentMessage: null,
+			messageDetailOpen: false,
 			email: '',
 			number: '',
 			images: [],
@@ -153,6 +156,13 @@ class MessageBoard extends React.Component {
 		e.stopPropagation();
 	}
 
+	openMessageDetail = e => {
+		this.setState({ messageDetailOpen: true });
+	};
+	closeMessageDetail = e => {
+		this.setState({ messageDetailOpen: false, currentMessage: null });
+	};
+
 	render() {
 		return (
 			<Messageboard>
@@ -189,28 +199,39 @@ class MessageBoard extends React.Component {
 						query={q.FIND_MESSAGES_BY_TEAM}
 						variables={{ team: this.props.match.params.team }}
 					>
-						{({ loading, error, data: { findMessagesByTeam, findUser } }) => {
+						{({ loading, error, data: { findMessagesByTeam } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error :(</p>;
-							let userInfo = findUser;
-							// let mess = messages.filter(message => {
-							// 	return message.user._id === this.state.user;
-							// });
-							// mess.sort((a, b) => {
-							// 	if (a.updatedAt < b.updatedAt) return 1;
-							// 	if (a.updatedAt > b.updatedAt) return -1;
-							// 	return 0;
-							// });
-							return messages.map(message => (
-								<Message
-									message={message}
-									userInfo={message.user}
-									key={message._id}
-								/>
+
+							return findMessagesByTeam.map(message => (
+								<div>
+									<button
+										onClick={e => {
+											e.preventDefault();
+											this.setState({
+												messageDetailOpen: true,
+												currentMessage: message
+											});
+											console.log(message);
+										}}
+									>
+										Open Message
+									</button>
+									<Message
+										message={message}
+										userInfo={message.user}
+										key={message._id}
+									/>
+								</div>
 							));
 						}}
 					</Query>
 				</MessagesContainer>
+				<MessageDetail
+					open={this.state.messageDetailOpen}
+					hideModal={this.closeMessageDetail}
+					message={this.state.currentMessage}
+				/>
 			</Messageboard>
 		);
 	}

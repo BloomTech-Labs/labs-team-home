@@ -29,8 +29,8 @@ export const FIND_TAGS_BY_TEAM = gql`
 `;
 
 export const FIND_COMMENTS_BY_MESSAGE = gql`
-	query findMsgCommentsByMessage($id: ID) {
-		findMsgCommentsByMessage(input: { id: $id }) {
+	query findMsgCommentsByMessage($message: ID!) {
+		findMsgCommentsByMessage(input: { message: $message }) {
 			...FullComment
 		}
 	}
