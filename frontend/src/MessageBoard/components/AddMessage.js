@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { FilePond } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
+import * as m from '../../constants/mutations';
 
 const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 const apiKey = process.env.REACT_APP_API_KEY;
@@ -76,7 +77,7 @@ export default function AddMessage(props) {
 	console.log('uploadPreset ', uploadPreset);
 
 	return (
-		<Mutation mutation={ADD_MESSAGE}>
+		<Mutation mutation={m.ADD_MESSAGE}>
 			{/* addMessage is the mutation request, the data object is what
 				is returned. In this case, just the id of the new message is returned*/}
 			{(addMessage, { data }) => (
@@ -92,7 +93,6 @@ export default function AddMessage(props) {
 						<form
 							onSubmit={e => {
 								e.preventDefault();
-
 								//create newMessage object using the variables created in advance
 
 								let newMessage = {
@@ -103,7 +103,15 @@ export default function AddMessage(props) {
 									images: images
 								};
 								//pass newMessage object as a variable to addMessage mutation
-								addMessage({ variables: newMessage });
+								addMessage({ variables: newMessage })
+									.then(res => {
+										console.log('response', res);
+										alert('Message added');
+										window.location.reload(true);
+									})
+									.catch(err => {
+										console.error(err);
+									});
 								//reset title, content, and images
 								title.value = '';
 								content.value = '';

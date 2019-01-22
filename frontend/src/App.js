@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import { Switch, withRouter } from 'react-router-dom';
 // import logo from './logo.svg';
 import GlobalStyle from './GlobalStyles';
 import LandingView from './LandingView/containers/LandingView';
-import { Route } from 'react-router-dom';
 import MessageBoard from './MessageBoard/components/MessageBoard';
-// import Dashboard from './DashboardView/containers/Dashboard';
-// import AuthRoute from './Auth/components/AuthRoute';
+import Dashboard from './DashboardView/containers/Dashboard';
+import PrivateRoute from './utils/PrivateRoute';
+import PublicRoute from './utils/PublicRoute';
+import AppStyles from './app-styles';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 import SettingsView from './SettingsView/containers/SettingsView';
 import AppStyles from './app-styles';
 import Nav from './Nav/Nav';
@@ -15,13 +19,16 @@ class App extends Component {
 		return (
 			<AppStyles>
 				<GlobalStyle />
-				<Route exact path="/" component={LandingView} />
-				<Route path="/home" component={MessageBoard} />
-				{/* <AuthRoute path="/dashboard" component={Dashboard} /> */}
-				<Route path="/settings" component={SettingsView} />
+				<Switch>
+					<Route path="/" component={Nav} />
+					<PublicRoute exact path="/" component={LandingView} />
+					<PrivateRoute path="/home" component={MessageBoard} />
+					<PrivateRoute path="/dashboard" component={Dashboard} />
+					<PrivateRoute path="/settings" component={SettingsView} />
+				</Switch>
 			</AppStyles>
 		);
 	}
 }
 
-export default App;
+export default withRouter(App);
