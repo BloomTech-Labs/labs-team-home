@@ -49,7 +49,7 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         }
     }
     
-    var team: AllTeamsQuery.Data.Team?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
     
     @IBOutlet weak var teamNameLabel: UILabel!

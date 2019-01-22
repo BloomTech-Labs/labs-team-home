@@ -24,16 +24,16 @@ class TeamDetailTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users?.count ?? 0
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TeamMemberCell", for: indexPath)
 
-        guard let user = users?[indexPath.row] else { return UITableViewCell() }
-        
-        cell.textLabel?.text = user.firstName
-        cell.detailTextLabel?.text = user.email
+//        guard let user = users?[indexPath.row] else { return UITableViewCell() }
+//
+//        cell.textLabel?.text = user.firstName
+//        cell.detailTextLabel?.text = user.email
         
         return cell
     }
@@ -56,30 +56,33 @@ class TeamDetailTableViewController: UITableViewController {
     }
     
     private func loadUsers(with apollo: ApolloClient) {
-        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
+        
+        let id: String = ""
+        
+        watcher = apollo.watch(query: FindTeamByIdQuery(id: id)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
-            guard let users = result?.data?.users else { return }
-            self.users = users
+            guard let team = result?.data?.findTeam else { return }
+            
         }
     }
     
     // MARK - Properties
-    var users: [QueryNameQuery.Data.User?]? {
-        didSet {
-            if isViewLoaded {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
+//    var users: [QueryNameQuery.Data.User?]? {
+//        didSet {
+//            if isViewLoaded {
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        }
+//    }
     
-    var watcher: GraphQLQueryWatcher<QueryNameQuery>?
+    var watcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
     var apollo: ApolloClient?
-    var team: AllTeamsQuery.Data.Team?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var addMembersButton: UIButton!

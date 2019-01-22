@@ -8,7 +8,6 @@
 
 import UIKit
 import Apollo
-import Auth0
 
 class DashboardCollectionViewController: UICollectionViewController {
 
@@ -16,18 +15,9 @@ class DashboardCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         guard let apollo = apollo else { return }
-
-//        let apollo: ApolloClient = {
-//            let configuration = URLSessionConfiguration.default
-//
-//            configuration.httpAdditionalHeaders = ["Authorization": "\(idToken)"]
-//
-//            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
-//
-//            return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
-//        }()
         
         loadTeams(with: apollo)
+        presentWelcomeAlert(with: apollo)
     }
 
 
@@ -74,21 +64,24 @@ class DashboardCollectionViewController: UICollectionViewController {
     // MARK - Private Methods
     
     private func loadTeams(with apollo: ApolloClient) {
-        let userId = ""
         
-        watcher = apollo.watch(query: AllTeamsQuery()) { (result, error) in
+        watcher = apollo.watch(query: FindTeamsByUserQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
-            guard let teams = result?.data?.teams else { return }
+            guard let teams = result?.data?.findTeamsByUser else { return }
             self.teams = teams
         }
     }
 
+    private func presentWelcomeAlert(with apollo: ApolloClient) {
+        
+    }
+    
     // MARK - Properties
     
-    var teams: [AllTeamsQuery.Data.Team?]? {
+    var teams: [FindTeamsByUserQuery.Data.FindTeamsByUser?]? {
         didSet {
             if isViewLoaded {
                 DispatchQueue.main.async {
@@ -98,6 +91,7 @@ class DashboardCollectionViewController: UICollectionViewController {
         }
     }
     
-    var watcher: GraphQLQueryWatcher<AllTeamsQuery>?
+    var watcher: GraphQLQueryWatcher<FindTeamsByUserQuery>?
     var apollo: ApolloClient?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
 }
