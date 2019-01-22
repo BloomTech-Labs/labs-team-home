@@ -75,7 +75,7 @@ const customWidthMediaQuery = (minWidth, maxWidth, ...args) => {
 	`;
 };
 
-const queries = {
+const mediaQueryFor = {
 	xsDevice,
 	smDevice,
 	mdDevice,
@@ -83,4 +83,4 @@ const queries = {
 	xlDevice
 };
 
-export default queries;
+export default mediaQueryFor;
