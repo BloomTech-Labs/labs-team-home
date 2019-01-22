@@ -1,59 +1,63 @@
 //
-//  MessagesCollectionViewController.swift
+//  DashboardCollectionViewController.swift
 //  TeamHome
 //
-//  Created by Daniela Parra on 1/10/19.
+//  Created by Daniela Parra on 1/16/19.
 //  Copyright © 2019 Lambda School under the MIT license. All rights reserved.
 //
 
 import UIKit
 import Apollo
 
-class MessagesCollectionViewController: UICollectionViewController {
+class DashboardCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Load messages with watcher 
-        //loadMessages()
+
+        loadTeams()
     }
+
+
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //Pass message cell info to message detail VC
+        // Get the new view controller using [segue destinationViewController].
+        // Pass the selected object to the new view controller.
     }
+
 
     // MARK: UICollectionViewDataSource
 
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return tags?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! MessageCollectionViewCell
-        
-//        guard let user = users?[indexPath.row] else { return UICollectionViewCell() }
-//
-//        cell.firstNameLabel.text = user.firstName
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamCell", for: indexPath) as! TeamCollectionViewCell
+    
+        guard let team = tags?[indexPath.row] else { return UICollectionViewCell()}
+        cell.teamNameLabel.text = team.name
     
         return cell
     }
     
     // MARK - Private Methods
     
-    private func loadMessages() {
-        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
+    private func loadTeams() {
+        watcher = apollo.watch(query: AllTagsQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
-            guard let users = result?.data?.users else { return }
-            self.users = users
+            guard let tags = result?.data?.tags else { return }
+            self.tags = tags
         }
     }
-    
+
     // MARK - Properties
-    var users: [QueryNameQuery.Data.User?]? {
+    
+    var tags: [AllTagsQuery.Data.Tag?]? {
         didSet {
             if isViewLoaded {
                 DispatchQueue.main.async {
@@ -63,5 +67,5 @@ class MessagesCollectionViewController: UICollectionViewController {
         }
     }
     
-    var watcher: GraphQLQueryWatcher<QueryNameQuery>?
+    var watcher: GraphQLQueryWatcher<AllTagsQuery>?
 }

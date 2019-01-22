@@ -7,12 +7,15 @@ const options = {
 	},
 	auth: {
 		sso: false,
-		audience: 'http://team-home.herokuapp.com/'
-	}
+		audience: 'http://team-home.herokuapp.com/',
+		redirectUrl:
+			'http://localhost:3000/home' || 'http://team-home.herokuapp.com/home'
+	},
+	responseType: 'token id_token'
 };
 
 /**
- * Auth0 {class}:
+ * Auth0 class:
  * creates an instance of Auth0Lock, using the Auth0 ClientID and Auth0 domain.
  * login() / signUp() - call the Auth0 Lock 'show()' method with their respective default screens, while displaying the listed social connections options.
  */
