@@ -20,13 +20,6 @@ const Messageboard = styled.div`
 		font-size: 16px;
 	}
 `;
-const TopSection = styled.section`
-	margin-left: 8%;
-	margin-right: 8%;
-	top: 20px;
-	right: 18%;
-	position: absolute;
-`;
 
 const StyledLink = styled(Link)`
 	color: black;
@@ -181,10 +174,6 @@ class MessageBoard extends React.Component {
 						number={this.state.number}
 					/>
 				) : null}
-				<TopSection>
-					<StyledLink to="#">Settings</StyledLink>
-					<StyledLink to="#">Sign Out</StyledLink>
-				</TopSection>
 				<TeamName>
 					<h1>{this.state.teamName}</h1>
 					<Teamlogo>
