@@ -15,15 +15,14 @@ const MsgComment = /* GraphQL */ `
 		message: ID!
 	}
 	input AddMsgCommentInput {
-		user: String!
 		message: String!
 		content: String!
 	}
 	input UpdateMsgCommentInput {
 		id: ID!
-		user: String
 		message: String
 		content: String
+		likes: [ID]
 	}
 	input DeleteMsgCommentInput {
 		id: ID!

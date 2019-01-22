@@ -7,8 +7,9 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
-const UserModel = require('../models/User');
+const axios = require('axios');
 
+const UserModel = require('../models/User');
 const { MsgComment, Tag, Team, User, Message } = require('../graphql/schema');
 const resolvers = require('../graphql/resolvers');
 const { AUTH0_DOMAIN, MONGODB_URI } = process.env;
@@ -36,7 +37,8 @@ module.exports = app => {
 	});
 	const server = new ApolloServer({
 		schema,
-		context: ({ req }) => {
+		context: async ({ req }) => {
+			let currentUser;
 			const token = req.headers.authorization;
 			const client = jwksClient({
 				jwksUri: `${AUTH0_DOMAIN}/.well-known/jwks.json`
@@ -51,23 +53,60 @@ module.exports = app => {
 				iss: `${AUTH0_DOMAIN}/api/v2/`,
 				algorithms: ['RS256']
 			};
-
-			return jwt.verify(token, getKey, options, (err, decoded) => {
-				if (err) {
-					console.error(err);
-					throw new AuthenticationError('Authentication failed');
-				}
-				decoded.sub &&
-					UserModel.findOne({ authId: decoded.sub }).then((
-						existingUser // looks if a user with the auth0 credentials exists in the database and creates one if there isn't
-					) =>
-						existingUser
-							? { ...req, user: existingUser }
-							: new UserModel({ authId: decoded.sub })
-									.save()
-									.then(newUser => ({ ...req, user: newUser }))
-					);
-			});
+			try {
+				currentUser = await new Promise((resolve, reject) =>
+					jwt.verify(token, getKey, options, (err, decoded) => {
+						if (err) {
+							reject(err);
+						}
+						return (
+							decoded &&
+							UserModel.findOne({ authId: decoded.sub }).then((
+								existingUser // looks if a user with the auth0 credentials exists in the database and creates one if there isn't
+							) =>
+								existingUser
+									? resolve(existingUser) // adds user to Apollo context, giving all resolvers access to the user
+									: axios
+											.get(`${AUTH0_DOMAIN}/userinfo`, {
+												headers: { authorization: `Bearer ${token}` }
+											})
+											.then(
+												({
+													data: {
+														name,
+														given_name,
+														family_name,
+														picture,
+														email
+													}
+												}) => {
+													const fullName = name.split(' ');
+													const altFirstName = fullName[0];
+													const altLastName = fullName.slice(1).join(' ');
+													return new UserModel({
+														authId: decoded.sub,
+														firstName: given_name || altFirstName,
+														lastName: family_name || altLastName,
+														email: email,
+														avatar: picture
+													})
+														.save()
+														.then(newUser => {
+															console.log(newUser);
+															return resolve(newUser);
+														})
+														.catch(err => console.error(err));
+												}
+											)
+											.catch(err => console.error(err))
+							)
+						);
+					})
+				);
+			} catch (e) {
+				throw new AuthenticationError(`${e}`);
+			}
+			return { user: currentUser };
 		}
 	});
 	server.applyMiddleware({ app });

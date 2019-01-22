@@ -1,26 +1,18 @@
 const Tag = require('../../models/Tag');
+const { ValidationError } = require('apollo-server-express');
 
 const tagResolvers = {
 	Query: {
 		tags: () => Tag.find().populate('team'),
-		findTag: (_, { input }) => {
-			return Tag.findById(input).populate('team');
-		},
-		FindTagsByTeam: (_, { input: { team } }) => {
-			return Tag.find({ team: team }).populate('team');
-		}
+		findTag: (_, { input }) => Tag.findById(input).populate('team'),
+		findTagsByTeam: (_, { input: { team } }) =>
+			Tag.find({ team: team }).populate('team')
 	},
 	Mutation: {
-		addTag: (_, { input }) => {
-			const { name, team } = input;
-			if (!name || !team) throw new Error('Name and team are required.');
-			return new Tag(input)
-				.save()
-				.then(tag => tag.populate('team').execPopulate());
-		},
+		addTag: (_, { input }) =>
+			new Tag(input).save().then(tag => tag.populate('team').execPopulate()),
 		updateTag: (_, { input }) => {
-			const { id, name, team } = input;
-			if (!name && !team) throw new Error('No name or team provided.');
+			const { id } = input;
 			return Tag.findById(id).then(tag => {
 				if (tag) {
 					Tag.findOneAndUpdate(
@@ -29,19 +21,18 @@ const tagResolvers = {
 						{ new: true }
 					).populate('team');
 				} else {
-					throw new Error("Tag doesn't exist");
+					throw new ValidationError("Tag doesn't exist");
 				}
 			});
 		},
-		deleteTag: (_, { input: { id } }) => {
-			return Tag.findById(id).then(tag => {
+		deleteTag: (_, { input: { id } }) =>
+			Tag.findById(id).then(tag => {
 				if (tag) {
 					return Tag.findOneAndDelete({ _id: id });
 				} else {
-					throw new Error("Tag doesn't exist");
+					throw new ValidationError("Tag doesn't exist");
 				}
-			});
-		}
+			})
 	}
 };
 
