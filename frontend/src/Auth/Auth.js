@@ -8,7 +8,8 @@ const options = {
 	auth: {
 		sso: false,
 		audience: 'http://team-home.herokuapp.com/'
-	}
+	},
+	responseType: 'token id_token'
 };
 
 /**

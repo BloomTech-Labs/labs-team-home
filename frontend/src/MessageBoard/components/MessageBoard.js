@@ -213,7 +213,7 @@ class MessageBoard extends React.Component {
 							return findMessagesByTeam.map(message => (
 								<Message
 									message={message}
-									userInfo={userInfo}
+									userInfo={message.user}
 									key={message._id}
 								/>
 							));
