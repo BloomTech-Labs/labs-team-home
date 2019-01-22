@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Apollo
 
 class InviteToTeamViewController: UIViewController {
 
@@ -15,9 +16,13 @@ class InviteToTeamViewController: UIViewController {
 
     }
     
+    // MARK - Properties
+    
+    var apollo: ApolloClient?
 
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var addSelectionButton: UIButton!
     
 }
