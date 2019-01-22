@@ -15,7 +15,7 @@ const PrivateRoute = ({
 			if (localStorage.token) {
 				if (
 					jwt_decode(localStorage.token) &&
-					jwt_decode(localStorage.token).exp > Math.floor(Date.now() / 1000) // checks if token is a JWT and if it is expired
+					jwt_decode(localStorage.token).exp > Math.floor(Date.now() / 1000) // checks if token is a JWT and if it isn't expired
 				) {
 					return <Component {...props} currentUser={currentUser} />;
 				} else {
