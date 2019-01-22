@@ -3004,7 +3004,7 @@ q@2.0.x:
     pop-iterate "^1.0.1"
     weak-map "^1.0.5"
 
-qs@6.5.2, qs@~6.5.2:
+qs@6.5.2, qs@~6.5.1, qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
@@ -3204,7 +3204,7 @@ run-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/run-node/-/run-node-1.0.0.tgz#46b50b946a2aa2d4947ae1d886e9856fd9cabe5e"
   integrity sha512-kc120TBlQ3mih1LSzdAJXo4xn/GWS2ec0l3S+syHDXP9uRr0JAT8Qd3mdMuyjqCzeZktgP3try92cEgf9Nks8A==
 
-safe-buffer@5.1.2, safe-buffer@^5.0.1, safe-buffer@^5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
+safe-buffer@5.1.2, safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
@@ -3527,6 +3527,15 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
+
+stripe@^6.20.1:
+  version "6.20.1"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-6.20.1.tgz#a9723a83ed554d33fecbe84035dde1922f012857"
+  integrity sha512-rQYAtSavfMZc4/PZklwkc94B4XHnzpuqWBpX20UR8MFa+jTVofJT/Hg7F0yXskdzLxvtwhyuwv50VgTjWRCXLQ==
+  dependencies:
+    lodash.isplainobject "^4.0.6"
+    qs "~6.5.1"
+    safe-buffer "^5.1.1"
 
 subscriptions-transport-ws@^0.9.11:
   version "0.9.15"
