@@ -67,6 +67,14 @@ const xlDevice = (...args) => {
 	`;
 };
 
+const customWidthMediaQuery = (minWidth, maxWidth, ...args) => {
+	return css`
+		@media (min-width: ${minWidth}) and (max-width: ${maxWidth}) {
+			${css(...args)}
+		}
+	`;
+};
+
 const queries = {
 	xsDevice,
 	smDevice,
