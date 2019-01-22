@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import SingleTab from './SingleTab';
 
+const TabList = styled.ol`
+	border-bottom: 1px solid #ccc;
+	padding-left: 0;
+`;
 export default class SettingsTabs extends Component {
 	static propTypes = {
 		children: PropTypes.instanceOf(Array).isRequired
@@ -29,7 +34,8 @@ export default class SettingsTabs extends Component {
 
 		return (
 			<div className="tabs">
-				<ol className="tab-list">
+				{/* <ol className="tab-list"> */}
+				<TabList>
 					{children.map(child => {
 						const { label } = child.props;
 
@@ -42,7 +48,8 @@ export default class SettingsTabs extends Component {
 							/>
 						);
 					})}
-				</ol>
+					{/* </ol> */}
+				</TabList>
 				<div className="tab-content">
 					{children.map(child => {
 						if (child.props.label !== activeTab) return undefined;
