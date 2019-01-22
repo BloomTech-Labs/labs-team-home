@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 /**
+ * Color palette:
  * #17151B << Dark Gray
  * #FF8C63 << Orange
  * #FFD17C << Lt Orange
@@ -9,6 +10,23 @@ import { createGlobalStyle } from 'styled-components';
  * #F1FCEF << Creme
  * #73FF6D << Green
  */
+
+/**
+ * Breakpoint values
+ * xtra small
+<576px	Small
+≥576px	Medium
+≥768px	Large
+≥992px	Extra large
+≥1200px
+ */
+const media = {
+	xs: 376,
+	sm: 576,
+	md: 768,
+	lg: 992,
+	xl: 1200
+};
 
 const GlobalStyle = createGlobalStyle`
   body {
