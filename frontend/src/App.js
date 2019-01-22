@@ -4,11 +4,7 @@ import { Switch, withRouter } from 'react-router-dom';
 import './App.css';
 import LandingView from './LandingView/containers/LandingView';
 import MessageBoard from './MessageBoard/components/MessageBoard';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import Dashboard from './DashboardView/containers/Dashboard';
-import SettingsView from './SettingsView/containers/SettingsView';
-import Nav from './Nav/Nav';
 import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
 
