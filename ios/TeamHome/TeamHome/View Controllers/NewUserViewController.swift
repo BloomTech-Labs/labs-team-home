@@ -10,6 +10,8 @@
 import UIKit
 import Apollo
 import Auth0
+import Photos
+import Cloudinary
 
 class NewUserViewController: UIViewController {
 

@@ -8,16 +8,15 @@
 
 import UIKit
 import Apollo
-import Auth0
 
 class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Show team name on label
         displayTeamInfo()
-        
-        //Load messages for user
+
     }
     
     @IBAction func filterTags(_ sender: Any) {
@@ -52,7 +51,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     // MARK - Properties
     
     var user: User?
-    var team: AllTeamsQuery.Data.Team?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
     
     @IBOutlet weak var teamNameLabel: UILabel!

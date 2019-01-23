@@ -1,5 +1,5 @@
-query AllTeams {
-    teams {
+query findTeamsByUser {
+    findTeamsByUser {
         name
         _id
     }

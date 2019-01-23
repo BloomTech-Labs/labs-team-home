@@ -15,11 +15,8 @@ let config = CLDConfiguration(cloudName: "massamb", secure: true)
 let cloudinary = CLDCloudinary(configuration: config)
 
 class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
+    
+    // MARK - IBActions
     
     @IBAction func addPhoto(_ sender: Any) {
         let status = PHPhotoLibrary.authorizationStatus()
@@ -39,16 +36,20 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     
     @IBAction func submitMessage(_ sender: Any) {
         
-        guard let imageData = imageData,
-            let apollo = apollo else { return }
+        guard let apollo = apollo,
+            let messageTitle = messageTitleTextField.text,
+            let content = messageBodyTextView.text else { return }
+        
+        
+        
+        guard let imageData = imageData else { return }
         
         let params = CLDUploadRequestParams()
-        
         
         cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
             //Show progress
         }) { (result, error) in
-            print(result?.url!)
+            
         }
     }
     
