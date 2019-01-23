@@ -218,6 +218,7 @@ class MessageBoard extends React.Component {
 												currentMessage: message
 											});
 										}}
+										key={message._id}
 									/>
 								));
 							}}
