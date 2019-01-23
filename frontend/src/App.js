@@ -11,7 +11,6 @@ import AppStyles from './app-styles';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import SettingsView from './SettingsView/containers/SettingsView';
-import AppStyles from './app-styles';
 import Nav from './Nav/Nav';
 
 class App extends Component {
@@ -19,8 +18,8 @@ class App extends Component {
 		return (
 			<AppStyles>
 				<GlobalStyle />
+				{localStorage.token && <Nav />}
 				<Switch>
-					<Route path="/" component={Nav} />
 					<PublicRoute exact path="/" component={LandingView} />
 					<PrivateRoute path="/home" component={MessageBoard} />
 					<PrivateRoute path="/dashboard" component={Dashboard} />
