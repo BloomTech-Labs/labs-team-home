@@ -1,13 +1,15 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
 import * as s from './TeamList.styles';
 import * as q from '../../../constants/queries';
+import * as m from '../../../constants/mutations';
 
 import TeamCard from './TeamCard';
 
-const TeamList = () => (
+const TeamList = () => {
+	let name;
 	<s.Container>
 		<Query query={q.FIND_TEAMS_BY_USER}>
 			{({ loading, error, data: { findTeamsByUser } }) => {
@@ -15,13 +17,22 @@ const TeamList = () => (
 				if (error) return <p>Error :(</p>;
 
 				return findTeamsByUser.map(team => (
-					<Link to={`/${team._id}/home`}>
-						<TeamCard key={team._id} team={team} />
+					<Link to={`/${team._id}/home`} key={team._id}>
+						<TeamCard team={team} />
 					</Link>
 				));
 			}}
 		</Query>
-	</s.Container>
-);
+		<Mutation mutation={m.ADD_TEAM}>
+			{addTeam => (
+				<form action="submit">
+					<label htmlFor="name">
+						Team Name: <input type="text" />
+					</label>
+				</form>
+			)}
+		</Mutation>
+	</s.Container>;
+};
 
 export default TeamList;

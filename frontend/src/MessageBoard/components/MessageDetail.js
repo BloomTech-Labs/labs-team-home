@@ -71,7 +71,7 @@ class MessageDetail extends Component {
 											<p>{comment.likes.length} likes</p>
 											{comment.user._id === currentUser._id && (
 												<Mutation
-													mutation={m.UPDATE_COMMENT}
+													mutation={m.DELETE_COMMENT}
 													update={(cache, { data: { deleteMsgComment } }) => {
 														const {
 															findMsgCommentsByMessage
