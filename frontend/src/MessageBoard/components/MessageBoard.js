@@ -204,15 +204,15 @@ class MessageBoard extends React.Component {
 					</TeamName>
 					<MessagesContainer>
 						<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
-          <form>
-						<label>
-							Sort:
-							<select value={this.state.value} onChange={this.sortChange}>
-								<option value="newest">Newest First</option>
-								<option value="oldest">Oldest First</option>
-							</select>
-						</label>
-					</form>
+						<form>
+							<label>
+								Sort:
+								<select value={this.state.value} onChange={this.sortChange}>
+									<option value="newest">Newest First</option>
+									<option value="oldest">Oldest First</option>
+								</select>
+							</label>
+						</form>
 						<Query
 							query={q.FIND_MESSAGES_BY_TEAM}
 							variables={{ team: this.props.match.params.team }}
@@ -220,24 +220,24 @@ class MessageBoard extends React.Component {
 							{({ loading, error, data: { findMessagesByTeam } }) => {
 								if (loading) return <p>Loading...</p>;
 								if (error) return <p>Error :(</p>;
-              switch (this.state.sortOption) {
-								case 'newest':
-									findMessagesByTeam.sort((a, b) => {
-										if (a.updatedAt < b.updatedAt) return 1;
-										if (a.updatedAt > b.updatedAt) return -1;
-										return 0;
-									});
-									break;
-								case 'oldest':
-									findMessagesByTeam.sort((a, b) => {
-										if (a.updatedAt < b.updatedAt) return -1;
-										if (a.updatedAt > b.updatedAt) return 1;
-										return 0;
-									});
-									break;
-								default:
-									break;
-							}
+								switch (this.state.sortOption) {
+									case 'newest':
+										findMessagesByTeam.sort((a, b) => {
+											if (a.updatedAt < b.updatedAt) return 1;
+											if (a.updatedAt > b.updatedAt) return -1;
+											return 0;
+										});
+										break;
+									case 'oldest':
+										findMessagesByTeam.sort((a, b) => {
+											if (a.updatedAt < b.updatedAt) return -1;
+											if (a.updatedAt > b.updatedAt) return 1;
+											return 0;
+										});
+										break;
+									default:
+										break;
+								}
 
 								return findMessagesByTeam.map(message => (
 									<Message
