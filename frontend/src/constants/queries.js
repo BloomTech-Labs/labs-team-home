@@ -19,6 +19,15 @@ export const FIND_MESSAGES_BY_TEAM = gql`
 	${f.FULL_MESSAGE}
 `;
 
+export const FIND_MESSAGE = gql`
+	query findMessage($id: ID!) {
+		findMessage(input: { id: $id }) {
+			...FullMessage
+		}
+	}
+	${f.FULL_MESSAGE}
+`;
+
 export const FIND_TAGS_BY_TEAM = gql`
 	query findTagsByTeam($id: ID) {
 		findTagsByTeam(input: { id: $id }) {

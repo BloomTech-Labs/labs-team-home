@@ -236,6 +236,7 @@ class MessageBoard extends React.Component {
 					hideModal={this.closeMessageDetail}
 					message={this.state.currentMessage}
 					currentUser={this.props.currentUser}
+					team={this.props.match.params.team}
 				/>
 			</>
 		);

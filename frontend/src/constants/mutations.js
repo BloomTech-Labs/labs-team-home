@@ -37,6 +37,7 @@ export const UPDATE_MESSAGE = gql`
 	) {
 		updateMessage(
 			input: {
+				id: $id
 				title: $title
 				team: $team
 				content: $content
