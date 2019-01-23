@@ -32,7 +32,6 @@ const msgCommentResolvers = {
 						)
 						.map(user => user.email);
 					emails.length &&
-						sgMail.send({
 						(await sgMail.send({
 							// notifies subscribed users of the new comment
 							to: emails,
@@ -55,7 +54,6 @@ const msgCommentResolvers = {
 									<p>${content}</p>
 								</div>
 							`
-						});
 						}));
 					return comment.populate('user message likes').execPopulate();
 				});
