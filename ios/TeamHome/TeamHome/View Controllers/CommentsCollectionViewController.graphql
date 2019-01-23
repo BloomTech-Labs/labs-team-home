@@ -1,0 +1,28 @@
+query FindCommentsByMessage($messageId: ID!) {
+    findMsgCommentsByMessage(input:  {
+                             message: $messageId
+                             }) {
+        _id
+        user {
+            firstName
+            lastName
+            avatar
+        }
+        content
+        likes {
+            _id
+            firstName
+        }
+        createdAt
+        updatedAt
+    }
+}
+
+mutation CreateComment($message: String!, $content: String!) {
+    addMsgComment(input: {
+                  message: $message
+                  content: $content
+                  }) {
+        _id
+    }
+}

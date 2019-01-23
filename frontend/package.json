@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@reach/dialog": "^0.1.2",
 		"apollo-boost": "^0.1.23",
 		"auth0-lock": "^11.13.0",
 		"axios": "^0.18.0",

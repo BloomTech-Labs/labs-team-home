@@ -7,6 +7,7 @@ const MessageContainer = styled.div`
 	padding: 10px 20px;
 	display: flex;
 	justify-content: space-between;
+	cursor: pointer;
 `;
 
 const Pic = styled.img`
@@ -48,7 +49,7 @@ function Message(props) {
 		message.createdAt = new Date(parseInt(message.createdAt, 10));
 
 	return (
-		<MessageContainer>
+		<MessageContainer onClick={props.openMessage}>
 			<Pic
 				src={
 					userInfo.avatar
