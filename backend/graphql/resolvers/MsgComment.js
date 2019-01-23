@@ -24,37 +24,34 @@ const msgCommentResolvers = {
 						{ $push: { comments: [comment._id] } },
 						{ new: true }
 					).populate('team subscribedUsers');
-					const emails = message.subscribedUsers.map(
+					const emails = message.subscribedUsers.filter(
 						// creates an array of emails of subscribed users, if their email is on file and the user isn't the one adding the message
-						user =>
-							user.toggles.receiveEmails &&
-							user.email &&
-							user._id !== _id &&
-							user.email
+						user => user.toggles.receiveEmails && user.email && user._id !== _id
 					);
-					await sgMail.send({
-						// notifies subscribed users of the new comment
-						to: emails,
-						from: `${message.team.name}@team.home`,
-						subject: `The message ${
-							message.title
-						} has a new comment from ${firstName} ${lastName} on your team ${
-							message.team.name
-						}`,
-						text: `${content}`,
-						html: /* HTML */ `
-							<h1>${message.team.name}</h1>
-							<div>
-								<h2>Message:</h2>
-								<h3>${message.title}</h3>
-								<p>${message.content}</p>
-							</div>
-							<div>
-								<h2>New comment:</h2>
-								<p>${content}</p>
-							</div>
-						`
-					});
+					emails.length &&
+						(await sgMail.send({
+							// notifies subscribed users of the new comment
+							to: emails,
+							from: `${message.team.name}@team.home`,
+							subject: `The message ${
+								message.title
+							} has a new comment from ${firstName} ${lastName} on your team ${
+								message.team.name
+							}`,
+							text: `${content}`,
+							html: /* HTML */ `
+								<h1>${message.team.name}</h1>
+								<div>
+									<h2>Message:</h2>
+									<h3>${message.title}</h3>
+									<p>${message.content}</p>
+								</div>
+								<div>
+									<h2>New comment:</h2>
+									<p>${content}</p>
+								</div>
+							`
+						}));
 					return comment.populate('user message likes').execPopulate();
 				});
 		},
