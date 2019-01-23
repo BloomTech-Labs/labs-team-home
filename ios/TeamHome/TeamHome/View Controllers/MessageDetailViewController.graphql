@@ -1,0 +1,31 @@
+query FindMessageById($id: ID!) {
+    findMessage(input: {
+                id: $id
+                }) {
+        _id
+        title
+        user {
+            firstName
+            lastName
+            avatar
+        }
+        team {
+            name
+            _id
+        }
+        content
+        images
+        tags {
+            name
+            _id
+        }
+        comments
+        subscribedUsers {
+            firstName
+            lastName
+            avatar
+        }
+        createdAt
+        updatedAt
+    }
+}
