@@ -88,7 +88,8 @@ class MessageBoard extends React.Component {
 				users: ['dfasdf', 'asdfsags']
 			},
 			user: '5c3cdac285d92c646e97678d',
-			isAdmin: true
+			isAdmin: true,
+			sortOption: 'newest'
 		};
 
 		this.openModalHandler = this.openModalHandler.bind(this);
@@ -98,6 +99,11 @@ class MessageBoard extends React.Component {
 		this.inviteChangeHandler = this.inviteChangeHandler.bind(this);
 		this.inviteSubmitHandler = this.inviteSubmitHandler.bind(this);
 		this.stopProp = this.stopProp.bind(this);
+		this.sortChange = this.sortChange.bind(this);
+	}
+
+	sortChange(e) {
+		this.setState({ sortOption: e.target.value });
 	}
 
 	openInviteHandler() {
@@ -184,6 +190,16 @@ class MessageBoard extends React.Component {
 				</TeamName>
 				<MessagesContainer>
 					<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
+					<form>
+						<label>
+							Sort:
+							<select value={this.state.value} onChange={this.sortChange}>
+								<option value="newest">Newest First</option>
+								<option value="oldest">Oldest First</option>
+							</select>
+						</label>
+					</form>
+
 					<Query
 						query={gql`
 							{
@@ -224,11 +240,24 @@ class MessageBoard extends React.Component {
 							// let mess = messages.filter(message => {
 							// 	return message.user._id === this.state.user;
 							// });
-							// mess.sort((a, b) => {
-							// 	if (a.updatedAt < b.updatedAt) return 1;
-							// 	if (a.updatedAt > b.updatedAt) return -1;
-							// 	return 0;
-							// });
+							switch (this.state.sortOption) {
+								case 'newest':
+									messages.sort((a, b) => {
+										if (a.updatedAt < b.updatedAt) return 1;
+										if (a.updatedAt > b.updatedAt) return -1;
+										return 0;
+									});
+									break;
+								case 'oldest':
+									messages.sort((a, b) => {
+										if (a.updatedAt < b.updatedAt) return -1;
+										if (a.updatedAt > b.updatedAt) return 1;
+										return 0;
+									});
+									break;
+								default:
+									break;
+							}
 							return messages.map(message => (
 								<Message
 									message={message}
