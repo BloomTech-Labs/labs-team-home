@@ -11,18 +11,21 @@ import Apollo
 
 class InviteToTeamViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    @IBAction func inviteToTeam(_ sender: Any) {
+        
+        guard let apollo = apollo,
+            let email = emailTextField.text,
+            let phoneNumber = phoneNumberTextField.text else { return }
+        
     }
     
     // MARK - Properties
     
     var apollo: ApolloClient?
+    var teamId: GraphQLID?
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
-    @IBOutlet weak var addSelectionButton: UIButton!
     
 }

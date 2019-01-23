@@ -6,6 +6,11 @@ query FindTeamById($id: ID!) {
         users {
             user {
                 _id
+                firstName
+                lastName
+                email
+                phoneNumber
+                avatar
             }
             admin
         }

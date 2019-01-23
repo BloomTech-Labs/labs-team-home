@@ -1,1 +1,9 @@
-
+mutation InviteUserToTeam($id: ID!, $email: String, $phoneNumber: String) {
+    inviteUser({
+               id: $id
+               email: $email
+               phoneNumber: $phoneNumber
+               }) {
+        _id
+    }
+}

@@ -391,7 +391,7 @@ public final class FindMessageByIdQuery: GraphQLQuery {
 
 public final class FindTeamByIdQuery: GraphQLQuery {
   public let operationDefinition =
-    "query FindTeamById($id: ID!) {\n  findTeam(input: {id: $id}) {\n    __typename\n    name\n    users {\n      __typename\n      user {\n        __typename\n        _id\n      }\n      admin\n    }\n  }\n}"
+    "query FindTeamById($id: ID!) {\n  findTeam(input: {id: $id}) {\n    __typename\n    name\n    users {\n      __typename\n      user {\n        __typename\n        _id\n        firstName\n        lastName\n        email\n        phoneNumber\n        avatar\n      }\n      admin\n    }\n  }\n}"
 
   public var id: GraphQLID
 
@@ -527,6 +527,11 @@ public final class FindTeamByIdQuery: GraphQLQuery {
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("_id", type: .scalar(GraphQLID.self)),
+            GraphQLField("firstName", type: .scalar(String.self)),
+            GraphQLField("lastName", type: .scalar(String.self)),
+            GraphQLField("email", type: .scalar(String.self)),
+            GraphQLField("phoneNumber", type: .scalar(String.self)),
+            GraphQLField("avatar", type: .scalar(String.self)),
           ]
 
           public private(set) var resultMap: ResultMap
@@ -535,8 +540,8 @@ public final class FindTeamByIdQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(id: GraphQLID? = nil) {
-            self.init(unsafeResultMap: ["__typename": "User", "_id": id])
+          public init(id: GraphQLID? = nil, firstName: String? = nil, lastName: String? = nil, email: String? = nil, phoneNumber: String? = nil, avatar: String? = nil) {
+            self.init(unsafeResultMap: ["__typename": "User", "_id": id, "firstName": firstName, "lastName": lastName, "email": email, "phoneNumber": phoneNumber, "avatar": avatar])
           }
 
           public var __typename: String {
@@ -554,6 +559,51 @@ public final class FindTeamByIdQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue, forKey: "_id")
+            }
+          }
+
+          public var firstName: String? {
+            get {
+              return resultMap["firstName"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "firstName")
+            }
+          }
+
+          public var lastName: String? {
+            get {
+              return resultMap["lastName"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "lastName")
+            }
+          }
+
+          public var email: String? {
+            get {
+              return resultMap["email"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "email")
+            }
+          }
+
+          public var phoneNumber: String? {
+            get {
+              return resultMap["phoneNumber"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "phoneNumber")
+            }
+          }
+
+          public var avatar: String? {
+            get {
+              return resultMap["avatar"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "avatar")
             }
           }
         }
