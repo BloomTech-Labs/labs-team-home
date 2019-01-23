@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../components/SignInUpButton';
-import StyledSignInUp from '../styles/SignInSignUpStyled';
-import auth from '../../Auth/Auth';
+import StyledSignInUp, { TextIMG } from '../styles/SignInSignUpStyled';
+import textLogo from '../../../src/assets/TH_text_stroke.svg';
 
 const BtnContainer = styled.div`
 	max-width: 400px;
@@ -17,6 +17,7 @@ let btn1 = 'Login',
 const SignInSignUp = ({ handleLogin, handleSignUp }) => {
 	return (
 		<StyledSignInUp>
+			<TextIMG alt={'TeamHome banner'} src={textLogo} />
 			<BtnContainer>
 				<Button btnprop={btn1} handleClick={handleLogin} />
 				<Button btnprop={btn2} handleClick={handleSignUp} />

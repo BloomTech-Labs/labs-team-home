@@ -18,6 +18,10 @@ const LogoBannerStyles = styled.div`
 	);
 `;
 
+const TextIMG = styled.img`
+	width: 100%;
+`;
+
 const BannerStyles = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	width: 66%;
@@ -32,4 +36,4 @@ const BannerStyles = styled.div`
 `;
 
 export default LogoBannerStyles;
-export { BannerStyles };
+export { BannerStyles, TextIMG };
