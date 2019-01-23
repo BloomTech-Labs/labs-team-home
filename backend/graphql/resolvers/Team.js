@@ -1,4 +1,5 @@
 const Team = require('../../models/Team');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const teamResolvers = {
 	Query: {
@@ -37,6 +38,31 @@ const teamResolvers = {
 					throw new Error("Team doesn't exist");
 				}
 			});
+		},
+		setPremium: (_, { input }) => {
+			const body = {
+				source: input.token,
+				amount: input.amount,
+				currency: 'usd'
+			};
+			return stripe.charges
+				.create(body)
+				.then(() => {
+					return Team.findById(input.id).then(team => {
+						if (team) {
+							return Team.findOneAndUpdate(
+								{ _id: input.id },
+								{ $set: { premium: true } },
+								{ new: true }
+							).populate('users');
+						} else {
+							throw new Error("Team doesn't exist");
+						}
+					});
+				})
+				.catch(() => {
+					throw new Error('payment error');
+				});
 		},
 		deleteTeam: (_, { input: { id } }) => {
 			return Team.findById(id).then(team => {

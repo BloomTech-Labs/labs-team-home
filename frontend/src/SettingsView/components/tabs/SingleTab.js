@@ -8,6 +8,13 @@ const TabListItem = styled.li`
 	margin-bottom: -1px;
 	padding: 0.5rem 0.75rem;
 `;
+
+const TabListActive = styled.li`
+	background-color: white;
+	border: solid #ccc;
+	border-width: 1px 1px 0 1px;
+	color: darkslateblue;
+`;
 export default class SingleTab extends Component {
 	static propTypes = {
 		activeTab: PropTypes.string.isRequired,
@@ -33,11 +40,9 @@ export default class SingleTab extends Component {
 		}
 
 		return (
-			// <li className={className} onClick={onClick}>
-			<TabListItem onClick={onClick}>
+			<li className={className} onClick={onClick}>
 				{label}
-				{/* </li> */}
-			</TabListItem>
+			</li>
 		);
 	}
 }

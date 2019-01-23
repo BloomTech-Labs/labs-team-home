@@ -33,6 +33,11 @@ const Team = /* GraphQL */ `
 	input DeleteTeamInput {
 		id: ID!
 	}
+	input SetPremiumInput {
+		id: ID!
+		charge: Int!
+		source: String!
+	}
 	extend type Query {
 		teams: [Team]
 		findTeam(input: FindTeamInput): Team
@@ -42,6 +47,7 @@ const Team = /* GraphQL */ `
 		addTeam(input: AddTeamInput!): Team
 		updateTeam(input: UpdateTeamInput!): Team
 		deleteTeam(input: DeleteTeamInput!): Team
+		setPremium(input: SetPremiumInput!): Team
 	}
 `;
 module.exports = Team;
