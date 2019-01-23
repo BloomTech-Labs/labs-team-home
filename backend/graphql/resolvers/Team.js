@@ -9,6 +9,7 @@ const {
 } = require('apollo-server-express');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const teamResolvers = {
 	Query: {
