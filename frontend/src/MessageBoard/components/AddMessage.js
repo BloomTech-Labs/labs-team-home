@@ -71,7 +71,7 @@ const ADD_MESSAGE = gql`
 
 export default function AddMessage(props) {
 	let team, user, title, content, images;
-	team = props.team._id;
+	team = props.team;
 	user = props.user;
 	images = [];
 	console.log('uploadPreset ', uploadPreset);

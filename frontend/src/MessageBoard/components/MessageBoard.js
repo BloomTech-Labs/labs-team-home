@@ -4,10 +4,12 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Message from './Message';
 import AddMessage from './AddMessage';
-import { Query } from 'react-apollo';
+import { Query, compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Invites from './Invites';
 import * as q from '../../constants/queries';
+import * as m from '../../constants/mutations';
+
 import MessageDetail from './MessageDetail';
 
 const Messageboard = styled.div`
@@ -165,74 +167,70 @@ class MessageBoard extends React.Component {
 
 	render() {
 		return (
-			<Messageboard>
-				{this.state.showModal ? (
-					<AddMessage
-						closeHandler={this.closeModalHandler}
-						stopProp={this.stopProp}
-						team={this.state.team}
-						user={this.state.user}
-					/>
-				) : null}
-				{this.state.showInvite ? (
-					<Invites
-						closeHandler={this.closeInviteHandler}
-						stopProp={this.stopProp}
-						submitHandler={this.inviteSubmitHandler}
-						changeHandler={this.inviteChangeHandler}
-						email={this.state.email}
-						number={this.state.number}
-					/>
-				) : null}
-				<TeamName>
-					<h1>{this.state.teamName}</h1>
-					<Teamlogo>
-						<Logo src="https://via.placeholder.com/50.png" alt="team logo" />
-						{this.state.isAdmin ? (
-							<button onClick={this.openInviteHandler}>Invite</button>
-						) : null}
-					</Teamlogo>
-				</TeamName>
-				<MessagesContainer>
-					<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
-					<Query
-						query={q.FIND_MESSAGES_BY_TEAM}
-						variables={{ team: this.props.match.params.team }}
-					>
-						{({ loading, error, data: { findMessagesByTeam } }) => {
-							if (loading) return <p>Loading...</p>;
-							if (error) return <p>Error :(</p>;
+			<>
+				<Messageboard>
+					{this.state.showModal ? (
+						<AddMessage
+							closeHandler={this.closeModalHandler}
+							stopProp={this.stopProp}
+							team={this.props.match.params.team}
+							user={this.state.user}
+						/>
+					) : null}
+					{this.state.showInvite ? (
+						<Invites
+							closeHandler={this.closeInviteHandler}
+							stopProp={this.stopProp}
+							submitHandler={this.inviteSubmitHandler}
+							changeHandler={this.inviteChangeHandler}
+							email={this.state.email}
+							number={this.state.number}
+						/>
+					) : null}
+					<TeamName>
+						<h1>{this.state.teamName}</h1>
+						<Teamlogo>
+							<Logo src="https://via.placeholder.com/50.png" alt="team logo" />
+							{this.state.isAdmin ? (
+								<button onClick={this.openInviteHandler}>Invite</button>
+							) : null}
+						</Teamlogo>
+					</TeamName>
+					<MessagesContainer>
+						<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
+						<Query
+							query={q.FIND_MESSAGES_BY_TEAM}
+							variables={{ team: this.props.match.params.team }}
+						>
+							{({ loading, error, data: { findMessagesByTeam } }) => {
+								if (loading) return <p>Loading...</p>;
+								if (error) return <p>Error :(</p>;
 
-							return findMessagesByTeam.map(message => (
-								<div>
-									<button
-										onClick={e => {
+								return findMessagesByTeam.map(message => (
+									<Message
+										message={message}
+										userInfo={message.user}
+										key={message._id}
+										openMessage={e => {
 											e.preventDefault();
 											this.setState({
 												messageDetailOpen: true,
 												currentMessage: message
 											});
-											console.log(message);
 										}}
-									>
-										Open Message
-									</button>
-									<Message
-										message={message}
-										userInfo={message.user}
-										key={message._id}
 									/>
-								</div>
-							));
-						}}
-					</Query>
-				</MessagesContainer>
+								));
+							}}
+						</Query>
+					</MessagesContainer>
+				</Messageboard>
 				<MessageDetail
 					open={this.state.messageDetailOpen}
 					hideModal={this.closeMessageDetail}
 					message={this.state.currentMessage}
+					currentUser={this.props.currentUser}
 				/>
-			</Messageboard>
+			</>
 		);
 	}
 }
