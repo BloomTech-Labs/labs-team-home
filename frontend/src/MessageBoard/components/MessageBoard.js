@@ -7,8 +7,7 @@ import AddMessage from './AddMessage';
 import { Query, compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Invites from './Invites';
-import * as q from '../../constants/queries';
-import * as m from '../../constants/mutations';
+import * as query from '../../constants/queries';
 
 import MessageDetail from './MessageDetail';
 
@@ -204,40 +203,40 @@ class MessageBoard extends React.Component {
 					</TeamName>
 					<MessagesContainer>
 						<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
-          <form>
-						<label>
-							Sort:
-							<select value={this.state.value} onChange={this.sortChange}>
-								<option value="newest">Newest First</option>
-								<option value="oldest">Oldest First</option>
-							</select>
-						</label>
-					</form>
+						<form>
+							<label>
+								Sort:
+								<select value={this.state.value} onChange={this.sortChange}>
+									<option value="newest">Newest First</option>
+									<option value="oldest">Oldest First</option>
+								</select>
+							</label>
+						</form>
 						<Query
-							query={q.FIND_MESSAGES_BY_TEAM}
+							query={query.FIND_MESSAGES_BY_TEAM}
 							variables={{ team: this.props.match.params.team }}
 						>
 							{({ loading, error, data: { findMessagesByTeam } }) => {
 								if (loading) return <p>Loading...</p>;
 								if (error) return <p>Error :(</p>;
-              switch (this.state.sortOption) {
-								case 'newest':
-									findMessagesByTeam.sort((a, b) => {
-										if (a.updatedAt < b.updatedAt) return 1;
-										if (a.updatedAt > b.updatedAt) return -1;
-										return 0;
-									});
-									break;
-								case 'oldest':
-									findMessagesByTeam.sort((a, b) => {
-										if (a.updatedAt < b.updatedAt) return -1;
-										if (a.updatedAt > b.updatedAt) return 1;
-										return 0;
-									});
-									break;
-								default:
-									break;
-							}
+								switch (this.state.sortOption) {
+									case 'newest':
+										findMessagesByTeam.sort((a, b) => {
+											if (a.updatedAt < b.updatedAt) return 1;
+											if (a.updatedAt > b.updatedAt) return -1;
+											return 0;
+										});
+										break;
+									case 'oldest':
+										findMessagesByTeam.sort((a, b) => {
+											if (a.updatedAt < b.updatedAt) return -1;
+											if (a.updatedAt > b.updatedAt) return 1;
+											return 0;
+										});
+										break;
+									default:
+										break;
+								}
 
 								return findMessagesByTeam.map(message => (
 									<Message
