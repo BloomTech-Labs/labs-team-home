@@ -14,46 +14,52 @@ class MessagesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let apollo = apollo else { return }
+        
         //Load messages with watcher 
-        //loadMessages()
-    }
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //Pass message cell info to message detail VC
+        loadMessages(with: apollo)
     }
 
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return messages?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! MessageCollectionViewCell
         
-//        guard let user = users?[indexPath.row] else { return UICollectionViewCell() }
-//
-//        cell.firstNameLabel.text = user.firstName
+        guard let message = messages?[indexPath.row] else { return UICollectionViewCell() }
+
+        cell.message = message
     
         return cell
     }
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //Pass message cell info to message detail VC
+    }
+    
     // MARK - Private Methods
     
-    private func loadMessages() {
-        watcher = apollo.watch(query: QueryNameQuery()) { (result, error) in
+    private func loadMessages(with apollo: ApolloClient) {
+        
+        let teamId = ""
+        
+        watcher = apollo.watch(query: FindMessagesByTeamQuery(teamId: teamId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
-            guard let users = result?.data?.users else { return }
-            self.users = users
+            guard let messages = result?.data?.findMessagesByTeam else { return }
+            self.messages = messages
         }
     }
     
     // MARK - Properties
-    var users: [QueryNameQuery.Data.User?]? {
+    private var messages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]? {
         didSet {
             if isViewLoaded {
                 DispatchQueue.main.async {
@@ -63,5 +69,6 @@ class MessagesCollectionViewController: UICollectionViewController {
         }
     }
     
-    var watcher: GraphQLQueryWatcher<QueryNameQuery>?
+    var watcher: GraphQLQueryWatcher<FindMessagesByTeamQuery>?
+    var apollo: ApolloClient?
 }

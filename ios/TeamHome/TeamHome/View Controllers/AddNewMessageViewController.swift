@@ -9,16 +9,14 @@
 import UIKit
 import Cloudinary
 import Photos
+import Apollo
 
 let config = CLDConfiguration(cloudName: "massamb", secure: true)
 let cloudinary = CLDCloudinary(configuration: config)
 
 class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
+    
+    // MARK - IBActions
     
     @IBAction func addPhoto(_ sender: Any) {
         let status = PHPhotoLibrary.authorizationStatus()
@@ -38,17 +36,20 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     
     @IBAction func submitMessage(_ sender: Any) {
         
+        guard let apollo = apollo,
+            let messageTitle = messageTitleTextField.text,
+            let content = messageBodyTextView.text else { return }
+        
+        
+        
         guard let imageData = imageData else { return }
         
         let params = CLDUploadRequestParams()
         
-        
         cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
             //Show progress
         }) { (result, error) in
-            print(error)
-            print(result)
-            print(result?.url)
+            
         }
     }
     
@@ -82,6 +83,7 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     // MARK - Properties
     
     private var imageData: Data?
+    var apollo: ApolloClient?
     
     @IBOutlet weak var messageTitleTextField: UITextField!
     @IBOutlet weak var messageBodyTextView: UITextView!

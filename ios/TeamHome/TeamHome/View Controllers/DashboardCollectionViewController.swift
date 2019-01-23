@@ -13,16 +13,35 @@ class DashboardCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadTeams()
+        
+        guard let apollo = apollo else { return }
+        
+        loadTeams(with: apollo)
+        presentWelcomeAlert(with: apollo)
     }
 
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "ShowMainTabBar" {
+            guard let destinationVC = segue.destination as? MainTabBarController,
+                let teams = teams,
+                let indexPaths = collectionView.indexPathsForSelectedItems,
+                let indexPath = indexPaths.first else { return }
+            
+            for childVC in destinationVC.children {
+                if let childVC = childVC as? UINavigationController {
+                    guard let nextVC = childVC.viewControllers.first else { return }
+                    if let nextVC = nextVC as? TabBarChildrenProtocol {
+                        let team = teams[indexPath.row]
+                        nextVC.team = team
+                        nextVC.apollo = apollo
+                    }
+                }
+            }
+        }
     }
 
 
@@ -30,13 +49,13 @@ class DashboardCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags?.count ?? 0
+        return teams?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamCell", for: indexPath) as! TeamCollectionViewCell
     
-        guard let team = tags?[indexPath.row] else { return UICollectionViewCell()}
+        guard let team = teams?[indexPath.row] else { return UICollectionViewCell()}
         cell.teamNameLabel.text = team.name
     
         return cell
@@ -44,20 +63,25 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     // MARK - Private Methods
     
-    private func loadTeams() {
-        watcher = apollo.watch(query: AllTagsQuery()) { (result, error) in
+    private func loadTeams(with apollo: ApolloClient) {
+        
+        watcher = apollo.watch(query: FindTeamsByUserQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
-            guard let tags = result?.data?.tags else { return }
-            self.tags = tags
+            guard let teams = result?.data?.findTeamsByUser else { return }
+            self.teams = teams
         }
     }
 
+    private func presentWelcomeAlert(with apollo: ApolloClient) {
+        
+    }
+    
     // MARK - Properties
     
-    var tags: [AllTagsQuery.Data.Tag?]? {
+    var teams: [FindTeamsByUserQuery.Data.FindTeamsByUser?]? {
         didSet {
             if isViewLoaded {
                 DispatchQueue.main.async {
@@ -67,5 +91,7 @@ class DashboardCollectionViewController: UICollectionViewController {
         }
     }
     
-    var watcher: GraphQLQueryWatcher<AllTagsQuery>?
+    var watcher: GraphQLQueryWatcher<FindTeamsByUserQuery>?
+    var apollo: ApolloClient?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
 }

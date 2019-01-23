@@ -1,6 +1,27 @@
-query QueryName {
-  users {
-    firstName
-    lastName
-  }
+query FindMessagesByTeam($teamId: ID!) {
+    findMessagesByTeam(input: {
+                       team: $teamId
+                       }) {
+        _id
+        title
+        user {
+            firstName
+            lastName
+            avatar
+        }
+        content
+        images
+        tags {
+            name
+        }
+        comments
+        subscribedUsers {
+            _id
+            firstName
+            lastName
+            avatar
+        }
+        createdAt
+        updatedAt
+    }
 }

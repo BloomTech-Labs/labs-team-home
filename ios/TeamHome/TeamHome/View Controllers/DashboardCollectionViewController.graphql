@@ -1,5 +1,7 @@
-query AllTags {
-  tags {
-    name
-  }
+query findTeamsByUser {
+    findTeamsByUser {
+        name
+        _id
+    }
 }
+
