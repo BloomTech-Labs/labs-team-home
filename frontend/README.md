@@ -22,6 +22,7 @@
 
 ```javascript
 frontend - (src)
+├── constants // constants for all `GraphQL` operations
 ├── View // Each View gets its own folder
 |   ├── containers // View containers
 |   └── components // View components
