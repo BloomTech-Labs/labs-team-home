@@ -47,6 +47,12 @@ const MessageFormContainer = styled.div`
 	}
 `;
 
+const ImageUploadContainer = styled.div`
+	width: 80%;
+	max-width: 500px;
+	margin: 20px;
+`;
+
 const ADD_MESSAGE = gql`
 	mutation addMessage(
 		$team: String!
@@ -136,6 +142,7 @@ export default function AddMessage(props) {
 									}}
 								/>
 							</label>
+							<ImageUploadContainer>
 							<FilePond
 								allowMultiple={true}
 								server={{
@@ -201,6 +208,7 @@ export default function AddMessage(props) {
 									}
 								}}
 							/>
+							</ImageUploadContainer>
 							<input type="submit" value="Submit" />
 						</form>
 					</MessageFormContainer>
