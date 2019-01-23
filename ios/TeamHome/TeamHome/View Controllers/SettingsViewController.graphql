@@ -1,0 +1,15 @@
+mutation UpdateUser($firstName: String, $lastName: String, $email: String, $phoneNumber: String, $avatar: String, $receiveEmails: Boolean, $receiveTexts: Boolean) {
+    updateUser(input: {
+               firstName: $firstName
+               lastName: $lastName
+               email: $email
+               phoneNumber: $phoneNumber
+               avatar: $avatar
+               toggles: {
+               receiveEmails: $receiveEmails
+               receiveTexts: $receiveTexts
+               }
+               }) {
+        _id
+    }
+}

@@ -7,9 +7,65 @@
 //
 
 import UIKit
+import Apollo
+import Cloudinary
 
 class MessageCollectionViewCell: UICollectionViewCell {
     
+    private func updateViews() {
+        guard let message = message else { return }
+        
+        // Update all labels with message's details
+        firstNameLabel.text = message.user.firstName
+//        lastNameLabel.text = message.user.lastName
+        messageTitleLabel.text = message.title
+        messageBodyLabel.text = message.content
+        dateLabel.text = ""
+        
+        // Show image attachment icon if images are included in message
+        if let images = message.images {
+            if images.count > 0 {
+                imageAttachmentIconImageView.isHidden = true
+            } else {
+                imageAttachmentIconImageView.isHidden = false
+            }
+        }
+        
+        // Display number of comments in message or hides count if no comments
+        if let comments = message.comments {
+            if comments.count > 0 {
+                commentCountLabel.text = "\(comments.count)"
+                commentIconImageView.isHidden = false
+            } else {
+                commentCountLabel.isHidden = true
+                commentIconImageView.isHidden = true
+            }
+        }
+        
+        // Download image and display as user avatar
+        guard let avatar = message.user.avatar else { return }
+        
+        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+            // Show progress
+        }) { (image, error) in
+            if let error = error {
+                print("\(error)")
+            }
+            
+            guard let image = image else { return }
+            
+            DispatchQueue.main.async {
+                self.userAvatarImageView.image = image
+            }
+        }
+        
+    }
+    
+    var message: FindMessagesByTeamQuery.Data.FindMessagesByTeam? {
+        didSet {
+            self.updateViews()
+        }
+    }
     
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!

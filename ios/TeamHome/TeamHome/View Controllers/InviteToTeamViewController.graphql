@@ -1,0 +1,13 @@
+query FindTeamById($id: ID!) {
+    findTeam(input: {
+             id: $id
+             }) {
+        name
+        users {
+            user {
+                _id
+            }
+            admin
+        }
+    }
+}

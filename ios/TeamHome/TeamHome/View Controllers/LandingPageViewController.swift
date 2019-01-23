@@ -38,16 +38,20 @@ class LandingPageViewController: UIViewController {
                         // Set up Apollo client with accessToken from auth0.
                         self.setUpApollo(with: idToken)
                         
+                        // Fetch currentUser that signed in
+                        guard let apollo = self.apollo else { return }
+                        self.fetchUser(with: apollo)
+                        
                         // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-                        do {
-                            let jwt = try decode(jwt: idToken)
-                            if let sub = jwt.subject {
-                                // Fetch user with based on sub (auth0id property of User model).
-                                self.fetchUser(with: sub)
-                            }
-                        } catch {
-                            NSLog("Error decoding idToken for sub/user's auth0id")
-                        }
+//                        do {
+//                            let jwt = try decode(jwt: idToken)
+//                            if let sub = jwt.subject {
+//                                // Fetch user with based on sub (auth0id property of User model).
+//                                self.fetchUser(with: sub)
+//                            }
+//                        } catch {
+//                            NSLog("Error decoding idToken for sub/user's auth0id")
+//                        }
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -82,16 +86,20 @@ class LandingPageViewController: UIViewController {
                         // Set up Apollo client with accessToken from auth0.
                         self.setUpApollo(with: idToken)
                         
+                        // Fetch currentUser that signed in
+                        guard let apollo = self.apollo else { return }
+                        self.fetchUser(with: apollo)
+                        
                         // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-                        do {
-                            let jwt = try decode(jwt: idToken)
-                            if let sub = jwt.subject {
-                                // Fetch user with based on sub (auth0id property of User model).
-                                self.fetchUser(with: sub)
-                            }
-                        } catch {
-                            NSLog("Error decoding idToken for sub/user's auth0id")
-                        }
+//                        do {
+//                            let jwt = try decode(jwt: idToken)
+//                            if let sub = jwt.subject {
+//                                // Fetch user with based on sub (auth0id property of User model).
+//                                self.fetchUser(with: sub)
+//                            }
+//                        } catch {
+//                            NSLog("Error decoding idToken for sub/user's auth0id")
+//                        }
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -128,16 +136,20 @@ class LandingPageViewController: UIViewController {
                         // Set up Apollo client with accessToken from auth0.
                         self.setUpApollo(with: idToken)
                         
+                        // Fetch currentUser that signed in
+                        guard let apollo = self.apollo else { return }
+                        self.fetchUser(with: apollo)
+                        
                         // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-                        do {
-                            let jwt = try decode(jwt: idToken)
-                            if let sub = jwt.subject {
-                                // Fetch user with based on sub (auth0id property of User model).
-                                self.fetchUser(with: sub)
-                            }
-                        } catch {
-                            NSLog("Error decoding idToken for sub/user's auth0id")
-                        }
+//                        do {
+//                            let jwt = try decode(jwt: idToken)
+//                            if let sub = jwt.subject {
+//                                // Fetch user with based on sub (auth0id property of User model).
+//                                self.fetchUser(with: sub)
+//                            }
+//                        } catch {
+//                            NSLog("Error decoding idToken for sub/user's auth0id")
+//                        }
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -185,16 +197,20 @@ class LandingPageViewController: UIViewController {
                                     // Set up Apollo client with accessToken from auth0.
                                     self.setUpApollo(with: idToken)
                                     
+                                    // Fetch currentUser that signed in
+                                    guard let apollo = self.apollo else { return }
+                                    self.fetchUser(with: apollo)
+                                    
                                     // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-                                    do {
-                                        let jwt = try decode(jwt: idToken)
-                                        if let sub = jwt.subject {
-                                            // Fetch user with based on sub (auth0id property of User model).
-                                            self.fetchUser(with: sub)
-                                        }
-                                    } catch {
-                                        NSLog("Error decoding idToken for sub/user's auth0id")
-                                    }
+//                                    do {
+//                                        let jwt = try decode(jwt: idToken)
+//                                        if let sub = jwt.subject {
+//                                            // Fetch user with based on sub (auth0id property of User model).
+//                                            self.fetchUser(with: sub)
+//                                        }
+//                                    } catch {
+//                                        NSLog("Error decoding idToken for sub/user's auth0id")
+//                                    }
                                     
                                     // Perform segue to Dashboard VC.
                                     self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -213,34 +229,6 @@ class LandingPageViewController: UIViewController {
             }
     }
     
-//    @IBAction func lockLogIn(_ sender: Any) {
-//        Lock
-//            .classic()
-//            // withConnections, withOptions, withStyle, and so on
-//            .withOptions {
-//                $0.oidcConformant = true
-//                $0.scope = "openid profile"
-//            }
-//            .onAuth { credentials in
-//                // Let's save our credentials.accessToken value
-//                guard let accessToken = credentials.accessToken else { return }
-//                Auth0
-//                    .authentication()
-//                    .userInfo(withAccessToken: accessToken)
-//                    .start { result in
-//                        switch result {
-//                        case .success(let profile):
-//                            // You've got a UserProfile object
-//                            print("Success: \(profile)")
-//                        case .failure(let error):
-//                            // You've got an error
-//                            print ("Failure: \(error)")
-//                        }
-//                }
-//            }
-//            .present(from: self)
-//    }
-    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -250,7 +238,7 @@ class LandingPageViewController: UIViewController {
             
             // Pass Apollo client and user fetched from search
             destinationVC.apollo = self.apollo
-            // Pass user.
+            destinationVC.currentUser = self.currentUser
         }
     }
     
@@ -269,7 +257,17 @@ class LandingPageViewController: UIViewController {
         }()
     }
     
-    private func fetchUser(with subId: String) {
+    private func fetchUser(with apollo: ApolloClient) {
+        apollo.fetch(query: CurrentUserQuery()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            guard let result = result else { return }
+            
+            self.currentUser = result.data?.currentUser
+        }
         
     }
     
@@ -300,16 +298,9 @@ class LandingPageViewController: UIViewController {
                         // Set up Apollo client with accessToken from auth0.
                         self.setUpApollo(with: idToken)
                         
-                        // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-                        do {
-                            let jwt = try decode(jwt: idToken)
-                            if let sub = jwt.subject {
-                                // Fetch user with based on sub (auth0id property of User model).
-                                self.fetchUser(with: sub)
-                            }
-                        } catch {
-                            NSLog("Error decoding idToken for sub/user's auth0id")
-                        }
+                        // Fetch currentUser that signed in
+                        guard let apollo = self.apollo else { return }
+                        self.fetchUser(with: apollo)
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -326,7 +317,7 @@ class LandingPageViewController: UIViewController {
     
     // MARK - Properties
     
-    private var user: DatabaseUser?
+    private var currentUser: CurrentUserQuery.Data.CurrentUser?
     private var apollo: ApolloClient?
     
     //All IBOutlets on storyboard view scene
