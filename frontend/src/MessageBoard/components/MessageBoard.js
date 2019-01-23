@@ -7,8 +7,7 @@ import AddMessage from './AddMessage';
 import { Query, compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Invites from './Invites';
-import * as q from '../../constants/queries';
-import * as m from '../../constants/mutations';
+import * as query from '../../constants/queries';
 
 import MessageDetail from './MessageDetail';
 
@@ -214,7 +213,7 @@ class MessageBoard extends React.Component {
 							</label>
 						</form>
 						<Query
-							query={q.FIND_MESSAGES_BY_TEAM}
+							query={query.FIND_MESSAGES_BY_TEAM}
 							variables={{ team: this.props.match.params.team }}
 						>
 							{({ loading, error, data: { findMessagesByTeam } }) => {

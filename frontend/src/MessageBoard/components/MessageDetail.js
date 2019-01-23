@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
-import {
-	Query,
-	Mutation,
-	graphql,
-	compose,
-	ApolloConsumer,
-	withApollo
-} from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import * as q from '../../constants/queries';
-import * as m from '../../constants/mutations';
+import * as query from '../../constants/queries';
+import * as mutation from '../../constants/mutations';
 
 class MessageDetail extends Component {
 	state = { editing: false, edited: null };
@@ -36,7 +29,7 @@ class MessageDetail extends Component {
 		return (
 			<Dialog isOpen={open}>
 				{message && (
-					<Query query={q.FIND_MESSAGE} variables={{ id: message._id }}>
+					<Query query={query.FIND_MESSAGE} variables={{ id: message._id }}>
 						{({ loading, error, data: { findMessage } }) =>
 							loading ? (
 								<p>Loading...</p>
@@ -44,7 +37,7 @@ class MessageDetail extends Component {
 								<p>Error</p>
 							) : (
 								<Query
-									query={q.FIND_COMMENTS_BY_MESSAGE}
+									query={query.FIND_COMMENTS_BY_MESSAGE}
 									variables={{ message: message._id }}
 								>
 									{({ loading, error, data: { findMsgCommentsByMessage } }) => {
@@ -62,14 +55,14 @@ class MessageDetail extends Component {
 													<h2>{findMessage.title}</h2>
 													<p>{findMessage.content}</p>
 													<Mutation
-														mutation={m.UPDATE_MESSAGE}
+														mutation={mutation.UPDATE_MESSAGE}
 														update={(cache, { data: { updateMessage } }) => {
 															const { findMessagesByTeam } = cache.readQuery({
-																query: q.FIND_MESSAGES_BY_TEAM,
+																query: query.FIND_MESSAGES_BY_TEAM,
 																variables: { team: this.props.team }
 															});
 															cache.writeQuery({
-																query: q.FIND_MESSAGES_BY_TEAM,
+																query: query.FIND_MESSAGES_BY_TEAM,
 																variables: { team: this.props.team },
 																data: {
 																	findMessagesByTeam: findMessagesByTeam.map(
@@ -138,7 +131,7 @@ class MessageDetail extends Component {
 														<p>{comment.likes.length} likes</p>
 														{comment.user._id === currentUser._id && (
 															<Mutation
-																mutation={m.DELETE_COMMENT}
+																mutation={mutation.DELETE_COMMENT}
 																update={(
 																	cache,
 																	{ data: { deleteMsgComment } }
@@ -146,11 +139,11 @@ class MessageDetail extends Component {
 																	const {
 																		findMsgCommentsByMessage
 																	} = cache.readQuery({
-																		query: q.FIND_COMMENTS_BY_MESSAGE,
+																		query: query.FIND_COMMENTS_BY_MESSAGE,
 																		variables: { message: message._id }
 																	});
 																	cache.writeQuery({
-																		query: q.FIND_COMMENTS_BY_MESSAGE,
+																		query: query.FIND_COMMENTS_BY_MESSAGE,
 																		variables: { message: message._id },
 																		data: {
 																			findMsgCommentsByMessage: findMsgCommentsByMessage.filter(
@@ -192,7 +185,7 @@ class MessageDetail extends Component {
 															</button>
 														)}
 														<Mutation
-															mutation={m.UPDATE_COMMENT}
+															mutation={mutation.UPDATE_COMMENT}
 															update={(
 																cache,
 																{ data: { updateMsgComment } }
@@ -200,11 +193,11 @@ class MessageDetail extends Component {
 																const {
 																	findMsgCommentsByMessage
 																} = cache.readQuery({
-																	query: q.FIND_COMMENTS_BY_MESSAGE,
+																	query: query.FIND_COMMENTS_BY_MESSAGE,
 																	variables: { message: message._id }
 																});
 																cache.writeQuery({
-																	query: q.FIND_COMMENTS_BY_MESSAGE,
+																	query: query.FIND_COMMENTS_BY_MESSAGE,
 																	variables: { message: message._id },
 																	data: {
 																		findMsgCommentsByMessage: findMsgCommentsByMessage.map(
@@ -266,14 +259,14 @@ class MessageDetail extends Component {
 				)}
 				{this.state.editing ? (
 					<Mutation
-						mutation={m.UPDATE_COMMENT}
+						mutation={mutation.UPDATE_COMMENT}
 						update={(cache, { data: { updateMsgComment } }) => {
 							const { findMsgCommentsByMessage } = cache.readQuery({
-								query: q.FIND_COMMENTS_BY_MESSAGE,
+								query: query.FIND_COMMENTS_BY_MESSAGE,
 								variables: { message: message._id }
 							});
 							cache.writeQuery({
-								query: q.FIND_COMMENTS_BY_MESSAGE,
+								query: query.FIND_COMMENTS_BY_MESSAGE,
 								variables: { message: message._id },
 								data: {
 									findMsgCommentsByMessage: findMsgCommentsByMessage.map(
@@ -312,14 +305,14 @@ class MessageDetail extends Component {
 					</Mutation>
 				) : (
 					<Mutation
-						mutation={m.ADD_COMMENT}
+						mutation={mutation.ADD_COMMENT}
 						update={(cache, { data: { addMsgComment } }) => {
 							const { findMsgCommentsByMessage } = cache.readQuery({
-								query: q.FIND_COMMENTS_BY_MESSAGE,
+								query: query.FIND_COMMENTS_BY_MESSAGE,
 								variables: { message: message._id }
 							});
 							cache.writeQuery({
-								query: q.FIND_COMMENTS_BY_MESSAGE,
+								query: query.FIND_COMMENTS_BY_MESSAGE,
 								variables: { message: message._id },
 								data: {
 									findMsgCommentsByMessage: [
