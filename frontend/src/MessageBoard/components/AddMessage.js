@@ -4,10 +4,21 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginFileTypeValidation from 'filepond-plugin-file-validate-type';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImageResize from 'filepond-plugin-image-resize';
+import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
+// image preview not working
+// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import * as m from '../../constants/mutations';
 
-registerPlugin(FilePondPluginFileTypeValidation);
+registerPlugin(
+	FilePondPluginImageExifOrientation,
+	FilePondPluginFileTypeValidation,
+	FilePondPluginImageResize,
+	FilePondPluginImageTransform
+	//FilePondPluginImagePreview
+);
 
 const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 const apiKey = process.env.REACT_APP_API_KEY;
@@ -149,6 +160,10 @@ export default function AddMessage(props) {
 								<FilePond
 									allowMultiple={true}
 									acceptedFileTypes="image/jpeg, image/png, image/gif"
+									imageResizeTargetWidth={1280}
+									imageResizeTargetHeight={800}
+									imageResizeMode="contain"
+									imageResizeUpscale={false}
 									server={{
 										url: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
 										process: (
