@@ -94,7 +94,8 @@ class MessageBoard extends React.Component {
 				users: ['dfasdf', 'asdfsags']
 			},
 			user: '5c3cdac285d92c646e97678d',
-			isAdmin: true
+			isAdmin: true,
+			sortOption: 'newest'
 		};
 
 		this.openModalHandler = this.openModalHandler.bind(this);
@@ -104,6 +105,11 @@ class MessageBoard extends React.Component {
 		this.inviteChangeHandler = this.inviteChangeHandler.bind(this);
 		this.inviteSubmitHandler = this.inviteSubmitHandler.bind(this);
 		this.stopProp = this.stopProp.bind(this);
+		this.sortChange = this.sortChange.bind(this);
+	}
+
+	sortChange(e) {
+		this.setState({ sortOption: e.target.value });
 	}
 
 	openInviteHandler() {
