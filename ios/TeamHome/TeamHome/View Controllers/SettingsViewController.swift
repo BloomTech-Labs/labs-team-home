@@ -95,7 +95,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         }
         
         
-        apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: "", receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (result, error) in
+        apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: "", receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (_, error) in
             if let error = error {
                 NSLog("\(error)")
             }
@@ -123,21 +123,45 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     private func loadUserSettings(with apollo: ApolloClient) {
         
-//        let downloader: CLDDownloader = cloudinary.createDownloader()
-//
-//        downloader.fetchImage("https://res.cloudinary.com/massamb/image/upload/v1547755535/hluogc6lsro0kye4br3e.png", { (progress) in
-//            // Show progress
-//        }) { (image, error) in
-//            if let error = error {
-//                print("\(error)")
-//            }
-//
-//            guard let image = image else { return }
-//
-//            DispatchQueue.main.async {
-//                self.userAvatarImageView.image = image
-//            }
-//        }
+        apollo.watch(query: CurrentUserQuery()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            guard let result = result,
+                let currentUser = result.data?.currentUser else { return }
+            
+            self.currentUser = currentUser
+        }
+    }
+    
+    private func updateViews() {
+        
+        guard let currentUser = currentUser else { return }
+        
+        firstNameTextField.text = currentUser.firstName
+        lastNameTextField.text = currentUser.lastName
+        emailTextField.text = currentUser.email
+        phoneTextField.text = currentUser.phoneNumber
+        emailSwitch.isOn = currentUser.toggles?.receiveEmails ?? false
+        textSMSSwitch.isOn = currentUser.toggles?.receiveTexts ?? false
+        
+        let downloader: CLDDownloader = cloudinary.createDownloader()
+        
+        downloader.fetchImage("https://res.cloudinary.com/massamb/image/upload/v1547755535/hluogc6lsro0kye4br3e.png", { (progress) in
+            // Show progress
+        }) { (image, error) in
+            if let error = error {
+                print("\(error)")
+            }
+            
+            guard let image = image else { return }
+            
+            DispatchQueue.main.async {
+                self.userAvatarImageView.image = image
+            }
+        }
     }
     
     private func presentImagePickerController() {
@@ -156,6 +180,13 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     private var imageData: Data?
+    private var currentUser: CurrentUserQuery.Data.CurrentUser? {
+        didSet {
+            DispatchQueue.main.async {
+                self.updateViews()
+            }
+        }
+    }
     
     @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var showHideBillingButton: UIButton!

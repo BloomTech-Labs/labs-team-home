@@ -71,4 +71,5 @@ class MessagesCollectionViewController: UICollectionViewController {
     
     var watcher: GraphQLQueryWatcher<FindMessagesByTeamQuery>?
     var apollo: ApolloClient?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
 }

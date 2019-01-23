@@ -1,5 +1,5 @@
 mutation InviteUserToTeam($id: ID!, $email: String, $phoneNumber: String) {
-    inviteUser({
+    inviteUser(input: {
                id: $id
                email: $email
                phoneNumber: $phoneNumber

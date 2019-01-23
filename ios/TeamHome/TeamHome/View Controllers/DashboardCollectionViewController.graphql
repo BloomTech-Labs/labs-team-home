@@ -5,4 +5,13 @@ query findTeamsByUser {
     }
 }
 
+mutation CreateTeam($name: String!, $premium: Boolean) {
+    addTeam(input: {
+            name: $name
+            premium: $premium
+            }) {
+        _id
+        
+    }
+}
 

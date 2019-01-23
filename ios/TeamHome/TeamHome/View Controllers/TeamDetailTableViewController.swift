@@ -30,16 +30,16 @@ class TeamDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TeamMemberCell", for: indexPath)
 
-        guard let user = users?[indexPath.row],
-            let firstName = user.firstName,
-            let lastName = user.lastName else { return UITableViewCell() }
-
-        cell.textLabel?.text = "\(firstName) \(lastName)"
-        cell.detailTextLabel?.text = user.email
-        
-        if let avatar = user.avatar {
-            // Set up user's avatar
-        }
+//        guard let user = users?[indexPath.row],
+//            let firstName = user.firstName,
+//            let lastName = user.lastName else { return UITableViewCell() }
+//
+//        cell.textLabel?.text = "\(firstName) \(lastName)"
+//        cell.detailTextLabel?.text = user.email
+//
+//        if let avatar = user.avatar {
+//            // Set up user's avatar
+//        }
         
         return cell
     }
@@ -70,20 +70,23 @@ class TeamDetailTableViewController: UITableViewController {
     
     private func loadUsers(with apollo: ApolloClient) {
         // Get team's id
-        let id: String = ""
+        guard let team = team,
+            let teamId = team.id else { return }
         
-        watcher = apollo.watch(query: FindTeamByIdQuery(id: id)) { (result, error) in
+        watcher = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
-            guard let team = result?.data?.findTeam else { return }
-            
+            guard let result = result,
+                let data = result.data,
+                let team = data.findTeam else { return }
+            self.users = team.users
         }
     }
     
     // MARK - Properties
-    var users: [FindTeamByIdQuery.Data.FindTeam.User.User?]? {
+    var users: [FindTeamByIdQuery.Data.FindTeam.User?]? {
         didSet {
             if isViewLoaded {
                 DispatchQueue.main.async {
