@@ -4166,6 +4166,31 @@ filename-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
   integrity sha1-wcS5vuPglyXdsQa3XB4wH+LxiyY=
 
+filepond-plugin-file-validate-type@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-file-validate-type/-/filepond-plugin-file-validate-type-1.2.1.tgz#02f5ca2411db0bf23c4afd81355f15c5a57b2c3a"
+  integrity sha512-DPgkHQ9n88kUAJcgozTqMwmmt9k3Ibn8xBatv91krpLnbQiVgRszocx7v3NMySw2R2Pil9fgPF7opAYaTpwlfA==
+
+filepond-plugin-image-exif-orientation@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-exif-orientation/-/filepond-plugin-image-exif-orientation-1.0.3.tgz#b2914b5fd8ec1bc5fc2eb1b0c969275fdbcf9198"
+  integrity sha512-eg0OTny+fsF21x3FnWRrZjDG50iMFFnl8uVKW9MpG+tggBqpp/G7LreO7/gHyPLaiMNO+TX+ANMF51lw6OlNrQ==
+
+filepond-plugin-image-preview@^3.1.6:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-preview/-/filepond-plugin-image-preview-3.1.6.tgz#0188300f952e76976741d8b88ddd03d1b4ce8214"
+  integrity sha512-IpIHUi0/IIc4Rbo2nxfA+AXzUu0JPfWU2HneuM0NjpNG4s0I0BVv5tw9CgFaqWQ7+Dr9ULJy4SdMmlP9vnyN1g==
+
+filepond-plugin-image-resize@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-resize/-/filepond-plugin-image-resize-2.0.1.tgz#c03c4ace90a388fcc14717ab422e2b1c9d1e50c5"
+  integrity sha512-Ffva1S+YRr7/44DYFVrNqD/al8whpnszQH4pRAxyB75wDeG8uuq/9eb3F5Zs7Wilhb0YZ16XTmkqhAAUhOHCjA==
+
+filepond-plugin-image-transform@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-transform/-/filepond-plugin-image-transform-3.2.0.tgz#e635ec693bb85c079efe9d6a547b2e5fc47e5240"
+  integrity sha512-02JuPO5Tajpp96/pwidNKLZnAy05TT5mfmt4ceRJvEJQwG7SqcEcs5tGz7dGPDK+MYDgFWxJErL6ierb6q0REQ==
+
 filepond@^3.7.5:
   version "3.7.5"
   resolved "https://registry.yarnpkg.com/filepond/-/filepond-3.7.5.tgz#b544aa49fa5032cb6bfb441098b6ca13f3fe3bd9"
