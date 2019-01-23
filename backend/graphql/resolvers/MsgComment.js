@@ -24,10 +24,13 @@ const msgCommentResolvers = {
 						{ $push: { comments: [comment._id] } },
 						{ new: true }
 					).populate('team subscribedUsers');
-					const emails = message.subscribedUsers.filter(
-						// creates an array of emails of subscribed users, if their email is on file and the user isn't the one adding the message
-						user => user.toggles.receiveEmails && user.email && user._id !== _id
-					);
+					const emails = message.subscribedUsers
+						.filter(
+							// creates an array of emails of subscribed users, if their email is on file and the user isn't the one adding the message
+							user =>
+								user.toggles.receiveEmails && user.email && user._id !== _id
+						)
+						.map(user => user.email);
 					emails.length &&
 						sgMail.send({
 							// notifies subscribed users of the new comment
