@@ -40,7 +40,13 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
             let messageTitle = messageTitleTextField.text,
             let content = messageBodyTextView.text else { return }
         
-        
+        apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: "", content: content, images: [""], tags: [""], subscribers: [""]), queue: DispatchQueue.global()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let result = result else { return }
+        }
         
         guard let imageData = imageData else { return }
         

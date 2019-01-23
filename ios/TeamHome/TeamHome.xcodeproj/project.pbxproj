@@ -51,6 +51,9 @@
 		7BF8735221F6D37300737729 /* InviteToTeamViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735121F6D37300737729 /* InviteToTeamViewController.graphql */; };
 		7BF8735421F6D46C00737729 /* ActivityTimelineViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735321F6D46C00737729 /* ActivityTimelineViewController.graphql */; };
 		7BF8735621F6D50B00737729 /* SettingsViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735521F6D50B00737729 /* SettingsViewController.graphql */; };
+		7BF8735821F7B4C500737729 /* AddNewMessageViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735721F7B4C500737729 /* AddNewMessageViewController.graphql */; };
+		7BF8735A21F7BA8400737729 /* MessageDetailViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735921F7BA8400737729 /* MessageDetailViewController.graphql */; };
+		7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */; };
 		A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990E29AD1BA455515C611736 /* Pods_TeamHome.framework */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +105,9 @@
 		7BF8735121F6D37300737729 /* InviteToTeamViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InviteToTeamViewController.graphql; sourceTree = "<group>"; };
 		7BF8735321F6D46C00737729 /* ActivityTimelineViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ActivityTimelineViewController.graphql; sourceTree = "<group>"; };
 		7BF8735521F6D50B00737729 /* SettingsViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SettingsViewController.graphql; sourceTree = "<group>"; };
+		7BF8735721F7B4C500737729 /* AddNewMessageViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddNewMessageViewController.graphql; sourceTree = "<group>"; };
+		7BF8735921F7BA8400737729 /* MessageDetailViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MessageDetailViewController.graphql; sourceTree = "<group>"; };
+		7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CommentsCollectionViewController.graphql; sourceTree = "<group>"; };
 		990E29AD1BA455515C611736 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,8 +189,11 @@
 				7BA77ECF21ED50BA00C862C1 /* MessagesCollectionViewController.graphql */,
 				7BA77EA121E80E3E00C862C1 /* MessageCollectionViewCell.swift */,
 				7BA77EAB21E9376E00C862C1 /* AddNewMessageViewController.swift */,
+				7BF8735721F7B4C500737729 /* AddNewMessageViewController.graphql */,
 				7BA77EAF21E93B1300C862C1 /* MessageDetailViewController.swift */,
+				7BF8735921F7BA8400737729 /* MessageDetailViewController.graphql */,
 				7BA77EB121E93B2200C862C1 /* CommentsCollectionViewController.swift */,
+				7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */,
 				7BA77EB321E93B3400C862C1 /* CommentCollectionViewCell.swift */,
 				7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */,
 				7BA77EB721E93CBA00C862C1 /* ActivityTimelineViewController.swift */,
@@ -308,11 +317,14 @@
 			files = (
 				7BF8735421F6D46C00737729 /* ActivityTimelineViewController.graphql in Resources */,
 				7BA77ED021ED50BB00C862C1 /* MessagesCollectionViewController.graphql in Resources */,
+				7BF8735A21F7BA8400737729 /* MessageDetailViewController.graphql in Resources */,
 				7BA77E9921E8033C00C862C1 /* TeamExample.json in Resources */,
 				7BA77E9821E8033C00C862C1 /* MessageExample.json in Resources */,
 				7BF8735621F6D50B00737729 /* SettingsViewController.graphql in Resources */,
 				7BF8735021F6D24400737729 /* TeamDetailTableViewController.graphql in Resources */,
 				7BA77E9B21E8033C00C862C1 /* TagExample.json in Resources */,
+				7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */,
+				7BF8735821F7B4C500737729 /* AddNewMessageViewController.graphql in Resources */,
 				7BA77E9C21E8033C00C862C1 /* UserExample.json in Resources */,
 				7B6BE7DB21E5733E0099E42C /* LaunchScreen.storyboard in Resources */,
 				7BA77EAA21E9177300C862C1 /* MessageDetailView.storyboard in Resources */,
