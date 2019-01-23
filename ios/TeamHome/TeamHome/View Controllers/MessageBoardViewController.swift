@@ -44,6 +44,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         } else if segue.identifier == "AddNewMessage" {
             guard let destinationVC = segue.destination as? AddNewMessageViewController else { return }
             destinationVC.apollo = apollo
+            destinationVC.team = team
         }
     }
     

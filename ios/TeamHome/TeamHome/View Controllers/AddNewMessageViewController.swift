@@ -21,16 +21,32 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     @IBAction func addPhoto(_ sender: Any) {
         let status = PHPhotoLibrary.authorizationStatus()
         
-        if status == .authorized {
+        switch status {
+        case .authorized:
             presentImagePickerController()
-        } else if status == .notDetermined {
+        case .notDetermined:
             PHPhotoLibrary.requestAuthorization { (authorizationStatus) in
-                if authorizationStatus == .authorized {
+                
+                switch authorizationStatus {
+                case .authorized:
                     self.presentImagePickerController()
-                } else {
-                    // Set alert to change settings
+                case .notDetermined:
+                    // Present alert
+                    break
+                case .restricted:
+                    // Present alert
+                    break
+                case .denied:
+                    // Present alert
+                    break
                 }
             }
+        case .denied:
+            // Present alert
+            break
+        case .restricted:
+            // Present alert
+            break
         }
     }
     
@@ -41,7 +57,7 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
             let teamId = team.id,
             let messageTitle = messageTitleTextField.text,
             let content = messageBodyTextView.text,
-            let tags = newTagTextField.text else { return }
+            let tags = tagsTextField.text else { return }
         
         let tagsWithoutWhitespace = tags.trimmingCharacters(in: .whitespaces)
         let tagArray = tagsWithoutWhitespace.components(separatedBy: ",")
@@ -53,6 +69,10 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
                 if let error = error {
                     NSLog("\(error)")
                     return
+                }
+                
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
             return
@@ -80,6 +100,10 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
                     NSLog("\(error)")
                     return
                 }
+                
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
         }
     }
@@ -91,14 +115,14 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
         let imagePicker = UIImagePickerController()
         
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
             present(imagePicker, animated: true, completion: nil)
         }
     }
     
     // MARK - UIImagePickerControllerDelegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true, completion: nil)
         
@@ -111,6 +135,9 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
         
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
     // MARK - Properties
     
     private var imageData: Data?
@@ -120,6 +147,6 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     @IBOutlet weak var messageTitleTextField: UITextField!
     @IBOutlet weak var messageBodyTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var newTagTextField: UITextField!
+    @IBOutlet weak var tagsTextField: UITextField!
     
 }

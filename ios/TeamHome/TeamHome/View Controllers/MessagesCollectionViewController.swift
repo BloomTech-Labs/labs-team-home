@@ -46,7 +46,8 @@ class MessagesCollectionViewController: UICollectionViewController {
     
     private func loadMessages(with apollo: ApolloClient) {
         
-        let teamId = ""
+        guard let team = team,
+            let teamId = team.id else { return }
         
         watcher = apollo.watch(query: FindMessagesByTeamQuery(teamId: teamId)) { (result, error) in
             if let error = error {
@@ -54,6 +55,7 @@ class MessagesCollectionViewController: UICollectionViewController {
             }
             
             guard let messages = result?.data?.findMessagesByTeam else { return }
+            
             self.messages = messages
         }
     }
