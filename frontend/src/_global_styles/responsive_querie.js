@@ -1,6 +1,30 @@
 import { css } from 'styled-components';
 
 /**
+ * Use of custom responsive query functions:
+ * import "mediaQueryFor" into your styles
+ * 
+ * Example:
+ * const BtmContentStyles = styled.div`
+	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
+	font-family: Comfortaa;
+	font-size: 1rem;
+	font-weight: 100;
+	margin: 0 auto;
+	margin-top: 2%;
+	width: 40%;
+	height: 2vh;
+  color: rgba(255, 255, 255, 0.6);
+  
+  ${mediaQueryFor.lgDevice`
+    background-color:#fff;
+    color:#000;
+    font-size:3rem;
+  `}
+`;
+ */
+
+/**
  * Breakpoint values
  * xtra small
 <576px	Small
