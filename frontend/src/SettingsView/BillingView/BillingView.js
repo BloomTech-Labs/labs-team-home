@@ -26,7 +26,7 @@ const BillingView = () => {
 	return (
 		<StripeCheckout
 			label="Go Premium" //Component button text
-			name="i suck at programming" //Modal Header
+			name="the name goes here" //Modal Header
 			description="Upgrade to a premium account today."
 			panelLabel="Go Premium" //Submit button in modal
 			amount={999} //Amount in cents $9.99
