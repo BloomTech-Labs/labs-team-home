@@ -36,6 +36,31 @@ const teamResolvers = {
 				}
 			});
 		},
+		setPremium: (_, { input }) => {
+			const body = {
+				source: input.token,
+				amount: input.amount,
+				currency: 'usd'
+			};
+			return stripe.charges
+				.create(body)
+				.then(() => {
+					return Team.findById(input.id).then(team => {
+						if (team) {
+							return Team.findOneAndUpdate(
+								{ _id: input.id },
+								{ $set: { premium: true } },
+								{ new: true }
+							).populate('users');
+						} else {
+							throw new Error("Team doesn't exist");
+						}
+					});
+				})
+				.catch(() => {
+					throw new Error('payment error');
+				});
+		},
 		deleteTeam: (_, { input: { id } }, { user }) =>
 			Team.findById(id).then(async foundTeam => {
 				if (foundTeam) {

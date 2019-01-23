@@ -8,7 +8,7 @@ const BillingView = () => {
 	const onToken = token => {
 		const body = {
 			amount: 999,
-			token: token
+			token: token.id
 		};
 
 		axios

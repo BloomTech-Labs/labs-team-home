@@ -32,6 +32,11 @@ const Team = /* GraphQL */ `
 		users: [TeamUserInput]
 		premium: Boolean
 	}
+	input SetPremiumInput {
+		id: ID!
+		charge: Int!
+		source: String!
+	}
 	input DeleteTeamInput {
 		id: ID!
 	}
@@ -44,6 +49,7 @@ const Team = /* GraphQL */ `
 		addTeam(input: AddTeamInput!): Team
 		updateTeam(input: UpdateTeamInput!): Team
 		deleteTeam(input: DeleteTeamInput!): Team
+		setPremium(input: SetPremiumInput!): Team
 		inviteUser(input: InviteUserInput!): Team
 	}
 `;
