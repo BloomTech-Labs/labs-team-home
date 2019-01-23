@@ -9,6 +9,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import AppStyles from './app-styles';
 import SettingsView from './SettingsView/containers/SettingsView';
 import Nav from './Nav/Nav';
 

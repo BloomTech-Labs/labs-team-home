@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
     width:100vw;
     margin:0;
     background-color:#17151B;
-    color: ${props => (props.whiteColor ? 'white' : 'black')};
   }
 `;
 

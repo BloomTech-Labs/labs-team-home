@@ -80,7 +80,8 @@ const mediaQueryFor = {
 	smDevice,
 	mdDevice,
 	lgDevice,
-	xlDevice
+	xlDevice,
+	customWidthMediaQuery
 };
 
 export default mediaQueryFor;
