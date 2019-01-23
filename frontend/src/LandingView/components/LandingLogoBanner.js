@@ -10,7 +10,6 @@ const LogoBanner = props => {
 	return (
 		<LogoBannerStyles>
 			<BannerStyles>
-				{/* <TextIMG alt={"TeamHome banner"} src={textLogo} /> */}
 				<TextIMG alt={'TeamHome banner'} src={iconLogo} />
 			</BannerStyles>
 			<BottomContent />

@@ -7,9 +7,18 @@ const BtmContentStyles = styled.div`
 	font-weight: 100;
 	margin: 0 auto;
 	margin-top: 2%;
-	width: 40%;
+	width: 100%;
 	height: 2vh;
-	color: rgba(255, 255, 255, 0.6);
+	color: rgba(255, 255, 255, 1);
+	h1 {
+		width: 60%;
+		margin: 0 20%;
+		font-size: 6rem;
+	}
+	p {
+		width: 50%;
+		margin: 0 auto;
+	}
 `;
 
 export default BtmContentStyles;

@@ -19,7 +19,7 @@ const LogoBannerStyles = styled.div`
 `;
 
 const TextIMG = styled.img`
-	width: 100%;
+	height: 80vh;
 `;
 
 const BannerStyles = styled.div`
