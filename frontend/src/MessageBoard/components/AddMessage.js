@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import { FilePond } from 'react-filepond';
+import { FilePond, registerPlugin } from 'react-filepond';
+import FilePondPluginFileTypeValidation from 'filepond-plugin-file-validate-type';
 import 'filepond/dist/filepond.min.css';
 import * as m from '../../constants/mutations';
+
+registerPlugin(FilePondPluginFileTypeValidation);
 
 const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 const apiKey = process.env.REACT_APP_API_KEY;
