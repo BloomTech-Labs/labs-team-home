@@ -7,6 +7,11 @@ const TabListItem = styled.li`
 	list-style: none;
 	margin-bottom: -1px;
 	padding: 0.5rem 0.75rem;
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	:hover {
+		background-color: #f1fcef;
+		color: #17151b;
+	}
 `;
 export default class SingleTab extends Component {
 	static propTypes = {
