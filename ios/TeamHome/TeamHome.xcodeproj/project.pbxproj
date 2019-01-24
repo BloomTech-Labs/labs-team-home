@@ -54,6 +54,7 @@
 		7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */; };
 		7BF8735E21FA3DB000737729 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8735D21FA3DB000737729 /* EditMessageViewController.swift */; };
 		7BF8736021FA482000737729 /* EditMessageViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735F21FA482000737729 /* EditMessageViewController.graphql */; };
+		7BF8736221FA6B4B00737729 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8736121FA6B4B00737729 /* Activity.swift */; };
 		A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990E29AD1BA455515C611736 /* Pods_TeamHome.framework */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CommentsCollectionViewController.graphql; sourceTree = "<group>"; };
 		7BF8735D21FA3DB000737729 /* EditMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
 		7BF8735F21FA482000737729 /* EditMessageViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EditMessageViewController.graphql; sourceTree = "<group>"; };
+		7BF8736121FA6B4B00737729 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		990E29AD1BA455515C611736 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,6 +220,7 @@
 				7BA77E9121E7FCD000C862C1 /* Comment.swift */,
 				7BA77E8B21E7F5BE00C862C1 /* Team.swift */,
 				7BA77E8F21E7F68300C862C1 /* Tag.swift */,
+				7BF8736121FA6B4B00737729 /* Activity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				7BD6589321EF8E99004FF34A /* TeamCollectionViewCell.swift in Sources */,
 				7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */,
 				7BD6589E21F00A55004FF34A /* API.swift in Sources */,
+				7BF8736221FA6B4B00737729 /* Activity.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
