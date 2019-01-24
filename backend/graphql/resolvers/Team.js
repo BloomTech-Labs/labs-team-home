@@ -60,6 +60,32 @@ const teamResolvers = {
 					throw new ValidationError("Team doesn't exist");
 				}
 			}),
+		setPremium: (_, { input }) => {
+			const body = {
+				source: input.source,
+				amount: input.charge,
+				currency: 'usd'
+			};
+			return stripe.charges
+				.create(body)
+				.then(() => {
+					return Team.findById(input.id).then(team => {
+						if (team) {
+							return Team.findOneAndUpdate(
+								{ _id: input.id },
+								{ $set: { premium: true } },
+								{ new: true }
+							).populate('users');
+						} else {
+							throw new Error("Team doesn't exist");
+						}
+					});
+				})
+				.catch(err => {
+					console.log(err);
+					throw new Error('payment error');
+				});
+		},
 		inviteUser: (
 			_,
 			{ input: { id, email, phoneNumber } },
