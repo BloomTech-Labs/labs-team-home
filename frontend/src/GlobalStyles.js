@@ -19,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
     max-width:1000px;
     width:100%;
     margin:0 auto;
+    ${mediaQueryFor.mdDevice`
+      
+      width:100vw;
+    `}
     ${mediaQueryFor.smDevice`
       width:100vw;
     `}

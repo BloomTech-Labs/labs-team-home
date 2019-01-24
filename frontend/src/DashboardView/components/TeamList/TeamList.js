@@ -12,7 +12,6 @@ const TeamList = () => {
 	let name;
 	return (
 		<styles.Container>
-			<h3>Add Team</h3>
 			<Mutation
 				mutation={mutation.ADD_TEAM}
 				update={(cache, { data: { addTeam } }) => {
@@ -21,7 +20,6 @@ const TeamList = () => {
 					});
 					cache.writeQuery({
 						query: query.FIND_TEAMS_BY_USER,
-
 						data: { findTeamsByUser: [...findTeamsByUser, addTeam] }
 					});
 				}}
@@ -42,14 +40,14 @@ const TeamList = () => {
 							}}
 						>
 							<label htmlFor="name">
-								Team Name:
 								<input
+									placeholder="Add team..."
 									ref={node => {
 										name = node;
 									}}
 								/>
 							</label>
-							<button type="submit">Add Team</button>
+							<button type="submit">+</button>
 						</form>
 					</styles.Form>
 				)}
