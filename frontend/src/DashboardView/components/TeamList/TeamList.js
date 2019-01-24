@@ -12,7 +12,6 @@ const TeamList = () => {
 	let name;
 	return (
 		<styles.Container>
-			<h3>Add Team</h3>
 			<Mutation
 				mutation={mutation.ADD_TEAM}
 				update={(cache, { data: { addTeam } }) => {
@@ -21,35 +20,36 @@ const TeamList = () => {
 					});
 					cache.writeQuery({
 						query: query.FIND_TEAMS_BY_USER,
-
 						data: { findTeamsByUser: [...findTeamsByUser, addTeam] }
 					});
 				}}
 			>
 				{addTeam => (
-					<form
-						action="submit"
-						onSubmit={e => {
-							e.preventDefault();
-							name.value.length &&
-								addTeam({
-									variables: {
-										name: name.value
-									}
-								});
-							name.value = '';
-						}}
-					>
-						<label htmlFor="name">
-							Team Name:
-							<input
-								ref={node => {
-									name = node;
-								}}
-							/>
-						</label>
-						<button type="submit">Add Team</button>
-					</form>
+					<styles.Form>
+						<form
+							action="submit"
+							onSubmit={e => {
+								e.preventDefault();
+								name.value.length &&
+									addTeam({
+										variables: {
+											name: name.value
+										}
+									});
+								name.value = '';
+							}}
+						>
+							<label htmlFor="name">
+								<input
+									placeholder="Add team..."
+									ref={node => {
+										name = node;
+									}}
+								/>
+							</label>
+							<button type="submit">+</button>
+						</form>
+					</styles.Form>
 				)}
 			</Mutation>
 			<h3>My Teams</h3>
@@ -59,9 +59,17 @@ const TeamList = () => {
 					if (error) return <p>Error :(</p>;
 
 					return findTeamsByUser.map(team => (
-						<Link to={`/${team._id}/home`} key={team._id}>
-							<TeamCard team={team} />
-						</Link>
+						<styles.TeamsList>
+							<styles.LinkStyles>
+								<Link
+									to={`/${team._id}/home`}
+									key={team._id}
+									style={{ textDecoration: 'none' }}
+								>
+									<TeamCard team={team} />
+								</Link>
+							</styles.LinkStyles>
+						</styles.TeamsList>
 					));
 				}}
 			</Query>

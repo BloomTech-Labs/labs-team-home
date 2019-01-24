@@ -4,19 +4,13 @@ const LogoBannerStyles = styled.div`
 	width: 100%;
 	display: flex;
 	flex-flow: column;
-	background: linear-gradient(
-		to bottom,
-		rgb(63, 31, 106, 0.2) 0%,
-		rgb(63, 31, 106, 0.1) 20%,
-		rgb(63, 31, 106, 0) 40%,
-		rgb(63, 31, 106, 0) 60%,
-		rgb(63, 31, 106, 0.1) 80%,
-		rgb(63, 31, 106, 0) 100%
-	);
 `;
 
 const TextIMG = styled.img`
-	height: 80vh;
+	position: fixed;
+	z-index: -110;
+	left: 0%;
+	top: 0%;
 `;
 
 const BannerStyles = styled.div`
