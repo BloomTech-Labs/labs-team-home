@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245.4 244.4">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: 0.24;
+      }
+
+      .cls-2 {
+        fill: #683dd8;
+      }
+
+      .cls-3 {
+        opacity: 0.53;
+      }
+
+      .cls-4 {
+        fill: none;
+        stroke: #f2796f;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 32px;
+      }
+    </style>
+  </defs>
+  <title>TH_logo</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_2-2" data-name="Layer 2">
+      <g class="cls-1">
+        <circle class="cls-2" cx="145.6" cy="203.3" r="41"/>
+        <circle class="cls-2" cx="63.9" cy="182.2" r="41"/>
+        <circle class="cls-2" cx="41" cy="101" r="41"/>
+        <circle class="cls-2" cx="122.7" cy="122.2" r="41"/>
+        <circle class="cls-2" cx="204.4" cy="143.6" r="41"/>
+        <circle class="cls-2" cx="181.5" cy="62.2" r="41"/>
+        <circle class="cls-2" cx="99.8" cy="41" r="41"/>
+      </g>
+      <g class="cls-3">
+        <polyline class="cls-4" points="204.4 143.6 181.7 62.5 99.4 40.6"/>
+        <path class="cls-4" d="M122.2,123.1c-.3-.2,58.8-59.9,58.8-59.9"/>
+        <polyline class="cls-4" points="64.1 182.4 145.6 203.5 122.9 122.4 40.6 100.6"/>
+      </g>
+    </g>
+  </g>
+</svg>
