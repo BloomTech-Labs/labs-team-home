@@ -36,7 +36,7 @@
                                             <rect key="frame" x="99" y="0.0" width="260" height="30"/>
                                             <state key="normal" title="Add"/>
                                             <connections>
-                                                <segue destination="QlA-nI-FAk" kind="show" id="hNY-yY-YYu"/>
+                                                <segue destination="QlA-nI-FAk" kind="show" identifier="ShowInviteToTeam" id="hNY-yY-YYu"/>
                                             </connections>
                                         </button>
                                     </subviews>

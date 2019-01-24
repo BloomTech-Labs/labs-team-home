@@ -12,6 +12,14 @@ import Apollo
 
 class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        guard let team = team else { return }
+        
+        teamNameLabel.text = team.name
+    }
+    
     // MARK - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -27,15 +35,6 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         
         return cell
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        guard let team = team else { return }
-        
-        teamNameLabel.text = team.name
-    }
-    
 
     // MARK: - Navigation
 
@@ -48,6 +47,8 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
             destinationVC.team = team
         }
     }
+    
+    
     
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?

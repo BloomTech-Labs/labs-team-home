@@ -54,6 +54,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         guard let team = team else { return }
         
         teamNameLabel.text = team.name
+        
     }
     
     // MARK - Properties

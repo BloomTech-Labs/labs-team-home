@@ -25,10 +25,12 @@ class MessageCollectionViewCell: UICollectionViewCell {
         // Show image attachment icon if images are included in message
         if let images = message.images {
             if images.count > 0 {
-                imageAttachmentIconImageView.isHidden = true
-            } else {
                 imageAttachmentIconImageView.isHidden = false
+            } else {
+                imageAttachmentIconImageView.isHidden = true
             }
+        } else {
+            imageAttachmentIconImageView.isHidden = true
         }
         
         // Display number of comments in message or hides count if no comments

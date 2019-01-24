@@ -92,7 +92,7 @@ class DashboardCollectionViewController: UICollectionViewController {
                     return
                 }
                 
-                self.collectionView.reloadData()
+                self.watcher?.refetch()
             })
         }))
         

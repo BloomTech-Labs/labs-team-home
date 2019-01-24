@@ -11,10 +11,17 @@ import Cloudinary
 import Photos
 import Apollo
 
-class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        emailTextField.delegate = self
+        phoneTextField.delegate = self
+        oldPasswordTextField.delegate = self
+        newPasswordTextField.delegate = self
         
         guard let apollo = apollo else { return }
         
@@ -71,6 +78,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     @IBAction func saveChanges(_ sender: Any) {
         
         guard let apollo = apollo,
+            let currentUser = currentUser,
+            let avatar = currentUser.avatar,
             let firstName = firstNameTextField.text,
             let lastName = lastNameTextField.text,
             let email = emailTextField.text,
@@ -81,9 +90,16 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         
         guard let imageData = imageData else {
             
-            
+            apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: avatar, receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                self.watcher?.refetch()
+            }
             return
-            
         }
         
         let params = CLDUploadRequestParams()
@@ -91,16 +107,24 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
             //Show progress
         }) { (result, error) in
-            
-        }
-        
-        
-        apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: "", receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (_, error) in
             if let error = error {
                 NSLog("\(error)")
+                return
+            }
+            
+            guard let result = result,
+                let imageUrl = result.url else { return }
+            
+            apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: imageUrl, receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                }
+                
+                guard let result = result else { return }
+                
+                print(result)
             }
         }
-        
     }
     
     @IBAction func changePassword(_ sender: Any) {
@@ -114,6 +138,11 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     @IBAction func leaveTeam(_ sender: Any) {
         
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     // MARK - UIImagePickerControllerDelegate
@@ -133,7 +162,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     private func loadUserSettings(with apollo: ApolloClient) {
         
-        _ = apollo.watch(query: CurrentUserQuery()) { (result, error) in
+       self.watcher = apollo.watch(query: CurrentUserQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
@@ -148,8 +177,9 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     private func updateViews() {
         
-        guard let currentUser = currentUser else { return }
-        
+        guard let currentUser = currentUser,
+            let team = team else { return }
+        teamNameLabel.text = team.name
         firstNameTextField.text = currentUser.firstName
         lastNameTextField.text = currentUser.lastName
         emailTextField.text = currentUser.email
@@ -191,6 +221,9 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     private var imageData: Data?
+    private var watcher: GraphQLQueryWatcher<CurrentUserQuery>?
+    
+    
     private var currentUser: CurrentUserQuery.Data.CurrentUser? {
         didSet {
             DispatchQueue.main.async {

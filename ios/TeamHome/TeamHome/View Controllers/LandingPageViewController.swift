@@ -22,7 +22,22 @@ class LandingPageViewController: UIViewController {
         
         guard credentialsManager.hasValid() else { return }
         
-        print("already valid")
+        credentialsManager.credentials { (error, credentials) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            // Unwrap tokens to use for Apollo and to decode.
+            guard let credentials = credentials,
+                let idToken = credentials.idToken else { return }
+            
+            // Set up Apollo client with idToken from auth0.
+            self.setUpApollo(with: idToken)
+            
+            // Perform segue to Dashboard VC.
+            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+        }
     }
     
     // MARK - IBActions

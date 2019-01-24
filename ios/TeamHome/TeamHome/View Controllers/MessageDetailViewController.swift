@@ -42,7 +42,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             guard let result = result else { return }
             
             commentsWatcher?.refetch()
-            print(result.data?.addMsgComment)
         }
     }
     
@@ -126,17 +125,45 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         // Download image and display as user avatar
         guard let avatar = message.user.avatar else { return }
         
-        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+        let downloader = cloudinary.createDownloader()
+        
+        downloader.fetchImage(avatar, { (progress) in
             // Show progress
         }) { (image, error) in
             if let error = error {
                 print("\(error)")
+                return
             }
             
             guard let image = image else { return }
             
             DispatchQueue.main.async {
                 self.userAvatarImageView.image = image
+            }
+        }
+        
+        guard let images = message.images else { return }
+        
+        if images.count > 0 {
+            guard let image = images.first,
+                let imageURL = image else { return }
+            
+            downloader.fetchImage(imageURL, { (progress) in
+                // Show progress
+                
+            }) { (image, error) in
+                if let error = error {
+                    print("\(error)")
+                    return
+                }
+                
+                guard let image = image else { return }
+                
+                DispatchQueue.main.async {
+                    self.imageView.isHidden = false
+                    self.imageView.image = image
+                }
+                
             }
         }
 
