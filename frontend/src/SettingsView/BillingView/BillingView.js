@@ -54,7 +54,6 @@ const BillingView = () => {
 			)}
 		</Mutation>
 	);
-
 	// axios
 	// 	.post('http://localhost:5000', stripeToken)
 	// 	.then(response => {
