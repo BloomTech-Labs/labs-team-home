@@ -35,7 +35,8 @@ const Form = styled.div`
 	font-family: Comfortaa;
 	color: #fff;
 	/* border-top: solid 1px #ff8c63; */
-	border-radius: 5px;
+	border-radius: 2px;
+	outline: none;
 	${mediaQueryFor.mdDevice`
       width:;
     `}
@@ -47,6 +48,7 @@ const Form = styled.div`
 	label {
 		display: flex;
 		flex-flow: column;
+		outline: none;
 
 		input {
 			height: 50px;
@@ -55,6 +57,9 @@ const Form = styled.div`
 			background-color: #17151b;
 			font-family: Comfortaa;
 			color: #ffd17c;
+			:focus {
+				outline: none;
+			}
 		}
 	}
 	button {
@@ -76,7 +81,7 @@ const Form = styled.div`
 		-moz-appearance: none;
 		:hover {
 			background-color: #ffd17c;
-			color: #ffd17c;
+			color: #17151b;
 		}
 	}
 `;

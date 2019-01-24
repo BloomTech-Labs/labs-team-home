@@ -20,7 +20,7 @@ export const Container = styled.div`
 	border: 1px solid;
 	color: #17151b;
 	background-color: #f1fcef;
-	border-radius: 5px;
+	border-radius: 3px;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
 	/* :first-child {
     border-radius: 5px 5px 0 0;

@@ -11,12 +11,14 @@ const FormInputStyles = styled.div`
 	}
 	input {
 		width: 25%;
+		outline: none;
 	}
 	${mediaQueryFor.smDevice`
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     font-size:1.5rem;
+    margin: 3% 0 2% 0;
     label {
       width: 98%;
     }
