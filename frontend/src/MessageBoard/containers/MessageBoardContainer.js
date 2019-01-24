@@ -29,7 +29,10 @@ export default class MessageBoardContainer extends React.Component {
 					Activity Timeline
 				</button>
 				{this.state.messageboard ? (
-					<MessageBoard {...this.props} team={this.props.match.params.team} />
+					<MessageBoard
+						user={this.props.currentUser}
+						team={this.props.match.params.team}
+					/>
 				) : (
 					<ActivityTimeline
 						{...this.props}

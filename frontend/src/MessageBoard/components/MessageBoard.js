@@ -78,7 +78,6 @@ class MessageBoard extends React.Component {
 			process.env.NODE_ENV === 'production'
 				? 'https://team-home.herokuapp.com/invite'
 				: 'http://localhost:5000/invite';
-
 		this.state = {
 			showModal: false,
 			showInvite: false,
@@ -88,7 +87,6 @@ class MessageBoard extends React.Component {
 			number: '',
 			images: [],
 			team: props.team,
-			user: '5c3cdac285d92c646e97678d',
 			isAdmin: true,
 			sortOption: 'newest'
 		};
@@ -102,6 +100,10 @@ class MessageBoard extends React.Component {
 		this.stopProp = this.stopProp.bind(this);
 		this.sortChange = this.sortChange.bind(this);
 	}
+	//
+	// componentDidMount() {
+	// 	this.setState({ user: this.props.currentUser._id });
+	// }
 
 	sortChange(e) {
 		this.setState({ sortOption: e.target.value });
@@ -175,7 +177,7 @@ class MessageBoard extends React.Component {
 							closeHandler={this.closeModalHandler}
 							stopProp={this.stopProp}
 							team={this.state.team}
-							user={this.state.user}
+							user={this.props.user._id}
 						/>
 					) : null}
 					{this.state.showInvite ? (
