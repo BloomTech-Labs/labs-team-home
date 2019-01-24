@@ -20,6 +20,16 @@ const GlobalStyle = createGlobalStyle`
     margin:0 auto;
     background-image: url('frontend/src/assets/TH_icon_logo_wout_nodes.svg');
 	  background-position: center top;
+    background: linear-gradient(
+		to bottom,
+		rgb(63, 31, 106, 0.2) 0%,
+		rgb(63, 31, 106, 0.1) 20%,
+		rgb(63, 31, 106, 0) 40%,
+		rgb(63, 31, 106, 0) 60%,
+		rgb(63, 31, 106, 0.1) 80%,
+		rgb(63, 31, 106, 0) 100%
+  );
+  
     ${mediaQueryFor.mdDevice`
       
       width:100vw;

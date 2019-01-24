@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import mediaQueryFor from '../../../_global_styles/responsive_querie';
+import backgroundGradient from '../../../_global_styles/background_gradient';
 
 export const Container = styled.div`
-	width: 100%;
+	width: 80%;
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-	margin-left: 0 5% 0 5%;
+  margin-left: 0 5% 0 5%;
+  background: ${backgroundGradient}
 
 	/* background-color:purple; */
 	h3 {
@@ -26,14 +28,13 @@ const Form = styled.div`
   /* justify-content:center; */
   justify-items:center;
   width: 100%;  
-  margin: 0 auto;
+  margin: 3% auto;
 	font-family: Comfortaa;
 	color: #fff;
-	padding: 14px;
   /* border-top: solid 1px #ff8c63; */
   border-radius:5px;
   ${mediaQueryFor.mdDevice`
-      width:
+      width:;
     `}
   h3 {
     font-family: Comfortaa;
@@ -45,7 +46,6 @@ const Form = styled.div`
     flex-flow:column;
     
     input {
-      /* width:500px; */
       height:50px;
       padding:0 0 0 30px;
       font-size:2rem;
@@ -83,7 +83,7 @@ const Form = styled.div`
 
 const TeamsList = styled.div`
 	width: 100%;
-	margin: 0 10% 0;
+	margin: 0 auto;
 	height: 100px;
 	display: flex;
 	flex-flow: column;
