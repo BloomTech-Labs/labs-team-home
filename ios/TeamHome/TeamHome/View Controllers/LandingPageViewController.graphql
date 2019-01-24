@@ -7,5 +7,9 @@ query CurrentUser {
         email
         phoneNumber
         avatar
+        toggles {
+            receiveEmails
+            receiveTexts
+        }
     }
 }

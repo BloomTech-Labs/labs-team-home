@@ -8,7 +8,7 @@
 
 import UIKit
 import Apollo
-import Auth0
+import Cloudinary
 
 class TeamDetailTableViewController: UITableViewController {
 
@@ -24,16 +24,22 @@ class TeamDetailTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return users?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TeamMemberCell", for: indexPath)
 
-//        guard let user = users?[indexPath.row] else { return UITableViewCell() }
+//        guard let user = users?[indexPath.row],
+//            let firstName = user.firstName,
+//            let lastName = user.lastName else { return UITableViewCell() }
 //
-//        cell.textLabel?.text = user.firstName
+//        cell.textLabel?.text = "\(firstName) \(lastName)"
 //        cell.detailTextLabel?.text = user.email
+//
+//        if let avatar = user.avatar {
+//            // Set up user's avatar
+//        }
         
         return cell
     }
@@ -52,33 +58,43 @@ class TeamDetailTableViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
-    }
-    
-    private func loadUsers(with apollo: ApolloClient) {
-        
-        let id: String = ""
-        
-        watcher = apollo.watch(query: FindTeamByIdQuery(id: id)) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-            }
+        if segue.identifier == "" {
+            guard let destinationVC = segue.destination as? InviteToTeamViewController,
+                let apollo = apollo else { return }
             
-            guard let team = result?.data?.findTeam else { return }
+            destinationVC.apollo = apollo
+            
             
         }
     }
     
+    private func loadUsers(with apollo: ApolloClient) {
+        // Get team's id
+        guard let team = team,
+            let teamId = team.id else { return }
+        
+        watcher = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let result = result,
+                let data = result.data,
+                let team = data.findTeam else { return }
+            self.users = team.users
+        }
+    }
+    
     // MARK - Properties
-//    var users: [QueryNameQuery.Data.User?]? {
-//        didSet {
-//            if isViewLoaded {
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//                }
-//            }
-//        }
-//    }
+    var users: [FindTeamByIdQuery.Data.FindTeam.User?]? {
+        didSet {
+            if isViewLoaded {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
     
     var watcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
     var apollo: ApolloClient?

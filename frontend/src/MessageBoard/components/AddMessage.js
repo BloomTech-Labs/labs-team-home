@@ -10,7 +10,7 @@ import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 // image preview not working
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
-import * as m from '../../constants/mutations';
+import * as mutation from '../../constants/mutations';
 
 registerPlugin(
 	FilePondPluginImageExifOrientation,
@@ -97,7 +97,7 @@ export default function AddMessage(props) {
 	console.log('uploadPreset ', uploadPreset);
 
 	return (
-		<Mutation mutation={m.ADD_MESSAGE}>
+		<Mutation mutation={mutation.ADD_MESSAGE}>
 			{/* addMessage is the mutation request, the data object is what
 				is returned. In this case, just the id of the new message is returned*/}
 			{(addMessage, { data }) => (

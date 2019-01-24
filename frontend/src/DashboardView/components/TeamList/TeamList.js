@@ -2,25 +2,25 @@ import React from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import * as s from './TeamList.styles';
-import * as q from '../../../constants/queries';
-import * as m from '../../../constants/mutations';
+import * as styles from './TeamList.styles';
+import * as query from '../../../constants/queries';
+import * as mutation from '../../../constants/mutations';
 
 import TeamCard from './TeamCard';
 
 const TeamList = () => {
 	let name;
 	return (
-		<s.Container>
+		<styles.Container>
 			<h3>Add Team</h3>
 			<Mutation
-				mutation={m.ADD_TEAM}
+				mutation={mutation.ADD_TEAM}
 				update={(cache, { data: { addTeam } }) => {
 					const { findTeamsByUser } = cache.readQuery({
-						query: q.FIND_TEAMS_BY_USER
+						query: query.FIND_TEAMS_BY_USER
 					});
 					cache.writeQuery({
-						query: q.FIND_TEAMS_BY_USER,
+						query: query.FIND_TEAMS_BY_USER,
 
 						data: { findTeamsByUser: [...findTeamsByUser, addTeam] }
 					});
@@ -31,7 +31,6 @@ const TeamList = () => {
 						action="submit"
 						onSubmit={e => {
 							e.preventDefault();
-
 							name.value.length &&
 								addTeam({
 									variables: {
@@ -54,7 +53,7 @@ const TeamList = () => {
 				)}
 			</Mutation>
 			<h3>My Teams</h3>
-			<Query query={q.FIND_TEAMS_BY_USER}>
+			<Query query={query.FIND_TEAMS_BY_USER}>
 				{({ loading, error, data: { findTeamsByUser } }) => {
 					if (loading) return <p>Loading...</p>;
 					if (error) return <p>Error :(</p>;
@@ -66,7 +65,7 @@ const TeamList = () => {
 					));
 				}}
 			</Query>
-		</s.Container>
+		</styles.Container>
 	);
 };
 

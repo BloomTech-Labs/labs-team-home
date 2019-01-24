@@ -42,17 +42,6 @@ class LandingPageViewController: UIViewController {
                         guard let apollo = self.apollo else { return }
                         self.fetchUser(with: apollo)
                         
-                        // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-//                        do {
-//                            let jwt = try decode(jwt: idToken)
-//                            if let sub = jwt.subject {
-//                                // Fetch user with based on sub (auth0id property of User model).
-//                                self.fetchUser(with: sub)
-//                            }
-//                        } catch {
-//                            NSLog("Error decoding idToken for sub/user's auth0id")
-//                        }
-                        
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
 
@@ -89,17 +78,6 @@ class LandingPageViewController: UIViewController {
                         // Fetch currentUser that signed in
                         guard let apollo = self.apollo else { return }
                         self.fetchUser(with: apollo)
-                        
-                        // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-//                        do {
-//                            let jwt = try decode(jwt: idToken)
-//                            if let sub = jwt.subject {
-//                                // Fetch user with based on sub (auth0id property of User model).
-//                                self.fetchUser(with: sub)
-//                            }
-//                        } catch {
-//                            NSLog("Error decoding idToken for sub/user's auth0id")
-//                        }
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -139,17 +117,6 @@ class LandingPageViewController: UIViewController {
                         // Fetch currentUser that signed in
                         guard let apollo = self.apollo else { return }
                         self.fetchUser(with: apollo)
-                        
-                        // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-//                        do {
-//                            let jwt = try decode(jwt: idToken)
-//                            if let sub = jwt.subject {
-//                                // Fetch user with based on sub (auth0id property of User model).
-//                                self.fetchUser(with: sub)
-//                            }
-//                        } catch {
-//                            NSLog("Error decoding idToken for sub/user's auth0id")
-//                        }
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -201,17 +168,6 @@ class LandingPageViewController: UIViewController {
                                     guard let apollo = self.apollo else { return }
                                     self.fetchUser(with: apollo)
                                     
-                                    // Decode idToken into JSON Web Token for subject (also called sub) attribute.
-//                                    do {
-//                                        let jwt = try decode(jwt: idToken)
-//                                        if let sub = jwt.subject {
-//                                            // Fetch user with based on sub (auth0id property of User model).
-//                                            self.fetchUser(with: sub)
-//                                        }
-//                                    } catch {
-//                                        NSLog("Error decoding idToken for sub/user's auth0id")
-//                                    }
-                                    
                                     // Perform segue to Dashboard VC.
                                     self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                                     
@@ -238,7 +194,6 @@ class LandingPageViewController: UIViewController {
             
             // Pass Apollo client and user fetched from search
             destinationVC.apollo = self.apollo
-            destinationVC.currentUser = self.currentUser
         }
     }
     

@@ -10,7 +10,7 @@ import UIKit
 import Apollo
 import Cloudinary
 
-class MessageDetailViewController: UIViewController {
+class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK - Lifecycle Functions
 
@@ -36,6 +36,21 @@ class MessageDetailViewController: UIViewController {
                 return
             }
         }
+    }
+    
+    // MARK - UICollectionViewDataSource
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return subscribers?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubscriberCell", for: indexPath) as! SubscriberCollectionViewCell
+        
+        guard let subscriber = subscribers?[indexPath.row] else { return UICollectionViewCell() }
+        cell.subscriber = subscriber
+        
+        return cell
     }
     
     // MARK: - Navigation
@@ -98,6 +113,13 @@ class MessageDetailViewController: UIViewController {
             }
         }
     }
+    private var subscribers: [FindMessageByIdQuery.Data.FindMessage.SubscribedUser]? {
+        didSet {
+            DispatchQueue.main.async {
+                self.subscribersCollectionView.reloadData()
+            }
+        }
+    }
     
     var watcher: GraphQLQueryWatcher<FindMessageByIdQuery>?
     var messageId: GraphQLID?
@@ -111,7 +133,6 @@ class MessageDetailViewController: UIViewController {
     @IBOutlet weak var messageBodyLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tagsLabel: UILabel!
-    @IBOutlet weak var addImageToCommentButton: UIButton!
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var sendCommentButton: UIButton!
     @IBOutlet weak var subscribersLabel: UILabel!
