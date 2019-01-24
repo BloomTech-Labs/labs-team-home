@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../components/SignInUpButton';
 import StyledSignInUp from '../styles/SignInSignUpStyled';
+import auth from '../../Auth/Auth';
 
 const BtnContainer = styled.div`
 	max-width: 400px;

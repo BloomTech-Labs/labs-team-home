@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Message from './Message';
 import AddMessage from './AddMessage';
-import { Query } from 'react-apollo';
+import { Query, compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Invites from './Invites';
+import * as query from '../../constants/queries';
+
+import MessageDetail from './MessageDetail';
 
 const Messageboard = styled.div`
 	max-width: 800px;
@@ -79,6 +82,8 @@ class MessageBoard extends React.Component {
 		this.state = {
 			showModal: false,
 			showInvite: false,
+			currentMessage: null,
+			messageDetailOpen: false,
 			email: '',
 			number: '',
 			images: [],
@@ -158,117 +163,107 @@ class MessageBoard extends React.Component {
 		e.stopPropagation();
 	}
 
+	openMessageDetail = e => {
+		this.setState({ messageDetailOpen: true });
+	};
+	closeMessageDetail = e => {
+		this.setState({ messageDetailOpen: false, currentMessage: null });
+	};
+
 	render() {
 		return (
-			<Messageboard>
-				{this.state.showModal ? (
-					<AddMessage
-						closeHandler={this.closeModalHandler}
-						stopProp={this.stopProp}
-						team={this.state.team}
-						user={this.state.user}
-					/>
-				) : null}
-				{this.state.showInvite ? (
-					<Invites
-						closeHandler={this.closeInviteHandler}
-						stopProp={this.stopProp}
-						submitHandler={this.inviteSubmitHandler}
-						changeHandler={this.inviteChangeHandler}
-						email={this.state.email}
-						number={this.state.number}
-					/>
-				) : null}
-				<TeamName>
-					<h1>{this.state.teamName}</h1>
-					<Teamlogo>
-						<Logo src="https://via.placeholder.com/50.png" alt="team logo" />
-						{this.state.isAdmin ? (
-							<button onClick={this.openInviteHandler}>Invite</button>
-						) : null}
-					</Teamlogo>
-				</TeamName>
-				<MessagesContainer>
-					<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
-					<form>
-						<label>
-							Sort:
-							<select value={this.state.value} onChange={this.sortChange}>
-								<option value="newest">Newest First</option>
-								<option value="oldest">Oldest First</option>
-							</select>
-						</label>
-					</form>
-
-					<Query
-						query={gql`
-							{
-								messages {
-									_id
-									title
-									user {
-										_id
-									}
-									team {
-										_id
-									}
-									content
-									images
-									tags {
-										_id
-									}
-									comments
-									subscribedUsers {
-										_id
-									}
-									createdAt
-									updatedAt
+			<>
+				<Messageboard>
+					{this.state.showModal ? (
+						<AddMessage
+							closeHandler={this.closeModalHandler}
+							stopProp={this.stopProp}
+							team={this.props.match.params.team}
+							user={this.state.user}
+						/>
+					) : null}
+					{this.state.showInvite ? (
+						<Invites
+							closeHandler={this.closeInviteHandler}
+							stopProp={this.stopProp}
+							submitHandler={this.inviteSubmitHandler}
+							changeHandler={this.inviteChangeHandler}
+							email={this.state.email}
+							number={this.state.number}
+						/>
+					) : null}
+					<TeamName>
+						<h1>{this.state.teamName}</h1>
+						<Teamlogo>
+							<Logo src="https://via.placeholder.com/50.png" alt="team logo" />
+							{this.state.isAdmin ? (
+								<button onClick={this.openInviteHandler}>Invite</button>
+							) : null}
+						</Teamlogo>
+					</TeamName>
+					<MessagesContainer>
+						<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
+						<form>
+							<label>
+								Sort:
+								<select value={this.state.value} onChange={this.sortChange}>
+									<option value="newest">Newest First</option>
+									<option value="oldest">Oldest First</option>
+								</select>
+							</label>
+						</form>
+						<Query
+							query={query.FIND_MESSAGES_BY_TEAM}
+							variables={{ team: this.props.match.params.team }}
+						>
+							{({ loading, error, data: { findMessagesByTeam } }) => {
+								if (loading) return <p>Loading...</p>;
+								if (error) return <p>Error :(</p>;
+								switch (this.state.sortOption) {
+									case 'newest':
+										findMessagesByTeam.sort((a, b) => {
+											if (a.updatedAt < b.updatedAt) return 1;
+											if (a.updatedAt > b.updatedAt) return -1;
+											return 0;
+										});
+										break;
+									case 'oldest':
+										findMessagesByTeam.sort((a, b) => {
+											if (a.updatedAt < b.updatedAt) return -1;
+											if (a.updatedAt > b.updatedAt) return 1;
+											return 0;
+										});
+										break;
+									default:
+										break;
 								}
-								findUser(input: { id: "5c3cdac285d92c646e97678d" }) {
-									firstName
-									lastName
-									avatar
-								}
-							}
-						`}
-					>
-						{({ loading, error, data: { messages, findUser } }) => {
-							if (loading) return <p>Loading...</p>;
-							if (error) return <p>Error :(</p>;
-							let userInfo = findUser;
 
-							// let mess = messages.filter(message => {
-							// 	return message.user._id === this.state.user;
-							// });
-							switch (this.state.sortOption) {
-								case 'newest':
-									messages.sort((a, b) => {
-										if (a.updatedAt < b.updatedAt) return 1;
-										if (a.updatedAt > b.updatedAt) return -1;
-										return 0;
-									});
-									break;
-								case 'oldest':
-									messages.sort((a, b) => {
-										if (a.updatedAt < b.updatedAt) return -1;
-										if (a.updatedAt > b.updatedAt) return 1;
-										return 0;
-									});
-									break;
-								default:
-									break;
-							}
-							return messages.map(message => (
-								<Message
-									message={message}
-									userInfo={userInfo}
-									key={message._id}
-								/>
-							));
-						}}
-					</Query>
-				</MessagesContainer>
-			</Messageboard>
+								return findMessagesByTeam.map(message => (
+									<Message
+										message={message}
+										userInfo={message.user}
+										key={message._id}
+										openMessage={e => {
+											e.preventDefault();
+											this.setState({
+												messageDetailOpen: true,
+												currentMessage: message
+											});
+										}}
+										key={message._id}
+									/>
+								));
+							}}
+						</Query>
+					</MessagesContainer>
+				</Messageboard>
+				<MessageDetail
+					open={this.state.messageDetailOpen}
+					hideModal={this.closeMessageDetail}
+					message={this.state.currentMessage}
+					currentUser={this.props.currentUser}
+				/>
+			</>
 		);
 	}
 }

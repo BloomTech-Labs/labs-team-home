@@ -3,11 +3,18 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@reach/dialog": "^0.1.2",
 		"apollo-boost": "^0.1.23",
 		"auth0-lock": "^11.13.0",
 		"axios": "^0.18.0",
 		"filepond": "^3.7.5",
+		"filepond-plugin-file-validate-type": "^1.2.1",
+		"filepond-plugin-image-exif-orientation": "^1.0.3",
+		"filepond-plugin-image-preview": "^3.1.6",
+		"filepond-plugin-image-resize": "^2.0.1",
+		"filepond-plugin-image-transform": "^3.2.0",
 		"graphql": "^14.0.2",
+		"http-server": "^0.11.1",
 		"jwt-decode": "^2.2.0",
 		"prop-types": "^15.6.2",
 		"react": "^16.7.0",
@@ -33,7 +40,8 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"start-sw": "http-server ./build"
 	},
 	"husky": {
 		"hooks": {

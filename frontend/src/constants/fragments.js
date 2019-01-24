@@ -55,6 +55,9 @@ export const FULL_MESSAGE = gql`
 			...FullTag
 		}
 		comments
+		subscribedUsers {
+			_id
+		}
 		createdAt
 		updatedAt
 	}
