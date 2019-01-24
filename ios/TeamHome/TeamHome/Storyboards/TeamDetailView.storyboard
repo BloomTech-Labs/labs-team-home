@@ -121,6 +121,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0US-B6-3sS">
                                         <rect key="frame" x="0.0" y="104.5" width="311" height="30"/>
                                         <state key="normal" title="Invite"/>
+                                        <connections>
+                                            <action selector="inviteToTeam:" destination="QlA-nI-FAk" eventType="touchUpInside" id="VHh-mB-fSA"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -134,7 +137,6 @@
                         <viewLayoutGuide key="safeArea" id="Q9s-FU-c0S"/>
                     </view>
                     <connections>
-                        <outlet property="addSelectionButton" destination="0US-B6-3sS" id="cy5-jh-14K"/>
                         <outlet property="emailTextField" destination="Fco-jq-BEC" id="Jat-8u-nCw"/>
                         <outlet property="phoneNumberTextField" destination="ePj-Lr-cJ8" id="48y-Nj-MdR"/>
                         <outlet property="titleLabel" destination="tTg-qK-a2c" id="WOw-L1-97w"/>

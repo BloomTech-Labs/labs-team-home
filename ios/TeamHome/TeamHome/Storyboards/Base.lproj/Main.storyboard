@@ -102,7 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBK-5n-DND" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-816.79999999999995" y="-1035.832083958021"/>
+            <point key="canvasLocation" x="-1340" y="-1034"/>
         </scene>
         <!--Dashboard Collection View Controller-->
         <scene sceneID="wdO-DD-Yey">
@@ -179,6 +179,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kiJ-qT-G6q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-820" y="-367.46626686656674"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="XC5-op-W59">
+            <objects>
+                <viewController id="aH0-30-8R0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JP9-Sj-Ely">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of team" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m5b-QL-8Vm">
+                                <rect key="frame" x="91" y="170" width="219" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Lze-ml-N6i"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0gB-Am-JNU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1408.8" y="337.78110944527737"/>
         </scene>
         <!--Landing Page View Controller-->
         <scene sceneID="jSf-gM-kOa">
@@ -280,7 +304,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iES-dA-M15" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1593" y="-367"/>
+            <point key="canvasLocation" x="-1993" y="-367"/>
         </scene>
         <!--Activity-->
         <scene sceneID="mbb-8r-El5">
@@ -685,8 +709,9 @@
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ABI-dz-5Of">
                                         <rect key="frame" x="0.0" y="735" width="403" height="8"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For any billing payments, please visit our web application at [link]." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jb5-jM-Nbb">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jb5-jM-Nbb">
                                                 <rect key="frame" x="0.0" y="0.0" width="403" height="0.0"/>
+                                                <string key="text">For any billing payments, please visit our web application at https://team-home.netlify.com/settings under the "Team Billing" tab.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -799,7 +824,7 @@
                                             <constraint firstAttribute="height" constant="405.5" id="Pzn-KK-eTP"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="n1c-Rf-YnY" kind="embed" id="1hG-zl-Xg0"/>
+                                            <segue destination="n1c-Rf-YnY" kind="embed" identifier="EmbeddedMessages" id="1hG-zl-Xg0"/>
                                         </connections>
                                     </containerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="fUR-4E-ws9">
@@ -813,7 +838,7 @@
                                                 </constraints>
                                                 <state key="normal" title="Create new message" image="Add Message"/>
                                                 <connections>
-                                                    <segue destination="fDw-r2-haD" kind="show" id="JwA-Hd-9c2"/>
+                                                    <segue destination="fDw-r2-haD" kind="show" identifier="AddNewMessage" id="JwA-Hd-9c2"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1029,20 +1054,20 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Message body" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="egZ-o6-mFb">
-                                                <rect key="frame" x="0.0" y="66.5" width="300" height="183"/>
+                                                <rect key="frame" x="0.0" y="66.5" width="300" height="175"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="ScB-hv-4kg">
-                                                <rect key="frame" x="0.0" y="253.5" width="300" height="133"/>
+                                                <rect key="frame" x="0.0" y="245.5" width="300" height="133"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="133" id="Ra9-el-68f"/>
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="yfF-FT-ss0">
-                                                <rect key="frame" x="0.0" y="257.5" width="300" height="40"/>
+                                                <rect key="frame" x="0.0" y="249.5" width="300" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="751" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBy-Ty-3bL">
                                                         <rect key="frame" x="260" y="0.0" width="40" height="40"/>
@@ -1058,23 +1083,20 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajr-4H-VSs">
-                                                <rect key="frame" x="0.0" y="305.5" width="300" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="297.5" width="300" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="OcK-q6-JPD">
-                                                <rect key="frame" x="0.0" y="334" width="300" height="22"/>
+                                                <rect key="frame" x="0.0" y="326" width="300" height="30"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Separate tags by comma" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I7V-ai-8Cg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="264" height="22"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JmW-hX-to8">
-                                                        <rect key="frame" x="278" y="0.0" width="22" height="22"/>
-                                                    </button>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="NWB-OH-hWv">
@@ -1119,7 +1141,6 @@
                         <outlet property="imageView" destination="ScB-hv-4kg" id="Qly-kH-gJU"/>
                         <outlet property="messageBodyTextView" destination="egZ-o6-mFb" id="bhs-7a-hOL"/>
                         <outlet property="messageTitleTextField" destination="hm0-iI-4gO" id="mgI-rQ-5Bp"/>
-                        <outlet property="newTagButton" destination="JmW-hX-to8" id="gpW-YI-ycP"/>
                         <outlet property="newTagTextField" destination="I7V-ai-8Cg" id="4r9-zL-lYu"/>
                     </connections>
                 </viewController>

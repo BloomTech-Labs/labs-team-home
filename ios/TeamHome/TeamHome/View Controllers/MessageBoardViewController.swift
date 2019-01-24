@@ -28,16 +28,23 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //Pass Team info to Team detail VC
+        
+        guard let apollo = apollo,
+            let team = team else { return }
+        
+        // Pass Apollo Client and team info to Team Detail VC
         if segue.identifier == "ViewTeam" {
-            guard let destinationVC = segue.destination as? TeamDetailTableViewController,
-                let apollo = apollo,
-                let team = team else { return }
+            guard let destinationVC = segue.destination as? TeamDetailTableViewController else { return }
             destinationVC.apollo = apollo
             destinationVC.team = team
+        } else if segue.identifier == "EmbeddedMessages" {
+            guard let destinationVC = segue.destination as? MessagesCollectionViewController else { return }
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+        } else if segue.identifier == "AddNewMessage" {
+            guard let destinationVC = segue.destination as? AddNewMessageViewController else { return }
+            destinationVC.apollo = apollo
         }
-        
-        //Pass Team info to add to team VC
     }
     
     // MARK - Private Methods
@@ -50,7 +57,6 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     // MARK - Properties
     
-    var user: User?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
     

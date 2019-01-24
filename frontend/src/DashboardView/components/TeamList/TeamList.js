@@ -2,8 +2,7 @@ import React from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import * as s from './TeamList.styles';
-
+import * as styles from './TeamList.styles';
 import * as query from '../../../constants/queries';
 import * as mutation from '../../../constants/mutations';
 
@@ -12,7 +11,7 @@ import TeamCard from './TeamCard';
 const TeamList = () => {
 	let name;
 	return (
-		<s.Container>
+		<styles.Container>
 			<h3>Add Team</h3>
 			<Mutation
 				mutation={mutation.ADD_TEAM}
@@ -32,7 +31,6 @@ const TeamList = () => {
 						action="submit"
 						onSubmit={e => {
 							e.preventDefault();
-
 							name.value.length &&
 								addTeam({
 									variables: {
@@ -67,7 +65,7 @@ const TeamList = () => {
 					));
 				}}
 			</Query>
-		</s.Container>
+		</styles.Container>
 	);
 };
 

@@ -34,7 +34,7 @@ class MessageDetail extends Component {
 							loading ? (
 								<p>Loading...</p>
 							) : error ? (
-								<p>Error</p>
+								<p>Error :(</p>
 							) : (
 								<Query
 									query={query.FIND_COMMENTS_BY_MESSAGE}
