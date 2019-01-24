@@ -3,6 +3,8 @@ import mediaQueryFor from '../../../_global_styles/responsive_querie';
 import backgroundGradient from '../../../_global_styles/background_gradient';
 
 export const Container = styled.div`
+  position:relative;
+  top:50px;
 	width: 80%;
 	display: flex;
 	flex-direction: column;
