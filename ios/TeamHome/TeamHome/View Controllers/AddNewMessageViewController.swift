@@ -65,13 +65,19 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
         guard let imageData = imageData else {
             
             // If no photo is selected, create message without image attached.
-            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: nil, tags: tagArray), queue: DispatchQueue.global()) { (_, error) in
+            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: nil, tags: nil), queue: DispatchQueue.global()) { (result, error) in
                 if let error = error {
                     NSLog("\(error)")
                     return
                 }
                 
+                guard let result = result else { return }
+                
+                print(result)
+                
                 DispatchQueue.main.async {
+                   
+                    messagesWatcher?.refetch()
                     self.navigationController?.popViewController(animated: true)
                 }
             }
@@ -95,11 +101,15 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
                 let url = result.url else { return }
             
             // Pass image url to Apollo client to create message.
-            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: [url], tags: tagArray), queue: DispatchQueue.global()) { (_, error) in
+            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: [url]), queue: DispatchQueue.global()) { (result, error) in
                 if let error = error {
                     NSLog("\(error)")
                     return
                 }
+                
+                guard let result = result else { return }
+                
+                print(result.data?.addMessage?.title)
                 
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)

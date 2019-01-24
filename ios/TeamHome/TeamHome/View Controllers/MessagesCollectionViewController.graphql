@@ -4,6 +4,11 @@ query FindMessagesByTeam($teamId: ID!) {
                        }) {
         _id
         title
+        user {
+            firstName
+            lastName
+            avatar
+        }
         content
         images
         tags {

@@ -10,12 +10,14 @@ import UIKit
 import Apollo
 import Cloudinary
 
-class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
     // MARK - Lifecycle Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.commentTextField.delegate = self
         
         guard let apollo = apollo else { return }
         
@@ -28,16 +30,25 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         
         guard let apollo = apollo,
             let message = message,
+            let messageId = message.id,
             let commentContent = commentTextField.text else { return }
         
-        apollo.perform(mutation: CreateCommentMutation(message: message.title, content: commentContent), queue: DispatchQueue.global()) { (_, error) in
+        apollo.perform(mutation: CreateCommentMutation(message: messageId, content: commentContent), queue: DispatchQueue.global()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
             }
+            
+            guard let result = result else { return }
+            
+            commentsWatcher?.refetch()
+            print(result.data?.addMsgComment)
         }
     }
     
+    @IBAction func backButton(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
     // MARK - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -47,7 +58,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubscriberCell", for: indexPath) as! SubscriberCollectionViewCell
         
-        guard let subscriber = subscribers?[indexPath.row] else { return UICollectionViewCell() }
+        guard let subscribers = subscribers,
+            let subscriber = subscribers[indexPath.row] else { return UICollectionViewCell() }
         cell.subscriber = subscriber
         
         return cell
@@ -66,13 +78,22 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        commentTextField.resignFirstResponder()
+        return true
+    }
+    
     // MARK - Private Methods
     
     private func loadMessageDetails(with apollo: ApolloClient) {
         
-        let id = ""
+        guard let messageId = messageId else { return }
         
-        self.watcher = apollo.watch(query: FindMessageByIdQuery(id: id)) { (result, error) in
+        self.watcher = apollo.watch(query: FindMessageByIdQuery(id: messageId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
@@ -85,6 +106,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             
             self.message = message
             self.messageId = id
+            self.subscribers = message.subscribedUsers
         }
     }
     
@@ -100,20 +122,36 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         let tags = message.tags
         let tagNames = tags?.compactMap({ $0?.name })
         tagsLabel.text = tagNames?.joined(separator: ", ")
+        
+        // Download image and display as user avatar
+        guard let avatar = message.user.avatar else { return }
+        
+        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+            // Show progress
+        }) { (image, error) in
+            if let error = error {
+                print("\(error)")
+            }
+            
+            guard let image = image else { return }
+            
+            DispatchQueue.main.async {
+                self.userAvatarImageView.image = image
+            }
+        }
 
     }
     
     // MARK - Properties
     
-    var apollo: ApolloClient?
-    var message: FindMessageByIdQuery.Data.FindMessage? {
+    private var message: FindMessageByIdQuery.Data.FindMessage? {
         didSet {
             DispatchQueue.main.async {
                 self.updateViews()
             }
         }
     }
-    private var subscribers: [FindMessageByIdQuery.Data.FindMessage.SubscribedUser]? {
+    private var subscribers: [FindMessageByIdQuery.Data.FindMessage.SubscribedUser?]? {
         didSet {
             DispatchQueue.main.async {
                 self.subscribersCollectionView.reloadData()
@@ -123,13 +161,13 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     
     var watcher: GraphQLQueryWatcher<FindMessageByIdQuery>?
     var messageId: GraphQLID?
+    var apollo: ApolloClient?
     
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var tagIconImageView: UIImageView!
     @IBOutlet weak var messageBodyLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tagsLabel: UILabel!

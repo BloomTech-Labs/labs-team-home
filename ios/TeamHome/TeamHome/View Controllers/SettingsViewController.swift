@@ -104,6 +104,16 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     }
     
     @IBAction func changePassword(_ sender: Any) {
+        
+    }
+    
+    @IBAction func logOut(_ sender: Any) {
+        _ = credentialsManager.clear()
+        performSegue(withIdentifier: "ReturnToLandingPage", sender: self)
+    }
+    
+    @IBAction func leaveTeam(_ sender: Any) {
+        
     }
     
     // MARK - UIImagePickerControllerDelegate
@@ -123,7 +133,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     private func loadUserSettings(with apollo: ApolloClient) {
         
-        apollo.watch(query: CurrentUserQuery()) { (result, error) in
+        _ = apollo.watch(query: CurrentUserQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
@@ -147,9 +157,10 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         emailSwitch.isOn = currentUser.toggles?.receiveEmails ?? false
         textSMSSwitch.isOn = currentUser.toggles?.receiveTexts ?? false
         
-        let downloader: CLDDownloader = cloudinary.createDownloader()
+        // Download image and display as user avatar
+        guard let avatar = currentUser.avatar else { return }
         
-        downloader.fetchImage("https://res.cloudinary.com/massamb/image/upload/v1547755535/hluogc6lsro0kye4br3e.png", { (progress) in
+        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
             // Show progress
         }) { (image, error) in
             if let error = error {

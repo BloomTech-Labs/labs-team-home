@@ -16,8 +16,8 @@ class MessageCollectionViewCell: UICollectionViewCell {
         guard let message = message else { return }
         
         // Update all labels with message's details
-//        firstNameLabel.text = message.user.firstName
-//        lastNameLabel.text = message.user.lastName
+        firstNameLabel.text = message.user.firstName
+        lastNameLabel.text = message.user.lastName
         messageTitleLabel.text = message.title
         messageBodyLabel.text = message.content
         dateLabel.text = ""
@@ -42,22 +42,22 @@ class MessageCollectionViewCell: UICollectionViewCell {
             }
         }
         
-//        // Download image and display as user avatar
-//        guard let avatar = message.user.avatar else { return }
-//        
-//        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
-//            // Show progress
-//        }) { (image, error) in
-//            if let error = error {
-//                print("\(error)")
-//            }
-//            
-//            guard let image = image else { return }
-//            
-//            DispatchQueue.main.async {
-//                self.userAvatarImageView.image = image
-//            }
-//        }
+        // Download image and display as user avatar
+        guard let avatar = message.user.avatar else { return }
+        
+        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+            // Show progress
+        }) { (image, error) in
+            if let error = error {
+                print("\(error)")
+            }
+            
+            guard let image = image else { return }
+            
+            DispatchQueue.main.async {
+                self.userAvatarImageView.image = image
+            }
+        }
         
     }
     
@@ -69,6 +69,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!
+    @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var messageBodyLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!

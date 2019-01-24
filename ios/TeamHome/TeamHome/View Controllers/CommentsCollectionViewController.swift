@@ -9,6 +9,8 @@
 import UIKit
 import Apollo
 
+var commentsWatcher: GraphQLQueryWatcher<FindCommentsByMessageQuery>?
+
 class CommentsCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
@@ -38,7 +40,7 @@ class CommentsCollectionViewController: UICollectionViewController {
     // MARK - Private Methods
     
     private func loadComments(from messageId: GraphQLID, with apollo: ApolloClient) {
-        self.watcher = apollo.watch(query: FindCommentsByMessageQuery(messageId: messageId), resultHandler: { (result, error) in
+        commentsWatcher = apollo.watch(query: FindCommentsByMessageQuery(messageId: messageId), resultHandler: { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
@@ -52,8 +54,6 @@ class CommentsCollectionViewController: UICollectionViewController {
     
     var apollo: ApolloClient?
     var messageId: GraphQLID?
-
-    var watcher: GraphQLQueryWatcher<FindCommentsByMessageQuery>?
     var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]? {
         didSet {
             DispatchQueue.main.async {

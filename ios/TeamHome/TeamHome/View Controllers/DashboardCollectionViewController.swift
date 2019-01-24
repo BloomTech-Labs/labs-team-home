@@ -92,7 +92,7 @@ class DashboardCollectionViewController: UICollectionViewController {
                     return
                 }
                 
-                self.loadTeams(with: apollo)
+                self.collectionView.reloadData()
             })
         }))
         

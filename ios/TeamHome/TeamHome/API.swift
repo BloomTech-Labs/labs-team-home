@@ -813,7 +813,7 @@ public final class CurrentUserQuery: GraphQLQuery {
 
 public final class FindMessagesByTeamQuery: GraphQLQuery {
   public let operationDefinition =
-    "query FindMessagesByTeam($teamId: ID!) {\n  findMessagesByTeam(input: {team: $teamId}) {\n    __typename\n    _id\n    title\n    content\n    images\n    tags {\n      __typename\n      name\n    }\n    comments\n    createdAt\n    updatedAt\n  }\n}"
+    "query FindMessagesByTeam($teamId: ID!) {\n  findMessagesByTeam(input: {team: $teamId}) {\n    __typename\n    _id\n    title\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    content\n    images\n    tags {\n      __typename\n      name\n    }\n    comments\n    createdAt\n    updatedAt\n  }\n}"
 
   public var teamId: GraphQLID
 
@@ -858,6 +858,7 @@ public final class FindMessagesByTeamQuery: GraphQLQuery {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("_id", type: .scalar(GraphQLID.self)),
         GraphQLField("title", type: .nonNull(.scalar(String.self))),
+        GraphQLField("user", type: .nonNull(.object(User.selections))),
         GraphQLField("content", type: .nonNull(.scalar(String.self))),
         GraphQLField("images", type: .list(.scalar(String.self))),
         GraphQLField("tags", type: .list(.object(Tag.selections))),
@@ -872,8 +873,8 @@ public final class FindMessagesByTeamQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID? = nil, title: String, content: String, images: [String?]? = nil, tags: [Tag?]? = nil, comments: [GraphQLID?]? = nil, createdAt: String? = nil, updatedAt: String? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Message", "_id": id, "title": title, "content": content, "images": images, "tags": tags.flatMap { (value: [Tag?]) -> [ResultMap?] in value.map { (value: Tag?) -> ResultMap? in value.flatMap { (value: Tag) -> ResultMap in value.resultMap } } }, "comments": comments, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID? = nil, title: String, user: User, content: String, images: [String?]? = nil, tags: [Tag?]? = nil, comments: [GraphQLID?]? = nil, createdAt: String? = nil, updatedAt: String? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Message", "_id": id, "title": title, "user": user.resultMap, "content": content, "images": images, "tags": tags.flatMap { (value: [Tag?]) -> [ResultMap?] in value.map { (value: Tag?) -> ResultMap? in value.flatMap { (value: Tag) -> ResultMap in value.resultMap } } }, "comments": comments, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -900,6 +901,15 @@ public final class FindMessagesByTeamQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "title")
+        }
+      }
+
+      public var user: User {
+        get {
+          return User(unsafeResultMap: resultMap["user"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "user")
         }
       }
 
@@ -954,6 +964,63 @@ public final class FindMessagesByTeamQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+
+      public struct User: GraphQLSelectionSet {
+        public static let possibleTypes = ["User"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("firstName", type: .scalar(String.self)),
+          GraphQLField("lastName", type: .scalar(String.self)),
+          GraphQLField("avatar", type: .scalar(String.self)),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(firstName: String? = nil, lastName: String? = nil, avatar: String? = nil) {
+          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "avatar": avatar])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var firstName: String? {
+          get {
+            return resultMap["firstName"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "firstName")
+          }
+        }
+
+        public var lastName: String? {
+          get {
+            return resultMap["lastName"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "lastName")
+          }
+        }
+
+        public var avatar: String? {
+          get {
+            return resultMap["avatar"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "avatar")
+          }
         }
       }
 
@@ -1487,33 +1554,31 @@ public final class UpdateUserMutation: GraphQLMutation {
 
 public final class AddNewMessageMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation AddNewMessage($title: String!, $team: String!, $content: String!, $images: [String], $tags: [String], $subscribers: [String]) {\n  addMessage(input: {title: $title, team: $team, content: $content, images: $images, tags: $tags, subscribedUsers: $subscribers}) {\n    __typename\n    title\n    _id\n  }\n}"
+    "mutation AddNewMessage($title: String!, $team: String!, $content: String!, $images: [String], $tags: [String]) {\n  addMessage(input: {title: $title, team: $team, content: $content, images: $images, tags: $tags}) {\n    __typename\n    title\n    _id\n  }\n}"
 
   public var title: String
   public var team: String
   public var content: String
   public var images: [String?]?
   public var tags: [String?]?
-  public var subscribers: [String?]?
 
-  public init(title: String, team: String, content: String, images: [String?]? = nil, tags: [String?]? = nil, subscribers: [String?]? = nil) {
+  public init(title: String, team: String, content: String, images: [String?]? = nil, tags: [String?]? = nil) {
     self.title = title
     self.team = team
     self.content = content
     self.images = images
     self.tags = tags
-    self.subscribers = subscribers
   }
 
   public var variables: GraphQLMap? {
-    return ["title": title, "team": team, "content": content, "images": images, "tags": tags, "subscribers": subscribers]
+    return ["title": title, "team": team, "content": content, "images": images, "tags": tags]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("addMessage", arguments: ["input": ["title": GraphQLVariable("title"), "team": GraphQLVariable("team"), "content": GraphQLVariable("content"), "images": GraphQLVariable("images"), "tags": GraphQLVariable("tags"), "subscribedUsers": GraphQLVariable("subscribers")]], type: .object(AddMessage.selections)),
+      GraphQLField("addMessage", arguments: ["input": ["title": GraphQLVariable("title"), "team": GraphQLVariable("team"), "content": GraphQLVariable("content"), "images": GraphQLVariable("images"), "tags": GraphQLVariable("tags")]], type: .object(AddMessage.selections)),
     ]
 
     public private(set) var resultMap: ResultMap
