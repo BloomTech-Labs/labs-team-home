@@ -6,13 +6,13 @@ const BillingView = () => {
 	const publishableKey = 'pk_test_GedRIIhEwHrV1xzzkxMsRuUX';
 
 	const onToken = token => {
-		const body = {
+		const stripeToken = {
 			amount: 999,
-			token: token
+			token: token.id
 		};
 
 		axios
-			.post('http://localhost:5000', body)
+			.post('http://localhost:5000', stripeToken)
 			.then(response => {
 				console.log(response);
 				alert('Payment Success');
@@ -26,7 +26,7 @@ const BillingView = () => {
 	return (
 		<StripeCheckout
 			label="Go Premium" //Component button text
-			name="i suck at programming" //Modal Header
+			name="the thing goes here" //Modal Header
 			description="Upgrade to a premium account today."
 			panelLabel="Go Premium" //Submit button in modal
 			amount={999} //Amount in cents $9.99
