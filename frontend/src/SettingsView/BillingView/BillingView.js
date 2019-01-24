@@ -6,13 +6,13 @@ const BillingView = () => {
 	const publishableKey = 'pk_test_GedRIIhEwHrV1xzzkxMsRuUX';
 
 	const onToken = token => {
-		const body = {
+		const stripeToken = {
 			amount: 999,
-			token: token
+			token: token.id
 		};
 
 		axios
-			.post('http://localhost:5000', body)
+			.post('http://localhost:5000', stripeToken)
 			.then(response => {
 				console.log(response);
 				alert('Payment Success');
