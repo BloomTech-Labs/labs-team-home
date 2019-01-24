@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-// import
+import mediaQueryFor from './_global_styles/responsive_querie';
 
 /**
  * Color palette:
@@ -17,6 +17,12 @@ const GlobalStyle = createGlobalStyle`
     width:100vw;
     margin:0;
     background-color:#17151B;
+    ${mediaQueryFor.smDevice`
+      width:100vw;
+    `}
+    ${mediaQueryFor.xsDevice`
+      width:100vw;
+    `}
   }
 `;
 

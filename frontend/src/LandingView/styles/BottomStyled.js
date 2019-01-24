@@ -24,7 +24,7 @@ const BtmContentStyles = styled.div`
 
     h1 {
       margin:0 auto;
-      width:100%;
+      width:90%;
       font-size:3rem;
     }
     p {
@@ -37,7 +37,7 @@ const BtmContentStyles = styled.div`
 
     h1 {
       margin:0 auto;
-      width:100%;
+      width:98%;
       font-size:3rem;
     }
     p {
