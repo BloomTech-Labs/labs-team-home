@@ -15,7 +15,7 @@ const teamResolvers = {
 		teams: () => Team.find().populate('users.user'),
 		findTeamsByUser: (_, args, { user: { _id } }) =>
 			Team.find({ 'users.user': _id }).populate('users.user'),
-		findTeam: (_, { input }) => Team.findById(input).populate('users.user')
+		findTeam: (_, { input: { id } }) => Team.findById(id).populate('users.user')
 	},
 	Mutation: {
 		addTeam: (_, { input }, { user: { _id } }) =>
@@ -82,9 +82,9 @@ const teamResolvers = {
 						if (users) {
 							const filteredUsers = users.filter(
 								user =>
-									!team.users.filter(
-										item => item.user.toString() !== user._id.toString()
-									).length
+									!team.users.find(
+										item => item.user.toString() === user._id.toString()
+									)
 							);
 							if (filteredUsers.length) {
 								const addedUsers = filteredUsers.map(({ _id }) => ({
