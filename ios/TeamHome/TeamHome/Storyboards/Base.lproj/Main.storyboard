@@ -903,7 +903,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MessageCell" id="GUR-Ge-V8W" customClass="MessageCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                <rect key="frame" x="12" y="0.0" width="359" height="153"/>
+                                <rect key="frame" x="11.666666666666666" y="0.0" width="359" height="153"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="359" height="153"/>
