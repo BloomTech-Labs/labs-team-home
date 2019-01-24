@@ -16,9 +16,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     @import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
     background-color: #17151B;
-    max-width:1000px;
     width:100%;
     margin:0 auto;
+    background-image: url('frontend/src/assets/TH_icon_logo_wout_nodes.svg');
+	  background-position: center top;
     ${mediaQueryFor.mdDevice`
       
       width:100vw;

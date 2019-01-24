@@ -6,6 +6,8 @@ export const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
+	margin-left: 0 5% 0 5%;
+
 	/* background-color:purple; */
 	h3 {
 		font-family: Comfortaa;
@@ -79,6 +81,22 @@ const Form = styled.div`
 }
 `;
 
+const TeamsList = styled.div`
+	width: 100%;
+	margin: 0 10% 0;
+	height: 100px;
+	display: flex;
+	flex-flow: column;
+	background-color: purple;
+	h3 {
+		font-size: 2.4rem;
+	}
+`;
+
+const LinkStyles = styled.a`
+	text-decoration: none;
+`;
+
 /**
  * Color palette:
  * #17151B << Dark Gray
@@ -89,4 +107,4 @@ const Form = styled.div`
  * #F1FCEF << Creme
  * #73FF6D << Green
  */
-export { Form };
+export { Form, TeamsList, LinkStyles };

@@ -1,9 +1,17 @@
 * {
 	box-sizing: border-box;
 	background-color: #17151b;
+	width: 100%;
+}
+
+#root {
+	max-width: 1000px;
+	width: 100%;
+	margin: 0 auto;
 }
 
 body {
+	width: 100%;
 	background-color: #17151b;
 	margin: 0;
 	padding: 0;

@@ -52,16 +52,24 @@ const TeamList = () => {
 					</styles.Form>
 				)}
 			</Mutation>
-			<h3>My Teams</h3>
 			<Query query={query.FIND_TEAMS_BY_USER}>
 				{({ loading, error, data: { findTeamsByUser } }) => {
 					if (loading) return <p>Loading...</p>;
 					if (error) return <p>Error :(</p>;
 
 					return findTeamsByUser.map(team => (
-						<Link to={`/${team._id}/home`} key={team._id}>
-							<TeamCard team={team} />
-						</Link>
+						<styles.TeamsList>
+							<h3>My Teams</h3>
+							<styles.LinkStyles>
+								<Link
+									to={`/${team._id}/home`}
+									key={team._id}
+									style={{ textDecoration: 'none' }}
+								>
+									<TeamCard team={team} />
+								</Link>
+							</styles.LinkStyles>
+						</styles.TeamsList>
 					));
 				}}
 			</Query>
