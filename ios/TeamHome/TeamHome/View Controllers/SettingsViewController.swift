@@ -10,6 +10,7 @@ import UIKit
 import Cloudinary
 import Photos
 import Apollo
+import SafariServices
 
 class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
@@ -36,27 +37,30 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     // Show and hide Billing Settings section.
     @IBAction func billingSettings(_ sender: Any) {
         
-        // Show billing setting stack view only if it's hidden.
-        if billingStackView.isHidden {
-            // Hide account settings stack view and shows billing settings stack view.
-            accountStackView.isHidden = true
-            billingStackView.isHidden = false
-            
-            // Update settings label and button text.
-            settingsLabel.text = "Billing Settings"
-            showHideBillingButton.setTitle("Show Account Settings", for: .normal)
-            
-            
-        } else {
-            
-            // Hide billing settings stack view and shows account settings stack view.
-            billingStackView.isHidden = true
-            accountStackView.isHidden = false
-            
-            // Update settings label and button text.
-            settingsLabel.text = "Account Settings"
-            showHideBillingButton.setTitle("Looking for billing settings?", for: .normal)
-        }
+        guard let url = URL(string: "https://team-home.netlify.com") else { return }
+        let svc = SFSafariViewController(url: url)
+        present(svc, animated: true, completion: nil)
+//        // Show billing setting stack view only if it's hidden.
+//        if billingStackView.isHidden {
+//            // Hide account settings stack view and shows billing settings stack view.
+//            accountStackView.isHidden = true
+//            billingStackView.isHidden = false
+//
+//            // Update settings label and button text.
+//            settingsLabel.text = "Billing Settings"
+//            showHideBillingButton.setTitle("Show Account Settings", for: .normal)
+//
+//
+//        } else {
+//
+//            // Hide billing settings stack view and shows account settings stack view.
+//            billingStackView.isHidden = true
+//            accountStackView.isHidden = false
+//
+//            // Update settings label and button text.
+//            settingsLabel.text = "Account Settings"
+//            showHideBillingButton.setTitle("Looking for billing settings?", for: .normal)
+//        }
     }
     
     @IBAction func addRemoveAvatar(_ sender: Any) {
