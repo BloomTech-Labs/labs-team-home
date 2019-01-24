@@ -71,8 +71,8 @@ const AddMsgBtn = styled.button`
 `;
 
 class MessageBoard extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		//temporary url
 		this.URI =
 			process.env.NODE_ENV === 'production'
@@ -87,11 +87,7 @@ class MessageBoard extends React.Component {
 			email: '',
 			number: '',
 			images: [],
-			team: {
-				name: 'TeamName',
-				_id: '5c3e1df844c51289c59648ed',
-				users: ['dfasdf', 'asdfsags']
-			},
+			team: props.team,
 			user: '5c3cdac285d92c646e97678d',
 			isAdmin: true,
 			sortOption: 'newest'
@@ -178,7 +174,7 @@ class MessageBoard extends React.Component {
 						<AddMessage
 							closeHandler={this.closeModalHandler}
 							stopProp={this.stopProp}
-							team={this.props.match.params.team}
+							team={this.state.team}
 							user={this.state.user}
 						/>
 					) : null}
@@ -193,7 +189,7 @@ class MessageBoard extends React.Component {
 						/>
 					) : null}
 					<TeamName>
-						<h1>{this.state.teamName}</h1>
+						<h1>Team Name</h1>
 						<Teamlogo>
 							<Logo src="https://via.placeholder.com/50.png" alt="team logo" />
 							{this.state.isAdmin ? (
@@ -214,7 +210,7 @@ class MessageBoard extends React.Component {
 						</form>
 						<Query
 							query={query.FIND_MESSAGES_BY_TEAM}
-							variables={{ team: this.props.match.params.team }}
+							variables={{ team: this.state.team }}
 						>
 							{({ loading, error, data: { findMessagesByTeam } }) => {
 								if (loading) return <p>Loading...</p>;
