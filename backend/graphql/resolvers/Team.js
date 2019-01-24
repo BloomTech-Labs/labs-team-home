@@ -16,7 +16,7 @@ const teamResolvers = {
 		teams: () => Team.find().populate('users.user'),
 		findTeamsByUser: (_, args, { user: { _id } }) =>
 			Team.find({ 'users.user': _id }).populate('users.user'),
-		findTeam: (_, { input }) => Team.findById(input).populate('users.user')
+		findTeam: (_, { input }) => Team.findById(input.id).populate('users.user')
 	},
 	Mutation: {
 		addTeam: (_, { input }, { user: { _id } }) =>
@@ -39,10 +39,11 @@ const teamResolvers = {
 		},
 		setPremium: (_, { input }) => {
 			const body = {
-				source: input.token,
-				amount: input.amount,
+				source: input.source,
+				amount: input.charge,
 				currency: 'usd'
 			};
+			console.log('Stripe!', input);
 			return stripe.charges
 				.create(body)
 				.then(() => {
@@ -58,7 +59,8 @@ const teamResolvers = {
 						}
 					});
 				})
-				.catch(() => {
+				.catch(error => {
+					console.log(error);
 					throw new Error('payment error');
 				});
 		},
