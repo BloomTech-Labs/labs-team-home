@@ -10,6 +10,8 @@ import UIKit
 import Apollo
 import Cloudinary
 
+var teamWatcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
+
 class TeamDetailTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -38,7 +40,21 @@ class TeamDetailTableViewController: UITableViewController {
         cell.detailTextLabel?.text = email
 
         if let avatar = user.user.avatar {
-            print(avatar)
+            cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+                // Progress
+            }) { (image, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let image = image else { return }
+                
+                DispatchQueue.main.async {
+                    cell.imageView?.image = image
+                    cell.imageView?.contentMode = .scaleAspectFit
+                }
+            }
         }
         
         return cell
@@ -75,7 +91,7 @@ class TeamDetailTableViewController: UITableViewController {
         guard let team = team,
             let teamId = team.id else { return }
         
-        watcher = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
+        teamWatcher = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
@@ -98,7 +114,6 @@ class TeamDetailTableViewController: UITableViewController {
         }
     }
     
-    var watcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     
