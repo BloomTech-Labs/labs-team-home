@@ -16,7 +16,7 @@ const teamResolvers = {
 		teams: () => Team.find().populate('users.user'),
 		findTeamsByUser: (_, args, { user: { _id } }) =>
 			Team.find({ 'users.user': _id }).populate('users.user'),
-		findTeam: (_, { input }) => Team.findById(input).populate('users.user')
+		findTeam: (_, { input }) => Team.findById(input.id).populate('users.user')
 	},
 	Mutation: {
 		addTeam: (_, { input }, { user: { _id } }) =>
@@ -36,6 +36,32 @@ const teamResolvers = {
 					throw new ValidationError("Team doesn't exist");
 				}
 			});
+		},
+		setPremium: (_, { input }) => {
+			const body = {
+				source: input.source,
+				amount: input.charge,
+				currency: 'usd'
+			};
+			return stripe.charges
+				.create(body)
+				.then(() => {
+					return Team.findById(input.id).then(team => {
+						if (team) {
+							return Team.findOneAndUpdate(
+								{ _id: input.id },
+								{ $set: { premium: true } },
+								{ new: true }
+							).populate('users');
+						} else {
+							throw new Error("Team doesn't exist");
+						}
+					});
+				})
+				.catch(err => {
+					console.log(err);
+					throw new Error('payment error');
+				});
 		},
 		deleteTeam: (_, { input: { id } }, { user }) =>
 			Team.findById(id).then(async foundTeam => {
