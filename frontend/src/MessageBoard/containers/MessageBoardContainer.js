@@ -3,8 +3,8 @@ import MessageBoard from '../components/MessageBoard';
 import ActivityTimeline from '../components/ActivityTimeline';
 
 export default class MessageBoardContainer extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			messageboard: true
@@ -29,9 +29,12 @@ export default class MessageBoardContainer extends React.Component {
 					Activity Timeline
 				</button>
 				{this.state.messageboard ? (
-					<MessageBoard team={this.props.match.params.team} />
+					<MessageBoard {...this.props} team={this.props.match.params.team} />
 				) : (
-					<ActivityTimeline team={this.props.match.params.team} />
+					<ActivityTimeline
+						{...this.props}
+						team={this.props.match.params.team}
+					/>
 				)}
 			</div>
 		);
