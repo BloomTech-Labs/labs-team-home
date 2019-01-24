@@ -284,6 +284,7 @@ class MessageBoard extends React.Component {
 				<UserList
 					open={this.state.userListOpen}
 					team={this.props.match.params.team}
+					currentUser={this.props.currentUser}
 					hideModal={this.closeUserList}
 				/>
 			</>

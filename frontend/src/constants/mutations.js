@@ -129,6 +129,10 @@ export const ADD_TEAM = gql`
 `;
 
 export const UPDATE_TEAM = gql`
+	input TeamUserInput {
+		user: String
+		admin: Boolean
+	}
 	mutation updateTeam(
 		$id: ID!
 		$name: String
@@ -139,11 +143,6 @@ export const UPDATE_TEAM = gql`
 			input: { id: $id, name: $name, users: $users, premium: $premium }
 		) {
 			...FullTeam
-		}
-		input
-		TeamUserInput {
-			user: String
-			admin: Boolean
 		}
 	}
 	${f.FULL_TEAM}

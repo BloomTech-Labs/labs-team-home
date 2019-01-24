@@ -20,7 +20,7 @@ export default class UserList extends Component {
 		}
 	};
 	render() {
-		const { open, team, hideModal } = this.props;
+		const { open, team, hideModal, currentUser } = this.props;
 		return (
 			<Dialog isOpen={open}>
 				<button
@@ -52,6 +52,54 @@ export default class UserList extends Component {
 										</p>
 										<p>{user.email}</p>
 										<p>Admin? {admin ? '✔️' : '❌'}</p>
+										<Mutation
+											mutation={mutation.UPDATE_TEAM}
+											update={(cache, { data: { updateTeam } }) => {
+												const { findTeam } = cache.readQuery({
+													query: query.FIND_TEAM,
+													variables: { id: team }
+												});
+												cache.writeQuery({
+													query: query.FIND_TEAM,
+													variables: { id: team },
+													data: {
+														findTeam: updateTeam
+													}
+												});
+											}}
+										>
+											{updateTeam =>
+												findTeam.users.find(
+													item => item.user._id === currentUser._id
+												).admin &&
+												user._id !== currentUser._id && (
+													<button
+														onClick={e => {
+															e.preventDefault();
+															const sanitized = findTeam.users.map(
+																sanitizedUser => {
+																	return {
+																		user: sanitizedUser.user._id,
+																		admin: sanitizedUser.admin
+																	};
+																}
+															);
+															console.log(sanitized);
+															updateTeam({
+																variables: {
+																	id: findTeam._id,
+																	users: sanitized.filter(
+																		filterItem => filterItem.user !== user._id
+																	)
+																}
+															});
+														}}
+													>
+														Kick User
+													</button>
+												)
+											}
+										</Mutation>
 									</div>
 								))}
 							</div>
