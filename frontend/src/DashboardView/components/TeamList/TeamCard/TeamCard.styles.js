@@ -13,21 +13,28 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	flex-direction: row;
+	align-items: space-around;
+	justify-content: space-around;
 	width: 100%;
-	height: 100px;
 	border: 1px solid;
 	color: #17151b;
 	background-color: #f1fcef;
 	border-radius: 5px;
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
 	h3 {
-		color: #17151b;
-		font-size: 1.8rem;
+		width: 25%;
+		/* color: #17151b; */
+		font-size: 1.2rem;
 		text-decoration: none;
 	}
 	p {
-		color: #17151b;
-		background-color: #f1fcef;
+		width: 25%;
+		/* color: #17151b; */
+		/* background-color: #f1fcef; */
+	}
+	:hover {
+		background-color: #ff8c63;
+		color: #f1fcef;
 	}
 `;
