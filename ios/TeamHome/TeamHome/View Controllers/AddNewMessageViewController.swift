@@ -37,25 +37,50 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     @IBAction func submitMessage(_ sender: Any) {
         
         guard let apollo = apollo,
+            let team = team,
+            let teamId = team.id,
             let messageTitle = messageTitleTextField.text,
-            let content = messageBodyTextView.text else { return }
+            let content = messageBodyTextView.text,
+            let tags = newTagTextField.text else { return }
         
-        apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: "", content: content, images: [""], tags: [""], subscribers: [""]), queue: DispatchQueue.global()) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-            }
+        let tagsWithoutWhitespace = tags.trimmingCharacters(in: .whitespaces)
+        let tagArray = tagsWithoutWhitespace.components(separatedBy: ",")
+        
+        guard let imageData = imageData else {
             
-            guard let result = result else { return }
+            // If no photo is selected, create message without image attached.
+            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: nil, tags: tagArray), queue: DispatchQueue.global()) { (_, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+            }
+            return
         }
         
-        guard let imageData = imageData else { return }
-        
+        // If photo is selected, create message with photo
         let params = CLDUploadRequestParams()
         
+        // Upload image to cloudinary.
         cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
             //Show progress
-        }) { (result, error) in
             
+        }) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            guard let result = result,
+                let url = result.url else { return }
+            
+            // Pass image url to Apollo client to create message.
+            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: [url], tags: tagArray), queue: DispatchQueue.global()) { (_, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+            }
         }
     }
     
@@ -90,11 +115,11 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     
     private var imageData: Data?
     var apollo: ApolloClient?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     
     @IBOutlet weak var messageTitleTextField: UITextField!
     @IBOutlet weak var messageBodyTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var newTagTextField: UITextField!
-    @IBOutlet weak var newTagButton: UIButton!
     
 }
