@@ -15,10 +15,13 @@ import mediaQueryFor from './_global_styles/responsive_querie';
 const GlobalStyle = createGlobalStyle`
   body {
     @import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
+    background-size:100vw;
     background-color: #17151B;
     width:100%;
     margin:0 auto;
-    background-image: url('frontend/src/assets/TH_icon_logo_wout_nodes.svg');
+    ${
+			'' /* background-image: url('frontend/src/assets/TH_icon_logo_wout_nodes.svg'); */
+		}
 	  background-position: center top;
     background: linear-gradient(
 		to bottom,

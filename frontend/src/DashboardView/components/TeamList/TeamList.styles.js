@@ -69,12 +69,11 @@ const Form = styled.div`
     /* line-height: 1; */
     cursor: pointer;
     text-align: center;
-    transition: border 250ms ease-in-out, transform 150ms ease;
+    transition: background-color 250ms ease-in-out, transform 150ms ease;
     -webkit-appearance: none;
     -moz-appearance: none;
     :hover {
-      /* background-color:#3F1F6A; */
-      border: solid 1px #FFD17C;
+      background-color:#FFD17C;
       color:#FFD17C;
     }
   }
@@ -87,7 +86,7 @@ const TeamsList = styled.div`
 	height: 100px;
 	display: flex;
 	flex-flow: column;
-	background-color: purple;
+	color: #f1fcef;
 	h3 {
 		font-size: 2.4rem;
 	}

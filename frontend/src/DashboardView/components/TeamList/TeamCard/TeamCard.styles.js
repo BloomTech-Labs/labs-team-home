@@ -20,7 +20,6 @@ export const Container = styled.div`
 	border: 1px solid;
 	color: #17151b;
 	background-color: #f1fcef;
-	/* text-decoration: none; */
 	h3 {
 		color: #17151b;
 		font-size: 1.8rem;
