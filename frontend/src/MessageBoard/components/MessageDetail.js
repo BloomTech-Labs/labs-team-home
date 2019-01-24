@@ -52,6 +52,24 @@ class MessageDetail extends Component {
 													Close
 												</button>
 												<div>
+													<div>
+														<img
+															src={findMessage.user.avatar}
+															alt="avatar"
+															style={{ height: '64px', width: '64px' }}
+														/>
+														<h2>
+															Posted by {findMessage.user.firstName}{' '}
+															{findMessage.user.lastName}
+														</h2>
+														{findMessage.images.map(image => (
+															<img
+																src={image}
+																alt="message-img"
+																style={{ maxWidth: '50%', height: 'auto' }}
+															/>
+														))}
+													</div>
 													<h2>{findMessage.title}</h2>
 													<p>{findMessage.content}</p>
 													<Mutation

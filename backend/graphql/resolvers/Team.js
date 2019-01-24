@@ -91,25 +91,24 @@ const teamResolvers = {
 									user: _id,
 									admin: false
 								}));
-								email &&
-									sgMail.send({
-										// notifies subscribed users of the new comment
-										to: email,
-										from: `${team.name}@team.home`,
-										subject: `You been invited to ${team.name}`,
-										text: `You been invited to ${
-											team.name
-										} by ${firstName} ${lastName}`,
-										html: /* HTML */ `
-											<h1>${team.name}</h1>
-											<div>
-												<p>
-													You been invited to ${team.name} by ${firstName}
-													${lastName}
-												</p>
-											</div>
-										`
-									});
+								sgMail.send({
+									// notifies subscribed users of the new comment
+									to: email,
+									from: `${team.name}@team.home`,
+									subject: `You been invited to ${team.name}`,
+									text: `You been invited to ${
+										team.name
+									} by ${firstName} ${lastName}`,
+									html: /* HTML */ `
+										<h1>${team.name}</h1>
+										<div>
+											<p>
+												You been invited to ${team.name} by ${firstName}
+												${lastName}
+											</p>
+										</div>
+									`
+								});
 								return Team.findOneAndUpdate(
 									{ _id: id },
 									{ $set: { users: [...team.users, ...addedUsers] } },
