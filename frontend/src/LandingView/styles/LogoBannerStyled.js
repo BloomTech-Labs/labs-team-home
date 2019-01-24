@@ -4,9 +4,6 @@ const LogoBannerStyles = styled.div`
 	width: 100%;
 	display: flex;
 	flex-flow: column;
-	/* height: 560px; */
-	height: 70vh;
-	/* background: rgba(255, 255, 255, 0.6); */
 	background: linear-gradient(
 		to bottom,
 		rgb(63, 31, 106, 0.2) 0%,
