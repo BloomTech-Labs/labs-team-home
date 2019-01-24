@@ -27,29 +27,31 @@ const TeamList = () => {
 				}}
 			>
 				{addTeam => (
-					<form
-						action="submit"
-						onSubmit={e => {
-							e.preventDefault();
-							name.value.length &&
-								addTeam({
-									variables: {
-										name: name.value
-									}
-								});
-							name.value = '';
-						}}
-					>
-						<label htmlFor="name">
-							Team Name:
-							<input
-								ref={node => {
-									name = node;
-								}}
-							/>
-						</label>
-						<button type="submit">Add Team</button>
-					</form>
+					<styles.Form>
+						<form
+							action="submit"
+							onSubmit={e => {
+								e.preventDefault();
+								name.value.length &&
+									addTeam({
+										variables: {
+											name: name.value
+										}
+									});
+								name.value = '';
+							}}
+						>
+							<label htmlFor="name">
+								Team Name:
+								<input
+									ref={node => {
+										name = node;
+									}}
+								/>
+							</label>
+							<button type="submit">Add Team</button>
+						</form>
+					</styles.Form>
 				)}
 			</Mutation>
 			<h3>My Teams</h3>

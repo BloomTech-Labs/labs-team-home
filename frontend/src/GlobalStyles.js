@@ -14,10 +14,11 @@ import mediaQueryFor from './_global_styles/responsive_querie';
 
 const GlobalStyle = createGlobalStyle`
   body {
+    @import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
+    background-color: #17151B;
     max-width:1000px;
     width:100%;
-    margin:0;
-    background-color:#17151B;
+    margin:0 auto;
     ${mediaQueryFor.smDevice`
       width:100vw;
     `}
