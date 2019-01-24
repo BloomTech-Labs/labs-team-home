@@ -17,11 +17,17 @@ const FormCheckboxStyles = styled.div`
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    font-size:1.5rem;
     label {
-      width: 98%;
-    }
-    input {
-      width: 98%;
+      width:80%;
+      display:flex;
+      flex-flow:row;
+      justify-content: space-between;
+
+      input {
+        width: 20%;
+        height:50px
+      }
     }
     `}
 `;
@@ -36,6 +42,7 @@ const FormCheckbox = props => {
 				{props.options.map(option => {
 					return (
 						<label key={option} className="checkbox-inline">
+							{option}
 							<input
 								id={props.name}
 								name={props.name}
@@ -44,7 +51,6 @@ const FormCheckbox = props => {
 								checked={props.selectedOptions.indexOf(option) > -1}
 								type="checkbox"
 							/>
-							{option}
 						</label>
 					);
 				})}
