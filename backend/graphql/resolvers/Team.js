@@ -94,11 +94,11 @@ const teamResolvers = {
 								}));
 								email &&
 									sgMail.send({
-										// notifies subscribed users of the new comment
+										// notifies invited user
 										to: email,
-										from: `${team.name}@team.home`,
-										subject: `You been invited to ${team.name}`,
-										text: `You been invited to ${
+										from: `${team.name.split(' ').join('')}@team.home`,
+										subject: `You have been been invited to ${team.name}`,
+										text: `You have been invited to ${
 											team.name
 										} by ${firstName} ${lastName}`,
 										html: /* HTML */ `
