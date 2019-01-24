@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="./styles/graphdoc.css" />
+    <title>Team</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet"><link type="text/css" rel="stylesheet" href="./assets/code.css" /><link type="text/css" rel="stylesheet" href="./assets/require-by.css" />
+</head>
+<body class="slds-scrollable--y">
+    <nav class="slds-grid slds-grid--vertical slds-col--rule-right">
+        <header class="slds-p-around--medium slds-col slds-shrik slds-grow-none">
+            <button class="slds-button slds-button--icon slds-float--right js-toggle-navigation less-than-medium">
+                <i class="material-icons">close</i>
+            </button>
+                <h3 class="slds-text-heading--medium"><a href="./">GraphQL Schema</a></h3>
+            <div class="slds-p-top--small">
+                <input id="type-search" type="text" placeholder="Search a type" autofocus="" class="slds-input" />
+            </div>
+        </header>
+        <div id="navication-scroll" class="slds-scrollable--y slds-col slds-grow">
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Schema</h4>
+    <ul>
+        <li  title="Query">
+            <a href="query.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Query
+            </a>
+        </li>
+        <li  title="Mutation">
+            <a href="mutation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Mutation
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Scalars</h4>
+    <ul>
+        <li  title="Boolean">
+            <a href="boolean.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Boolean
+            </a>
+        </li>
+        <li  title="ID">
+            <a href="id.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ID
+            </a>
+        </li>
+        <li  title="String">
+            <a href="string.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                String
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Enums</h4>
+    <ul>
+        <li  title="__DirectiveLocation">
+            <a href="directivelocation.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __DirectiveLocation
+            </a>
+        </li>
+        <li  title="__TypeKind">
+            <a href="typekind.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __TypeKind
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Objects</h4>
+    <ul>
+        <li  title="Message">
+            <a href="message.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Message
+            </a>
+        </li>
+        <li  title="MsgComment">
+            <a href="msgcomment.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                MsgComment
+            </a>
+        </li>
+        <li  title="Tag">
+            <a href="tag.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Tag
+            </a>
+        </li>
+        <li class="slds-is-active" title="Team">
+            <a href="team.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Team
+            </a>
+        </li>
+        <li  title="TeamUser">
+            <a href="teamuser.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TeamUser
+            </a>
+        </li>
+        <li  title="Toggles">
+            <a href="toggles.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Toggles
+            </a>
+        </li>
+        <li  title="User">
+            <a href="user.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                User
+            </a>
+        </li>
+        <li  title="__Directive">
+            <a href="directive.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Directive
+            </a>
+        </li>
+        <li  title="__EnumValue">
+            <a href="enumvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __EnumValue
+            </a>
+        </li>
+        <li  title="__Field">
+            <a href="field.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Field
+            </a>
+        </li>
+        <li  title="__InputValue">
+            <a href="inputvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __InputValue
+            </a>
+        </li>
+        <li  title="__Schema">
+            <a href="schema.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Schema
+            </a>
+        </li>
+        <li  title="__Type">
+            <a href="type.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Type
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Input Objects</h4>
+    <ul>
+        <li  title="AddMessageInput">
+            <a href="addmessageinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddMessageInput
+            </a>
+        </li>
+        <li  title="AddMsgCommentInput">
+            <a href="addmsgcommentinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddMsgCommentInput
+            </a>
+        </li>
+        <li  title="AddTagInput">
+            <a href="addtaginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddTagInput
+            </a>
+        </li>
+        <li  title="AddTeamInput">
+            <a href="addteaminput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddTeamInput
+            </a>
+        </li>
+        <li  title="AddUserInput">
+            <a href="adduserinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddUserInput
+            </a>
+        </li>
+        <li  title="DeleteMessageInput">
+            <a href="deletemessageinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteMessageInput
+            </a>
+        </li>
+        <li  title="DeleteMsgCommentInput">
+            <a href="deletemsgcommentinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteMsgCommentInput
+            </a>
+        </li>
+        <li  title="DeleteTagInput">
+            <a href="deletetaginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteTagInput
+            </a>
+        </li>
+        <li  title="DeleteTeamInput">
+            <a href="deleteteaminput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteTeamInput
+            </a>
+        </li>
+        <li  title="FindMessageByTeamInput">
+            <a href="findmessagebyteaminput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FindMessageByTeamInput
+            </a>
+        </li>
+        <li  title="FindMessageInput">
+            <a href="findmessageinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FindMessageInput
+            </a>
+        </li>
+        <li  title="FindMsgCommentInput">
+            <a href="findmsgcommentinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FindMsgCommentInput
+            </a>
+        </li>
+        <li  title="FindMsgCommentsByMessageInput">
+            <a href="findmsgcommentsbymessageinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FindMsgCommentsByMessageInput
+            </a>
+        </li>
+        <li  title="FindTagInput">
+            <a href="findtaginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FindTagInput
+            </a>
+        </li>
+        <li  title="FindTagsByTeamInput">
+            <a href="findtagsbyteaminput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FindTagsByTeamInput
+            </a>
+        </li>
+        <li  title="FindTeamInput">
+            <a href="findteaminput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FindTeamInput
+            </a>
+        </li>
+        <li  title="FindUserInput">
+            <a href="finduserinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FindUserInput
+            </a>
+        </li>
+        <li  title="InviteUserInput">
+            <a href="inviteuserinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                InviteUserInput
+            </a>
+        </li>
+        <li  title="TeamUserInput">
+            <a href="teamuserinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TeamUserInput
+            </a>
+        </li>
+        <li  title="TogglesInput">
+            <a href="togglesinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TogglesInput
+            </a>
+        </li>
+        <li  title="UpdateMessageInput">
+            <a href="updatemessageinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateMessageInput
+            </a>
+        </li>
+        <li  title="UpdateMsgCommentInput">
+            <a href="updatemsgcommentinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateMsgCommentInput
+            </a>
+        </li>
+        <li  title="UpdateTagInput">
+            <a href="updatetaginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateTagInput
+            </a>
+        </li>
+        <li  title="UpdateTeamInput">
+            <a href="updateteaminput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateTeamInput
+            </a>
+        </li>
+        <li  title="UpdateUserInput">
+            <a href="updateuserinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateUserInput
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Directives</h4>
+    <ul>
+        <li  title="deprecated">
+            <a href="deprecated.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                deprecated
+            </a>
+        </li>
+        <li  title="include">
+            <a href="include.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                include
+            </a>
+        </li>
+        <li  title="skip">
+            <a href="skip.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                skip
+            </a>
+        </li>
+    </ul>
+</div>
+        </div>
+    </nav>
+    <main><section class="title slds-theme--inverse">
+    <div class="container slds-grid">
+        <div>
+        <button class="slds-button js-toggle-navigation less-than-medium">
+            <i class="material-icons slds-button__icon slds-button__icon--left">menu</i>
+            <span class="slds-text-title--caps">Types<span>
+        </button>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="slds-text-title--caps slds-text-color--weak">OBJECT</p>
+        <h1 class="slds-text-heading--large">Team</h1>
+        <div class="slds-text-body--regular"></div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="graphql-schema-definition" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#graphql-schema-definition">
+                <i class="material-icons">link</i>
+            </a>
+            GraphQL Schema definition
+        </h2>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">Team</span> {</li><li></li><li><span class="tab"><span class="meta">_id</span>: <a class="support type" href="id.doc.html">ID</a> </span></li><li></li><li><span class="tab"><span class="meta">name</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">users</span>: [<a class="support type" href="teamuser.doc.html">TeamUser</a>] </span></li><li></li><li><span class="tab"><span class="meta">premium</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li>}</li></ul></code>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="require-by" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#require-by">
+                <i class="material-icons">link</i>
+            </a>
+            Require by
+        </h2>
+        <ul class="require-by"><li><a href="message.doc.html" title="Message - ">Message<em></em></a><li><li><a href="mutation.doc.html" title="Mutation - ">Mutation<em></em></a><li><li><a href="query.doc.html" title="Query - ">Query<em></em></a><li><li><a href="tag.doc.html" title="Tag - ">Tag<em></em></a><li></ul>
+    </div>
+</section>
+<footer>
+<div class="container slds-p-around--large">
+    <p class="slds-text-align--right slds-text-title--caps">
+        Generated with <a href="https://github.com/2fd/graphdoc#readme" target="_blank">graphdoc 2.4.0</a>
+    </p>
+</div>
+</footer>
+</main>
+    <script src="./scripts/focus-active.js"></script>
+    <script src="./scripts/filter-types.js"></script>
+    <script src="./scripts/toggle-navigation.js"></script>
+</body>

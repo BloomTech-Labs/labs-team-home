@@ -5,9 +5,10 @@ const User = /* GraphQL */ `
 	}
 	type User {
 		_id: ID
-		firstName: String!
-		lastName: String!
-		email: String!
+		authId: String
+		firstName: String
+		lastName: String
+		email: String
 		phoneNumber: String
 		avatar: String
 		toggles: Toggles
@@ -16,14 +17,14 @@ const User = /* GraphQL */ `
 		id: ID!
 	}
 	input AddUserInput {
-		firstName: String!
-		lastName: String!
-		email: String!
+		authId: String!
+		firstName: String
+		lastName: String
+		email: String
 		phoneNumber: String
 		avatar: String
 	}
 	input UpdateUserInput {
-		id: ID!
 		firstName: String
 		lastName: String
 		email: String
@@ -35,17 +36,15 @@ const User = /* GraphQL */ `
 		receiveEmails: Boolean
 		receiveTexts: Boolean
 	}
-	input DeleteUserInput {
-		id: ID!
-	}
 	extend type Query {
 		users: [User]
+		currentUser: User
 		findUser(input: FindUserInput): User
 	}
 	extend type Mutation {
 		addUser(input: AddUserInput!): User
 		updateUser(input: UpdateUserInput!): User
-		deleteUser(input: DeleteUserInput!): User
+		deleteUser: User
 	}
 `;
 

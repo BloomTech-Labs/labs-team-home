@@ -7,7 +7,7 @@ const Message = /* GraphQL */ `
 		content: String!
 		images: [String]
 		tags: [Tag]
-		comments: [MsgComment]
+		comments: [ID]
 		subscribedUsers: [User]
 		createdAt: String
 		updatedAt: String
@@ -15,9 +15,11 @@ const Message = /* GraphQL */ `
 	input FindMessageInput {
 		id: ID!
 	}
+	input FindMessageByTeamInput {
+		team: ID!
+	}
 	input AddMessageInput {
 		title: String!
-		user: String!
 		team: String!
 		content: String!
 		images: [String]
@@ -27,7 +29,6 @@ const Message = /* GraphQL */ `
 	input UpdateMessageInput {
 		id: ID!
 		title: String
-		user: String
 		team: String
 		content: String
 		images: [String]
@@ -40,6 +41,7 @@ const Message = /* GraphQL */ `
 	}
 	extend type Query {
 		messages: [Message]
+		findMessagesByTeam(input: FindMessageByTeamInput): [Message]
 		findMessage(input: FindMessageInput): Message
 	}
 	extend type Mutation {

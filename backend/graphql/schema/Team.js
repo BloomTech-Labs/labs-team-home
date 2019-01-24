@@ -16,6 +16,11 @@ const Team = /* GraphQL */ `
 	input FindTeamInput {
 		id: ID!
 	}
+	input InviteUserInput {
+		id: ID!
+		email: String
+		phoneNumber: String
+	}
 	input AddTeamInput {
 		name: String!
 		users: [TeamUserInput]
@@ -33,11 +38,13 @@ const Team = /* GraphQL */ `
 	extend type Query {
 		teams: [Team]
 		findTeam(input: FindTeamInput): Team
+		findTeamsByUser: [Team]
 	}
 	extend type Mutation {
 		addTeam(input: AddTeamInput!): Team
 		updateTeam(input: UpdateTeamInput!): Team
 		deleteTeam(input: DeleteTeamInput!): Team
+		inviteUser(input: InviteUserInput!): Team
 	}
 `;
 module.exports = Team;

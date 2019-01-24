@@ -7,6 +7,7 @@ const MessageContainer = styled.div`
 	padding: 10px 20px;
 	display: flex;
 	justify-content: space-between;
+	cursor: pointer;
 `;
 
 const Pic = styled.img`
@@ -41,37 +42,50 @@ const MessagePreview = styled.div`
 const Tag = styled.p``;
 
 function Message(props) {
+	let userInfo = props.userInfo;
+	let message = props.message;
+	//createdAt is passed as a string. Make it an int to conver to Date
+	if (typeof message.createdAt === 'string')
+		message.createdAt = new Date(parseInt(message.createdAt, 10));
+
 	return (
-		<MessageContainer>
+		<MessageContainer onClick={props.openMessage}>
 			<Pic
 				src={
-					props.message.user.avatar
-						? props.message.user.avatar
+					userInfo.avatar
+						? userInfo.avatar
 						: 'https://via.placeholder.com/50.png'
 				}
 			/>
 			<MessagePreview>
-				<p>{props.message.title}</p>
+				<p>{message.title}</p>
 				<p>
-					{props.message.user.firstName} {props.message.user.lastName} -
-					timestamp
+					{`${userInfo.firstName} ${
+						userInfo.lastName
+					} - ${message.createdAt.toDateString()}`}
 				</p>
 				<p>
-					{props.message.content.length <= 50
-						? props.message.content
-						: props.message.content.slice(0, 49) + '...'}
+					{message.content.length <= 50
+						? message.content
+						: message.content.slice(0, 49) + '...'}
 				</p>
 			</MessagePreview>
 			<MessagePreview>
 				<h5>Comments</h5>
-				<h4>{props.message.comments.length}</h4>
+				<h4>{message.comments.length}</h4>
 			</MessagePreview>
 			<MessagePreview>
 				<h5>Tags</h5>
-				{props.message.tags.map(tag => {
+				{message.tags.map(tag => {
 					return <Tag>{tag}</Tag>;
 				})}
 			</MessagePreview>
+			{//note: images are shown here as a demo only. Will be removed and added to message detail
+			message.images.length >= 1
+				? message.images.map(pic => {
+						return <img src={pic} />;
+				  })
+				: null}
 		</MessageContainer>
 	);
 }
