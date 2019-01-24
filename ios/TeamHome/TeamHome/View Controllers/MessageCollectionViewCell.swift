@@ -17,7 +17,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         
         // Update all labels with message's details
         firstNameLabel.text = message.user.firstName
-//        lastNameLabel.text = message.user.lastName
+        lastNameLabel.text = message.user.lastName
         messageTitleLabel.text = message.title
         messageBodyLabel.text = message.content
         dateLabel.text = ""
@@ -25,10 +25,12 @@ class MessageCollectionViewCell: UICollectionViewCell {
         // Show image attachment icon if images are included in message
         if let images = message.images {
             if images.count > 0 {
-                imageAttachmentIconImageView.isHidden = true
-            } else {
                 imageAttachmentIconImageView.isHidden = false
+            } else {
+                imageAttachmentIconImageView.isHidden = true
             }
+        } else {
+            imageAttachmentIconImageView.isHidden = true
         }
         
         // Display number of comments in message or hides count if no comments
@@ -69,6 +71,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!
+    @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var messageBodyLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!

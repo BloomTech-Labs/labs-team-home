@@ -9,6 +9,8 @@
 import UIKit
 import Apollo
 
+var messagesWatcher: GraphQLQueryWatcher<FindMessagesByTeamQuery>?
+
 class MessagesCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
@@ -16,7 +18,7 @@ class MessagesCollectionViewController: UICollectionViewController {
         
         guard let apollo = apollo else { return }
         
-        //Load messages with watcher 
+        //Load messages with watcher
         loadMessages(with: apollo)
     }
 
@@ -39,21 +41,33 @@ class MessagesCollectionViewController: UICollectionViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //Pass message cell info to message detail VC
+        
+        if segue.identifier == "ShowMessageDetail" {
+            guard let destinationVC = segue.destination as? MessageDetailViewController,
+            let indexPath = collectionView.indexPathsForSelectedItems?.first,
+            let messages = messages,
+            let messageId = messages[indexPath.row]?.id
+                else { return }
+                destinationVC.apollo = apollo
+                destinationVC.messageId = messageId
+            
+        }
     }
     
     // MARK - Private Methods
     
     private func loadMessages(with apollo: ApolloClient) {
         
-        let teamId = ""
+        guard let team = team,
+            let teamId = team.id else { return }
         
-        watcher = apollo.watch(query: FindMessagesByTeamQuery(teamId: teamId)) { (result, error) in
+        messagesWatcher = apollo.watch(query: FindMessagesByTeamQuery(teamId: teamId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
             guard let messages = result?.data?.findMessagesByTeam else { return }
+            
             self.messages = messages
         }
     }
@@ -69,7 +83,6 @@ class MessagesCollectionViewController: UICollectionViewController {
         }
     }
     
-    var watcher: GraphQLQueryWatcher<FindMessagesByTeamQuery>?
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
 }

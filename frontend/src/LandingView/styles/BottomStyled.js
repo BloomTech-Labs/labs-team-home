@@ -9,7 +9,6 @@ const BtmContentStyles = styled.div`
 	margin: 0 auto;
 	margin-top: 2%;
 	width: 100%;
-	height: 2vh;
 	color: rgba(255, 255, 255, 1);
 	h1 {
 		width: 60%;

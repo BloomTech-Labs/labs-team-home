@@ -4,7 +4,6 @@ const LogoBannerStyles = styled.div`
 	width: 100%;
 	display: flex;
 	flex-flow: column;
-	height: 70vh;
 `;
 
 const TextIMG = styled.img`
