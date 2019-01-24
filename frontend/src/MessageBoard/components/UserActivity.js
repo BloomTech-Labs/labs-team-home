@@ -16,11 +16,19 @@ const Container = styled.div`
 	& p {
 		margin: 0 10px;
 	}
+
+	& img {
+		height: 50px;
+		width: 50px;
+	}
 `;
 
 const Info = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-end;
+	text-align: right;
+	padding: 0 20px;
 	margin: 5px 10px;
 `;
 

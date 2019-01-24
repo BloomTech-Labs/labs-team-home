@@ -31,7 +31,7 @@ export default class UserList extends Component {
 				>
 					Close
 				</button>
-				<Query query={query.FIND_TEAM} variables={{ id: team }}>
+				<Query query={query.FIND_TEAM} variables={{ id: team._id }}>
 					{({ loading, error, data: { findTeam } }) =>
 						loading ? (
 							'Loading...'

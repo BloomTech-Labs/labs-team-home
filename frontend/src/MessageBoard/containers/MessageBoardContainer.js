@@ -1,6 +1,11 @@
 import React from 'react';
 import MessageBoard from '../components/MessageBoard';
 import ActivityTimeline from '../components/ActivityTimeline';
+import styled from 'styled-components';
+
+const MsgContainer = styled.div`
+	padding: 100px 20px;
+`;
 
 export default class MessageBoardContainer extends React.Component {
 	constructor(props) {
@@ -21,7 +26,7 @@ export default class MessageBoardContainer extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<MsgContainer>
 				<button name="messageboard" onClick={this.tabChange}>
 					Message Board
 				</button>
@@ -39,7 +44,7 @@ export default class MessageBoardContainer extends React.Component {
 						team={this.props.match.params.team}
 					/>
 				)}
-			</div>
+			</MsgContainer>
 		);
 	}
 }

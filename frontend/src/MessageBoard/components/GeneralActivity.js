@@ -16,6 +16,11 @@ const Container = styled.div`
 	& p {
 		margin: 0 10px;
 	}
+
+	& img {
+		height: 50px;
+		width: 50px;
+	}
 `;
 
 const Info = styled.div`
@@ -32,12 +37,7 @@ export default function GeneralActivity(props) {
 	if (props.message.__typename === 'Message') {
 		return (
 			<Container>
-				<img
-					src={props.message.user.avatar}
-					alt="User avatar"
-					height="50px"
-					width="50px"
-				/>
+				<img src={props.message.user.avatar} alt="User avatar" />
 				<Info>
 					<p>
 						{props.message.user.firstName} {props.message.user.lastName} posted

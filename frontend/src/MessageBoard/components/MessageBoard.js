@@ -88,7 +88,6 @@ class MessageBoard extends React.Component {
 			email: '',
 			number: '',
 			images: [],
-			team: props.team,
 			isAdmin: true,
 			sortOption: 'newest'
 		};
@@ -253,7 +252,7 @@ class MessageBoard extends React.Component {
 						</form>
 						<Query
 							query={query.FIND_MESSAGES_BY_TEAM}
-							variables={{ team: this.state.team }}
+							variables={{ team: this.props.team }}
 						>
 							{({ loading, error, data: { findMessagesByTeam } }) => {
 								if (loading) return <p>Loading...</p>;
@@ -300,11 +299,11 @@ class MessageBoard extends React.Component {
 					hideModal={this.closeMessageDetail}
 					message={this.state.currentMessage}
 					currentUser={this.props.currentUser}
-					team={this.props.match.params.team}
+					team={this.props.team}
 				/>
 				<UserList
 					open={this.state.userListOpen}
-					team={this.props.match.params.team}
+					team={this.props.team}
 					currentUser={this.props.currentUser}
 					hideModal={this.closeUserList}
 				/>
