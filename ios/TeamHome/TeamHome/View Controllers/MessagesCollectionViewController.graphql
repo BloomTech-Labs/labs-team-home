@@ -16,7 +16,6 @@ query FindMessagesByTeam($teamId: ID!) {
         }
         comments
         subscribedUsers {
-            _id
             firstName
             lastName
             avatar

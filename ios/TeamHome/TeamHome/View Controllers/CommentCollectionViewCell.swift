@@ -26,6 +26,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         guard let comment = comment else { return }
         
         firstNameLabel.text = comment.user.firstName
+        lastNameLabel.text = comment.user.lastName
         commentBodyText.text = comment.content
         dateLabel.text = ""
         

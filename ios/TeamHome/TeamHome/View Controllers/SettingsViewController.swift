@@ -10,11 +10,19 @@ import UIKit
 import Cloudinary
 import Photos
 import Apollo
+import SafariServices
 
-class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        emailTextField.delegate = self
+        phoneTextField.delegate = self
+        oldPasswordTextField.delegate = self
+        newPasswordTextField.delegate = self
         
         guard let apollo = apollo else { return }
         
@@ -29,27 +37,30 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     // Show and hide Billing Settings section.
     @IBAction func billingSettings(_ sender: Any) {
         
-        // Show billing setting stack view only if it's hidden.
-        if billingStackView.isHidden {
-            // Hide account settings stack view and shows billing settings stack view.
-            accountStackView.isHidden = true
-            billingStackView.isHidden = false
-            
-            // Update settings label and button text.
-            settingsLabel.text = "Billing Settings"
-            showHideBillingButton.setTitle("Show Account Settings", for: .normal)
-            
-            
-        } else {
-            
-            // Hide billing settings stack view and shows account settings stack view.
-            billingStackView.isHidden = true
-            accountStackView.isHidden = false
-            
-            // Update settings label and button text.
-            settingsLabel.text = "Account Settings"
-            showHideBillingButton.setTitle("Looking for billing settings?", for: .normal)
-        }
+        guard let url = URL(string: "https://team-home.netlify.com") else { return }
+        let svc = SFSafariViewController(url: url)
+        present(svc, animated: true, completion: nil)
+//        // Show billing setting stack view only if it's hidden.
+//        if billingStackView.isHidden {
+//            // Hide account settings stack view and shows billing settings stack view.
+//            accountStackView.isHidden = true
+//            billingStackView.isHidden = false
+//
+//            // Update settings label and button text.
+//            settingsLabel.text = "Billing Settings"
+//            showHideBillingButton.setTitle("Show Account Settings", for: .normal)
+//
+//
+//        } else {
+//
+//            // Hide billing settings stack view and shows account settings stack view.
+//            billingStackView.isHidden = true
+//            accountStackView.isHidden = false
+//
+//            // Update settings label and button text.
+//            settingsLabel.text = "Account Settings"
+//            showHideBillingButton.setTitle("Looking for billing settings?", for: .normal)
+//        }
     }
     
     @IBAction func addRemoveAvatar(_ sender: Any) {
@@ -71,6 +82,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     @IBAction func saveChanges(_ sender: Any) {
         
         guard let apollo = apollo,
+            let currentUser = currentUser,
+            let avatar = currentUser.avatar,
             let firstName = firstNameTextField.text,
             let lastName = lastNameTextField.text,
             let email = emailTextField.text,
@@ -81,9 +94,16 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         
         guard let imageData = imageData else {
             
-            
+            apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: avatar, receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                self.watcher?.refetch()
+            }
             return
-            
         }
         
         let params = CLDUploadRequestParams()
@@ -91,19 +111,42 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
             //Show progress
         }) { (result, error) in
-            
-        }
-        
-        
-        apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: "", receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (_, error) in
             if let error = error {
                 NSLog("\(error)")
+                return
+            }
+            
+            guard let result = result,
+                let imageUrl = result.url else { return }
+            
+            apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: imageUrl, receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                }
+                
+                guard let result = result else { return }
+                
+                print(result)
             }
         }
-        
     }
     
     @IBAction func changePassword(_ sender: Any) {
+        
+    }
+    
+    @IBAction func logOut(_ sender: Any) {
+        _ = credentialsManager.clear()
+        performSegue(withIdentifier: "ReturnToLandingPage", sender: self)
+    }
+    
+    @IBAction func leaveTeam(_ sender: Any) {
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     // MARK - UIImagePickerControllerDelegate
@@ -123,7 +166,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     private func loadUserSettings(with apollo: ApolloClient) {
         
-        apollo.watch(query: CurrentUserQuery()) { (result, error) in
+       self.watcher = apollo.watch(query: CurrentUserQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
@@ -138,8 +181,9 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     private func updateViews() {
         
-        guard let currentUser = currentUser else { return }
-        
+        guard let currentUser = currentUser,
+            let team = team else { return }
+        teamNameLabel.text = team.name
         firstNameTextField.text = currentUser.firstName
         lastNameTextField.text = currentUser.lastName
         emailTextField.text = currentUser.email
@@ -147,9 +191,10 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         emailSwitch.isOn = currentUser.toggles?.receiveEmails ?? false
         textSMSSwitch.isOn = currentUser.toggles?.receiveTexts ?? false
         
-        let downloader: CLDDownloader = cloudinary.createDownloader()
+        // Download image and display as user avatar
+        guard let avatar = currentUser.avatar else { return }
         
-        downloader.fetchImage("https://res.cloudinary.com/massamb/image/upload/v1547755535/hluogc6lsro0kye4br3e.png", { (progress) in
+        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
             // Show progress
         }) { (image, error) in
             if let error = error {
@@ -180,6 +225,9 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     private var imageData: Data?
+    private var watcher: GraphQLQueryWatcher<CurrentUserQuery>?
+    
+    
     private var currentUser: CurrentUserQuery.Data.CurrentUser? {
         didSet {
             DispatchQueue.main.async {

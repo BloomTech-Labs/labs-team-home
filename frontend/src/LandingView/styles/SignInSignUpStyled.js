@@ -1,13 +1,21 @@
 import styled from 'styled-components';
 
+const TextIMG = styled.img`
+	height: 50px;
+	width: 40%;
+	/* padding:5px; */
+`;
+
 const StyledSignInUp = styled.div`
 	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 0.6), #17151b);
 	background-size: 600% 600%;
-	width: 100vw;
+	position: fixed;
+	left: 0px;
 	margin: 0 auto;
+	padding: 10px;
 	display: flex;
 	flex-flow: row;
-	justify-content: flex-end;
+	justify-content: space-between;
 	&:hover {
 		background-color: #17151b;
 	}
@@ -54,3 +62,4 @@ const StyledSignInUp = styled.div`
 `;
 
 export default StyledSignInUp;
+export { TextIMG };

@@ -10,6 +10,8 @@ import UIKit
 import Apollo
 import Cloudinary
 
+var teamWatcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
+
 class TeamDetailTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -18,7 +20,6 @@ class TeamDetailTableViewController: UITableViewController {
         guard let apollo = apollo else { return }
         
         loadUsers(with: apollo)
-
     }
 
     // MARK: - Table view data source
@@ -30,16 +31,31 @@ class TeamDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TeamMemberCell", for: indexPath)
 
-//        guard let user = users?[indexPath.row],
-//            let firstName = user.firstName,
-//            let lastName = user.lastName else { return UITableViewCell() }
-//
-//        cell.textLabel?.text = "\(firstName) \(lastName)"
-//        cell.detailTextLabel?.text = user.email
-//
-//        if let avatar = user.avatar {
-//            // Set up user's avatar
-//        }
+        guard let user = users?[indexPath.row],
+            let firstName = user.user.firstName,
+            let lastName = user.user.lastName,
+            let email = user.user.email else { return UITableViewCell() }
+
+        cell.textLabel?.text = "\(firstName) \(lastName)"
+        cell.detailTextLabel?.text = email
+
+        if let avatar = user.user.avatar {
+            cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+                // Progress
+            }) { (image, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let image = image else { return }
+                
+                DispatchQueue.main.async {
+                    cell.imageView?.image = image
+                    cell.imageView?.contentMode = .scaleAspectFit
+                }
+            }
+        }
         
         return cell
     }
@@ -58,12 +74,14 @@ class TeamDetailTableViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "" {
+        if segue.identifier == "ShowInviteToTeam" {
             guard let destinationVC = segue.destination as? InviteToTeamViewController,
-                let apollo = apollo else { return }
+                let apollo = apollo,
+                let team = team,
+                let teamId = team.id else { return }
             
             destinationVC.apollo = apollo
-            
+            destinationVC.teamId = teamId
             
         }
     }
@@ -73,7 +91,7 @@ class TeamDetailTableViewController: UITableViewController {
         guard let team = team,
             let teamId = team.id else { return }
         
-        watcher = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
+        teamWatcher = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
@@ -96,7 +114,6 @@ class TeamDetailTableViewController: UITableViewController {
         }
     }
     
-    var watcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     

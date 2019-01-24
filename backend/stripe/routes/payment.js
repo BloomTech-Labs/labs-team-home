@@ -16,7 +16,7 @@ const paymentApi = app => {
 	});
 	app.post('/', (req, res) => {
 		const body = {
-			source: req.body.token.id,
+			source: req.body.token,
 			amount: req.body.amount,
 			currency: 'usd'
 		};

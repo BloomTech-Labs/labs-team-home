@@ -10,11 +10,16 @@ import AppStyles from './app-styles';
 import SettingsView from './SettingsView/containers/SettingsView';
 import Nav from './Nav/Nav';
 
+import { TextIMG } from './LandingView/styles/LogoBannerStyled';
+import iconLogo from './assets/TH_icon_logo_wout_nodes.svg';
+
 class App extends Component {
 	render() {
 		return (
 			<AppStyles>
 				<GlobalStyle />
+				<TextIMG alt={'TeamHome banner'} src={iconLogo} />
+				{/* <SignInSignUp /> */}
 				{localStorage.token && <Nav />}
 				<Switch>
 					<PublicRoute exact path="/" component={LandingView} />

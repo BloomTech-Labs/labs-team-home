@@ -1,3 +1,21 @@
-query AllActivity {
-    
+query FindActivityByTeam($teamId: ID!) {
+    findMessagesByTeam(input: {
+                       team: $teamId
+                       }) {
+        _id
+        title
+        user {
+            firstName
+            lastName
+            avatar
+        }
+        content
+        images
+        tags {
+            name
+        }
+        comments
+        createdAt
+        updatedAt
+    }
 }

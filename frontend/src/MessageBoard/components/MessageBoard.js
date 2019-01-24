@@ -4,12 +4,13 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Message from './Message';
 import AddMessage from './AddMessage';
-import { Query, compose, graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Query, Mutation } from 'react-apollo';
 import Invites from './Invites';
 import * as query from '../../constants/queries';
+import * as mutation from '../../constants/mutations';
 
 import MessageDetail from './MessageDetail';
+import UserList from './UserList';
 
 const Messageboard = styled.div`
 	max-width: 800px;
@@ -83,6 +84,7 @@ class MessageBoard extends React.Component {
 			showInvite: false,
 			currentMessage: null,
 			messageDetailOpen: false,
+			userListOpen: false,
 			email: '',
 			number: '',
 			images: [],
@@ -96,7 +98,7 @@ class MessageBoard extends React.Component {
 		this.openInviteHandler = this.openInviteHandler.bind(this);
 		this.closeInviteHandler = this.closeInviteHandler.bind(this);
 		this.inviteChangeHandler = this.inviteChangeHandler.bind(this);
-		this.inviteSubmitHandler = this.inviteSubmitHandler.bind(this);
+		// this.inviteSubmitHandler = this.inviteSubmitHandler.bind(this);
 		this.stopProp = this.stopProp.bind(this);
 		this.sortChange = this.sortChange.bind(this);
 	}
@@ -127,23 +129,23 @@ class MessageBoard extends React.Component {
 		});
 	}
 
-	inviteSubmitHandler(e) {
-		e.preventDefault();
-		axios
-			.post(this.URI, { email: this.state.email, number: this.state.number })
-			.then(res => {
-				this.setState({
-					email: ''
-				});
-			})
-			.then(() => {
-				this.closeInviteHandler();
-				alert('Invitation sent');
-			})
-			.catch(err => {
-				console.error(err);
-			});
-	}
+	// inviteSubmitHandler(e) {
+	// 	e.preventDefault();
+	// 	axios
+	// 		.post(this.URI, { email: this.state.email, number: this.state.number })
+	// 		.then(res => {
+	// 			this.setState({
+	// 				email: ''
+	// 			});
+	// 		})
+	// 		.then(() => {
+	// 			this.closeInviteHandler();
+	// 			alert('Invitation sent');
+	// 		})
+	// 		.catch(err => {
+	// 			console.error(err);
+	// 		});
+	// }
 
 	openModalHandler() {
 		this.setState({
@@ -168,6 +170,13 @@ class MessageBoard extends React.Component {
 		this.setState({ messageDetailOpen: false, currentMessage: null });
 	};
 
+	openUserList = e => {
+		this.setState({ userListOpen: true });
+	};
+	closeUserList = e => {
+		this.setState({ userListOpen: false });
+	};
+
 	render() {
 		return (
 			<>
@@ -181,14 +190,38 @@ class MessageBoard extends React.Component {
 						/>
 					) : null}
 					{this.state.showInvite ? (
-						<Invites
-							closeHandler={this.closeInviteHandler}
-							stopProp={this.stopProp}
-							submitHandler={this.inviteSubmitHandler}
-							changeHandler={this.inviteChangeHandler}
-							email={this.state.email}
-							number={this.state.number}
-						/>
+						<Mutation mutation={mutation.INVITE_USER}>
+							{inviteUser => (
+								<Invites
+									closeHandler={this.closeInviteHandler}
+									stopProp={this.stopProp}
+									submitHandler={e => {
+										e.preventDefault();
+										let input = { id: this.props.match.params.team };
+										if (this.state.email.length) input.email = this.state.email;
+										if (this.state.number.length)
+											input.phoneNumber = this.state.number;
+										inviteUser({ variables: input })
+											.then(res => {
+												this.setState({
+													email: '',
+													number: ''
+												});
+											})
+											.then(() => {
+												this.closeInviteHandler();
+												alert('Invitation sent');
+											})
+											.catch(err => {
+												console.error(err);
+											});
+									}}
+									changeHandler={this.inviteChangeHandler}
+									email={this.state.email}
+									number={this.state.number}
+								/>
+							)}
+						</Mutation>
 					) : null}
 					<TeamName>
 						<h1>Team Name</h1>
@@ -197,6 +230,14 @@ class MessageBoard extends React.Component {
 							{this.state.isAdmin ? (
 								<button onClick={this.openInviteHandler}>Invite</button>
 							) : null}
+							<button
+								onClick={e => {
+									e.preventDefault();
+									this.setState({ userListOpen: true });
+								}}
+							>
+								Open User List
+							</button>
 						</Teamlogo>
 					</TeamName>
 					<MessagesContainer>
@@ -259,6 +300,13 @@ class MessageBoard extends React.Component {
 					hideModal={this.closeMessageDetail}
 					message={this.state.currentMessage}
 					currentUser={this.props.currentUser}
+					team={this.props.match.params.team}
+				/>
+				<UserList
+					open={this.state.userListOpen}
+					team={this.props.match.params.team}
+					currentUser={this.props.currentUser}
+					hideModal={this.closeUserList}
 				/>
 			</>
 		);

@@ -9,13 +9,14 @@ const {
 } = require('apollo-server-express');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const teamResolvers = {
 	Query: {
 		teams: () => Team.find().populate('users.user'),
 		findTeamsByUser: (_, args, { user: { _id } }) =>
 			Team.find({ 'users.user': _id }).populate('users.user'),
-		findTeam: (_, { input }) => Team.findById(input).populate('users.user')
+		findTeam: (_, { input: { id } }) => Team.findById(id).populate('users.user')
 	},
 	Mutation: {
 		addTeam: (_, { input }, { user: { _id } }) =>
@@ -59,6 +60,32 @@ const teamResolvers = {
 					throw new ValidationError("Team doesn't exist");
 				}
 			}),
+		setPremium: (_, { input }) => {
+			const body = {
+				source: input.source,
+				amount: input.charge,
+				currency: 'usd'
+			};
+			return stripe.charges
+				.create(body)
+				.then(() => {
+					return Team.findById(input.id).then(team => {
+						if (team) {
+							return Team.findOneAndUpdate(
+								{ _id: input.id },
+								{ $set: { premium: true } },
+								{ new: true }
+							).populate('users');
+						} else {
+							throw new Error("Team doesn't exist");
+						}
+					});
+				})
+				.catch(err => {
+					console.log(err);
+					throw new Error('payment error');
+				});
+		},
 		inviteUser: (
 			_,
 			{ input: { id, email, phoneNumber } },
@@ -82,9 +109,9 @@ const teamResolvers = {
 						if (users) {
 							const filteredUsers = users.filter(
 								user =>
-									!team.users.filter(
-										item => item.user.toString() !== user._id.toString()
-									).length
+									!team.users.find(
+										item => item.user.toString() === user._id.toString()
+									)
 							);
 							if (filteredUsers.length) {
 								const addedUsers = filteredUsers.map(({ _id }) => ({
@@ -93,11 +120,11 @@ const teamResolvers = {
 								}));
 								email &&
 									sgMail.send({
-										// notifies subscribed users of the new comment
+										// notifies invited user
 										to: email,
-										from: `${team.name}@team.home`,
-										subject: `You been invited to ${team.name}`,
-										text: `You been invited to ${
+										from: `${team.name.split(' ').join('')}@team.home`,
+										subject: `You have been been invited to ${team.name}`,
+										text: `You have been invited to ${
 											team.name
 										} by ${firstName} ${lastName}`,
 										html: /* HTML */ `
