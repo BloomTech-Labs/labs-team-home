@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
 const FormInputStyles = styled.div`
 	display: flex;
@@ -11,6 +12,17 @@ const FormInputStyles = styled.div`
 	input {
 		width: 25%;
 	}
+	${mediaQueryFor.smDevice`
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    label {
+      width: 98%;
+    }
+    input {
+      width: 98%;
+    }
+    `}
 `;
 
 const FormInput = props => {
