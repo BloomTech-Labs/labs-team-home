@@ -1,8 +1,22 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const FormCheckboxStyles = styled.div`
+	display: flex;
+	flex-flow: row;
+	padding: 1% 4%;
+	label {
+		width: 25%;
+		margin-right: 3%;
+	}
+	input {
+		width: 2%;
+	}
+`;
 
 const FormCheckbox = props => {
 	return (
-		<div className="form-group">
+		<FormCheckboxStyles className="form-group">
 			<label for={props.name} className="form-label">
 				{props.title}
 			</label>
@@ -23,7 +37,7 @@ const FormCheckbox = props => {
 					);
 				})}
 			</div>
-		</div>
+		</FormCheckboxStyles>
 	);
 };
 

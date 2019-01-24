@@ -1,9 +1,22 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const FormInputStyles = styled.div`
+	display: flex;
+	flex-flow: row;
+	padding: 1%;
+	label {
+		width: 25%;
+	}
+	input {
+		width: 25%;
+	}
+`;
 
 const FormInput = props => {
 	//console.log(props.value);
 	return (
-		<div className="form-group">
+		<FormInputStyles className="form-group">
 			<label for={props.name} className="form-label">
 				{props.title}
 			</label>
@@ -17,7 +30,7 @@ const FormInput = props => {
 				placeholder={props.placeholder}
 				{...props}
 			/>
-		</div>
+		</FormInputStyles>
 	);
 };
 
