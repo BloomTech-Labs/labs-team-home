@@ -15,12 +15,6 @@ query FindMessagesByTeam($teamId: ID!) {
             name
         }
         comments
-        subscribedUsers {
-            _id
-            firstName
-            lastName
-            avatar
-        }
         createdAt
         updatedAt
     }

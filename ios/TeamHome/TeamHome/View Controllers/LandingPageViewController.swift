@@ -13,8 +13,32 @@ import Auth0
 import JWTDecode
 
 let auth0DomainURLString = "teamhome.auth0.com"
+let credentialsManager = CredentialsManager.init(authentication: Auth0.authentication())
 
 class LandingPageViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        guard credentialsManager.hasValid() else { return }
+        
+        credentialsManager.credentials { (error, credentials) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            // Unwrap tokens to use for Apollo and to decode.
+            guard let credentials = credentials,
+                let idToken = credentials.idToken else { return }
+            
+            // Set up Apollo client with idToken from auth0.
+            self.setUpApollo(with: idToken)
+            
+            // Perform segue to Dashboard VC.
+            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+        }
+    }
     
     // MARK - IBActions
     
@@ -22,31 +46,27 @@ class LandingPageViewController: UIViewController {
     @IBAction func googleLogIn(_ sender: Any) {
         Auth0
             .webAuth()
-            .audience("https://" + auth0DomainURLString + "/userinfo")
+            .audience("https://teamhome.auth0.com/userinfo")
             .connection("google-oauth2")
-            .scope("openid")
+            .scope("openid profile email")
             .start { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let credentials):
-                        // For testing
-                        print("success")
                         
                         // Unwrap tokens to use for Apollo and to decode.
                         guard let idToken = credentials.idToken else { return }
 
-                        // Set up Apollo client with accessToken from auth0.
+                        // Set up Apollo client with idToken from auth0.
                         self.setUpApollo(with: idToken)
                         
-                        // Fetch currentUser that signed in
-                        guard let apollo = self.apollo else { return }
-                        self.fetchUser(with: apollo)
+                        // Store credentials with manager for future handling
+                        _ = credentialsManager.store(credentials: credentials)
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
 
                     case .failure(let error):
-                        print("failure: \(error)")
                         
                         // Present alert to user and bring back to landing page
                         self.presentAlert(for: error)
@@ -59,7 +79,7 @@ class LandingPageViewController: UIViewController {
     @IBAction func facebookLogIn(_ sender: Any) {
         Auth0
             .webAuth()
-            .audience("https://" + auth0DomainURLString + "/userinfo")
+            .audience("https://teamhome.auth0.com/userinfo")
             .connection("facebook")
             .scope("openid")
             .start { result in
@@ -72,12 +92,8 @@ class LandingPageViewController: UIViewController {
                         // Unwrap tokens to use for Apollo and to decode.
                         guard let idToken = credentials.idToken else { return }
                         
-                        // Set up Apollo client with accessToken from auth0.
+                        // Set up Apollo client with idToken from auth0.
                         self.setUpApollo(with: idToken)
-                        
-                        // Fetch currentUser that signed in
-                        guard let apollo = self.apollo else { return }
-                        self.fetchUser(with: apollo)
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -111,12 +127,8 @@ class LandingPageViewController: UIViewController {
                         // Unwrap tokens to use for Apollo and to decode.
                         guard let idToken = credentials.idToken else { return }
                         
-                        // Set up Apollo client with accessToken from auth0.
+                        // Set up Apollo client with idToken from auth0.
                         self.setUpApollo(with: idToken)
-                        
-                        // Fetch currentUser that signed in
-                        guard let apollo = self.apollo else { return }
-                        self.fetchUser(with: apollo)
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -161,12 +173,8 @@ class LandingPageViewController: UIViewController {
                                     // Unwrap tokens to use for Apollo and to decode.
                                     guard let idToken = credentials.idToken else { return }
                                     
-                                    // Set up Apollo client with accessToken from auth0.
+                                    // Set up Apollo client with idToken from auth0.
                                     self.setUpApollo(with: idToken)
-                                    
-                                    // Fetch currentUser that signed in
-                                    guard let apollo = self.apollo else { return }
-                                    self.fetchUser(with: apollo)
                                     
                                     // Perform segue to Dashboard VC.
                                     self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -200,14 +208,14 @@ class LandingPageViewController: UIViewController {
     // MARK - Private Methods
     
     private func setUpApollo(with idToken: String) {
-        // Set up Apollo client with accessToken from auth0.
+        // Set up Apollo client with idToken from auth0.
         self.apollo = {
             let configuration = URLSessionConfiguration.default
             // Add additional headers as needed
             configuration.httpAdditionalHeaders = ["Authorization": "\(idToken)"]
-            
+
             let url = URL(string: "https://team-home.herokuapp.com/graphql")!
-            
+
             return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
         }()
     }
