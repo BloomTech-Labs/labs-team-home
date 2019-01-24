@@ -24,16 +24,6 @@ const BillingView = () => {
 	return (
 		<Mutation mutation={STRIPE_SOURCE}>
 			{(setPremium, { data }) => (
-				// setPremium({ variables: stripeToken })
-				// .then(res => {
-				// 	console.log(res);
-				// 	alert('Payment Success');
-				// })
-				// .catch(err => {
-				// 	console.log(err);
-				// 	alert('Payment Error');
-				// })
-
 				<StripeCheckout
 					label="Go Premium" //Component button text
 					name="the name goes here" //Modal Header
