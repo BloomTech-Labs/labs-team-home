@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 const BtmContentStyles = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
@@ -19,6 +20,32 @@ const BtmContentStyles = styled.div`
 		width: 50%;
 		margin: 0 auto;
 	}
+	${mediaQueryFor.smDevice`
+
+    h1 {
+      margin:0 auto;
+      width:100%;
+      font-size:3rem;
+    }
+    p {
+		width: 100%;
+		margin: 0 auto;
+    padding:5px;
+	}
+  `}
+	${mediaQueryFor.xsDevice`
+
+    h1 {
+      margin:0 auto;
+      width:100%;
+      font-size:3rem;
+    }
+    p {
+		width: 100%;
+		margin: 0 auto;
+    /* padding:5px; */
+	}
+  `}
 `;
 
 export default BtmContentStyles;
