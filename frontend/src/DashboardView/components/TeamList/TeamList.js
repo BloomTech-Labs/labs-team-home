@@ -52,6 +52,7 @@ const TeamList = () => {
 					</styles.Form>
 				)}
 			</Mutation>
+			<h3>My Teams</h3>
 			<Query query={query.FIND_TEAMS_BY_USER}>
 				{({ loading, error, data: { findTeamsByUser } }) => {
 					if (loading) return <p>Loading...</p>;
@@ -59,7 +60,6 @@ const TeamList = () => {
 
 					return findTeamsByUser.map(team => (
 						<styles.TeamsList>
-							<h3>My Teams</h3>
 							<styles.LinkStyles>
 								<Link
 									to={`/${team._id}/home`}

@@ -16,10 +16,11 @@ export const Container = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	height: 200px;
+	height: 100px;
 	border: 1px solid;
 	color: #17151b;
 	background-color: #f1fcef;
+	border-radius: 5px;
 	h3 {
 		color: #17151b;
 		font-size: 1.8rem;

@@ -8,11 +8,12 @@ export const Container = styled.div`
 	flex-direction: column;
 	margin: 0 auto;
   margin-left: 0 5% 0 5%;
+  color:white;
+  font-family: Comfortaa;
   background: ${backgroundGradient}
 
 	/* background-color:purple; */
 	h3 {
-		font-family: Comfortaa;
 		color: #fff;
 		margin: 0 auto;
 	}
@@ -83,7 +84,7 @@ const Form = styled.div`
 const TeamsList = styled.div`
 	width: 100%;
 	margin: 0 auto;
-	height: 100px;
+	/* height: 100px; */
 	display: flex;
 	flex-flow: column;
 	color: #f1fcef;
