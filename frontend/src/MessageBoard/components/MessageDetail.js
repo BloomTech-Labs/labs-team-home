@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import { Query, Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
 
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';

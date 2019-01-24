@@ -10,6 +10,7 @@ import Invites from './Invites';
 import * as query from '../../constants/queries';
 
 import MessageDetail from './MessageDetail';
+import UserList from './UserList';
 
 const Messageboard = styled.div`
 	max-width: 800px;
@@ -84,6 +85,7 @@ class MessageBoard extends React.Component {
 			showInvite: false,
 			currentMessage: null,
 			messageDetailOpen: false,
+			userListOpen: false,
 			email: '',
 			number: '',
 			images: [],
@@ -170,6 +172,13 @@ class MessageBoard extends React.Component {
 		this.setState({ messageDetailOpen: false, currentMessage: null });
 	};
 
+	openUserList = e => {
+		this.setState({ userListOpen: true });
+	};
+	closeUserList = e => {
+		this.setState({ userListOpen: false });
+	};
+
 	render() {
 		return (
 			<>
@@ -199,6 +208,14 @@ class MessageBoard extends React.Component {
 							{this.state.isAdmin ? (
 								<button onClick={this.openInviteHandler}>Invite</button>
 							) : null}
+							<button
+								onClick={e => {
+									e.preventDefault();
+									this.setState({ userListOpen: true });
+								}}
+							>
+								Open User List
+							</button>
 						</Teamlogo>
 					</TeamName>
 					<MessagesContainer>
@@ -263,6 +280,11 @@ class MessageBoard extends React.Component {
 					message={this.state.currentMessage}
 					currentUser={this.props.currentUser}
 					team={this.props.match.params.team}
+				/>
+				<UserList
+					open={this.state.userListOpen}
+					team={this.props.match.params.team}
+					hideModal={this.closeUserList}
 				/>
 			</>
 		);
