@@ -10,3 +10,12 @@ mutation AddNewMessage($title: String!, $team: String!, $content: String!, $imag
         _id
     }
 }
+
+mutation CreateNewTag($name: String!, $teamId: String) {
+    addTag(input: {
+           name: $name
+           team: $teamId
+           }) {
+        _id
+    }
+}

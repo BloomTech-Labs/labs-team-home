@@ -823,15 +823,12 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ydp-fv-BV7">
                                         <rect key="frame" x="0.0" y="38" width="382" height="30"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter one tag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n8E-gj-Ubv">
-                                                <rect key="frame" x="0.0" y="0.0" width="292" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="255" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCQ-lV-f1I">
-                                                <rect key="frame" x="300" y="0.0" width="82" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="30"/>
                                                 <state key="normal" title="Filter by tag"/>
+                                                <connections>
+                                                    <action selector="filterTags:" destination="obM-Ah-i9E" eventType="touchUpInside" id="SOy-9A-Cpk"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -880,6 +877,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="9lm-7P-GIr"/>
                     <connections>
+                        <outlet property="filterTagsStackView" destination="Ydp-fv-BV7" id="lWH-3n-FWm"/>
                         <outlet property="teamNameLabel" destination="5vJ-i4-0nI" id="3z4-3e-roR"/>
                     </connections>
                 </viewController>

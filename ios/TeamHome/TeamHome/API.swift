@@ -1815,6 +1815,87 @@ public final class AddNewMessageMutation: GraphQLMutation {
   }
 }
 
+public final class CreateNewTagMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation CreateNewTag($name: String!, $teamId: String) {\n  addTag(input: {name: $name, team: $teamId}) {\n    __typename\n    _id\n  }\n}"
+
+  public var name: String
+  public var teamId: String?
+
+  public init(name: String, teamId: String? = nil) {
+    self.name = name
+    self.teamId = teamId
+  }
+
+  public var variables: GraphQLMap? {
+    return ["name": name, "teamId": teamId]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("addTag", arguments: ["input": ["name": GraphQLVariable("name"), "team": GraphQLVariable("teamId")]], type: .object(AddTag.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(addTag: AddTag? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "addTag": addTag.flatMap { (value: AddTag) -> ResultMap in value.resultMap }])
+    }
+
+    public var addTag: AddTag? {
+      get {
+        return (resultMap["addTag"] as? ResultMap).flatMap { AddTag(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "addTag")
+      }
+    }
+
+    public struct AddTag: GraphQLSelectionSet {
+      public static let possibleTypes = ["Tag"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Tag", "_id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+    }
+  }
+}
+
 public final class FindTeamsByUserQuery: GraphQLQuery {
   public let operationDefinition =
     "query findTeamsByUser {\n  findTeamsByUser {\n    __typename\n    name\n    _id\n  }\n}"

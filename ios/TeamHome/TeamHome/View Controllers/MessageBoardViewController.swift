@@ -34,17 +34,30 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
             guard let result = result else { return }
             
             self.tags = result.data?.findTagsByTeam
+            
+            guard let tags = self.tags else { return }
+            
+            DispatchQueue.main.async {
+                for tag in tags {
+                    guard let tag = tag else { return }
+                    let tagButton = UIButton()
+                    tagButton.setTitle(tag.name, for: .normal)
+                    self.filterTagsStackView.addSubview(tagButton)
+                }
+            }
         }
         
-        guard let tags = tags,
-            let tag = tags.first,
-            let tagId = tag?.id else { return }
         
-        //Displays stack view for tags
         
-        //Filters messages from selected tag
-        loadMessages(with: apollo)
-        filter(for: tagId)
+//        guard let tags = tags,
+//            let tag = tags.first,
+//            let tagId = tag?.id else { return }
+//
+//        //Displays stack view for tags
+//
+//        //Filters messages from selected tag
+//        loadMessages(with: apollo)
+//        filter(for: tagId)
     }
     
     // MARK: - Navigation
@@ -122,5 +135,6 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
     
     @IBOutlet weak var teamNameLabel: UILabel!
+    @IBOutlet weak var filterTagsStackView: UIStackView!
     
 }
