@@ -39,8 +39,8 @@ export default class UserList extends Component {
 							'Error'
 						) : (
 							<div>
-								<h2>Users on {findTeam.name}</h2>
-								{findTeam.users.map(({ user }) => (
+								<h2>Members of {findTeam.name}</h2>
+								{findTeam.users.map(({ user, admin }) => (
 									<div key={user._id}>
 										<img
 											src={user.avatar}
@@ -51,6 +51,7 @@ export default class UserList extends Component {
 											{user.firstName} {user.lastName}
 										</p>
 										<p>{user.email}</p>
+										<p>Admin? {admin ? '✔️' : '❌'}</p>
 									</div>
 								))}
 							</div>

@@ -69,8 +69,12 @@ class MessageDetail extends Component {
 															/>
 														))}
 													</div>
-													<h2>{findMessage.title}</h2>
-													<p>{findMessage.content}</p>
+													<h2 style={{ wordBreak: 'break-all' }}>
+														{findMessage.title}
+													</h2>
+													<p style={{ wordBreak: 'break-all' }}>
+														{findMessage.content}
+													</p>
 													<Mutation
 														mutation={mutation.UPDATE_MESSAGE}
 														update={(cache, { data: { updateMessage } }) => {
