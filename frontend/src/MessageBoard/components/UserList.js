@@ -84,7 +84,6 @@ export default class UserList extends Component {
 																	};
 																}
 															);
-															console.log(sanitized);
 															updateTeam({
 																variables: {
 																	id: findTeam._id,
