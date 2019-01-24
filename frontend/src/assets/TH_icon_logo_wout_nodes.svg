@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186.2 196.3">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196.3 186.2">
   <defs>
     <style>
       .cls-1 {
-        opacity: 0.13;
+        opacity: 0.05;
       }
 
       .cls-2 {
@@ -14,13 +14,13 @@
       }
     </style>
   </defs>
-  <title>thsq</title>
+  <title>TH_icon_logo_wout_nodes</title>
   <g id="Layer_2" data-name="Layer 2">
     <g id="Layer_2-2" data-name="Layer 2">
       <g class="cls-1">
-        <polyline class="cls-2" points="16.2 127 105.2 178 160.2 149"/>
-        <path class="cls-2" d="M105.2,93c.4,0,0,84,0,84"/>
-        <polyline class="cls-2" points="95.2 16 32.2 52 105.2 94 170.2 60"/>
+        <polyline class="cls-2" points="127 170 178 81 149 26"/>
+        <path class="cls-2" d="M93,81c0-.4,84,0,84,0"/>
+        <polyline class="cls-2" points="16 91 52 154 94 81 60 16"/>
       </g>
     </g>
   </g>
