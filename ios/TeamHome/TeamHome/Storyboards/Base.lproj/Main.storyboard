@@ -684,9 +684,11 @@
                         <outlet property="teamNameLabel" destination="FlK-8m-H5p" id="UP6-VX-pdY"/>
                         <outlet property="textSMSSwitch" destination="s30-hP-5Dw" id="KLG-Tg-UwA"/>
                         <outlet property="userAvatarImageView" destination="o1u-jm-c3h" id="EKF-bv-pgs"/>
+                        <segue destination="7tj-Un-wEx" kind="unwind" identifier="unwindSegueToVC1" unwindAction="unwindToVC1WithSegue:" id="PeP-5c-bTS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BHC-UT-b3a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="7tj-Un-wEx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1759.2" y="398.50074962518744"/>
         </scene>
