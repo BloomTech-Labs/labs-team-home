@@ -13,9 +13,24 @@ query FindMessagesByTeam($teamId: ID!) {
         images
         tags {
             name
+            _id
         }
         comments
+        subscribedUsers {
+            firstName
+            lastName
+            avatar
+        }
         createdAt
         updatedAt
+    }
+}
+
+query FindTagsByTeam($teamId: ID!) {
+    findTagsByTeam(input: {
+                   team: $teamId
+                   }) {
+        _id
+        name
     }
 }

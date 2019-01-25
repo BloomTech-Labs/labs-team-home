@@ -20,9 +20,44 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     }
     
     @IBAction func filterTags(_ sender: Any) {
-        //Displays stack view for tags
         
-        //Filters messages from selected tag
+        guard let apollo = apollo,
+            let team = team,
+            let teamId = team.id else { return }
+        
+        _ = apollo.watch(query: FindTagsByTeamQuery(teamId: teamId)) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            guard let result = result else { return }
+            
+            self.tags = result.data?.findTagsByTeam
+            
+            guard let tags = self.tags else { return }
+            
+            DispatchQueue.main.async {
+                for tag in tags {
+                    guard let tag = tag else { return }
+                    let tagButton = UIButton()
+                    tagButton.setTitle(tag.name, for: .normal)
+                    self.filterTagsStackView.addSubview(tagButton)
+                }
+            }
+        }
+        
+        
+        
+//        guard let tags = tags,
+//            let tag = tags.first,
+//            let tagId = tag?.id else { return }
+//
+//        //Displays stack view for tags
+//
+//        //Filters messages from selected tag
+//        loadMessages(with: apollo)
+//        filter(for: tagId)
     }
     
     // MARK: - Navigation
@@ -57,11 +92,49 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         
     }
     
+    private func loadMessages(with apollo: ApolloClient) {
+        
+        guard let team = team,
+            let teamId = team.id else { return }
+        
+        messagesWatcher = apollo.watch(query: FindMessagesByTeamQuery(teamId: teamId)) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let messages = result?.data?.findMessagesByTeam else { return }
+            
+            self.messages = messages
+        }
+    }
+    
+    private func filter(for selectedTagId: GraphQLID) {
+        guard let messages = messages else { return }
+        
+        filteredMessages = []
+        
+        for message in messages {
+            guard let tags = message?.tags else { return }
+            for tag in tags {
+                guard let tagId = tag?.id else { return }
+                
+                if tagId == selectedTagId {
+                    filteredMessages?.append(message)
+                    return
+                }
+            }
+        }
+    }
+    
     // MARK - Properties
     
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
+    private var messages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]?
+    private var filteredMessages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]?
+    private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
     
     @IBOutlet weak var teamNameLabel: UILabel!
+    @IBOutlet weak var filterTagsStackView: UIStackView!
     
 }

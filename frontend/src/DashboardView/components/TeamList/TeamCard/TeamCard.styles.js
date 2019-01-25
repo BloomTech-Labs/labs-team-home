@@ -22,16 +22,19 @@ export const Container = styled.div`
 	background-color: #f1fcef;
 	border-radius: 5px;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	/* :first-child {
+    border-radius: 5px 5px 0 0;
+  }
+  :last-child {
+    border-radius: 0 0 5px 5px;
+  } */
 	h3 {
 		width: 25%;
-		/* color: #17151b; */
 		font-size: 1.2rem;
 		text-decoration: none;
 	}
 	p {
 		width: 25%;
-		/* color: #17151b; */
-		/* background-color: #f1fcef; */
 	}
 	:hover {
 		background-color: #ff8c63;

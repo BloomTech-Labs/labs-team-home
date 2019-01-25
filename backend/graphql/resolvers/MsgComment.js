@@ -35,7 +35,7 @@ const msgCommentResolvers = {
 						(await sgMail.send({
 							// notifies subscribed users of the new comment
 							to: emails,
-							from: `${message.team.name}@team.home`,
+							from: `${message.team.name.split(' ').join('')}@team.home`,
 							subject: `The message ${
 								message.title
 							} has a new comment from ${firstName} ${lastName} on your team ${

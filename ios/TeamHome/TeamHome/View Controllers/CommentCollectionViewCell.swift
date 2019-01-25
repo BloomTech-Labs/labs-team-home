@@ -16,14 +16,23 @@ protocol CommentCollectionCellDelegate: class {
 class CommentCollectionViewCell: UICollectionViewCell {
     
     @IBAction func likeComment(_ sender: Any) {
+        delegate?.didClickLikeButton(cell: self)
         
+        guard let hasLiked = hasLiked else { return }
+        if hasLiked {
+            self.hasLiked = false
+        } else {
+            self.hasLiked = true
+        }
     }
     
     // MARK - Private Methods
     
     private func updateViews() {
         
-        guard let comment = comment else { return }
+        guard let comment = comment,
+            let currentUser = currentUser,
+            let id = currentUser.id else { return }
         
         firstNameLabel.text = comment.user.firstName
         lastNameLabel.text = comment.user.lastName
@@ -32,6 +41,13 @@ class CommentCollectionViewCell: UICollectionViewCell {
         
         guard let likes = comment.likes else { return }
         likeCountLabel.text = "\(likes.count) likes"
+        
+        let likeIDs = likes.compactMap({ $0?.id })
+        if !likeIDs.contains(id) {
+            self.hasLiked = false
+        } else {
+            self.hasLiked = true
+        }
         
         guard let avatar = comment.user.avatar else { return }
         
@@ -59,6 +75,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
     }
     
     var hasLiked: Bool?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     weak var delegate: CommentCollectionCellDelegate?
     
     @IBOutlet weak var avatarImageView: UIImageView!

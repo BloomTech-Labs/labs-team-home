@@ -54,7 +54,8 @@ class DashboardCollectionViewController: UICollectionViewController {
     
         guard let team = teams?[indexPath.row] else { return UICollectionViewCell()}
         cell.teamNameLabel.text = team.name
-    
+        cell.largeInitialLabel.text = String(team.name.prefix(1))
+        
         return cell
     }
     

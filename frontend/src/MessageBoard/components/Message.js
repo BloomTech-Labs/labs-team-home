@@ -8,6 +8,9 @@ const MessageContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	cursor: pointer;
+	@media (max-width: 800px) {
+		flex-direction: column;
+	}
 `;
 
 const Pic = styled.img`
@@ -24,6 +27,8 @@ const MessagePreview = styled.div`
 
 	& p {
 		margin: 0;
+		word-break: break-all;
+		word-wrap: break-word;
 	}
 
 	& h5 {
@@ -58,7 +63,11 @@ function Message(props) {
 				}
 			/>
 			<MessagePreview>
-				<p>{message.title}</p>
+				<p>
+					{message.title.length <= 20
+						? message.title
+						: message.title.slice(0, 19) + '...'}
+				</p>
 				<p>
 					{`${userInfo.firstName} ${
 						userInfo.lastName
@@ -80,12 +89,6 @@ function Message(props) {
 					return <Tag>{tag}</Tag>;
 				})}
 			</MessagePreview>
-			{//note: images are shown here as a demo only. Will be removed and added to message detail
-			message.images.length >= 1
-				? message.images.map(pic => {
-						return <img src={pic} />;
-				  })
-				: null}
 		</MessageContainer>
 	);
 }
