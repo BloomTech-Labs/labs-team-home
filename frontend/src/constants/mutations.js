@@ -37,6 +37,7 @@ export const UPDATE_MESSAGE = gql`
 	) {
 		updateMessage(
 			input: {
+				id: $id
 				title: $title
 				team: $team
 				content: $content
@@ -139,11 +140,6 @@ export const UPDATE_TEAM = gql`
 		) {
 			...FullTeam
 		}
-		input
-		TeamUserInput {
-			user: String
-			admin: Boolean
-		}
 	}
 	${f.FULL_TEAM}
 `;
@@ -192,4 +188,13 @@ export const DELETE_USER = gql`
 	mutation deleteUser {
 		_id
 	}
+`;
+
+export const INVITE_USER = gql`
+	mutation inviteUser($id: ID!, $email: String, $phoneNumber: String) {
+		inviteUser(input: { id: $id, email: $email, phoneNumber: $phoneNumber }) {
+			...FullTeam
+		}
+	}
+	${f.FULL_TEAM}
 `;

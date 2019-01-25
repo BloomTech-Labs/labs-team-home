@@ -50,7 +50,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TeamMemberCell" textLabel="Opv-W3-n9a" detailTextLabel="qte-os-2Oa" style="IBUITableViewCellStyleSubtitle" id="9oC-gF-b8k">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TeamMemberCell" editingAccessoryType="disclosureIndicator" textLabel="Opv-W3-n9a" detailTextLabel="qte-os-2Oa" imageView="Ush-pZ-qDa" style="IBUITableViewCellStyleSubtitle" id="9oC-gF-b8k">
                                 <rect key="frame" x="0.0" y="80" width="1024" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9oC-gF-b8k" id="KTB-rK-PWe">
@@ -58,19 +58,23 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Opv-W3-n9a">
-                                            <rect key="frame" x="20" y="9" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="87" y="9" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qte-os-2Oa">
-                                            <rect key="frame" x="20" y="29.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="87" y="29.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="Add User 1" id="Ush-pZ-qDa">
+                                            <rect key="frame" x="20" y="0.0" width="52" height="51.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -147,4 +151,7 @@
             <point key="canvasLocation" x="3498" y="-367"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Add User 1" width="384" height="384"/>
+    </resources>
 </document>

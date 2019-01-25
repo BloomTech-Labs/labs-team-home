@@ -18,6 +18,15 @@ query FindCommentsByMessage($messageId: ID!) {
     }
 }
 
+mutation updateLike($commentId: ID!, $likes: [ID]) {
+    updateMsgComment(input: {
+                     id: $commentId
+                     likes: $likes
+                     }) {
+        _id
+    }
+}
+
 mutation CreateComment($message: String!, $content: String!) {
     addMsgComment(input: {
                   message: $message

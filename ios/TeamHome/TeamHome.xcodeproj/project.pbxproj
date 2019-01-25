@@ -52,6 +52,9 @@
 		7BF8735821F7B4C500737729 /* AddNewMessageViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735721F7B4C500737729 /* AddNewMessageViewController.graphql */; };
 		7BF8735A21F7BA8400737729 /* MessageDetailViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735921F7BA8400737729 /* MessageDetailViewController.graphql */; };
 		7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */; };
+		7BF8735E21FA3DB000737729 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8735D21FA3DB000737729 /* EditMessageViewController.swift */; };
+		7BF8736021FA482000737729 /* EditMessageViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735F21FA482000737729 /* EditMessageViewController.graphql */; };
+		7BF8736221FA6B4B00737729 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8736121FA6B4B00737729 /* Activity.swift */; };
 		A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990E29AD1BA455515C611736 /* Pods_TeamHome.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +107,9 @@
 		7BF8735721F7B4C500737729 /* AddNewMessageViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddNewMessageViewController.graphql; sourceTree = "<group>"; };
 		7BF8735921F7BA8400737729 /* MessageDetailViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MessageDetailViewController.graphql; sourceTree = "<group>"; };
 		7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CommentsCollectionViewController.graphql; sourceTree = "<group>"; };
+		7BF8735D21FA3DB000737729 /* EditMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
+		7BF8735F21FA482000737729 /* EditMessageViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EditMessageViewController.graphql; sourceTree = "<group>"; };
+		7BF8736121FA6B4B00737729 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		990E29AD1BA455515C611736 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +196,8 @@
 				7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */,
 				7BA77EB321E93B3400C862C1 /* CommentCollectionViewCell.swift */,
 				7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */,
+				7BF8735D21FA3DB000737729 /* EditMessageViewController.swift */,
+				7BF8735F21FA482000737729 /* EditMessageViewController.graphql */,
 				7BA77EB721E93CBA00C862C1 /* ActivityTimelineViewController.swift */,
 				7BF8735321F6D46C00737729 /* ActivityTimelineViewController.graphql */,
 				7BA77EB921E93CDE00C862C1 /* ActivityCollectionViewCell.swift */,
@@ -212,6 +220,7 @@
 				7BA77E9121E7FCD000C862C1 /* Comment.swift */,
 				7BA77E8B21E7F5BE00C862C1 /* Team.swift */,
 				7BA77E8F21E7F68300C862C1 /* Tag.swift */,
+				7BF8736121FA6B4B00737729 /* Activity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -309,6 +318,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BF8736021FA482000737729 /* EditMessageViewController.graphql in Resources */,
 				7BF8735421F6D46C00737729 /* ActivityTimelineViewController.graphql in Resources */,
 				7BA77ED021ED50BB00C862C1 /* MessagesCollectionViewController.graphql in Resources */,
 				7BF8735A21F7BA8400737729 /* MessageDetailViewController.graphql in Resources */,
@@ -426,6 +436,7 @@
 				7BA77EBC21E93D1300C862C1 /* TeamDetailTableViewController.swift in Sources */,
 				7BA77EB421E93B3400C862C1 /* CommentCollectionViewCell.swift in Sources */,
 				7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */,
+				7BF8735E21FA3DB000737729 /* EditMessageViewController.swift in Sources */,
 				7BA77EA221E80E3E00C862C1 /* MessageCollectionViewCell.swift in Sources */,
 				7BA77E9221E7FCD100C862C1 /* Comment.swift in Sources */,
 				7BA77EBA21E93CDE00C862C1 /* ActivityCollectionViewCell.swift in Sources */,
@@ -440,6 +451,7 @@
 				7BD6589321EF8E99004FF34A /* TeamCollectionViewCell.swift in Sources */,
 				7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */,
 				7BD6589E21F00A55004FF34A /* API.swift in Sources */,
+				7BF8736221FA6B4B00737729 /* Activity.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,20 @@
+mutation UpdateMessage($messageId: ID!, $title: String, $team: String, $content: String, $images: [String], $tags: [String]) {
+    updateMessage(input: {
+                  id: ID!
+                  title: $title
+                  team: $team
+                  content: $content
+                  tags: [String]
+                  comments: [String]
+                  subscribedUsers: [String]
+                  }) (input: {
+               title: $title
+               team: $team
+               content: $content
+               images: $images
+               tags: $tags
+               }) {
+        title
+        _id
+    }
+}
