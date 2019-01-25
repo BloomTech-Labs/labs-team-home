@@ -13,12 +13,12 @@ import MessageDetail from './MessageDetail';
 import UserList from './UserList';
 
 const Messageboard = styled.div`
-	max-width: 800px;
+	/* max-width: 1000px; */
 	width: 100%;
 	margin: 0 auto;
+	/* top:250px; */
 	background-color: white;
 	color: black;
-
 	& p {
 		font-size: 16px;
 	}
