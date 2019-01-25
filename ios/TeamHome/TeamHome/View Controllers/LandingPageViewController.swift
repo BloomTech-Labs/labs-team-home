@@ -86,8 +86,6 @@ class LandingPageViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let credentials):
-                        // For testing
-                        print("success")
                         
                         // Unwrap tokens to use for Apollo and to decode.
                         guard let idToken = credentials.idToken else { return }
@@ -95,11 +93,13 @@ class LandingPageViewController: UIViewController {
                         // Set up Apollo client with idToken from auth0.
                         self.setUpApollo(with: idToken)
                         
+                        // Store credentials with manager for future handling
+                        _ = credentialsManager.store(credentials: credentials)
+                        
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         
                     case .failure(let error):
-                        print("failure: \(error)")
                         
                         // Present alert to user and bring back to landing page
                         self.presentAlert(for: error)
@@ -121,8 +121,6 @@ class LandingPageViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let credentials):
-                        // For testing
-                        print("success")
                         
                         // Unwrap tokens to use for Apollo and to decode.
                         guard let idToken = credentials.idToken else { return }
@@ -130,11 +128,13 @@ class LandingPageViewController: UIViewController {
                         // Set up Apollo client with idToken from auth0.
                         self.setUpApollo(with: idToken)
                         
+                        // Store credentials with manager for future handling
+                        _ = credentialsManager.store(credentials: credentials)
+                        
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         
                     case .failure(let error):
-                        print("failure: \(error)")
                         
                         // Present alert to user and bring back to landing page
                         self.presentAlert(for: error)
@@ -167,8 +167,6 @@ class LandingPageViewController: UIViewController {
                             DispatchQueue.main.async {
                                 switch result {
                                 case .success(let credentials):
-                                    // For testing
-                                    print("success")
                                     
                                     // Unwrap tokens to use for Apollo and to decode.
                                     guard let idToken = credentials.idToken else { return }
@@ -176,11 +174,13 @@ class LandingPageViewController: UIViewController {
                                     // Set up Apollo client with idToken from auth0.
                                     self.setUpApollo(with: idToken)
                                     
+                                    // Store credentials with manager for future handling
+                                    _ = credentialsManager.store(credentials: credentials)
+                                    
                                     // Perform segue to Dashboard VC.
                                     self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                                     
                                 case .failure(let error):
-                                    print("failure: \(error)")
                                     
                                     // Present alert to user and bring back to landing page
                                     self.presentAlert(for: error)
@@ -207,6 +207,7 @@ class LandingPageViewController: UIViewController {
     
     // MARK - Private Methods
     
+    // Set up Apollo client with http headers
     private func setUpApollo(with idToken: String) {
         // Set up Apollo client with idToken from auth0.
         self.apollo = {
@@ -220,20 +221,7 @@ class LandingPageViewController: UIViewController {
         }()
     }
     
-    private func fetchUser(with apollo: ApolloClient) {
-        apollo.fetch(query: CurrentUserQuery()) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-                return
-            }
-            
-            guard let result = result else { return }
-            
-            self.currentUser = result.data?.currentUser
-        }
-        
-    }
-    
+    // Present alert to user for auth0 errors
     private func presentAlert(for error: Error) {
         //For testing
         print("Failed with \(error)")
@@ -261,15 +249,13 @@ class LandingPageViewController: UIViewController {
                         // Set up Apollo client with accessToken from auth0.
                         self.setUpApollo(with: idToken)
                         
-                        // Fetch currentUser that signed in
-                        guard let apollo = self.apollo else { return }
-                        self.fetchUser(with: apollo)
+                        // Store credentials with manager for future handling
+                        _ = credentialsManager.store(credentials: credentials)
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         
                     case .failure(let error):
-                        print("failure: \(error)")
                         
                         // Present alert to user and bring back to landing page
                         self.presentAlert(for: error)
@@ -279,8 +265,7 @@ class LandingPageViewController: UIViewController {
     }
     
     // MARK - Properties
-    
-    private var currentUser: CurrentUserQuery.Data.CurrentUser?
+
     private var apollo: ApolloClient?
     
     //All IBOutlets on storyboard view scene
