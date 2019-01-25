@@ -12,34 +12,66 @@ import Cloudinary
 class ActivityCollectionViewCell: UICollectionViewCell {
     
     private func updateViews() {
-        guard let activity = activity,
-            let firstName = activity.user.firstName,
-            let lastName = activity.user.lastName else { return }
+        guard let activity = activity else { return }
         
-        notificationLabel.text = "\(firstName) \(lastName) posted a new message"
-        messageTitleLabel.text = activity.title
-        messageBodyClipLabel.text = activity.content
-        dateLabel.text = "Date"
-        
-        guard let avatar = activity.user.avatar else { return }
-        
-        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
-            // Progress
-        }) { (image, error) in
-            if let error = error {
-                NSLog("\(error)")
-                return
+        if activity.comment == nil {
+            
+            guard let message = activity.message,
+                let firstName = message.user.firstName,
+                let lastName = message.user.lastName else { return }
+            
+            notificationLabel.text = "\(firstName) \(lastName) posted a new message"
+            messageTitleLabel.text = message.title
+            messageBodyClipLabel.text = message.content
+            dateLabel.text = "Date"
+            
+            guard let avatar = message.user.avatar else { return }
+            
+            cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+                // Progress
+            }) { (image, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let image = image else { return }
+                
+                DispatchQueue.main.async {
+                    self.userAvatarImageView.image = image
+                }
             }
             
-            guard let image = image else { return }
+        } else if activity.message == nil {
+            guard let comment = activity.comment,
+                let firstName = comment.user.firstName,
+                let lastName = comment.user.lastName else { return }
             
-            DispatchQueue.main.async {
-                self.userAvatarImageView.image = image
+            notificationLabel.text = "\(firstName) \(lastName) posted a new comment"
+            messageTitleLabel.text = ""
+            messageBodyClipLabel.text = comment.content
+            dateLabel.text = "Date"
+            
+            guard let avatar = comment.user.avatar else { return }
+            
+            cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+                // Progress
+            }) { (image, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let image = image else { return }
+                
+                DispatchQueue.main.async {
+                    self.userAvatarImageView.image = image
+                }
             }
         }
     }
     
-    var activity: FindActivityByTeamQuery.Data.FindMessagesByTeam? {
+    var activity: Activity? {
         didSet {
             self.updateViews()
         }
