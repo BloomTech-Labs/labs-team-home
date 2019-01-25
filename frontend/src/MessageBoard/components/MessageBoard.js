@@ -8,9 +8,12 @@ import { Query, Mutation } from 'react-apollo';
 import Invites from './Invites';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 import MessageDetail from './MessageDetail';
 import UserList from './UserList';
+const TH_logo = 'https://i.imgur.com/31LTJFH.png';
+const TH_name = 'TeamHome';
 
 /**
  * Color palette:
@@ -29,21 +32,28 @@ const Messageboard = styled.div`
 	font-family: Comfortaa;
 	font-weight: 600;
 	font-size: 1.4rem;
-	width: 100%;
+	width: 96%;
 	margin: 0 auto;
 	margin-top: 80px;
-	padding: 30px;
+	padding: 1%;
 	background-color: rgba(23, 21, 27, 0.9);
 	border: solid 1px #f1fcef;
 	border-radius: 2px;
 	color: #f1fcef;
 	& p {
+		color: #f1fcef;
 		font-size: 16px;
 	}
+	${mediaQueryFor.smDevice`
+    background-color:#fff;
+    color:#000;
+    /* font-size:3rem; */
+  `}
 `;
 
 const StyledLink = styled(Link)`
 	color: white;
+	color: #f1fcef;
 	text-decoration: none;
 	margin: 5px;
 	font-weight: bold;
@@ -54,31 +64,38 @@ const TeamName = styled.div`
 	flex-direction: column;
 	align-items: center;
 	margin-top: 40px;
-	color: #fff;
-	font-size: 4rem;
+	/* color: #F1FCEF; */
+	text-align: center;
+	font-size: 2rem;
 `;
 
 const Teamlogo = styled.div`
 	display: flex;
 	align-items: center;
-	flex-flow: row;
+	flex-flow: column;
 	& button {
-		width: 100px;
-		height: 20%;
-		margin-left: 5px;
+		width: 220px;
+		height: 40px;
+		margin: 2px;
+		font-size: 1.2rem;
+		/* color:#17151B; */
+		background-color: #f1fcef;
+		&:hover {
+			background-color: #f1fcef;
+		}
 	}
 `;
 
 const Logo = styled.img`
 	width: 200px;
 	display: inline;
-	margin-right: 5px;
+	margin: 5px;
 	border-radius: 45px;
 `;
 
 const MessagesContainer = styled.div`
-	margin: 30px 20px;
 	border: 1px solid black;
+	margin: 0;
 `;
 
 const AddMsgBtn = styled.button`
@@ -130,6 +147,10 @@ class MessageBoard extends React.Component {
 		this.stopProp = this.stopProp.bind(this);
 		this.sortChange = this.sortChange.bind(this);
 	}
+
+	componentDidMount = () => {
+		//
+	};
 
 	sortChange(e) {
 		this.setState({ sortOption: e.target.value });
@@ -248,9 +269,9 @@ class MessageBoard extends React.Component {
 						</Mutation>
 					) : null}
 					<TeamName>
-						<h1>{this.state.teamName}</h1>
+						<h1>{this.state.team.name}</h1>
 						<Teamlogo>
-							<Logo src="https://i.imgur.com/TMRC9RZ.png" alt="team logo" />
+							<Logo src={TH_logo} alt="team logo" />
 							{this.state.isAdmin ? (
 								<button onClick={this.openInviteHandler}>Invite</button>
 							) : null}
