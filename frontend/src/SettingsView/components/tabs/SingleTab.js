@@ -33,6 +33,7 @@ export default class SingleTab extends Component {
 		}
 
 		return (
+			//might need to pass a className into TabListItem
 			// <li className={className} onClick={onClick}>
 			<TabListItem onClick={onClick}>
 				{label}
