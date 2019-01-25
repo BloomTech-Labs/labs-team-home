@@ -20,6 +20,7 @@ class MessagesCollectionViewController: UICollectionViewController {
         
         //Load messages with watcher that can be called by other VCs
         loadMessages(with: apollo)
+        fetchCurrentUser(with: apollo)
     }
 
     // MARK: UICollectionViewDataSource
@@ -48,11 +49,11 @@ class MessagesCollectionViewController: UICollectionViewController {
             guard let destinationVC = segue.destination as? MessageDetailViewController,
             let indexPath = collectionView.indexPathsForSelectedItems?.first,
             let messages = messages,
-            let messageId = messages[indexPath.row]?.id
-                else { return }
+            let messageId = messages[indexPath.row]?.id,
+            let currentUser = currentUser else { return }
                 destinationVC.apollo = apollo
                 destinationVC.messageId = messageId
-            
+                destinationVC.currentUser = currentUser
         }
     }
     
@@ -77,6 +78,18 @@ class MessagesCollectionViewController: UICollectionViewController {
         }
     }
     
+    private func fetchCurrentUser(with apollo: ApolloClient) {
+        apollo.fetch(query: CurrentUserQuery()) { (result, error) in
+            if let error = error {
+                return
+            }
+            
+            guard let result = result else { return }
+            
+            self.currentUser = result.data?.currentUser
+        }
+    }
+    
     // MARK - Properties
     
     private var messages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]? {
@@ -91,4 +104,5 @@ class MessagesCollectionViewController: UICollectionViewController {
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
 }
