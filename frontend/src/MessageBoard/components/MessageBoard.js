@@ -12,20 +12,38 @@ import * as mutation from '../../constants/mutations';
 import MessageDetail from './MessageDetail';
 import UserList from './UserList';
 
+/**
+ * Color palette:
+ * #17151B << Dark Gray
+ * #FF8C63 << Orange
+ * #FFD17C << Lt Orange
+ * #DE3B61 << Red
+ * #3F1F6A << Purple
+ * #F1FCEF << Creme
+ * #73FF6D << Green
+ */
+
 const Messageboard = styled.div`
+	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	/* max-width: 1000px; */
+	font-family: Comfortaa;
+	font-weight: 600;
+	font-size: 1.4rem;
 	width: 100%;
 	margin: 0 auto;
-	/* top:250px; */
-	background-color: white;
-	color: black;
+	margin-top: 80px;
+	padding: 30px;
+	background-color: rgba(23, 21, 27, 0.9);
+	border: solid 1px #f1fcef;
+	border-radius: 2px;
+	color: #f1fcef;
 	& p {
 		font-size: 16px;
 	}
 `;
 
 const StyledLink = styled(Link)`
-	color: black;
+	color: white;
 	text-decoration: none;
 	margin: 5px;
 	font-weight: bold;
@@ -36,19 +54,23 @@ const TeamName = styled.div`
 	flex-direction: column;
 	align-items: center;
 	margin-top: 40px;
+	color: #fff;
+	font-size: 4rem;
 `;
 
 const Teamlogo = styled.div`
 	display: flex;
 	align-items: center;
-
+	flex-flow: row;
 	& button {
-		height: 50%;
+		width: 100px;
+		height: 20%;
 		margin-left: 5px;
 	}
 `;
 
 const Logo = styled.img`
+	width: 200px;
 	display: inline;
 	margin-right: 5px;
 	border-radius: 45px;
@@ -228,7 +250,7 @@ class MessageBoard extends React.Component {
 					<TeamName>
 						<h1>{this.state.teamName}</h1>
 						<Teamlogo>
-							<Logo src="https://via.placeholder.com/50.png" alt="team logo" />
+							<Logo src="https://i.imgur.com/TMRC9RZ.png" alt="team logo" />
 							{this.state.isAdmin ? (
 								<button onClick={this.openInviteHandler}>Invite</button>
 							) : null}
