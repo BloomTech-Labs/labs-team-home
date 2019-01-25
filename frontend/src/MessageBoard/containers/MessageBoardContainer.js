@@ -35,7 +35,7 @@ export default class MessageBoardContainer extends React.Component {
 				</button>
 				{this.state.messageboard ? (
 					<MessageBoard
-						user={this.props.currentUser}
+						currentUser={this.props.currentUser}
 						team={this.props.match.params.team}
 					/>
 				) : (
