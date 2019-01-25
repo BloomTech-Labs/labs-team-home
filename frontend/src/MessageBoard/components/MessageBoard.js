@@ -128,7 +128,8 @@ class MessageBoard extends React.Component {
 			number: '',
 			images: [],
 			isAdmin: true,
-			sortOption: 'newest'
+			sortOption: 'newest',
+			teamName: '73@m n@m3'
 		};
 
 		this.openModalHandler = this.openModalHandler.bind(this);
@@ -266,7 +267,7 @@ class MessageBoard extends React.Component {
 						</Mutation>
 					) : null}
 					<TeamName>
-						<h1>{this.state.team.name}</h1>
+						<h1>{this.state.teamName}</h1>
 						<Teamlogo>
 							<Logo src={TH_logo} alt="team logo" />
 							{this.state.isAdmin ? (
