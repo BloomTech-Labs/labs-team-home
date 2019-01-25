@@ -11,7 +11,6 @@ const FormInputStyles = styled.div`
 	}
 	input {
 		width: 25%;
-		outline: none;
 	}
 	${mediaQueryFor.smDevice`
     display: flex;

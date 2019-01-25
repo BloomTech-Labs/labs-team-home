@@ -36,7 +36,6 @@ const Form = styled.div`
 	color: #fff;
 	/* border-top: solid 1px #ff8c63; */
 	border-radius: 2px;
-	outline: none;
 	${mediaQueryFor.mdDevice`
       width:;
     `}
@@ -48,7 +47,6 @@ const Form = styled.div`
 	label {
 		display: flex;
 		flex-flow: column;
-		outline: none;
 
 		input {
 			height: 50px;
@@ -57,9 +55,6 @@ const Form = styled.div`
 			background-color: #17151b;
 			font-family: Comfortaa;
 			color: #ffd17c;
-			:focus {
-				outline: none;
-			}
 		}
 	}
 	button {
