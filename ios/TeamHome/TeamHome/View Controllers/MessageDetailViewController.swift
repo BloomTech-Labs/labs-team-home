@@ -70,10 +70,12 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         if segue.identifier == "EmbeddedComments" {
             guard let destinationVC = segue.destination as? CommentsCollectionViewController,
                 let apollo = apollo,
-                let messageId = messageId else { return }
+                let messageId = messageId,
+                let currentUser = currentUser else { return }
             
             destinationVC.apollo = apollo
             destinationVC.messageId = messageId
+            destinationVC.currentUser = currentUser
         }
     }
     
@@ -163,10 +165,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
                     self.imageView.isHidden = false
                     self.imageView.image = image
                 }
-                
             }
         }
-
     }
     
     // MARK - Properties
@@ -190,6 +190,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     var messageId: GraphQLID?
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var userAvatarImageView: UIImageView!

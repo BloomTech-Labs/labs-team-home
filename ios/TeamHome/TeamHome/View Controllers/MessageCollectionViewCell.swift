@@ -12,6 +12,7 @@ import Cloudinary
 
 class MessageCollectionViewCell: UICollectionViewCell {
     
+    // Set up message collection view cell with message details
     private func updateViews() {
         guard let message = message else { return }
         
@@ -44,11 +45,13 @@ class MessageCollectionViewCell: UICollectionViewCell {
             }
         }
         
-        // Download image and display as user avatar
+        // Download image and display as user avatar string of image url
         guard let avatar = message.user.avatar else { return }
         
+        // Use cloudinary to fetch image because using their image hosting service
         cloudinary.createDownloader().fetchImage(avatar, { (progress) in
-            // Show progress
+            // Show progress bar for download
+            
         }) { (image, error) in
             if let error = error {
                 print("\(error)")
@@ -60,8 +63,9 @@ class MessageCollectionViewCell: UICollectionViewCell {
                 self.userAvatarImageView.image = image
             }
         }
-        
     }
+    
+    // MARK - Properties
     
     var message: FindMessagesByTeamQuery.Data.FindMessagesByTeam? {
         didSet {
@@ -69,6 +73,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // All IBOutlets in message collection view cell
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!

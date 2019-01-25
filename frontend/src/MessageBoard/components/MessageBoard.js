@@ -111,14 +111,13 @@ const AddMsgBtn = styled.button`
 `;
 
 class MessageBoard extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		//temporary url
 		this.URI =
 			process.env.NODE_ENV === 'production'
 				? 'https://team-home.herokuapp.com/invite'
 				: 'http://localhost:5000/invite';
-
 		this.state = {
 			showModal: false,
 			showInvite: false,
@@ -128,12 +127,6 @@ class MessageBoard extends React.Component {
 			email: '',
 			number: '',
 			images: [],
-			team: {
-				name: 'TeamName',
-				_id: '5c3e1df844c51289c59648ed',
-				users: ['dfasdf', 'asdfsags']
-			},
-			user: '5c3cdac285d92c646e97678d',
 			isAdmin: true,
 			sortOption: 'newest'
 		};
@@ -147,6 +140,10 @@ class MessageBoard extends React.Component {
 		this.stopProp = this.stopProp.bind(this);
 		this.sortChange = this.sortChange.bind(this);
 	}
+	//
+	// componentDidMount() {
+	// 	this.setState({ user: this.props.currentUser._id });
+	// }
 
 	componentDidMount = () => {
 		//
@@ -230,8 +227,8 @@ class MessageBoard extends React.Component {
 						<AddMessage
 							closeHandler={this.closeModalHandler}
 							stopProp={this.stopProp}
-							team={this.props.match.params.team}
-							user={this.state.user}
+							team={this.props.team}
+							user={this.props.currentUser._id}
 						/>
 					) : null}
 					{this.state.showInvite ? (
@@ -242,7 +239,7 @@ class MessageBoard extends React.Component {
 									stopProp={this.stopProp}
 									submitHandler={e => {
 										e.preventDefault();
-										let input = { id: this.props.match.params.team };
+										let input = { id: this.props.team };
 										if (this.state.email.length) input.email = this.state.email;
 										if (this.state.number.length)
 											input.phoneNumber = this.state.number;
@@ -298,7 +295,7 @@ class MessageBoard extends React.Component {
 						</form>
 						<Query
 							query={query.FIND_MESSAGES_BY_TEAM}
-							variables={{ team: this.props.match.params.team }}
+							variables={{ team: this.props.team }}
 						>
 							{({ loading, error, data: { findMessagesByTeam } }) => {
 								if (loading) return <p>Loading...</p>;
@@ -334,7 +331,6 @@ class MessageBoard extends React.Component {
 												currentMessage: message
 											});
 										}}
-										key={message._id}
 									/>
 								));
 							}}
@@ -346,11 +342,11 @@ class MessageBoard extends React.Component {
 					hideModal={this.closeMessageDetail}
 					message={this.state.currentMessage}
 					currentUser={this.props.currentUser}
-					team={this.props.match.params.team}
+					team={this.props.team}
 				/>
 				<UserList
 					open={this.state.userListOpen}
-					team={this.props.match.params.team}
+					team={this.props.team}
 					currentUser={this.props.currentUser}
 					hideModal={this.closeUserList}
 				/>
