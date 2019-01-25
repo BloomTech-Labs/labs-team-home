@@ -8,9 +8,8 @@
 
 import UIKit
 import Apollo
-import Lock
 import Auth0
-import JWTDecode
+import Lock
 
 let auth0DomainURLString = "teamhome.auth0.com"
 let credentialsManager = CredentialsManager.init(authentication: Auth0.authentication())

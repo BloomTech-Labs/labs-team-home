@@ -57,7 +57,7 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         
         guard let teamId = team.id else { return }
         
-        watcher = apollo.watch(query: FindActivityByTeamQuery(teamId: teamId), resultHandler: { (result, error) in
+        _ = apollo.watch(query: FindActivityByTeamQuery(teamId: teamId), resultHandler: { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
@@ -67,9 +67,12 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
             
             self.messages = messages
             
+            let group = DispatchGroup()
+            
             for message in messages {
+                group.enter()
                 guard let messageId = message?.id else { return }
-                apollo.watch(query: FindCommentsByMessageQuery(messageId: messageId), resultHandler: { (result, error) in
+                _ = apollo.watch(query: FindCommentsByMessageQuery(messageId: messageId), resultHandler: { (result, error) in
                     if let error = error {
                         NSLog("\(error)")
                         return
@@ -79,9 +82,13 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
                         let comments = result.data?.findMsgCommentsByMessage else { return }
                     
                     self.comments = comments
-                    
+                    group.leave()
                 })
             }
+            
+            group.notify(queue: DispatchQueue.global(), execute: {
+                self.mergeAllActivity()
+            })
         })
     }
     
@@ -109,15 +116,12 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     
     // MARK - Properties
     
+    
+    private var messages: [FindActivityByTeamQuery.Data.FindMessagesByTeam?]?
+    private var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]?
+    
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
-    var watcher: GraphQLQueryWatcher<FindActivityByTeamQuery>?
-    var messages: [FindActivityByTeamQuery.Data.FindMessagesByTeam?]?
-    var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]? {
-        didSet {
-            self.mergeAllActivity()
-        }
-    }
     
     private var activityTimeline: [Activity]?
     private var sortedActivity: [Activity]? {
