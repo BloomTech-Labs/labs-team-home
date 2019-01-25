@@ -18,16 +18,18 @@ class MessagesCollectionViewController: UICollectionViewController {
         
         guard let apollo = apollo else { return }
         
-        //Load messages with watcher
+        //Load messages with watcher that can be called by other VCs
         loadMessages(with: apollo)
     }
 
     // MARK: UICollectionViewDataSource
 
+    // Return the number of message from current team or return 0
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages?.count ?? 0
     }
 
+    // Set up cell with message information by passing message variable to collection view cell
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! MessageCollectionViewCell
         
@@ -56,23 +58,27 @@ class MessagesCollectionViewController: UICollectionViewController {
     
     // MARK - Private Methods
     
+    // Load all messages from current team
     private func loadMessages(with apollo: ApolloClient) {
         
         guard let team = team,
             let teamId = team.id else { return }
         
+        // Fetch messages using team's id
         messagesWatcher = apollo.watch(query: FindMessagesByTeamQuery(teamId: teamId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
-            guard let messages = result?.data?.findMessagesByTeam else { return }
+            guard let result = result,
+                let messages = result.data?.findMessagesByTeam else { return }
             
             self.messages = messages
         }
     }
     
     // MARK - Properties
+    
     private var messages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]? {
         didSet {
             if isViewLoaded {

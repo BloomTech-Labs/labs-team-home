@@ -1,15 +1,1 @@
-query CurrentUser {
-    currentUser {
-        _id
-        authId
-        firstName
-        lastName
-        email
-        phoneNumber
-        avatar
-        toggles {
-            receiveEmails
-            receiveTexts
-        }
-    }
-}
+

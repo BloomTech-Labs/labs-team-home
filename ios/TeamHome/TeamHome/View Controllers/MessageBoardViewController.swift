@@ -10,6 +10,8 @@ import UIKit
 import Apollo
 
 class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
+    
+    // MARK - Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,24 +21,28 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
 
     }
     
+    // Generate all tag buttons for filtering messages
     @IBAction func filterTags(_ sender: Any) {
         
+        // Unwrap parameters to use
         guard let apollo = apollo,
             let team = team,
             let teamId = team.id else { return }
         
+        // Fetch all tags used by current Team
         _ = apollo.watch(query: FindTagsByTeamQuery(teamId: teamId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
             }
             
-            guard let result = result else { return }
+            guard let result = result,
+                let tags = result.data?.findTagsByTeam else { return }
             
-            self.tags = result.data?.findTagsByTeam
+            // Set tags result to variable
+            self.tags = tags
             
-            guard let tags = self.tags else { return }
-            
+            // Create a button for each tag and add to stack view
             DispatchQueue.main.async {
                 for tag in tags {
                     guard let tag = tag else { return }
@@ -67,7 +73,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         guard let apollo = apollo,
             let team = team else { return }
         
-        // Pass Apollo Client and team info to Team Detail VC
+        // Pass Apollo Client and team info to Team Detail VC, Messages Container View and Add New Message VC
         if segue.identifier == "ViewTeam" {
             guard let destinationVC = segue.destination as? TeamDetailTableViewController else { return }
             destinationVC.apollo = apollo
@@ -85,6 +91,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     // MARK - Private Methods
     
+    // Display team name at the top of the view
     private func displayTeamInfo() {
         guard let team = team else { return }
         
@@ -92,6 +99,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         
     }
     
+    // Load all messages by current team
     private func loadMessages(with apollo: ApolloClient) {
         
         guard let team = team,
@@ -108,6 +116,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         }
     }
     
+    // Filter messages based on selected tag from generated buttons
     private func filter(for selectedTagId: GraphQLID) {
         guard let messages = messages else { return }
         
@@ -128,11 +137,12 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     // MARK - Properties
     
-    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
-    var apollo: ApolloClient?
     private var messages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]?
     private var filteredMessages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]?
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
+    
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var apollo: ApolloClient?
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterTagsStackView: UIStackView!

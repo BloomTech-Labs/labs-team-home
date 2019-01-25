@@ -27,7 +27,7 @@ class DashboardCollectionViewController: UICollectionViewController {
         
         // Pass variable to all the views that branch off main tab bar
         if segue.identifier == "ShowMainTabBar" {
-            guard let destinationVC = segue.destination as? MainTabBarController,
+            guard let destinationVC = segue.destination as? UITabBarController,
                 let teams = teams,
                 let indexPaths = collectionView.indexPathsForSelectedItems,
                 let indexPath = indexPaths.first else { return }
@@ -111,7 +111,7 @@ class DashboardCollectionViewController: UICollectionViewController {
 
     // Hopefully will become a nice alert to explain dashboard to user.
     private func presentWelcomeAlert(with apollo: ApolloClient) {
-        
+        // Use current user query to get their name
     }
     
     // MARK - Properties
