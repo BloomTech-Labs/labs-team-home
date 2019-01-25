@@ -11,7 +11,11 @@ import Apollo
 
 var messagesWatcher: GraphQLQueryWatcher<FindMessagesByTeamQuery>?
 
-class MessagesCollectionViewController: UICollectionViewController {
+class MessagesCollectionViewController: UICollectionViewController, MessageBoardFilterDelegate {
+    
+    func didClickFilter() {
+        filter()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +94,20 @@ class MessagesCollectionViewController: UICollectionViewController {
         }
     }
     
+    private func filter() {
+        guard let messages = messages else { return }
+        
+        if ascending {
+            let sortedMessages = messages.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
+            self.messages = sortedMessages
+            ascending = false
+        } else {
+            let sortedMessages = messages.sorted(by: { ($0?.createdAt)! < ($1?.createdAt)!})
+            self.messages = sortedMessages
+            ascending = true
+        }
+    }
+    
     // MARK - Properties
     
     private var messages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]? {
@@ -105,4 +123,5 @@ class MessagesCollectionViewController: UICollectionViewController {
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
+    private var ascending: Bool = true
 }
