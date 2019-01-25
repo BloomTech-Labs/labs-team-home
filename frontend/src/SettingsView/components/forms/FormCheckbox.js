@@ -1,6 +1,7 @@
 import React from 'react';
 
 const FormCheckbox = props => {
+	console.log('PROPS', props);
 	return (
 		<div className="form-group">
 			<label for={props.name} className="form-label">
@@ -9,16 +10,15 @@ const FormCheckbox = props => {
 			<div className="checkbox">
 				{props.options.map(option => {
 					return (
-						<label key={option} className="checkbox-inline">
+						<label key={option.title} className="checkbox-inline">
 							<input
-								id={props.name}
-								name={props.name}
-								onChange={props.handleChange}
-								value={option}
-								checked={props.selectedOptions.indexOf(option) > -1}
+								id={option.value}
+								onChange={props.handleSelect}
+								value={option.value}
+								checked={props.selected.indexOf(option.value) > -1}
 								type="checkbox"
 							/>
-							{option}
+							{option.title}
 						</label>
 					);
 				})}
