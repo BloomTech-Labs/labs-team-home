@@ -8,6 +8,7 @@ import FormCheckbox from '../components/forms/FormCheckbox';
 import FormButton from '../components/forms/FormButton';
 import BillingView from '../BillingView/BillingView';
 import * as mutation from '../../constants/mutations';
+import SettingsContainer from '../styles/container.styles';
 
 const buttonStyle = {
 	margin: '10px 10px 10px 10px'
@@ -49,7 +50,7 @@ class SettingsView extends Component {
 		return (
 			<Mutation mutation={mutation.UPDATE_USER}>
 				{(updateUser, { data }) => (
-					<div>
+					<SettingsContainer>
 						<h1>Team Name probably</h1>
 						<SettingsTabs>
 							<div label="Account Settings">
@@ -124,7 +125,7 @@ class SettingsView extends Component {
 								<BillingView />
 							</div>
 						</SettingsTabs>
-					</div>
+					</SettingsContainer>
 				)}
 			</Mutation>
 		);

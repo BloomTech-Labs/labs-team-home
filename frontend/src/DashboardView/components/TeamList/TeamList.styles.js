@@ -35,7 +35,7 @@ const Form = styled.div`
 	font-family: Comfortaa;
 	color: #fff;
 	/* border-top: solid 1px #ff8c63; */
-	border-radius: 5px;
+	border-radius: 2px;
 	${mediaQueryFor.mdDevice`
       width:;
     `}
@@ -76,7 +76,7 @@ const Form = styled.div`
 		-moz-appearance: none;
 		:hover {
 			background-color: #ffd17c;
-			color: #ffd17c;
+			color: #17151b;
 		}
 	}
 `;

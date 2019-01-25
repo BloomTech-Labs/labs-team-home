@@ -18,9 +18,9 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
         
         guard let messageId = messageId,
             let apollo = apollo else { return }
-        
+//        
+//        fetchCurrentUser(with: apollo)
         loadComments(from: messageId, with: apollo)
-        fetchCurrentUser(with: apollo)
     }
 
     // MARK: UICollectionViewDataSource
@@ -32,9 +32,10 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CommentCell", for: indexPath) as! CommentCollectionViewCell
     
-        guard let comment = comments?[indexPath.row] else { return UICollectionViewCell() }
+        guard let comment = comments?[indexPath.row],
+            let currentUser = currentUser else { return UICollectionViewCell() }
         cell.comment = comment
-        
+        cell.currentUser = currentUser
         cell.delegate = self
         
         return cell
@@ -89,17 +90,17 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
         })
     }
     
-    private func fetchCurrentUser(with apollo: ApolloClient) {
-        apollo.fetch(query: CurrentUserQuery()) { (result, error) in
-            if let error = error {
-                return
-            }
-            
-            guard let result = result else { return }
-            
-            self.currentUser = result.data?.currentUser
-        }
-    }
+//    private func fetchCurrentUser(with apollo: ApolloClient) {
+//        apollo.fetch(query: CurrentUserQuery()) { (result, error) in
+//            if let error = error {
+//                return
+//            }
+//
+//            guard let result = result else { return }
+//
+//            self.currentUser = result.data?.currentUser
+//        }
+//    }
     
     // MARK - Properties
     

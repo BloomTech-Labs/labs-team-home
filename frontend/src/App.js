@@ -2,7 +2,7 @@ import React, { Component, Route } from 'react';
 import { Switch, withRouter } from 'react-router-dom';
 import GlobalStyle from './GlobalStyles';
 import LandingView from './LandingView/containers/LandingView';
-import MessageBoard from './MessageBoard/components/MessageBoard';
+import MessageBoardContainer from './MessageBoard/containers/MessageBoardContainer';
 import Dashboard from './DashboardView/containers/Dashboard';
 import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
@@ -23,7 +23,7 @@ class App extends Component {
 				{localStorage.token && <Nav />}
 				<Switch>
 					<PublicRoute exact path="/" component={LandingView} />
-					<PrivateRoute path="/:team/home" component={MessageBoard} />
+					<PrivateRoute path="/:team/home" component={MessageBoardContainer} />
 					<PrivateRoute path="/dashboard" component={Dashboard} />
 					<PrivateRoute path="/settings" component={SettingsView} />
 				</Switch>

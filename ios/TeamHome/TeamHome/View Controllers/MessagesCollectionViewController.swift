@@ -11,23 +11,30 @@ import Apollo
 
 var messagesWatcher: GraphQLQueryWatcher<FindMessagesByTeamQuery>?
 
-class MessagesCollectionViewController: UICollectionViewController {
+class MessagesCollectionViewController: UICollectionViewController, MessageBoardFilterDelegate {
+    
+    func didClickFilter() {
+        filter()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard let apollo = apollo else { return }
         
-        //Load messages with watcher
+        //Load messages with watcher that can be called by other VCs
         loadMessages(with: apollo)
+        fetchCurrentUser(with: apollo)
     }
 
     // MARK: UICollectionViewDataSource
 
+    // Return the number of message from current team or return 0
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages?.count ?? 0
     }
 
+    // Set up cell with message information by passing message variable to collection view cell
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! MessageCollectionViewCell
         
@@ -46,33 +53,63 @@ class MessagesCollectionViewController: UICollectionViewController {
             guard let destinationVC = segue.destination as? MessageDetailViewController,
             let indexPath = collectionView.indexPathsForSelectedItems?.first,
             let messages = messages,
-            let messageId = messages[indexPath.row]?.id
-                else { return }
+            let messageId = messages[indexPath.row]?.id,
+            let currentUser = currentUser else { return }
                 destinationVC.apollo = apollo
                 destinationVC.messageId = messageId
-            
+                destinationVC.currentUser = currentUser
         }
     }
     
     // MARK - Private Methods
     
+    // Load all messages from current team
     private func loadMessages(with apollo: ApolloClient) {
         
         guard let team = team,
             let teamId = team.id else { return }
         
+        // Fetch messages using team's id
         messagesWatcher = apollo.watch(query: FindMessagesByTeamQuery(teamId: teamId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
             
-            guard let messages = result?.data?.findMessagesByTeam else { return }
+            guard let result = result,
+                let messages = result.data?.findMessagesByTeam else { return }
             
             self.messages = messages
         }
     }
     
+    private func fetchCurrentUser(with apollo: ApolloClient) {
+        apollo.fetch(query: CurrentUserQuery()) { (result, error) in
+            if let error = error {
+                return
+            }
+            
+            guard let result = result else { return }
+            
+            self.currentUser = result.data?.currentUser
+        }
+    }
+    
+    private func filter() {
+        guard let messages = messages else { return }
+        
+        if ascending {
+            let sortedMessages = messages.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
+            self.messages = sortedMessages
+            ascending = false
+        } else {
+            let sortedMessages = messages.sorted(by: { ($0?.createdAt)! < ($1?.createdAt)!})
+            self.messages = sortedMessages
+            ascending = true
+        }
+    }
+    
     // MARK - Properties
+    
     private var messages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]? {
         didSet {
             if isViewLoaded {
@@ -85,4 +122,6 @@ class MessagesCollectionViewController: UICollectionViewController {
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
+    private var ascending: Bool = true
 }
