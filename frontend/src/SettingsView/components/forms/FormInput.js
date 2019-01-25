@@ -1,8 +1,41 @@
 import React from 'react';
+import styled from 'styled-components';
+import mediaQueryFor from '../../../_global_styles/responsive_querie';
+
+const FormInputStyles = styled.div`
+	display: flex;
+	flex-flow: row;
+	padding: 1%;
+	label {
+		width: 25%;
+	}
+	input {
+		width: 25%;
+	}
+	${mediaQueryFor.smDevice`
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    font-size:1.5rem;
+    margin: 3% 0 2% 0;
+    label {
+      width: 98%;
+    }
+    input {
+      width: 98%;
+      height: 50px;
+			padding: 0 0 0 10px;
+			font-size: 1.2rem;
+			background-color:#F1FCEF;
+			font-family: Comfortaa;
+			color: #ffd17c;
+    }
+    `}
+`;
 
 const FormInput = props => {
 	return (
-		<div className="form-group">
+		<FormInputStyles className="form-group">
 			<label for={props.name} className="form-label">
 				{props.title}
 			</label>
@@ -16,7 +49,7 @@ const FormInput = props => {
 				placeholder={props.placeholder}
 				{...props}
 			/>
-		</div>
+		</FormInputStyles>
 	);
 };
 
