@@ -26,6 +26,7 @@ const BillingView = () => {
 					token={token =>
 						setPremium({
 							variables: {
+								//need to un hard code this later
 								team: '5c37dc6d9c1469aa08f703e2',
 								amount: 999,
 								token: token.id
