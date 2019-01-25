@@ -13,3 +13,15 @@ mutation UpdateUser($firstName: String, $lastName: String, $email: String, $phon
         _id
     }
 }
+mutation updateTeam(
+                    $id: ID!
+                    $name: String
+                    $users: [TeamUserInput]
+                    $premium: Boolean
+                    ) {
+    updateTeam(
+               input: { id: $id, name: $name, users: $users, premium: $premium }
+               ) {
+        _id
+    }
+}
