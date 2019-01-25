@@ -2,6 +2,32 @@
 
 import Apollo
 
+public struct TeamUserInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(user: Swift.Optional<String?> = nil, admin: Swift.Optional<Bool?> = nil) {
+    graphQLMap = ["user": user, "admin": admin]
+  }
+
+  public var user: Swift.Optional<String?> {
+    get {
+      return graphQLMap["user"] as! Swift.Optional<String?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "user")
+    }
+  }
+
+  public var admin: Swift.Optional<Bool?> {
+    get {
+      return graphQLMap["admin"] as! Swift.Optional<Bool?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "admin")
+    }
+  }
+}
+
 public final class FindMessageByIdQuery: GraphQLQuery {
   public let operationDefinition =
     "query FindMessageById($id: ID!) {\n  findMessage(input: {id: $id}) {\n    __typename\n    _id\n    title\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    team {\n      __typename\n      name\n      _id\n    }\n    content\n    images\n    tags {\n      __typename\n      name\n      _id\n    }\n    comments\n    subscribedUsers {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    createdAt\n    updatedAt\n  }\n}"
@@ -1587,6 +1613,91 @@ public final class UpdateUserMutation: GraphQLMutation {
 
       public init(id: GraphQLID? = nil) {
         self.init(unsafeResultMap: ["__typename": "User", "_id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+    }
+  }
+}
+
+public final class UpdateTeamMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation updateTeam($id: ID!, $name: String, $users: [TeamUserInput], $premium: Boolean) {\n  updateTeam(input: {id: $id, name: $name, users: $users, premium: $premium}) {\n    __typename\n    _id\n  }\n}"
+
+  public var id: GraphQLID
+  public var name: String?
+  public var users: [TeamUserInput?]?
+  public var premium: Bool?
+
+  public init(id: GraphQLID, name: String? = nil, users: [TeamUserInput?]? = nil, premium: Bool? = nil) {
+    self.id = id
+    self.name = name
+    self.users = users
+    self.premium = premium
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id, "name": name, "users": users, "premium": premium]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("updateTeam", arguments: ["input": ["id": GraphQLVariable("id"), "name": GraphQLVariable("name"), "users": GraphQLVariable("users"), "premium": GraphQLVariable("premium")]], type: .object(UpdateTeam.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(updateTeam: UpdateTeam? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "updateTeam": updateTeam.flatMap { (value: UpdateTeam) -> ResultMap in value.resultMap }])
+    }
+
+    public var updateTeam: UpdateTeam? {
+      get {
+        return (resultMap["updateTeam"] as? ResultMap).flatMap { UpdateTeam(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "updateTeam")
+      }
+    }
+
+    public struct UpdateTeam: GraphQLSelectionSet {
+      public static let possibleTypes = ["Team"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Team", "_id": id])
       }
 
       public var __typename: String {

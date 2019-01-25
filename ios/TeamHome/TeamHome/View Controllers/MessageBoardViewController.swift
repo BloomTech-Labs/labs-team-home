@@ -18,7 +18,6 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         
         // Show team name on label
         displayTeamInfo()
-
     }
     
     // Generate all tag buttons for filtering messages
