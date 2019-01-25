@@ -185,7 +185,7 @@ class MessageBoard extends React.Component {
 							closeHandler={this.closeModalHandler}
 							stopProp={this.stopProp}
 							team={this.props.team}
-							user={this.props.user._id}
+							user={this.props.currentUser._id}
 						/>
 					) : null}
 					{this.state.showInvite ? (
