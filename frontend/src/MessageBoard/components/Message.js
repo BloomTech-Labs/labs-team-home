@@ -29,18 +29,22 @@ const MessagePreview = styled.div`
 	align-items: flex-start;
 	justify-content: flex-start;
 
-	& p {
-		margin: 0;
+	& div {
+		margin-left: 20px;
 		word-break: break-all;
 		word-wrap: break-word;
+		font-size: 1.2rem;
 	}
 
-	& h5 {
-		margin: 0;
+	& p.user-name {
+		margin-left: 17%;
+		margin-top: 1%;
 		align-self: center;
+		color: pink;
+		font-size: 0.8rem;
 	}
 
-	& h4 {
+	& p. {
 		margin: 0;
 		padding-top: 10px;
 		align-self: center;
@@ -67,12 +71,12 @@ function Message(props) {
 				}
 			/>
 			<MessagePreview>
-				<p>
+				<div>
 					{message.title.length <= 20
 						? message.title
 						: message.title.slice(0, 19) + '...'}
-				</p>
-				<p>
+				</div>
+				<p className="user-name">
 					{`${userInfo.firstName} ${
 						userInfo.lastName
 					} - ${message.createdAt.toDateString()}`}
