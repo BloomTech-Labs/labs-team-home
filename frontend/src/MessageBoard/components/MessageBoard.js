@@ -28,11 +28,9 @@ const TH_name = 'TeamHome';
 
 const Messageboard = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
-	border-left: 120px solid transparent;
-	border-top: 70px solid transparent;
-	border-right: 10px solid transparent;
+	border: 20px solid transparent;
 	box-sizing: border-box;
-	border-radius: 60px;
+	border-radius: 10px;
 	font-family: Comfortaa;
 	font-weight: 600;
 	font-size: 1.4rem;
@@ -42,16 +40,13 @@ const Messageboard = styled.div`
 	padding: 1%;
 	/* background-color: rgba(23,21,27,0.9); */
 	color: #f1fcef;
-	&.demo {
-		/*background-image:
-        linear-gradient(white, white),
-        linear-gradient(180deg, cornflowerblue, purple);*/
-
+	&.grad-border {
 		background-image: linear-gradient(#17151b, #17151b),
 			linear-gradient(
 				170deg,
 				rgba(107, 40, 59, 0.3) 10%,
-				/* rgba(255,209,124,0.3) 45%, */ rgba(107, 40, 59, 0.3) 70%,
+				rgba(255, 209, 124, 0.3) 45%,
+				rgba(107, 40, 59, 0.3) 70%,
 				/* rgba(107, 40, 59, 0.7) 90%, */ #17151b 100%
 			);
 
@@ -60,15 +55,13 @@ const Messageboard = styled.div`
 		text-align: center;
 	}
 	&:hover {
-		/* &.animated { */
 		background-image: linear-gradient(#17151b, #17151b),
 			linear-gradient(
 				170deg,
 				rgba(107, 40, 59, 0.3) 10%,
 				rgba(255, 209, 124, 0.3) 45%,
 				rgba(107, 40, 59, 0.3) 70%,
-				rgba(107, 40, 59, 0.7) 90%,
-				#17151b 100%
+				/* rgba(107, 40, 59, 0.7) 90%, */ #17151b 100%
 			);
 
 		background-repeat: no-repeat;
@@ -297,7 +290,7 @@ class MessageBoard extends React.Component {
 	render() {
 		return (
 			<>
-				<Messageboard className="demo animated">
+				<Messageboard className="grad-border animated">
 					{this.state.showModal ? (
 						<AddMessage
 							closeHandler={this.closeModalHandler}
