@@ -10,6 +10,7 @@ const MessageContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	cursor: pointer;
+	border: solid 3px #17151b;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
 	&:hover {
 		background-color: rgba(107, 40, 59, 0.7);
@@ -22,6 +23,7 @@ const MessageContainer = styled.div`
 const Pic = styled.img`
 	height: 50px;
 	width: 50px;
+	border: solid 3px #17151b;
 `;
 
 const MessagePreview = styled.div`

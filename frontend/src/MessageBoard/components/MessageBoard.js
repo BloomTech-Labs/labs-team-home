@@ -37,7 +37,7 @@ const Messageboard = styled.div`
 	margin-top: 80px;
 	padding: 1%;
 	background-color: rgba(23, 21, 27, 0.9);
-	border: solid 1px #f1fcef;
+	/* border: solid 1px #f1fcef; */
 	border-radius: 2px;
 	color: #f1fcef;
 	& p {
@@ -93,20 +93,33 @@ const Logo = styled.img`
 `;
 
 const MessagesContainer = styled.div`
-	border: 1px solid black;
 	margin: 0;
+	form {
+		width: 40%;
+		height: 50px;
+		option {
+			height: 50px;
+		}
+	}
 `;
 
 const AddMsgBtn = styled.button`
 	border-radius: 45px;
 	font-size: 40px;
+	border: solid 5px #f1fcef;
 	width: 75px;
 	height: 75px;
 	margin: 20px;
+	padding-bottom: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	&:hover {
+		background-color: rgba(107, 40, 59, 0.7);
+		color: #f1fcef;
+	}
 `;
 
 class MessageBoard extends React.Component {
@@ -283,7 +296,9 @@ class MessageBoard extends React.Component {
 						</Teamlogo>
 					</TeamName>
 					<MessagesContainer>
-						<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
+						<AddMsgBtn onClick={this.openModalHandler}>
+							<div className="new-message">+</div>
+						</AddMsgBtn>
 						<form>
 							<label>
 								Sort:
