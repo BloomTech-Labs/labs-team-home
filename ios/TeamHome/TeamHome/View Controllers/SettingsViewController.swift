@@ -116,7 +116,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     @IBAction func logOut(_ sender: Any) {
         _ = credentialsManager.clear()
-        performSegue(withIdentifier: "ReturnToLandingPage", sender: self)
+        apollo = nil
+        performSegue(withIdentifier: "unwindSegueToVC1", sender: self)
     }
     
     @IBAction func leaveTeam(_ sender: Any) {
