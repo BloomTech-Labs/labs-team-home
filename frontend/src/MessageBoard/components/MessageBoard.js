@@ -35,7 +35,7 @@ const Messageboard = styled.div`
 	font-size: 1.4rem;
 	width: 96%;
 	margin: 0 auto;
-	margin-top: 80px;
+	margin-top: 20px;
 	padding: 1%;
 	/* background-color: rgba(23,21,27,0.9); */
 	color: #f1fcef;
@@ -57,10 +57,22 @@ const Messageboard = styled.div`
 		color: #f1fcef;
 		font-size: 16px;
 	}
+	${mediaQueryFor.lgDevice`
+      border-width:10px;
+  `}
+	${mediaQueryFor.mdDevice`
+      border-width:7px;
+  `}
 	${mediaQueryFor.smDevice`
-    background-color:#fff;
-    color:#000;
-    /* font-size:3rem; */
+      width:100%;
+      margin:0;
+      border-width:4px;
+  `}
+	${mediaQueryFor.xsDevice`
+      width:100%;
+      margin:0;
+      
+      border-width:2px;
   `}
 	@keyframes highlight {
 		100% {
