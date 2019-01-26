@@ -28,7 +28,11 @@ const TH_name = 'TeamHome';
 
 const Messageboard = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
-	/* max-width: 1000px; */
+	border-left: 120px solid transparent;
+	border-top: 70px solid transparent;
+	border-right: 10px solid transparent;
+	box-sizing: border-box;
+	border-radius: 60px;
 	font-family: Comfortaa;
 	font-weight: 600;
 	font-size: 1.4rem;
@@ -36,10 +40,44 @@ const Messageboard = styled.div`
 	margin: 0 auto;
 	margin-top: 80px;
 	padding: 1%;
-	background-color: rgba(23, 21, 27, 0.9);
-	/* border: solid 1px #f1fcef; */
-	border-radius: 2px;
+	/* background-color: rgba(23,21,27,0.9); */
 	color: #f1fcef;
+	&.demo {
+		/*background-image:
+        linear-gradient(white, white),
+        linear-gradient(180deg, cornflowerblue, purple);*/
+
+		background-image: linear-gradient(#17151b, #17151b),
+			linear-gradient(
+				170deg,
+				rgba(107, 40, 59, 0.3) 10%,
+				/* rgba(255,209,124,0.3) 45%, */ rgba(107, 40, 59, 0.3) 70%,
+				/* rgba(107, 40, 59, 0.7) 90%, */ #17151b 100%
+			);
+
+		background-repeat: no-repeat;
+		background-origin: padding-box, border-box;
+		text-align: center;
+	}
+	&:hover {
+		/* &.animated { */
+		background-image: linear-gradient(#17151b, #17151b),
+			linear-gradient(
+				170deg,
+				rgba(107, 40, 59, 0.3) 10%,
+				rgba(255, 209, 124, 0.3) 45%,
+				rgba(107, 40, 59, 0.3) 70%,
+				rgba(107, 40, 59, 0.7) 90%,
+				#17151b 100%
+			);
+
+		background-repeat: no-repeat;
+		background-size: 100% 100%, 100% 200%;
+		background-position: 0 0, 0 120%;
+		background-origin: padding-box, border-box;
+		animation: highlight 2s infinite alternate;
+		/* } */
+	}
 	& p {
 		color: #f1fcef;
 		font-size: 16px;
@@ -49,6 +87,11 @@ const Messageboard = styled.div`
     color:#000;
     /* font-size:3rem; */
   `}
+	@keyframes highlight {
+		100% {
+			background-position: 0 0, 0 0;
+		}
+	}
 `;
 
 const StyledLink = styled(Link)`
@@ -68,19 +111,38 @@ const TeamName = styled.div`
 	font-size: 2rem;
 `;
 
+/**
+ * Color palette:
+ * #17151B << Dark Gray
+ * #FF8C63 << Orange
+ * #FFD17C << Lt Orange
+ * #DE3B61 << Red
+ * #3F1F6A << Purple
+ * #F1FCEF << Creme
+ * #73FF6D << Green
+ */
+
 const Teamlogo = styled.div`
 	display: flex;
 	align-items: center;
 	flex-flow: column;
 	& button {
+		font-family: Comfortaa;
+		font-size: 1.3rem;
+		font-weight: 600;
+		color: #f1fcef;
+		--borderWidth: 3px;
 		width: 220px;
 		height: 40px;
 		margin: 2px;
-		font-size: 1.2rem;
-		/* color:#17151B; */
-		background-color: #f1fcef;
+		border: none;
+		border-radius: var(--borderWidth);
+		background-color: rgba(0, 0, 0, 0);
+		border: solid 2px rgba(107, 40, 59, 0.3);
+		cursor: pointer;
+		transition: background-color 250ms ease-in-out, transform 150ms ease;
 		&:hover {
-			background-color: #f1fcef;
+			background-color: #de3b61;
 		}
 	}
 `;
@@ -235,7 +297,7 @@ class MessageBoard extends React.Component {
 	render() {
 		return (
 			<>
-				<Messageboard>
+				<Messageboard className="demo animated">
 					{this.state.showModal ? (
 						<AddMessage
 							closeHandler={this.closeModalHandler}
