@@ -154,7 +154,6 @@ export const DELETE_TEAM = gql`
 
 export const UPDATE_USER = gql`
 	mutation updateUser(
-		$id: ID!
 		$firstName: String
 		$lastName: String
 		$email: String
@@ -164,7 +163,6 @@ export const UPDATE_USER = gql`
 	) {
 		updateUser(
 			input: {
-				id: $id
 				firstName: $firstName
 				lastName: $lastName
 				email: $email
@@ -174,11 +172,6 @@ export const UPDATE_USER = gql`
 			}
 		) {
 			...FullUser
-		}
-		input
-		TogglesInput {
-			receiveEmails: Boolean
-			receiveTexts: Boolean
 		}
 	}
 	${f.FULL_USER}
