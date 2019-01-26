@@ -63,7 +63,6 @@ const TeamName = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 40px;
 	/* color: #F1FCEF; */
 	text-align: center;
 	font-size: 2rem;

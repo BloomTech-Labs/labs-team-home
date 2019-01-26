@@ -2,12 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const MessageContainer = styled.div`
-	border: 1px solid black;
-	margin: 20px;
+	margin: 2% auto;
+	background-color: rgba(107, 40, 59, 0.3);
+	width: 100%;
 	padding: 10px 20px;
 	display: flex;
 	justify-content: space-between;
 	cursor: pointer;
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	&:hover {
+		background-color: rgba(107, 40, 59, 0.7);
+	}
 	@media (max-width: 800px) {
 		flex-direction: column;
 	}
