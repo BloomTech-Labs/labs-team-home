@@ -1,10 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const MessageContainer = styled.div`
 	margin: 2% auto;
 	background-color: rgba(107, 40, 59, 0.3);
 	width: 100%;
+	height: 80px;
 	padding: 10px 20px;
 	display: flex;
 	justify-content: space-between;
@@ -44,11 +45,22 @@ const MessagePreview = styled.div`
 		font-size: 0.8rem;
 	}
 
-	& p. {
+	& p.content {
 		margin: 0;
 		padding-top: 10px;
 		align-self: center;
-		font-size: 18px;
+		font-size: 1px;
+		display: none;
+	}
+	& h5.comments {
+		margin: 0 0 2% 0;
+	}
+	& h5.comments-length {
+		margin: 0 0 2% 0;
+		left: 50px;
+	}
+	& h5.tags {
+		margin: 0 0 2% 0;
 	}
 `;
 
@@ -81,18 +93,18 @@ function Message(props) {
 						userInfo.lastName
 					} - ${message.createdAt.toDateString()}`}
 				</p>
-				<p>
+				<p className="content">
 					{message.content.length <= 50
 						? message.content
 						: message.content.slice(0, 49) + '...'}
 				</p>
 			</MessagePreview>
 			<MessagePreview>
-				<h5>Comments</h5>
-				<h4>{message.comments.length}</h4>
+				<h5 className="comments">Comments</h5>
+				<h5 className="comments-length">{message.comments.length}</h5>
 			</MessagePreview>
 			<MessagePreview>
-				<h5>Tags</h5>
+				<h5 className="tags">Tags</h5>
 				{message.tags.map(tag => {
 					return <Tag>{tag}</Tag>;
 				})}
