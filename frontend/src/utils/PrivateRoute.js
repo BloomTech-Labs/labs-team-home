@@ -14,10 +14,13 @@ const PrivateRoute = ({
 		render={props => {
 			if (localStorage.token) {
 				if (
-					jwt_decode(localStorage.token) &&
 					jwt_decode(localStorage.token).exp > Math.floor(Date.now() / 1000) // checks if token is a JWT and if it isn't expired
 				) {
-					return <Component {...props} currentUser={currentUser} />;
+					if (currentUser) {
+						return <Component {...props} currentUser={currentUser} />;
+					} else {
+						return <Redirect to="/settings" currentUser={null} />;
+					}
 				} else {
 					localStorage.removeItem('token');
 					alert('Session expired, please login.');
