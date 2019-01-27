@@ -54,13 +54,13 @@ const messageResolvers = {
 				{ _id: id },
 				{ $push: { subscribedUsers: _id } },
 				{ new: true }
-			),
+			).populate('user team tags subscribedUsers'),
 		unsubscribe: (_, { input: { id } }, { user: { _id } }) =>
 			Message.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { subscribedUsers: _id } },
 				{ new: true }
-			)
+			).populate('user team tags subscribedUsers')
 	}
 };
 

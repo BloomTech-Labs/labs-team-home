@@ -157,13 +157,13 @@ const teamResolvers = {
 				{ _id: id },
 				{ $pull: { users: { user } } },
 				{ new: true }
-			),
+			).populate('users.user'),
 		leaveTeam: (_, { input: { id } }, { user: { _id } }) =>
 			Team.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { users: { user: _id } } },
 				{ new: true }
-			)
+			).populate('users.user')
 	}
 };
 

@@ -90,13 +90,13 @@ const msgCommentResolvers = {
 				{ _id: id },
 				{ $push: { likes: _id } },
 				{ new: true }
-			),
+			).populate('user message likes'),
 		unLikeMsgComment: (_, { input: { id }, user: { _id } }) =>
 			MsgComment.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { likes: _id } },
 				{ new: true }
-			)
+			).populate('user message likes')
 	}
 };
 

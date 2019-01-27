@@ -45,7 +45,7 @@ const MsgComment = /* GraphQL */ `
 		addMsgComment(input: AddMsgCommentInput!): MsgComment
 		updateMsgComment(input: UpdateMsgCommentInput!): MsgComment
 		deleteMsgComment(input: DeleteMsgCommentInput!): MsgComment
-		likeMsgComment(input: {LikeMsgCommentInput!}): MsgComment
+		likeMsgComment(input: LikeMsgCommentInput!): MsgComment
 		unLikeMsgComment(input: UnLikeMsgCommentInput!): MsgComment
 	}
 `;
