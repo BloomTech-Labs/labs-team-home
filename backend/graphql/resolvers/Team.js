@@ -151,7 +151,19 @@ const teamResolvers = {
 					});
 				} else throw new ValidationError("Team doesn't exist");
 			});
-		}
+		},
+		kickUser: (_, { input: { team, user } }) =>
+			Team.findOneAndUpdate(
+				{ _id: team },
+				{ $pull: { users: { user } } },
+				{ new: true }
+			),
+		leaveTeam: (_, { input: { team } }, { user: { _id } }) =>
+			Team.findOneAndUpdate(
+				{ _id: team },
+				{ $pull: { users: { user: _id } } },
+				{ new: true }
+			)
 	}
 };
 
