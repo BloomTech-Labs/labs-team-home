@@ -85,13 +85,13 @@ const msgCommentResolvers = {
 					throw new ValidationError('Comment does not exist');
 				}
 			}),
-		likeMsgComment: (_, { input: { id }, user: { _id } }) =>
+		likeMsgComment: (_, { input: { id } }, { user: { _id } }) =>
 			MsgComment.findOneAndUpdate(
 				{ _id: id },
 				{ $push: { likes: _id } },
 				{ new: true }
 			).populate('user message likes'),
-		unLikeMsgComment: (_, { input: { id }, user: { _id } }) =>
+		unLikeMsgComment: (_, { input: { id } }, { user: { _id } }) =>
 			MsgComment.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { likes: _id } },
