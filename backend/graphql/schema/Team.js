@@ -21,6 +21,13 @@ const Team = /* GraphQL */ `
 		email: String
 		phoneNumber: String
 	}
+	input KickUserInput {
+		team: ID!
+		user: ID!
+	}
+	input LeaveTeamInput {
+		team: ID!
+	}
 	input AddTeamInput {
 		name: String!
 		users: [TeamUserInput]
@@ -50,6 +57,8 @@ const Team = /* GraphQL */ `
 		updateTeam(input: UpdateTeamInput!): Team
 		deleteTeam(input: DeleteTeamInput!): Team
 		inviteUser(input: InviteUserInput!): Team
+		kickUser(input: KickUserInput!): Team
+		leaveTeam(input: LeaveTeamInput!): Team
 		setPremium(input: SetPremiumInput!): Team
 	}
 `;
