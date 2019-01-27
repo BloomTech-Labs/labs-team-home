@@ -177,6 +177,29 @@ export const UPDATE_USER = gql`
 	${f.FULL_USER}
 `;
 
+export const ADD_USER = gql`
+	mutation addUser(
+		$firstName: String!
+		$lastName: String!
+		$email: String!
+		$avatar: String
+		$phoneNumber: String
+	) {
+		addUser(
+			input: {
+				firstName: $firstName
+				lastName: $lastName
+				email: $email
+				phoneNumber: $phoneNumber
+				avatar: $avatar
+			}
+		) {
+			...FullUser
+		}
+	}
+	${f.FULL_USER}
+`;
+
 export const DELETE_USER = gql`
 	mutation deleteUser {
 		_id

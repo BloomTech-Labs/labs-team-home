@@ -1,14 +1,11 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-import { graphql } from 'react-apollo';
+import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import * as query from '../constants/queries';
 
-const PrivateRoute = ({
-	component: Component,
-	data: { currentUser },
-	...rest
-}) => (
+const PrivateRoute = ({ component: Component, ...rest }) => (
 	<Route
 		{...rest}
 		render={props => {
@@ -16,11 +13,21 @@ const PrivateRoute = ({
 				if (
 					jwt_decode(localStorage.token).exp > Math.floor(Date.now() / 1000) // checks if token is a JWT and if it isn't expired
 				) {
-					if (currentUser) {
-						return <Component {...props} currentUser={currentUser} />;
-					} else {
-						return <Redirect to="/settings" currentUser={null} />;
-					}
+					return (
+						<Query query={query.CURRENT_USER}>
+							{({ loading, error, data: { currentUser } }) => {
+								if (loading) return <p>Loading...</p>;
+								if (error) return <p>Error :(</p>;
+								if (currentUser) {
+									return <Component {...props} currentUser={currentUser} />;
+								} else if (props.location.pathname === '/settings') {
+									return <Component {...props} currentUser={null} />;
+								} else {
+									return <Redirect to="/settings" />;
+								}
+							}}
+						</Query>
+					);
 				} else {
 					localStorage.removeItem('token');
 					alert('Session expired, please login.');
@@ -34,20 +41,4 @@ const PrivateRoute = ({
 	/>
 );
 
-export default graphql(gql`
-	query {
-		currentUser {
-			_id
-			authId
-			firstName
-			lastName
-			email
-			phoneNumber
-			avatar
-			toggles {
-				receiveEmails
-				receiveTexts
-			}
-		}
-	} # gives the component access to the data of the logged in user
-`)(PrivateRoute);
+export default PrivateRoute;
