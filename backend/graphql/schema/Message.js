@@ -6,7 +6,7 @@ const Message = /* GraphQL */ `
 		team: Team!
 		content: String!
 		images: [String]
-		tags: [Tag]
+		tags: Tag
 		comments: [ID]
 		subscribedUsers: [User]
 		createdAt: String
@@ -23,7 +23,7 @@ const Message = /* GraphQL */ `
 		team: String!
 		content: String!
 		images: [String]
-		tags: [String]
+		tags: String
 		subscribedUsers: [String]
 	}
 	input UpdateMessageInput {
@@ -32,7 +32,7 @@ const Message = /* GraphQL */ `
 		team: String
 		content: String
 		images: [String]
-		tags: [String]
+		tags: String
 		comments: [String]
 		subscribedUsers: [String]
 	}

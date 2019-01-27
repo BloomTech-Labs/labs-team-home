@@ -50,7 +50,7 @@ const Message = new Schema(
 			required: true
 		},
 		images: [{ type: String }],
-		tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+		tag: { type: Schema.Types.ObjectId, ref: 'Tag' },
 		comments: [{ type: Schema.Types.ObjectId, ref: 'MsgComment' }],
 		subscribedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 	},

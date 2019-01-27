@@ -4,6 +4,7 @@ const MsgComment = /* GraphQL */ `
 		user: User!
 		message: Message!
 		content: String!
+		image: String
 		likes: [User]
 		createdAt: String
 		updatedAt: String
@@ -17,11 +18,13 @@ const MsgComment = /* GraphQL */ `
 	input AddMsgCommentInput {
 		message: String!
 		content: String!
+		image: String
 	}
 	input UpdateMsgCommentInput {
 		id: ID!
 		message: String
 		content: String
+		image: String
 		likes: [ID]
 	}
 	input DeleteMsgCommentInput {
