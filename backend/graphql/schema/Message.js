@@ -39,6 +39,12 @@ const Message = /* GraphQL */ `
 	input DeleteMessageInput {
 		id: ID!
 	}
+	input SubscribeInput {
+		id: ID!
+	}
+	input UnsubscribeInput {
+		id: ID!
+	}
 	extend type Query {
 		messages: [Message]
 		findMessagesByTeam(input: FindMessageByTeamInput): [Message]
@@ -48,6 +54,8 @@ const Message = /* GraphQL */ `
 		addMessage(input: AddMessageInput!): Message
 		updateMessage(input: UpdateMessageInput!): Message
 		deleteMessage(input: DeleteMessageInput!): Message
+		subscribe(input: SubscribeInput!): Message
+		unsubscribe(input: SubscribeInput!): Message
 	}
 `;
 

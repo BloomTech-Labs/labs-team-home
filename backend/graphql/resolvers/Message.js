@@ -48,7 +48,19 @@ const messageResolvers = {
 				} else {
 					throw new ValidationError("Message doesn't exist");
 				}
-			})
+			}),
+		subscribe: (_, { input: { id } }, { user: { _id } }) =>
+			Message.findOneAndUpdate(
+				{ _id: id },
+				{ $push: { subscribedUsers: _id } },
+				{ new: true }
+			),
+		unsubscribe: (_, { input: { id } }, { user: { _id } }) =>
+			Message.findOneAndUpdate(
+				{ _id: id },
+				{ $pull: { subscribedUsers: _id } },
+				{ new: true }
+			)
 	}
 };
 

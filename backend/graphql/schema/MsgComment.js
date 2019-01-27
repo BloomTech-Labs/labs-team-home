@@ -30,6 +30,12 @@ const MsgComment = /* GraphQL */ `
 	input DeleteMsgCommentInput {
 		id: ID!
 	}
+	input LikeMsgCommentInput {
+		id: ID!
+	}
+	input UnLikeMsgCommentInput {
+		id: ID!
+	}
 	extend type Query {
 		MsgComments: [MsgComment]
 		findMsgCommentsByMessage(input: FindMsgCommentsByMessageInput): [MsgComment]
@@ -39,6 +45,8 @@ const MsgComment = /* GraphQL */ `
 		addMsgComment(input: AddMsgCommentInput!): MsgComment
 		updateMsgComment(input: UpdateMsgCommentInput!): MsgComment
 		deleteMsgComment(input: DeleteMsgCommentInput!): MsgComment
+		likeMsgComment(input: {LikeMsgCommentInput!}): MsgComment
+		unLikeMsgComment(input: UnLikeMsgCommentInput!): MsgComment
 	}
 `;
 

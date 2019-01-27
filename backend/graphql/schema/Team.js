@@ -22,11 +22,11 @@ const Team = /* GraphQL */ `
 		phoneNumber: String
 	}
 	input KickUserInput {
-		team: ID!
+		id: ID!
 		user: ID!
 	}
 	input LeaveTeamInput {
-		team: ID!
+		id: ID!
 	}
 	input AddTeamInput {
 		name: String!

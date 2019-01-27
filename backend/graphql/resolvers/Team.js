@@ -152,15 +152,15 @@ const teamResolvers = {
 				} else throw new ValidationError("Team doesn't exist");
 			});
 		},
-		kickUser: (_, { input: { team, user } }) =>
+		kickUser: (_, { input: { id, user } }) =>
 			Team.findOneAndUpdate(
-				{ _id: team },
+				{ _id: id },
 				{ $pull: { users: { user } } },
 				{ new: true }
 			),
-		leaveTeam: (_, { input: { team } }, { user: { _id } }) =>
+		leaveTeam: (_, { input: { id } }, { user: { _id } }) =>
 			Team.findOneAndUpdate(
-				{ _id: team },
+				{ _id: id },
 				{ $pull: { users: { user: _id } } },
 				{ new: true }
 			)
