@@ -75,7 +75,7 @@ const teamResolvers = {
 								{ _id: input.id },
 								{ $set: { premium: true } },
 								{ new: true }
-							).populate('users');
+							).populate('users.user');
 						} else {
 							throw new Error("Team doesn't exist");
 						}
