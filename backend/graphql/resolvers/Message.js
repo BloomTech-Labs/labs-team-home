@@ -52,7 +52,7 @@ const messageResolvers = {
 		subscribe: (_, { input: { id } }, { user: { _id } }) =>
 			Message.findOneAndUpdate(
 				{ _id: id },
-				{ $push: { subscribedUsers: _id } },
+				{ $addToSet: { subscribedUsers: _id } },
 				{ new: true }
 			).populate('user team tags subscribedUsers'),
 		unsubscribe: (_, { input: { id } }, { user: { _id } }) =>
