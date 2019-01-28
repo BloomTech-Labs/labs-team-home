@@ -54,3 +54,21 @@ export const FIND_COMMENTS_BY_MESSAGE = gql`
 	}
 	${f.FULL_COMMENT}
 `;
+
+export const CURRENT_USER = gql`
+	query {
+		currentUser {
+			_id
+			authId
+			firstName
+			lastName
+			email
+			phoneNumber
+			avatar
+			toggles {
+				receiveEmails
+				receiveTexts
+			}
+		}
+	}
+`;

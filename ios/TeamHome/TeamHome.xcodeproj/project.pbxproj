@@ -11,6 +11,7 @@
 		7B6BE7D621E5733D0099E42C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D421E5733D0099E42C /* Main.storyboard */; };
 		7B6BE7D821E5733E0099E42C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D721E5733E0099E42C /* Assets.xcassets */; };
 		7B6BE7DB21E5733E0099E42C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D921E5733E0099E42C /* LaunchScreen.storyboard */; };
+		7B734DF721FF6E3900F56C5F /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B734DF621FF6E3900F56C5F /* Appearance.swift */; };
 		7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */; };
 		7BA77E8321E798A800C862C1 /* TabBarChildrenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */; };
 		7BA77E8521E7B2B500C862C1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8421E7B2B500C862C1 /* User.swift */; };
@@ -66,6 +67,7 @@
 		7B6BE7D721E5733E0099E42C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B6BE7DA21E5733E0099E42C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B6BE7DC21E5733E0099E42C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B734DF621FF6E3900F56C5F /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarChildrenProtocol.swift; sourceTree = "<group>"; };
 		7BA77E8421E7B2B500C862C1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				7B6BE7D721E5733E0099E42C /* Assets.xcassets */,
 				7BD6588821EE5A06004FF34A /* Auth0.plist */,
 				7B6BE7DC21E5733E0099E42C /* Info.plist */,
+				7B734DF621FF6E3900F56C5F /* Appearance.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */,
+				7B734DF721FF6E3900F56C5F /* Appearance.swift in Sources */,
 				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
 				7BA77EAC21E9376E00C862C1 /* AddNewMessageViewController.swift in Sources */,
 				7BA77E8521E7B2B500C862C1 /* User.swift in Sources */,
