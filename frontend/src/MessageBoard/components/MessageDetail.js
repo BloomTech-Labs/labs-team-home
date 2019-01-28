@@ -106,16 +106,21 @@ class MessageDetail extends Component {
 																		? updateMessage({
 																				variables: {
 																					id: findMessage._id,
-																					subscribedUsers: findMessage.subscribedUsers.filter(
-																						({ _id }) => _id !== currentUser._id
-																					)
+																					subscribedUsers: findMessage.subscribedUsers
+																						.filter(
+																							({ _id }) =>
+																								_id !== currentUser._id
+																						)
+																						.map(({ _id }) => _id)
 																				}
 																		  })
 																		: updateMessage({
 																				variables: {
 																					id: findMessage._id,
 																					subscribedUsers: [
-																						...findMessage.subscribedUsers,
+																						...findMessage.subscribedUsers.map(
+																							({ _id }) => _id
+																						),
 																						currentUser._id
 																					]
 																				}
