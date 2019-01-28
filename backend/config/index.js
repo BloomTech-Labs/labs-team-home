@@ -62,44 +62,13 @@ module.exports = app => {
 						}
 						return (
 							decoded &&
-							UserModel.findOne({ authId: decoded.sub }).then((
-								existingUser // looks if a user with the auth0 credentials exists in the database and creates one if there isn't
-							) =>
-								existingUser
-									? resolve(existingUser) // adds user to Apollo context, giving all resolvers access to the user
-									: axios
-											.get(`${AUTH0_DOMAIN}/userinfo`, {
-												headers: { authorization: `Bearer ${token}` }
-											})
-											.then(
-												({
-													data: {
-														name,
-														given_name,
-														family_name,
-														picture,
-														email
-													}
-												}) => {
-													const fullName = name.split(' ');
-													const altFirstName = fullName[0];
-													const altLastName = fullName.slice(1).join(' ');
-													return new UserModel({
-														authId: decoded.sub,
-														firstName: given_name || altFirstName,
-														lastName: family_name || altLastName,
-														email: email,
-														avatar: picture
-													})
-														.save()
-														.then(newUser => {
-															console.log(newUser);
-															return resolve(newUser);
-														})
-														.catch(err => console.error(err));
-												}
-											)
-											.catch(err => console.error(err))
+							UserModel.findOne({ authId: decoded.sub }).then(
+								(
+									existingUser // looks if a user with the auth0 credentials exists in the database and creates one if there isn't
+								) =>
+									existingUser
+										? resolve(existingUser) // adds user to Apollo context, giving all resolvers access to the user
+										: resolve(decoded) // adds the decoded token to the Apollo context
 							)
 						);
 					})

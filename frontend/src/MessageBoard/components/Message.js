@@ -106,10 +106,8 @@ function Message(props) {
 				<h5 className="comments-length">{message.comments.length}</h5>
 			</MessagePreview>
 			<MessagePreview>
-				<h5 className="tags">Tags</h5>
-				{message.tags.map(tag => {
-					return <Tag>{tag}</Tag>;
-				})}
+				<h5>Tag</h5>
+				<Tag>{message.tag}</Tag>
 			</MessagePreview>
 		</MessageContainer>
 	);

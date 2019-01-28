@@ -46,6 +46,7 @@ Note that from now on, you'll need to open the `.xcworkspace` file instead of `.
 The projects files are organized into folders in the Xcode project, the following is the file structure from the Team Home folder inside the project.
 
 ├─ Models
+        ├─ Mock json
 ├─ Resources (including plists and App Delegate)
 ├─ View Controllers and GraphQL files
 ├─ Storyboards
