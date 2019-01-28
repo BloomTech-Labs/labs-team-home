@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "TH_icon_logo_wout_nodes.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "035-picture-5.png",
       "scale" : "2x"
     },
     {
