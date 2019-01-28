@@ -14,7 +14,7 @@ export const ADD_MESSAGE = gql`
 		$title: String!
 		$content: String!
 		$images: [String]
-		$tags: [String]
+		$tag: String
 	) {
 		addMessage(
 			input: {
@@ -22,7 +22,7 @@ export const ADD_MESSAGE = gql`
 				team: $team
 				content: $content
 				images: $images
-				tags: $tags
+				tag: $tag
 			}
 		) {
 			...FullMessage
