@@ -114,6 +114,11 @@ class DashboardCollectionViewController: UICollectionViewController {
         // Use current user query to get their name
     }
     
+    private func setUpTheme() {
+        view.backgroundColor = Appearance.darkBackgroundColor
+        
+    }
+    
     // MARK - Properties
     
     private var watcher: GraphQLQueryWatcher<FindTeamsByUserQuery>?
