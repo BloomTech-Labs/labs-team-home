@@ -22,8 +22,8 @@ class SettingsView extends Component {
 			email: '',
 			phone: '',
 			selected: [],
-			oldPassword: '',
-			newPassword: ''
+			firstName: '',
+			lastName: ''
 		};
 	}
 
@@ -47,6 +47,7 @@ class SettingsView extends Component {
 	};
 
 	render() {
+		console.log('CURRENT_USER', this.props.currentUser);
 		return (
 			<Mutation mutation={mutation.UPDATE_USER}>
 				{(updateUser, { data }) => (
@@ -67,11 +68,39 @@ class SettingsView extends Component {
 									}}
 								>
 									<FormInput
+										inputType="text"
+										name={'firstName'}
+										title={'First Name'}
+										value={this.state.firstName}
+										placeholder={
+											this.props.currentUser.firstName
+												? this.props.currentUser.firstName
+												: 'Enter your first name'
+										}
+										handleChange={this.handleChange}
+									/>
+									<FormInput
+										inputType="text"
+										name={'lastName'}
+										title={'Last Name'}
+										value={this.state.lastName}
+										placeholder={
+											this.props.currentUser.lastName
+												? this.props.currentUser.lastName
+												: 'Enter your last name'
+										}
+										handleChange={this.handleChange}
+									/>
+									<FormInput
 										inputType={'text'}
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
-										placeholder={'Enter your email'}
+										placeholder={
+											this.props.currentUser.email
+												? this.props.currentUser.email
+												: 'Enter your email'
+										}
 										handleChange={this.handleChange}
 									/>
 									<FormInput
@@ -79,7 +108,11 @@ class SettingsView extends Component {
 										title={'Phone Number'}
 										name={'phone'}
 										value={this.state.phone}
-										placeholder={'Enter your phone number'}
+										placeholder={
+											this.props.currentUser.phoneNumber
+												? this.props.currentUser.phoneNumber
+												: 'Enter your phone number'
+										}
 										handleChange={this.handleChange}
 									/>
 									<FormCheckbox
@@ -90,22 +123,6 @@ class SettingsView extends Component {
 										]}
 										handleSelect={this.handleSelect}
 										selected={this.state.selected}
-									/>
-									<FormInput
-										inputType={'password'}
-										name={'oldPassword'}
-										title={'Old Password'}
-										// value={this.state.oldPassword}
-										placeholder={'Enter your old password'}
-										handleChange={this.handleChange}
-									/>
-									<FormInput
-										inputType={'password'}
-										name={'newPassword'}
-										title={'New Password'}
-										// value={this.state.newPassword}
-										placeholder={'Enter your new password'}
-										handleChange={this.handleChange}
 									/>
 									<FormButton
 										// action={this.someHandleFormSubmit}
