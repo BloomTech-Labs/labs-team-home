@@ -1,10 +1,17 @@
 import React from 'react';
 import MessageBoard from '../components/MessageBoard';
 import ActivityTimeline from '../components/ActivityTimeline';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 import styled from 'styled-components';
 
 const MsgContainer = styled.div`
-	padding: 100px 20px;
+	/* padding: 70px 20px; */
+	margin: 90px auto;
+	${mediaQueryFor.smDevice`
+      padding:5px;
+      width:100%;
+      border-width:4px;
+  `}
 `;
 
 export default class MessageBoardContainer extends React.Component {
