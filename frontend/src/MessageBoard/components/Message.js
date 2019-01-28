@@ -85,7 +85,7 @@ function Message(props) {
 			</MessagePreview>
 			<MessagePreview>
 				<h5>Tag</h5>
-				<Tag>{message.tag}</Tag>;
+				<Tag>{message.tag}</Tag>
 			</MessagePreview>
 		</MessageContainer>
 	);
