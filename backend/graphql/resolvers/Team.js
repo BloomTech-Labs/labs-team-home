@@ -75,7 +75,7 @@ const teamResolvers = {
 								{ _id: input.id },
 								{ $set: { premium: true } },
 								{ new: true }
-							).populate('users');
+							).populate('users.user');
 						} else {
 							throw new Error("Team doesn't exist");
 						}
@@ -151,7 +151,19 @@ const teamResolvers = {
 					});
 				} else throw new ValidationError("Team doesn't exist");
 			});
-		}
+		},
+		kickUser: (_, { input: { id, user } }) =>
+			Team.findOneAndUpdate(
+				{ _id: id },
+				{ $pull: { users: { user } } },
+				{ new: true }
+			).populate('users.user'),
+		leaveTeam: (_, { input: { id } }, { user: { _id } }) =>
+			Team.findOneAndUpdate(
+				{ _id: id },
+				{ $pull: { users: { user: _id } } },
+				{ new: true }
+			).populate('users.user')
 	}
 };
 

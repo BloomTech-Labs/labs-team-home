@@ -6,7 +6,7 @@ const Message = /* GraphQL */ `
 		team: Team!
 		content: String!
 		images: [String]
-		tags: [Tag]
+		tag: Tag
 		comments: [ID]
 		subscribedUsers: [User]
 		createdAt: String
@@ -23,7 +23,7 @@ const Message = /* GraphQL */ `
 		team: String!
 		content: String!
 		images: [String]
-		tags: [String]
+		tag: String
 		subscribedUsers: [String]
 	}
 	input UpdateMessageInput {
@@ -32,11 +32,17 @@ const Message = /* GraphQL */ `
 		team: String
 		content: String
 		images: [String]
-		tags: [String]
+		tag: String
 		comments: [String]
 		subscribedUsers: [String]
 	}
 	input DeleteMessageInput {
+		id: ID!
+	}
+	input SubscribeInput {
+		id: ID!
+	}
+	input UnsubscribeInput {
 		id: ID!
 	}
 	extend type Query {
@@ -48,6 +54,8 @@ const Message = /* GraphQL */ `
 		addMessage(input: AddMessageInput!): Message
 		updateMessage(input: UpdateMessageInput!): Message
 		deleteMessage(input: DeleteMessageInput!): Message
+		subscribe(input: SubscribeInput!): Message
+		unsubscribe(input: SubscribeInput!): Message
 	}
 `;
 

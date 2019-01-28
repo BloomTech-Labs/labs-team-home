@@ -4,11 +4,11 @@ const User = /* GraphQL */ `
 		receiveTexts: Boolean!
 	}
 	type User {
-		_id: ID
-		authId: String
-		firstName: String
-		lastName: String
-		email: String
+		_id: ID!
+		authId: String!
+		firstName: String!
+		lastName: String!
+		email: String!
 		phoneNumber: String
 		avatar: String
 		toggles: Toggles
@@ -17,10 +17,9 @@ const User = /* GraphQL */ `
 		id: ID!
 	}
 	input AddUserInput {
-		authId: String!
-		firstName: String
-		lastName: String
-		email: String
+		firstName: String!
+		lastName: String!
+		email: String!
 		phoneNumber: String
 		avatar: String
 	}
