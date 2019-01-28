@@ -38,7 +38,7 @@ export const UPDATE_MESSAGE = gql`
 		$title: String
 		$content: String
 		$images: [String]
-		$tags: [String]
+		$tag: String
 		$subscribedUsers: [String]
 	) {
 		updateMessage(
@@ -48,7 +48,7 @@ export const UPDATE_MESSAGE = gql`
 				team: $team
 				content: $content
 				images: $images
-				tags: $tags
+				tag: $tag
 				subscribedUsers: $subscribedUsers
 			}
 		) {
