@@ -51,7 +51,7 @@ export const FULL_MESSAGE = gql`
 		}
 		content
 		images
-		tags {
+		tag {
 			...FullTag
 		}
 		comments
@@ -75,6 +75,7 @@ export const FULL_COMMENT = gql`
 			_id
 		}
 		content
+		image
 		likes {
 			...FullUser
 		}
