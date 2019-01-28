@@ -23,7 +23,7 @@ const MessageContainer = styled.div`
 const Pic = styled.img`
 	height: 50px;
 	width: 50px;
-	border: solid 3px #17151b;
+	border: solid 1px #17151b;
 `;
 
 const MessagePreview = styled.div`

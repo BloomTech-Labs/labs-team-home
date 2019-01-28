@@ -28,11 +28,10 @@ const TH_name = 'TeamHome';
 
 const Messageboard = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
-	border: 20px solid transparent;
+	border-right: 2px solid transparent;
 	box-sizing: border-box;
 	border-radius: 10px;
-	font-family: Comfortaa;
-	font-weight: 600;
+	font-family: sans-serif;
 	font-size: 1.4rem;
 	width: 96%;
 	margin: 0 auto;
@@ -53,23 +52,6 @@ const Messageboard = styled.div`
 		background-repeat: no-repeat;
 		background-origin: padding-box, border-box;
 		text-align: center;
-	}
-	&:hover {
-		background-image: linear-gradient(#17151b, #17151b),
-			linear-gradient(
-				170deg,
-				rgba(107, 40, 59, 0.3) 10%,
-				rgba(255, 209, 124, 0.3) 45%,
-				rgba(107, 40, 59, 0.3) 70%,
-				/* rgba(107, 40, 59, 0.7) 90%, */ #17151b 100%
-			);
-
-		background-repeat: no-repeat;
-		background-size: 100% 100%, 100% 200%;
-		background-position: 0 0, 0 120%;
-		background-origin: padding-box, border-box;
-		animation: highlight 2s infinite alternate;
-		/* } */
 	}
 	& p {
 		color: #f1fcef;
