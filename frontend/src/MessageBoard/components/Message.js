@@ -1,13 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const MessageContainer = styled.div`
-	border: 1px solid black;
-	margin: 20px;
+	margin: 2% auto;
+	background-color: rgba(107, 40, 59, 0.3);
+	width: 100%;
+	height: 80px;
 	padding: 10px 20px;
 	display: flex;
 	justify-content: space-between;
 	cursor: pointer;
+	border: solid 3px #17151b;
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	&:hover {
+		background-color: rgba(107, 40, 59, 0.7);
+	}
 	@media (max-width: 800px) {
 		flex-direction: column;
 	}
@@ -16,6 +23,7 @@ const MessageContainer = styled.div`
 const Pic = styled.img`
 	height: 50px;
 	width: 50px;
+	border: solid 1px #17151b;
 `;
 
 const MessagePreview = styled.div`
@@ -23,24 +31,38 @@ const MessagePreview = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
-	margin-left: 5px;
 
-	& p {
-		margin: 0;
+	& div {
+		margin-left: 20px;
 		word-break: break-all;
 		word-wrap: break-word;
+		font-size: 1.2rem;
 	}
 
-	& h5 {
-		margin: 0;
+	& p.user-name {
+		margin-left: 17%;
+		margin-top: 1%;
 		align-self: center;
+		color: pink;
+		font-size: 0.8rem;
 	}
 
-	& h4 {
+	& p.content {
 		margin: 0;
 		padding-top: 10px;
 		align-self: center;
-		font-size: 18px;
+		font-size: 1px;
+		display: none;
+	}
+	& h5.comments {
+		margin: 0 0 2% 0;
+	}
+	& h5.comments-length {
+		margin: 0 0 2% 0;
+		left: 50px;
+	}
+	& h5.tags {
+		margin: 0 0 2% 0;
 	}
 `;
 
@@ -63,25 +85,25 @@ function Message(props) {
 				}
 			/>
 			<MessagePreview>
-				<p>
+				<div>
 					{message.title.length <= 20
 						? message.title
 						: message.title.slice(0, 19) + '...'}
-				</p>
-				<p>
+				</div>
+				<p className="user-name">
 					{`${userInfo.firstName} ${
 						userInfo.lastName
 					} - ${message.createdAt.toDateString()}`}
 				</p>
-				<p>
+				<p className="content">
 					{message.content.length <= 50
 						? message.content
 						: message.content.slice(0, 49) + '...'}
 				</p>
 			</MessagePreview>
 			<MessagePreview>
-				<h5>Comments</h5>
-				<h4>{message.comments.length}</h4>
+				<h5 className="comments">Comments</h5>
+				<h5 className="comments-length">{message.comments.length}</h5>
 			</MessagePreview>
 			<MessagePreview>
 				<h5>Tag</h5>
