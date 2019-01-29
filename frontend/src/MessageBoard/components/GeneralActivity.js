@@ -55,7 +55,7 @@ export default function GeneralActivity(props) {
 				<Info>
 					<p>
 						{props.message.user.firstName} {props.message.user.lastName} posted
-						a new message
+						a new comment
 					</p>
 					<p>{props.message.updatedAt.toDateString()}</p>
 					<Title>{props.message.title}</Title>
