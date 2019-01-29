@@ -13,7 +13,6 @@
 		7B6BE7DB21E5733E0099E42C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D921E5733E0099E42C /* LaunchScreen.storyboard */; };
 		7B734DF721FF6E3900F56C5F /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B734DF621FF6E3900F56C5F /* Appearance.swift */; };
 		7B734DFF22000EFF00F56C5F /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B734DFE22000EFF00F56C5F /* Montserrat-Regular.ttf */; };
-		7B734E0122000F9A00F56C5F /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7B734E0022000F9900F56C5F /* Montserrat-Regular.otf */; };
 		7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */; };
 		7BA77E8321E798A800C862C1 /* TabBarChildrenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */; };
 		7BA77E8521E7B2B500C862C1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8421E7B2B500C862C1 /* User.swift */; };
@@ -71,7 +70,6 @@
 		7B6BE7DC21E5733E0099E42C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B734DF621FF6E3900F56C5F /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		7B734DFE22000EFF00F56C5F /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
-		7B734E0022000F9900F56C5F /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarChildrenProtocol.swift; sourceTree = "<group>"; };
 		7BA77E8421E7B2B500C862C1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 				7B6BE7D721E5733E0099E42C /* Assets.xcassets */,
 				7BD6588821EE5A06004FF34A /* Auth0.plist */,
 				7B6BE7DC21E5733E0099E42C /* Info.plist */,
-				7B734E0022000F9900F56C5F /* Montserrat-Regular.otf */,
 				7B734DFE22000EFF00F56C5F /* Montserrat-Regular.ttf */,
 			);
 			path = Resources;
@@ -346,7 +343,6 @@
 				7BF8735021F6D24400737729 /* TeamDetailTableViewController.graphql in Resources */,
 				7BA77E9B21E8033C00C862C1 /* TagExample.json in Resources */,
 				7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */,
-				7B734E0122000F9A00F56C5F /* Montserrat-Regular.otf in Resources */,
 				7BF8735821F7B4C500737729 /* AddNewMessageViewController.graphql in Resources */,
 				7BA77E9C21E8033C00C862C1 /* UserExample.json in Resources */,
 				7B6BE7DB21E5733E0099E42C /* LaunchScreen.storyboard in Resources */,
@@ -420,6 +416,8 @@
 				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
 				"${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework",
 				"${BUILT_PRODUCTS_DIR}/Lock/Lock.framework",
+				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -432,6 +430,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lock.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

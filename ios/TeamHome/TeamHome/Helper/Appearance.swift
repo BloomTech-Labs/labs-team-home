@@ -39,7 +39,7 @@ enum Appearance {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.darkMauveColor], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         
-        
+        UITextField.appearance().keyboardAppearance = .dark
         
     }
     

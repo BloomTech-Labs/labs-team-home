@@ -16,9 +16,10 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         
         if activity.comment == nil {
             
-            guard let message = activity.message,
-                let firstName = message.user.firstName,
-                let lastName = message.user.lastName else { return }
+            guard let message = activity.message else { return }
+            
+            let firstName = message.user.firstName
+            let lastName = message.user.lastName
             
             notificationLabel.text = "\(firstName) \(lastName) posted a new message"
             messageTitleLabel.text = message.title
@@ -43,9 +44,10 @@ class ActivityCollectionViewCell: UICollectionViewCell {
             }
             
         } else if activity.message == nil {
-            guard let comment = activity.comment,
-                let firstName = comment.user.firstName,
-                let lastName = comment.user.lastName else { return }
+            guard let comment = activity.comment else { return }
+            
+            let firstName = comment.user.firstName
+            let lastName = comment.user.lastName
             
             notificationLabel.text = "\(firstName) \(lastName) posted a new comment"
             messageTitleLabel.text = ""

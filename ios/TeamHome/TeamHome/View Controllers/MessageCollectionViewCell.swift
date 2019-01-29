@@ -14,6 +14,9 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     // Set up message collection view cell with message details
     private func updateViews() {
+        
+        updateUI()
+        
         guard let message = message else { return }
         
         // Update all labels with message's details
@@ -27,6 +30,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         if let images = message.images {
             if images.count > 0 {
                 imageAttachmentIconImageView.isHidden = false
+                imageAttachmentIconImageView.tintColor = .white
             } else {
                 imageAttachmentIconImageView.isHidden = true
             }
@@ -39,6 +43,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
             if comments.count > 0 {
                 commentCountLabel.text = "\(comments.count)"
                 commentIconImageView.isHidden = false
+                commentIconImageView.tintColor = .white
             } else {
                 commentCountLabel.isHidden = true
                 commentIconImageView.isHidden = true
@@ -63,6 +68,14 @@ class MessageCollectionViewCell: UICollectionViewCell {
                 self.userAvatarImageView.image = image
             }
         }
+    }
+    
+    private func updateUI() {
+        self.contentView.layer.cornerRadius = 6
+        self.contentView.clipsToBounds = true
+        self.layer.cornerRadius = 6
+        self.clipsToBounds = true
+        
     }
     
     // MARK - Properties
