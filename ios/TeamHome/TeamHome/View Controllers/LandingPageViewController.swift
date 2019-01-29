@@ -297,11 +297,21 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
-        self.setNeedsStatusBarAppearanceUpdate()
-        view.backgroundColor = Appearance.darkBackgroundColor
+        self.setUpViewAppearance()
         
-        Appearance.style(button: loginButton)
-        Appearance.style(button: signupButton)
+        emailTextField.textColor = Appearance.mauveColor
+        emailTextField.attributedPlaceholder = NSAttributedString(string:"Email:", attributes: [NSAttributedString.Key.foregroundColor: Appearance.lightMauveColor])
+
+        emailTextField.layer.cornerRadius = emailTextField.frame.height / 2
+        emailTextField.clipsToBounds = true
+        passwordTextField.layer.cornerRadius = passwordTextField.frame.height / 2
+        passwordTextField.clipsToBounds = true
+        
+        
+        Appearance.styleLandingPage(button: loginButton)
+        Appearance.styleLandingPage(button: signupButton)
+        
+        
         
     }
     
@@ -331,5 +341,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var googleLogoButton: UIButton!
+    @IBOutlet weak var googleButton: UIButton!
     
 }

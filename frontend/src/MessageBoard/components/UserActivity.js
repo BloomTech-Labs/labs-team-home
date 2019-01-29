@@ -9,7 +9,7 @@ const Container = styled.div`
 	height: 75px;
 	width: 80%;
 	border: 1px solid black;
-	background-color: white
+	background-color: white;
 	margin: 20px;
 	padding: 20px;
 
@@ -54,6 +54,20 @@ export default function UserActivity(props) {
 			</Container>
 		);
 	} else {
-		return <div />;
+		return (
+			<Container>
+				<Info>
+					<p>You posted a new comment</p>
+					<p>{props.message.updatedAt.toDateString()}</p>
+					<Title>{props.message.title}</Title>
+				</Info>
+				<img
+					src={props.message.user.avatar}
+					alt="User avatar"
+					height="50px"
+					width="50px"
+				/>
+			</Container>
+		);
 	}
 }

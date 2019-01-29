@@ -20,6 +20,8 @@ class MessagesCollectionViewController: UICollectionViewController, MessageBoard
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView.backgroundColor = .clear
+        
         guard let apollo = apollo else { return }
         
         //Load messages with watcher that can be called by other VCs

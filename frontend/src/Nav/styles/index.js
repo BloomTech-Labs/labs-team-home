@@ -37,6 +37,7 @@ const NavBar = styled.div`
 	padding: 10px;
 	display: flex;
 	flex-flow: row;
+	z-index: 1001;
 	justify-content: space-between;
 	&:hover {
 		background-color: #17151b;
