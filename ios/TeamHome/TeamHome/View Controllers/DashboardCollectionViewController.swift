@@ -16,6 +16,8 @@ class DashboardCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpPage()
+        
         guard let apollo = apollo else { return }
         
         loadTeams(with: apollo)
@@ -59,6 +61,8 @@ class DashboardCollectionViewController: UICollectionViewController {
         guard let team = teams?[indexPath.row] else { return UICollectionViewCell()}
         cell.teamNameLabel.text = team.name
         cell.largeInitialLabel.text = String(team.name.prefix(1))
+        
+        cell.setTheme()
         
         return cell
     }
@@ -114,9 +118,16 @@ class DashboardCollectionViewController: UICollectionViewController {
         // Use current user query to get their name
     }
     
-    private func setUpTheme() {
-        view.backgroundColor = Appearance.darkBackgroundColor
+    private func setUpPage() {
+        self.setUpViewAppearance()
         
+        self.setNeedsStatusBarAppearanceUpdate()
+        collectionView.backgroundColor = .clear
+        
+    }
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK - Properties
