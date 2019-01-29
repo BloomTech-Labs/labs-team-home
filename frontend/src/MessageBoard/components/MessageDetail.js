@@ -82,7 +82,6 @@ class MessageDetail extends Component {
 														<form
 															onSubmit={e => {
 																e.preventDefault();
-
 																let updateInput = {
 																	id: findMessage._id
 																};
@@ -216,12 +215,6 @@ class MessageDetail extends Component {
 												</div>
 												{findMsgCommentsByMessage.map(comment => (
 													<div key={comment._id}>
-														{this.state.edited &&
-															this.state.edited._id === comment._id && (
-																<h4 style={{ color: 'red' }}>
-																	This Comment is being edited
-																</h4>
-															)}
 														<img
 															src={comment.user.avatar}
 															alt="test"
