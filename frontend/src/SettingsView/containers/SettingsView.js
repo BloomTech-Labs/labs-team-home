@@ -220,8 +220,8 @@ class SettingsView extends Component {
 										};
 										if (this.state.avatar.length)
 											addedUser.avatar = this.state.avatar;
-										if (this.state.phone.length)
-											addUser.phoneNumber = this.state.phone;
+										if (this.state.phoneNumber.length)
+											addUser.phoneNumber = this.state.phoneNumber;
 										return addUser({
 											variables: addedUser
 										}).then(() => history.push('/dashboard'));
@@ -262,8 +262,8 @@ class SettingsView extends Component {
 									<FormInput
 										inputType="text"
 										title={'Phone Number'}
-										name={'phone'}
-										value={this.state.phone}
+										name={'phoneNumber'}
+										value={this.state.phoneNumber}
 										placeholder={'Enter your phone number (US numbers only)'}
 										handleChange={this.handleChange}
 									/>
