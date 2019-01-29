@@ -9,7 +9,7 @@ const Container = styled.div`
 	height: 75px;
 	width: 80%;
 	border: 1px solid black;
-	background-color: white
+	background-color: white;
 	margin: 20px;
 	padding: 20px;
 
