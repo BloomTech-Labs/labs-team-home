@@ -297,8 +297,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
-        self.setNeedsStatusBarAppearanceUpdate()
-        view.backgroundColor = Appearance.darkBackgroundColor
+        self.setUpViewAppearance()
         
         Appearance.style(button: loginButton)
         Appearance.style(button: signupButton)

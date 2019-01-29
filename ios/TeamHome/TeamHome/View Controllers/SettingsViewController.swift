@@ -23,12 +23,21 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         emailTextField.delegate = self
         phoneTextField.delegate = self
         
+        self.setUpViewAppearance()
+        
+        self.navigationController?.navigationBar.barTintColor = Appearance.darkBackgroundColor
+        self.setNeedsStatusBarAppearanceUpdate()
+        
         guard let apollo = apollo else { return }
         
         // Distinguish if you is admin or not
         
         // Load user's account settings
         loadUserSettings(with: apollo)
+    }
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK - IBActions
