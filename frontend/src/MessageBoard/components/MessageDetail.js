@@ -25,7 +25,13 @@ class MessageDetail extends Component {
 	onKeyDown = ({ key }) => {
 		if (key === 'Escape') {
 			this.props.open && this.props.hideModal();
-			this.setState({ editing: false, edited: null });
+			this.setState({
+				editing: false,
+				editingMessage: false,
+				edited: null,
+				title: '',
+				content: ''
+			});
 		}
 	};
 
