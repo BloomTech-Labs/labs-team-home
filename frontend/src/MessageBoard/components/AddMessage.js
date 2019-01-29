@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import gql from 'graphql-tag';
-import { Mutation, compose } from 'react-apollo';
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginFileTypeValidation from 'filepond-plugin-file-validate-type';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
@@ -10,9 +8,7 @@ import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 // image preview not working
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
-import * as mutation from '../../constants/mutations';
 import { addMessage } from './mutations/messages';
-import { updateComment } from './mutations/comments';
 
 registerPlugin(
 	FilePondPluginImageExifOrientation,
@@ -67,28 +63,6 @@ const ImageUploadContainer = styled.div`
 	width: 80%;
 	max-width: 500px;
 	margin: 20px;
-`;
-
-const ADD_MESSAGE = gql`
-	mutation addMessage(
-		$team: String!
-		$user: String!
-		$title: String!
-		$content: String!
-		$images: [String]!
-	) {
-		addMessage(
-			input: {
-				title: $title
-				user: $user
-				team: $team
-				content: $content
-				images: $images
-			}
-		) {
-			_id
-		}
-	}
 `;
 
 function AddMessage(props) {
