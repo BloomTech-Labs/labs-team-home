@@ -27,33 +27,53 @@ class SettingsView extends Component {
 			lastName: '',
 			email: '',
 			avatar: '',
-			phone: '',
+			phoneNumber: '',
 			selected: [],
-			firstName: '',
-			lastName: ''
+			toggles: {}
 		};
 	}
 
 	componentDidMount() {
 		const { currentUser } = this.props;
 		const { email, firstName, lastName, avatar, phoneNumber } = currentUser;
+		const { receiveEmails, receiveTexts } = currentUser.toggles;
 		currentUser
 			? this.setState({
 					email: email,
 					firstName: firstName,
 					lastName: lastName,
 					avatar: avatar ? avatar : '',
-					phoneNumber: phoneNumber ? phoneNumber : ''
+					phoneNumber: phoneNumber ? phoneNumber : '',
+					toggles: {
+						receiveEmails: receiveEmails ? receiveEmails : false,
+						receiveTexts: receiveTexts ? receiveTexts : false
+					}
 			  })
-			: this.state.auth.lock.getUserInfo(
+				: this.state.auth.lock.getUserInfo(
 					localStorage.token,
-					(err, { given_name, family_name, picture, email }) =>
+					(
+						err,
+						{
+							given_name,
+							family_name,
+							picture,
+							email,
+							phoneNumber,
+							receiveEmails,
+							receiveTexts
+						}
+						) =>
 						this.setState({
 							// populates form with data from auth0
 							firstName: given_name ? given_name : '',
 							lastName: family_name ? family_name : '',
 							avatar: picture ? picture : '',
-							email: email ? email : ''
+							email: email ? email : '',
+							phoneNumber: phoneNumber ? phoneNumber : '',
+							toggles: {
+								receiveEmails: receiveEmails ? receiveEmails : false,
+								receiveTexts: receiveTexts ? receiveTexts : false
+							}
 						})
 			  );
 	}
@@ -92,8 +112,8 @@ class SettingsView extends Component {
 										updateUser({
 											variables: {
 												email: this.state.email,
-												phoneNumber: this.state.phone,
-												toggles: this.state.selected
+												phoneNumber: this.state.phoneNumber,
+												toggles: this.state.toggles
 											}
 										});
 									}}
@@ -137,8 +157,8 @@ class SettingsView extends Component {
 									<FormInput
 										inputType="text"
 										title={'Phone Number'}
-										name={'phone'}
-										value={this.state.phone}
+										name={'phoneNumber'}
+										value={this.state.phoneNumber}
 										placeholder={
 											this.props.currentUser.phoneNumber
 												? this.props.currentUser.phoneNumber
