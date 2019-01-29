@@ -33,8 +33,6 @@ class MessageDetail extends Component {
 
 	render() {
 		let content;
-		let title;
-		let messageContent;
 		const { open, hideModal, message, currentUser } = this.props;
 		return (
 			<Dialog isOpen={open}>
@@ -113,19 +111,22 @@ class MessageDetail extends Component {
 																}
 															}}
 														>
-															<input
-																type="text"
-																name="title"
-																value={this.state.title}
-																onChange={this.handleChange}
-															/>
-															<input
-																type="text"
-																name="content"
-																value={this.state.content}
-																onChange={this.handleChange}
-															/>
-
+															<label htmlFor="title">
+																<input
+																	type="text"
+																	name="title"
+																	value={this.state.title}
+																	onChange={this.handleChange}
+																/>
+															</label>
+															<label htmlFor="message-content">
+																<input
+																	type="text"
+																	name="content"
+																	value={this.state.content}
+																	onChange={this.handleChange}
+																/>
+															</label>
 															<button type="submit">Save</button>
 														</form>
 													) : (
@@ -398,11 +399,13 @@ class MessageDetail extends Component {
 									this.setState({ editing: false, edited: null });
 								}}
 							>
-								<input
-									ref={node => {
-										content = node;
-									}}
-								/>
+								<label htmlFor="comment-content">
+									<input
+										ref={node => {
+											content = node;
+										}}
+									/>
+								</label>
 							</form>
 						)}
 					</Mutation>
@@ -441,11 +444,13 @@ class MessageDetail extends Component {
 									content.value = '';
 								}}
 							>
-								<input
-									ref={node => {
-										content = node;
-									}}
-								/>
+								<label htmlFor="comment-content">
+									<input
+										ref={node => {
+											content = node;
+										}}
+									/>
+								</label>
 							</form>
 						)}
 					</Mutation>
