@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation, compose } from 'react-apollo';
+import { updateMessage, deleteMessage } from './mutations/messages';
 
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
 
 class MessageDetail extends Component {
-	state = { editing: false, edited: null };
+	state = {
+		editing: false,
+		editingMessage: false,
+		edited: null,
+		title: '',
+		content: ''
+	};
 	componentDidMount() {
 		document.addEventListener('keydown', this.onKeyDown);
 	}
@@ -22,8 +29,12 @@ class MessageDetail extends Component {
 		}
 	};
 
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+
 	render() {
 		let content;
+		let title;
+		let messageContent;
 		const { open, hideModal, message, currentUser } = this.props;
 		return (
 			<Dialog isOpen={open}>
@@ -69,12 +80,78 @@ class MessageDetail extends Component {
 															/>
 														))}
 													</div>
-													<h2 style={{ wordBreak: 'break-all' }}>
-														{findMessage.title}
-													</h2>
-													<p style={{ wordBreak: 'break-all' }}>
-														{findMessage.content}
-													</p>
+													{this.state.editingMessage ? (
+														<form
+															onSubmit={e => {
+																e.preventDefault();
+
+																let updateInput = {
+																	id: findMessage._id
+																};
+																if (
+																	this.state.title === findMessage.title &&
+																	this.state.content === findMessage.content
+																) {
+																	alert('No fields updated.');
+																} else {
+																	if (this.state.title !== findMessage.title)
+																		updateInput.title = this.state.title;
+																	if (
+																		this.state.content !== findMessage.content
+																	)
+																		updateInput.content = this.state.content;
+
+																	return this.props
+																		.updateMessage(updateInput)
+																		.then(() =>
+																			this.setState({
+																				editingMessage: false,
+																				title: '',
+																				content: ''
+																			})
+																		);
+																}
+															}}
+														>
+															<input
+																type="text"
+																name="title"
+																value={this.state.title}
+																onChange={this.handleChange}
+															/>
+															<input
+																type="text"
+																name="content"
+																value={this.state.content}
+																onChange={this.handleChange}
+															/>
+
+															<button type="submit">Save</button>
+														</form>
+													) : (
+														<>
+															<h2 style={{ wordBreak: 'break-all' }}>
+																{findMessage.title}
+															</h2>
+															<p style={{ wordBreak: 'break-all' }}>
+																{findMessage.content}
+															</p>
+														</>
+													)}
+													{findMessage.user._id === currentUser._id && (
+														<button
+															onClick={e => {
+																e.preventDefault();
+																this.setState({
+																	editingMessage: true,
+																	title: findMessage.title,
+																	content: findMessage.content
+																});
+															}}
+														>
+															Edit Message
+														</button>
+													)}
 													<Mutation
 														mutation={mutation.UPDATE_MESSAGE}
 														update={(cache, { data: { updateMessage } }) => {
@@ -378,4 +455,7 @@ class MessageDetail extends Component {
 	}
 }
 
-export default MessageDetail;
+export default compose(
+	updateMessage,
+	deleteMessage
+)(MessageDetail);
