@@ -54,6 +54,20 @@ export default function UserActivity(props) {
 			</Container>
 		);
 	} else {
-		return <div />;
+		return (
+			<Container>
+				<Info>
+					<p>You posted a new comment</p>
+					<p>{props.message.updatedAt.toDateString()}</p>
+					<Title>{props.message.title}</Title>
+				</Info>
+				<img
+					src={props.message.user.avatar}
+					alt="User avatar"
+					height="50px"
+					width="50px"
+				/>
+			</Container>
+		);
 	}
 }

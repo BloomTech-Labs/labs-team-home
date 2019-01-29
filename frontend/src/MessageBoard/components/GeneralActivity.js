@@ -49,6 +49,18 @@ export default function GeneralActivity(props) {
 			</Container>
 		);
 	} else {
-		return <div />;
+		return (
+			<Container>
+				<img src={props.message.user.avatar} alt="User avatar" />
+				<Info>
+					<p>
+						{props.message.user.firstName} {props.message.user.lastName} posted
+						a new message
+					</p>
+					<p>{props.message.updatedAt.toDateString()}</p>
+					<Title>{props.message.title}</Title>
+				</Info>
+			</Container>
+		);
 	}
 }
