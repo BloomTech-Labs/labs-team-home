@@ -11,14 +11,15 @@ import Apollo
 
 var commentsWatcher: GraphQLQueryWatcher<FindCommentsByMessageQuery>?
 
-class CommentsCollectionViewController: UICollectionViewController {
+class CommentsCollectionViewController: UICollectionViewController, CommentCollectionCellDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard let messageId = messageId,
             let apollo = apollo else { return }
-        
+//        
+//        fetchCurrentUser(with: apollo)
         loadComments(from: messageId, with: apollo)
     }
 
@@ -31,11 +32,50 @@ class CommentsCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CommentCell", for: indexPath) as! CommentCollectionViewCell
     
-        guard let comment = comments?[indexPath.row] else { return UICollectionViewCell() }
+        guard let comment = comments?[indexPath.row],
+            let currentUser = currentUser else { return UICollectionViewCell() }
         cell.comment = comment
+        cell.currentUser = currentUser
+        cell.delegate = self
         
         return cell
     }
+    
+    // MARK - CommentCollectionCellDelegate
+    
+    func didClickLikeButton(cell: CommentCollectionViewCell) {
+        guard let apollo = apollo,
+           let comment = cell.comment,
+        let commentId = comment.id,
+            let currentUser = currentUser,
+            let id = currentUser.id,
+            let likes = comment.likes else { return }
+        
+        var likeIDs = likes.compactMap({ $0?.id })
+        if !likeIDs.contains(id) {
+            likeIDs.append(id)
+            apollo.perform(mutation: UpdateLikeMutation(commentId: commentId, likes: likeIDs), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    return
+                }
+                
+                
+            }
+        } else {
+            likeIDs = likeIDs.compactMap({ (likeID) -> GraphQLID? in
+                if likeID == id { return nil}
+                return likeID
+                })
+            apollo.perform(mutation: UpdateLikeMutation(commentId: commentId, likes: likeIDs), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    return
+                }
+                
+                
+            }
+        }
+    }
+    
     
     // MARK - Private Methods
     
@@ -50,10 +90,24 @@ class CommentsCollectionViewController: UICollectionViewController {
         })
     }
     
+//    private func fetchCurrentUser(with apollo: ApolloClient) {
+//        apollo.fetch(query: CurrentUserQuery()) { (result, error) in
+//            if let error = error {
+//                return
+//            }
+//
+//            guard let result = result else { return }
+//
+//            self.currentUser = result.data?.currentUser
+//        }
+//    }
+    
     // MARK - Properties
     
     var apollo: ApolloClient?
     var messageId: GraphQLID?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
+    
     var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]? {
         didSet {
             DispatchQueue.main.async {

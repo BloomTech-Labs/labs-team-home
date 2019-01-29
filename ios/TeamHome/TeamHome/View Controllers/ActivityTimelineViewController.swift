@@ -24,14 +24,14 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     // MARK - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return activity?.count ?? 0
+        return sortedActivity?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityCell", for: indexPath) as! ActivityCollectionViewCell
         
-        guard let activity = activity?[indexPath.row] else { return UICollectionViewCell() }
-        
+        guard let activity = sortedActivity?[indexPath.row] else { return UICollectionViewCell() }
+
         cell.activity = activity
         
         return cell
@@ -57,24 +57,74 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         
         guard let teamId = team.id else { return }
         
-        watcher = apollo.watch(query: FindActivityByTeamQuery(teamId: teamId), resultHandler: { (result, error) in
+        _ = apollo.watch(query: FindActivityByTeamQuery(teamId: teamId), resultHandler: { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
             }
             
-            guard let activity = result?.data?.findMessagesByTeam else { return }
+            guard let messages = result?.data?.findMessagesByTeam else { return }
             
-            self.activity = activity
+            self.messages = messages
+            
+            let group = DispatchGroup()
+            
+            for message in messages {
+                group.enter()
+                guard let messageId = message?.id else { return }
+                _ = apollo.watch(query: FindCommentsByMessageQuery(messageId: messageId), resultHandler: { (result, error) in
+                    if let error = error {
+                        NSLog("\(error)")
+                        return
+                    }
+                    
+                    guard let result = result,
+                        let comments = result.data?.findMsgCommentsByMessage else { return }
+                    
+                    self.comments = comments
+                    group.leave()
+                })
+            }
+            
+            group.notify(queue: DispatchQueue.global(), execute: {
+                self.mergeAllActivity()
+            })
         })
+    }
+    
+    private func mergeAllActivity() {
+        
+        guard let messages = messages,
+            let comments = comments else { return }
+        
+        self.activityTimeline = []
+        for message in messages {
+            let activity = Activity(message: message, comment: nil, date: message?.createdAt)
+            activityTimeline?.append(activity)
+        }
+        
+        for comment in comments {
+            let activity = Activity(message: nil, comment: comment, date: comment?.createdAt)
+            activityTimeline?.append(activity)
+        }
+        
+        guard let activityTimeline = activityTimeline else { return }
+        
+        let sortedActivity = activityTimeline.sorted(by: { $0.date! > $1.date!})
+        self.sortedActivity = sortedActivity
     }
     
     // MARK - Properties
     
+    
+    private var messages: [FindActivityByTeamQuery.Data.FindMessagesByTeam?]?
+    private var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]?
+    
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
-    var watcher: GraphQLQueryWatcher<FindActivityByTeamQuery>?
-    var activity: [FindActivityByTeamQuery.Data.FindMessagesByTeam?]? {
+    
+    private var activityTimeline: [Activity]?
+    private var sortedActivity: [Activity]? {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()

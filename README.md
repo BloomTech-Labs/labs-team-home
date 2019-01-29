@@ -18,6 +18,7 @@
     - [Husky](#husky)
     - [Prettier](#prettier)
     - [Pretty-Quick](#pretty-quick)
+    - [Stripe](#stripe)
   - [Back-End Production Dependencies](#back-end-production-dependencies)
     - [Apollo Server](#apollo-server)
     - [Cors](#cors)
@@ -35,6 +36,7 @@
     - [Prettier](#prettier-1)
     - [Pretty-Quick](#pretty-quick-1)
     - [Nodemon](#nodemon)
+    - [Stripe](#stripe)
 
 # Tech-Stack
 
@@ -65,6 +67,10 @@ Used along with Husky and Pretty-Quick to enforce coding conventions.<br/>[Prett
 ### Pretty-Quick
 
 Used along with Husky and Prettier to enforce coding conventions.<br/>[Pretty-Quick info](https://github.com/azz/pretty-quick)
+
+### Stripe
+
+The Stripe API is predictable, resource oriented, and organized around REST.<br/>[Stripe info](https://stripe.com/docs/api)
 
 ## Back-End Production Dependencies
 
@@ -129,6 +135,10 @@ Provides a straight-forward, schema-based solution to model your application dat
 Used for parsing phone numbers.
 
 [Yup info](https://github.com/jquense/yup)
+
+### Stripe
+
+[See above](#stripe)
 
 ## Back-End Development Dependencies
 

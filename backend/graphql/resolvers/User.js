@@ -8,11 +8,12 @@ const { ValidationError } = require('apollo-server-express');
 const userResolvers = {
 	Query: {
 		users: () => User.find(),
-		currentUser: (_, args, { user: { _id } }) => User.findById(_id),
+		currentUser: (_, args, { user: { _id } }) => _id && User.findById(_id), // returns null if user doesn't exist, telling the client one needs to be created
 		findUser: (_, { input: { id } }) => User.findById(id)
 	},
 	Mutation: {
-		addUser: (_, { input }) => new User(input).save(),
+		addUser: (_, { input }, { user: { sub } }) =>
+			new User({ authId: sub, ...input }).save(),
 		updateUser: (_, { input }, { user: { _id } }) =>
 			User.findById(_id).then(exists => {
 				if (exists) {

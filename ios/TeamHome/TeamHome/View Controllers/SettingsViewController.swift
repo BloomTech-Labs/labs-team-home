@@ -11,6 +11,7 @@ import Cloudinary
 import Photos
 import Apollo
 import SafariServices
+import Auth0
 
 class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
@@ -21,8 +22,6 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         lastNameTextField.delegate = self
         emailTextField.delegate = self
         phoneTextField.delegate = self
-        oldPasswordTextField.delegate = self
-        newPasswordTextField.delegate = self
         
         guard let apollo = apollo else { return }
         
@@ -34,35 +33,15 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     // MARK - IBActions
     
-    // Show and hide Billing Settings section.
+    // Present Safari window to direct them to web application
     @IBAction func billingSettings(_ sender: Any) {
         
         guard let url = URL(string: "https://team-home.netlify.com") else { return }
         let svc = SFSafariViewController(url: url)
         present(svc, animated: true, completion: nil)
-//        // Show billing setting stack view only if it's hidden.
-//        if billingStackView.isHidden {
-//            // Hide account settings stack view and shows billing settings stack view.
-//            accountStackView.isHidden = true
-//            billingStackView.isHidden = false
-//
-//            // Update settings label and button text.
-//            settingsLabel.text = "Billing Settings"
-//            showHideBillingButton.setTitle("Show Account Settings", for: .normal)
-//
-//
-//        } else {
-//
-//            // Hide billing settings stack view and shows account settings stack view.
-//            billingStackView.isHidden = true
-//            accountStackView.isHidden = false
-//
-//            // Update settings label and button text.
-//            settingsLabel.text = "Account Settings"
-//            showHideBillingButton.setTitle("Looking for billing settings?", for: .normal)
-//        }
     }
     
+    // Prompt image picker for user to select a new avatar from their photo library
     @IBAction func addRemoveAvatar(_ sender: Any) {
         let status = PHPhotoLibrary.authorizationStatus()
         
@@ -79,6 +58,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         }
     }
     
+    // Save any changes to the user's settings and update it on database
     @IBAction func saveChanges(_ sender: Any) {
         
         guard let apollo = apollo,
@@ -92,6 +72,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         let receiveEmails = emailSwitch.isOn
         let receiveTexts = textSMSSwitch.isOn
         
+        // The case where no new avatar image was selected.
         guard let imageData = imageData else {
             
             apollo.perform(mutation: UpdateUserMutation(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, avatar: avatar, receiveEmails: receiveEmails, receiveTexts: receiveTexts), queue: DispatchQueue.global()) { (result, error) in
@@ -101,11 +82,13 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
                 }
                 
                 guard let result = result else { return }
+                print(result.data?.updateUser)
                 self.watcher?.refetch()
             }
             return
         }
         
+        // The case where user selected a new image from their photo library to change their avatar.
         let params = CLDUploadRequestParams()
         
         cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
@@ -125,23 +108,62 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
                 }
                 
                 guard let result = result else { return }
-                
-                print(result)
+                print(result.data?.updateUser)
+                self.watcher?.refetch()
             }
         }
     }
     
-    @IBAction func changePassword(_ sender: Any) {
-        
-    }
-    
     @IBAction func logOut(_ sender: Any) {
         _ = credentialsManager.clear()
-        performSegue(withIdentifier: "ReturnToLandingPage", sender: self)
+        apollo = nil
+        performSegue(withIdentifier: "unwindSegueToVC1", sender: self)
     }
     
     @IBAction func leaveTeam(_ sender: Any) {
+        // Fetch all users in this team
+        guard let apollo = apollo,
+            let team = team,
+            let teamId = team.id,
+            let currentUser = currentUser,
+            let currentUserId = currentUser.id else { return }
         
+        _ = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let result = result,
+                let data = result.data,
+                let team = data.findTeam,
+                let users = team.users else { return }
+            
+            var userIds = users.compactMap({ $0?.user.id })
+            
+            for index in 0...userIds.count {
+                let userId = userIds[index]
+                if userId == currentUserId {
+                    userIds.remove(at: index)
+                }
+            }
+            
+            var teamUserInputs: [TeamUserInput] = []
+            for userId in userIds {
+                let teamUserInput = TeamUserInput(user: userId)
+                teamUserInputs.append(teamUserInput)
+            }
+
+            
+            _ = apollo.perform(mutation: UpdateTeamMutation(id: teamId, name: team.name, users: teamUserInputs), queue: DispatchQueue.global(), resultHandler: { (result, error) in
+                if let error = error {
+                    
+                }
+                
+                guard let result = result else { return }
+                
+                
+            })
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -236,7 +258,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         }
     }
     
-    @IBOutlet weak var settingsLabel: UILabel!
+    // MARK - Properties
+    
     @IBOutlet weak var showHideBillingButton: UIButton!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var userAvatarImageView: UIImageView!
@@ -247,9 +270,6 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var emailSwitch: UISwitch!
     @IBOutlet weak var textSMSSwitch: UISwitch!
-    @IBOutlet weak var oldPasswordTextField: UITextField!
-    @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var accountStackView: UIStackView!
-    @IBOutlet weak var billingStackView: UIStackView!
     
 }

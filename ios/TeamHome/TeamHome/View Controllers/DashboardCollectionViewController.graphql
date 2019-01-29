@@ -15,3 +15,18 @@ mutation CreateTeam($name: String!, $premium: Boolean) {
     }
 }
 
+query CurrentUser {
+    currentUser {
+        _id
+        authId
+        firstName
+        lastName
+        email
+        phoneNumber
+        avatar
+        toggles {
+            receiveEmails
+            receiveTexts
+        }
+    }
+}

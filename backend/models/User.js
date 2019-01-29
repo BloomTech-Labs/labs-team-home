@@ -7,6 +7,7 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 
 // example document
 // {
+//	authId: facebook||adasdfas
 // 	firstName: 'John',
 // 	lastName: 'Doe',
 // 	email: 'john@doe.com',
@@ -28,17 +29,28 @@ const User = new Schema({
 		type: String,
 		trim: true,
 		minlength: [2, 'First names must be at least 2 characters.'],
-		maxlength: [30, 'First names must be no longer than 30 characters.']
+		maxlength: [30, 'First names must be no longer than 30 characters.'],
+		required: true
 	},
 	lastName: {
 		type: String,
 		trim: true,
 		minlength: [2, 'Last names must be at least 2 characters.'],
-		maxlength: [30, 'Last names must be no longer than 30 characters.']
+		maxlength: [30, 'Last names must be no longer than 30 characters.'],
+		required: true
 	},
 	email: {
 		type: String,
-		trim: true
+		trim: true,
+		required: true,
+		validate: [
+			email =>
+				yup
+					.string()
+					.email()
+					.validate(email),
+			'Not a valid email.'
+		]
 	},
 	avatar: {
 		type: String,

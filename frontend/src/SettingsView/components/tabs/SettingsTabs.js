@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import SingleTab from './SingleTab';
 
 const TabList = styled.ol`
+	display: flex;
 	border-bottom: 1px solid #ccc;
 	padding-left: 0;
 `;

@@ -1,6 +1,12 @@
 import gql from 'graphql-tag';
 
-import * as f from './fragments';
+import {
+	FULL_MESSAGE,
+	FULL_TAG,
+	FULL_COMMENT,
+	FULL_TEAM,
+	FULL_USER
+} from './fragments';
 
 export const ADD_MESSAGE = gql`
 	mutation addMessage(
@@ -8,7 +14,7 @@ export const ADD_MESSAGE = gql`
 		$title: String!
 		$content: String!
 		$images: [String]
-		$tags: [String]
+		$tag: String
 	) {
 		addMessage(
 			input: {
@@ -16,13 +22,13 @@ export const ADD_MESSAGE = gql`
 				team: $team
 				content: $content
 				images: $images
-				tags: $tags
+				tag: $tag
 			}
 		) {
 			...FullMessage
 		}
 	}
-	${f.FULL_MESSAGE}
+	${FULL_MESSAGE}
 `;
 
 export const UPDATE_MESSAGE = gql`
@@ -32,7 +38,7 @@ export const UPDATE_MESSAGE = gql`
 		$title: String
 		$content: String
 		$images: [String]
-		$tags: [String]
+		$tag: String
 		$subscribedUsers: [String]
 	) {
 		updateMessage(
@@ -42,14 +48,14 @@ export const UPDATE_MESSAGE = gql`
 				team: $team
 				content: $content
 				images: $images
-				tags: $tags
+				tag: $tag
 				subscribedUsers: $subscribedUsers
 			}
 		) {
 			...FullMessage
 		}
 	}
-	${f.FULL_MESSAGE}
+	${FULL_MESSAGE}
 `;
 
 export const DELETE_MESSAGE = gql`
@@ -66,7 +72,7 @@ export const ADD_TAG = gql`
 			...FullTag
 		}
 	}
-	${f.FULL_TAG}
+	${FULL_TAG}
 `;
 
 export const UPDATE_TAG = gql`
@@ -75,7 +81,7 @@ export const UPDATE_TAG = gql`
 			...FullTag
 		}
 	}
-	${f.FULL_TAG}
+	${FULL_TAG}
 `;
 
 export const DELETE_TAG = gql`
@@ -92,7 +98,7 @@ export const ADD_COMMENT = gql`
 			...FullComment
 		}
 	}
-	${f.FULL_COMMENT}
+	${FULL_COMMENT}
 `;
 
 export const UPDATE_COMMENT = gql`
@@ -108,7 +114,7 @@ export const UPDATE_COMMENT = gql`
 			...FullComment
 		}
 	}
-	${f.FULL_COMMENT}
+	${FULL_COMMENT}
 `;
 
 export const DELETE_COMMENT = gql`
@@ -125,7 +131,7 @@ export const ADD_TEAM = gql`
 			...FullTeam
 		}
 	}
-	${f.FULL_TEAM}
+	${FULL_TEAM}
 `;
 
 export const UPDATE_TEAM = gql`
@@ -141,7 +147,7 @@ export const UPDATE_TEAM = gql`
 			...FullTeam
 		}
 	}
-	${f.FULL_TEAM}
+	${FULL_TEAM}
 `;
 
 export const DELETE_TEAM = gql`
@@ -154,7 +160,6 @@ export const DELETE_TEAM = gql`
 
 export const UPDATE_USER = gql`
 	mutation updateUser(
-		$id: ID!
 		$firstName: String
 		$lastName: String
 		$email: String
@@ -164,7 +169,6 @@ export const UPDATE_USER = gql`
 	) {
 		updateUser(
 			input: {
-				id: $id
 				firstName: $firstName
 				lastName: $lastName
 				email: $email
@@ -175,13 +179,31 @@ export const UPDATE_USER = gql`
 		) {
 			...FullUser
 		}
-		input
-		TogglesInput {
-			receiveEmails: Boolean
-			receiveTexts: Boolean
+	}
+	${FULL_USER}
+`;
+
+export const ADD_USER = gql`
+	mutation addUser(
+		$firstName: String!
+		$lastName: String!
+		$email: String!
+		$avatar: String
+		$phoneNumber: String
+	) {
+		addUser(
+			input: {
+				firstName: $firstName
+				lastName: $lastName
+				email: $email
+				phoneNumber: $phoneNumber
+				avatar: $avatar
+			}
+		) {
+			...FullUser
 		}
 	}
-	${f.FULL_USER}
+	${FULL_USER}
 `;
 
 export const DELETE_USER = gql`
@@ -196,5 +218,58 @@ export const INVITE_USER = gql`
 			...FullTeam
 		}
 	}
-	${f.FULL_TEAM}
+	${FULL_TEAM}
+`;
+
+export const KICK_USER = gql`
+	mutation kickUser($id: ID!, $user: ID!) {
+		kickUser(input: { id: $id, user: $user }) {
+			...FullTeam
+		}
+	}
+	${FULL_TEAM}
+`;
+
+export const LEAVE_TEAM = gql`
+	mutation leaveTeam($id: ID!) {
+		leaveTeam(input: { id: $id }) {
+			_id
+		}
+	}
+`;
+
+export const SUBSCRIBE = gql`
+	mutation subscribe($id: ID!) {
+		subscribe(input: { id: $id }) {
+			...FullMessage
+		}
+	}
+	${FULL_MESSAGE}
+`;
+
+export const UNSUBSCRIBE = gql`
+	mutation unsubscribe($id: ID!) {
+		unsubscribe(input: { id: $id }) {
+			...FullMessage
+		}
+	}
+	${FULL_MESSAGE}
+`;
+
+export const LIKE = gql`
+	mutation likeMsgComment($id: ID!) {
+		likeMsgComment(input: { id: $id }) {
+			...FullComment
+		}
+	}
+	${FULL_COMMENT}
+`;
+
+export const UNLIKE = gql`
+	mutation unLikeMsgComment($id: ID!) {
+		unLikeMsgComment(input: { id: $id }) {
+			...FullComment
+		}
+	}
+	${FULL_COMMENT}
 `;
