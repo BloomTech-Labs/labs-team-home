@@ -26,6 +26,12 @@ enum Appearance {
         UINavigationBar.appearance().barTintColor = Appearance.darkBackgroundColor
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: Appearance.lightMauveColor]
+        let titleFont = Appearance.setTitleFont(with: .title1, pointSize: 20)
+        let titleAttributes = [NSAttributedString.Key.font: titleFont]
+        
+        UINavigationBar.appearance().titleTextAttributes = titleAttributes
+        UINavigationBar.appearance().largeTitleTextAttributes = titleAttributes
+        
         
         UITabBar.appearance().barTintColor = Appearance.mauveColor
         UITabBar.appearance().tintColor = .white
@@ -33,14 +39,34 @@ enum Appearance {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.darkMauveColor], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         
+        
+        
     }
     
     // Style button with button background color
-    static func style(button: UIButton) {
+    static func styleLandingPage(button: UIButton) {
         button.backgroundColor = Appearance.buttonBackgroundColor
-        button.layer.cornerRadius = 4
+        button.layer.cornerRadius = button.frame.height / 2
         button.contentEdgeInsets.top = 10
         button.contentEdgeInsets.bottom = 10
+    }
+    
+    static func styleOrange(button: UIButton) {
+        button.backgroundColor = Appearance.orangeColor
+        button.layer.cornerRadius = 6
+        button.contentEdgeInsets.top = 10
+        button.contentEdgeInsets.bottom = 10
+        button.contentEdgeInsets.left = 10
+        button.contentEdgeInsets.right = 10
+        button.tintColor = .white
+    }
+    
+    static func setTitleFont(with textStyle: UIFont.TextStyle, pointSize: CGFloat) -> UIFont {
+        guard let font = UIFont(name: "Montserrat", size: pointSize) else {
+            fatalError("The font wasn't found. Check the name again.")
+        }
+        
+        return UIFontMetrics(forTextStyle: textStyle).scaledFont(for: font)
     }
 }
 

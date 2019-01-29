@@ -25,8 +25,10 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         
         self.setUpViewAppearance()
         
-        self.navigationController?.navigationBar.barTintColor = Appearance.darkBackgroundColor
         self.setNeedsStatusBarAppearanceUpdate()
+        
+        Appearance.styleOrange(button: advancedSettingsButton)
+        Appearance.styleOrange(button: saveChangesButton)
         
         guard let apollo = apollo else { return }
         
@@ -43,7 +45,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     // MARK - IBActions
     
     // Present Safari window to direct them to web application
-    @IBAction func billingSettings(_ sender: Any) {
+    @IBAction func advancedSettings(_ sender: Any) {
         
         guard let url = URL(string: "https://team-home.netlify.com") else { return }
         let svc = SFSafariViewController(url: url)
@@ -269,8 +271,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     // MARK - Properties
     
-    @IBOutlet weak var showHideBillingButton: UIButton!
     @IBOutlet weak var teamNameLabel: UILabel!
+    @IBOutlet weak var advancedSettingsButton: UIButton!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var addRemoveImageButton: UIButton!
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -279,6 +281,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var emailSwitch: UISwitch!
     @IBOutlet weak var textSMSSwitch: UISwitch!
-    @IBOutlet weak var accountStackView: UIStackView!
+    @IBOutlet weak var saveChangesButton: UIButton!
+    @IBOutlet weak var leaveTeamButton: UIButton!
+    @IBOutlet weak var logOutButton: UIButton!
     
 }

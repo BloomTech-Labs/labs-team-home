@@ -16,6 +16,8 @@ class DashboardCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpPage()
+        
         guard let apollo = apollo else { return }
         
         loadTeams(with: apollo)
