@@ -20,6 +20,9 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpViewAppearance()
+        Appearance.styleOrange(button: filterButton)
+        
         // Show team name on label
         displayTeamInfo()
     }
@@ -141,5 +144,6 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterTagsStackView: UIStackView!
+    @IBOutlet weak var filterButton: UIButton!
     
 }

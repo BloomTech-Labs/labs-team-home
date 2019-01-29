@@ -27,33 +27,53 @@ class SettingsView extends Component {
 			lastName: '',
 			email: '',
 			avatar: '',
-			phone: '',
+			phoneNumber: '',
 			selected: [],
-			oldPassword: '',
-			newPassword: ''
+			toggles: {}
 		};
 	}
 
 	componentDidMount() {
 		const { currentUser } = this.props;
 		const { email, firstName, lastName, avatar, phoneNumber } = currentUser;
+		const { receiveEmails, receiveTexts } = currentUser.toggles;
 		currentUser
 			? this.setState({
 					email: email,
 					firstName: firstName,
 					lastName: lastName,
 					avatar: avatar ? avatar : '',
-					phoneNumber: phoneNumber ? phoneNumber : ''
+					phoneNumber: phoneNumber ? phoneNumber : '',
+					toggles: {
+						receiveEmails: receiveEmails ? receiveEmails : false,
+						receiveTexts: receiveTexts ? receiveTexts : false
+					}
 			  })
 			: this.state.auth.lock.getUserInfo(
 					localStorage.token,
-					(err, { given_name, family_name, picture, email }) =>
+					(
+						err,
+						{
+							given_name,
+							family_name,
+							picture,
+							email,
+							phoneNumber,
+							receiveEmails,
+							receiveTexts
+						}
+					) =>
 						this.setState({
 							// populates form with data from auth0
 							firstName: given_name ? given_name : '',
 							lastName: family_name ? family_name : '',
 							avatar: picture ? picture : '',
-							email: email ? email : ''
+							email: email ? email : '',
+							phoneNumber: phoneNumber ? phoneNumber : '',
+							toggles: {
+								receiveEmails: receiveEmails ? receiveEmails : false,
+								receiveTexts: receiveTexts ? receiveTexts : false
+							}
 						})
 			  );
 	}
@@ -63,18 +83,9 @@ class SettingsView extends Component {
 	};
 
 	handleSelect = e => {
-		let { selected } = this.state;
-		// if the list of selected options includes the option that was clicked on
-		// filter out the option that was clicked
-		if (selected.includes(e.target.value)) {
-			selected = selected.filter(option => option !== e.target.value);
-		} else {
-			// else push the selected option onto the array
-			selected.push(e.target.value);
-		}
-
-		// update state with the new array
-		this.setState({ selected });
+		this.setState({
+			toggles: { ...this.state.toggles, [e.target.name]: e.target.checked }
+		});
 	};
 
 	render() {
@@ -92,52 +103,71 @@ class SettingsView extends Component {
 										updateUser({
 											variables: {
 												email: this.state.email,
-												phoneNumber: this.state.phone,
-												toggles: this.state.selected
+												phoneNumber: this.state.phoneNumber,
+												toggles: this.state.toggles
 											}
 										});
 									}}
 								>
 									<FormInput
+										inputType="text"
+										name={'firstName'}
+										title={'First Name'}
+										value={this.state.firstName}
+										placeholder={
+											this.props.currentUser.firstName
+												? this.props.currentUser.firstName
+												: 'Enter your first name'
+										}
+										handleChange={this.handleChange}
+									/>
+									<FormInput
+										inputType="text"
+										name={'lastName'}
+										title={'Last Name'}
+										value={this.state.lastName}
+										placeholder={
+											this.props.currentUser.lastName
+												? this.props.currentUser.lastName
+												: 'Enter your last name'
+										}
+										handleChange={this.handleChange}
+									/>
+									<FormInput
 										inputType={'text'}
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
-										placeholder={'Enter your email'}
+										placeholder={
+											this.props.currentUser.email
+												? this.props.currentUser.email
+												: 'Enter your email'
+										}
 										handleChange={this.handleChange}
 									/>
 									<FormInput
 										inputType="text"
 										title={'Phone Number'}
-										name={'phone'}
-										value={this.state.phone}
-										placeholder={'Enter your phone number'}
+										name={'phoneNumber'}
+										value={this.state.phoneNumber}
+										placeholder={
+											this.props.currentUser.phoneNumber
+												? this.props.currentUser.phoneNumber
+												: 'Enter your phone number'
+										}
 										handleChange={this.handleChange}
 									/>
 									<FormCheckbox
-										title={'Receive these?'}
-										options={[
-											{ title: 'Emails?', value: 'receiveEmails' },
-											{ title: 'Texts?', value: 'receiveTexts' }
-										]}
+										title={'Receive emails?'}
+										name="receiveEmails"
 										handleSelect={this.handleSelect}
-										selected={this.state.selected}
+										checked={this.state.toggles.receiveEmails}
 									/>
-									<FormInput
-										inputType={'password'}
-										name={'oldPassword'}
-										title={'Old Password'}
-										// value={this.state.oldPassword}
-										placeholder={'Enter your old password'}
-										handleChange={this.handleChange}
-									/>
-									<FormInput
-										inputType={'password'}
-										name={'newPassword'}
-										title={'New Password'}
-										// value={this.state.newPassword}
-										placeholder={'Enter your new password'}
-										handleChange={this.handleChange}
+									<FormCheckbox
+										title={'Receive texts?'}
+										name="receiveTexts"
+										handleSelect={this.handleSelect}
+										checked={this.state.toggles.receiveTexts}
 									/>
 									<FormButton
 										// action={this.someHandleFormSubmit}
