@@ -49,7 +49,7 @@ class SettingsView extends Component {
 						receiveTexts: receiveTexts ? receiveTexts : false
 					}
 			  })
-				: this.state.auth.lock.getUserInfo(
+			: this.state.auth.lock.getUserInfo(
 					localStorage.token,
 					(
 						err,
@@ -62,7 +62,7 @@ class SettingsView extends Component {
 							receiveEmails,
 							receiveTexts
 						}
-						) =>
+					) =>
 						this.setState({
 							// populates form with data from auth0
 							firstName: given_name ? given_name : '',
@@ -83,18 +83,9 @@ class SettingsView extends Component {
 	};
 
 	handleSelect = e => {
-		let { selected } = this.state;
-		// if the list of selected options includes the option that was clicked on
-		// filter out the option that was clicked
-		if (selected.includes(e.target.value)) {
-			selected = selected.filter(option => option !== e.target.value);
-		} else {
-			// else push the selected option onto the array
-			selected.push(e.target.value);
-		}
-
-		// update state with the new array
-		this.setState({ selected });
+		this.setState({
+			toggles: { ...this.state.toggles, [e.target.name]: e.target.checked }
+		});
 	};
 
 	render() {
@@ -167,13 +158,16 @@ class SettingsView extends Component {
 										handleChange={this.handleChange}
 									/>
 									<FormCheckbox
-										title={'Receive these?'}
-										options={[
-											{ title: 'Emails?', value: 'receiveEmails' },
-											{ title: 'Texts?', value: 'receiveTexts' }
-										]}
+										title={'Receive emails?'}
+										name="receiveEmails"
 										handleSelect={this.handleSelect}
-										selected={this.state.selected}
+										checked={this.state.toggles.receiveEmails}
+									/>
+									<FormCheckbox
+										title={'Receive texts?'}
+										name="receiveTexts"
+										handleSelect={this.handleSelect}
+										checked={this.state.toggles.receiveTexts}
 									/>
 									<FormButton
 										// action={this.someHandleFormSubmit}
