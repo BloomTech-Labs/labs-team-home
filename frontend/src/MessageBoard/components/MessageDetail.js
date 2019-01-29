@@ -139,18 +139,41 @@ class MessageDetail extends Component {
 														</>
 													)}
 													{findMessage.user._id === currentUser._id && (
-														<button
-															onClick={e => {
-																e.preventDefault();
-																this.setState({
-																	editingMessage: true,
-																	title: findMessage.title,
-																	content: findMessage.content
-																});
-															}}
-														>
-															Edit Message
-														</button>
+														<>
+															<button
+																onClick={e => {
+																	e.preventDefault();
+																	this.setState({
+																		editingMessage: true,
+																		title: findMessage.title,
+																		content: findMessage.content
+																	});
+																}}
+															>
+																Edit Message
+															</button>
+															<button
+																onClick={e => {
+																	e.preventDefault();
+																	this.props
+																		.deleteMessage({
+																			id: findMessage._id
+																		})
+																		.then(() => {
+																			this.setState({
+																				editing: false,
+																				editingMessage: false,
+																				edited: null,
+																				title: '',
+																				content: ''
+																			});
+																			hideModal();
+																		});
+																}}
+															>
+																Delete Message
+															</button>
+														</>
 													)}
 													<Mutation
 														mutation={mutation.UPDATE_MESSAGE}

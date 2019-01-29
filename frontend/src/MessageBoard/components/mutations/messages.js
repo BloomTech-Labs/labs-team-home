@@ -46,9 +46,11 @@ const updateMessageOptions = {
 					cache.writeQuery({
 						query: query.FIND_MESSAGES_BY_TEAM,
 						variables: { team: team },
-						data: findMessagesByTeam.map(message =>
-							message._id === updateMessage._id ? updateMessage : message
-						)
+						data: {
+							findMessagesByTeam: findMessagesByTeam.map(message =>
+								message._id === updateMessage._id ? updateMessage : message
+							)
+						}
 					});
 				}
 			})
@@ -70,9 +72,11 @@ const deleteMessageOptions = {
 					cache.writeQuery({
 						query: query.FIND_MESSAGES_BY_TEAM,
 						variables: { team: team },
-						data: findMessagesByTeam.filter(
-							({ _id }) => _id !== deleteMessage._id
-						)
+						data: {
+							findMessagesByTeam: findMessagesByTeam.filter(
+								({ _id }) => _id !== deleteMessage._id
+							)
+						}
 					});
 				}
 			})
