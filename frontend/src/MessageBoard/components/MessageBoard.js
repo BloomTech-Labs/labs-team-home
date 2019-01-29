@@ -8,24 +8,82 @@ import { Query, Mutation } from 'react-apollo';
 import Invites from './Invites';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 import MessageDetail from './MessageDetail';
 import UserList from './UserList';
+const TH_logo = 'https://i.imgur.com/31LTJFH.png';
+const TH_name = 'TeamHome';
+
+/**
+ * Color palette:
+ * #17151B << Dark Gray
+ * #FF8C63 << Orange
+ * #FFD17C << Lt Orange
+ * #DE3B61 << Red
+ * #3F1F6A << Purple
+ * #F1FCEF << Creme
+ * #73FF6D << Green
+ */
 
 const Messageboard = styled.div`
-	max-width: 800px;
-	width: 100%;
+	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
+	border-right: 2px solid transparent;
+	box-sizing: border-box;
+	border-radius: 10px;
+	font-family: sans-serif;
+	font-size: 1.4rem;
+	width: 96%;
 	margin: 0 auto;
-	background-color: white;
-	color: black;
+	margin-top: 20px;
+	padding: 1%;
+	/* background-color: rgba(23,21,27,0.9); */
+	color: #f1fcef;
+	&.grad-border {
+		background-image: linear-gradient(#17151b, #17151b),
+			linear-gradient(
+				170deg,
+				rgba(107, 40, 59, 0.3) 10%,
+				rgba(255, 209, 124, 0.3) 45%,
+				rgba(107, 40, 59, 0.3) 70%,
+				/* rgba(107, 40, 59, 0.7) 90%, */ #17151b 100%
+			);
 
+		background-repeat: no-repeat;
+		background-origin: padding-box, border-box;
+		text-align: center;
+	}
 	& p {
+		color: #f1fcef;
 		font-size: 16px;
+	}
+	${mediaQueryFor.lgDevice`
+      border-width:10px;
+  `}
+	${mediaQueryFor.mdDevice`
+      border-width:7px;
+  `}
+	${mediaQueryFor.smDevice`
+      width:100%;
+      margin:0;
+      border-width:4px;
+  `}
+	${mediaQueryFor.xsDevice`
+      width:100%;
+      margin:0;
+      
+      border-width:2px;
+  `}
+	@keyframes highlight {
+		100% {
+			background-position: 0 0, 0 0;
+		}
 	}
 `;
 
 const StyledLink = styled(Link)`
-	color: black;
+	color: white;
+	color: #f1fcef;
 	text-decoration: none;
 	margin: 5px;
 	font-weight: bold;
@@ -35,40 +93,82 @@ const TeamName = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 40px;
+	/* color: #F1FCEF; */
+	text-align: center;
+	font-size: 2rem;
 `;
+
+/**
+ * Color palette:
+ * #17151B << Dark Gray
+ * #FF8C63 << Orange
+ * #FFD17C << Lt Orange
+ * #DE3B61 << Red
+ * #3F1F6A << Purple
+ * #F1FCEF << Creme
+ * #73FF6D << Green
+ */
 
 const Teamlogo = styled.div`
 	display: flex;
 	align-items: center;
-
+	flex-flow: column;
 	& button {
-		height: 50%;
-		margin-left: 5px;
+		font-family: Comfortaa;
+		font-size: 1.3rem;
+		font-weight: 600;
+		color: #f1fcef;
+		--borderWidth: 3px;
+		width: 220px;
+		height: 40px;
+		margin: 2px;
+		border: none;
+		border-radius: var(--borderWidth);
+		background-color: rgba(0, 0, 0, 0);
+		border: solid 2px rgba(107, 40, 59, 0.3);
+		cursor: pointer;
+		transition: background-color 250ms ease-in-out, transform 150ms ease;
+		&:hover {
+			background-color: #de3b61;
+		}
 	}
 `;
 
 const Logo = styled.img`
+	width: 200px;
 	display: inline;
-	margin-right: 5px;
+	margin: 5px;
 	border-radius: 45px;
 `;
 
 const MessagesContainer = styled.div`
-	margin: 30px 20px;
-	border: 1px solid black;
+	margin: 0;
+	form {
+		width: 40%;
+		height: 50px;
+		option {
+			height: 50px;
+		}
+	}
 `;
 
 const AddMsgBtn = styled.button`
 	border-radius: 45px;
 	font-size: 40px;
+	border: solid 5px #f1fcef;
 	width: 75px;
 	height: 75px;
 	margin: 20px;
+	padding-bottom: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	&:hover {
+		background-color: rgba(107, 40, 59, 0.7);
+		color: #f1fcef;
+	}
 `;
 
 class MessageBoard extends React.Component {
@@ -89,7 +189,8 @@ class MessageBoard extends React.Component {
 			number: '',
 			images: [],
 			isAdmin: true,
-			sortOption: 'newest'
+			sortOption: 'newest',
+			teamName: '73@m n@m3'
 		};
 
 		this.openModalHandler = this.openModalHandler.bind(this);
@@ -105,6 +206,10 @@ class MessageBoard extends React.Component {
 	// componentDidMount() {
 	// 	this.setState({ user: this.props.currentUser._id });
 	// }
+
+	componentDidMount = () => {
+		//
+	};
 
 	sortChange(e) {
 		this.setState({ sortOption: e.target.value });
@@ -179,7 +284,7 @@ class MessageBoard extends React.Component {
 	render() {
 		return (
 			<>
-				<Messageboard>
+				<Messageboard className="grad-border animated">
 					{this.state.showModal ? (
 						<AddMessage
 							closeHandler={this.closeModalHandler}
@@ -223,9 +328,9 @@ class MessageBoard extends React.Component {
 						</Mutation>
 					) : null}
 					<TeamName>
-						<h1>Team Name</h1>
+						<h1>{this.state.teamName}</h1>
 						<Teamlogo>
-							<Logo src="https://via.placeholder.com/50.png" alt="team logo" />
+							<Logo src={TH_logo} alt="team logo" />
 							{this.state.isAdmin ? (
 								<button onClick={this.openInviteHandler}>Invite</button>
 							) : null}
@@ -240,7 +345,9 @@ class MessageBoard extends React.Component {
 						</Teamlogo>
 					</TeamName>
 					<MessagesContainer>
-						<AddMsgBtn onClick={this.openModalHandler}>+</AddMsgBtn>
+						<AddMsgBtn onClick={this.openModalHandler}>
+							<div className="new-message">+</div>
+						</AddMsgBtn>
 						<form>
 							<label>
 								Sort:

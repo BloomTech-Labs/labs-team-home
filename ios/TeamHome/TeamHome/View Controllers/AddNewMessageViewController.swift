@@ -17,6 +17,13 @@ let cloudinary = CLDCloudinary(configuration: config)
 
 class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .clear
+        
+    }
+    
     // MARK - IBActions
     
     // Let user select photo from photo library to add to new message
@@ -331,6 +338,7 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     
+    @IBOutlet weak var newMessageView: UIView!
     @IBOutlet weak var messageTitleTextField: UITextField!
     @IBOutlet weak var messageBodyTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!

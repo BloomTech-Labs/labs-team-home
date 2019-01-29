@@ -23,6 +23,13 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         emailTextField.delegate = self
         phoneTextField.delegate = self
         
+        self.setUpViewAppearance()
+        
+        self.setNeedsStatusBarAppearanceUpdate()
+        
+        Appearance.styleOrange(button: advancedSettingsButton)
+        Appearance.styleOrange(button: saveChangesButton)
+        
         guard let apollo = apollo else { return }
         
         // Distinguish if you is admin or not
@@ -31,10 +38,14 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         loadUserSettings(with: apollo)
     }
     
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK - IBActions
     
     // Present Safari window to direct them to web application
-    @IBAction func billingSettings(_ sender: Any) {
+    @IBAction func advancedSettings(_ sender: Any) {
         
         guard let url = URL(string: "https://team-home.netlify.com") else { return }
         let svc = SFSafariViewController(url: url)
@@ -260,8 +271,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     // MARK - Properties
     
-    @IBOutlet weak var showHideBillingButton: UIButton!
     @IBOutlet weak var teamNameLabel: UILabel!
+    @IBOutlet weak var advancedSettingsButton: UIButton!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var addRemoveImageButton: UIButton!
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -270,6 +281,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var emailSwitch: UISwitch!
     @IBOutlet weak var textSMSSwitch: UISwitch!
-    @IBOutlet weak var accountStackView: UIStackView!
+    @IBOutlet weak var saveChangesButton: UIButton!
+    @IBOutlet weak var leaveTeamButton: UIButton!
+    @IBOutlet weak var logOutButton: UIButton!
     
 }

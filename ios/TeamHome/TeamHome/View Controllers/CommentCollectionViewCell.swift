@@ -74,7 +74,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var hasLiked: Bool?
+    var hasLiked: Bool? = false
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     weak var delegate: CommentCollectionCellDelegate?
     

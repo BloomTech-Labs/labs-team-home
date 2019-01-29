@@ -14,10 +14,12 @@ import Lock
 let auth0DomainURLString = "teamhome.auth0.com"
 let credentialsManager = CredentialsManager.init(authentication: Auth0.authentication())
 
-class LandingPageViewController: UIViewController {
+class LandingPageViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setUpAppearance()
         
         guard credentialsManager.hasValid() else { return }
         
@@ -39,6 +41,7 @@ class LandingPageViewController: UIViewController {
         }
     }
     
+    // To unwind to this view from settings view when user logs out.
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
     
     // MARK - IBActions
@@ -206,6 +209,25 @@ class LandingPageViewController: UIViewController {
         }
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height / 2
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     // MARK - Private Methods
     
     // Set up Apollo client with http headers
@@ -265,6 +287,49 @@ class LandingPageViewController: UIViewController {
         }
     }
     
+    private func setUpAppearance() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        hideKeyboardWhenTappedAround()
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        self.setUpViewAppearance()
+        
+        emailTextField.textColor = Appearance.mauveColor
+        emailTextField.attributedPlaceholder = NSAttributedString(string:"Email:", attributes: [NSAttributedString.Key.foregroundColor: Appearance.lightMauveColor])
+
+        emailTextField.layer.cornerRadius = emailTextField.frame.height / 2
+        emailTextField.clipsToBounds = true
+        passwordTextField.layer.cornerRadius = passwordTextField.frame.height / 2
+        passwordTextField.clipsToBounds = true
+        
+        
+        Appearance.styleLandingPage(button: loginButton)
+        Appearance.styleLandingPage(button: signupButton)
+        
+        
+        
+    }
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    
     // MARK - Properties
 
     private var apollo: ApolloClient?
@@ -276,5 +341,7 @@ class LandingPageViewController: UIViewController {
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var googleLogoButton: UIButton!
+    @IBOutlet weak var googleButton: UIButton!
     
 }
