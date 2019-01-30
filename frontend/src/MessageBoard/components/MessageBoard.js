@@ -390,6 +390,7 @@ class MessageBoard extends React.Component {
 										key={message._id}
 										openMessage={e => {
 											e.preventDefault();
+											console.log(message._id);
 											this.setState({
 												messageDetailOpen: true,
 												currentMessage: message

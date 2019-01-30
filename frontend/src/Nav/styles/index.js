@@ -30,6 +30,7 @@ const TextIMG = styled.img`
 const NavBar = styled.div`
 	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 0.6), #17151b);
 	background-size: 600% 600%;
+	width: 100%;
 	position: fixed;
 	left: 0px;
 	top: 0px;
