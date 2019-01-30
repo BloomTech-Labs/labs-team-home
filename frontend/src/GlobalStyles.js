@@ -19,10 +19,6 @@ const GlobalStyle = createGlobalStyle`
     background-color: #17151B;
     width:100%;
     margin:0 auto;
-    ${
-			'' /* background-image: url('frontend/src/assets/TH_icon_logo_wout_nodes.svg'); */
-		}
-	  background-position: center top;
     background: linear-gradient(
 		to bottom,
 		rgb(63, 31, 106, 0.2) 0%,
@@ -32,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
 		rgb(63, 31, 106, 0.1) 80%,
 		rgb(63, 31, 106, 0) 100%
   );
-  
+
     ${mediaQueryFor.mdDevice`
       
       width:100vw;
