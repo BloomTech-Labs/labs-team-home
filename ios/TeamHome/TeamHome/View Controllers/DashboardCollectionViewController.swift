@@ -23,6 +23,8 @@ class DashboardCollectionViewController: UICollectionViewController {
         loadTeams(with: apollo)
     }
 
+   @IBAction func unwindToDashboard(segue:UIStoryboardSegue) { }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -59,8 +61,6 @@ class DashboardCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamCell", for: indexPath) as! TeamCollectionViewCell
     
         guard let team = teams?[indexPath.row] else { return UICollectionViewCell()}
-        cell.teamNameLabel.text = team.name
-        cell.largeInitialLabel.text = String(team.name.prefix(1))
         
         cell.setTheme()
         

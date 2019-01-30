@@ -1,20 +1,20 @@
 # Lock.swift
 
-[![CircleCI](https://img.shields.io/circleci/project/github/auth0/Lock.swift.svg?style=flat-square)](https://circleci.com/gh/auth0/Lock.swift/tree/master)
-[![Version](https://img.shields.io/cocoapods/v/Lock.svg?style=flat-square)](http://cocoadocs.org/docsets/Lock)
-[![License](https://img.shields.io/cocoapods/l/Lock.svg?style=flat-square)](http://cocoadocs.org/docsets/Lock)
-[![Platform](https://img.shields.io/cocoapods/p/Lock.svg?style=flat-square)](http://cocoadocs.org/docsets/Lock)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
+[![CircleCI](https://img.shields.io/circleci/project/github/auth0/Lock.swift.svg?style=flat-square)](https://circleci.com/gh/auth0/Lock.swift/tree/master)
+[![Version](https://img.shields.io/cocoapods/v/Lock.svg?style=flat-square)](http://cocoadocs.org/docsets/Lock)
+[![License](https://img.shields.io/cocoapods/l/Lock.svg?style=flat-square)](http://cocoadocs.org/docsets/Lock)
+[![Platform](https://img.shields.io/cocoapods/p/Lock.svg?style=flat-square)](http://cocoadocs.org/docsets/Lock)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
 ![Swift 4.2](https://img.shields.io/badge/Swift-4.2-orange.svg?style=flat-square)
 
 [Auth0](https://auth0.com) is an authentication broker that supports social identity providers as well as enterprise identity providers such as Active Directory, LDAP, Google Apps and Salesforce.
 
 Lock makes it easy to integrate SSO in your app. You won't have to worry about:
 
-- Having a professional looking login dialog that displays well on any device.
-- Finding the right icons for popular social providers.
-- Solving the home realm discovery challenge with enterprise users (i.e.: asking the enterprise user the email, and redirecting to the right enterprise identity provider).
-- Implementing a standard sign in protocol (OpenID Connect / OAuth2 Login)
+* Having a professional looking login dialog that displays well on any device.
+* Finding the right icons for popular social providers.
+* Solving the home realm discovery challenge with enterprise users (i.e.: asking the enterprise user the email, and redirecting to the right enterprise identity provider).
+* Implementing a standard sign in protocol (OpenID Connect / OAuth2 Login)
 
 Need help migrating from v1? Please check our [Migration Guide](MIGRATION.md)
 
@@ -28,11 +28,11 @@ Need help migrating from v1? Please check our [Migration Guide](MIGRATION.md)
 
 ### CocoaPods
 
-Add the following line to your Podfile:
+ Add the following line to your Podfile:
 
-```ruby
-pod "Lock", "~> 2.9"
-```
+ ```ruby
+ pod "Lock", "~> 2.9"
+ ```
 
 ### Carthage
 
@@ -123,12 +123,12 @@ Lock
 
 ### Important: Database Connection Authentication
 
-Since June 2017 new Clients no longer have the **Password Grant Type\*** enabled by default.
+Since June 2017 new Clients no longer have the **Password Grant Type*** enabled by default.
 If you are using a Database Connection in Lock then you will need to enable the Password Grant Type, please follow [this guide](https://auth0.com/docs/clients/client-grant-types#how-to-edit-the-client-grant_types-property).
 
 #### Specify Connections
 
-Lock will automatically load your application configuration automatically, if you wish to override this behaviour you can manually specify which of your connections to use.
+Lock will automatically load your application configuration automatically, if you wish to override this behaviour you can manually specify which of your connections to use.  
 
 Before presenting Lock you can tell it what connections it should display and use to authenticate an user. You can do that by calling the method and supply a closure that can specify the connections.
 
@@ -160,7 +160,7 @@ Before presenting Lock you can tell it what connections it should display and us
 
 ### Custom Domains
 
-If you are using [Custom Domains](https://auth0.com/docs/custom-domains), you will need to set the `configurationBaseURL` to your Auth0 Domain so the Lock configuration can
+If you are using [Custom Domains](https://auth0.com/docs/custom-domains), you will need to set the `configurationBaseURL` to your Auth0 Domain so the Lock configuration can 
 be read correctly.
 
 ```swift
@@ -224,7 +224,7 @@ iPad presentation is show in a modal popup, this can be disabled to use full scr
 
 Lock Passwordless handles authentication using Passwordless & Social Connections.
 
-> The Passwordless feature requires your application to have the _Resource Owner_ Legacy Grant Type enabled. Check [this article](https://auth0.com/docs/clients/client-grant-types) for more information.
+> The Passwordless feature requires your application to have the *Resource Owner* Legacy Grant Type enabled. Check [this article](https://auth0.com/docs/clients/client-grant-types) for more information.
 
 To show Lock, add the following snippet in your `UIViewController`
 
@@ -253,8 +253,7 @@ Lock
 ```
 
 **Notes:**
-
-- Passwordless can only be used with a single connection and will prioritize the use of email connections over sms.
+- Passwordless can only be used with a single connection and will prioritize the use of email connections over sms.  
 - The `audience` option is not available in Passwordless.
 
 #### Passwordless Method
@@ -343,9 +342,9 @@ Note: Terms will always be shown if the `mustAcceptTerms` flag has been enabled.
 
 #### Logging
 
-- **logLevel**: By default this is `.off`, _Syslog_ logging levels are supported.
-- **logHttpRequest**: Log Auth0.swift API requests. By default this is `false`
-- **loggerOutput**: Specify output handler, by default this uses the `print` statement.
+* **logLevel**: By default this is `.off`, *Syslog* logging levels are supported.
+* **logHttpRequest**: Log Auth0.swift API requests. By default this is `false`
+* **loggerOutput**: Specify output handler, by default this uses the `print` statement.
 
 ```swift
 .withOptions {
@@ -355,8 +354,8 @@ Note: Terms will always be shown if the `mustAcceptTerms` flag has been enabled.
 }
 ```
 
-In the code above, the _loggerOutput_ has been set to use [CleanroomLogger](https://github.com/emaloney/CleanroomLogger).
-This can typically be achieved by implementing the _loggerOutput_ protocol. You can of course use your favorite logger library.
+In the code above, the *loggerOutput* has been set to use [CleanroomLogger](https://github.com/emaloney/CleanroomLogger).
+This can typically be achieved by implementing the *loggerOutput* protocol.  You can of course use your favorite logger library.
 
 ```swift
 class CleanroomLockLogger: LoggerOutput {
@@ -404,7 +403,7 @@ Allows you to set provider scopes for oauth2/social connections with a comma sep
 
 - **allow**: Which database screens will be accessible, the default is enable all screens e.g. `.Login, .Signup, .ResetPassword`
 - **initialScreen**: The first screen to present to the user, the default is `.login`.
-- **usernameStyle**: Specify the type of identifier the login will require. The default is either `[.Username, .Email]`. However it's important to note that this option is only active if you have set the **requires_username** flag to `true` in your [Auth0 Dashboard](https://manage.auth0.com/#/)
+- **usernameStyle**: Specify the type of identifier the login will require.  The default is either `[.Username, .Email]`.  However it's important to note that this option is only active if you have set the **requires_username** flag to `true` in your [Auth0 Dashboard](https://manage.auth0.com/#/)
 
 ```swift
 .withOptions {
@@ -416,7 +415,7 @@ Allows you to set provider scopes for oauth2/social connections with a comma sep
 
 #### Custom Signup Fields
 
-When signing up the default information requirements are the user's _email_ and _password_. You can expand your data capture requirements as needed.
+When signing up the default information requirements are the user's *email* and *password*. You can expand your data capture requirements as needed.
 
 ```swift
 .withOptions {
@@ -427,7 +426,7 @@ When signing up the default information requirements are the user's _email_ and 
 }
 ```
 
-_Note: You must specify the icon to use with your custom text field and store it in your App's bundle._
+*Note: You must specify the icon to use with your custom text field and store it in your App's bundle.*
 
 #### Password Manager
 
@@ -459,13 +458,14 @@ You will need to add the following to your app's `Info.plist`:
 
 > If your `Info.plist` is not shown in this format, you can **Right Click** on `Info.plist` in Xcode and then select **Open As / Source Code**.
 
+
 If you see the following debug error:
 
 ```text
 canOpenURL: failed for URL: "org-appextension-feature-password-management://" - error: "This app is not allowed to query for scheme org-appextension-feature-password-management"
 ```
 
-This is normal and expected behavior when there is no app that can open a custom URL. In this case when the 1Password app is not installed. Unfortunately, the message can be a little confusing but it is coming from iOS itself.
+This is normal and expected behavior when there is no app that can open a custom URL. In this case when the 1Password app is not installed.  Unfortunately, the message can be a little confusing but it is coming from iOS itself.
 
 #### Show Password
 
@@ -481,8 +481,8 @@ By default a show password icon is shown in password fields to toggle visibility
 
 #### Enterprise
 
-- **enterpriseConnectionUsingActiveAuth**: By default Enterprise connections will use Web Authentication. However you can specify which connections will alternatively use credential authentication and prompt for a username and password.
-- **activeDirectoryEmailAsUsername**: When Lock request your enterprise credentials after performing Home Realm Discovery (HRD), e.g. for Active Directory, it will try to prefill the username for you. By default it will parse the email's local part and use that as the username, e.g. `john.doe@auth0.com` will be `john.doe`. If you don't want that you can turn on this flag and it will just use the email address.
+* **enterpriseConnectionUsingActiveAuth**: By default Enterprise connections will use Web Authentication. However you can specify which connections will alternatively use credential authentication and prompt for a username and password.
+* **activeDirectoryEmailAsUsername**: When Lock request your enterprise credentials after performing Home Realm Discovery (HRD), e.g. for Active Directory, it will try to prefill the username for you. By default it will parse the email's local part and use that as the username, e.g. `john.doe@auth0.com` will be `john.doe`. If you don't want that you can turn on this flag and it will just use the email address.
 
 ```swift
 .withOptions {
@@ -495,13 +495,13 @@ By default a show password icon is shown in password fields to toggle visibility
 
 Auth0 helps you to:
 
-- Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amongst others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-- Add support for [Custom OAuth2 Connections](https://auth0.com/docs/connections/social/oauth2).
-- Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
-- Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
-- Support for generating signed [JSON Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
-- Analytics of how, when and where users are logging in.
-- Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
+* Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amongst others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+* Add support for [Custom OAuth2 Connections](https://auth0.com/docs/connections/social/oauth2).
+* Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
+* Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
+* Support for generating signed [JSON Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
+* Analytics of how, when and where users are logging in.
+* Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 
 ## Create a free account in Auth0
 

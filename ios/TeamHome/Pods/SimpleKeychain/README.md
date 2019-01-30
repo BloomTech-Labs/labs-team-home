@@ -1,9 +1,9 @@
 # SimpleKeychain
 
-[![CI Status](http://img.shields.io/travis/auth0/SimpleKeychain.svg?style=flat-square)](https://travis-ci.org/auth0/SimpleKeychain)
-[![Version](https://img.shields.io/cocoapods/v/SimpleKeychain.svg?style=flat-square)](http://cocoadocs.org/docsets/SimpleKeychain)
-[![License](https://img.shields.io/cocoapods/l/SimpleKeychain.svg?style=flat-square)](http://cocoadocs.org/docsets/SimpleKeychain)
-[![Platform](https://img.shields.io/cocoapods/p/SimpleKeychain.svg?style=flat-square)](http://cocoadocs.org/docsets/SimpleKeychain)
+[![CI Status](http://img.shields.io/travis/auth0/SimpleKeychain.svg?style=flat-square)](https://travis-ci.org/auth0/SimpleKeychain)
+[![Version](https://img.shields.io/cocoapods/v/SimpleKeychain.svg?style=flat-square)](http://cocoadocs.org/docsets/SimpleKeychain)
+[![License](https://img.shields.io/cocoapods/l/SimpleKeychain.svg?style=flat-square)](http://cocoadocs.org/docsets/SimpleKeychain)
+[![Platform](https://img.shields.io/cocoapods/p/SimpleKeychain.svg?style=flat-square)](http://cocoadocs.org/docsets/SimpleKeychain)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
 
 A wrapper to make it really easy to deal with iOS Keychain and store your user's credentials securely.
@@ -43,7 +43,6 @@ github "auth0/SimpleKeychain"
 ## Before Getting Started
 
 ### Objective-C
-
 Just import in your source file's header:
 
 ```objc
@@ -51,7 +50,6 @@ Just import in your source file's header:
 ```
 
 ### Swift
-
 Import Lock module in your swift file:
 
 ```swift
@@ -99,7 +97,6 @@ keychain.setString(jwt, forKey:"auth0-user-jwt")
 ### Store and retrieve JWT token using TouchID and Keychain AcessControl attribute (iOS 8 Only).
 
 Let's save the JWT first:
-
 ```objc
 NSString *jwt = //user's JWT token obtained after login
 A0SimpleKeychain *keychain = [A0SimpleKeychain keychain];
@@ -133,7 +130,6 @@ let jwt = keychain.string(forKey: "auth0-user-jwt", promptMessage:message)
 ```
 
 ### Remove a JWT token or password
-
 ```objc
 [[A0SimpleKeychain keychain] deleteEntryForKey:@"auth0-user-jwt"];
 ```
@@ -162,12 +158,12 @@ SimpleKeychain is available under the MIT license. See the [LICENSE file]([LICEN
 
 Auth0 helps you to:
 
-- Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-- Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
-- Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
-- Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
-- Analytics of how, when and where users are logging in.
-- Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
+* Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+* Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
+* Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
+* Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
+* Analytics of how, when and where users are logging in.
+* Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 
 ## Create a free account in Auth0
 

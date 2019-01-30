@@ -7,51 +7,57 @@
 //
 
 import UIKit
+import Material
 
 class TeamCollectionViewCell: UICollectionViewCell {
     
+    fileprivate func prepareFavoriteButton() {
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
+    }
+    
+    private func prepareBottomBar() {
+        bottomBar = Bar()
+        
+        bottomBar.leftViews = [favoriteButton]
+        bottomBar.backgroundColor = .clear
+    }
+    
     func setTheme() {
         
-       
-        cellView.layer.cornerRadius = 4
-        cellView.layer.masksToBounds = true
-        cellView.layer.borderWidth = 1.0
-        cellView.layer.borderColor = UIColor.clear.cgColor
+        prepareFavoriteButton()
+        prepareBottomBar()
         
-        teamNameLabel.backgroundColor = Appearance.darkMauveColor
+        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
         
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.layer.shadowRadius = 2.0
-        self.layer.shadowOpacity = 1.0
-        self.layer.masksToBounds = false
+        toolbar = Toolbar(rightViews: [moreButton])
         
+        toolbar.title = "team"
+        toolbar.titleLabel.textAlignment = .left
+        toolbar.titleLabel.textColor = .white
+        toolbar.detail = "premium?"
+        toolbar.detailLabel.textAlignment = .left
+        toolbar.detailLabel.textColor = Color.grey.base
+        toolbar.backgroundColor = .clear
+        
+        card.toolbar = toolbar
+        card.toolbarEdgeInsetsPreset = .square3
+        card.toolbarEdgeInsets.bottom = 0
+        card.toolbarEdgeInsets.right = 8
+        card.backgroundColor = Appearance.plumColor
+        
+        card.bottomBar = bottomBar
+        card.bottomBarEdgeInsetsPreset = .wideRectangle2
         
     }
     
     // MARK - Properties
     
-    @IBOutlet weak var largeInitialLabel: UILabel!
-    @IBOutlet weak var teamNameLabel: UILabel!
-    @IBOutlet weak var cellView: UIView!
+    private var toolbar: Toolbar!
+    private var moreButton: IconButton!
     
-}
-
-@IBDesignable class PaddingLabel: UILabel {
+    private var favoriteButton: IconButton!
+    private var bottomBar: Bar!
     
-    @IBInspectable var topInset: CGFloat = 5.0
-    @IBInspectable var bottomInset: CGFloat = 5.0
-    @IBInspectable var leftInset: CGFloat = 7.0
-    @IBInspectable var rightInset: CGFloat = 7.0
+    @IBOutlet weak var card: Card!
     
-    override func drawText(in rect: CGRect) {
-        let insets = UIEdgeInsets.init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
-        super.drawText(in: rect.inset(by: insets))
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        let size = super.intrinsicContentSize
-        return CGSize(width: size.width + leftInset + rightInset,
-                      height: size.height + topInset + bottomInset)
-    }
 }

@@ -1,11 +1,11 @@
 # Auth0.swift
 
-[![CircleCI](https://img.shields.io/circleci/project/github/auth0/Auth0.swift.svg?style=flat-square)](https://circleci.com/gh/auth0/Auth0.swift/tree/master)
-[![Coverage Status](https://img.shields.io/codecov/c/github/auth0/Auth0.swift/master.svg?style=flat-square)](https://codecov.io/github/auth0/Auth0.swift)
-[![Version](https://img.shields.io/cocoapods/v/Auth0.svg?style=flat-square)](http://cocoadocs.org/docsets/Auth0)
-[![License](https://img.shields.io/cocoapods/l/Auth0.svg?style=flat-square)](http://cocoadocs.org/docsets/Auth0)
-[![Platform](https://img.shields.io/cocoapods/p/Auth0.svg?style=flat-square)](http://cocoadocs.org/docsets/Auth0)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
+[![CircleCI](https://img.shields.io/circleci/project/github/auth0/Auth0.swift.svg?style=flat-square)](https://circleci.com/gh/auth0/Auth0.swift/tree/master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/auth0/Auth0.swift/master.svg?style=flat-square)](https://codecov.io/github/auth0/Auth0.swift)
+[![Version](https://img.shields.io/cocoapods/v/Auth0.svg?style=flat-square)](http://cocoadocs.org/docsets/Auth0)
+[![License](https://img.shields.io/cocoapods/l/Auth0.svg?style=flat-square)](http://cocoadocs.org/docsets/Auth0)
+[![Platform](https://img.shields.io/cocoapods/p/Auth0.svg?style=flat-square)](http://cocoadocs.org/docsets/Auth0)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
 ![Swift 3.2](https://img.shields.io/badge/Swift-4.2-orange.svg?style=flat-square)
 
 Swift toolkit that lets you communicate efficiently with many of the [Auth0 API](https://auth0.com/docs/api/info) functions and enables you to seamlessly integrate the Auth0 login.
@@ -44,21 +44,20 @@ Then run `pod install`.
 > For further reference on Cocoapods, check [their official documentation](http://guides.cocoapods.org/using/getting-started.html).
 
 > ### Upgrade Notes
->
 > If you are using the [clearSession](https://github.com/auth0/Auth0.swift/blob/master/Auth0/WebAuth.swift#L235) method in iOS 11+, you will need to ensure that the **Callback URL** has been added to the **Allowed Logout URLs** section of your application in the [Auth0 Dashboard](https://manage.auth0.com/#/applications/).
+
+
 
 ## Getting started
 
 ### Authentication with hosted login page (iOS Only)
 
-1. Import **Auth0** into your project.
-
+1. Import **Auth0** into your project.        
 ```swift
 import Auth0
 ```
 
 2. Present the hosted login page.
-
 ```swift
 Auth0
     .webAuth()
@@ -76,7 +75,6 @@ Auth0
 > This snippet sets the `audience` to ensure OIDC compliant responses, this can also be achieved by enabling the **OIDC Conformant** switch in your Auth0 dashboard under `Application / Settings / Advanced OAuth`. For more information please check [this documentation](https://auth0.com/docs/api-auth/intro#how-to-use-the-new-flows).
 
 3. Allow Auth0 to handle authentication callbacks. In your `AppDelegate.swift` add the following:
-
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
     return Auth0.resumeAuth(url, options: options)
@@ -202,14 +200,14 @@ Store user credentials securely in the KeyChain.
 credentialsManager.store(credentials: credentials)
 ```
 
-#### Retrieve stored credentials
+#### Retrieve stored credentials 
 
 Credentials will automatically be renewed (if expired) using the refresh token. The scope `offline_access` is required to ensure the refresh token is returned.
 
 ```swift
 credentialsManager.credentials { error, credentials in
-    guard error == nil, let credentials = credentials else {
-        return print("Failed with \(error)")
+    guard error == nil, let credentials = credentials else { 
+        return print("Failed with \(error)") 
     }
     print("Obtained credentials: \(credentials)")
 }
@@ -230,7 +228,7 @@ We recommend using our Hosted Login Page but if you wish to build your own UI yo
 
 These are the required Grant Types that needs to be enabled in your application:
 
-- **Password**: For login with username/password using a realm (or connection name). If you set the grants via API you should activate both `http://auth0.com/oauth/grant-type/password-realm` and `password`, otherwise Auth0 Dashboard will take care of activating both when `Password` is enabled.
+* **Password**: For login with username/password using a realm (or connection name). If you set the grants via API you should activate both `http://auth0.com/oauth/grant-type/password-realm` and `password`, otherwise Auth0 Dashboard will take care of activating both when `Password` is enabled.
 
 #### Login with database connection (via Realm)
 
@@ -281,7 +279,7 @@ Auth0
 If you are using the [Custom Domains](https://auth0.com/docs/custom-domains) feature and need to use an Auth0 endpoint
 such as `/userinfo`, please use the Auth0 domain specified for your Application in the [Auth0 Dashboard](https://auth0.com/docs/dashboard).
 
-Example: `.audience("https://{YOUR_AUTH0_DOMAIN}/userinfo")`
+Example:  `.audience("https://{YOUR_AUTH0_DOMAIN}/userinfo")`
 
 ### Management API (Users)
 
@@ -342,12 +340,12 @@ Connection: keep-alive
 
 Auth0 helps you to:
 
-- Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-- Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
-- Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
-- Support for generating signed [JSON Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
-- Analytics of how, when and where users are logging in.
-- Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
+* Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, amont others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+* Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
+* Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
+* Support for generating signed [JSON Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
+* Analytics of how, when and where users are logging in.
+* Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 
 ## Create a free Auth0 Account
 
