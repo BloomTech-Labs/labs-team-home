@@ -1,12 +1,12 @@
 PODS:
-  - Alamofire (4.7.3)
-  - Apollo (0.9.4):
-    - Apollo/Core (= 0.9.4)
-  - Apollo/Core (0.9.4)
+  - Alamofire (4.8.1)
+  - Apollo (0.9.5):
+    - Apollo/Core (= 0.9.5)
+  - Apollo/Core (0.9.5)
   - Auth0 (1.14.1):
     - SimpleKeychain
-  - Cloudinary (2.5.0):
-    - Alamofire (~> 4.7.3)
+  - Cloudinary (2.6.1):
+    - Alamofire (~> 4.8.1)
   - JWTDecode (2.2.0)
   - Lock (2.9.0):
     - Auth0 (~> 1.13)
@@ -43,10 +43,10 @@ SPEC REPOS:
     - SimpleKeychain
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  Apollo: 450856adbdebcdf28c3c671f81732ac3f9944065
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  Apollo: 19caf3246d292bbb69ecad1bd098661f78222aba
   Auth0: 064dc115cd99eec7334d1cab565f4d974eecac4d
-  Cloudinary: 1ae089904a497f706212921809cda3817d7cae4a
+  Cloudinary: a13a1b1137dc1ab625aa9d2d0c4b56171bb971a9
   JWTDecode: 85a405ab16d5473e99bd89ded1d535090ebd6a0e
   Lock: c78ebd9de5dc0c4270e224f30dac8a9b04d0afc5
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
