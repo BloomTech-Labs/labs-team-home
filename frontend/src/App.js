@@ -1,22 +1,35 @@
-import React, { Component } from 'react';
-// import logo from './logo.svg';
-import './App.css';
+import React, { Component, Route } from 'react';
+import { Switch, withRouter } from 'react-router-dom';
+import GlobalStyle from './GlobalStyles';
 import LandingView from './LandingView/containers/LandingView';
-import { Route } from 'react-router-dom';
-import MessageBoard from './MessageBoard/components/MessageBoard';
+import MessageBoardContainer from './MessageBoard/containers/MessageBoardContainer';
 import Dashboard from './DashboardView/containers/Dashboard';
-import AuthRoute from './Auth/components/AuthRoute';
+import PrivateRoute from './utils/PrivateRoute';
+import PublicRoute from './utils/PublicRoute';
+import AppStyles from './app-styles';
+import SettingsView from './SettingsView/containers/SettingsView';
+import Nav from './Nav/Nav';
+
+import { TextIMG } from './LandingView/styles/LogoBannerStyled';
+import iconLogo from './assets/TH_icon_logo_wout_nodes.svg';
 
 class App extends Component {
 	render() {
 		return (
-			<div className="App">
-				<Route exact path="/" component={LandingView} />
-				<Route path="/home" component={MessageBoard} />
-				{/* <AuthRoute path="/dashboard" component={Dashboard} /> */}
-			</div>
+			<AppStyles>
+				<GlobalStyle />
+				<TextIMG alt={'TeamHome banner'} src={iconLogo} />
+				{/* <SignInSignUp /> */}
+				{localStorage.token && <Nav />}
+				<Switch>
+					<PublicRoute exact path="/" component={LandingView} />
+					<PrivateRoute path="/:team/home" component={MessageBoardContainer} />
+					<PrivateRoute path="/dashboard" component={Dashboard} />
+					<PrivateRoute path="/settings" component={SettingsView} />
+				</Switch>
+			</AppStyles>
 		);
 	}
 }
 
-export default App;
+export default withRouter(App);

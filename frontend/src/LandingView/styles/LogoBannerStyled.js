@@ -4,18 +4,13 @@ const LogoBannerStyles = styled.div`
 	width: 100%;
 	display: flex;
 	flex-flow: column;
-	/* height: 560px; */
-	height: 70vh;
-	/* background: rgba(255, 255, 255, 0.6); */
-	background: linear-gradient(
-		to bottom,
-		rgba(255, 255, 255, 0.1) 0%,
-		rgba(255, 255, 255, 0) 20%,
-		rgba(255, 255, 255, 0) 40%,
-		rgba(255, 255, 255, 0) 60%,
-		rgba(255, 255, 255, 0) 80%,
-		rgba(255, 255, 255, 0.1) 100%
-	);
+`;
+
+const TextIMG = styled.img`
+	position: fixed;
+	z-index: -110;
+	left: 0%;
+	top: 0%;
 `;
 
 const BannerStyles = styled.div`
@@ -23,6 +18,7 @@ const BannerStyles = styled.div`
 	width: 66%;
 	height: 160px;
 	margin: 0 auto;
+	color: #f1fcef;
 	margin-top: 3%;
 	display: flex;
 	font-size: 11rem;
@@ -31,4 +27,4 @@ const BannerStyles = styled.div`
 `;
 
 export default LogoBannerStyles;
-export { BannerStyles };
+export { BannerStyles, TextIMG };

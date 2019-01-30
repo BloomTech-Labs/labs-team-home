@@ -4,7 +4,8 @@ const User = /* GraphQL */ `
 		receiveTexts: Boolean!
 	}
 	type User {
-		_id: ID
+		_id: ID!
+		authId: String!
 		firstName: String!
 		lastName: String!
 		email: String!
@@ -23,7 +24,6 @@ const User = /* GraphQL */ `
 		avatar: String
 	}
 	input UpdateUserInput {
-		id: ID!
 		firstName: String
 		lastName: String
 		email: String
@@ -35,17 +35,15 @@ const User = /* GraphQL */ `
 		receiveEmails: Boolean
 		receiveTexts: Boolean
 	}
-	input DeleteUserInput {
-		id: ID!
-	}
 	extend type Query {
 		users: [User]
+		currentUser: User
 		findUser(input: FindUserInput): User
 	}
 	extend type Mutation {
 		addUser(input: AddUserInput!): User
 		updateUser(input: UpdateUserInput!): User
-		deleteUser(input: DeleteUserInput!): User
+		deleteUser: User
 	}
 `;
 

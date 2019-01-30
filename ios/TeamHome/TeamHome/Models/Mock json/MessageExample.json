@@ -1,28 +1,27 @@
 {
-     "_id": "5c358baf93b69c7c387fb317",
-     "user": "5c358c48885c9d7c41062885",
-     "team": "5c358baf93b69c7c387fb817",
-     "title": "Website went live!",
-     "content": "We're excited that our website went live. Check it out here: www.newwebsite.com",
-     "images": [
-         "https://imgur.com/img1",
-         "https://imgur.com/img2",
-         "https://imgur.com/img3"
-     ],
-     "tags": [
-         "5c358baf93b69c7c387fb843",
-         "5c358baf93b69c7c387fb234",
-         "5c358baf93b69c7c387fb234"
-     ],
-     "comments": [
-         "5c358baf93b69c7c387fb843",
-         "5c358baf93b69c7c387fb234",
-         "5c358baf93b69c7c387fb234"
-     ],
-     "subscribedUsers": [
-         "5c358baf93b69c7c387fb843",
-         "5c358baf93b69c7c387fb234",
-         "5c358baf93b69c7c387fb234"
-     ]
- }
- 
+  "_id": "5c358baf93b69c7c387fb317",
+  "user": "5c358c48885c9d7c41062885",
+  "team": "5c358baf93b69c7c387fb817",
+  "title": "Website went live!",
+  "content": "We're excited that our website went live. Check it out here: www.newwebsite.com",
+  "images": [
+    "https://imgur.com/img1",
+    "https://imgur.com/img2",
+    "https://imgur.com/img3"
+  ],
+  "tags": [
+    "5c358baf93b69c7c387fb843",
+    "5c358baf93b69c7c387fb234",
+    "5c358baf93b69c7c387fb234"
+  ],
+  "comments": [
+    "5c358baf93b69c7c387fb843",
+    "5c358baf93b69c7c387fb234",
+    "5c358baf93b69c7c387fb234"
+  ],
+  "subscribedUsers": [
+    "5c358baf93b69c7c387fb843",
+    "5c358baf93b69c7c387fb234",
+    "5c358baf93b69c7c387fb234"
+  ]
+}
