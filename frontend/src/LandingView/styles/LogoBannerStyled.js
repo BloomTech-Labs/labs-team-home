@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 const LogoBannerStyles = styled.div`
 	width: 100%;
@@ -11,6 +12,22 @@ const TextIMG = styled.img`
 	z-index: -110;
 	left: 0%;
 	top: 0%;
+  transform: rotate(90deg);
+  ${mediaQueryFor.lgDevice`
+  width:300%;
+    left: 0%;
+    top: 5%;
+  `}
+  ${mediaQueryFor.mdDevice`
+  width:250%;
+    left: 0%;
+    top: 10%;
+  `}
+  ${mediaQueryFor.smDevice`
+  /* width:300%; */
+    left: -10%;
+    top: 15%;
+  `}
 `;
 
 const BannerStyles = styled.div`
