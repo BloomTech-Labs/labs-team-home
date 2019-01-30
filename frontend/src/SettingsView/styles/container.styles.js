@@ -36,11 +36,14 @@ const StyledAvatar = styled.img`
 
 const ImageFigure = styled.figure`
 	display: flex;
-	flex-direction: column;
+	flex-direction: row-reverse;
 	align-items: center;
-	width: 25%;
+	width: 33.33%;
 	padding: 1%;
 	margin: 0;
+	img {
+		margin-left: 10%;
+	}
 `;
 
 export default SettingsContainer;
