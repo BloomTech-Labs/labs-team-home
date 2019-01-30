@@ -31,3 +31,8 @@ code {
 	width: calc(100% - 2em);
 	padding: 0 3em 0 0;
 }
+
+.filepond--drop-label {
+	left: 0;
+	right: 0;
+}
