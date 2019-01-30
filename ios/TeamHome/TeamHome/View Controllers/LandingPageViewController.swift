@@ -67,6 +67,23 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         // Store credentials with manager for future handling
                         _ = credentialsManager.store(credentials: credentials)
                         
+                        guard let apollo = self.apollo else {return}
+                        apollo.fetch(query: CurrentUserQuery(), cachePolicy: .returnCacheDataElseFetch, queue: DispatchQueue.global(), resultHandler: { (result, error) in
+                            if let error = error {
+                                return
+                            }
+                            
+                            guard let result = result,
+                                let data = result.data,
+                                let currentUser = data.currentUser else {
+                                    // Perform other segue
+                                    return
+                            }
+                            
+                            // Perform segue to Dashboard VC.
+                            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        })
+                        
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
 

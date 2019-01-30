@@ -48,8 +48,9 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
            let comment = cell.comment,
         let commentId = comment.id,
             let currentUser = currentUser,
-            let id = currentUser.id,
             let likes = comment.likes else { return }
+        
+        let id = currentUser.id
         
         var likeIDs = likes.compactMap({ $0?.id })
         if !likeIDs.contains(id) {

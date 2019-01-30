@@ -31,8 +31,9 @@ class CommentCollectionViewCell: UICollectionViewCell {
     private func updateViews() {
         
         guard let comment = comment,
-            let currentUser = currentUser,
-            let id = currentUser.id else { return }
+            let currentUser = currentUser else { return }
+        
+        let id = currentUser.id 
         
         firstNameLabel.text = comment.user.firstName
         lastNameLabel.text = comment.user.lastName

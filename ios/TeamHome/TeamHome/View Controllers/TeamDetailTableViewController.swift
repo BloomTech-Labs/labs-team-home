@@ -31,10 +31,11 @@ class TeamDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TeamMemberCell", for: indexPath)
 
-        guard let user = users?[indexPath.row],
-            let firstName = user.user.firstName,
-            let lastName = user.user.lastName,
-            let email = user.user.email else { return UITableViewCell() }
+        guard let user = users?[indexPath.row] else { return UITableViewCell() }
+        
+        let firstName = user.user.firstName
+        let lastName = user.user.lastName
+        let email = user.user.email
 
         cell.textLabel?.text = "\(firstName) \(lastName)"
         cell.detailTextLabel?.text = email

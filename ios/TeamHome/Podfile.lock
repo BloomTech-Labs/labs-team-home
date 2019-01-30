@@ -13,6 +13,13 @@ PODS:
     - Lock/Classic (= 2.9.0)
   - Lock/Classic (2.9.0):
     - Auth0 (~> 1.13)
+  - Material (2.16.4):
+    - Material/Core (= 2.16.4)
+  - Material/Core (2.16.4):
+    - Motion (~> 1.4.3)
+  - Motion (1.4.3):
+    - Motion/Core (= 1.4.3)
+  - Motion/Core (1.4.3)
   - SimpleKeychain (0.8.1)
 
 DEPENDENCIES:
@@ -21,6 +28,7 @@ DEPENDENCIES:
   - Cloudinary (~> 2.0)
   - JWTDecode (~> 2.2)
   - Lock (~> 2.0)
+  - Material (~> 2.16)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -30,6 +38,8 @@ SPEC REPOS:
     - Cloudinary
     - JWTDecode
     - Lock
+    - Material
+    - Motion
     - SimpleKeychain
 
 SPEC CHECKSUMS:
@@ -39,8 +49,10 @@ SPEC CHECKSUMS:
   Cloudinary: 1ae089904a497f706212921809cda3817d7cae4a
   JWTDecode: 85a405ab16d5473e99bd89ded1d535090ebd6a0e
   Lock: c78ebd9de5dc0c4270e224f30dac8a9b04d0afc5
+  Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
+  Motion: 153ba49692997888556c7a95207278a8b1f8be95
   SimpleKeychain: e2485c28d82fcece35e9e41faeac42ebfe614815
 
-PODFILE CHECKSUM: 2f9508a711c111733ad4febe0566e762a58100c7
+PODFILE CHECKSUM: 46e02449b40c99dd6678756c636a340b54e95ff6
 
 COCOAPODS: 1.5.3
