@@ -11,7 +11,7 @@ import SettingsView from './SettingsView/containers/SettingsView';
 import Nav from './Nav/Nav';
 
 import { TextIMG } from './LandingView/styles/LogoBannerStyled';
-import iconLogo from './assets/TH_icon_logo_wout_nodes.svg';
+import iconLogo from './assets/BigTHv2.png';
 
 class App extends Component {
 	render() {

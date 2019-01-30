@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
 		rgb(63, 31, 106, 0.1) 80%,
 		rgb(63, 31, 106, 0) 100%
   );
-  
+
     ${mediaQueryFor.mdDevice`
       
       width:100vw;

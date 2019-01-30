@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const TextIMG = styled.img`
 	height: 50px;
 	width: 40%;
-	/* padding:5px; */
 `;
 
 const StyledSignInUp = styled.div`
