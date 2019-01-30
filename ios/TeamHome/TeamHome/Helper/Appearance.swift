@@ -23,7 +23,7 @@ enum Appearance {
         
         UILabel.appearance().textColor = .white
         
-        UINavigationBar.appearance().barTintColor = Appearance.darkBackgroundColor
+        UINavigationBar.appearance().barTintColor = Appearance.darkMauveColor
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: Appearance.lightMauveColor]
         let titleFont = Appearance.setTitleFont(with: .title1, pointSize: 20)
@@ -72,7 +72,7 @@ enum Appearance {
 
 extension UIViewController {
     func setUpViewAppearance() {
-        view.backgroundColor = Appearance.darkBackgroundColor
+        view.backgroundColor = Appearance.darkMauveColor
     }
     
 }

@@ -145,13 +145,5 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterTagsStackView: UIStackView!
     @IBOutlet weak var filterButton: UIButton!
-  
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        
-        formatter.timeStyle = .long
-        formatter.dateStyle = .short
-        
-        return formatter
-    }()
+
 }

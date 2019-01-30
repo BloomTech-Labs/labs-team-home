@@ -13,6 +13,7 @@
 		7B6BE7DB21E5733E0099E42C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D921E5733E0099E42C /* LaunchScreen.storyboard */; };
 		7B734DF721FF6E3900F56C5F /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B734DF621FF6E3900F56C5F /* Appearance.swift */; };
 		7B734DFF22000EFF00F56C5F /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B734DFE22000EFF00F56C5F /* Montserrat-Regular.ttf */; };
+		7B734E032200F21600F56C5F /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B734E022200F21600F56C5F /* DateFormatter.swift */; };
 		7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */; };
 		7BA77E8321E798A800C862C1 /* TabBarChildrenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */; };
 		7BA77E8521E7B2B500C862C1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA77E8421E7B2B500C862C1 /* User.swift */; };
@@ -70,6 +71,7 @@
 		7B6BE7DC21E5733E0099E42C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B734DF621FF6E3900F56C5F /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		7B734DFE22000EFF00F56C5F /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		7B734E022200F21600F56C5F /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarChildrenProtocol.swift; sourceTree = "<group>"; };
 		7BA77E8421E7B2B500C862C1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				7B734DF621FF6E3900F56C5F /* Appearance.swift */,
+				7B734E022200F21600F56C5F /* DateFormatter.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				7BD6589121EF8E8B004FF34A /* DashboardCollectionViewController.swift in Sources */,
 				7BD6589321EF8E99004FF34A /* TeamCollectionViewCell.swift in Sources */,
 				7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */,
+				7B734E032200F21600F56C5F /* DateFormatter.swift in Sources */,
 				7BD6589E21F00A55004FF34A /* API.swift in Sources */,
 				7BF8736221FA6B4B00737729 /* Activity.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* TabBarChildrenProtocol.swift in Sources */,
