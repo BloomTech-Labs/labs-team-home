@@ -3,6 +3,19 @@ import MessageBoard from '../components/MessageBoard';
 import ActivityTimeline from '../components/ActivityTimeline';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
+const styles = {
+	root: {
+		flexGrow: 1,
+		backgroundColor: '#784555',
+		color: 'white'
+	}
+};
 
 const MsgContainer = styled.div`
 	/* padding: 70px 20px; */
@@ -14,33 +27,39 @@ const MsgContainer = styled.div`
   `}
 `;
 
-export default class MessageBoardContainer extends React.Component {
+class MessageBoardContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			messageboard: true
+			value: 0
 		};
 
-		this.tabChange = this.tabChange.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	}
 
-	tabChange(e) {
-		this.setState({
-			messageboard: e.target.name === 'messageboard'
-		});
-	}
+	handleChange = (event, value) => {
+		this.setState({ value });
+	};
 
 	render() {
+		const { classes } = this.props;
+
 		return (
 			<MsgContainer>
-				<button name="messageboard" onClick={this.tabChange}>
-					Message Board
-				</button>
-				<button name="timeline" onClick={this.tabChange}>
-					Activity Timeline
-				</button>
-				{this.state.messageboard ? (
+				<Paper className={classes.root}>
+					<Tabs
+						value={this.state.value}
+						onChange={this.handleChange}
+						indicatorColor="primary"
+						textColor="primary"
+						centered
+					>
+						<Tab label="Message Board" />
+						<Tab label="Activity Timeline" />
+					</Tabs>
+				</Paper>
+				{!this.state.value ? (
 					<MessageBoard
 						currentUser={this.props.currentUser}
 						team={this.props.match.params.team}
@@ -55,3 +74,9 @@ export default class MessageBoardContainer extends React.Component {
 		);
 	}
 }
+
+MessageBoardContainer.propTypes = {
+	classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(MessageBoardContainer);
