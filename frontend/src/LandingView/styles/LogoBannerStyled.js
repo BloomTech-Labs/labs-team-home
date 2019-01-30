@@ -11,8 +11,7 @@ const TextIMG = styled.img`
 	position: fixed;
 	z-index: -110;
   left: 0%;
-  bottom:0px;
-  top: 0%;
+  top: 100px;
   ${mediaQueryFor.lgDevice`
   width:300%;
     left: 0%;
