@@ -56,7 +56,6 @@ class SettingsView extends Component {
 			selected: [],
 			toggles: {}
 		};
-		const avatar = '';
 	}
 
 	componentDidMount() {
@@ -135,9 +134,10 @@ class SettingsView extends Component {
 												email: this.state.email,
 												phoneNumber: this.state.phoneNumber,
 												toggles: this.state.toggles,
-												avatar: this.avatar
+												avatar: this.state.avatar
 											}
 										});
+										this.pond.removeFile();
 									}}
 								>
 									<AvatarUploadContainer>
@@ -200,11 +200,11 @@ class SettingsView extends Component {
 													// Should call the load method when done and pass the returned server file id
 													// this server file id is then used later on when reverting or restoring a file
 													// so your server knows which file to return without exposing that info to the client
-													request.onload = function() {
+													request.onload = () => {
 														if (request.status >= 200 && request.status < 300) {
 															// the load method accepts either a string (id) or an object
 															const response = JSON.parse(request.response);
-															this.avatar = response.secure_url;
+															this.setState({ avatar: response.secure_url });
 															console.log('THIS DOT AVATAR', this.avatar);
 															//add new url to the images array in preparation of creating new message
 															load(request.responseText);
