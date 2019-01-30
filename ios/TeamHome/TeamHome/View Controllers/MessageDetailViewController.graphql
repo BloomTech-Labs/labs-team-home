@@ -15,7 +15,7 @@ query FindMessageById($id: ID!) {
         }
         content
         images
-        tags {
+        tag {
             name
             _id
         }

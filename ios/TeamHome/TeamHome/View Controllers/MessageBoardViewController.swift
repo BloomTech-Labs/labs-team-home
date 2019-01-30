@@ -117,19 +117,19 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     private func filter(for selectedTagId: GraphQLID) {
         guard let messages = messages else { return }
         
-        filteredMessages = []
-        
-        for message in messages {
-            guard let tags = message?.tags else { return }
-            for tag in tags {
-                guard let tagId = tag?.id else { return }
-                
-                if tagId == selectedTagId {
-                    filteredMessages?.append(message)
-                    return
-                }
-            }
-        }
+//        filteredMessages = []
+//
+//        for message in messages {
+//            guard let tags = message?.tags else { return }
+//            for tag in tags {
+//                guard let tagId = tag?.id else { return }
+//
+//                if tagId == selectedTagId {
+//                    filteredMessages?.append(message)
+//                    return
+//                }
+//            }
+//        }
     }
     
     // MARK - Properties
@@ -145,5 +145,5 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterTagsStackView: UIStackView!
     @IBOutlet weak var filterButton: UIButton!
-    
+
 }

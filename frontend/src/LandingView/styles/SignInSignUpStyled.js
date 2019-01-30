@@ -17,6 +17,7 @@ const StyledSignInUp = styled.div`
 	flex-flow: row;
 	z-index: 1000;
 	justify-content: space-between;
+	width: 100%;
 	&:hover {
 		background-color: #17151b;
 	}

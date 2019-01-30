@@ -9,7 +9,8 @@
 import UIKit
 import Apollo
 import Auth0
-import Lock
+import Material
+
 
 let auth0DomainURLString = "teamhome.auth0.com"
 let credentialsManager = CredentialsManager.init(authentication: Auth0.authentication())
@@ -66,6 +67,23 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         
                         // Store credentials with manager for future handling
                         _ = credentialsManager.store(credentials: credentials)
+                        
+                        guard let apollo = self.apollo else {return}
+                        apollo.fetch(query: CurrentUserQuery(), cachePolicy: .returnCacheDataElseFetch, queue: DispatchQueue.global(), resultHandler: { (result, error) in
+                            if let error = error {
+                                return
+                            }
+                            
+                            guard let result = result,
+                                let data = result.data,
+                                let currentUser = data.currentUser else {
+                                    // Perform other segue
+                                    return
+                            }
+                            
+                            // Perform segue to Dashboard VC.
+                            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        })
                         
                         // Perform segue to Dashboard VC.
                         self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -297,15 +315,35 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
+        passwordTextField.placeholder = "Password"
+        passwordTextField.detail = "At least 8 characters"
+        passwordTextField.clearButtonMode = .whileEditing
+        passwordTextField.isVisibilityIconButtonEnabled = true
+        passwordTextField.dividerNormalColor = .white
+        passwordTextField.detailColor = .white
+        passwordTextField.placeholderAnimation = .hidden
+        passwordTextField.textColor = .white
+        passwordTextField.dividerActiveColor = Appearance.yellowColor
+        
+        emailTextField.dividerNormalColor = .white
+        emailTextField.placeholder = "Email"
+        emailTextField.placeholderAnimation = .hidden
+        emailTextField.isClearIconButtonEnabled = true
+        emailTextField.textColor = .white
+        emailTextField.dividerActiveColor = Appearance.yellowColor
+        emailTextField.placeholderActiveColor = Appearance.yellowColor
+        
+        
+        // Setting the visibilityIconButton color.
+        passwordTextField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordTextField.isSecureTextEntry ? 0.38 : 0.54)
+        
         self.setUpViewAppearance()
         
-        emailTextField.textColor = Appearance.mauveColor
-        emailTextField.attributedPlaceholder = NSAttributedString(string:"Email:", attributes: [NSAttributedString.Key.foregroundColor: Appearance.lightMauveColor])
 
-        emailTextField.layer.cornerRadius = emailTextField.frame.height / 2
-        emailTextField.clipsToBounds = true
-        passwordTextField.layer.cornerRadius = passwordTextField.frame.height / 2
-        passwordTextField.clipsToBounds = true
+//        emailTextField.layer.cornerRadius = emailTextField.frame.height / 2
+//        emailTextField.clipsToBounds = true
+//        passwordTextField.layer.cornerRadius = passwordTextField.frame.height / 2
+//        passwordTextField.clipsToBounds = true
         
         
         Appearance.styleLandingPage(button: loginButton)
@@ -339,8 +377,8 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var briefInfoLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var emailTextField: TextField!
+    @IBOutlet weak var passwordTextField: TextField!
     @IBOutlet weak var googleLogoButton: UIButton!
     @IBOutlet weak var googleButton: UIButton!
     

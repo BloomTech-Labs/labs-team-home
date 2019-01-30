@@ -22,5 +22,29 @@ const SettingsContainer = styled.div`
     `}
 `;
 
+const AvatarUploadContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+`;
+
+const StyledAvatar = styled.img`
+	max-width: 50px;
+	height: auto;
+	border-radius: 50%;
+`;
+
+const ImageFigure = styled.figure`
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	width: 33.33%;
+	padding: 1%;
+	margin: 0;
+	img {
+		margin-left: 10%;
+	}
+`;
+
 export default SettingsContainer;
-export {};
+export { StyledAvatar, ImageFigure, AvatarUploadContainer };
