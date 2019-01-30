@@ -136,8 +136,9 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         guard let apollo = apollo,
             let team = team,
             let teamId = team.id,
-            let currentUser = currentUser,
-            let currentUserId = currentUser.id else { return }
+            let currentUser = currentUser else { return }
+        
+        let currentUserId = currentUser.id
         
         _ = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
             if let error = error {

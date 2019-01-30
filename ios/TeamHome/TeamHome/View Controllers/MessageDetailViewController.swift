@@ -120,9 +120,9 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         dateLabel.text = ""
         messageBodyLabel.text = message.content
         
-        let tags = message.tags
-        let tagNames = tags?.compactMap({ $0?.name })
-        tagsLabel.text = tagNames?.joined(separator: ", ")
+//        let tags = message.tag
+//        let tagNames = tags?.compactMap({ $0?.name })
+//        tagsLabel.text = tagNames?.joined(separator: ", ")
         
         // Download image and display as user avatar
         guard let avatar = message.user.avatar else { return }

@@ -1,10 +1,10 @@
-mutation AddNewMessage($title: String!, $team: String!, $content: String!, $images: [String], $tags: [String]) {
+mutation AddNewMessage($title: String!, $team: String!, $content: String!, $images: [String], $tags: String) {
     addMessage(input: {
                title: $title
                team: $team
                content: $content
                images: $images
-               tags: $tags
+               tag: $tags
                }) {
         title
         _id
