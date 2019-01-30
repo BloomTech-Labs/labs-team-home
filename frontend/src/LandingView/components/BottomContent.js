@@ -4,7 +4,7 @@ import BtmContentStyles from '../styles/BottomStyled';
 const BottomContent = props => {
 	return (
 		<BtmContentStyles>
-			<h1>ensure real-time survival!</h1>
+			<h1>Ensure Real-Time Survival!</h1>
 			<p>
 				Bring to the table win-win survival strategies to ensure proactive
 				domination. At the end of the day, going forward, a new normal that has
