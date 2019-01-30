@@ -6,3 +6,11 @@ export const palette = {
 	gold: '#9B786F',
 	white: '#FFFFFF'
 };
+
+export const colors = {
+	background: palette.gray,
+	button: palette.plum,
+	border: palette.yellow,
+	header: palette.yellow,
+	text: palette.white
+};
