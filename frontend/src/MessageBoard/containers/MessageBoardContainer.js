@@ -12,8 +12,14 @@ import Tab from '@material-ui/core/Tab';
 const styles = {
 	root: {
 		flexGrow: 1,
-		backgroundColor: '#784555',
+		backgroundColor: 'transparent',
+		boxShadow: 'none'
+	},
+	label: {
 		color: 'white'
+	},
+	tabsIndicator: {
+		backgroundColor: '#FAED26'
 	}
 };
 
@@ -51,12 +57,12 @@ class MessageBoardContainer extends React.Component {
 					<Tabs
 						value={this.state.value}
 						onChange={this.handleChange}
-						indicatorColor="primary"
 						textColor="primary"
+						classes={{ indicator: classes.tabsIndicator }}
 						centered
 					>
-						<Tab label="Message Board" />
-						<Tab label="Activity Timeline" />
+						<Tab classes={{ label: classes.label }} label="Message Board" />
+						<Tab classes={{ label: classes.label }} label="Activity Timeline" />
 					</Tabs>
 				</Paper>
 				{!this.state.value ? (

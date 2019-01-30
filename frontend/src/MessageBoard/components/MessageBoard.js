@@ -9,9 +9,6 @@ import Invites from './Invites';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
-import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 
 import MessageDetail from './MessageDetail';
 import UserList from './UserList';
@@ -173,12 +170,6 @@ const AddMsgBtn = styled.button`
 		color: #f1fcef;
 	}
 `;
-
-const styles = {
-	root: {
-		backgroundColor: '#784555'
-	}
-};
 
 class MessageBoard extends React.Component {
 	constructor(props) {
@@ -355,9 +346,6 @@ class MessageBoard extends React.Component {
 						</Teamlogo>
 					</TeamName>
 					<MessagesContainer>
-						<Fab color="primary" aria-label="Add" className={classes.fab}>
-							<AddIcon />
-						</Fab>
 						<AddMsgBtn onClick={this.openModalHandler}>
 							<div className="new-message">+</div>
 						</AddMsgBtn>
@@ -432,4 +420,4 @@ class MessageBoard extends React.Component {
 	}
 }
 
-export default withStyles(styles)(MessageBoard);
+export default MessageBoard;
