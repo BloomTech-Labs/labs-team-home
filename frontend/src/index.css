@@ -2,7 +2,6 @@
 
 * {
 	box-sizing: border-box;
-	width: 100%;
 }
 
 #root {
@@ -25,6 +24,10 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
+}
+
+.filepond--wrapper {
+	width: 75%;
 }
 
 .filepond--item {
