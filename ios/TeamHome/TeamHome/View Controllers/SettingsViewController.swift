@@ -24,6 +24,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         phoneTextField.delegate = self
         
         self.setUpViewAppearance()
+        UILabel.appearance().textColor = .white
         
         self.setNeedsStatusBarAppearanceUpdate()
         

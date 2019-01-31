@@ -27,7 +27,7 @@ export default class ActivityTimeline extends React.Component {
 			<div>
 				<Query
 					query={query.FIND_MESSAGES_BY_TEAM}
-					variables={{ team: this.state.team }}
+					variables={{ team: this.state.team._id }}
 				>
 					{({ loading, error, data: { findMessagesByTeam } }) => {
 						if (loading) return <p>Loading...</p>;
@@ -68,6 +68,7 @@ export default class ActivityTimeline extends React.Component {
 												thing.updatedAt = new Date(
 													parseInt(thing.updatedAt, 10)
 												);
+											return null;
 										});
 										//sort in reverse chronological order
 										allTheThings.sort((a, b) => {

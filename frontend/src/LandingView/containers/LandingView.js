@@ -12,7 +12,7 @@ const styles = {
 	width: ' 100%',
 	margin: '0px',
 	left: '0px',
-	zIndex: '-105',
+	zIndex: '-1005',
 	height: '100%'
 };
 

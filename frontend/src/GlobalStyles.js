@@ -16,8 +16,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     @import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
     background-size:100vw;
-    ${'' /* background-color: #17151B; */}
-    width:100%;
+    background-color: #5A5560;
     margin:0 auto;
     ${
 			'' /* background: rgb(155,120,111);
@@ -35,7 +34,7 @@ background: linear-gradient(90deg, rgba(155,120,111,1) 0%, rgba(155,120,111,1) 3
     ); 
 		`}
     ${mediaQueryFor.mdDevice`
-      
+
       width:100vw;
     `}
     ${mediaQueryFor.smDevice`

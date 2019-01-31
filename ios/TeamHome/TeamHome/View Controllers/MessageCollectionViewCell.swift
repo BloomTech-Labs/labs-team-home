@@ -120,7 +120,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     fileprivate func prepareContentView(messageContent: String) {
         contentLabel = UILabel()
-        contentLabel.numberOfLines = 0
+        contentLabel.numberOfLines = 2
         contentLabel.text = messageContent
         contentLabel.font = RobotoFont.regular(with: 14)
         contentLabel.textColor = .white
@@ -147,7 +147,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         card.bottomBar = bottomBar
         card.bottomBarEdgeInsetsPreset = .wideRectangle2
         
-        card.backgroundColor = Appearance.darkBackgroundColor
+        card.backgroundColor = Appearance.plumColor
         
     }
     
