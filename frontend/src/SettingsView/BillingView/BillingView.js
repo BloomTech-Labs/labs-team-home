@@ -2,6 +2,7 @@ import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
+import Logo from '../../assets/TH_favicon.png';
 
 const STRIPE_SOURCE = gql`
 	mutation setPremium($team: ID!, $amount: Int!, $token: String!) {
@@ -19,7 +20,7 @@ const BillingView = () => {
 			{(setPremium, { data }) => (
 				<StripeCheckout
 					label="Go Premium" //Component button text
-					name="the name goes here" //Modal Header
+					name="TeamHome" //Modal Header
 					description="Upgrade to a premium account today."
 					panelLabel="Go Premium" //Submit button in modal
 					amount={999} //Amount in cents $9.99
@@ -42,7 +43,8 @@ const BillingView = () => {
 							})
 					}
 					stripeKey={publishableKey}
-					image="https://i.imgur.com/AfgkjCf.jpg" //Pop-in header image
+					// image={Logo} //Pop-in header image
+					image="https://i.imgur.com/JZmk8zB.jpg" //use above when not prod
 					billingAddress={false}
 				/>
 			)}
