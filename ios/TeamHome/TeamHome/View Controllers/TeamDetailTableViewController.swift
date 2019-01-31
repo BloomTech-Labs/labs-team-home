@@ -17,6 +17,9 @@ class TeamDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpViewAppearance()
+        view.backgroundColor = Appearance.plumColor
+        
         guard let apollo = apollo else { return }
         
         loadUsers(with: apollo)
