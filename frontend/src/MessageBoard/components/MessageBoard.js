@@ -1,21 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 // import axios from 'axios';
 import Message from './Message';
 import AddMessage from './AddMessage';
-import { Query, Mutation, ApolloConsumer } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import Invites from './Invites';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import { colors } from '../../colorVariables';
 import MessageDetail from './MessageDetail';
 import UserList from './UserList';
@@ -45,6 +39,11 @@ const styles = theme => ({
 	},
 	fab: {
 		margin: theme.spacing.unit
+	},
+	styledTooltip: {
+		fontSize: '12px',
+		backgroundColor: colors.button,
+		color: colors.text
 	}
 });
 
@@ -236,6 +235,7 @@ class MessageBoard extends React.Component {
 			if (user.user._id === this.props.currentUser._id) {
 				if (user.admin) this.setState({ isAdmin: true });
 			}
+			return null;
 		});
 	}
 
@@ -317,13 +317,7 @@ class MessageBoard extends React.Component {
 						</Mutation>
 					) : null}
 					<TeamName>
-						<Query query={query.FIND_TEAM} variables={{ id: this.props.team }}>
-							{({ loading, error, data: { findTeam } }) => {
-								if (loading) return <p>Loading...</p>;
-								if (error) return <p>Error :(</p>;
-								return findTeam && <h1>{findTeam.name}</h1>;
-							}}
-						</Query>
+						<h1>{this.props.team.name}</h1>
 						<Teamlogo>
 							<Logo src={TH_logo} alt="team logo" />
 							{this.state.isAdmin ? (
@@ -346,7 +340,11 @@ class MessageBoard extends React.Component {
 						</Teamlogo>
 					</TeamName>
 					<MessagesContainer>
-						<Tooltip title="Add Message" aria-label="Add Message">
+						<Tooltip
+							title="Add Message"
+							aria-label="Add Message"
+							classes={{ tooltip: classes.styledTooltip }}
+						>
 							<AddMsgBtn
 								onClick={this.openModalHandler}
 								className={classes.fab}
@@ -424,5 +422,9 @@ class MessageBoard extends React.Component {
 		);
 	}
 }
+
+MessageBoard.propTypes = {
+	classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(MessageBoard);
