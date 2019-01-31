@@ -18,6 +18,7 @@ PODS:
     - Motion/Core (= 1.4.3)
   - Motion/Core (1.4.3)
   - SimpleKeychain (0.8.1)
+  - Toucan (1.1.0)
 
 DEPENDENCIES:
   - Apollo
@@ -27,6 +28,7 @@ DEPENDENCIES:
   - GrowingTextView (= 0.6.1)
   - Material (~> 2.16)
   - MEVHorizontalContacts
+  - Toucan (~> 1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -40,6 +42,7 @@ SPEC REPOS:
     - MEVHorizontalContacts
     - Motion
     - SimpleKeychain
+    - Toucan
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
@@ -52,7 +55,8 @@ SPEC CHECKSUMS:
   MEVHorizontalContacts: e92c4e06c08c38f557f4dc805af2b78b0198248e
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   SimpleKeychain: e2485c28d82fcece35e9e41faeac42ebfe614815
+  Toucan: 8f228fabb21521b9658692df9325fe76e71d74b2
 
-PODFILE CHECKSUM: f93a1047731aec700adc656921a7c9734f8bcbd1
+PODFILE CHECKSUM: 4b774410d599db0f1dc81feb1cc03f6bcba0fa17
 
 COCOAPODS: 1.5.3

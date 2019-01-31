@@ -11,6 +11,7 @@ import Apollo
 import Cloudinary
 import MEVHorizontalContacts
 import GrowingTextView
+import Toucan
 
 class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, GrowingTextViewDelegate {
     
@@ -173,9 +174,9 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             }
             
             guard let image = image else { return }
-            
+            let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
             DispatchQueue.main.async {
-                self.userAvatarImageView.image = image
+                self.userAvatarImageView.image = resizedImage.image
             }
         }
         

@@ -9,6 +9,7 @@
 import UIKit
 import Apollo
 import Cloudinary
+import Toucan
 
 var teamWatcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
 
@@ -56,9 +57,9 @@ class TeamDetailTableViewController: UITableViewController {
                 
                 guard let image = image else { return }
                 
+                let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
                 DispatchQueue.main.async {
-                    cell.imageView?.image = image
-                    cell.imageView?.contentMode = .scaleAspectFit
+                    cell.imageView?.image = resizedImage.image
                 }
             }
         }

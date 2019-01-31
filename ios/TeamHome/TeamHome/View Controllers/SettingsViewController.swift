@@ -12,6 +12,7 @@ import Photos
 import Apollo
 import SafariServices
 import Auth0
+import Toucan
 
 class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
@@ -240,8 +241,10 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
             
             guard let image = image else { return }
             
+            let resizedAndMaskedImage = Toucan(image: image).maskWithEllipse()
+            
             DispatchQueue.main.async {
-                self.userAvatarImageView.image = image
+                self.userAvatarImageView.image = resizedAndMaskedImage.image
             }
         }
     }
