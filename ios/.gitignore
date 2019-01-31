@@ -1,3 +1,5 @@
 node_modules
 Pods/
 .xcuserstate
+.xcbkptlist
+ios/TeamHome/TeamHome.xcworkspace/xcuserdata

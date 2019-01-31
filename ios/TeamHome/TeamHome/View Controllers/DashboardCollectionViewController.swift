@@ -23,6 +23,8 @@ class DashboardCollectionViewController: UICollectionViewController {
         loadTeams(with: apollo)
     }
 
+   @IBAction func unwindToDashboard(segue:UIStoryboardSegue) { }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,11 +58,9 @@ class DashboardCollectionViewController: UICollectionViewController {
 
     // Set up cell with team name and letter icon from the first letter of team name
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamCell", for: indexPath) as! TeamCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamCell", for: indexPath) as! DashboardTeamCollectionViewCell
     
         guard let team = teams?[indexPath.row] else { return UICollectionViewCell()}
-        cell.teamNameLabel.text = team.name
-        cell.largeInitialLabel.text = String(team.name.prefix(1))
         
         cell.setTheme()
         

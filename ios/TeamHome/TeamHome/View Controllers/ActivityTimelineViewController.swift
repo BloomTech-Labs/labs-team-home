@@ -18,6 +18,9 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         guard let apollo = apollo,
             let team = team else { return }
         
+        setUpViewAppearance()
+        collectionView.backgroundColor = .clear
+        
         loadActivity(with: apollo, team: team)
     }
     
