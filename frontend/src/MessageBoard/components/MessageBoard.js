@@ -22,21 +22,6 @@ const styles = theme => ({
 	root: {
 		backgroundColor: colors.background
 	},
-	card: {
-		width: '60%',
-		backgroundColor: colors.background,
-		color: colors.text,
-		margin: '20px 5%'
-	},
-	cardButton: {
-		display: 'flex',
-		justifyContent: 'flex-start'
-	},
-	bigAvatar: {
-		margin: 10,
-		width: 60,
-		height: 60
-	},
 	fab: {
 		margin: theme.spacing.unit
 	},
@@ -60,13 +45,8 @@ const Messageboard = styled.div`
 	width: 96%;
 	margin: 0 auto;
 	margin-top: 20px;
-	padding: 1%;
-	color: #f1fcef;
-
-	& p {
-		color: #f1fcef;
-		font-size: 16px;
-	}
+	color: ${colors.text};
+	
 	${mediaQueryFor.lgDevice`
       border-width:10px;
   `}
@@ -93,31 +73,16 @@ const TeamName = styled.div`
 	color: ${colors.header};
 	text-align: center;
 	font-size: 2rem;
+
+	${mediaQueryFor.xsDevice`
+		font-size: 1rem;
+	`}
 `;
 
 const Teamlogo = styled.div`
 	display: flex;
 	align-items: center;
 	flex-flow: column;
-	/*& button {
-		font-family: Comfortaa;
-		font-size: 1.3rem;
-		font-weight: 600;
-		color: #f1fcef;
-		--borderWidth: 3px;
-		width: 220px;
-		height: 40px;
-		margin: 2px;
-		border: none;
-		border-radius: var(--borderWidth);
-		background-color: rgba(0, 0, 0, 0);
-		border: solid 2px rgba(107, 40, 59, 0.3);
-		cursor: pointer;
-		transition: background-color 250ms ease-in-out, transform 150ms ease;
-		&:hover {
-			background-color: #de3b61;
-		}*/
-	}
 `;
 
 const Logo = styled.img`
