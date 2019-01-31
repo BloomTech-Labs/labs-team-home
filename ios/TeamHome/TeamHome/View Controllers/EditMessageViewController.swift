@@ -16,6 +16,9 @@ class EditMessageViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setUpViewAppearance()
+        messageView.backgroundColor = Appearance.plumColor
+        
         updateViews()
     }
     
@@ -209,6 +212,7 @@ class EditMessageViewController: UIViewController, UIImagePickerControllerDelega
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     
+    @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var messageTitleTextField: UITextField!
     @IBOutlet weak var messageContentTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!

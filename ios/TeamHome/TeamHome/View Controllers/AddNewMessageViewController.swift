@@ -10,6 +10,7 @@ import UIKit
 import Apollo
 import Cloudinary
 import Photos
+import Material
 
 // Set up cloudinary with account details for all app to use
 let config = CLDConfiguration(cloudName: "massamb", secure: true)
@@ -20,7 +21,14 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .clear
+        setUpViewAppearance()
+        newMessageView.backgroundColor = Appearance.plumColor
+        cancelButton.tintColor = Appearance.yellowColor
+        Appearance.styleLandingPage(button: submitButton)
+        messageBodyTextView.placeholder = "Enter your message"
+        messageBodyTextView.tintColor = .white
+        messageTitleTextField.placeholderActiveColor = Appearance.yellowColor
+        messageTitleTextField.dividerActiveColor = Appearance.yellowColor
         
     }
     
@@ -302,6 +310,10 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
 //        }
     }
     
+    @IBAction func cancelNewMessage(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK - Private Methods
     
     private func presentImagePickerController() {
@@ -338,9 +350,11 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     
+    @IBOutlet weak var cancelButton: FlatButton!
+    @IBOutlet weak var submitButton: RaisedButton!
     @IBOutlet weak var newMessageView: UIView!
-    @IBOutlet weak var messageTitleTextField: UITextField!
-    @IBOutlet weak var messageBodyTextView: UITextView!
+    @IBOutlet weak var messageTitleTextField: TextField!
+    @IBOutlet weak var messageBodyTextView: TextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tagsTextField: UITextField!
     
