@@ -12,14 +12,16 @@ const BtnContainer = styled.div`
 	flex-flow: row;
 `;
 
-const Nav = () => {
+const Nav = props => {
 	return (
 		<NavBar>
 			<TextIMG alt={'TeamHome banner'} src={textLogo} />
 			<BtnContainer>
-				<StyledLink to="/home">Home</StyledLink>
 				<StyledLink to="/dashboard">Dashboard</StyledLink>
 				<StyledLink to="/settings">Settings</StyledLink>
+				<StyledLink to="/" onClick={props.handleLogout}>
+					Logout
+				</StyledLink>
 			</BtnContainer>
 		</NavBar>
 	);
