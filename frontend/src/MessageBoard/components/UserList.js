@@ -72,55 +72,57 @@ export default class UserList extends Component {
 										subheader={`${user.email}`}
 										subheaderTypographyProps={{ style: { color: '#fff' } }}
 										titleTypographyProps={{ style: { color: '#fff' } }}
-									>
-										<Mutation
-											mutation={mutation.UPDATE_TEAM}
-											update={(cache, { data: { updateTeam } }) => {
-												const { findTeam } = cache.readQuery({
-													query: query.FIND_TEAM,
-													variables: { id: team }
-												});
-												cache.writeQuery({
-													query: query.FIND_TEAM,
-													variables: { id: team },
-													data: {
-														findTeam: updateTeam
-													}
-												});
-											}}
-										>
-											{updateTeam =>
-												findTeam.users.find(
-													item => item.user._id === currentUser._id
-												).admin &&
-												user._id !== currentUser._id && (
-													<button
-														onClick={e => {
-															e.preventDefault();
-															const sanitized = findTeam.users.map(
-																sanitizedUser => {
-																	return {
-																		user: sanitizedUser.user._id,
-																		admin: sanitizedUser.admin
-																	};
-																}
-															);
-															updateTeam({
-																variables: {
-																	id: findTeam._id,
-																	users: sanitized.filter(
-																		filterItem => filterItem.user !== user._id
-																	)
-																}
-															});
-														}}
-													>
-														Kick User
-													</button>
-												)
-											}
-										</Mutation>
-									</CardHeader>
+										action={
+											<Mutation
+												mutation={mutation.UPDATE_TEAM}
+												update={(cache, { data: { updateTeam } }) => {
+													const { findTeam } = cache.readQuery({
+														query: query.FIND_TEAM,
+														variables: { id: team }
+													});
+													cache.writeQuery({
+														query: query.FIND_TEAM,
+														variables: { id: team },
+														data: {
+															findTeam: updateTeam
+														}
+													});
+												}}
+											>
+												{updateTeam =>
+													findTeam.users.find(
+														item => item.user._id === currentUser._id
+													).admin &&
+													user._id !== currentUser._id && (
+														<Button
+															color="secondary"
+															onClick={e => {
+																e.preventDefault();
+																const sanitized = findTeam.users.map(
+																	sanitizedUser => {
+																		return {
+																			user: sanitizedUser.user._id,
+																			admin: sanitizedUser.admin
+																		};
+																	}
+																);
+																updateTeam({
+																	variables: {
+																		id: findTeam._id,
+																		users: sanitized.filter(
+																			filterItem => filterItem.user !== user._id
+																		)
+																	}
+																});
+															}}
+														>
+															Kick User
+														</Button>
+													)
+												}
+											</Mutation>
+										}
+									/>
 								))}
 							</div>
 						)
