@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import SignInSignUp from '../components/SignInSignUp';
 import LogoBanner from '../components/LandingLogoBanner';
+import { SVGAnimation } from '../styles/LandingViewStyled';
+import TH_desktop from '../../assets/TH_desktop.svg';
 import Auth0 from '../../Auth/Auth';
 
 export default class LandingView extends Component {
@@ -34,6 +36,7 @@ export default class LandingView extends Component {
 					handleLogin={this.handleLogin}
 					handleSignUp={this.handleSignUp}
 				/>
+				{/* <SVGAnimation src={TH_desktop}/> */}
 				<LogoBanner />
 			</div>
 		);
