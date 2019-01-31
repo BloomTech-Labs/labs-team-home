@@ -4,6 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"@material-ui/core": "^3.9.0",
+		"@material-ui/icons": "^3.0.2",
 		"@reach/dialog": "^0.1.2",
 		"apollo-boost": "^0.1.23",
 		"auth0-lock": "^11.13.0",
