@@ -25,6 +25,7 @@ const BtmContentStyles = styled.div`
     width: 390px;
     margin: 10px 11%;
     font-size: 1.4rem;
+    font-weight:400;
 	}
   ${mediaQueryFor.lgDevice`
     position:absolute;
