@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { colors } from '../../colorVariables';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 const styles = {
 	root: {
@@ -23,9 +24,6 @@ const styles = {
 		display: 'flex',
 		justifyContent: 'flex-start'
 	},
-	cardText: {
-		color: colors.text
-	},
 	bigAvatar: {
 		margin: 10,
 		width: 60,
@@ -38,19 +36,39 @@ const Container = styled(Card)`
 	color: white;
 	margin: 20px 3%;
 	background-color: #3e3145;
+
+	${mediaQueryFor.xsDevice`
+		width: 100%;
+		margin: 0;
+		border-bottom: 1px solid ${colors.border};
+	`}
 `;
 
 const Info = styled(CardContent)`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	padding: 0 20px;
+	padding-right: 85px;
 	margin: 5px 10px;
+	max-width: 740px;
+	width: 90%;
+
+	${mediaQueryFor.xsDevice`
+		max-width: 340px;
+	`}
 `;
 
 const Title = styled(Typography)`
 	font-weight: bold;
 	color: ${colors.text};
+`;
+
+const StyledTypography = styled(Typography)`
+	color: ${colors.text};
+
+	${mediaQueryFor.xsDevice`
+		font-size: .95rem;
+	`}
 `;
 
 function GeneralActivity(props) {
@@ -66,19 +84,21 @@ function GeneralActivity(props) {
 						className={classes.bigAvatar}
 					/>
 					<Info>
-						<Typography
+						<StyledTypography
 							gutterBottom
 							noWrap
-							variant="h5"
+							variant="title"
 							component="h4"
 							className={classes.cardText}
 						>
-							{props.message.user.firstName} {props.message.user.lastName}{' '}
+							{props.message.user.firstName}{' '}
+							{props.message.user.lastName.slice(0, 1)}
+							{'. '}
 							posted a new message
-						</Typography>
-						<Typography component="p" noWrap className={classes.cardText}>
+						</StyledTypography>
+						<StyledTypography component="p" noWrap className={classes.cardText}>
 							{props.message.updatedAt.toDateString()}
-						</Typography>
+						</StyledTypography>
 						<Title component="p" noWrap>
 							{props.message.title}
 						</Title>
@@ -96,22 +116,24 @@ function GeneralActivity(props) {
 						className={classes.bigAvatar}
 					/>
 					<Info>
-						<Typography
+						<StyledTypography
 							gutterBottom
 							noWrap
 							variant="h5"
 							component="h4"
 							className={classes.cardText}
 						>
-							{props.message.user.firstName} {props.message.user.lastName}{' '}
+							{props.message.user.firstName}{' '}
+							{props.message.user.lastName.slice(0, 1)}
+							{'. '}
 							posted a new comment
-						</Typography>
-						<Typography component="p" noWrap className={classes.cardText}>
+						</StyledTypography>
+						<StyledTypography component="p" noWrap className={classes.cardText}>
 							{props.message.updatedAt.toDateString()}
-						</Typography>
-						<Typography component="p" noWrap className={classes.cardText}>
+						</StyledTypography>
+						<Title component="p" noWrap className={classes.cardText}>
 							{props.message.content}
-						</Typography>
+						</Title>
 					</Info>
 				</CardActionArea>
 			</Container>

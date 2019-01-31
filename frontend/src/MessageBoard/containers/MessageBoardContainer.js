@@ -13,7 +13,8 @@ const styles = {
 	root: {
 		flexGrow: 1,
 		backgroundColor: 'transparent',
-		boxShadow: 'none'
+		boxShadow: 'none',
+		marginBottom: '20px'
 	},
 	label: {
 		color: 'white'
@@ -24,13 +25,23 @@ const styles = {
 };
 
 const MsgContainer = styled.div`
-	/* padding: 70px 20px; */
 	margin: 90px auto;
+
+	${mediaQueryFor.xsDevice`
+		width: 100%;
+	`}
+
 	${mediaQueryFor.smDevice`
-      padding:5px;
+      padding:0px;
       width:100%;
       border-width:4px;
   `}
+`;
+
+const StyledPaper = styled(Paper)`
+	${mediaQueryFor.xsDevice`
+		max-width: 376px;
+	`}
 `;
 
 class MessageBoardContainer extends React.Component {
@@ -53,7 +64,7 @@ class MessageBoardContainer extends React.Component {
 
 		return (
 			<MsgContainer>
-				<Paper className={classes.root}>
+				<StyledPaper classes={{ root: classes.root }}>
 					<Tabs
 						value={this.state.value}
 						onChange={this.handleChange}
@@ -64,7 +75,7 @@ class MessageBoardContainer extends React.Component {
 						<Tab classes={{ label: classes.label }} label="Message Board" />
 						<Tab classes={{ label: classes.label }} label="Activity Timeline" />
 					</Tabs>
-				</Paper>
+				</StyledPaper>
 				{!this.state.value ? (
 					<MessageBoard
 						currentUser={this.props.currentUser}

@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { colors } from '../../colorVariables';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 const styles = {
 	root: {
@@ -20,10 +21,8 @@ const styles = {
 		margin: '20px 5%'
 	},
 	cardButton: {
-		display: 'flex'
-	},
-	cardText: {
-		color: colors.text
+		display: 'flex',
+		justifyContent: 'flex-end'
 	},
 	bigAvatar: {
 		margin: 10,
@@ -39,20 +38,40 @@ const Container = styled(Card)`
 	background-color: #3e3145;
 	position: relative;
 	float: right;
+
+	${mediaQueryFor.xsDevice`
+		width: 100%;
+		margin: 0;
+		border-bottom: 1px solid ${colors.border};
+	`}
 `;
 
 const Info = styled(CardContent)`
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
-	text-align: right;
-	padding: 0 20px;
+	justify-content: flex-end;
 	margin: 5px 10px;
+	text-align: right;
+	max-width: 740px;
+	width: 85%;
+
+	${mediaQueryFor.xsDevice`
+		max-width: 340px;
+		padding-right: 0;
+	`}
 `;
 
 const Title = styled(Typography)`
 	font-weight: bold;
 	color: ${colors.text};
+`;
+
+const StyledTypography = styled(Typography)`
+	color: ${colors.text};
+
+	${mediaQueryFor.xsDevice`
+		font-size: .95rem;
+	`}
 `;
 
 function UserActivity(props) {
@@ -63,19 +82,21 @@ function UserActivity(props) {
 			<Container>
 				<CardActionArea className={classes.cardButton}>
 					<Info>
-						<Typography
+						<StyledTypography
 							gutterBottom
 							noWrap
 							variant="h5"
 							component="h4"
 							className={classes.cardText}
 						>
-							{props.message.user.firstName} {props.message.user.lastName}{' '}
+							{props.message.user.firstName}{' '}
+							{props.message.user.lastName.slice(0, 1)}
+							{'. '}
 							posted a new message
-						</Typography>
-						<Typography component="p" noWrap className={classes.cardText}>
+						</StyledTypography>
+						<StyledTypography component="p" noWrap className={classes.cardText}>
 							{props.message.updatedAt.toDateString()}
-						</Typography>
+						</StyledTypography>
 						<Title component="p" noWrap>
 							{props.message.title}
 						</Title>
@@ -93,22 +114,24 @@ function UserActivity(props) {
 			<Container>
 				<CardActionArea className={classes.cardButton}>
 					<Info>
-						<Typography
+						<StyledTypography
 							gutterBottom
 							noWrap
 							variant="h5"
 							component="h4"
 							className={classes.cardText}
 						>
-							{props.message.user.firstName} {props.message.user.lastName}{' '}
-							posted a new message
-						</Typography>
-						<Typography component="p" noWrap className={classes.cardText}>
+							{props.message.user.firstName}{' '}
+							{props.message.user.lastName.slice(0, 1)}
+							{'. '}
+							posted a new comment
+						</StyledTypography>
+						<StyledTypography component="p" noWrap className={classes.cardText}>
 							{props.message.updatedAt.toDateString()}
-						</Typography>
-						<Typography component="p" noWrap className={classes.cardText}>
+						</StyledTypography>
+						<Title component="p" noWrap className={classes.cardText}>
 							{props.message.content}
-						</Typography>
+						</Title>
 					</Info>
 					<Avatar
 						src={props.message.user.avatar}
