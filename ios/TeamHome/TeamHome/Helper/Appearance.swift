@@ -58,7 +58,9 @@ enum Appearance {
     }
     
     static func styleOrange(button: UIButton) {
-        button.backgroundColor = Appearance.yellowColor
+        button.backgroundColor = .clear
+        button.layer.borderWidth = 1
+        button.layer.borderColor = Appearance.yellowColor.cgColor
         button.layer.cornerRadius = 6
         button.contentEdgeInsets.top = 10
         button.contentEdgeInsets.bottom = 10

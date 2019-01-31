@@ -19,6 +19,7 @@ class TeamDetailTableViewController: UITableViewController {
         
         setUpViewAppearance()
         view.backgroundColor = Appearance.plumColor
+        UILabel.appearance().tintColor = .white
         
         guard let apollo = apollo else { return }
         

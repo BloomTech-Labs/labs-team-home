@@ -111,32 +111,37 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="z3N-5h-LLJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="16" minimumInteritemSpacing="16" id="Ndp-Wq-iCZ">
-                            <size key="itemSize" width="352" height="110"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="10" id="Ndp-Wq-iCZ">
+                            <size key="itemSize" width="412" height="106"/>
                             <size key="headerReferenceSize" width="0.0" height="60"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="32" minY="0.0" maxX="32" maxY="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TeamCell" id="RHW-ff-vlS" customClass="DashboardTeamCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                <rect key="frame" x="31" y="60" width="352" height="110"/>
+                                <rect key="frame" x="1" y="60" width="412" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="352" height="110"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="412" height="106"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNN-EP-eRo" customClass="Card" customModule="Material">
-                                            <rect key="frame" x="0.0" y="0.0" width="352" height="110"/>
+                                            <rect key="frame" x="16" y="0.0" width="380" height="106"/>
                                         </view>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="dNN-EP-eRo" secondAttribute="trailing" id="KDa-we-CYN"/>
-                                    <constraint firstItem="dNN-EP-eRo" firstAttribute="top" secondItem="RHW-ff-vlS" secondAttribute="top" id="Z7p-bR-EAM"/>
-                                    <constraint firstItem="dNN-EP-eRo" firstAttribute="leading" secondItem="RHW-ff-vlS" secondAttribute="leading" id="c8N-xh-YI6"/>
-                                    <constraint firstAttribute="bottom" secondItem="dNN-EP-eRo" secondAttribute="bottom" id="oTQ-nK-Box"/>
+                                    <constraint firstAttribute="trailing" secondItem="dNN-EP-eRo" secondAttribute="trailing" constant="16" id="JDT-0H-zRu"/>
+                                    <constraint firstAttribute="bottom" secondItem="dNN-EP-eRo" secondAttribute="bottom" id="am3-jL-tyh"/>
+                                    <constraint firstItem="dNN-EP-eRo" firstAttribute="top" secondItem="RHW-ff-vlS" secondAttribute="top" id="aub-k6-pw0"/>
+                                    <constraint firstItem="dNN-EP-eRo" firstAttribute="leading" secondItem="RHW-ff-vlS" secondAttribute="leading" constant="16" id="jsh-gE-tdB"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="dividerColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="card" destination="dNN-EP-eRo" id="6qb-HH-ftB"/>
                                     <segue destination="mLE-HV-MGV" kind="show" identifier="ShowMainTabBar" id="dCX-P2-PBk"/>
@@ -147,6 +152,11 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </collectionReusableView>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="dividerColor">
+                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="ody-ES-6Lo" id="DXb-NB-Lu5"/>
                             <outlet property="delegate" destination="ody-ES-6Lo" id="OIe-SG-Qu8"/>
@@ -351,37 +361,44 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5L-JG-m9g">
-                                                <rect key="frame" x="99" y="0.0" width="283" height="30"/>
-                                                <state key="normal" title="View team"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5L-JG-m9g">
+                                                <rect key="frame" x="99" y="0.0" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="R5L-JG-m9g" secondAttribute="height" multiplier="1:1" id="S3R-9Q-45w"/>
+                                                    <constraint firstAttribute="height" constant="30" id="kFa-QP-nrX"/>
+                                                </constraints>
+                                                <state key="normal" title="View team" image="Team Tab"/>
                                                 <connections>
                                                     <segue destination="h3N-Xr-BZq" kind="show" identifier="ViewTeam" id="wDa-xh-TdJ"/>
                                                 </connections>
                                             </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WW7-es-nhG">
+                                                <rect key="frame" x="137" y="0.0" width="245" height="30"/>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4BH-us-QEI">
                                         <rect key="frame" x="0.0" y="38" width="382" height="687"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cfd-2u-PfS">
-                                            <size key="itemSize" width="369" height="144"/>
+                                            <size key="itemSize" width="380" height="150"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ActivityCell" id="aW5-Z1-c8j" customClass="ActivityCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                                <rect key="frame" x="6.666666666666667" y="0.0" width="369" height="144"/>
+                                                <rect key="frame" x="1" y="0.0" width="380" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="369" height="144"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="150"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmO-bT-qJM" customClass="Card" customModule="Material">
-                                                            <rect key="frame" x="8" y="8" width="353" height="128"/>
+                                                            <rect key="frame" x="8" y="8" width="364" height="134"/>
                                                             <subviews>
                                                                 <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="sKV-KG-cZB">
-                                                                    <rect key="frame" x="8" y="8" width="337" height="120"/>
+                                                                    <rect key="frame" x="8" y="8" width="348" height="126"/>
                                                                     <subviews>
                                                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qRN-wb-fcT">
                                                                             <rect key="frame" x="0.0" y="0.0" width="36" height="0.0"/>
@@ -784,7 +801,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="jf8-sq-BFY"/>
                                                     <constraint firstAttribute="width" secondItem="btS-ww-kmN" secondAttribute="height" multiplier="1:1" id="mmH-gi-Muq"/>
                                                 </constraints>
-                                                <state key="normal" title="View team" image="Team"/>
+                                                <state key="normal" title="View team" image="Team Tab"/>
                                                 <connections>
                                                     <segue destination="h3N-Xr-BZq" kind="show" identifier="ViewTeam" id="0dT-Fb-H3z"/>
                                                 </connections>
@@ -800,7 +817,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ba7-bu-mCH">
                                                 <rect key="frame" x="0.0" y="0.0" width="292" height="113"/>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="255" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCQ-lV-f1I">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="255" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCQ-lV-f1I" customClass="FlatButton" customModule="Material">
                                                 <rect key="frame" x="300" y="0.0" width="82" height="113"/>
                                                 <state key="normal" title="Filter by tag"/>
                                                 <connections>
@@ -855,25 +872,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="586"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="8" id="EgB-v1-EGV">
-                            <size key="itemSize" width="376" height="180"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="EgB-v1-EGV">
+                            <size key="itemSize" width="414" height="168"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MessageCell" id="GUR-Ge-V8W" customClass="MessageCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                <rect key="frame" x="19" y="0.0" width="376" height="180"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="376" height="180"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="168"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcE-Dr-iL2" customClass="Card" customModule="Material">
-                                            <rect key="frame" x="8" y="0.0" width="360" height="180"/>
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wcE-Dr-iL2" customClass="Card" customModule="Material">
+                                            <rect key="frame" x="0.0" y="0.0" width="392" height="168"/>
                                             <subviews>
                                                 <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="y67-tY-BN9">
-                                                    <rect key="frame" x="16" y="10" width="312" height="0.0"/>
+                                                    <rect key="frame" x="16" y="10" width="348" height="0.0"/>
                                                     <subviews>
                                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="256" verticalHuggingPriority="251" image="User Avatar Image" translatesAutoresizingMaskIntoConstraints="NO" id="j21-KK-wUY">
                                                             <rect key="frame" x="0.0" y="0.0" width="234" height="50"/>
@@ -1027,7 +1044,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qKi-I9-fVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2660.8695652173915" y="-1123.9955357142856"/>
+            <point key="canvasLocation" x="2660.8695652173915" y="-1124.3303571428571"/>
         </scene>
         <!--Add New Message View Controller-->
         <scene sceneID="KpQ-Cs-4oa">
@@ -1178,7 +1195,7 @@
                         <color key="badgeColor" red="0.43827193980000001" green="0.19776514170000001" blue="0.29020172360000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="5ig-hz-VAp" customClass="NavigationBar" customModule="Material">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="5ig-hz-VAp">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.090330786999999996" green="0.077758260070000002" blue="0.1058857366" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1198,7 +1215,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EZM-fP-Luk" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="Activity" image="Activity Tab" selectedImage="Activity Tab" id="v1o-BL-dWF"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="B4K-iC-faQ" customClass="NavigationBar" customModule="Material">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="B4K-iC-faQ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1220,7 +1237,7 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="PSf-Fv-Buc" customClass="NavigationBar" customModule="Material">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="PSf-Fv-Buc">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1241,13 +1258,13 @@
         <image name="Logo With Nodes" width="246" height="245"/>
         <image name="Messages Tab" width="46.285713195800781" height="46.285713195800781"/>
         <image name="Settings Tab" width="94.254547119140625" height="94.254547119140625"/>
-        <image name="Team" width="224.78048706054688" height="224.78048706054688"/>
+        <image name="Team Tab" width="54" height="54"/>
         <image name="User Avatar Image" width="233.31645202636719" height="233.31645202636719"/>
         <image name="facebook" width="365" height="365"/>
         <image name="google-plus" width="365" height="365"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wDa-xh-TdJ"/>
+        <segue reference="0dT-Fb-H3z"/>
         <segue reference="n3L-aO-Bg3"/>
     </inferredMetricsTieBreakers>
 </document>
