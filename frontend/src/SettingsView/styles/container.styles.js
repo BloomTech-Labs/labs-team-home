@@ -21,14 +21,14 @@ const styles = theme => ({
 
 const SettingsContainer = styled.div`
 	position: relative;
-	top: 50px;
+	top: 70px;
 	width: 80%;
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
 	margin-left: 0 5% 0 5%;
 	color: white;
-	font-family: Comfortaa;
+	/* font-family: Comfortaa; */
 
 	h3 {
 		color: #fff;
@@ -44,6 +44,10 @@ const AvatarUploadContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	${mediaQueryFor.smDevice`
+		display: flex;
+		flex-direction: column;
+	`}
 `;
 
 const ImageFigure = styled.figure`
@@ -62,7 +66,6 @@ const StyledAvatar = styled.img`
 	max-width: 50px;
 	height: auto;
 	border-radius: 50%;
-	/* margin-left: 10%; */
 `;
 
 const StyledButton = styled(Button)`
@@ -77,21 +80,47 @@ const StyledButton = styled(Button)`
 const FormInputStyles = styled.div`
 	display: flex;
 	flex-flow: row;
-	padding: 1%;
+	padding: 5px 1%;
 	label {
 		width: 25%;
 	}
+	${mediaQueryFor.smDevice`
+		display: flex;
+		flex-direction: column;
+		margin: 20px 0;
+		label {
+			width: 98%;
+		}
+		`}
 `;
 
 const StyledInput = styled(Input)`
-	color: ${colors.text};
-	/* border-bottom: 1px solid ${colors.text}; */
+width: 50%;
+color: ${colors.text};
+padding: 10px;
+border-radius: 5px;
+/* border-bottom: 1px solid ${colors.text}; */
+::before{
+	transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	border-bottom: 1px solid rgb(255, 255, 255);
+}
+::after{
+	transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+	border-bottom: 2px solid ${colors.text};
+}
+	${mediaQueryFor.smDevice`
+		width: 98%;
+	`}
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	&:hover {
+		background-color: rgba(62, 49, 69, 0.7);
+}
 `;
 
 const FormCheckboxStyles = styled.div`
 	display: flex;
-	flex-flow: row;
-	padding: 1% 4%;
+	flex-direction: row;
+	padding: 5px 4%;
 	label {
 		width: 25%;
 		margin-right: 3%;
@@ -99,10 +128,24 @@ const FormCheckboxStyles = styled.div`
 	input {
 		width: 2%;
 	}
+	${mediaQueryFor.smDevice`
+    flex-direction: column;
+    margin: 0 auto;
+    // font-size:1.5rem;
+    label {
+      width:80%;
+      justify-content: space-between;
+
+      input {
+        width: 20%;
+        height:50px
+      }
+    }
+    `}
 `;
 
-const StyledCheckbox = styled(Checkbox)`
-	color: ${colors.header};
+const StyledCheckbox = styled.input`
+	border: 2px solid ${colors.header};
 	padding: 0;
 `;
 
