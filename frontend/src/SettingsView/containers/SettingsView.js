@@ -388,7 +388,18 @@ class SettingsView extends Component {
 										placeholder={'Enter your phone number (US numbers only)'}
 										handleChange={this.handleChange}
 									/>
-
+									<FormCheckbox
+										title={'Receive emails?'}
+										name="receiveEmails"
+										handleSelect={this.handleSelect}
+										checked={this.state.toggles.receiveEmails}
+									/>
+									<FormCheckbox
+										title={'Receive texts?'}
+										name="receiveTexts"
+										handleSelect={this.handleSelect}
+										checked={this.state.toggles.receiveTexts}
+									/>
 									<FormButton
 										// action={this.someHandleFormSubmit}
 										type="submit"

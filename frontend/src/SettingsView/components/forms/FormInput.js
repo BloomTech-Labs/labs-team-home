@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import mediaQueryFor from '../../../_global_styles/responsive_querie';
-import { FormInputStyles, StyledInput } from '../../styles/container.styles'
-
-
+import { FormInputStyles, StyledInput } from '../../styles/container.styles';
 
 const FormInput = props => {
 	return (
@@ -11,7 +9,7 @@ const FormInput = props => {
 			<label for={props.name} className="form-label">
 				{props.title}
 			</label>
-			<input
+			<StyledInput
 				className="form-control"
 				id={props.name}
 				name={props.name}
