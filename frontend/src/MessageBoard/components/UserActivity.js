@@ -7,23 +7,23 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import { colors } from '../../colorVariables';
 
 const styles = {
 	root: {
-		backgroundColor: '#3E3145'
+		backgroundColor: colors.background
 	},
 	card: {
 		width: '60%',
-		backgroundColor: '#3E3145',
-		backgroundColor: '#3E3145',
-		color: 'white',
+		backgroundColor: colors.background,
+		color: colors.text,
 		margin: '20px 5%'
 	},
 	cardButton: {
 		display: 'flex'
 	},
 	cardText: {
-		color: 'white'
+		color: colors.text
 	},
 	bigAvatar: {
 		margin: 10,
@@ -33,28 +33,18 @@ const styles = {
 };
 
 const Container = styled(Card)`
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	align-items: center;
+	width: 70%;
+	color: white;
+	margin: 20px 3%;
+	background-color: #3e3145;
 	position: relative;
 	float: right;
-	height: 75px;
-	width: 60%;
-	background-color: #3e3145 !important;
-	margin: 20px 5%;
-	padding: 20px;
-	color: white;
-
-	& p {
-		margin: 0 10px;
-	}
 `;
 
 const Info = styled(CardContent)`
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	text-align: right;
 	padding: 0 20px;
 	margin: 5px 10px;
@@ -62,6 +52,7 @@ const Info = styled(CardContent)`
 
 const Title = styled(Typography)`
 	font-weight: bold;
+	color: ${colors.text};
 `;
 
 function UserActivity(props) {
@@ -116,7 +107,7 @@ function UserActivity(props) {
 							{props.message.updatedAt.toDateString()}
 						</Typography>
 						<Typography component="p" noWrap className={classes.cardText}>
-							{props.message.title}
+							{props.message.content}
 						</Typography>
 					</Info>
 					<Avatar

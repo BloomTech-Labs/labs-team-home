@@ -7,21 +7,24 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import { colors } from '../../colorVariables';
 
 const styles = {
+	root: {
+		backgroundColor: colors.background
+	},
 	card: {
-		width: '70%',
-		backgroundColor: '#3E3145',
-		color: 'white',
-		margin: '20px 3%'
+		width: '60%',
+		backgroundColor: colors.background,
+		color: colors.text,
+		margin: '20px 5%'
 	},
 	cardButton: {
 		display: 'flex',
 		justifyContent: 'flex-start'
 	},
 	cardText: {
-		color: 'white',
-		maxWidth: '85%'
+		color: colors.text
 	},
 	bigAvatar: {
 		margin: 10,
@@ -30,25 +33,44 @@ const styles = {
 	}
 };
 
+const Container = styled(Card)`
+	width: 70%;
+	color: white;
+	margin: 20px 3%;
+	background-color: #3e3145;
+`;
+
+const Info = styled(CardContent)`
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding: 0 20px;
+	margin: 5px 10px;
+`;
+
+const Title = styled(Typography)`
+	font-weight: bold;
+	color: ${colors.text};
+`;
+
 function GeneralActivity(props) {
 	const { classes } = props;
-	console.log('message', props.message);
 
 	if (props.message.__typename === 'Message') {
 		return (
-			<Card className={classes.card}>
+			<Container>
 				<CardActionArea className={classes.cardButton}>
 					<Avatar
 						src={props.message.user.avatar}
 						alt="User avatar"
 						className={classes.bigAvatar}
 					/>
-					<CardContent>
+					<Info>
 						<Typography
 							gutterBottom
 							noWrap
-							variant="title"
-							component="h3"
+							variant="h5"
+							component="h4"
 							className={classes.cardText}
 						>
 							{props.message.user.firstName} {props.message.user.lastName}{' '}
@@ -57,28 +79,28 @@ function GeneralActivity(props) {
 						<Typography component="p" noWrap className={classes.cardText}>
 							{props.message.updatedAt.toDateString()}
 						</Typography>
-						<Typography component="p" noWrap className={classes.cardText}>
+						<Title component="p" noWrap>
 							{props.message.title}
-						</Typography>
-					</CardContent>
+						</Title>
+					</Info>
 				</CardActionArea>
-			</Card>
+			</Container>
 		);
 	} else {
 		return (
-			<Card className={classes.card}>
+			<Container>
 				<CardActionArea className={classes.cardButton}>
 					<Avatar
 						src={props.message.user.avatar}
 						alt="User avatar"
 						className={classes.bigAvatar}
 					/>
-					<CardContent>
+					<Info>
 						<Typography
 							gutterBottom
 							noWrap
-							variant="title"
-							component="h3"
+							variant="h5"
+							component="h4"
 							className={classes.cardText}
 						>
 							{props.message.user.firstName} {props.message.user.lastName}{' '}
@@ -90,9 +112,9 @@ function GeneralActivity(props) {
 						<Typography component="p" noWrap className={classes.cardText}>
 							{props.message.content}
 						</Typography>
-					</CardContent>
+					</Info>
 				</CardActionArea>
-			</Card>
+			</Container>
 		);
 	}
 }
