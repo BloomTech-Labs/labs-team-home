@@ -1,5 +1,5 @@
 //
-//  TeamCollectionViewCell.swift
+//  DashboardTeamCollectionViewCell.swift
 //  TeamHome
 //
 //  Created by Daniela Parra on 1/16/19.
@@ -9,7 +9,7 @@
 import UIKit
 import Material
 
-class TeamCollectionViewCell: UICollectionViewCell {
+class DashboardTeamCollectionViewCell: UICollectionViewCell {
     
     fileprivate func prepareFavoriteButton() {
         favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)

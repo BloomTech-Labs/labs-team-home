@@ -44,7 +44,7 @@
 		7BA77ED021ED50BB00C862C1 /* MessagesCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BA77ECF21ED50BA00C862C1 /* MessagesCollectionViewController.graphql */; };
 		7BD6588921EE5A06004FF34A /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6588821EE5A06004FF34A /* Auth0.plist */; };
 		7BD6589121EF8E8B004FF34A /* DashboardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6589021EF8E8B004FF34A /* DashboardCollectionViewController.swift */; };
-		7BD6589321EF8E99004FF34A /* TeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6589221EF8E99004FF34A /* TeamCollectionViewCell.swift */; };
+		7BD6589321EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6589221EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift */; };
 		7BD6589E21F00A55004FF34A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6589D21F00A55004FF34A /* API.swift */; };
 		7BD658A021F020ED004FF34A /* DashboardCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */; };
 		7BF8734C21F6B4C200737729 /* LandingPageViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */; };
@@ -102,7 +102,7 @@
 		7BA77ECF21ED50BA00C862C1 /* MessagesCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MessagesCollectionViewController.graphql; sourceTree = "<group>"; };
 		7BD6588821EE5A06004FF34A /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		7BD6589021EF8E8B004FF34A /* DashboardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewController.swift; sourceTree = "<group>"; };
-		7BD6589221EF8E99004FF34A /* TeamCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BD6589221EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTeamCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BD6589D21F00A55004FF34A /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DashboardCollectionViewController.graphql; sourceTree = "<group>"; };
 		7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingPageViewController.graphql; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 				7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */,
 				7BD6589021EF8E8B004FF34A /* DashboardCollectionViewController.swift */,
 				7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */,
-				7BD6589221EF8E99004FF34A /* TeamCollectionViewCell.swift */,
+				7BD6589221EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift */,
 				7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */,
 				7BA77E9D21E807D200C862C1 /* MessageBoardViewController.swift */,
 				7BA77E9F21E80D6C00C862C1 /* MessagesCollectionViewController.swift */,
@@ -471,7 +471,7 @@
 				7BA77EB021E93B1300C862C1 /* MessageDetailViewController.swift in Sources */,
 				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,
 				7BD6589121EF8E8B004FF34A /* DashboardCollectionViewController.swift in Sources */,
-				7BD6589321EF8E99004FF34A /* TeamCollectionViewCell.swift in Sources */,
+				7BD6589321EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift in Sources */,
 				7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */,
 				7B734E032200F21600F56C5F /* DateFormatter.swift in Sources */,
 				7BD6589E21F00A55004FF34A /* API.swift in Sources */,

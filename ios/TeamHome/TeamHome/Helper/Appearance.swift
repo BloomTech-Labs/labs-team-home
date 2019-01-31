@@ -24,7 +24,7 @@ enum Appearance {
     static let goldColor = UIColor(red: 155/255.0, green: 120/255.0, blue: 111/255.0, alpha: 1.0)
     
     static func setTheme() {
-        UIButton.appearance().tintColor = Appearance.yellowColor
+        UIButton.appearance().tintColor = Appearance.plumColor
         
         UINavigationBar.appearance().barTintColor = .white
         UINavigationBar.appearance().isTranslucent = false
@@ -36,11 +36,11 @@ enum Appearance {
         UINavigationBar.appearance().largeTitleTextAttributes = titleAttributes
         
         
-        UITabBar.appearance().barTintColor = Appearance.mauveColor
-        UITabBar.appearance().tintColor = .white
+        UITabBar.appearance().barTintColor = Appearance.plumColor
+        UITabBar.appearance().tintColor = Appearance.yellowColor
         UITabBar.appearance().unselectedItemTintColor = Appearance.darkMauveColor
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.darkMauveColor], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.yellowColor], for: .selected)
         
         UITextField.appearance().keyboardAppearance = .dark
         
@@ -58,13 +58,13 @@ enum Appearance {
     }
     
     static func styleOrange(button: UIButton) {
-        button.backgroundColor = Appearance.orangeColor
+        button.backgroundColor = Appearance.yellowColor
         button.layer.cornerRadius = 6
         button.contentEdgeInsets.top = 10
         button.contentEdgeInsets.bottom = 10
         button.contentEdgeInsets.left = 10
         button.contentEdgeInsets.right = 10
-        button.tintColor = .white
+        button.tintColor = Appearance.plumColor
     }
     
     static func setTitleFont(with textStyle: UIFont.TextStyle, pointSize: CGFloat) -> UIFont {
