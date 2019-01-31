@@ -8,10 +8,13 @@ target 'TeamHome' do
   # Pods for TeamHome
 
   pod "Apollo"
-  pod 'Lock', '~> 2.0'
   pod 'Auth0', '~> 1.0'
   pod 'Cloudinary', '~> 2.0'
-  pod 'JWTDecode', '~> 2.2'
   pod 'Material', '~> 2.16'
+  pod "CSStickyHeaderFlowLayout"
+  pod 'GrowingTextView', '0.6.1'
+  source 'https://github.com/CocoaPods/Specs.git'
+  pod 'MEVHorizontalContacts'
+  pod 'Toucan', '~> 1.1'
 
 end

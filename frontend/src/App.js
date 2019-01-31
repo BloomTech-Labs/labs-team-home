@@ -24,13 +24,16 @@ const jss = create({
 });
 
 class App extends Component {
+	handleLogout() {
+		localStorage.removeItem('token');
+	}
 	render() {
 		return (
 			<JssProvider jss={jss} generateClassName={generateClassName}>
 				<AppStyles>
 					<GlobalStyle />
 					<TextIMG alt={'TeamHome banner'} src={iconLogo} />
-					{localStorage.token && <Nav />}
+					{localStorage.token && <Nav handleLogout={this.handleLogout} />}
 					<Switch>
 						<PublicRoute exact path="/" component={LandingView} />
 						<PrivateRoute

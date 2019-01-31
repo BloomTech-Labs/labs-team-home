@@ -19,9 +19,26 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
             let team = team else { return }
         
         setUpViewAppearance()
+        createGradientLayer()
         collectionView.backgroundColor = .clear
+        teamNameLabel.textColor = Appearance.yellowColor
         
         loadActivity(with: apollo, team: team)
+    }
+    
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
+        
+        
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     // MARK - UICollectionViewDataSource
@@ -125,7 +142,7 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
-    
+    var gradientLayer: CAGradientLayer!
     private var activityTimeline: [Activity]?
     private var sortedActivity: [Activity]? {
         didSet {

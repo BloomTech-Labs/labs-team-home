@@ -1,9 +1,10 @@
 import React from 'react';
+import { StyledButton } from '../../styles/container.styles';
 
 const FormButton = props => {
 	console.log(props.style);
 	return (
-		<button
+		<StyledButton
 			style={props.style}
 			className={
 				props.type === 'primary' ? 'btn btn-primary' : 'btn btn-secondary'
@@ -11,7 +12,7 @@ const FormButton = props => {
 			onClick={props.action}
 		>
 			{props.title}
-		</button>
+		</StyledButton>
 	);
 };
 

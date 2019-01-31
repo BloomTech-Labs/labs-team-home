@@ -61,8 +61,7 @@ class DashboardCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamCell", for: indexPath) as! DashboardTeamCollectionViewCell
     
         guard let team = teams?[indexPath.row] else { return UICollectionViewCell()}
-        
-        cell.setTheme()
+        cell.team = team
         
         return cell
     }
@@ -124,6 +123,23 @@ class DashboardCollectionViewController: UICollectionViewController {
         self.setNeedsStatusBarAppearanceUpdate()
         collectionView.backgroundColor = .clear
         
+        createGradientLayer()
+    }
+    
+    
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
+        
+        
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -134,6 +150,8 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     private var watcher: GraphQLQueryWatcher<FindTeamsByUserQuery>?
     var apollo: ApolloClient?
+    
+    var gradientLayer: CAGradientLayer!
     
     var teams: [FindTeamsByUserQuery.Data.FindTeamsByUser?]? {
         didSet {
