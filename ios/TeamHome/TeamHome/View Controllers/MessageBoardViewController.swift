@@ -22,6 +22,8 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         
         setUpViewAppearance()
         Appearance.styleOrange(button: filterButton)
+        createGradientLayer()
+        
         
         // Show team name on label
         displayTeamInfo()
@@ -113,6 +115,21 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         }
     }
     
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
+        
+        
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
     // Filter messages based on selected tag from generated buttons
     private func filter(for selectedTagId: GraphQLID) {
         guard let messages = messages else { return }
@@ -138,6 +155,9 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     private var filteredMessages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]?
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
     
+    
+    
+    var gradientLayer: CAGradientLayer!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
     var delegate: MessageBoardFilterDelegate?

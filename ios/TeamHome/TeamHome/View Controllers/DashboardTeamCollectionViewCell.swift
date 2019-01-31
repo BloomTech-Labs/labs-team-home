@@ -17,12 +17,14 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
     
     private func prepareBottomBar() {
         bottomBar = Bar()
-        
-        bottomBar.leftViews = [favoriteButton]
+//        
+//        bottomBar.leftViews = [favoriteButton]
         bottomBar.backgroundColor = .clear
     }
     
     func setTheme() {
+        
+        guard let team = team else { return }
         
         prepareFavoriteButton()
         prepareBottomBar()
@@ -31,7 +33,7 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
         
         toolbar = Toolbar(rightViews: [moreButton])
         
-        toolbar.title = "team"
+        toolbar.title = team.name
         toolbar.titleLabel.textAlignment = .left
         toolbar.titleLabel.textColor = .white
         toolbar.detail = "premium?"
@@ -51,6 +53,12 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK - Properties
+    
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser? {
+        didSet {
+            setTheme()
+        }
+    }
     
     private var toolbar: Toolbar!
     private var moreButton: IconButton!

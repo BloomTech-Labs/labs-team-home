@@ -381,24 +381,25 @@
                                         <rect key="frame" x="0.0" y="38" width="382" height="687"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cfd-2u-PfS">
-                                            <size key="itemSize" width="380" height="150"/>
+                                            <size key="itemSize" width="381" height="172"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="ActivityCell" id="aW5-Z1-c8j" customClass="ActivityCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="0.0" width="380" height="150"/>
+                                                <rect key="frame" x="0.66666666666666663" y="0.0" width="381" height="172"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="150"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="381" height="172"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmO-bT-qJM" customClass="Card" customModule="Material">
-                                                            <rect key="frame" x="8" y="8" width="364" height="110"/>
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gmO-bT-qJM" customClass="Card" customModule="Material">
+                                                            <rect key="frame" x="8" y="8" width="365" height="164"/>
                                                             <subviews>
-                                                                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="sKV-KG-cZB">
-                                                                    <rect key="frame" x="8" y="8" width="348" height="102"/>
+                                                                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="sKV-KG-cZB">
+                                                                    <rect key="frame" x="357" y="8" width="0.0" height="0.0"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
                                                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qRN-wb-fcT">
                                                                             <rect key="frame" x="0.0" y="0.0" width="36" height="0.0"/>
@@ -452,12 +453,6 @@
                                                                 </stackView>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="sKV-KG-cZB" secondAttribute="trailing" constant="8" id="8Cx-gP-Vo5"/>
-                                                                <constraint firstItem="sKV-KG-cZB" firstAttribute="top" secondItem="gmO-bT-qJM" secondAttribute="top" constant="8" id="PBu-Lx-ykS"/>
-                                                                <constraint firstAttribute="bottom" secondItem="sKV-KG-cZB" secondAttribute="bottom" id="VKF-Su-bPB"/>
-                                                                <constraint firstItem="sKV-KG-cZB" firstAttribute="leading" secondItem="gmO-bT-qJM" secondAttribute="leading" constant="8" id="tIo-fB-9Cx"/>
-                                                            </constraints>
                                                         </view>
                                                     </subviews>
                                                 </view>
@@ -530,7 +525,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1mW-bb-gN2">
-                                                <rect key="frame" x="24" y="32" width="366" height="571.33333333333337"/>
+                                                <rect key="frame" x="24" y="32" width="366" height="568.33333333333337"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Nnh-bM-4MD">
                                                         <rect key="frame" x="0.0" y="0.0" width="366" height="31.333333333333332"/>
@@ -673,24 +668,26 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="31" id="aps-5z-XS9"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                         <state key="normal" title="Save all changes"/>
                                                         <connections>
                                                             <action selector="saveChanges:" destination="MeU-xO-Ld3" eventType="touchUpInside" id="ruG-8U-0fx"/>
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vx7-Oc-yoI">
-                                                        <rect key="frame" x="0.0" y="541.33333333333337" width="366" height="30"/>
+                                                        <rect key="frame" x="0.0" y="541.33333333333337" width="366" height="27"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjA-7E-0Pe" customClass="FlatButton" customModule="Material">
-                                                                <rect key="frame" x="0.0" y="0.0" width="179" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="179" height="27"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                                 <state key="normal" title="Leave team"/>
                                                                 <connections>
                                                                     <action selector="leaveTeam:" destination="MeU-xO-Ld3" eventType="touchUpInside" id="sYY-xa-tri"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgj-W3-X7h" customClass="FlatButton" customModule="Material">
-                                                                <rect key="frame" x="187" y="0.0" width="179" height="30"/>
+                                                                <rect key="frame" x="187" y="0.0" width="179" height="27"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                                 <state key="normal" title="Log out"/>
                                                                 <connections>
                                                                     <action selector="logOut:" destination="MeU-xO-Ld3" eventType="touchUpInside" id="yea-Uq-u9x"/>
@@ -842,7 +839,7 @@
                         <viewLayoutGuide key="safeArea" id="pu9-Jz-5NJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Message Board" id="9lm-7P-GIr">
-                        <barButtonItem key="leftBarButtonItem" title="Switch team" id="uB1-kW-E9H">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="uB1-kW-E9H">
                             <connections>
                                 <segue destination="rKC-mD-nFa" kind="unwind" unwindAction="unwindToDashboardWithSegue:" id="SNe-Ec-pEK"/>
                             </connections>
@@ -873,17 +870,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="EgB-v1-EGV">
-                            <size key="itemSize" width="414" height="168"/>
+                            <size key="itemSize" width="414" height="173"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="MessageCell" id="GUR-Ge-V8W" customClass="MessageCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="168"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="173"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="168"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="173"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wcE-Dr-iL2" customClass="Card" customModule="Material">
@@ -1061,19 +1058,19 @@
                                         <rect key="frame" x="41" y="16" width="300" height="658"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Create message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJQ-ya-mcf">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="31.333333333333332"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hm0-iI-4gO" customClass="TextField" customModule="Material">
-                                                <rect key="frame" x="0.0" y="28.333333333333343" width="300" height="30"/>
+                                                <rect key="frame" x="0.0" y="39.333333333333343" width="300" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="egZ-o6-mFb" customClass="TextView" customModule="Material">
-                                                <rect key="frame" x="0.0" y="66.333333333333343" width="300" height="449.33333333333326"/>
+                                                <rect key="frame" x="0.0" y="77.333333333333343" width="300" height="438.33333333333326"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

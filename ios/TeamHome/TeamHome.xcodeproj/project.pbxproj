@@ -105,6 +105,7 @@
 		7BD6589221EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTeamCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BD6589D21F00A55004FF34A /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DashboardCollectionViewController.graphql; sourceTree = "<group>"; };
+		7BE481C422033D3A00F518F9 /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
 		7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingPageViewController.graphql; sourceTree = "<group>"; };
 		7BF8734F21F6D24400737729 /* TeamDetailTableViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TeamDetailTableViewController.graphql; sourceTree = "<group>"; };
 		7BF8735121F6D37300737729 /* InviteToTeamViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InviteToTeamViewController.graphql; sourceTree = "<group>"; };
@@ -248,6 +249,7 @@
 				7B6BE7D721E5733E0099E42C /* Assets.xcassets */,
 				7BD6588821EE5A06004FF34A /* Auth0.plist */,
 				7B6BE7DC21E5733E0099E42C /* Info.plist */,
+				7BE481C422033D3A00F518F9 /* Comfortaa-Regular.ttf */,
 				7B734DFE22000EFF00F56C5F /* Montserrat-Regular.ttf */,
 			);
 			path = Resources;

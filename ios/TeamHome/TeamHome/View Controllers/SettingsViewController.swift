@@ -28,6 +28,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         
         self.setNeedsStatusBarAppearanceUpdate()
         
+        createGradientLayer()
+        
         Appearance.styleOrange(button: advancedSettingsButton)
         Appearance.styleOrange(button: saveChangesButton)
         
@@ -255,6 +257,21 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         }
     }
     
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
+        
+        
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
     // MARK - Properties
     
     var apollo: ApolloClient?
@@ -270,6 +287,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
             }
         }
     }
+    
+    var gradientLayer: CAGradientLayer!
     
     // MARK - Properties
     
