@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
+// import axios from 'axios';
 import Message from './Message';
 import AddMessage from './AddMessage';
 import { Query, Mutation } from 'react-apollo';
@@ -9,22 +9,47 @@ import Invites from './Invites';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
-
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import { colors } from '../../colorVariables';
 import MessageDetail from './MessageDetail';
 import UserList from './UserList';
-const TH_logo = 'https://i.imgur.com/31LTJFH.png';
-const TH_name = 'TeamHome';
+import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Tooltip from '@material-ui/core/Tooltip';
 
-/**
- * Color palette:
- * #17151B << Dark Gray
- * #FF8C63 << Orange
- * #FFD17C << Lt Orange
- * #DE3B61 << Red
- * #3F1F6A << Purple
- * #F1FCEF << Creme
- * #73FF6D << Green
- */
+const styles = theme => ({
+	root: {
+		backgroundColor: colors.background
+	},
+	card: {
+		width: '60%',
+		backgroundColor: colors.background,
+		color: colors.text,
+		margin: '20px 5%'
+	},
+	cardButton: {
+		display: 'flex',
+		justifyContent: 'flex-start'
+	},
+	bigAvatar: {
+		margin: 10,
+		width: 60,
+		height: 60
+	},
+	fab: {
+		margin: theme.spacing.unit
+	}
+});
+
+const TH_logo = 'https://i.imgur.com/31LTJFH.png';
+// const TH_name = 'TeamHome';
 
 const Messageboard = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
@@ -37,22 +62,8 @@ const Messageboard = styled.div`
 	margin: 0 auto;
 	margin-top: 20px;
 	padding: 1%;
-	/* background-color: rgba(23,21,27,0.9); */
 	color: #f1fcef;
-	&.grad-border {
-		background-image: linear-gradient(#17151b, #17151b),
-			linear-gradient(
-				170deg,
-				rgba(107, 40, 59, 0.3) 10%,
-				rgba(255, 209, 124, 0.3) 45%,
-				rgba(107, 40, 59, 0.3) 70%,
-				/* rgba(107, 40, 59, 0.7) 90%, */ #17151b 100%
-			);
 
-		background-repeat: no-repeat;
-		background-origin: padding-box, border-box;
-		text-align: center;
-	}
 	& p {
 		color: #f1fcef;
 		font-size: 16px;
@@ -74,46 +85,22 @@ const Messageboard = styled.div`
 
       border-width:2px;
   `}
-	@keyframes highlight {
-		100% {
-			background-position: 0 0, 0 0;
-		}
-	}
-`;
-
-const StyledLink = styled(Link)`
-	color: white;
-	color: #f1fcef;
-	text-decoration: none;
-	margin: 5px;
-	font-weight: bold;
 `;
 
 const TeamName = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* color: #F1FCEF; */
+	color: ${colors.header};
 	text-align: center;
 	font-size: 2rem;
 `;
-
-/**
- * Color palette:
- * #17151B << Dark Gray
- * #FF8C63 << Orange
- * #FFD17C << Lt Orange
- * #DE3B61 << Red
- * #3F1F6A << Purple
- * #F1FCEF << Creme
- * #73FF6D << Green
- */
 
 const Teamlogo = styled.div`
 	display: flex;
 	align-items: center;
 	flex-flow: column;
-	& button {
+	/*& button {
 		font-family: Comfortaa;
 		font-size: 1.3rem;
 		font-weight: 600;
@@ -130,7 +117,7 @@ const Teamlogo = styled.div`
 		transition: background-color 250ms ease-in-out, transform 150ms ease;
 		&:hover {
 			background-color: #de3b61;
-		}
+		}*/
 	}
 `;
 
@@ -152,23 +139,18 @@ const MessagesContainer = styled.div`
 	}
 `;
 
-const AddMsgBtn = styled.button`
-	border-radius: 45px;
-	font-size: 40px;
-	border: solid 5px #f1fcef;
-	width: 75px;
+const AddMsgBtn = styled(Fab)`
+	background-color: ${colors.button};
+	margin: 25px;
+	color: ${colors.text};
 	height: 75px;
-	margin: 20px;
-	padding-bottom: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	transition: background-color 250ms ease-in-out, transform 150ms ease;
-	&:hover {
-		background-color: rgba(107, 40, 59, 0.7);
-		color: #f1fcef;
-	}
+	width: 75px;
+`;
+
+const StyledButton = styled(Button)`
+	background-color: ${colors.button};
+	color: ${colors.text};
+	margin: 5px;
 `;
 
 class MessageBoard extends React.Component {
@@ -188,9 +170,9 @@ class MessageBoard extends React.Component {
 			email: '',
 			number: '',
 			images: [],
-			isAdmin: true,
+			isAdmin: false,
 			sortOption: 'newest',
-			teamName: '73@m n@m3'
+			teamName: props.team.name
 		};
 
 		this.openModalHandler = this.openModalHandler.bind(this);
@@ -206,10 +188,6 @@ class MessageBoard extends React.Component {
 	// componentDidMount() {
 	// 	this.setState({ user: this.props.currentUser._id });
 	// }
-
-	componentDidMount = () => {
-		//
-	};
 
 	sortChange(e) {
 		this.setState({ sortOption: e.target.value });
@@ -251,6 +229,14 @@ class MessageBoard extends React.Component {
 	// 		});
 	// }
 
+	componentDidMount() {
+		this.props.team.users.map(user => {
+			if (user.user._id === this.props.currentUser._id) {
+				if (user.admin) this.setState({ isAdmin: true });
+			}
+		});
+	}
+
 	openModalHandler() {
 		this.setState({
 			showModal: true
@@ -285,7 +271,7 @@ class MessageBoard extends React.Component {
 		const { classes } = this.props;
 		return (
 			<>
-				<Messageboard className="grad-border animated">
+				<Messageboard>
 					{this.state.showModal ? (
 						<AddMessage
 							closeHandler={this.closeModalHandler}
@@ -333,22 +319,33 @@ class MessageBoard extends React.Component {
 						<Teamlogo>
 							<Logo src={TH_logo} alt="team logo" />
 							{this.state.isAdmin ? (
-								<button onClick={this.openInviteHandler}>Invite</button>
+								<StyledButton
+									variant="contained"
+									onClick={this.openInviteHandler}
+								>
+									Invite
+								</StyledButton>
 							) : null}
-							<button
+							<StyledButton
+								variant="contained"
 								onClick={e => {
 									e.preventDefault();
 									this.setState({ userListOpen: true });
 								}}
 							>
 								Open User List
-							</button>
+							</StyledButton>
 						</Teamlogo>
 					</TeamName>
 					<MessagesContainer>
-						<AddMsgBtn onClick={this.openModalHandler}>
-							<div className="new-message">+</div>
-						</AddMsgBtn>
+						<Tooltip title="Add Message" aria-label="Add Message">
+							<AddMsgBtn
+								onClick={this.openModalHandler}
+								className={classes.fab}
+							>
+								<AddIcon />
+							</AddMsgBtn>
+						</Tooltip>
 						<form>
 							<label>
 								Sort:
@@ -360,7 +357,7 @@ class MessageBoard extends React.Component {
 						</form>
 						<Query
 							query={query.FIND_MESSAGES_BY_TEAM}
-							variables={{ team: this.props.team }}
+							variables={{ team: this.props.team._id }}
 						>
 							{({ loading, error, data: { findMessagesByTeam } }) => {
 								if (loading) return <p>Loading...</p>;
@@ -408,11 +405,11 @@ class MessageBoard extends React.Component {
 					hideModal={this.closeMessageDetail}
 					message={this.state.currentMessage}
 					currentUser={this.props.currentUser}
-					team={this.props.team}
+					team={this.props.team._id}
 				/>
 				<UserList
 					open={this.state.userListOpen}
-					team={this.props.team}
+					team={this.props.team._id}
 					currentUser={this.props.currentUser}
 					hideModal={this.closeUserList}
 				/>
@@ -421,4 +418,4 @@ class MessageBoard extends React.Component {
 	}
 }
 
-export default MessageBoard;
+export default withStyles(styles)(MessageBoard);
