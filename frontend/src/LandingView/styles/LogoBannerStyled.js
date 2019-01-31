@@ -10,8 +10,10 @@ const LogoBannerStyles = styled.div`
 const TextIMG = styled.img`
 	position: fixed;
 	z-index: -110;
-  left: 0%;
+  right: 3%;
+  width:80%;
   top: 100px;
+  opacity:0.8;
   ${mediaQueryFor.lgDevice`
   width:300%;
     left: 0%;

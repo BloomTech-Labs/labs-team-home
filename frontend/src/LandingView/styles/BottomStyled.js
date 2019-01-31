@@ -3,16 +3,19 @@ import mediaQueryFor from '../../_global_styles/responsive_querie';
 import { colors } from '../../colorVariables';
 
 const BtmContentStyles = styled.div`
+	display: flex;
+	flex-flow: row;
 	font-size: 1rem;
 	margin: 0 auto;
 	margin-top: 2%;
-	width: 100%;
+	width: 80%;
 	color: rgba(255, 255, 255, 1);
 	/* background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 49% ,rgba(0,0,0,0) 100%); */
+
 	h1 {
 		width: 60%;
 		margin: 0 20%;
-		font-size: 6rem;
+		font-size: 4rem;
 		color: ${colors.header};
 		text-shadow: 5px 5px 20px #111;
 	}
