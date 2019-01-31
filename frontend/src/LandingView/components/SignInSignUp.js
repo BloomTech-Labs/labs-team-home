@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../components/SignInUpButton';
 import StyledSignInUp, { TextIMG } from '../styles/SignInSignUpStyled';
-import textLogo from '../../../src/assets/TH_text_stroke.svg';
+import textLogo from '../../../src/assets/TH_text_filled.svg';
 
 const BtnContainer = styled.div`
 	max-width: 400px;
