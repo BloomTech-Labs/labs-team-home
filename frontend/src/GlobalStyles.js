@@ -18,10 +18,6 @@ const GlobalStyle = createGlobalStyle`
     background-size:100vw;
     background-color: #5A5560;
     margin:0 auto;
-    ${
-			'' /* background-image: url('frontend/src/assets/TH_icon_logo_wout_nodes.svg'); */
-		}
-	  background-position: center top;
     background: linear-gradient(
 		to bottom,
 		rgb(63, 31, 106, 0.2) 0%,

@@ -9,8 +9,7 @@ import { css } from 'styled-components';
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	font-family: Comfortaa;
 	font-size: 1rem;
-	font-weight: 100;
-	margin: 0 auto;
+	font-weight: 10
 	margin-top: 2%;
 	width: 40%;
 	height: 2vh;
@@ -45,7 +44,6 @@ const xsDevice = (...args) => {
 	return css`
 		@media (max-width: ${breakpoints.xs}px) {
 			max-width: ${breakpoints.xs}px;
-			width: 100%;
 			${css(...args)}
 		}
 	`;
@@ -55,7 +53,6 @@ const smDevice = (...args) => {
 	return css`
 		@media (max-width: ${breakpoints.sm}px) {
 			max-width: ${breakpoints.sm}px;
-			width: 100%;
 			${css(...args)}
 		}
 	`;
@@ -65,7 +62,6 @@ const mdDevice = (...args) => {
 	return css`
 		@media (max-width: ${breakpoints.md}px) {
 			max-width: ${breakpoints.md}px;
-			width: 100%;
 			${css(...args)}
 		}
 	`;
@@ -75,7 +71,6 @@ const lgDevice = (...args) => {
 	return css`
 		@media (max-width: ${breakpoints.lg}px) {
 			max-width: ${breakpoints.lg}px;
-			width: 100%;
 			${css(...args)}
 		}
 	`;
@@ -85,7 +80,6 @@ const xlDevice = (...args) => {
 	return css`
 		@media (max-width: ${breakpoints.xl}px) {
 			max-width: ${breakpoints.xl}px;
-			width: 100%;
 			${css(...args)}
 		}
 	`;
