@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
 import SignInSignUp from '../components/SignInSignUp';
 import LogoBanner from '../components/LandingLogoBanner';
+import { SVGAnimation } from '../styles/LandingViewStyled';
+import TH_desktop from '../../assets/TH_desktop.svg';
 import Auth0 from '../../Auth/Auth';
+import Particles from 'react-particles-js';
+import particles from '../../animated/particles.json';
+
+const styles = {
+	position: 'fixed',
+	width: ' 100%',
+	margin: '0px',
+	left: '0px',
+	zIndex: '-1005',
+	height: '100%'
+};
 
 export default class LandingView extends Component {
 	constructor(props) {
@@ -34,6 +47,8 @@ export default class LandingView extends Component {
 					handleLogin={this.handleLogin}
 					handleSignUp={this.handleSignUp}
 				/>
+				{/* <SVGAnimation src={TH_desktop}/> */}
+				<Particles params={particles} style={styles} />
 				<LogoBanner />
 			</div>
 		);

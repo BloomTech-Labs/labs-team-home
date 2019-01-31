@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 407">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <title>TH_phone</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <path class="cls-1" d="M184,32V375H32V32H184M204,0H12A12,12,0,0,0,0,12V395a12,12,0,0,0,12,12H204a12,12,0,0,0,12-12V12A12,12,0,0,0,204,0Z"/>
+    </g>
+  </g>
+</svg>

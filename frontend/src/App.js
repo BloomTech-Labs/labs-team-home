@@ -30,7 +30,6 @@ class App extends Component {
 				<AppStyles>
 					<GlobalStyle />
 					<TextIMG alt={'TeamHome banner'} src={iconLogo} />
-					{/* <SignInSignUp /> */}
 					{localStorage.token && <Nav />}
 					<Switch>
 						<PublicRoute exact path="/" component={LandingView} />
