@@ -3,6 +3,21 @@ import backgroundGradient from '../../_global_styles/background_gradient';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import { colors } from '../../colorVariables';
 import { Button, TextField, Input, Checkbox } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+	root: {
+		backgroundColor: colors.background
+	},
+	fab: {
+		margin: theme.spacing.unit
+	},
+	styledTooltip: {
+		fontSize: '12px',
+		backgroundColor: colors.button,
+		color: colors.text
+	}
+});
 
 const SettingsContainer = styled.div`
 	position: relative;
@@ -87,7 +102,7 @@ const StyledCheckbox = styled(Checkbox)`
 	padding: 0;
 `;
 
-export default SettingsContainer;
+export default withStyles(styles)(SettingsContainer);
 export {
 	StyledAvatar,
 	ImageFigure,
