@@ -18,6 +18,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         super.viewDidLoad()
         
         setUpViewAppearance()
+        subscribersCollectionView.backgroundColor = .clear
+        Appearance.styleOrange(button: sendCommentButton)
         
         self.commentTextField.delegate = self
         
