@@ -144,8 +144,10 @@ const Logo = styled.img`
 const MessagesContainer = styled.div`
 	margin: 0;
 	form {
-		width: 40%;
 		height: 50px;
+		select {
+			margin-left: 10px;
+		}
 		option {
 			height: 50px;
 		}
