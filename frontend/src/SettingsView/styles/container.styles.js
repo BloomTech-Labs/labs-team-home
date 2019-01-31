@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import backgroundGradient from '../../_global_styles/background_gradient';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
+import Button from '@material-ui/core/Button';
+import { colors } from '../../colorVariables';
+
 const SettingsContainer = styled.div`
 	position: relative;
 	top: 50px;
@@ -46,5 +49,10 @@ const ImageFigure = styled.figure`
 	}
 `;
 
+const StyledButton = styled(Button)`
+	color: ${colors.text};
+	background-color: ${colors.button};
+`;
+
 export default SettingsContainer;
-export { StyledAvatar, ImageFigure, AvatarUploadContainer };
+export { StyledAvatar, ImageFigure, AvatarUploadContainer, StyledButton };
