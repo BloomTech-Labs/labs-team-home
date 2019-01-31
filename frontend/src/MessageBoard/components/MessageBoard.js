@@ -71,7 +71,7 @@ const Messageboard = styled.div`
 	${mediaQueryFor.xsDevice`
       width:100%;
       margin:0;
-      
+
       border-width:2px;
   `}
 	@keyframes highlight {
@@ -284,6 +284,7 @@ class MessageBoard extends React.Component {
 	};
 
 	render() {
+		const { classes } = this.props;
 		return (
 			<>
 				<Messageboard className="grad-border animated">
