@@ -123,7 +123,7 @@ class SettingsView extends Component {
 			<Mutation mutation={mutation.UPDATE_USER}>
 				{(updateUser, { data }) => (
 					<SettingsContainer>
-						<h1>Team Name probably</h1>
+						<h1>User Settings</h1>
 						<SettingsTabs>
 							<div label="Account Settings">
 								<form
