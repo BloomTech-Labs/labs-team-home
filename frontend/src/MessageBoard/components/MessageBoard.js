@@ -247,40 +247,41 @@ class MessageBoard extends React.Component {
 							user={this.props.currentUser._id}
 						/>
 					) : null}
-					{this.state.showInvite ? (
-						<Mutation mutation={mutation.INVITE_USER}>
-							{inviteUser => (
-								<Invites
-									closeHandler={this.closeInviteHandler}
-									stopProp={this.stopProp}
-									submitHandler={e => {
-										e.preventDefault();
-										let input = { id: this.props.team };
-										if (this.state.email.length) input.email = this.state.email;
-										if (this.state.number.length)
-											input.phoneNumber = this.state.number;
-										inviteUser({ variables: input })
-											.then(res => {
-												this.setState({
-													email: '',
-													number: ''
-												});
-											})
-											.then(() => {
-												this.closeInviteHandler();
-												alert('Invitation sent');
-											})
-											.catch(err => {
-												console.error(err);
+
+					<Mutation mutation={mutation.INVITE_USER}>
+						{inviteUser => (
+							<Invites
+								open={this.state.showInvite}
+								closeHandler={this.closeInviteHandler}
+								stopProp={this.stopProp}
+								submitHandler={e => {
+									e.preventDefault();
+									let input = { id: this.props.team };
+									if (this.state.email.length) input.email = this.state.email;
+									if (this.state.number.length)
+										input.phoneNumber = this.state.number;
+									inviteUser({ variables: input })
+										.then(res => {
+											this.setState({
+												email: '',
+												number: ''
 											});
-									}}
-									changeHandler={this.inviteChangeHandler}
-									email={this.state.email}
-									number={this.state.number}
-								/>
-							)}
-						</Mutation>
-					) : null}
+										})
+										.then(() => {
+											this.closeInviteHandler();
+											alert('Invitation sent');
+										})
+										.catch(err => {
+											console.error(err);
+										});
+								}}
+								changeHandler={this.inviteChangeHandler}
+								email={this.state.email}
+								number={this.state.number}
+							/>
+						)}
+					</Mutation>
+
 					<TeamName>
 						<h1>{this.props.team.name}</h1>
 						<Teamlogo>

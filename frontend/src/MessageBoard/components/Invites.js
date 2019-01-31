@@ -1,16 +1,54 @@
 import React from 'react';
 import styled from 'styled-components';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { colors } from '../../colorVariables';
 
-const Overlay = styled.div`
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	z-index: 1000;
-	background-color: rgba(136, 136, 136, 0.65);
+const { button } = colors;
+
+const Overlay = styled(DialogContent)`
+	color: #fff;
+	background-color: ${button};
+	form {
+		input {
+			color: #fff;
+		}
+		label {
+			color: #fff;
+		}
+		div {
+			input {
+				color: #fff;
+			}
+			label {
+				color: #fff;
+			}
+		}
+	}
+`;
+
+const SubmitButton = styled(Button)`
+	color: #fff;
+`;
+
+const Title = styled(DialogTitle)`
+	background-color: ${button};
+	h2 {
+		color: #fff;
+	}
+`;
+
+const Field = styled(TextField)`
+	input {
+		color: #fff important!;
+	}
+	label {
+		color: #fff important!;
+	}
 `;
 
 const FormContainer = styled.div`
@@ -37,33 +75,50 @@ const FormContainer = styled.div`
 	}
 `;
 
-export default function Invites(props) {
+export default function Invites({
+	open,
+	number,
+	email,
+	changeHandler,
+	closeHandler,
+	submitHandler
+}) {
 	return (
-		<Overlay>
-			<FormContainer>
-				<h2>Enter email</h2>
-				<form onSubmit={props.submitHandler}>
-					<label>
-						Email:
-						<input
-							type="email"
-							name="email"
-							onChange={props.changeHandler}
-							value={props.email}
-						/>
-					</label>
-					<label>
-						Mobile Number:
-						<input
-							type="text"
-							name="number"
-							onChange={props.changeHandler}
-							value={props.number}
-						/>
-					</label>
-					<button type="submit">Submit</button>
+		<Dialog open={open} onClose={closeHandler}>
+			<Overlay>
+				<Title id="form-dialog-title" style={{ color: '#fff' }}>
+					Invite User
+				</Title>
+				<form onSubmit={submitHandler} style={{ color: '#fff' }}>
+					<label htmlFor="email" />
+					<Field
+						id="outlined-bare"
+						type="email"
+						name="email"
+						variant="outlined"
+						placeholder="email"
+						onChange={changeHandler}
+						value={email}
+						fullWidth
+					/>
+					<label htmlFor="phone number" />
+					<Field
+						placeholder="phone number"
+						type="text"
+						name="number"
+						variant="outlined"
+						onChange={changeHandler}
+						value={number}
+						fullWidth
+					/>
+					<DialogActions>
+						<SubmitButton type="submit">Submit</SubmitButton>
+						<Button color="secondary" onClick={closeHandler}>
+							Cancel
+						</Button>
+					</DialogActions>
 				</form>
-			</FormContainer>
-		</Overlay>
+			</Overlay>
+		</Dialog>
 	);
 }
