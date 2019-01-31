@@ -123,7 +123,7 @@ class SettingsView extends Component {
 			<Mutation mutation={mutation.UPDATE_USER}>
 				{(updateUser, { data }) => (
 					<SettingsContainer>
-						<h1>Team Name probably</h1>
+						<h1>User Settings</h1>
 						<SettingsTabs>
 							<div label="Account Settings">
 								<form
@@ -388,7 +388,18 @@ class SettingsView extends Component {
 										placeholder={'Enter your phone number (US numbers only)'}
 										handleChange={this.handleChange}
 									/>
-
+									<FormCheckbox
+										title={'Receive emails?'}
+										name="receiveEmails"
+										handleSelect={this.handleSelect}
+										checked={this.state.toggles.receiveEmails}
+									/>
+									<FormCheckbox
+										title={'Receive texts?'}
+										name="receiveTexts"
+										handleSelect={this.handleSelect}
+										checked={this.state.toggles.receiveTexts}
+									/>
 									<FormButton
 										// action={this.someHandleFormSubmit}
 										type="submit"

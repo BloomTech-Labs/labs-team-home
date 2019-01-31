@@ -1,36 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import mediaQueryFor from '../../../_global_styles/responsive_querie';
-
-const FormCheckboxStyles = styled.div`
-	display: flex;
-	flex-flow: row;
-	padding: 1% 4%;
-	label {
-		width: 25%;
-		margin-right: 3%;
-	}
-	input {
-		width: 2%;
-	}
-	${mediaQueryFor.smDevice`
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    font-size:1.5rem;
-    label {
-      width:80%;
-      display:flex;
-      flex-flow:row;
-      justify-content: space-between;
-
-      input {
-        width: 20%;
-        height:50px
-      }
-    }
-    `}
-`;
+import {
+	FormCheckboxStyles,
+	StyledCheckbox
+} from '../../styles/container.styles';
 
 const FormCheckbox = props => {
 	return (
@@ -38,11 +12,11 @@ const FormCheckbox = props => {
 			<label for={props.name} className="form-label">
 				{props.title}
 			</label>
-			<input
+			<StyledCheckbox
 				id={props.name}
 				name={props.name}
 				onChange={props.handleSelect}
-				checked={props.checked}
+				defaultChecked={props.checked}
 				type="checkbox"
 			/>
 		</FormCheckboxStyles>
