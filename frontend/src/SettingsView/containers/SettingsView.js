@@ -128,7 +128,7 @@ class SettingsView extends Component {
 			>
 				{(updateUser, { data }) => (
 					<SettingsContainer>
-						<h1>Team Name probably</h1>
+						<h1>User Settings</h1>
 						<SettingsTabs>
 							<div label="Account Settings">
 								<form
@@ -391,7 +391,6 @@ class SettingsView extends Component {
 										placeholder={'Enter your phone number (US numbers only)'}
 										handleChange={this.handleChange}
 									/>
-
 									<FormButton title={'Save'} />
 								</form>
 							</div>
