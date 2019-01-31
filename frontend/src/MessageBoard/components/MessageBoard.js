@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // import axios from 'axios';
 import Message from './Message';
 import AddMessage from './AddMessage';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import Invites from './Invites';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
@@ -131,8 +131,10 @@ const Logo = styled.img`
 const MessagesContainer = styled.div`
 	margin: 0;
 	form {
-		width: 40%;
 		height: 50px;
+		select {
+			margin-left: 10px;
+		}
 		option {
 			height: 50px;
 		}
@@ -315,7 +317,13 @@ class MessageBoard extends React.Component {
 						</Mutation>
 					) : null}
 					<TeamName>
-						<h1>{this.state.teamName}</h1>
+						<Query query={query.FIND_TEAM} variables={{ id: this.props.team }}>
+							{({ loading, error, data: { findTeam } }) => {
+								if (loading) return <p>Loading...</p>;
+								if (error) return <p>Error :(</p>;
+								return findTeam && <h1>{findTeam.name}</h1>;
+							}}
+						</Query>
 						<Teamlogo>
 							<Logo src={TH_logo} alt="team logo" />
 							{this.state.isAdmin ? (
@@ -388,7 +396,6 @@ class MessageBoard extends React.Component {
 										key={message._id}
 										openMessage={e => {
 											e.preventDefault();
-											console.log(message._id);
 											this.setState({
 												messageDetailOpen: true,
 												currentMessage: message
