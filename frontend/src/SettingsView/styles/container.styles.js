@@ -68,6 +68,10 @@ const StyledAvatar = styled.img`
 const StyledButton = styled(Button)`
 	color: ${colors.text};
 	background-color: ${colors.button};
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.7);
+	}
 `;
 
 const FormInputStyles = styled.div`
