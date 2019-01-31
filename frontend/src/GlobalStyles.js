@@ -23,18 +23,17 @@ const GlobalStyle = createGlobalStyle`
 			'' /* background: rgb(155,120,111);
 background: linear-gradient(90deg, rgba(155,120,111,1) 0%, rgba(155,120,111,1) 35%, rgba(62,49,69,1) 35%); */
 		}
-background: #25212a;
-    ${
-			'' /* background: linear-gradient(
-		to bottom,
-		rgba(63, 31, 106, 0.2) 0%,
-		rgba(63, 31, 106, 0.1) 20%,
-		rgba(63, 31, 106, 0) 40%,
-		rgba(63, 31, 106, 0) 60%,
-		rgba(63, 31, 106, 0.1) 80%,
-		rgba(63, 31, 106, 0) 100%
-  ); */
-		}
+    ${`
+      background: linear-gradient(
+      to bottom,
+      rgba(83, 51, 126, 0.2) 0%,
+      rgba(83, 51, 126, 0.1) 20%,
+      rgba(83, 51, 126, 0) 40%,
+      rgba(83, 51, 126, 0) 60%,
+      rgba(83, 51, 126, 0.1) 80%,
+      rgba(83, 51, 126, 0) 100%
+    ); 
+		`}
     ${mediaQueryFor.mdDevice`
       
       width:100vw;
