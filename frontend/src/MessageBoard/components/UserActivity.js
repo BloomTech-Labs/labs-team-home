@@ -56,7 +56,7 @@ const Info = styled(CardContent)`
 	width: 85%;
 
 	${mediaQueryFor.xsDevice`
-		max-width: 340px;
+		max-width: 275px;
 		padding-right: 0;
 	`}
 `;

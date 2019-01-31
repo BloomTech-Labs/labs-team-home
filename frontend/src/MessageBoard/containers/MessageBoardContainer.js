@@ -44,6 +44,10 @@ const StyledPaper = styled(Paper)`
 	`}
 `;
 
+const StyledTab = styled(Tab)`
+	width: 30%;
+`;
+
 class MessageBoardContainer extends React.Component {
 	constructor(props) {
 		super(props);
@@ -72,8 +76,14 @@ class MessageBoardContainer extends React.Component {
 						classes={{ indicator: classes.tabsIndicator }}
 						centered
 					>
-						<Tab classes={{ label: classes.label }} label="Message Board" />
-						<Tab classes={{ label: classes.label }} label="Activity Timeline" />
+						<StyledTab
+							classes={{ label: classes.label }}
+							label="Message Board"
+						/>
+						<StyledTab
+							classes={{ label: classes.label }}
+							label="Activity Timeline"
+						/>
 					</Tabs>
 				</StyledPaper>
 				{!this.state.value ? (
