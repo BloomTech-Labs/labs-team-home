@@ -8,6 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { Query } from 'react-apollo';
+import * as queries from '../../constants/queries';
 
 const styles = {
 	root: {
@@ -86,17 +88,26 @@ class MessageBoardContainer extends React.Component {
 						/>
 					</Tabs>
 				</StyledPaper>
-				{!this.state.value ? (
-					<MessageBoard
-						currentUser={this.props.currentUser}
-						team={this.props.match.params.team}
-					/>
-				) : (
-					<ActivityTimeline
-						{...this.props}
-						team={this.props.match.params.team}
-					/>
-				)}
+				<Query
+					query={queries.FIND_TEAM}
+					variables={{ id: this.props.match.params.team }}
+				>
+					{({ loading, error, data: { findTeam } }) => {
+						if (loading) return <p>Loading...</p>;
+						if (error) return <p>Error!</p>;
+
+						if (!this.state.value) {
+							return (
+								<MessageBoard
+									currentUser={this.props.currentUser}
+									team={findTeam}
+								/>
+							);
+						} else {
+							return <ActivityTimeline {...this.props} team={findTeam} />;
+						}
+					}}
+				</Query>
 			</MsgContainer>
 		);
 	}
