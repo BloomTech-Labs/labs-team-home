@@ -23,7 +23,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         setUpViewAppearance()
         Appearance.styleOrange(button: filterButton)
         createGradientLayer()
-        
+        teamNameLabel.textColor = Appearance.yellowColor
         
         // Show team name on label
         displayTeamInfo()

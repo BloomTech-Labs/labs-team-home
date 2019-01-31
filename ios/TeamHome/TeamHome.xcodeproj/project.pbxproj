@@ -58,11 +58,12 @@
 		7BF8735E21FA3DB000737729 /* EditMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8735D21FA3DB000737729 /* EditMessageViewController.swift */; };
 		7BF8736021FA482000737729 /* EditMessageViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735F21FA482000737729 /* EditMessageViewController.graphql */; };
 		7BF8736221FA6B4B00737729 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8736121FA6B4B00737729 /* Activity.swift */; };
-		A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 990E29AD1BA455515C611736 /* Pods_TeamHome.framework */; };
+		C4D48ED210903108208DB396 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1DE33B2919B88A10BE569E4B /* Pods-TeamHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.release.xcconfig"; sourceTree = "<group>"; };
+		465546B36BE62E5867C66338 /* Pods-TeamHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.release.xcconfig"; sourceTree = "<group>"; };
+		5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6BE7CD21E5733D0099E42C /* TeamHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6BE7D021E5733D0099E42C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B6BE7D521E5733D0099E42C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -117,8 +118,7 @@
 		7BF8735D21FA3DB000737729 /* EditMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMessageViewController.swift; sourceTree = "<group>"; };
 		7BF8735F21FA482000737729 /* EditMessageViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EditMessageViewController.graphql; sourceTree = "<group>"; };
 		7BF8736121FA6B4B00737729 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
-		990E29AD1BA455515C611736 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
+		DE4B1FF0DF331C25C53901F0 /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,17 +126,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A42EB62BB2C8AEBFFAE10437 /* Pods_TeamHome.framework in Frameworks */,
+				C4D48ED210903108208DB396 /* Pods_TeamHome.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7AC6FD5CEF8839A34B97FE2A /* Frameworks */ = {
+		40A1C1093F06A4157C9FCB7C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				990E29AD1BA455515C611736 /* Pods_TeamHome.framework */,
+				DE4B1FF0DF331C25C53901F0 /* Pods-TeamHome.debug.xcconfig */,
+				465546B36BE62E5867C66338 /* Pods-TeamHome.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5F0CB1EC456F63FEAC3CAE85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -146,8 +155,8 @@
 			children = (
 				7B6BE7CF21E5733D0099E42C /* TeamHome */,
 				7B6BE7CE21E5733D0099E42C /* Products */,
-				7D8F9D34E6E102A713A1507E /* Pods */,
-				7AC6FD5CEF8839A34B97FE2A /* Frameworks */,
+				40A1C1093F06A4157C9FCB7C /* Pods */,
+				5F0CB1EC456F63FEAC3CAE85 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -267,15 +276,6 @@
 			path = "Mock json";
 			sourceTree = "<group>";
 		};
-		7D8F9D34E6E102A713A1507E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */,
-				1DE33B2919B88A10BE569E4B /* Pods-TeamHome.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -283,12 +283,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B6BE7DF21E5733E0099E42C /* Build configuration list for PBXNativeTarget "TeamHome" */;
 			buildPhases = (
-				0C1D79E2557BE717442C34EE /* [CP] Check Pods Manifest.lock */,
+				2D45B5840C26F401549EC196 /* [CP] Check Pods Manifest.lock */,
 				7BD6588321EDAC43004FF34A /* Generate Apollo GraphQL API */,
 				7B6BE7C921E5733D0099E42C /* Sources */,
 				7B6BE7CA21E5733D0099E42C /* Frameworks */,
 				7B6BE7CB21E5733D0099E42C /* Resources */,
-				8F47286782AEADBBA3274A7F /* [CP] Embed Pods Frameworks */,
+				0D7CD26B5B99E080D5F02A24 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -366,7 +366,47 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C1D79E2557BE717442C34EE /* [CP] Check Pods Manifest.lock */ = {
+		0D7CD26B5B99E080D5F02A24 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
+				"${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework",
+				"${BUILT_PRODUCTS_DIR}/CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
+				"${BUILT_PRODUCTS_DIR}/GrowingTextView/GrowingTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/MEVHorizontalContacts/MEVHorizontalContacts.framework",
+				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
+				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Auth0.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSStickyHeaderFlowLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GrowingTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MEVHorizontalContacts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2D45B5840C26F401549EC196 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -405,44 +445,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "APOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json API.swift\n";
-		};
-		8F47286782AEADBBA3274A7F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
-				"${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework",
-				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
-				"${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework",
-				"${BUILT_PRODUCTS_DIR}/Lock/Lock.framework",
-				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
-				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
-				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Auth0.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lock.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -622,7 +624,7 @@
 		};
 		7B6BE7E021E5733E0099E42C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F92586ADE99449AA13CE1FFE /* Pods-TeamHome.debug.xcconfig */;
+			baseConfigurationReference = DE4B1FF0DF331C25C53901F0 /* Pods-TeamHome.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -641,7 +643,7 @@
 		};
 		7B6BE7E121E5733E0099E42C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DE33B2919B88A10BE569E4B /* Pods-TeamHome.release.xcconfig */;
+			baseConfigurationReference = 465546B36BE62E5867C66338 /* Pods-TeamHome.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

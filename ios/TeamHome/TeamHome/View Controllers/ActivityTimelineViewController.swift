@@ -21,6 +21,7 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         setUpViewAppearance()
         createGradientLayer()
         collectionView.backgroundColor = .clear
+        teamNameLabel.textColor = Appearance.yellowColor
         
         loadActivity(with: apollo, team: team)
     }

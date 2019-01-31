@@ -21,14 +21,15 @@ enum Appearance {
     static let plumColor = UIColor(red: 62/255.0, green: 49/255.0, blue: 69/255.0, alpha: 1.0)
     static let beigeColor = UIColor(red: 157/255.0, green: 141/255.0, blue: 143/255.0, alpha: 1.0)
     static let goldColor = UIColor(red: 155/255.0, green: 120/255.0, blue: 111/255.0, alpha: 1.0)
-    static let likeGrayColor = UIColor(red: 143/255.0, green: 142/255.0, blue: 149/255.0, alpha: 1.0)
+    static let likeGrayColor = UIColor(red: 118/255.0, green: 117/255.0, blue: 125/255.0, alpha: 1.0)
     
     static func setTheme() {
         UIButton.appearance().tintColor = Appearance.plumColor
         
-        UINavigationBar.appearance().barTintColor = Appearance.grayColor
+        UINavigationBar.appearance().barTintColor = Appearance.darkMauveColor
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        UIBarButtonItem.appearance().tintColor = .white
 //        let titleFont = Appearance.setTitleFont(with: .title1, pointSize: 20)
 //        let titleAttributes = [NSAttributedString.Key.font: titleFont]
 //        
