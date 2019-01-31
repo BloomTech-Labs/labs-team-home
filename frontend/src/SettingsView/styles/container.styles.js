@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import backgroundGradient from '../../_global_styles/background_gradient';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
-import Button from '@material-ui/core/Button';
 import { colors } from '../../colorVariables';
+import { Button, TextField, Input, Checkbox } from '@material-ui/core';
 
 const SettingsContainer = styled.div`
 	position: relative;
@@ -31,22 +31,23 @@ const AvatarUploadContainer = styled.div`
 	justify-content: space-between;
 `;
 
+const ImageFigure = styled.figure`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-grow: -1;
+	flex-shrink: 1;
+	align-items: center;
+	width: fit-content;
+	padding: 1%;
+	margin: 0;
+`;
+
 const StyledAvatar = styled.img`
 	max-width: 50px;
 	height: auto;
 	border-radius: 50%;
-`;
-
-const ImageFigure = styled.figure`
-	display: flex;
-	flex-direction: row-reverse;
-	align-items: center;
-	width: 33.33%;
-	padding: 1%;
-	margin: 0;
-	img {
-		margin-left: 10%;
-	}
+	/* margin-left: 10%; */
 `;
 
 const StyledButton = styled(Button)`
@@ -54,5 +55,46 @@ const StyledButton = styled(Button)`
 	background-color: ${colors.button};
 `;
 
+const FormInputStyles = styled.div`
+	display: flex;
+	flex-flow: row;
+	padding: 1%;
+	label {
+		width: 25%;
+	}
+`;
+
+const StyledInput = styled(Input)`
+	color: ${colors.text};
+	/* border-bottom: 1px solid ${colors.text}; */
+`;
+
+const FormCheckboxStyles = styled.div`
+	display: flex;
+	flex-flow: row;
+	padding: 1% 4%;
+	label {
+		width: 25%;
+		margin-right: 3%;
+	}
+	input {
+		width: 2%;
+	}
+`;
+
+const StyledCheckbox = styled(Checkbox)`
+	color: ${colors.header};
+	padding: 0;
+`;
+
 export default SettingsContainer;
-export { StyledAvatar, ImageFigure, AvatarUploadContainer, StyledButton };
+export {
+	StyledAvatar,
+	ImageFigure,
+	AvatarUploadContainer,
+	StyledButton,
+	FormInputStyles,
+	StyledInput,
+	FormCheckboxStyles,
+	StyledCheckbox
+};
