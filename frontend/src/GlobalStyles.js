@@ -16,8 +16,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     @import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
     background-size:100vw;
-    background-color: #17151B;
-    width:100%;
+    background-color: #5A5560;
     margin:0 auto;
     ${
 			'' /* background-image: url('frontend/src/assets/TH_icon_logo_wout_nodes.svg'); */
@@ -32,9 +31,9 @@ const GlobalStyle = createGlobalStyle`
 		rgb(63, 31, 106, 0.1) 80%,
 		rgb(63, 31, 106, 0) 100%
   );
-  
+
     ${mediaQueryFor.mdDevice`
-      
+
       width:100vw;
     `}
     ${mediaQueryFor.smDevice`

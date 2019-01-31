@@ -68,6 +68,7 @@ export default class ActivityTimeline extends React.Component {
 												thing.updatedAt = new Date(
 													parseInt(thing.updatedAt, 10)
 												);
+											return null;
 										});
 										//sort in reverse chronological order
 										allTheThings.sort((a, b) => {
