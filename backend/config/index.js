@@ -26,7 +26,7 @@ module.exports = app => {
 		)
 		.then(() => console.log('MongoDB connected.'))
 		.catch(err => console.error(err));
-
+	mongoose.set('useFindAndModify', false);
 	const { ObjectId } = mongoose.Types; // makes mongodb ObjectIds readable by graphql
 	ObjectId.prototype.valueOf = function() {
 		return this.toString();
