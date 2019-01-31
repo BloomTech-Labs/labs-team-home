@@ -1,9 +1,11 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { palette, colors } from '../../colorVariables';
+import Typography from '@material-ui/core/Typography';
 
 const MessageContainer = styled.div`
 	margin: 2% auto;
-	background-color: rgba(107, 40, 59, 0.3);
+	background-color: ${palette.plum};
 	width: 100%;
 	height: 80px;
 	padding: 10px 20px;
@@ -40,8 +42,10 @@ const MessagePreview = styled.div`
 	}
 
 	& p.user-name {
-		margin-left: 17%;
-		margin-top: 1%;
+		margin-left: 20px;
+
+		/* margin-left: 17%; */
+		/* margin-top: 1%; */
 		align-self: center;
 		color: pink;
 		font-size: 0.8rem;
@@ -106,8 +110,7 @@ function Message(props) {
 				<h5 className="comments-length">{message.comments.length}</h5>
 			</MessagePreview>
 			<MessagePreview>
-				<h5>Tag</h5>
-				<Tag>{message.tag}</Tag>
+				<Tag>{message.tag ? message.tag.name : 'Uncategorized'}</Tag>
 			</MessagePreview>
 		</MessageContainer>
 	);

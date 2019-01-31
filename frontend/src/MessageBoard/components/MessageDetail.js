@@ -11,7 +11,11 @@ import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
-
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import { palette, colors } from '../../colorVariables';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
 
@@ -47,10 +51,14 @@ class MessageDetail extends Component {
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	render() {
+		let editContent;
 		let content;
 		const { open, hideModal, message, currentUser } = this.props;
 		return (
-			<Dialog isOpen={open}>
+			<Dialog
+				isOpen={open}
+				style={{ background: palette.plum, color: '#fff', borderRadius: '3px' }}
+			>
 				{message && (
 					<Query query={query.FIND_MESSAGE} variables={{ id: message._id }}>
 						{({ loading, error, data: { findMessage } }) =>
@@ -67,17 +75,28 @@ class MessageDetail extends Component {
 										if (loading) return <p>Loading...</p>;
 										if (error) return <p>Error :(</p>;
 										return (
-											<Card>
-												<CardActions>
-													<Button
-														color="primary"
+											<Card style={{ background: palette.plum, color: '#fff' }}>
+												<CardActions
+													style={{
+														display: 'flex',
+														justifyContent: 'flex-end'
+													}}
+												>
+													<IconButton
+														aria-label="Close"
 														onClick={hideModal}
-														style={{ margin: '0 20px' }}
+														style={{ color: '#fff' }}
 													>
-														Close
-													</Button>
+														<CloseIcon />
+													</IconButton>
 												</CardActions>
-												<Card>
+												<Card
+													style={{
+														background: palette.plum,
+														color: '#fff',
+														width: '100%'
+													}}
+												>
 													<CardHeader
 														avatar={
 															<Avatar
@@ -88,8 +107,13 @@ class MessageDetail extends Component {
 														}
 														title={`${findMessage.user.firstName}
 															${findMessage.user.lastName}`}
+														titleTypographyProps={{ style: { color: '#fff' } }}
 													/>
-													<CardContent>
+													<CardContent
+														style={{
+															width: '100%'
+														}}
+													>
 														{this.state.editingMessage ? (
 															<form
 																onSubmit={e => {
@@ -121,24 +145,42 @@ class MessageDetail extends Component {
 																			);
 																	}
 																}}
+																style={{
+																	width: '100%',
+																	display: 'flex',
+																	flexDirection: 'column'
+																}}
 															>
-																<label htmlFor="title">
-																	<Input
-																		type="text"
-																		name="title"
-																		value={this.state.title}
-																		onChange={this.handleChange}
-																	/>
-																</label>
-																<label htmlFor="message-content">
-																	<Input
-																		type="text"
-																		name="content"
-																		value={this.state.content}
-																		onChange={this.handleChange}
-																	/>
-																</label>
-																<button type="submit">Save</button>
+																<label htmlFor="message title" />
+																<TextField
+																	type="text"
+																	name="title"
+																	value={this.state.title}
+																	onChange={this.handleChange}
+																	inputProps={{ style: { color: '#fff' } }}
+																	labelProps={{ style: { color: '#fff' } }}
+																	maxWidth
+																/>
+																<label htmlFor="message content" />
+																<TextField
+																	type="text"
+																	name="content"
+																	value={this.state.content}
+																	onChange={this.handleChange}
+																	inputProps={{
+																		style: { color: '#fff' }
+																	}}
+																	labelProps={{ style: { color: '#fff' } }}
+																	maxWidth
+																	multiline
+																/>
+																<Button
+																	size="small"
+																	style={{ color: '#fff' }}
+																	type="submit"
+																>
+																	Save
+																</Button>
 															</form>
 														) : (
 															<>
@@ -146,10 +188,14 @@ class MessageDetail extends Component {
 																	gutterBottom
 																	variant="h5"
 																	component="h2"
+																	style={{ color: '#fff' }}
 																>
 																	{findMessage.title}
 																</Typography>
-																<Typography component="p">
+																<Typography
+																	component="p"
+																	style={{ color: '#fff' }}
+																>
 																	{findMessage.content}
 																</Typography>
 															</>
@@ -167,7 +213,8 @@ class MessageDetail extends Component {
 														{findMessage.user._id === currentUser._id && (
 															<>
 																<Button
-																	color="primary"
+																	size="small"
+																	style={{ color: '#fff' }}
 																	onClick={e => {
 																		e.preventDefault();
 																		this.setState({
@@ -180,6 +227,8 @@ class MessageDetail extends Component {
 																	Edit Message
 																</Button>
 																<Button
+																	size="small"
+																	style={{ color: '#fff' }}
 																	color="secondary"
 																	onClick={e => {
 																		e.preventDefault();
@@ -203,6 +252,7 @@ class MessageDetail extends Component {
 																</Button>
 															</>
 														)}
+
 														<Mutation
 															mutation={mutation.UPDATE_MESSAGE}
 															update={(cache, { data: { updateMessage } }) => {
@@ -226,6 +276,8 @@ class MessageDetail extends Component {
 														>
 															{updateMessage => (
 																<Button
+																	size="small"
+																	style={{ color: '#fff' }}
 																	color="secondary"
 																	onClick={e => {
 																		e.preventDefault();
@@ -266,8 +318,19 @@ class MessageDetail extends Component {
 														</Mutation>
 													</CardActions>
 												</Card>
+												<Typography
+													gutterBottom
+													variant="h6"
+													component="h5"
+													style={{ color: '#fff', margin: '30px 0' }}
+												>
+													Comments
+												</Typography>
 												{findMsgCommentsByMessage.map(comment => (
-													<Card key={comment._id}>
+													<Paper
+														key={comment._id}
+														style={{ background: palette.plum }}
+													>
 														<CardHeader
 															avatar={
 																<Avatar
@@ -279,15 +342,22 @@ class MessageDetail extends Component {
 															title={`${comment.user.firstName} ${
 																comment.user.lastName
 															}`}
+															titleTypographyProps={{
+																style: { color: '#fff' }
+															}}
 														/>
 														<CardContent>
-															<Typography component="p">
+															<Typography
+																component="p"
+																style={{ color: '#fff' }}
+															>
 																{comment.content}
 															</Typography>
 														</CardContent>
 														{comment.user._id === currentUser._id && (
 															<Button
-																color="primary"
+																size="small"
+																style={{ color: '#fff' }}
 																onClick={e => {
 																	e.preventDefault();
 
@@ -296,8 +366,8 @@ class MessageDetail extends Component {
 																		edited: comment,
 																		commentContent: comment.content
 																	});
-																	content.value = comment.content;
 																	content.focus();
+																	content.value = '';
 																}}
 															>
 																Edit Comment
@@ -330,6 +400,8 @@ class MessageDetail extends Component {
 															>
 																{deleteMsgComment => (
 																	<Button
+																		size="small"
+																		style={{ color: '#fff' }}
 																		color="secondary"
 																		onClick={e => {
 																			e.preventDefault();
@@ -372,13 +444,8 @@ class MessageDetail extends Component {
 														>
 															{updateMsgComment => (
 																<Button
-																	color={
-																		comment.likes.find(
-																			({ _id }) => _id === currentUser._id
-																		)
-																			? 'secondary'
-																			: 'primary'
-																	}
+																	size="small"
+																	style={{ color: '#fff' }}
 																	onClick={e => {
 																		const sanitized = comment.likes.map(
 																			({ _id }) => _id
@@ -410,113 +477,8 @@ class MessageDetail extends Component {
 																</Button>
 															)}
 														</Mutation>
-													</Card>
+													</Paper>
 												))}
-												{this.state.editing ? (
-													<Mutation
-														mutation={mutation.UPDATE_COMMENT}
-														update={(cache, { data: { updateMsgComment } }) => {
-															const {
-																findMsgCommentsByMessage
-															} = cache.readQuery({
-																query: query.FIND_COMMENTS_BY_MESSAGE,
-																variables: { message: message._id }
-															});
-															cache.writeQuery({
-																query: query.FIND_COMMENTS_BY_MESSAGE,
-																variables: { message: message._id },
-																data: {
-																	findMsgCommentsByMessage: findMsgCommentsByMessage.map(
-																		comment =>
-																			comment._id === updateMsgComment._id
-																				? updateMsgComment
-																				: comment
-																	)
-																}
-															});
-														}}
-													>
-														{updateMsgComment => (
-															<form
-																action="submit"
-																onSubmit={async e => {
-																	e.preventDefault();
-
-																	await updateMsgComment({
-																		variables: {
-																			id: this.state.edited._id,
-																			content: this.state.commentContent
-																		}
-																	});
-																	content.value = '';
-																	this.setState({
-																		editing: false,
-																		edited: null,
-																		commentContent: ''
-																	});
-																}}
-															>
-																<label htmlFor="comment-content">
-																	<Input
-																		value={this.state.commentContent}
-																		name="commentContent"
-																		inputRef={node => (content = node)}
-																	/>
-																</label>
-															</form>
-														)}
-													</Mutation>
-												) : (
-													<Mutation
-														mutation={mutation.ADD_COMMENT}
-														update={(cache, { data: { addMsgComment } }) => {
-															const {
-																findMsgCommentsByMessage
-															} = cache.readQuery({
-																query: query.FIND_COMMENTS_BY_MESSAGE,
-																variables: { message: message._id }
-															});
-															cache.writeQuery({
-																query: query.FIND_COMMENTS_BY_MESSAGE,
-																variables: { message: message._id },
-																data: {
-																	findMsgCommentsByMessage: [
-																		...findMsgCommentsByMessage,
-																		addMsgComment
-																	]
-																}
-															});
-														}}
-													>
-														{addMsgComment => (
-															<form
-																action="submit"
-																onSubmit={e => {
-																	e.preventDefault();
-
-																	addMsgComment({
-																		variables: {
-																			message: message._id,
-																			content: content.value
-																		}
-																	});
-																	content.value = '';
-																}}
-															>
-																<label htmlFor="comment-content">
-																	<Input
-																		placeholder="Leave a comment.."
-																		inputRef={node => {
-																			content = node;
-																		}}
-																		style={{ width: '100%' }}
-																		variant="outlined"
-																	/>
-																</label>
-															</form>
-														)}
-													</Mutation>
-												)}
 											</Card>
 										);
 									}}
@@ -524,6 +486,111 @@ class MessageDetail extends Component {
 							)
 						}
 					</Query>
+				)}
+				{this.state.editing ? (
+					<Mutation
+						mutation={mutation.UPDATE_COMMENT}
+						update={(cache, { data: { updateMsgComment } }) => {
+							const { findMsgCommentsByMessage } = cache.readQuery({
+								query: query.FIND_COMMENTS_BY_MESSAGE,
+								variables: { message: message._id }
+							});
+							cache.writeQuery({
+								query: query.FIND_COMMENTS_BY_MESSAGE,
+								variables: { message: message._id },
+								data: {
+									findMsgCommentsByMessage: findMsgCommentsByMessage.map(
+										comment =>
+											comment._id === updateMsgComment._id
+												? updateMsgComment
+												: comment
+									)
+								}
+							});
+						}}
+					>
+						{updateMsgComment => (
+							<form
+								action="submit"
+								onSubmit={e => {
+									e.preventDefault();
+									updateMsgComment({
+										variables: {
+											id: this.state.edited._id,
+											content: this.state.commentContent
+										}
+									});
+									this.setState({
+										editing: false,
+										edited: null,
+										commentContent: ''
+									});
+									content && (content.value = '');
+								}}
+							>
+								<label htmlFor="comment-content">
+									<TextField
+										inputRef={node => (content = node)}
+										name="commentContent"
+										value={this.state.commentContent}
+										onChange={this.handleChange}
+										inputProps={{ style: { color: '#fff' } }}
+										variant="outlined"
+										fullWidth
+									/>
+								</label>
+							</form>
+						)}
+					</Mutation>
+				) : (
+					<Mutation
+						mutation={mutation.ADD_COMMENT}
+						update={(cache, { data: { addMsgComment } }) => {
+							const { findMsgCommentsByMessage } = cache.readQuery({
+								query: query.FIND_COMMENTS_BY_MESSAGE,
+								variables: { message: message._id }
+							});
+							cache.writeQuery({
+								query: query.FIND_COMMENTS_BY_MESSAGE,
+								variables: { message: message._id },
+								data: {
+									findMsgCommentsByMessage: [
+										...findMsgCommentsByMessage,
+										addMsgComment
+									]
+								}
+							});
+						}}
+					>
+						{addMsgComment => (
+							<form
+								action="submit"
+								onSubmit={e => {
+									e.preventDefault();
+
+									addMsgComment({
+										variables: {
+											message: message._id,
+											content: content.value
+										}
+									});
+									content.value = '';
+								}}
+							>
+								<label htmlFor="comment-content">
+									<TextField
+										placeholder="Leave a comment.."
+										inputRef={node => {
+											content = node;
+										}}
+										inputProps={{ style: { color: '#fff' } }}
+										variant="outlined"
+										fullWidth
+									/>
+								</label>
+							</form>
+						)}
+					</Mutation>
 				)}
 			</Dialog>
 		);
