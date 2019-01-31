@@ -13,7 +13,7 @@ const TextIMG = styled.img`
   right: 3%;
   width:80%;
   top: 100px;
-  opacity:0.8;
+  opacity:0.3;
   ${mediaQueryFor.lgDevice`
   width:300%;
     left: 0%;

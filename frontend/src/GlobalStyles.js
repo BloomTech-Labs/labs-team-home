@@ -23,8 +23,7 @@ const GlobalStyle = createGlobalStyle`
 			'' /* background: rgb(155,120,111);
 background: linear-gradient(90deg, rgba(155,120,111,1) 0%, rgba(155,120,111,1) 35%, rgba(62,49,69,1) 35%); */
 		}
-background: rgb(155,120,111);
-background: linear-gradient(90deg, rgba(90,85,96,1) 0%, rgba(90,85,96,1) 35%, rgba(62,49,69,1) 35%);
+background: #25212a;
     ${
 			'' /* background: linear-gradient(
 		to bottom,
