@@ -9,6 +9,7 @@
 import UIKit
 import Apollo
 import Cloudinary
+import Toucan
 
 var teamWatcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
 
@@ -20,6 +21,7 @@ class TeamDetailTableViewController: UITableViewController {
         setUpViewAppearance()
         view.backgroundColor = Appearance.plumColor
         UILabel.appearance().tintColor = .white
+        //createGradientLayer()
         
         guard let apollo = apollo else { return }
         
@@ -55,9 +57,9 @@ class TeamDetailTableViewController: UITableViewController {
                 
                 guard let image = image else { return }
                 
+                let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
                 DispatchQueue.main.async {
-                    cell.imageView?.image = image
-                    cell.imageView?.contentMode = .scaleAspectFit
+                    cell.imageView?.image = resizedImage.image
                 }
             }
         }
@@ -108,6 +110,21 @@ class TeamDetailTableViewController: UITableViewController {
         }
     }
     
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
+        
+        
+        gradientLayer.locations = [0.0, 0.25]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
     // MARK - Properties
     var users: [FindTeamByIdQuery.Data.FindTeam.User?]? {
         didSet {
@@ -121,6 +138,8 @@ class TeamDetailTableViewController: UITableViewController {
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var gradientLayer: CAGradientLayer!
+    
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var addMembersButton: UIButton!

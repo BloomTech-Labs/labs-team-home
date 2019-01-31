@@ -10,6 +10,7 @@ import UIKit
 import Apollo
 import Cloudinary
 import Material
+import Toucan
 
 class MessageCollectionViewCell: UICollectionViewCell {
     
@@ -168,8 +169,8 @@ class MessageCollectionViewCell: UICollectionViewCell {
         setImage(for: message) { (image) in
             DispatchQueue.main.async {
                 
-                guard let resizedImage = self.resizeImage(image: image, targetSize: CGSize(width: 40, height: 40)) else { return }
-                self.more2Button = UIImageView(image: resizedImage)
+                let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
+                self.more2Button = UIImageView(image: resizedImage.image)
                 self.more2Button.contentMode = .scaleAspectFit
                 self.prepareToolbar(firstName: message.user.firstName, lastName: message.user.lastName, messageTitle: message.title, message: message)
                 self.prepareCard()

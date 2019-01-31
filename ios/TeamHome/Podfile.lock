@@ -7,28 +7,28 @@ PODS:
     - SimpleKeychain
   - Cloudinary (2.6.1):
     - Alamofire (~> 4.8.1)
-  - JWTDecode (2.2.0)
-  - Lock (2.9.0):
-    - Auth0 (~> 1.13)
-    - Lock/Classic (= 2.9.0)
-  - Lock/Classic (2.9.0):
-    - Auth0 (~> 1.13)
+  - CSStickyHeaderFlowLayout (0.2.11)
+  - GrowingTextView (0.6.1)
   - Material (2.16.4):
     - Material/Core (= 2.16.4)
   - Material/Core (2.16.4):
     - Motion (~> 1.4.3)
+  - MEVHorizontalContacts (1.4)
   - Motion (1.4.3):
     - Motion/Core (= 1.4.3)
   - Motion/Core (1.4.3)
   - SimpleKeychain (0.8.1)
+  - Toucan (1.1.0)
 
 DEPENDENCIES:
   - Apollo
   - Auth0 (~> 1.0)
   - Cloudinary (~> 2.0)
-  - JWTDecode (~> 2.2)
-  - Lock (~> 2.0)
+  - CSStickyHeaderFlowLayout
+  - GrowingTextView (= 0.6.1)
   - Material (~> 2.16)
+  - MEVHorizontalContacts
+  - Toucan (~> 1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -36,23 +36,27 @@ SPEC REPOS:
     - Apollo
     - Auth0
     - Cloudinary
-    - JWTDecode
-    - Lock
+    - CSStickyHeaderFlowLayout
+    - GrowingTextView
     - Material
+    - MEVHorizontalContacts
     - Motion
     - SimpleKeychain
+    - Toucan
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   Apollo: 19caf3246d292bbb69ecad1bd098661f78222aba
   Auth0: 064dc115cd99eec7334d1cab565f4d974eecac4d
   Cloudinary: a13a1b1137dc1ab625aa9d2d0c4b56171bb971a9
-  JWTDecode: 85a405ab16d5473e99bd89ded1d535090ebd6a0e
-  Lock: c78ebd9de5dc0c4270e224f30dac8a9b04d0afc5
+  CSStickyHeaderFlowLayout: e9bcb1762413f49d7d09e5bd0ae5efd1100116b7
+  GrowingTextView: 335aefa45df7df06b01edede1363414d6ee5d6bc
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
+  MEVHorizontalContacts: e92c4e06c08c38f557f4dc805af2b78b0198248e
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   SimpleKeychain: e2485c28d82fcece35e9e41faeac42ebfe614815
+  Toucan: 8f228fabb21521b9658692df9325fe76e71d74b2
 
-PODFILE CHECKSUM: 46e02449b40c99dd6678756c636a340b54e95ff6
+PODFILE CHECKSUM: 4b774410d599db0f1dc81feb1cc03f6bcba0fa17
 
 COCOAPODS: 1.5.3
