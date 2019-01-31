@@ -32,10 +32,22 @@ const SignInSignUp = ({ handleLogin, handleSignUp }) => {
 		<StyledSignInUp>
 			<TextIMG alt={'TeamHome banner'} src={textLogo} />
 			<BtnContainer>
-				<Button style={BtnStyles} btnprop={btn1} handleClick={handleLogin}>
+				<Button
+					style={BtnStyles}
+					btnprop={btn1}
+					onClick={() => {
+						handleLogin();
+					}}
+				>
 					Login
 				</Button>
-				<Button style={BtnStyles} btnprop={btn2} handleClick={handleSignUp}>
+				<Button
+					style={BtnStyles}
+					btnprop={btn2}
+					handleClick={() => {
+						handleSignUp();
+					}}
+				>
 					Sign Up
 				</Button>
 			</BtnContainer>
