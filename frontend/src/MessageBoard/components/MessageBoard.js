@@ -256,7 +256,7 @@ class MessageBoard extends React.Component {
 								stopProp={this.stopProp}
 								submitHandler={e => {
 									e.preventDefault();
-									let input = { id: this.props.team };
+									let input = { id: this.props.team._id };
 									if (this.state.email.length) input.email = this.state.email;
 									if (this.state.number.length)
 										input.phoneNumber = this.state.number;

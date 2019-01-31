@@ -11,15 +11,8 @@ import { colors } from '../../colorVariables';
 const { button } = colors;
 
 const Overlay = styled(DialogContent)`
-	color: #fff;
 	background-color: ${button};
 	form {
-		input {
-			color: #fff;
-		}
-		label {
-			color: #fff;
-		}
 		div {
 			input {
 				color: #fff;
@@ -42,38 +35,29 @@ const Title = styled(DialogTitle)`
 	}
 `;
 
-const Field = styled(TextField)`
-	input {
-		color: #fff important!;
-	}
-	label {
-		color: #fff important!;
-	}
-`;
+// const FormContainer = styled.div`
+// 	width: 60%;
+// 	height: 80%;
+// 	margin: auto;
+// 	z-index: 1001;
+// 	background-color: white;
+// 	border: 1px solid black;
+// 	position: fixed;
+// 	top: 0;
+// 	bottom: 0;
+// 	left: 0;
+// 	right: 0;
 
-const FormContainer = styled.div`
-	width: 60%;
-	height: 80%;
-	margin: auto;
-	z-index: 1001;
-	background-color: white;
-	border: 1px solid black;
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
+// 	& form {
+// 		display: flex;
+// 		flex-direction: column;
+// 		align-items: center;
+// 	}
 
-	& form {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	& form input {
-		margin: 20px;
-	}
-`;
+// 	& form input {
+// 		margin: 20px;
+// 	}
+// `;
 
 export default function Invites({
 	open,
@@ -91,7 +75,7 @@ export default function Invites({
 				</Title>
 				<form onSubmit={submitHandler} style={{ color: '#fff' }}>
 					<label htmlFor="email" />
-					<Field
+					<TextField
 						id="outlined-bare"
 						type="email"
 						name="email"
@@ -102,7 +86,7 @@ export default function Invites({
 						fullWidth
 					/>
 					<label htmlFor="phone number" />
-					<Field
+					<TextField
 						placeholder="phone number"
 						type="text"
 						name="number"
