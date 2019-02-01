@@ -7,7 +7,6 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
-const axios = require('axios');
 
 const UserModel = require('../models/User');
 const { MsgComment, Tag, Team, User, Message } = require('../graphql/schema');
