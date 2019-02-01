@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import SettingsTabs from '../components/tabs/SettingsTabs';
-// import '../styles/SettingsStyles.css';
 import FormInput from '../components/forms/FormInput';
 import FormCheckbox from '../components/forms/FormCheckbox';
 import FormButton from '../components/forms/FormButton';
