@@ -1,90 +1,107 @@
 import styled from 'styled-components';
 import mediaQueryFor from '../../../_global_styles/responsive_querie';
-import backgroundGradient from '../../../_global_styles/background_gradient';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+import { colors } from '../../../colorVariables';
+
+const styles = {
+	root: {
+		padding: '2px 4px',
+		display: 'flex',
+		alignItems: 'center',
+		width: 400
+	},
+	input: {
+		marginLeft: 8,
+		flex: 1
+	},
+	iconButton: {
+		padding: 10
+	},
+	divider: {
+		width: 1,
+		height: 28,
+		margin: 4
+	}
+};
 
 export const Container = styled.div`
-  position:relative;
-  top:50px;
+	position: relative;
+	top: 50px;
 	width: 80%;
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-  margin-left: 0 5% 0 5%;
-  color:white;
-  font-family: Comfortaa;
-  background: ${backgroundGradient}
+	margin-left: 0 5% 0 5%;
+	color: white;
+	font-family: Comfortaa;
 
-	/* background-color:purple; */
 	h3 {
-		color: #fff;
+		color: ${colors.text};
 		margin: 0 auto;
 	}
 	${mediaQueryFor.mdDevice`
-      
+
       width:100%;
     `}
 `;
 
-const Form = styled.div`
+const Form = styled(Paper)`
 	display: flex;
-	flex-flow: column;
-	/* justify-content:center; */
+	flex-flow: row;
 	justify-items: center;
 	width: 100%;
 	margin: 3% auto;
 	font-family: Comfortaa;
-	color: #fff;
-	/* border-top: solid 1px #ff8c63; */
+	color: ${colors.text};
 	border-radius: 2px;
-	${mediaQueryFor.mdDevice`
-      width:;
-    `}
+	background-color: white;
+	box-shadow: none;
+
 	h3 {
 		font-family: Comfortaa;
-		color: #fff;
+		color: ${colors.text};
 		margin: 0 auto;
 	}
-	label {
-		display: flex;
-		flex-flow: column;
+	// button {
+	// 	display: inline-block;
+	// 	border: none;
+	// 	margin: 0;
+	// 	text-decoration: none;
+	// 	background-color: #17151b;
+	// 	color: #ffd17c;
+	// 	font-family: sans-serif;
+	// 	font-size: 2.2rem;
+	// 	cursor: pointer;
+	// 	text-align: center;
+	// 	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	// 	-webkit-appearance: none;
+	// 	-moz-appearance: none;
+	// 	:hover {
+	// 		background-color: #ffd17c;
+	// 		color: #17151b;
+	// 	}
+	// }
+`;
 
-		input {
-			height: 50px;
-			padding: 0 0 0 30px;
-			font-size: 2rem;
-			background-color: #17151b;
-			font-family: Comfortaa;
-			color: #ffd17c;
-		}
-	}
-	button {
-		width: 100%;
-		display: inline-block;
-		border: none;
-		/* padding: 1rem 2rem; */
-		margin: 0;
-		text-decoration: none;
-		background-color: #17151b;
-		color: #ffd17c;
-		font-family: sans-serif;
-		font-size: 2.2rem;
-		/* line-height: 1; */
-		cursor: pointer;
-		text-align: center;
-		transition: background-color 250ms ease-in-out, transform 150ms ease;
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		:hover {
-			background-color: #ffd17c;
-			color: #17151b;
-		}
-	}
+const Input = styled(InputBase)`
+	background-color: white;
+	color: black;
+`;
+
+const Button = styled(IconButton)`
+	background-color: ${colors.button};
+	color: ${colors.text};
 `;
 
 const TeamsList = styled.div`
 	width: 100%;
 	margin: 0 auto;
-	/* height: 100px; */
 	display: flex;
 	flex-flow: column;
 	color: #f1fcef;
@@ -97,14 +114,4 @@ const LinkStyles = styled.a`
 	text-decoration: none;
 `;
 
-/**
- * Color palette:
- * #17151B << Dark Gray
- * #FF8C63 << Orange
- * #FFD17C << Lt Orange
- * #DE3B61 << Red
- * #3F1F6A << Purple
- * #F1FCEF << Creme
- * #73FF6D << Green
- */
-export { Form, TeamsList, LinkStyles };
+export { Form, TeamsList, LinkStyles, Input, Button };
