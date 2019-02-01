@@ -14,6 +14,7 @@
     - [React](#react)
     - [Redux](#redux)
     - [Styled Components](#styled-components)
+    - [Stripe](#stripe)
   - [Front-End Development Dependencies](#front-end-development-dependencies)
     - [Husky](#husky)
     - [Prettier](#prettier)
@@ -30,6 +31,7 @@
     - [Lodash](#lodash)
     - [MongoDB](#mongodb)
     - [Mongoose](#mongoose)
+    - [Stripe](#stripe)
     - [Yup](#yup)
   - [Back-End Development Dependencies](#back-end-development-dependencies)
     - [Husky](#husky-1)
@@ -54,6 +56,10 @@ Redux offers global state management to avoid prop drilling and excellent devtoo
 
 Styled Components is a popular CSS-in-JS library that provides flexibility and seamless integration with React allowing for customizable themes and styling that responds to props and JS logic.<br/>[Styled Components info](https://www.styled-components.com/docs/)
 
+### Stripe
+
+The Stripe API is used for payments. It is predictable, resource oriented, and organized around REST.<br/>[Stripe info](https://stripe.com/docs/api)
+
 ## Front-End Development Dependencies
 
 ### Husky
@@ -70,7 +76,7 @@ Used along with Husky and Prettier to enforce coding conventions.<br/>[Pretty-Qu
 
 ### Stripe
 
-The Stripe API is predictable, resource oriented, and organized around REST.<br/>[Stripe info](https://stripe.com/docs/api)
+[See above](#stripe)
 
 ## Back-End Production Dependencies
 
@@ -159,3 +165,7 @@ Used for parsing phone numbers.
 Nodemon is a utility that will monitor for any changes in your source and automatically restart your server.
 
 [Nodemon info](https://nodemon.io/)
+
+### Stripe
+
+[See above](#stripe)
