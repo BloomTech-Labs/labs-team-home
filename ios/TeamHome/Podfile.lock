@@ -18,6 +18,7 @@ PODS:
     - Motion/Core (= 1.4.3)
   - Motion/Core (1.4.3)
   - SimpleKeychain (0.8.1)
+  - TagListView (1.3.2)
   - Toucan (1.1.0)
 
 DEPENDENCIES:
@@ -28,6 +29,7 @@ DEPENDENCIES:
   - GrowingTextView (= 0.6.1)
   - Material (~> 2.16)
   - MEVHorizontalContacts
+  - TagListView (~> 1.0)
   - Toucan (~> 1.1)
 
 SPEC REPOS:
@@ -42,6 +44,7 @@ SPEC REPOS:
     - MEVHorizontalContacts
     - Motion
     - SimpleKeychain
+    - TagListView
     - Toucan
 
 SPEC CHECKSUMS:
@@ -55,8 +58,9 @@ SPEC CHECKSUMS:
   MEVHorizontalContacts: e92c4e06c08c38f557f4dc805af2b78b0198248e
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   SimpleKeychain: e2485c28d82fcece35e9e41faeac42ebfe614815
+  TagListView: 0c7e9c26b9aff858224ee6b155f5fcacd9e27c83
   Toucan: 8f228fabb21521b9658692df9325fe76e71d74b2
 
-PODFILE CHECKSUM: 4b774410d599db0f1dc81feb1cc03f6bcba0fa17
+PODFILE CHECKSUM: a46d475bb29a64264c0beb930beb36f86eeb9a00
 
 COCOAPODS: 1.5.3

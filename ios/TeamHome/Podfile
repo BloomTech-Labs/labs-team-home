@@ -16,5 +16,6 @@ target 'TeamHome' do
   source 'https://github.com/CocoaPods/Specs.git'
   pod 'MEVHorizontalContacts'
   pod 'Toucan', '~> 1.1'
+  pod 'TagListView', '~> 1.0'
 
 end

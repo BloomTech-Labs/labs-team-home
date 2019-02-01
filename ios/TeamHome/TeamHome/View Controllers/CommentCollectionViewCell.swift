@@ -40,8 +40,8 @@ class CommentCollectionViewCell: UICollectionViewCell {
         prepareBottomBar()
         prepareCard()
         
-//        guard let comment = comment,
-//            let currentUser = currentUser else { return }
+        guard let comment = comment,
+            let currentUser = currentUser else { return }
 //        
 //        let id = currentUser.id 
 //        

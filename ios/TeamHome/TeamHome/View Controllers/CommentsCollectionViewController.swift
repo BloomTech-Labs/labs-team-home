@@ -21,8 +21,7 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
         
         guard let messageId = messageId,
             let apollo = apollo else { return }
-//        
-//        fetchCurrentUser(with: apollo)
+
         loadComments(from: messageId, with: apollo)
     }
 
