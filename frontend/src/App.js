@@ -1,4 +1,4 @@
-import React, { Component, Route, Router } from 'react';
+import React, { Component, Route } from 'react';
 import { Switch, withRouter } from 'react-router-dom';
 import GlobalStyle from './GlobalStyles';
 import LandingView from './LandingView/containers/LandingView';
@@ -33,36 +33,30 @@ class App extends Component {
 	}
 	render() {
 		return (
-			<Route
-				render={({ location }) => {
-					return (
-						<JssProvider jss={jss} generateClassName={generateClassName}>
-							<AppStyles>
-								<GlobalStyle />
-								<TextIMG alt={'TeamHome banner'} src={iconLogo} />
-								{localStorage.token && <Nav handleLogout={this.handleLogout} />}
-								<TransitionGroup>
-									<CSSTransition
-										key={location.key}
-										timeout={{ enter: 300, exit: 300 }}
-										classNames={'fade'}
-									>
-										<Switch location={location}>
-											<PublicRoute exact path="/" component={LandingView} />
-											<PrivateRoute
-												path="/:team/home"
-												component={MessageBoardContainer}
-											/>
-											<PrivateRoute path="/dashboard" component={Dashboard} />
-											<PrivateRoute path="/settings" component={SettingsView} />
-										</Switch>
-									</CSSTransition>
-								</TransitionGroup>
-							</AppStyles>
-						</JssProvider>
-					);
-				}}
-			/>
+			<JssProvider jss={jss} generateClassName={generateClassName}>
+				<AppStyles>
+					<GlobalStyle />
+					<TextIMG alt={'TeamHome banner'} src={iconLogo} />
+					{localStorage.token && <Nav handleLogout={this.handleLogout} />}
+					<TransitionGroup>
+						<CSSTransition
+							key={this.props.location.key}
+							timeout={{ enter: 300, exit: 300 }}
+							classNames={'fade'}
+						>
+							<Switch location={this.props.location}>
+								<PublicRoute exact path="/" component={LandingView} />
+								<PrivateRoute
+									path="/:team/home"
+									component={MessageBoardContainer}
+								/>
+								<PrivateRoute path="/dashboard" component={Dashboard} />
+								<PrivateRoute path="/settings" component={SettingsView} />
+							</Switch>
+						</CSSTransition>
+					</TransitionGroup>
+				</AppStyles>
+			</JssProvider>
 		);
 	}
 }
