@@ -81,6 +81,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         guard let apollo = self.apollo else {return}
                         apollo.fetch(query: CurrentUserQuery(), cachePolicy: .returnCacheDataElseFetch, queue: DispatchQueue.global(), resultHandler: { (result, error) in
                             if let error = error {
+                                NSLog("Error logging in with google: \(error)")
                                 return
                             }
                             
@@ -88,6 +89,8 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                                 let data = result.data,
                                 let currentUser = data.currentUser else {
                                     // Perform other segue
+                                    self.performSegue(withIdentifier: "ShowNewUser", sender: self)
+                                    
                                     return
                             }
                             
@@ -215,7 +218,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                                     _ = credentialsManager.store(credentials: credentials)
                                     
                                     // Perform segue to Dashboard VC.
-                                    self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                                    self.performSegue(withIdentifier: "ShowNewUser", sender: self)
                                     
                                 case .failure(let error):
                                     
@@ -239,10 +242,17 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //Pass to Dashboard Collection VC
         if segue.identifier == "ShowDashboard" {
-            guard let destinationVC = segue.destination as? DashboardCollectionViewController else { return }
+            guard let destinationVC = segue.destination as? UINavigationController,
+                let topView = destinationVC.topViewController,
+                let nextVC = topView as? DashboardCollectionViewController else { return }
             
             // Pass Apollo client and user fetched from search
-            destinationVC.apollo = self.apollo
+            nextVC.apollo = self.apollo
+        } else if segue.identifier == "ShowDashboard" {
+            guard let destinationVC = segue.destination as? CreateNewUserViewController,
+                let credentials = credentials else { return }
+            destinationVC.credentials = credentials
+            
         }
     }
     
@@ -398,6 +408,8 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     // MARK - Properties
 
     private var apollo: ApolloClient?
+    private var credentials: Credentials?
+    
     var gradientLayer: CAGradientLayer!
     
     //All IBOutlets on storyboard view scene

@@ -11,16 +11,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--New User View Controller-->
+        <!--Create New User View Controller-->
         <scene sceneID="kRb-Ws-IjM">
             <objects>
-                <viewController id="d9c-21-oJL" customClass="NewUserViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="d9c-21-oJL" customClass="CreateNewUserViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6NU-ae-9Qh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="scl-aK-Oam">
-                                <rect key="frame" x="32" y="60.000000000000028" width="350" height="435.66666666666674"/>
+                                <rect key="frame" x="32" y="60.000000000000028" width="350" height="397.66666666666674"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VW7-7V-dQe">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="20.333333333333332"/>
@@ -42,9 +42,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Del-li-vox">
                                         <rect key="frame" x="0.0" y="215.66666666666669" width="350" height="30"/>
                                         <state key="normal" title="Add/Remove Avatar"/>
-                                        <connections>
-                                            <action selector="addRemoveAvatar:" destination="d9c-21-oJL" eventType="touchUpInside" id="PMT-vI-jJn"/>
-                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Th-rj-7OF">
                                         <rect key="frame" x="0.0" y="253.66666666666669" width="350" height="30"/>
@@ -64,18 +61,11 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DWE-de-Baz">
-                                        <rect key="frame" x="0.0" y="367.66666666666669" width="350" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0OC-ve-ABS">
-                                        <rect key="frame" x="0.0" y="405.66666666666669" width="350" height="30"/>
+                                        <rect key="frame" x="0.0" y="367.66666666666669" width="350" height="30"/>
                                         <state key="normal" title="Create account"/>
                                         <connections>
-                                            <action selector="createAccount:" destination="d9c-21-oJL" eventType="touchUpInside" id="x5K-ae-K2W"/>
-                                            <segue destination="ody-ES-6Lo" kind="show" identifier="ShowDashboard" id="bdp-MB-dr2"/>
+                                            <action selector="createAccount:" destination="d9c-21-oJL" eventType="touchUpInside" id="joi-JM-fjx"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -92,12 +82,11 @@
                         <viewLayoutGuide key="safeArea" id="Zvg-Yz-mtZ"/>
                     </view>
                     <connections>
-                        <outlet property="addRemoveAvatarButton" destination="Del-li-vox" id="ucC-d1-e7w"/>
-                        <outlet property="avatarImageView" destination="FKv-3B-nfE" id="Xew-D0-Ckj"/>
-                        <outlet property="emailTextField" destination="jeL-4O-V3C" id="g6H-vq-lRF"/>
-                        <outlet property="firstNameTextField" destination="9Th-rj-7OF" id="GOd-AZ-3e7"/>
-                        <outlet property="lastNameTextField" destination="nK2-3k-WPm" id="Mt6-DY-oBh"/>
-                        <outlet property="phoneNumberTextField" destination="DWE-de-Baz" id="Lr4-Ls-P0o"/>
+                        <outlet property="avatarImageView" destination="FKv-3B-nfE" id="pjj-ss-ra6"/>
+                        <outlet property="emailTextField" destination="jeL-4O-V3C" id="8Og-7t-HXy"/>
+                        <outlet property="firstNameTextField" destination="9Th-rj-7OF" id="YUL-vr-jjf"/>
+                        <outlet property="lastNameTextField" destination="nK2-3k-WPm" id="Mvl-ux-eu6"/>
+                        <segue destination="KtG-EC-N8n" kind="show" id="WsN-Jq-mpJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBK-5n-DND" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -186,10 +175,11 @@
                             <outlet property="delegate" destination="ody-ES-6Lo" id="OIe-SG-Qu8"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="MDL-0w-HUZ"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kiJ-qT-G6q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-820.28985507246387" y="-367.63392857142856"/>
+            <point key="canvasLocation" x="89.855072463768124" y="-367.63392857142856"/>
         </scene>
         <!--Landing Page View Controller-->
         <scene sceneID="jSf-gM-kOa">
@@ -357,7 +347,7 @@
                         <outlet property="logoImageView" destination="fw1-pX-lZQ" id="7Bj-MO-XiU"/>
                         <outlet property="passwordTextField" destination="jTa-1J-els" id="xuC-2Z-tf5"/>
                         <outlet property="signupButton" destination="vdh-wc-lZ0" id="FJ4-yr-Ith"/>
-                        <segue destination="ody-ES-6Lo" kind="show" identifier="ShowDashboard" id="n3L-aO-Bg3"/>
+                        <segue destination="KtG-EC-N8n" kind="show" identifier="ShowDashboard" id="n3L-aO-Bg3"/>
                         <segue destination="d9c-21-oJL" kind="show" identifier="ShowNewUser" id="wrx-Eh-hPt"/>
                     </connections>
                 </viewController>
@@ -524,7 +514,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O30-uR-lXq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1757.9710144927537" y="-367.63392857142856"/>
+            <point key="canvasLocation" x="2668.1159420289855" y="-367.63392857142856"/>
         </scene>
         <!--MessageDetailView-->
         <scene sceneID="udm-S5-1gT">
@@ -776,7 +766,7 @@
                 <viewControllerPlaceholder storyboardName="TeamDetailView" id="h3N-Xr-BZq" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="loV-uU-EC3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2358" y="-679"/>
+            <point key="canvasLocation" x="3267.3913043478265" y="-679.01785714285711"/>
         </scene>
         <!--Message Board-->
         <scene sceneID="cNf-P6-4iS">
@@ -1214,7 +1204,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2TB-iU-Xku" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42" y="-366"/>
+            <point key="canvasLocation" x="868.11594202898561" y="-366.29464285714283"/>
         </scene>
         <!--Message Board-->
         <scene sceneID="ELl-f7-T4v">
@@ -1255,7 +1245,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o82-nc-eA1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="820" y="-367.46626686656674"/>
+            <point key="canvasLocation" x="1728.985507246377" y="-367.63392857142856"/>
         </scene>
         <!--Settings-->
         <scene sceneID="5W3-Bv-UUg">
@@ -1279,6 +1269,24 @@
             </objects>
             <point key="canvasLocation" x="820" y="398.95052473763121"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mar-ye-8zS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KtG-EC-N8n" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="X59-8w-Mho">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ody-ES-6Lo" kind="relationship" relationship="rootViewController" id="Fnd-PB-fmH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cTj-AR-cRm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-820.28985507246387" y="-367.63392857142856"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Activity Tab" width="56.347827911376953" height="56.347827911376953"/>
@@ -1293,7 +1301,7 @@
         <image name="google-plus" width="365" height="365"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="WsN-Jq-mpJ"/>
         <segue reference="0dT-Fb-H3z"/>
-        <segue reference="n3L-aO-Bg3"/>
     </inferredMetricsTieBreakers>
 </document>
