@@ -11,7 +11,7 @@ import Apollo
 
 var messagesWatcher: GraphQLQueryWatcher<FindMessagesByTeamQuery>?
 
-class MessagesCollectionViewController: UICollectionViewController, MessageBoardFilterDelegate {
+class MessagesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, MessageBoardFilterDelegate {
     
     func didClickFilter() {
         filter()
@@ -47,6 +47,10 @@ class MessagesCollectionViewController: UICollectionViewController, MessageBoard
     
         return cell
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: view.frame.width, height: 170)
+//    }
     
     // MARK: - Navigation
     
