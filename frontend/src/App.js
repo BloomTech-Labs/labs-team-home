@@ -12,6 +12,7 @@ import Nav from './Nav/Nav';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { TextIMG } from './LandingView/styles/LogoBannerStyled';
 import iconLogo from './assets/BigTHv2.png';
@@ -22,6 +23,9 @@ const jss = create({
 	// We define a custom insertion point that JSS will look for injecting the styles in the DOM.
 	insertionPoint: document.getElementById('jss-insertion-point')
 });
+
+const appearDuration = 500;
+const transitionName = `example`;
 
 class App extends Component {
 	handleLogout() {
@@ -34,15 +38,23 @@ class App extends Component {
 					<GlobalStyle />
 					<TextIMG alt={'TeamHome banner'} src={iconLogo} />
 					{localStorage.token && <Nav handleLogout={this.handleLogout} />}
-					<Switch>
-						<PublicRoute exact path="/" component={LandingView} />
-						<PrivateRoute
-							path="/:team/home"
-							component={MessageBoardContainer}
-						/>
-						<PrivateRoute path="/dashboard" component={Dashboard} />
-						<PrivateRoute path="/settings" component={SettingsView} />
-					</Switch>
+					<TransitionGroup>
+						<CSSTransition
+							key={this.props.location.key}
+							timeout={{ enter: 300, exit: 300 }}
+							classNames={'fade'}
+						>
+							<Switch location={this.props.location}>
+								<PublicRoute exact path="/" component={LandingView} />
+								<PrivateRoute
+									path="/:team/home"
+									component={MessageBoardContainer}
+								/>
+								<PrivateRoute path="/dashboard" component={Dashboard} />
+								<PrivateRoute path="/settings" component={SettingsView} />
+							</Switch>
+						</CSSTransition>
+					</TransitionGroup>
 				</AppStyles>
 			</JssProvider>
 		);
