@@ -811,7 +811,7 @@
                                                 <rect key="frame" x="140.66666666666663" y="0.0" width="241.33333333333337" height="31.333333333333332"/>
                                                 <state key="normal" image="Arrow Down"/>
                                                 <connections>
-                                                    <action selector="filterTags:" destination="obM-Ah-i9E" eventType="touchUpInside" id="SOy-9A-Cpk"/>
+                                                    <action selector="filterMessages:" destination="obM-Ah-i9E" eventType="touchUpInside" id="Rv9-pz-8rt"/>
                                                 </connections>
                                             </button>
                                         </subviews>

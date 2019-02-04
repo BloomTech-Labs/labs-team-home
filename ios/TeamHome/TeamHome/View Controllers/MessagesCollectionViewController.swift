@@ -26,6 +26,7 @@ class MessagesCollectionViewController: UICollectionViewController, MessageBoard
         
         //Load messages with watcher that can be called by other VCs
         loadMessages(with: apollo)
+        filter()
         fetchCurrentUser(with: apollo)
     }
 
@@ -126,5 +127,5 @@ class MessagesCollectionViewController: UICollectionViewController, MessageBoard
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
-    private var newestToOldest: Bool = true
+    var newestToOldest: Bool = true
 }

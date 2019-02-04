@@ -11,6 +11,7 @@ import Apollo
 
 protocol MessageBoardFilterDelegate: class {
     func didClickFilter()
+    var newestToOldest: Bool { get set }
 }
 
 class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
@@ -28,10 +29,19 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         displayTeamInfo()
     }
     
-    // Generate all tag buttons for filtering messages
-    @IBAction func filterTags(_ sender: Any) {
-
-        delegate?.didClickFilter()
+    // Filter messages by date.
+    @IBAction func filterMessages(_ sender: Any) {
+        guard let delegate = delegate else { return }
+        
+        if delegate.newestToOldest {
+            let image = UIImage(named: "Arrow Down")!
+            filterButton.setImage(image, for: .normal)
+        } else {
+            let image = UIImage(named: "Arrow Up")!
+            filterButton.setImage(image, for: .normal)
+        }
+        
+        delegate.didClickFilter()
     }
     
     // MARK: - Navigation
