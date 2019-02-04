@@ -81,6 +81,7 @@ class MessagesCollectionViewController: UICollectionViewController, MessageBoard
                 let messages = result.data?.findMessagesByTeam else { return }
             
             self.messages = messages
+            self.filter()
         }
     }
     
@@ -99,14 +100,14 @@ class MessagesCollectionViewController: UICollectionViewController, MessageBoard
     private func filter() {
         guard let messages = messages else { return }
         
-        if ascending {
+        if newestToOldest {
             let sortedMessages = messages.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
             self.messages = sortedMessages
-            ascending = false
+            newestToOldest = false
         } else {
             let sortedMessages = messages.sorted(by: { ($0?.createdAt)! < ($1?.createdAt)!})
             self.messages = sortedMessages
-            ascending = true
+            newestToOldest = true
         }
     }
     
@@ -125,5 +126,5 @@ class MessagesCollectionViewController: UICollectionViewController, MessageBoard
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
-    private var ascending: Bool = true
+    private var newestToOldest: Bool = true
 }

@@ -27,7 +27,6 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     @IBAction func addTeam(_ sender: Any) {
         guard let apollo = apollo else { return }
-        
         presentCreateTeamAlert(with: apollo)
     }
     // MARK: - Navigation

@@ -26,7 +26,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         teamNameLabel.textColor = Appearance.yellowColor
         
         // Show team name on label
-        displayTeamInfo()
+//        displayTeamInfo()
     }
     
     // Generate all tag buttons for filtering messages
@@ -130,31 +130,11 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    // Filter messages based on selected tag from generated buttons
-    private func filter(for selectedTagId: GraphQLID) {
-        guard let messages = messages else { return }
-        
-//        filteredMessages = []
-//
-//        for message in messages {
-//            guard let tags = message?.tags else { return }
-//            for tag in tags {
-//                guard let tagId = tag?.id else { return }
-//
-//                if tagId == selectedTagId {
-//                    filteredMessages?.append(message)
-//                    return
-//                }
-//            }
-//        }
-    }
-    
     // MARK - Properties
     
     private var messages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]?
     private var filteredMessages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]?
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
-    
     
     
     var gradientLayer: CAGradientLayer!
