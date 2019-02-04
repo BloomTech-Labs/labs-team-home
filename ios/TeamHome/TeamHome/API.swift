@@ -1997,31 +1997,31 @@ public final class UpdateTeamMutation: GraphQLMutation {
 
 public final class AddNewMessageMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation AddNewMessage($title: String!, $team: String!, $content: String!, $images: [String], $tags: String) {\n  addMessage(input: {title: $title, team: $team, content: $content, images: $images, tag: $tags}) {\n    __typename\n    title\n    _id\n  }\n}"
+    "mutation AddNewMessage($title: String!, $team: String!, $content: String!, $images: [String], $tagId: String) {\n  addMessage(input: {title: $title, team: $team, content: $content, images: $images, tag: $tagId}) {\n    __typename\n    title\n    _id\n  }\n}"
 
   public var title: String
   public var team: String
   public var content: String
   public var images: [String?]?
-  public var tags: String?
+  public var tagId: String?
 
-  public init(title: String, team: String, content: String, images: [String?]? = nil, tags: String? = nil) {
+  public init(title: String, team: String, content: String, images: [String?]? = nil, tagId: String? = nil) {
     self.title = title
     self.team = team
     self.content = content
     self.images = images
-    self.tags = tags
+    self.tagId = tagId
   }
 
   public var variables: GraphQLMap? {
-    return ["title": title, "team": team, "content": content, "images": images, "tags": tags]
+    return ["title": title, "team": team, "content": content, "images": images, "tagId": tagId]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("addMessage", arguments: ["input": ["title": GraphQLVariable("title"), "team": GraphQLVariable("team"), "content": GraphQLVariable("content"), "images": GraphQLVariable("images"), "tag": GraphQLVariable("tags")]], type: .object(AddMessage.selections)),
+      GraphQLField("addMessage", arguments: ["input": ["title": GraphQLVariable("title"), "team": GraphQLVariable("team"), "content": GraphQLVariable("content"), "images": GraphQLVariable("images"), "tag": GraphQLVariable("tagId")]], type: .object(AddMessage.selections)),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -2086,6 +2086,95 @@ public final class AddNewMessageMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+    }
+  }
+}
+
+public final class UpdateMessageMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation UpdateMessage($id: ID!, $title: String, $teamId: String, $content: String, $images: [String], $tagId: String) {\n  updateMessage(input: {id: $id, title: $title, team: $teamId, content: $content, images: $images, tag: $tagId}) {\n    __typename\n    title\n  }\n}"
+
+  public var id: GraphQLID
+  public var title: String?
+  public var teamId: String?
+  public var content: String?
+  public var images: [String?]?
+  public var tagId: String?
+
+  public init(id: GraphQLID, title: String? = nil, teamId: String? = nil, content: String? = nil, images: [String?]? = nil, tagId: String? = nil) {
+    self.id = id
+    self.title = title
+    self.teamId = teamId
+    self.content = content
+    self.images = images
+    self.tagId = tagId
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id, "title": title, "teamId": teamId, "content": content, "images": images, "tagId": tagId]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("updateMessage", arguments: ["input": ["id": GraphQLVariable("id"), "title": GraphQLVariable("title"), "team": GraphQLVariable("teamId"), "content": GraphQLVariable("content"), "images": GraphQLVariable("images"), "tag": GraphQLVariable("tagId")]], type: .object(UpdateMessage.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(updateMessage: UpdateMessage? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "updateMessage": updateMessage.flatMap { (value: UpdateMessage) -> ResultMap in value.resultMap }])
+    }
+
+    public var updateMessage: UpdateMessage? {
+      get {
+        return (resultMap["updateMessage"] as? ResultMap).flatMap { UpdateMessage(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "updateMessage")
+      }
+    }
+
+    public struct UpdateMessage: GraphQLSelectionSet {
+      public static let possibleTypes = ["Message"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("title", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(title: String) {
+        self.init(unsafeResultMap: ["__typename": "Message", "title": title])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var title: String {
+        get {
+          return resultMap["title"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "title")
         }
       }
     }
