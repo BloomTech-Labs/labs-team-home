@@ -50,6 +50,7 @@
 		7BE481C622037B6200F518F9 /* DashboardCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE481C522037B6200F518F9 /* DashboardCollectionReusableView.swift */; };
 		7BE481C7220401DC00F518F9 /* Comfortaa-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BE481C422033D3A00F518F9 /* Comfortaa-Regular.ttf */; };
 		7BE481C92206A89800F518F9 /* CreateNewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE481C82206A89800F518F9 /* CreateNewUserViewController.swift */; };
+		7BE481CB2207871000F518F9 /* CreateNewUserViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BE481CA2207871000F518F9 /* CreateNewUserViewController.graphql */; };
 		7BF8734C21F6B4C200737729 /* LandingPageViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */; };
 		7BF8735021F6D24400737729 /* TeamDetailTableViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8734F21F6D24400737729 /* TeamDetailTableViewController.graphql */; };
 		7BF8735221F6D37300737729 /* InviteToTeamViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735121F6D37300737729 /* InviteToTeamViewController.graphql */; };
@@ -112,6 +113,7 @@
 		7BE481C422033D3A00F518F9 /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
 		7BE481C522037B6200F518F9 /* DashboardCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionReusableView.swift; sourceTree = "<group>"; };
 		7BE481C82206A89800F518F9 /* CreateNewUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewUserViewController.swift; sourceTree = "<group>"; };
+		7BE481CA2207871000F518F9 /* CreateNewUserViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateNewUserViewController.graphql; sourceTree = "<group>"; };
 		7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingPageViewController.graphql; sourceTree = "<group>"; };
 		7BF8734F21F6D24400737729 /* TeamDetailTableViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TeamDetailTableViewController.graphql; sourceTree = "<group>"; };
 		7BF8735121F6D37300737729 /* InviteToTeamViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InviteToTeamViewController.graphql; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */,
 				7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */,
 				7BE481C82206A89800F518F9 /* CreateNewUserViewController.swift */,
+				7BE481CA2207871000F518F9 /* CreateNewUserViewController.graphql */,
 				7BD6589021EF8E8B004FF34A /* DashboardCollectionViewController.swift */,
 				7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */,
 				7BE481C522037B6200F518F9 /* DashboardCollectionReusableView.swift */,
@@ -354,6 +357,7 @@
 				7BA77E9821E8033C00C862C1 /* MessageExample.json in Resources */,
 				7BF8735621F6D50B00737729 /* SettingsViewController.graphql in Resources */,
 				7BF8735021F6D24400737729 /* TeamDetailTableViewController.graphql in Resources */,
+				7BE481CB2207871000F518F9 /* CreateNewUserViewController.graphql in Resources */,
 				7BA77E9B21E8033C00C862C1 /* TagExample.json in Resources */,
 				7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */,
 				7BF8735821F7B4C500737729 /* AddNewMessageViewController.graphql in Resources */,

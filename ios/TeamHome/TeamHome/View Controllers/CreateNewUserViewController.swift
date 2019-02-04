@@ -15,10 +15,28 @@ class CreateNewUserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        guard let user = user else { return }
+        
+        emailTextField.text = user.email
     }
     
     @IBAction func createAccount(_ sender: Any) {
+        guard let firstName = firstNameTextField.text,
+            let lastName = lastNameTextField.text,
+            let email = emailTextField.text,
+            let apollo = apollo else { return }
+        
+        apollo.perform(mutation: CreateNewUserMutation(firstName: firstName, lastName: lastName, email: email, avatar: ""), queue: DispatchQueue.global()) { (result, error) in
+            if let error = error {
+                return
+            }
+            
+            guard let result = result,
+                let data = result.data,
+                let user = data.addUser else { return }
+            
+            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+        }
     }
     
     // MARK: - Navigation
@@ -39,6 +57,7 @@ class CreateNewUserViewController: UIViewController {
     // MARK - Properties
     
     var apollo: ApolloClient?
+    var user: DatabaseUser?
 
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var firstNameTextField: UITextField!

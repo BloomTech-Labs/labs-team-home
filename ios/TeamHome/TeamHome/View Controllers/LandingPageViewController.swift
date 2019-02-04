@@ -88,9 +88,9 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                             guard let result = result,
                                 let data = result.data,
                                 let currentUser = data.currentUser else {
+                                    
                                     // Perform other segue
                                     self.performSegue(withIdentifier: "ShowNewUser", sender: self)
-                                    
                                     return
                             }
                             
@@ -180,11 +180,13 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signUp(_ sender: Any) {
+        let password = passwordTextField.text!
+        
         Auth0
             .authentication()
             .createUser(
                 email: emailTextField.text!,
-                password: passwordTextField.text!,
+                password: password,
                 connection: "Username-Password-Authentication"
             )
             .start { result in
@@ -195,9 +197,9 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         .authentication()
                         .login(
                             usernameOrEmail: user.email,
-                            password: self.passwordTextField.text!,
+                            password: password,
                             realm: "Username-Password-Authentication",
-                            scope: "openid")
+                            scope: "openid profile")
                         .start { result in
                             
                             print(result)
@@ -217,6 +219,9 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                                     // Store credentials with manager for future handling
                                     _ = credentialsManager.store(credentials: credentials)
                                     
+                                    // Store user information
+                                    self.user = user
+                                    
                                     // Perform segue to Dashboard VC.
                                     self.performSegue(withIdentifier: "ShowNewUser", sender: self)
                                     
@@ -226,7 +231,6 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                                     // Present alert to user and bring back to landing page
                                     self.presentAlert(for: error)
                                 }
-                                
                             }
                     }
                 case .failure(let error):
@@ -244,15 +248,20 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "ShowDashboard" {
             guard let destinationVC = segue.destination as? UINavigationController,
                 let topView = destinationVC.topViewController,
-                let nextVC = topView as? DashboardCollectionViewController else { return }
+                let nextVC = topView as? DashboardCollectionViewController,
+                let apollo = apollo else { return }
             
-            // Pass Apollo client and user fetched from search
-            nextVC.apollo = self.apollo
-        } else if segue.identifier == "ShowDashboard" {
+            // Pass Apollo client.
+            nextVC.apollo = apollo
+            
+        } else if segue.identifier == "ShowNewUser" {
             guard let destinationVC = segue.destination as? CreateNewUserViewController,
-                let credentials = credentials else { return }
-            destinationVC.credentials = credentials
+                let apollo = apollo,
+                let user = user else { return }
             
+            // Pass Apollo client.
+            destinationVC.apollo = apollo
+            destinationVC.user = user
         }
     }
     
@@ -277,6 +286,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     
     // MARK - Private Methods
     
+    // Create gradient layer for view background.
     private func createGradientLayer() {
         gradientLayer = CAGradientLayer()
         
@@ -362,7 +372,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         
         passwordTextField.placeholder = "Password"
-        passwordTextField.detail = "At least 8 characters"
+        passwordTextField.detail = "At least 8 characters including a lower-case letter, an upper-case letter, a number and a special character"
         passwordTextField.clearButtonMode = .whileEditing
         passwordTextField.isVisibilityIconButtonEnabled = true
         passwordTextField.dividerNormalColor = .white
@@ -409,8 +419,8 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
 
     private var apollo: ApolloClient?
     private var credentials: Credentials?
-    
-    var gradientLayer: CAGradientLayer!
+    private var user: DatabaseUser?
+    private var gradientLayer: CAGradientLayer!
     
     //All IBOutlets on storyboard view scene
     @IBOutlet weak var logoImageView: UIImageView!
