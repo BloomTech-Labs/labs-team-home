@@ -54,15 +54,18 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         // Pass Apollo Client and team info to Team Detail VC, Messages Container View and Add New Message VC
         if segue.identifier == "ViewTeam" {
             guard let destinationVC = segue.destination as? TeamDetailTableViewController else { return }
+            
             destinationVC.apollo = apollo
             destinationVC.team = team
         } else if segue.identifier == "EmbeddedMessages" {
             guard let destinationVC = segue.destination as? MessagesCollectionViewController else { return }
+            
             destinationVC.apollo = apollo
             destinationVC.team = team
             self.delegate = destinationVC
-        } else if segue.identifier == "AddNewMessage" {
-            guard let destinationVC = segue.destination as? AddNewMessageViewController else { return }
+        } else if segue.identifier == "AddMessage" {
+            guard let destinationVC = segue.destination as? AddEditMessageViewController else { return }
+            
             destinationVC.apollo = apollo
             destinationVC.team = team
         }

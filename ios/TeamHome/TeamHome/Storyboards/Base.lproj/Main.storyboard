@@ -840,7 +840,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Ds8-td-i2l">
                             <connections>
-                                <segue destination="uL9-uN-m4K" kind="show" identifier="AddEditMessage" id="PJ9-gY-4f8"/>
+                                <segue destination="uL9-uN-m4K" kind="show" identifier="AddMessage" id="PJ9-gY-4f8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

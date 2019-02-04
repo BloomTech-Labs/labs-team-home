@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Add New Message View Controller-->
+        <!--Add Edit Message View Controller-->
         <scene sceneID="N9h-zd-mbz">
             <objects>
-                <viewController id="ccT-8I-13Z" customClass="AddNewMessageViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ccT-8I-13Z" customClass="AddEditMessageViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H3Y-0g-mNg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -120,7 +120,7 @@
                     <connections>
                         <outlet property="cancelButton" destination="7qB-uC-5MU" id="4iy-Ge-xKZ"/>
                         <outlet property="imageView" destination="Axl-me-6gY" id="g6M-qf-YGR"/>
-                        <outlet property="messageBodyTextView" destination="KTQ-qk-DRd" id="ixJ-zl-epD"/>
+                        <outlet property="messageContentTextView" destination="KTQ-qk-DRd" id="ixJ-zl-epD"/>
                         <outlet property="messageTitleTextField" destination="mLQ-M6-lzs" id="wNL-cj-SxU"/>
                         <outlet property="newMessageView" destination="GVD-T7-uOD" id="4Dk-AW-d5I"/>
                         <outlet property="submitButton" destination="whv-iB-VoT" id="17w-5g-BUg"/>

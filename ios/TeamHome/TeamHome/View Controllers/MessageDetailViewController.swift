@@ -15,14 +15,10 @@ import Toucan
 
 class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, GrowingTextViewDelegate {
     
-    
-    
     // MARK - Lifecycle Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        automaticallyAdjustsScrollViewInsets = false
         
 //        subscribersHorixzontal = MEVHorizontalContacts()
 //        subscribersHorixzontal.backgroundColor = .clear
@@ -97,15 +93,23 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let apollo = apollo else { return }
+        
         if segue.identifier == "EmbeddedComments" {
             guard let destinationVC = segue.destination as? CommentsCollectionViewController,
-                let apollo = apollo,
                 let messageId = messageId,
                 let currentUser = currentUser else { return }
             
             destinationVC.apollo = apollo
             destinationVC.messageId = messageId
             destinationVC.currentUser = currentUser
+        } else if segue.identifier == "EditMessage" {
+            guard let destinationVC = segue.destination as? AddEditMessageViewController,
+                let message = message else { return }
+            
+            destinationVC.apollo = apollo
+            destinationVC.message = message
         }
     }
     
@@ -155,10 +159,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         lastNameLabel.text = message.user.lastName
         dateLabel.text = ""
         messageBodyLabel.text = message.content
-        
-//        let tags = message.tag
-//        let tagNames = tags?.compactMap({ $0?.name })
-//        tagsLabel.text = tagNames?.joined(separator: ", ")
         
         // Download image and display as user avatar
         guard let avatar = message.user.avatar else { return }

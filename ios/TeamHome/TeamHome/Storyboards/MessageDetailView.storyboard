@@ -29,7 +29,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                                                 <state key="normal" title="Edit"/>
                                                 <connections>
-                                                    <segue destination="KwJ-J7-9gF" kind="show" identifier="EditMessage" id="kWT-7H-oLh"/>
+                                                    <segue destination="ccc-zK-D93" kind="show" identifier="EditMessage" id="mAJ-Ki-YQc"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Message title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dai-gO-o6P">
@@ -148,7 +148,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="SubscriberCell" id="RMK-8t-r3a" customClass="SubscriberCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
+                                                    <collectionViewCell hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SubscriberCell" id="RMK-8t-r3a" customClass="SubscriberCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="4" width="50" height="52"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -156,7 +156,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tx6-Ej-VKh">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="37" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="52"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </view>
@@ -359,127 +359,13 @@
             </objects>
             <point key="canvasLocation" x="5812" y="-1148.2758620689656"/>
         </scene>
-        <!--Edit Message View Controller-->
-        <scene sceneID="lcd-dw-E3q">
+        <!--AddEditMessageView-->
+        <scene sceneID="HG9-g9-PQd">
             <objects>
-                <viewController id="KwJ-J7-9gF" customClass="EditMessageViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="RPq-a6-tt0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BU8-tx-LXb">
-                                <rect key="frame" x="16" y="108" width="343" height="606"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7NJ-Ia-xQO">
-                                        <rect key="frame" x="21.666666666666657" y="16" width="300" height="574"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Edit message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VML-g6-geH">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SCN-GE-lme" customClass="TextField" customModule="Material">
-                                                <rect key="frame" x="0.0" y="28.333333333333343" width="300" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
-                                            </textField>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" keyboardDismissMode="onDrag" text="Message body" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bvf-Uf-Wbe" customClass="TextView" customModule="Material">
-                                                <rect key="frame" x="0.0" y="66.333333333333343" width="300" height="361.33333333333326"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="e2z-AQ-ZEv">
-                                                <rect key="frame" x="0.0" y="431.66666666666663" width="300" height="133"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="133" id="4As-Gr-d1v"/>
-                                                </constraints>
-                                            </imageView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kj4-OO-DB0">
-                                                <rect key="frame" x="0.0" y="435.66666666666663" width="300" height="34"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cau-F6-DtD" customClass="FlatButton" customModule="Material">
-                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="34"/>
-                                                        <state key="normal" title="Add image">
-                                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="addPhoto:" destination="KwJ-J7-9gF" eventType="touchUpInside" id="QA5-Kk-nad"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmC-o3-rV9">
-                                                <rect key="frame" x="0.0" y="477.66666666666663" width="300" height="20.333333333333314"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qO7-Dx-YiZ">
-                                                <rect key="frame" x="0.0" y="506" width="300" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="tFT-AM-yOi">
-                                                <rect key="frame" x="0.0" y="544" width="300" height="30"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0sc-ij-LBB" customClass="FlatButton" customModule="Material">
-                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
-                                                        <state key="normal" title="Cancel"/>
-                                                        <connections>
-                                                            <action selector="cancelEdit:" destination="KwJ-J7-9gF" eventType="touchUpInside" id="zkR-p3-oEJ"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t1B-cC-Y68" customClass="RaisedButton" customModule="Material">
-                                                        <rect key="frame" x="153" y="0.0" width="147" height="30"/>
-                                                        <state key="normal" title="Submit"/>
-                                                        <connections>
-                                                            <action selector="submitMessage:" destination="KwJ-J7-9gF" eventType="touchUpInside" id="LS4-5g-BGw"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="e2z-AQ-ZEv" firstAttribute="top" secondItem="bvf-Uf-Wbe" secondAttribute="bottom" constant="4" id="5pC-Iz-fHn"/>
-                                            <constraint firstAttribute="width" constant="300" id="ZYu-RG-SbU">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="600"/>
-                                            </constraint>
-                                        </constraints>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="7NJ-Ia-xQO" secondAttribute="bottom" constant="16" id="YSg-HV-hDE"/>
-                                    <constraint firstItem="7NJ-Ia-xQO" firstAttribute="centerX" secondItem="BU8-tx-LXb" secondAttribute="centerX" id="b58-1K-Lb1"/>
-                                    <constraint firstItem="7NJ-Ia-xQO" firstAttribute="top" secondItem="BU8-tx-LXb" secondAttribute="top" constant="16" id="vnQ-nq-haR"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="lKY-Ta-vVN" firstAttribute="trailing" secondItem="BU8-tx-LXb" secondAttribute="trailing" constant="16" id="8KS-ud-q5R"/>
-                            <constraint firstItem="BU8-tx-LXb" firstAttribute="leading" secondItem="lKY-Ta-vVN" secondAttribute="leading" constant="16" id="VbU-wg-m3X"/>
-                            <constraint firstItem="lKY-Ta-vVN" firstAttribute="bottom" secondItem="BU8-tx-LXb" secondAttribute="bottom" constant="64" id="ZIx-QU-Evi"/>
-                            <constraint firstItem="BU8-tx-LXb" firstAttribute="top" secondItem="lKY-Ta-vVN" secondAttribute="top" constant="64" id="xT1-xj-JF5"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="lKY-Ta-vVN"/>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="e2z-AQ-ZEv" id="bCa-GI-Abs"/>
-                        <outlet property="messageBodyTextView" destination="bvf-Uf-Wbe" id="ope-Hs-Sqr"/>
-                        <outlet property="messageContentTextView" destination="bvf-Uf-Wbe" id="eEy-kw-NKq"/>
-                        <outlet property="messageTitleTextField" destination="SCN-GE-lme" id="aYv-U3-cbJ"/>
-                        <outlet property="messageView" destination="BU8-tx-LXb" id="PWb-YW-k7i"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pyc-lJ-vFk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="AddEditMessageView" id="ccc-zK-D93" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kpj-R1-k3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5837.6000000000004" y="-1694.3349753694581"/>
+            <point key="canvasLocation" x="5642" y="-1380"/>
         </scene>
     </scenes>
     <resources>
