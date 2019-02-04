@@ -80,173 +80,116 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
             let team = team,
             let teamId = team.id,
             let messageTitle = messageTitleTextField.text,
-            let content = messageBodyTextView.text,
-            let tagsString = tagsTextField.text else { return }
+            let content = messageBodyTextView.text else { return }
         
-        // Filter through long tags string, remove white spaces and convert to an array of strings
-//        let tagsStringWithoutWhitespace = tagsString.trimmingCharacters(in: .whitespaces)
-//        let tagStringArray = tagsStringWithoutWhitespace.components(separatedBy: ",")
-//        
-//        // Find all tags by current team
-//        _ = apollo.watch(query: FindTagsByTeamQuery(teamId: teamId)) { (result, error) in
-//            if let error = error {
-//                NSLog("\(error)")
-//                return
-//            }
-//            
-//            guard let result = result,
-//                let tags = result.data?.findTagsByTeam else { return }
-//            
-//            // Set up variables to save differences between all existing tags and user's tags input
-//            var existingTagIds: [GraphQLID] = []
-//            var notFoundTagStrings: [String] = []
-//            
-//            // Compare user's tag array with existing tags and adds to existing or not found arrays
-//            for tagString in tagStringArray {
-//                var hasBeenFound = false
-//                for tag in tags {
-//                    guard let tag = tag else { return }
-//                    // If user input tag exists in all tags then, add its id to existing tags array
-//                    if tag.name == tagString {
-//                        guard let id = tag.id else { return }
-//                        existingTagIds.append(id)
-//                        hasBeenFound = true
-//                    }
-//                }
-//                // If user input tag hasn't been found in all tags, add tag string to not found array
-//                if !hasBeenFound {
-//                    notFoundTagStrings.append(tagString)
-//                }
-//            }
-//            
-//            // Create new tags for non-existing tags
-//            if notFoundTagStrings.count > 0 {
-//                // Create dispatch group for all new tags being created
-//                let group = DispatchGroup()
-//                
-//                for string in notFoundTagStrings {
-//                    group.enter()
-//                    apollo.perform(mutation: CreateNewTagMutation(name: string, teamId: teamId), queue: DispatchQueue.global(), resultHandler: { (result, error) in
-//                        if let error = error {
-//                            NSLog("\(error)")
-//                        }
-//                        
-//                        guard let result = result,
-//                            let newTagId = result.data?.addTag?.id else { return }
-//                        
-//                        existingTagIds.append(newTagId)
-//                        group.leave()
-//                    })
-//                }
-//                
-//                //
-//                group.notify(queue: .global(), execute: {
+        // Unwrap tag selection or recently created tag
+        let tagId = ""
 //                    guard let imageData = self.imageData else {
-//                        
+//
 //                        // If no photo is selected, create message without image attached.
 //                        apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: nil, tags: existingTagIds), queue: DispatchQueue.global()) { (result, error) in
 //                            if let error = error {
 //                                NSLog("\(error)")
 //                                return
 //                            }
-//                            
+//
 //                            guard let result = result else { return }
-//                            
+//
 //                            print(result)
-//                            
+//
 //                            DispatchQueue.main.async {
-//                                
+//
 //                                messagesWatcher?.refetch()
 //                                self.navigationController?.popViewController(animated: true)
 //                            }
 //                        }
 //                        return
 //                    }
-//                    
+//
 //                    // If photo is selected, create message with photo
 //                    let params = CLDUploadRequestParams()
-//                    
+//
 //                    // Upload image to cloudinary.
 //                    cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
 //                        //Show progress
-//                        
+//
 //                    }) { (result, error) in
 //                        if let error = error {
 //                            NSLog("\(error)")
 //                            return
 //                        }
-//                        
+//
 //                        guard let result = result,
 //                            let url = result.url else { return }
-//                        
+//
 //                        // Pass image url to Apollo client to create message.
 //                        apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: [url], tags: existingTagIds), queue: DispatchQueue.global()) { (result, error) in
 //                            if let error = error {
 //                                NSLog("\(error)")
 //                                return
 //                            }
-//                            
+//
 //                            guard let result = result else { return }
-//                            
+//
 //                            print(result)
-//                            
+//
 //                            DispatchQueue.main.async {
 //                                self.navigationController?.popViewController(animated: true)
 //                            }
 //                        }
 //                    }
-//                    
+//
 //                })
 //            } else {
 //                guard let imageData = self.imageData else {
-//                    
+//
 //                    // If no photo is selected, create message without image attached.
 //                    apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: nil, tags: existingTagIds), queue: DispatchQueue.global()) { (result, error) in
 //                        if let error = error {
 //                            NSLog("\(error)")
 //                            return
 //                        }
-//                        
+//
 //                        guard let result = result else { return }
-//                        
+//
 //                        print(result)
-//                        
+//
 //                        DispatchQueue.main.async {
-//                            
+//
 //                            messagesWatcher?.refetch()
 //                            self.navigationController?.popViewController(animated: true)
 //                        }
 //                    }
 //                    return
 //                }
-//                
+//
 //                // If photo is selected, create message with photo
 //                let params = CLDUploadRequestParams()
-//                
+//
 //                // Upload image to cloudinary.
 //                cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
 //                    //Show progress
-//                    
+//
 //                }) { (result, error) in
 //                    if let error = error {
 //                        NSLog("\(error)")
 //                        return
 //                    }
-//                    
+//
 //                    guard let result = result,
 //                        let url = result.url else { return }
-//                    
+//
 //                    // Pass image url to Apollo client to create message.
 //                    apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: [url], tags: existingTagIds), queue: DispatchQueue.global()) { (result, error) in
 //                        if let error = error {
 //                            NSLog("\(error)")
 //                            return
 //                        }
-//                        
+//
 //                        guard let result = result else { return }
-//                        
+//
 //                        print(result)
-//                        
+//
 //                        DispatchQueue.main.async {
 //                            self.navigationController?.popViewController(animated: true)
 //                        }
@@ -254,81 +197,70 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
 //                }
 //            }
 //        }
-        
-//        guard let imageData = imageData else {
-//
-//            // If no photo is selected, create message without image attached.
-//            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: nil, tags: ), queue: DispatchQueue.global()) { (result, error) in
-//                if let error = error {
-//                    NSLog("\(error)")
-//                    return
-//                }
-//
-//                guard let result = result else { return }
-//
-//                print(result)
-//
-//                DispatchQueue.main.async {
-//
-//                    messagesWatcher?.refetch()
-//                    self.navigationController?.popViewController(animated: true)
-//                }
-//            }
-//            return
-//        }
-//
-//        // If photo is selected, create message with photo
-//        let params = CLDUploadRequestParams()
-//
-//        // Upload image to cloudinary.
-//        cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
-//            //Show progress
-//
-//        }) { (result, error) in
-//            if let error = error {
-//                NSLog("\(error)")
-//                return
-//            }
-//
-//            guard let result = result,
-//                let url = result.url else { return }
-//
-//            // Pass image url to Apollo client to create message.
-//            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: [url]), queue: DispatchQueue.global()) { (result, error) in
-//                if let error = error {
-//                    NSLog("\(error)")
-//                    return
-//                }
-//
-//                guard let result = result else { return }
-//
-//                print(result.data?.addMessage?.title)
-//
-//                DispatchQueue.main.async {
-//                    self.navigationController?.popViewController(animated: true)
-//                }
-//            }
-//        }
+
+        guard let imageData = imageData else {
+
+            // If no photo is selected, create message without image attached.
+            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: nil, tags: tagId), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+
+                guard let result = result else { return }
+
+                print(result)
+
+                DispatchQueue.main.async {
+
+                    messagesWatcher?.refetch()
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            return
+        }
+
+        // If photo is selected, create message with photo
+        let params = CLDUploadRequestParams()
+
+        // Upload image to cloudinary.
+        cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
+            //Show progress
+
+        }) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+
+            guard let result = result,
+                let url = result.url else { return }
+
+            // Pass image url to Apollo client to create message.
+            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: [url]), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+
+                guard let result = result else { return }
+
+                print(result.data?.addMessage?.title)
+
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
     }
     
+    // Cancel create new message and return to message board.
     @IBAction func cancelNewMessage(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    // MARK - Private Methods
-    
-    private func presentImagePickerController() {
-        
-        let imagePicker = UIImagePickerController()
-        
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            present(imagePicker, animated: true, completion: nil)
-        }
-    }
-    
     // MARK - UIImagePickerControllerDelegate
+    
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true, completion: nil)
@@ -345,6 +277,49 @@ class AddNewMessageViewController: UIViewController,  UIImagePickerControllerDel
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    // MARK - Private Methods
+    
+    private func presentImagePickerController() {
+        
+        let imagePicker = UIImagePickerController()
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    private func fetchAllTags(with apollo: ApolloClient, for teamId: GraphQLID) {
+        // Find all tags by current team
+        _ = apollo.watch(query: FindTagsByTeamQuery(teamId: teamId)) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            guard let result = result,
+                let tags = result.data?.findTagsByTeam else { return }
+            
+            // Save tags and populate collection view
+        }
+    }
+    
+    private func createNewTag(with apollo: ApolloClient,under teamId: GraphQLID, for string: String) {
+        apollo.perform(mutation: CreateNewTagMutation(name: string, teamId: teamId), queue: DispatchQueue.global(), resultHandler: { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let result = result,
+                let newTagId = result.data?.addTag?.id else { return }
+            
+            
+            
+        })
+    }
+    
     // MARK - Properties
     
     private var imageData: Data?
