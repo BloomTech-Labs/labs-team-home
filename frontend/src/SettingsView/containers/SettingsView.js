@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import SettingsTabs from '../components/tabs/SettingsTabs';
-// import '../styles/SettingsStyles.css';
 import FormInput from '../components/forms/FormInput';
 import FormCheckbox from '../components/forms/FormCheckbox';
 import FormButton from '../components/forms/FormButton';
@@ -120,17 +119,25 @@ class SettingsView extends Component {
 	render() {
 		const { currentUser, history } = this.props;
 		return currentUser ? (
-			<Mutation mutation={mutation.UPDATE_USER}>
+			<Mutation
+				mutation={mutation.UPDATE_USER}
+				update={(cache, { data: { updateUser } }) =>
+					cache.writeQuery({ query: query.CURRENT_USER, data: updateUser })
+				}
+			>
 				{(updateUser, { data }) => (
 					<SettingsContainer>
-						<h1>Team Name probably</h1>
+						<h1>User Settings</h1>
 						<SettingsTabs>
 							<div label="Account Settings">
 								<form
 									onSubmit={e => {
+										console.log('submitted');
 										e.preventDefault();
 										updateUser({
 											variables: {
+												firstName: this.state.firstName,
+												lastName: this.state.lastName,
 												email: this.state.email,
 												phoneNumber: this.state.phoneNumber,
 												toggles: this.state.toggles,
@@ -290,14 +297,9 @@ class SettingsView extends Component {
 										handleSelect={this.handleSelect}
 										checked={this.state.toggles.receiveTexts}
 									/>
+									<FormButton type="submit" title="save" />
+
 									<FormButton
-										// action={this.someHandleFormSubmit}
-										type={'primary'}
-										title={'Save'}
-										style={buttonStyle}
-									/>
-									<FormButton
-										// action={this.someLeaveTeamHandler}
 										type={'primary'}
 										title={'Leave Team'}
 										style={buttonStyle}
@@ -388,13 +390,7 @@ class SettingsView extends Component {
 										placeholder={'Enter your phone number (US numbers only)'}
 										handleChange={this.handleChange}
 									/>
-
-									<FormButton
-										// action={this.someHandleFormSubmit}
-										type="submit"
-										title={'Save'}
-										style={buttonStyle}
-									/>
+									<FormButton title={'Save'} />
 								</form>
 							</div>
 							<div label="Team Billing">

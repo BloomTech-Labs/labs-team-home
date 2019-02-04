@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import { Query, Mutation, compose } from 'react-apollo';
+import { updateComment } from './mutations/comments';
 import { updateMessage, deleteMessage } from './mutations/messages';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -12,21 +13,26 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import { palette, colors } from '../../colorVariables';
+import { palette } from '../../colorVariables';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
 
 class MessageDetail extends Component {
-	state = {
-		editing: false,
-		editingMessage: false,
-		edited: null,
-		title: '',
-		content: '',
-		commentContent: ''
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			editing: false,
+			editingMessage: false,
+			edited: null,
+			title: '',
+			content: '',
+			commentContent: ''
+		};
+		this.edit = React.createRef();
+	}
+
 	componentDidMount() {
 		document.addEventListener('keydown', this.onKeyDown);
 	}
@@ -50,9 +56,14 @@ class MessageDetail extends Component {
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	render() {
-		let editContent;
 		let content;
-		const { open, hideModal, message, currentUser } = this.props;
+		const {
+			open,
+			hideModal,
+			message,
+			currentUser,
+			updateMsgComment
+		} = this.props;
 		return (
 			<Dialog
 				isOpen={open}
@@ -365,28 +376,60 @@ class MessageDetail extends Component {
 																		style: { color: '#fff' }
 																	}}
 																/>
-																<CardContent>
-																	<Typography
-																		component="p"
-																		style={{ color: '#fff' }}
+																{this.state.editing &&
+																this.state.edited === comment ? (
+																	<form
+																		action="submit"
+																		onSubmit={async e => {
+																			e.preventDefault();
+																			await updateMsgComment({
+																				id: this.state.edited._id,
+																				content: this.state.commentContent
+																			});
+																			await this.setState({
+																				editing: false,
+																				edited: null,
+																				commentContent: ''
+																			});
+																		}}
 																	>
-																		{comment.content}
-																	</Typography>
-																</CardContent>
+																		<label htmlFor="comment-content">
+																			<TextField
+																				inputRef={this.edit}
+																				name="commentContent"
+																				value={this.state.commentContent}
+																				onChange={this.handleChange}
+																				inputProps={{
+																					style: { color: '#fff' }
+																				}}
+																				variant="outlined"
+																				fullWidth
+																			/>
+																		</label>
+																	</form>
+																) : (
+																	<CardContent>
+																		<Typography
+																			component="p"
+																			style={{ color: '#fff' }}
+																		>
+																			{comment.content}
+																		</Typography>
+																	</CardContent>
+																)}
 																{comment.user._id === currentUser._id && (
 																	<Button
 																		size="small"
 																		style={{ color: '#fff' }}
-																		onClick={e => {
+																		onClick={async e => {
 																			e.preventDefault();
 
-																			this.setState({
+																			await this.setState({
 																				editing: true,
 																				edited: comment,
 																				commentContent: comment.content
 																			});
-																			content.focus();
-																			content.value = '';
+																			await this.edit.current.focus();
 																		}}
 																	>
 																		Edit Comment
@@ -434,184 +477,83 @@ class MessageDetail extends Component {
 																		)}
 																	</Mutation>
 																)}
-
-																<Mutation
-																	mutation={mutation.UPDATE_COMMENT}
-																	update={(
-																		cache,
-																		{ data: { updateMsgComment } }
-																	) => {
-																		const {
-																			findMsgCommentsByMessage
-																		} = cache.readQuery({
-																			query: query.FIND_COMMENTS_BY_MESSAGE,
-																			variables: { message: message._id }
-																		});
-																		cache.writeQuery({
-																			query: query.FIND_COMMENTS_BY_MESSAGE,
-																			variables: { message: message._id },
-																			data: {
-																				findMsgCommentsByMessage: findMsgCommentsByMessage.map(
-																					comment =>
-																						comment._id === updateMsgComment._id
-																							? updateMsgComment
-																							: comment
-																				)
-																			}
-																		});
+																<Button
+																	size="small"
+																	style={{ color: '#fff' }}
+																	onClick={e => {
+																		const sanitized = comment.likes.map(
+																			({ _id }) => _id
+																		); // makes the array of likes back to the format it as stored as in the database
+																		e.preventDefault();
+																		comment.likes.find(
+																			({ _id }) => _id === currentUser._id
+																		)
+																			? updateMsgComment({
+																					id: comment._id,
+																					likes: sanitized.filter(
+																						item => item !== currentUser._id
+																					)
+																			  })
+																			: updateMsgComment({
+																					id: comment._id,
+																					likes: [...sanitized, currentUser._id]
+																			  });
 																	}}
 																>
-																	{updateMsgComment => (
-																		<Button
-																			size="small"
-																			style={{ color: '#fff' }}
-																			onClick={e => {
-																				const sanitized = comment.likes.map(
-																					({ _id }) => _id
-																				); // makes the array of likes back to the format it as stored as in the database
-																				e.preventDefault();
-																				comment.likes.find(
-																					({ _id }) => _id === currentUser._id
-																				)
-																					? updateMsgComment({
-																							variables: {
-																								id: comment._id,
-																								likes: sanitized.filter(
-																									item =>
-																										item !== currentUser._id
-																								)
-																							}
-																					  })
-																					: updateMsgComment({
-																							variables: {
-																								id: comment._id,
-																								likes: [
-																									...sanitized,
-																									currentUser._id
-																								]
-																							}
-																					  });
-																			}}
-																		>
-																			{`${comment.likes.length} likes`}
-																		</Button>
-																	)}
-																</Mutation>
+																	{`${comment.likes.length} likes`}
+																</Button>
 															</Paper>
 														))}
 													</Card>
-													{this.state.editing ? (
-														<Mutation
-															mutation={mutation.UPDATE_COMMENT}
-															update={(
-																cache,
-																{ data: { updateMsgComment } }
-															) => {
-																const {
-																	findMsgCommentsByMessage
-																} = cache.readQuery({
-																	query: query.FIND_COMMENTS_BY_MESSAGE,
-																	variables: { message: message._id }
-																});
-																cache.writeQuery({
-																	query: query.FIND_COMMENTS_BY_MESSAGE,
-																	variables: { message: message._id },
-																	data: {
-																		findMsgCommentsByMessage: findMsgCommentsByMessage.map(
-																			comment =>
-																				comment._id === updateMsgComment._id
-																					? updateMsgComment
-																					: comment
-																		)
-																	}
-																});
-															}}
-														>
-															{updateMsgComment => (
-																<form
-																	action="submit"
-																	onSubmit={e => {
-																		e.preventDefault();
-																		updateMsgComment({
-																			variables: {
-																				id: this.state.edited._id,
-																				content: this.state.commentContent
-																			}
-																		});
-																		this.setState({
-																			editing: false,
-																			edited: null,
-																			commentContent: ''
-																		});
-																		content && (content.value = '');
-																	}}
-																>
-																	<label htmlFor="comment-content">
-																		<TextField
-																			inputRef={node => (content = node)}
-																			name="commentContent"
-																			value={this.state.commentContent}
-																			onChange={this.handleChange}
-																			inputProps={{ style: { color: '#fff' } }}
-																			variant="outlined"
-																			fullWidth
-																		/>
-																	</label>
-																</form>
-															)}
-														</Mutation>
-													) : (
-														<Mutation
-															mutation={mutation.ADD_COMMENT}
-															update={(cache, { data: { addMsgComment } }) => {
-																const {
-																	findMsgCommentsByMessage
-																} = cache.readQuery({
-																	query: query.FIND_COMMENTS_BY_MESSAGE,
-																	variables: { message: message._id }
-																});
-																cache.writeQuery({
-																	query: query.FIND_COMMENTS_BY_MESSAGE,
-																	variables: { message: message._id },
-																	data: {
-																		findMsgCommentsByMessage: [
-																			...findMsgCommentsByMessage,
-																			addMsgComment
-																		]
-																	}
-																});
-															}}
-														>
-															{addMsgComment => (
-																<form
-																	action="submit"
-																	onSubmit={e => {
-																		e.preventDefault();
-
-																		addMsgComment({
-																			variables: {
-																				message: message._id,
-																				content: content.value
-																			}
-																		});
-																		content.value = '';
-																	}}
-																>
-																	<label htmlFor="comment-content">
-																		<TextField
-																			placeholder="Leave a comment.."
-																			inputRef={node => {
-																				content = node;
-																			}}
-																			inputProps={{ style: { color: '#fff' } }}
-																			variant="outlined"
-																			fullWidth
-																		/>
-																	</label>
-																</form>
-															)}
-														</Mutation>
-													)}
+													<Mutation
+														mutation={mutation.ADD_COMMENT}
+														update={(cache, { data: { addMsgComment } }) => {
+															const {
+																findMsgCommentsByMessage
+															} = cache.readQuery({
+																query: query.FIND_COMMENTS_BY_MESSAGE,
+																variables: { message: message._id }
+															});
+															cache.writeQuery({
+																query: query.FIND_COMMENTS_BY_MESSAGE,
+																variables: { message: message._id },
+																data: {
+																	findMsgCommentsByMessage: [
+																		...findMsgCommentsByMessage,
+																		addMsgComment
+																	]
+																}
+															});
+														}}
+													>
+														{addMsgComment => (
+															<form
+																action="submit"
+																onSubmit={e => {
+																	e.preventDefault();
+																	addMsgComment({
+																		variables: {
+																			message: message._id,
+																			content: content.value
+																		}
+																	});
+																	content.value = '';
+																}}
+															>
+																<label htmlFor="comment-content">
+																	<TextField
+																		placeholder="Leave a comment.."
+																		inputRef={node => {
+																			content = node;
+																		}}
+																		inputProps={{ style: { color: '#fff' } }}
+																		variant="outlined"
+																		fullWidth
+																	/>
+																</label>
+															</form>
+														)}
+													</Mutation>
 												</>
 											);
 										}}
@@ -627,6 +569,7 @@ class MessageDetail extends Component {
 }
 
 export default compose(
+	updateComment,
 	updateMessage,
 	deleteMessage
 )(MessageDetail);

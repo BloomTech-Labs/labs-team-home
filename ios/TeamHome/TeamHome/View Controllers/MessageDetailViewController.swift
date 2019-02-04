@@ -9,19 +9,45 @@
 import UIKit
 import Apollo
 import Cloudinary
+import MEVHorizontalContacts
+import GrowingTextView
+import Toucan
 
-class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
+class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, GrowingTextViewDelegate {
+    
+    
     
     // MARK - Lifecycle Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        automaticallyAdjustsScrollViewInsets = false
+        
+//        subscribersHorixzontal = MEVHorizontalContacts()
+//        subscribersHorixzontal.backgroundColor = .clear
+//        subscribersHorixzontal.dataSource = self
+//        subscribersHorixzontal.delegate = self
+//        self.view.addSubview(subscribersHorixzontal)
+//        let constraint = NSLayoutConstraint(item: subscribersHorixzontal, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1, constant: 0)
+//        let constraint2 = NSLayoutConstraint(item: subscribersHorixzontal, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 100)
+//        NSLayoutConstraint.activate([constraint, constraint2])
+//        // constraints
+        
+        
         setUpViewAppearance()
         subscribersCollectionView.backgroundColor = .clear
         Appearance.styleOrange(button: sendCommentButton)
         
-        self.commentTextField.delegate = self
+        self.commentTextView.delegate = self
+        commentTextView.maxLength = 140
+        commentTextView.trimWhiteSpaceWhenEndEditing = false
+        commentTextView.placeholder = "Say something..."
+        commentTextView.placeholderColor = UIColor(white: 0.8, alpha: 1.0)
+        commentTextView.minHeight = 25.0
+        commentTextView.maxHeight = 70.0
+        commentTextView.backgroundColor = UIColor.white
+        commentTextView.layer.cornerRadius = 4.0
         
         guard let apollo = apollo else { return }
         
@@ -35,7 +61,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         guard let apollo = apollo,
             let message = message,
             let messageId = message.id,
-            let commentContent = commentTextField.text else { return }
+            let commentContent = commentTextView.text else { return }
         
         apollo.perform(mutation: CreateCommentMutation(message: messageId, content: commentContent), queue: DispatchQueue.global()) { (result, error) in
             if let error = error {
@@ -88,8 +114,14 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        commentTextField.resignFirstResponder()
+        commentTextView.resignFirstResponder()
         return true
+    }
+    
+    func textViewDidChangeHeight(_ textView: GrowingTextView, height: CGFloat) {
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     // MARK - Private Methods
@@ -142,9 +174,9 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             }
             
             guard let image = image else { return }
-            
+            let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
             DispatchQueue.main.async {
-                self.userAvatarImageView.image = image
+                self.userAvatarImageView.image = resizedImage.image
             }
         }
         
@@ -190,6 +222,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         }
     }
     
+    var subscribersHorixzontal: MEVHorizontalContacts!
+    
     var watcher: GraphQLQueryWatcher<FindMessageByIdQuery>?
     var messageId: GraphQLID?
     var apollo: ApolloClient?
@@ -204,7 +238,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     @IBOutlet weak var messageBodyLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tagsLabel: UILabel!
-    @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var commentTextView: GrowingTextView!
     @IBOutlet weak var sendCommentButton: UIButton!
     @IBOutlet weak var subscribersLabel: UILabel!
     @IBOutlet weak var subscribersCollectionView: UICollectionView!

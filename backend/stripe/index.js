@@ -1,5 +1,5 @@
-const paymentApi = require('./payment');
-const configureRoutes = app => {
-	paymentApi(app);
-};
-module.exports = configureRoutes;
+// const paymentApi = require('./payment');
+// const configureRoutes = app => {
+// 	paymentApi(app);
+// };
+// module.exports = configureRoutes;

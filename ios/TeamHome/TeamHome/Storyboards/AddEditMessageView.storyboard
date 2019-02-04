@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ccT-8I-13Z">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Add New Message View Controller-->
+        <scene sceneID="N9h-zd-mbz">
+            <objects>
+                <viewController id="ccT-8I-13Z" customClass="AddNewMessageViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="H3Y-0g-mNg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVD-T7-uOD">
+                                <rect key="frame" x="16" y="84" width="343" height="519"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="0tr-v9-WhT">
+                                        <rect key="frame" x="21.5" y="16" width="300" height="487"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Create message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8S2-u3-1FE">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="31.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mLQ-M6-lzs" customClass="TextField" customModule="Material">
+                                                <rect key="frame" x="0.0" y="39.5" width="300" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
+                                            </textField>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KTQ-qk-DRd" customClass="TextView" customModule="Material">
+                                                <rect key="frame" x="0.0" y="77.5" width="300" height="267"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="Axl-me-6gY">
+                                                <rect key="frame" x="0.0" y="348.5" width="300" height="133"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="133" id="NzR-Ld-ZMB"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6u-iQ-2JA" customClass="FlatButton" customModule="Material">
+                                                <rect key="frame" x="0.0" y="352.5" width="300" height="30"/>
+                                                <state key="normal" title="Add Photo"/>
+                                                <connections>
+                                                    <action selector="addPhoto:" destination="ccT-8I-13Z" eventType="touchUpInside" id="hzT-a5-vxb"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSi-PG-aGQ">
+                                                <rect key="frame" x="0.0" y="390.5" width="300" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="9tC-sl-f6I">
+                                                <rect key="frame" x="0.0" y="419" width="300" height="30"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Separate tags by comma" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ExJ-lD-e2X">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="XMe-3b-YMK">
+                                                <rect key="frame" x="0.0" y="457" width="300" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7qB-uC-5MU" customClass="FlatButton" customModule="Material">
+                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
+                                                        <state key="normal" title="Cancel"/>
+                                                        <connections>
+                                                            <action selector="cancelNewMessage:" destination="ccT-8I-13Z" eventType="touchUpInside" id="zuE-sW-dlu"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whv-iB-VoT" customClass="RaisedButton" customModule="Material">
+                                                        <rect key="frame" x="153" y="0.0" width="147" height="30"/>
+                                                        <state key="normal" title="Submit"/>
+                                                        <connections>
+                                                            <action selector="submitMessage:" destination="ccT-8I-13Z" eventType="touchUpInside" id="JUi-Sx-qFp"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="wdC-LX-g70">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="600"/>
+                                            </constraint>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="0tr-v9-WhT" firstAttribute="centerX" secondItem="GVD-T7-uOD" secondAttribute="centerX" id="Tbw-mE-Xre"/>
+                                    <constraint firstItem="0tr-v9-WhT" firstAttribute="top" secondItem="GVD-T7-uOD" secondAttribute="top" constant="16" id="h1y-15-hxX"/>
+                                    <constraint firstAttribute="bottom" secondItem="0tr-v9-WhT" secondAttribute="bottom" constant="16" id="nD4-Er-KOZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="GVD-T7-uOD" firstAttribute="leading" secondItem="3rv-cG-DRc" secondAttribute="leading" constant="16" id="Cyn-zc-iaX"/>
+                            <constraint firstItem="3rv-cG-DRc" firstAttribute="trailing" secondItem="GVD-T7-uOD" secondAttribute="trailing" constant="16" id="WGB-mV-F1F"/>
+                            <constraint firstItem="GVD-T7-uOD" firstAttribute="top" secondItem="3rv-cG-DRc" secondAttribute="top" constant="64" id="aiv-2x-lJE"/>
+                            <constraint firstItem="3rv-cG-DRc" firstAttribute="bottom" secondItem="GVD-T7-uOD" secondAttribute="bottom" constant="64" id="emG-wS-MiD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3rv-cG-DRc"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="7qB-uC-5MU" id="4iy-Ge-xKZ"/>
+                        <outlet property="imageView" destination="Axl-me-6gY" id="g6M-qf-YGR"/>
+                        <outlet property="messageBodyTextView" destination="KTQ-qk-DRd" id="ixJ-zl-epD"/>
+                        <outlet property="messageTitleTextField" destination="mLQ-M6-lzs" id="wNL-cj-SxU"/>
+                        <outlet property="newMessageView" destination="GVD-T7-uOD" id="4Dk-AW-d5I"/>
+                        <outlet property="submitButton" destination="whv-iB-VoT" id="17w-5g-BUg"/>
+                        <outlet property="tagsTextField" destination="ExJ-lD-e2X" id="FCV-ai-ZOt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="015-2a-7XY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2662" y="-1740"/>
+        </scene>
+    </scenes>
+</document>

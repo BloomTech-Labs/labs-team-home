@@ -12,6 +12,7 @@ import Photos
 import Apollo
 import SafariServices
 import Auth0
+import Toucan
 
 class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
@@ -27,6 +28,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         UILabel.appearance().textColor = .white
         
         self.setNeedsStatusBarAppearanceUpdate()
+        
+        createGradientLayer()
         
         Appearance.styleOrange(button: advancedSettingsButton)
         Appearance.styleOrange(button: saveChangesButton)
@@ -238,8 +241,10 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
             
             guard let image = image else { return }
             
+            let resizedAndMaskedImage = Toucan(image: image).maskWithEllipse()
+            
             DispatchQueue.main.async {
-                self.userAvatarImageView.image = image
+                self.userAvatarImageView.image = resizedAndMaskedImage.image
             }
         }
     }
@@ -253,6 +258,22 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
             imagePicker.delegate = self
             present(imagePicker, animated: true, completion: nil)
         }
+    }
+    
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
+        
+        
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        teamNameLabel.textColor = Appearance.yellowColor
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     // MARK - Properties
@@ -270,6 +291,8 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
             }
         }
     }
+    
+    var gradientLayer: CAGradientLayer!
     
     // MARK - Properties
     

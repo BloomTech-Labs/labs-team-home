@@ -26,6 +26,10 @@ code {
 		monospace;
 }
 
+.filepond--wrapper {
+	width: 75%;
+}
+
 .filepond--item {
 	width: calc(100% - 2em);
 	padding: 0 3em 0 0;
@@ -34,4 +38,10 @@ code {
 .filepond--drop-label {
 	left: 0;
 	right: 0;
+}
+
+@media (max-width: 576px) {
+	.filepond--wrapper {
+		width: 100%;
+	}
 }

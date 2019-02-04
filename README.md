@@ -7,13 +7,18 @@
 | [<img src="https://avatars2.githubusercontent.com/u/41486018?s=80" width="80">](https://github.com/koennecker) | [<img src="https://avatars0.githubusercontent.com/u/26748571?s=80" width="80">](https://github.com/sherlock270) | [<img src="https://avatars1.githubusercontent.com/u/41768821?s=80" width="80">](https://github.com/danielaparra) | [<img src="https://avatars2.githubusercontent.com/u/34250625?s=80" width="80">](https://github.com/david-pok) | [<img src="https://avatars0.githubusercontent.com/u/3199036?s=80" width="80">](https://github.com/ErikKimsey) | [<img src="https://avatars2.githubusercontent.com/u/36084491?s=80" width="80">](https://github.com/zacharyarney) |
 |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/koennecker)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/sherlock270)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/danielaparra)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/david-pok)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/ErikKimsey)         |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/zacharyarney)          |
 
+- [iOS Setup](ios/README.md)
+- [Front End Setup](frontend/README.md)
+- [Back End Setup](backend/README.md)
+
 - [Team Home](#team-home)
   - [Team](#team)
 - [Tech-Stack](#tech-stack)
   - [Front-End Production Dependencies](#front-end-production-dependencies)
     - [React](#react)
-    - [Redux](#redux)
+    - [Apollo Client](#apollo-client)
     - [Styled Components](#styled-components)
+    - [Stripe](#stripe)
   - [Front-End Development Dependencies](#front-end-development-dependencies)
     - [Husky](#husky)
     - [Prettier](#prettier)
@@ -30,13 +35,13 @@
     - [Lodash](#lodash)
     - [MongoDB](#mongodb)
     - [Mongoose](#mongoose)
+    - [Stripe](#stripe)
     - [Yup](#yup)
   - [Back-End Development Dependencies](#back-end-development-dependencies)
     - [Husky](#husky-1)
     - [Prettier](#prettier-1)
     - [Pretty-Quick](#pretty-quick-1)
     - [Nodemon](#nodemon)
-    - [Stripe](#stripe)
 
 # Tech-Stack
 
@@ -46,13 +51,18 @@
 
 React offers a lightweight and modular component structure for rapid implementation and scaling of our application.<br/>[React info](https://reactjs.org/docs/getting-started.html)
 
-### Redux
+### Apollo Client
 
-Redux offers global state management to avoid prop drilling and excellent devtools for debugging.<br/>[Redux info](https://redux.js.org/)
+Apollo Client is designed to quickly build a UI that works with GraphQL and integrates well with React. Apollo only grabs the data that is needed and uses a cache to store data which makes for faster load times.
+<br/>[Apollo Client info](https://www.apollographql.com/docs/react/)
 
 ### Styled Components
 
 Styled Components is a popular CSS-in-JS library that provides flexibility and seamless integration with React allowing for customizable themes and styling that responds to props and JS logic.<br/>[Styled Components info](https://www.styled-components.com/docs/)
+
+### Stripe
+
+The Stripe API is used for payments. It is predictable, resource oriented, and organized around REST.<br/>[Stripe info](https://stripe.com/docs/api)
 
 ## Front-End Development Dependencies
 
@@ -70,7 +80,7 @@ Used along with Husky and Prettier to enforce coding conventions.<br/>[Pretty-Qu
 
 ### Stripe
 
-The Stripe API is predictable, resource oriented, and organized around REST.<br/>[Stripe info](https://stripe.com/docs/api)
+[See above](#stripe)
 
 ## Back-End Production Dependencies
 
@@ -106,6 +116,8 @@ GraphQL is a query language well-suited for multi-platform applications by allow
 
 ### graphql-tools
 
+Use the GraphQL schema language to generate a schema with full support for resolvers, interfaces, unions, and custom scalars.
+
 [graphql-tools info](https://www.apollographql.com/docs/graphql-tools/)
 
 ### Helmet
@@ -138,21 +150,29 @@ Used for parsing phone numbers.
 
 ### Stripe
 
-[See above](#stripe)
+Credit card processing
+
+[Stripe Info](https://stripe.com/docs)
 
 ## Back-End Development Dependencies
 
 ### Husky
 
-[See above](#husky)
+Git commit hooks
+
+[Husky](https://www.npmjs.com/package/husky)
 
 ### Prettier
 
-[See above](#prettier)
+Code formatter
+
+[Prettier](https://www.npmjs.com/package/prettier)
 
 ### Pretty-Quick
 
-[See above](#pretty-quick)
+Runs Prettier on changed files
+
+[Prettier](https://www.npmjs.com/package/pretty-quick)
 
 ### Nodemon
 

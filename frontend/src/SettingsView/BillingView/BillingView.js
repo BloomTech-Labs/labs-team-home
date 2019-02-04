@@ -43,8 +43,7 @@ const BillingView = () => {
 							})
 					}
 					stripeKey={publishableKey}
-					// image={Logo} //Pop-in header image
-					image="https://i.imgur.com/JZmk8zB.jpg" //use above when not prod
+					image={Logo} //Pop-in header image
 					billingAddress={false}
 				/>
 			)}

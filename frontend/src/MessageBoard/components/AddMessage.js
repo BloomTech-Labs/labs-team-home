@@ -9,6 +9,7 @@ import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import { addMessage } from './mutations/messages';
+import { palette } from '../../colorVariables';
 
 registerPlugin(
 	FilePondPluginImageExifOrientation,
@@ -36,33 +37,52 @@ const Overlay = styled.div`
 `;
 
 const MessageFormContainer = styled.div`
+	display: flex;
+	flex-flow: column;
 	width: 60%;
 	height: 80%;
 	margin: auto;
+	padding: 1%;
 	z-index: 1001;
-	background-color: white;
+	background-color: ${palette.plum};
 	border: 1px solid black;
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
+	color: white;
 
 	& form {
+		width: 100%;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	& form input {
-		margin: 20px;
+		-webkit-flex-flow: column;
+		-ms-flex-flow: column;
+		flex-flow: column;
+		margin: 0 auto;
+		label {
+			display: flex;
+			flex-flow: column;
+			font-size: 1.2rem;
+			input {
+				height: 50px;
+				background: black;
+				color: yellow;
+				font-size: 1.2rem;
+			}
+			textarea {
+				height: 233px;
+				background: black;
+			}
+		}
 	}
 `;
 
 const ImageUploadContainer = styled.div`
-	width: 80%;
-	max-width: 500px;
-	margin: 20px;
+	/* width: 84%; */
 `;
 
 function AddMessage(props) {
