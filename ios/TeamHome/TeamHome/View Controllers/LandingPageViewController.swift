@@ -246,13 +246,13 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //Pass to Dashboard Collection VC
         if segue.identifier == "ShowDashboard" {
-            guard let destinationVC = segue.destination as? UINavigationController,
-                let topView = destinationVC.topViewController,
-                let nextVC = topView as? DashboardCollectionViewController,
+            guard let destinationVC = segue.destination as? DashboardCollectionViewController,
+//                let topView = destinationVC.topViewController,
+//                let nextVC = topView as? DashboardCollectionViewController,
                 let apollo = apollo else { return }
             
             // Pass Apollo client.
-            nextVC.apollo = apollo
+            destinationVC.apollo = apollo
             
         } else if segue.identifier == "ShowNewUser" {
             guard let destinationVC = segue.destination as? CreateNewUserViewController,

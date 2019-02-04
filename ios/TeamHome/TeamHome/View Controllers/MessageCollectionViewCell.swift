@@ -79,34 +79,25 @@ class MessageCollectionViewCell: UICollectionViewCell {
 //        }
     }
     
-    private func updateUI() {
-//        self.contentView.layer.cornerRadius = 6
-//        self.contentView.clipsToBounds = true
-//        self.layer.cornerRadius = 6
-//        self.clipsToBounds = true
-        
-    }
     
-
-    
-    fileprivate func prepareDateLabel(date: String) {
+    private func prepareDateLabel(date: String) {
         datesLabel = UILabel()
         datesLabel.font = RobotoFont.regular(with: 12)
         datesLabel.textColor = Color.grey.base
         datesLabel.text = date
     }
     
-    fileprivate func prepareImageButton() {
+    private func prepareImageButton() {
         imageButton = IconButton(image: Icon.image, tintColor: Color.grey.base)
     }
     
-    fileprivate func prepareMoreButton() {
+    private func prepareMoreButton() {
         moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
         let commentImage = UIImage(named: "Comments")!
         commentButton = IconButton(image: commentImage, tintColor: Color.grey.base)
     }
     
-    fileprivate func prepareToolbar(firstName: String, lastName: String, messageTitle: String, message: FindMessagesByTeamQuery.Data.FindMessagesByTeam ) {
+    private func prepareToolbar(firstName: String, lastName: String, messageTitle: String, message: FindMessagesByTeamQuery.Data.FindMessagesByTeam ) {
         toolbar = Toolbar(leftViews: [more2Button], rightViews: [commentsCountLabel, commentButton, moreButton])
         
         toolbar.title = "\(firstName) \(lastName)"
@@ -119,7 +110,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         
     }
     
-    fileprivate func prepareContentView(messageContent: String) {
+    private func prepareContentView(messageContent: String) {
         contentLabel = UILabel()
         contentLabel.numberOfLines = 2
         contentLabel.text = messageContent
@@ -127,7 +118,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         contentLabel.textColor = .white
     }
     
-    fileprivate func prepareBottomBar() {
+    private func prepareBottomBar() {
         bottomBar = Bar()
         
         bottomBar.leftViews = [imageButton]
@@ -135,7 +126,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         bottomBar.backgroundColor = .clear
     }
     
-    fileprivate func prepareCard() {
+    private func prepareCard() {
         
         card.toolbar = toolbar
         card.toolbarEdgeInsetsPreset = .square3
@@ -201,7 +192,6 @@ class MessageCollectionViewCell: UICollectionViewCell {
             guard let image = image else { return }
             
             
-            
             completion(image)
         }
 
@@ -241,28 +231,19 @@ class MessageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    fileprivate var toolbar: Toolbar!
-    fileprivate var moreButton: IconButton!
-    fileprivate var more2Button: UIImageView!
+    private var toolbar: Toolbar!
+    private var moreButton: IconButton!
+    private var more2Button: UIImageView!
     
     private var contentLabel: UILabel!
     private var commentButton: IconButton!
     private var commentsCountLabel: UILabel!
     
-    fileprivate var bottomBar: Bar!
-    fileprivate var datesLabel: UILabel!
-    fileprivate var imageButton: IconButton!
+    private var bottomBar: Bar!
+    private var datesLabel: UILabel!
+    private var imageButton: IconButton!
     
     // All IBOutlets in message collection view cell
-    @IBOutlet weak var userAvatarImageView: UIImageView!
-    @IBOutlet weak var firstNameLabel: UILabel!
-    @IBOutlet weak var lastNameLabel: UILabel!
-    @IBOutlet weak var messageTitleLabel: UILabel!
-    @IBOutlet weak var messageBodyLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var imageAttachmentIconImageView: UIImageView!
-    @IBOutlet weak var commentCountLabel: UILabel!
-    @IBOutlet weak var commentIconImageView: UIImageView!
     @IBOutlet weak var card: Card!
     
 }
