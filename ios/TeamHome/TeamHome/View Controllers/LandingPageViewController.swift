@@ -17,37 +17,45 @@ let credentialsManager = CredentialsManager.init(authentication: Auth0.authentic
 
 class LandingPageViewController: UIViewController, UITextFieldDelegate {
     
+    // MARK - Lifecycle Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        createGradientLayer()
+        
+        // Sets up view appearance settings like view background and more.
         setUpAppearance()
-        
-        
-        
-        guard credentialsManager.hasValid() else { return }
-        
-        credentialsManager.credentials { (error, credentials) in
-            if let error = error {
-                NSLog("\(error)")
-                return
-            }
-            
-            // Unwrap tokens to use for Apollo and to decode.
-            guard let credentials = credentials,
-                let idToken = credentials.idToken else { return }
-            
-            // Set up Apollo client with idToken from auth0.
-            self.setUpApollo(with: idToken)
-            
-            // Perform segue to Dashboard VC.
-            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
-        }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+ 
+//        // Credential manager checks if user has a valid token.
+//        guard credentialsManager.hasValid() else { return }
+//        
+//        // Fetches the credentials.
+//        credentialsManager.credentials { (error, credentials) in
+//            if let error = error {
+//                NSLog("\(error)")
+//                return
+//            }
+//            
+//            // Unwrap idToken to use for Apollo and to decode.
+//            guard let credentials = credentials,
+//                let idToken = credentials.idToken else { return }
+//            
+//            // Set up Apollo client with idToken from auth0.
+//            self.setUpApollo(with: idToken)
+//            
+//            // Perform segue to Dashboard VC.
+//            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+//        }
+    }
+    
+    
+    // MARK - IBActions
     
     // To unwind to this view from settings view when user logs out.
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
-    
-    // MARK - IBActions
     
     // Google Authentication through Web Auth.
     @IBAction func googleLogIn(_ sender: Any) {
@@ -73,13 +81,16 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         guard let apollo = self.apollo else {return}
                         apollo.fetch(query: CurrentUserQuery(), cachePolicy: .returnCacheDataElseFetch, queue: DispatchQueue.global(), resultHandler: { (result, error) in
                             if let error = error {
+                                NSLog("Error logging in with google: \(error)")
                                 return
                             }
                             
                             guard let result = result,
                                 let data = result.data,
                                 let currentUser = data.currentUser else {
+                                    
                                     // Perform other segue
+                                    self.performSegue(withIdentifier: "ShowNewUser", sender: self)
                                     return
                             }
                             
@@ -97,21 +108,6 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
         }
-    }
-    
-    func createGradientLayer() {
-        gradientLayer = CAGradientLayer()
-        
-        gradientLayer.frame = self.view.bounds
-        
-        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
-        
-        
-        gradientLayer.locations = [0.0, 0.5]
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     // Github Authentication through Web Auth.
@@ -150,6 +146,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     @IBAction func logIn(_ sender: Any) {
         Auth0
             .authentication()
+            
             .login(
                 usernameOrEmail: self.emailTextField.text!,
                 password: self.passwordTextField.text!,
@@ -183,11 +180,13 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signUp(_ sender: Any) {
+        let password = passwordTextField.text!
+        
         Auth0
             .authentication()
             .createUser(
                 email: emailTextField.text!,
-                password: passwordTextField.text!,
+                password: password,
                 connection: "Username-Password-Authentication"
             )
             .start { result in
@@ -197,15 +196,19 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                     Auth0
                         .authentication()
                         .login(
-                            usernameOrEmail: self.emailTextField.text!,
-                            password: self.passwordTextField.text!,
+                            usernameOrEmail: user.email,
+                            password: password,
                             realm: "Username-Password-Authentication",
                             scope: "openid profile")
                         .start { result in
                             
+                            print(result)
+                            
                             DispatchQueue.main.async {
                                 switch result {
                                 case .success(let credentials):
+                                    
+                                    print(credentials)
                                     
                                     // Unwrap tokens to use for Apollo and to decode.
                                     guard let idToken = credentials.idToken else { return }
@@ -216,17 +219,23 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                                     // Store credentials with manager for future handling
                                     _ = credentialsManager.store(credentials: credentials)
                                     
+                                    // Store user information
+                                    self.user = user
+                                    
                                     // Perform segue to Dashboard VC.
-                                    self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                                    self.performSegue(withIdentifier: "ShowNewUser", sender: self)
                                     
                                 case .failure(let error):
                                     
+                                    print(error)
                                     // Present alert to user and bring back to landing page
                                     self.presentAlert(for: error)
                                 }
                             }
                     }
                 case .failure(let error):
+                    print("this error: \(error)")
+                    
                     self.presentAlert(for: error)
                 }
             }
@@ -237,10 +246,22 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //Pass to Dashboard Collection VC
         if segue.identifier == "ShowDashboard" {
-            guard let destinationVC = segue.destination as? DashboardCollectionViewController else { return }
+            guard let destinationVC = segue.destination as? UINavigationController,
+                let topView = destinationVC.topViewController,
+                let nextVC = topView as? DashboardCollectionViewController,
+                let apollo = apollo else { return }
             
-            // Pass Apollo client and user fetched from search
-            destinationVC.apollo = self.apollo
+            // Pass Apollo client.
+            nextVC.apollo = apollo
+            
+        } else if segue.identifier == "ShowNewUser" {
+            guard let destinationVC = segue.destination as? CreateNewUserViewController,
+                let apollo = apollo,
+                let user = user else { return }
+            
+            // Pass Apollo client.
+            destinationVC.apollo = apollo
+            destinationVC.user = user
         }
     }
     
@@ -264,6 +285,22 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK - Private Methods
+    
+    // Create gradient layer for view background.
+    private func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
+        
+        
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
     
     // Set up Apollo client with http headers
     private func setUpApollo(with idToken: String) {
@@ -324,6 +361,8 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     
     private func setUpAppearance() {
         
+        createGradientLayer()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -333,7 +372,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         
         passwordTextField.placeholder = "Password"
-        passwordTextField.detail = "At least 8 characters"
+        passwordTextField.detail = "At least 8 characters including a lower-case letter, an upper-case letter, a number and a special character"
         passwordTextField.clearButtonMode = .whileEditing
         passwordTextField.isVisibilityIconButtonEnabled = true
         passwordTextField.dividerNormalColor = .white
@@ -356,17 +395,8 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         
         self.setUpViewAppearance()
         
-
-//        emailTextField.layer.cornerRadius = emailTextField.frame.height / 2
-//        emailTextField.clipsToBounds = true
-//        passwordTextField.layer.cornerRadius = passwordTextField.frame.height / 2
-//        passwordTextField.clipsToBounds = true
-        
-        
         Appearance.styleLandingPage(button: loginButton)
         Appearance.styleLandingPage(button: signupButton)
-        
-        
         
     }
     
@@ -388,7 +418,9 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     // MARK - Properties
 
     private var apollo: ApolloClient?
-    var gradientLayer: CAGradientLayer!
+    private var credentials: Credentials?
+    private var user: DatabaseUser?
+    private var gradientLayer: CAGradientLayer!
     
     //All IBOutlets on storyboard view scene
     @IBOutlet weak var logoImageView: UIImageView!

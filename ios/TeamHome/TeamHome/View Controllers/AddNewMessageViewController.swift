@@ -11,6 +11,7 @@ import Apollo
 import Cloudinary
 import Photos
 import Material
+import TagListView
 
 // Set up cloudinary with account details for all app to use
 let config = CLDConfiguration(cloudName: "massamb", secure: true)

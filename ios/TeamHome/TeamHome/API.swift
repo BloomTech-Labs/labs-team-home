@@ -415,6 +415,91 @@ public final class FindMessageByIdQuery: GraphQLQuery {
   }
 }
 
+public final class CreateNewUserMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation CreateNewUser($firstName: String!, $lastName: String!, $email: String!, $avatar: String) {\n  addUser(input: {firstName: $firstName, lastName: $lastName, email: $email, avatar: $avatar}) {\n    __typename\n    _id\n  }\n}"
+
+  public var firstName: String
+  public var lastName: String
+  public var email: String
+  public var avatar: String?
+
+  public init(firstName: String, lastName: String, email: String, avatar: String? = nil) {
+    self.firstName = firstName
+    self.lastName = lastName
+    self.email = email
+    self.avatar = avatar
+  }
+
+  public var variables: GraphQLMap? {
+    return ["firstName": firstName, "lastName": lastName, "email": email, "avatar": avatar]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("addUser", arguments: ["input": ["firstName": GraphQLVariable("firstName"), "lastName": GraphQLVariable("lastName"), "email": GraphQLVariable("email"), "avatar": GraphQLVariable("avatar")]], type: .object(AddUser.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(addUser: AddUser? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "addUser": addUser.flatMap { (value: AddUser) -> ResultMap in value.resultMap }])
+    }
+
+    public var addUser: AddUser? {
+      get {
+        return (resultMap["addUser"] as? ResultMap).flatMap { AddUser(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "addUser")
+      }
+    }
+
+    public struct AddUser: GraphQLSelectionSet {
+      public static let possibleTypes = ["User"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .nonNull(.scalar(GraphQLID.self))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID) {
+        self.init(unsafeResultMap: ["__typename": "User", "_id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["_id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+    }
+  }
+}
+
 public final class FindTeamByIdQuery: GraphQLQuery {
   public let operationDefinition =
     "query FindTeamById($id: ID!) {\n  findTeam(input: {id: $id}) {\n    __typename\n    _id\n    name\n    users {\n      __typename\n      user {\n        __typename\n        _id\n        firstName\n        lastName\n        email\n        phoneNumber\n        avatar\n      }\n      admin\n    }\n  }\n}"

@@ -30,11 +30,11 @@ enum Appearance {
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         UIBarButtonItem.appearance().tintColor = .white
-//        let titleFont = Appearance.setTitleFont(with: .title1, pointSize: 20)
-//        let titleAttributes = [NSAttributedString.Key.font: titleFont]
-//        
-//        UINavigationBar.appearance().titleTextAttributes = titleAttributes
-//        UINavigationBar.appearance().largeTitleTextAttributes = titleAttributes
+        let titleFont = Appearance.setTitleFont(with: .title1, pointSize: 20)
+        let titleAttributes = [NSAttributedString.Key.font: titleFont, NSAttributedString.Key.foregroundColor: Appearance.yellowColor]
+        
+        UINavigationBar.appearance().titleTextAttributes = titleAttributes
+        UINavigationBar.appearance().largeTitleTextAttributes = titleAttributes
         
         UITabBar.appearance().barTintColor = Appearance.plumColor
         UITabBar.appearance().tintColor = .white

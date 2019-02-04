@@ -47,6 +47,10 @@
 		7BD6589321EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6589221EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift */; };
 		7BD6589E21F00A55004FF34A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6589D21F00A55004FF34A /* API.swift */; };
 		7BD658A021F020ED004FF34A /* DashboardCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */; };
+		7BE481C622037B6200F518F9 /* DashboardCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE481C522037B6200F518F9 /* DashboardCollectionReusableView.swift */; };
+		7BE481C7220401DC00F518F9 /* Comfortaa-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BE481C422033D3A00F518F9 /* Comfortaa-Regular.ttf */; };
+		7BE481C92206A89800F518F9 /* CreateNewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE481C82206A89800F518F9 /* CreateNewUserViewController.swift */; };
+		7BE481CB2207871000F518F9 /* CreateNewUserViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BE481CA2207871000F518F9 /* CreateNewUserViewController.graphql */; };
 		7BF8734C21F6B4C200737729 /* LandingPageViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */; };
 		7BF8735021F6D24400737729 /* TeamDetailTableViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8734F21F6D24400737729 /* TeamDetailTableViewController.graphql */; };
 		7BF8735221F6D37300737729 /* InviteToTeamViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735121F6D37300737729 /* InviteToTeamViewController.graphql */; };
@@ -107,6 +111,9 @@
 		7BD6589D21F00A55004FF34A /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DashboardCollectionViewController.graphql; sourceTree = "<group>"; };
 		7BE481C422033D3A00F518F9 /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
+		7BE481C522037B6200F518F9 /* DashboardCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionReusableView.swift; sourceTree = "<group>"; };
+		7BE481C82206A89800F518F9 /* CreateNewUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewUserViewController.swift; sourceTree = "<group>"; };
+		7BE481CA2207871000F518F9 /* CreateNewUserViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateNewUserViewController.graphql; sourceTree = "<group>"; };
 		7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LandingPageViewController.graphql; sourceTree = "<group>"; };
 		7BF8734F21F6D24400737729 /* TeamDetailTableViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TeamDetailTableViewController.graphql; sourceTree = "<group>"; };
 		7BF8735121F6D37300737729 /* InviteToTeamViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InviteToTeamViewController.graphql; sourceTree = "<group>"; };
@@ -206,8 +213,11 @@
 			children = (
 				7BA77E8021E797C200C862C1 /* LandingPageViewController.swift */,
 				7BF8734B21F6B4C200737729 /* LandingPageViewController.graphql */,
+				7BE481C82206A89800F518F9 /* CreateNewUserViewController.swift */,
+				7BE481CA2207871000F518F9 /* CreateNewUserViewController.graphql */,
 				7BD6589021EF8E8B004FF34A /* DashboardCollectionViewController.swift */,
 				7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */,
+				7BE481C522037B6200F518F9 /* DashboardCollectionReusableView.swift */,
 				7BD6589221EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift */,
 				7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */,
 				7BA77E9D21E807D200C862C1 /* MessageBoardViewController.swift */,
@@ -341,11 +351,13 @@
 				7BF8735421F6D46C00737729 /* ActivityTimelineViewController.graphql in Resources */,
 				7B734DFF22000EFF00F56C5F /* Montserrat-Regular.ttf in Resources */,
 				7BA77ED021ED50BB00C862C1 /* MessagesCollectionViewController.graphql in Resources */,
+				7BE481C7220401DC00F518F9 /* Comfortaa-Regular.ttf in Resources */,
 				7BF8735A21F7BA8400737729 /* MessageDetailViewController.graphql in Resources */,
 				7BA77E9921E8033C00C862C1 /* TeamExample.json in Resources */,
 				7BA77E9821E8033C00C862C1 /* MessageExample.json in Resources */,
 				7BF8735621F6D50B00737729 /* SettingsViewController.graphql in Resources */,
 				7BF8735021F6D24400737729 /* TeamDetailTableViewController.graphql in Resources */,
+				7BE481CB2207871000F518F9 /* CreateNewUserViewController.graphql in Resources */,
 				7BA77E9B21E8033C00C862C1 /* TagExample.json in Resources */,
 				7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */,
 				7BF8735821F7B4C500737729 /* AddNewMessageViewController.graphql in Resources */,
@@ -385,6 +397,7 @@
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
+				"${BUILT_PRODUCTS_DIR}/TagListView/TagListView.framework",
 				"${BUILT_PRODUCTS_DIR}/Toucan/Toucan.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -401,6 +414,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TagListView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toucan.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +478,7 @@
 				7BA77EA021E80D6C00C862C1 /* MessagesCollectionViewController.swift in Sources */,
 				7BA77EBC21E93D1300C862C1 /* TeamDetailTableViewController.swift in Sources */,
 				7BA77EB421E93B3400C862C1 /* CommentCollectionViewCell.swift in Sources */,
+				7BE481C622037B6200F518F9 /* DashboardCollectionReusableView.swift in Sources */,
 				7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */,
 				7BF8735E21FA3DB000737729 /* EditMessageViewController.swift in Sources */,
 				7BA77EA221E80E3E00C862C1 /* MessageCollectionViewCell.swift in Sources */,
@@ -478,6 +493,7 @@
 				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,
 				7BD6589121EF8E8B004FF34A /* DashboardCollectionViewController.swift in Sources */,
 				7BD6589321EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift in Sources */,
+				7BE481C92206A89800F518F9 /* CreateNewUserViewController.swift in Sources */,
 				7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */,
 				7B734E032200F21600F56C5F /* DateFormatter.swift in Sources */,
 				7BD6589E21F00A55004FF34A /* API.swift in Sources */,

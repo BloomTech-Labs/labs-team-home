@@ -25,6 +25,11 @@ class DashboardCollectionViewController: UICollectionViewController {
 
    @IBAction func unwindToDashboard(segue:UIStoryboardSegue) { }
     
+    @IBAction func addTeam(_ sender: Any) {
+        guard let apollo = apollo else { return }
+        
+        presentCreateTeamAlert(with: apollo)
+    }
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,12 +71,20 @@ class DashboardCollectionViewController: UICollectionViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: "DashboardCollectionReusableView", for: indexPath) as? DashboardCollectionReusableView else { return UICollectionReusableView()}
+        
+        return headerView
+    }
+    
     // MARK - Private Methods
     
     // Load all teams that the current user belongs to
     private func loadTeams(with apollo: ApolloClient) {
         
-        _ = apollo.watch(query: FindTeamsByUserQuery()) { (result, error) in
+        watcher = apollo.watch(query: FindTeamsByUserQuery()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
             }
@@ -79,7 +92,8 @@ class DashboardCollectionViewController: UICollectionViewController {
             // Save teams from result to variable or let user create a team to join
             guard let teams = result?.data?.findTeamsByUser else { return }
             if teams.count == 0 {
-                self.presentCreateTeamAlert(with: apollo)
+//                self.presentCreateTeamAlert(with: apollo)
+                return
             }
             
             self.teams = teams
@@ -98,14 +112,17 @@ class DashboardCollectionViewController: UICollectionViewController {
             guard let textField = alert.textFields?.first, let teamName = textField.text else { return }
             
             // Create team based off textfield prompt. Teams are automatically set to "not premium" because advanced settings available on web application.
-            apollo.perform(mutation: CreateTeamMutation(name: teamName, premium: false), queue: DispatchQueue.global(), resultHandler: { (_, error) in
+            apollo.perform(mutation: CreateTeamMutation(name: teamName, premium: false), queue: DispatchQueue.global(), resultHandler: { (result, error) in
                 if let error = error {
                     NSLog("\(error)")
                     return
                 }
                 
+                
+                guard let result = result else { return }
                 // Call water to reload teams and present them to user
                 self.watcher?.refetch()
+                print(self.teams)
             })
         }))
         
