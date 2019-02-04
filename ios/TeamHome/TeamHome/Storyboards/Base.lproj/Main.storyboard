@@ -840,7 +840,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Ds8-td-i2l">
                             <connections>
-                                <segue destination="fDw-r2-haD" kind="presentation" identifier="AddNewMessage" id="WKL-Nh-6qc"/>
+                                <segue destination="uL9-uN-m4K" kind="show" identifier="AddEditMessage" id="PJ9-gY-4f8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -903,125 +903,13 @@
             </objects>
             <point key="canvasLocation" x="2660.8695652173915" y="-1124.3303571428571"/>
         </scene>
-        <!--Add New Message View Controller-->
-        <scene sceneID="KpQ-Cs-4oa">
+        <!--AddEditMessageView-->
+        <scene sceneID="Zyj-ri-IPj">
             <objects>
-                <viewController id="fDw-r2-haD" customClass="AddNewMessageViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LKo-FW-9sf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zpb-7V-8Vq">
-                                <rect key="frame" x="16" y="108" width="382" height="690"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yxC-vi-Chn">
-                                        <rect key="frame" x="41" y="16" width="300" height="658"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Create message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJQ-ya-mcf">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="31.333333333333332"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hm0-iI-4gO" customClass="TextField" customModule="Material">
-                                                <rect key="frame" x="0.0" y="39.333333333333343" width="300" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
-                                            </textField>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="egZ-o6-mFb" customClass="TextView" customModule="Material">
-                                                <rect key="frame" x="0.0" y="77.333333333333343" width="300" height="438.33333333333326"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="ScB-hv-4kg">
-                                                <rect key="frame" x="0.0" y="519.66666666666663" width="300" height="133"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="133" id="Ra9-el-68f"/>
-                                                </constraints>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbb-a5-Qr3" customClass="FlatButton" customModule="Material">
-                                                <rect key="frame" x="0.0" y="523.66666666666663" width="300" height="30"/>
-                                                <state key="normal" title="Add Photo"/>
-                                                <connections>
-                                                    <action selector="addPhoto:" destination="fDw-r2-haD" eventType="touchUpInside" id="wY7-B8-ReG"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajr-4H-VSs">
-                                                <rect key="frame" x="0.0" y="561.66666666666663" width="300" height="20.333333333333371"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="OcK-q6-JPD">
-                                                <rect key="frame" x="0.0" y="590" width="300" height="30"/>
-                                                <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Separate tags by comma" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I7V-ai-8Cg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                                                        <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="NWB-OH-hWv">
-                                                <rect key="frame" x="0.0" y="628" width="300" height="30"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sa1-2G-6O9" customClass="FlatButton" customModule="Material">
-                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
-                                                        <state key="normal" title="Cancel"/>
-                                                        <connections>
-                                                            <action selector="cancelNewMessage:" destination="fDw-r2-haD" eventType="touchUpInside" id="3oO-tO-7ps"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncb-kP-oCj" customClass="RaisedButton" customModule="Material">
-                                                        <rect key="frame" x="153" y="0.0" width="147" height="30"/>
-                                                        <state key="normal" title="Submit"/>
-                                                        <connections>
-                                                            <action selector="submitMessage:" destination="fDw-r2-haD" eventType="touchUpInside" id="o1z-Dl-z3g"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="300" id="5bF-aA-M4V">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="600"/>
-                                            </constraint>
-                                        </constraints>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="yxC-vi-Chn" firstAttribute="centerX" secondItem="Zpb-7V-8Vq" secondAttribute="centerX" id="9FL-Rg-42V"/>
-                                    <constraint firstAttribute="bottom" secondItem="yxC-vi-Chn" secondAttribute="bottom" constant="16" id="iKg-6n-sDK"/>
-                                    <constraint firstItem="yxC-vi-Chn" firstAttribute="top" secondItem="Zpb-7V-8Vq" secondAttribute="top" constant="16" id="yEA-5c-OFw"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="Zpb-7V-8Vq" firstAttribute="leading" secondItem="Nb3-Xf-I9c" secondAttribute="leading" constant="16" id="1ve-ks-0Xf"/>
-                            <constraint firstItem="Zpb-7V-8Vq" firstAttribute="top" secondItem="Nb3-Xf-I9c" secondAttribute="top" constant="64" id="VL5-eX-rqV"/>
-                            <constraint firstItem="Nb3-Xf-I9c" firstAttribute="bottom" secondItem="Zpb-7V-8Vq" secondAttribute="bottom" constant="64" id="W9d-fN-Fwx"/>
-                            <constraint firstItem="Nb3-Xf-I9c" firstAttribute="trailing" secondItem="Zpb-7V-8Vq" secondAttribute="trailing" constant="16" id="iVP-hR-iDX"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Nb3-Xf-I9c"/>
-                    </view>
-                    <connections>
-                        <outlet property="cancelButton" destination="Sa1-2G-6O9" id="JLH-tG-Txk"/>
-                        <outlet property="imageView" destination="ScB-hv-4kg" id="Qly-kH-gJU"/>
-                        <outlet property="messageBodyTextView" destination="egZ-o6-mFb" id="bhs-7a-hOL"/>
-                        <outlet property="messageTitleTextField" destination="hm0-iI-4gO" id="mgI-rQ-5Bp"/>
-                        <outlet property="newMessageView" destination="Zpb-7V-8Vq" id="21u-cR-2bH"/>
-                        <outlet property="submitButton" destination="Ncb-kP-oCj" id="N8G-Gl-tty"/>
-                        <outlet property="tagsTextField" destination="I7V-ai-8Cg" id="hBr-sS-4Iw"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OvZ-uj-3Wa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="AddEditMessageView" id="uL9-uN-m4K" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IEH-6R-oqQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2662" y="-1740"/>
+            <point key="canvasLocation" x="2483" y="-1497"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="UIm-zV-7qV">
