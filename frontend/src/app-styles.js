@@ -9,7 +9,7 @@ const AppStyles = styled.div`
 	}
 	.fade-enter.fade-enter-active {
 		opacity: 1;
-		transition: opacity 2000ms ease-in;
+		transition: opacity 2000ms ease-out;
 	}
 	.fade-exit {
 		opacity: 1;
@@ -17,7 +17,9 @@ const AppStyles = styled.div`
 
 	.fade-exit.fade-exit-active {
 		opacity: 0;
-		transition: opacity 500ms ease-out;
+		transform: rotateY(180deg);
+		backface-visibility: hidden;
+		transition: opacity 2000ms ease-out;
 	}
 `;
 
