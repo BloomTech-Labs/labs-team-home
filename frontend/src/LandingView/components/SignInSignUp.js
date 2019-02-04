@@ -44,7 +44,7 @@ const SignInSignUp = ({ handleLogin, handleSignUp }) => {
 				<Button
 					style={BtnStyles}
 					btnprop={btn2}
-					handleClick={() => {
+					onClick={() => {
 						handleSignUp();
 					}}
 				>
