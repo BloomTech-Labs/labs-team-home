@@ -7,7 +7,7 @@
 1. Fork and Clone the `labs9-team-home` repo,
 2. `cd` into the frontend folder of the cloned repo,
 3. In your commandline-tool, run `yarn install` to install packages,
-4. Create an `.env` file and create the variables `REACT_APP_AUTH0_DOMAIN`, `REACT_APP_AUTH0_CLIENT_ID`, `REACT_APP_UPLOAD_PRESET`, `REACT_APP_API_KEY`, `REACT_APP_API_SECRET`, and `REACT_APP_CLOUD_NAME`. Instructions below on how to get the key for each variable.
+4. Create an `.env` file and create the variables `REACT_APP_AUTH0_DOMAIN`, `REACT_APP_AUTH0_CLIENT_ID`, `REACT_APP_UPLOAD_PRESET`, `REACT_APP_API_KEY`, `REACT_APP_API_SECRET`, `REACT_APP_CLOUD_NAME`, `STRIPE_PUBLISHABLE_KEY` and `STRIPE_SECRET_KEY`. Instructions below on how to get the key for each variable.
 5. In your commandline-tool, run `yarn start`,
 6. The app will open on `localhost:3000`.
 
@@ -28,7 +28,7 @@
 
 ##### Getting Cloudinary Keys:
 
-1. [Create and account](https://cloudinary.com/)
+1. [Create an account](https://cloudinary.com/)
 2. You can follow the Getting Started steps if you wish, but it's not necessary for this purpose.
 3. Located at the top of the dashboard is a section titled `Account Details`. This section contains your keys.
 4. Copy `API Key` into `REACT_APP_API_KEY`
@@ -38,6 +38,14 @@
 8. Navigate to the `Upload` tab and scroll down to the `Upload presets` section.
 9. Click `Add Upload Preset`, then click `Save`
 10. Copy the name of your new preset into `REACT_APP_UPLOAD_PRESET`
+
+##### Getting Stripe Key:
+
+1. [Create an account](https://stripe.com/)
+2. Select the developer option.
+3. Click `Get your API keys`
+4. Copy `Publishable key` and `Secret key` to their respective variables.
+5. The publishable key is used in development and the secret key is used in production.
 
 ## File structure
 
