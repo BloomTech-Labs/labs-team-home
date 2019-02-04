@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 618">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <title>TH_tablet</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <path class="cls-1" d="M447,40V578H40V40H447M475,0H12A12,12,0,0,0,0,12V606a12,12,0,0,0,12,12H475a12,12,0,0,0,12-12V12A12,12,0,0,0,475,0Z"/>
+    </g>
+  </g>
+</svg>
