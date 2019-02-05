@@ -33,6 +33,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     @IBAction func filterMessages(_ sender: Any) {
         guard let delegate = delegate else { return }
         
+        // Update button based on order of messages.
         if delegate.newestToOldest {
             let image = UIImage(named: "Arrow Down")!
             filterButton.setImage(image, for: .normal)
@@ -41,6 +42,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
             filterButton.setImage(image, for: .normal)
         }
         
+        // Call delegate to filter messages.
         delegate.didClickFilter()
     }
     
@@ -73,15 +75,15 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     // MARK - Private Methods
     
-    // Display team name at the top of the view
+    // Display team name at the top of the view.
     private func displayTeamInfo() {
         guard let team = team else { return }
         
         teamNameLabel.text = team.name
-        
     }
     
-    func createGradientLayer() {
+    // Create gradient layer for view background.
+    private func createGradientLayer() {
         gradientLayer = CAGradientLayer()
         
         gradientLayer.frame = self.view.bounds
@@ -99,6 +101,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     // MARK - Properties
     
     private var gradientLayer: CAGradientLayer!
+    
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
     var delegate: MessageBoardFilterDelegate?
