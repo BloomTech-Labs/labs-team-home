@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 const StyledLink = styled(Link)`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
@@ -98,6 +99,13 @@ const RespNav = styled.div`
 	flex-flow: row;
 	z-index: 1001;
 	justify-content: space-between;
+	${mediaQueryFor.smDevice`
+    flex-flow: column;
+    align-items:center;
+    &.navbar-nav{
+      padding:0;
+    }
+  `}
 	&:hover {
 		background-color: #17151b;
 	}

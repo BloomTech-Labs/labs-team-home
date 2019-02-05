@@ -13,8 +13,8 @@ import {
 	DropdownItem,
 	NavLink
 } from 'reactstrap';
-
 import { StyledLink, TextIMG, RespNav } from '../Nav/styles/index';
+import { Spin } from 'react-burgers';
 import Auth0 from '../Auth/Auth';
 // import styled from 'styled-components';
 import LandingButton from '../Nav/components/LandingButton';
@@ -68,26 +68,31 @@ export default class RespNavBar extends Component {
 		return (
 			<div>
 				<RespNav>
-					<Navbar expand="xl" style={navStyle}>
+					<Navbar expand="md" style={navStyle}>
 						<TextIMG src={textLogo} />
-						<NavbarToggler onClick={this.toggle} />
-						<Collapse isOpen={this.state.isOpen} navbar>
-							<Nav className="ml-auto" navbar>
-								<NavItem>
-									<LandingButton
-										clickFxn={this.handleLogin}
-										label={this.state.login}
-									/>
-								</NavItem>
-								<NavItem>
-									<LandingButton
-										clickFxn={this.handleLogin}
-										label={this.state.signup}
-									/>
-								</NavItem>
-							</Nav>
-						</Collapse>
+						<NavbarToggler onClick={this.toggle}>
+							<Spin active={this.state.isOpen} color="#fff" />
+						</NavbarToggler>
+						{/* <div>
+              <FontAwesomeIcon icon={faBars} onClick={this.toggle}/>
+            </div> */}
 					</Navbar>
+					<Collapse isOpen={this.state.isOpen} navbar>
+						<Nav className="ml-auto" navbar>
+							<NavItem>
+								<LandingButton
+									clickFxn={this.handleLogin}
+									label={this.state.login}
+								/>
+							</NavItem>
+							<NavItem>
+								<LandingButton
+									clickFxn={this.handleLogin}
+									label={this.state.signup}
+								/>
+							</NavItem>
+						</Nav>
+					</Collapse>
 				</RespNav>
 			</div>
 		);
