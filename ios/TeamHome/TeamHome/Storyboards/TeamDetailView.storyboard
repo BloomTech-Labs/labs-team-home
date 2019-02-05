@@ -25,21 +25,14 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Gs3-YG-IoF">
-                                    <rect key="frame" x="8" y="16" width="359" height="30"/>
+                                    <rect key="frame" x="8" y="15.999999999999998" width="359" height="20.333333333333329"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvn-0r-rCZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="91" height="30"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="20.333333333333332"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMB-ha-jVw">
-                                            <rect key="frame" x="99" y="0.0" width="260" height="30"/>
-                                            <state key="normal" title="Add"/>
-                                            <connections>
-                                                <segue destination="QlA-nI-FAk" kind="show" identifier="ShowInviteToTeam" id="hNY-yY-YYu"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                 </stackView>
                             </subviews>
@@ -87,8 +80,8 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="addMembersButton" destination="pMB-ha-jVw" id="j7z-Vf-af5"/>
                         <outlet property="teamNameLabel" destination="qvn-0r-rCZ" id="2wk-2M-Zeg"/>
+                        <segue destination="QlA-nI-FAk" kind="show" identifier="InviteUser" id="kBD-V1-BdY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Za-vx-XPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -104,7 +97,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9rH-R1-3zl">
-                                <rect key="frame" x="32" y="108.00000000000001" width="311" height="134.33333333333337"/>
+                                <rect key="frame" x="32" y="108.00000000000001" width="311" height="158.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite someone new to your team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTg-qK-a2c">
                                         <rect key="frame" x="0.0" y="0.0" width="311" height="20.333333333333332"/>
@@ -112,20 +105,26 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fco-jq-BEC">
-                                        <rect key="frame" x="0.0" y="28.333333333333343" width="311" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zaa-76-iI9">
+                                        <rect key="frame" x="0.0" y="28.333333333333343" width="311" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="iFt-YA-kTd"/>
+                                        </constraints>
+                                    </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fco-jq-BEC" customClass="TextField" customModule="Material">
+                                        <rect key="frame" x="0.0" y="52.333333333333343" width="311" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ePj-Lr-cJ8">
-                                        <rect key="frame" x="0.0" y="66.333333333333343" width="311" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ePj-Lr-cJ8" customClass="TextField" customModule="Material">
+                                        <rect key="frame" x="0.0" y="90.333333333333343" width="311" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0US-B6-3sS">
-                                        <rect key="frame" x="0.0" y="104.33333333333334" width="311" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0US-B6-3sS" customClass="RaisedButton" customModule="Material">
+                                        <rect key="frame" x="0.0" y="128.33333333333334" width="311" height="30"/>
                                         <state key="normal" title="Invite"/>
                                         <connections>
                                             <action selector="inviteToTeam:" destination="QlA-nI-FAk" eventType="touchUpInside" id="VHh-mB-fSA"/>
@@ -143,14 +142,14 @@
                         <viewLayoutGuide key="safeArea" id="Q9s-FU-c0S"/>
                     </view>
                     <connections>
-                        <outlet property="emailTextField" destination="Fco-jq-BEC" id="Jat-8u-nCw"/>
+                        <outlet property="emailTextField" destination="Fco-jq-BEC" id="vfU-gz-TnW"/>
                         <outlet property="phoneNumberTextField" destination="ePj-Lr-cJ8" id="48y-Nj-MdR"/>
                         <outlet property="titleLabel" destination="tTg-qK-a2c" id="WOw-L1-97w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pDP-xL-JZc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3498" y="-367"/>
+            <point key="canvasLocation" x="3496.8000000000002" y="-367.24137931034483"/>
         </scene>
     </scenes>
     <resources>

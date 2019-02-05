@@ -9,65 +9,77 @@
 import UIKit
 import Cloudinary
 import Material
+import Toucan
 
 class ActivityCollectionViewCell: UICollectionViewCell {
     
     private func updateUI() {
-        prepareDateFormatter()
-        prepareDateLabel()
-        prepareFavoriteButton()
-        prepareMoreButton()
-        prepareToolbar()
-        prepareContentView()
+        
+        guard let activity = activity else { return }
+        
+        
+        prepareAvatarImage(for: activity)
+        prepareDateLabel(with: activity)
+        prepareContentView(with: activity)
         prepareBottomBar()
-        prepareCard()
     }
     
-    fileprivate func prepareDateFormatter() {
-        dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-    }
-    
-    fileprivate func prepareDateLabel() {
-        datesLabel = UILabel()
-        datesLabel.font = RobotoFont.regular(with: 12)
-        datesLabel.textColor = Color.grey.base
-        datesLabel.text = dateFormatter.string(from: Date.distantFuture)
-    }
-    
-    fileprivate func prepareFavoriteButton() {
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
-    }
-    
-    fileprivate func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
-    }
-    
-    fileprivate func prepareToolbar() {
-        toolbar = Toolbar(rightViews: [moreButton])
+    private func prepareDateLabel(with activity: Activity) {
         
-        toolbar.title = "Material"
+        guard let dateUnformatted = activity.date,
+            let dateDouble = Double(dateUnformatted) else { return }
+        
+        let dateDouble2 = dateDouble / 1000.0
+        let date = dateDouble2.getDateStringFromUTC()
+        
+        dateLabel = UILabel()
+        dateLabel.font = RobotoFont.regular(with: 12)
+        dateLabel.textColor = .white
+        dateLabel.text = date
+    }
+    
+    private func prepareToolbar(with activity: Activity) {
+        toolbar = Toolbar(leftViews: [avatarImageView])
+        
         toolbar.titleLabel.textAlignment = .left
+        toolbar.titleLabel.textColor = .white
         
-        toolbar.detail = "Build Beautiful Software"
         toolbar.detailLabel.textAlignment = .left
-        toolbar.detailLabel.textColor = Color.grey.base
+        toolbar.detailLabel.textColor = .white
         toolbar.backgroundColor = .clear
+        
+        if activity.comment != nil {
+            guard let comment = activity.comment else { return }
+            toolbar.title = "\(comment.user.firstName) \(comment.user.lastName)"
+            toolbar.detail = "added a comment"
+        } else {
+            guard let message = activity.message else { return }
+            toolbar.title = "\(message.user.firstName) \(message.user.lastName)"
+            toolbar.detail = "added a message: \(message.title)"
+        }
     }
     
-    fileprivate func prepareContentView() {
+    fileprivate func prepareContentView(with activity: Activity) {
+        
         contentLabel = UILabel()
-        contentLabel.numberOfLines = 0
-        contentLabel.text = "Material is an animation and graphics framework that is used to create beautiful applications."
+        contentLabel.numberOfLines = 2
         contentLabel.font = RobotoFont.regular(with: 14)
+        contentLabel.textColor = .white
+        
+        if activity.comment != nil {
+            guard let comment = activity.comment else { return }
+          contentLabel.text = comment.content
+        } else {
+            guard let message = activity.message else { return }
+            
+            contentLabel.text = message.content
+        }
     }
     
     fileprivate func prepareBottomBar() {
         bottomBar = Bar()
         
-        bottomBar.leftViews = [favoriteButton]
-        bottomBar.rightViews = [datesLabel]
+        bottomBar.rightViews = [dateLabel]
         bottomBar.backgroundColor = .clear
     }
     
@@ -79,11 +91,12 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         card.toolbarEdgeInsets.right = 8
         
         card.contentView = contentLabel
-        card.contentViewEdgeInsetsPreset = .wideRectangle4
+        card.contentViewEdgeInsetsPreset = .wideRectangle5
         
         card.bottomBar = bottomBar
         card.bottomBarEdgeInsetsPreset = .wideRectangle2
-        card.backgroundColor = Appearance.plumColor
+        
+        card.backgroundColor = Appearance.darkMauveColor
     }
     
     private func updateViews() {
@@ -92,66 +105,78 @@ class ActivityCollectionViewCell: UICollectionViewCell {
             self.updateUI()
             
         }
+    }
+    
+    private func prepareAvatarImage(for activity: Activity) {
         
-//        guard let activity = activity else { return }
-//
-//        if activity.comment == nil {
-//
-//            guard let message = activity.message else { return }
-//
-//            let firstName = message.user.firstName
-//            let lastName = message.user.lastName
-//
-//            notificationLabel.text = "\(firstName) \(lastName) posted a new message"
-//            messageTitleLabel.text = message.title
-//            messageBodyClipLabel.text = message.content
-//            dateLabel.text = "Date"
-//
-//            guard let avatar = message.user.avatar else { return }
-//
-//            cloudinary.createDownloader().fetchImage(avatar, { (progress) in
-//                // Progress
-//            }) { (image, error) in
-//                if let error = error {
-//                    NSLog("\(error)")
-//                    return
-//                }
-//
-//                guard let image = image else { return }
-//
-//                DispatchQueue.main.async {
-//                    self.userAvatarImageView.image = image
-//                }
-//            }
-//
-//        } else if activity.message == nil {
-//            guard let comment = activity.comment else { return }
-//
-//            let firstName = comment.user.firstName
-//            let lastName = comment.user.lastName
-//
-//            notificationLabel.text = "\(firstName) \(lastName) posted a new comment"
-//            messageTitleLabel.text = ""
-//            messageBodyClipLabel.text = comment.content
-//            dateLabel.text = "Date"
-//
-//            guard let avatar = comment.user.avatar else { return }
-//
-//            cloudinary.createDownloader().fetchImage(avatar, { (progress) in
-//                // Progress
-//            }) { (image, error) in
-//                if let error = error {
-//                    NSLog("\(error)")
-//                    return
-//                }
-//
-//                guard let image = image else { return }
-//
-//                DispatchQueue.main.async {
-//                    self.userAvatarImageView.image = image
-//                }
-//            }
-//        }
+        setImage(for: activity) { (image) in
+            DispatchQueue.main.async {
+                
+                let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
+                self.avatarImageView = UIImageView(image: resizedImage.image)
+                self.avatarImageView.frame = CGRect(x: 0, y: 0, width: self.avatarImageView.frame.width, height: self.avatarImageView.frame.height)
+                self.avatarImageView.contentMode = .scaleAspectFit
+                self.prepareToolbar(with: activity)
+                self.prepareCard()
+            }
+        }
+    }
+    
+    private func setImage(for activity: Activity, completion: @escaping (UIImage) -> Void) {
+        
+        
+        if activity.comment != nil {
+            guard let comment = activity.comment,
+                let avatar = comment.user.avatar else {
+                let image = UIImage(named: "User Avatar Image")!
+                completion(image)
+                return
+            }
+            
+            // Use cloudinary to fetch image because using their image hosting service
+            cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+                // Show progress bar for download
+                
+            }) { (image, error) in
+                if let error = error {
+                    NSLog("Error: \(error)")
+                    let image = UIImage(named: "User Avatar Image")!
+                    completion(image)
+                    return
+                }
+                
+                guard let image = image else { return }
+                
+                
+                completion(image)
+            }
+        } else {
+            guard let message = activity.message,
+                let avatar = message.user.avatar else {
+                    let image = UIImage(named: "User Avatar Image")!
+                    completion(image)
+                    return
+            }
+            
+            // Use cloudinary to fetch image because using their image hosting service
+            cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+                // Show progress bar for download
+                
+            }) { (image, error) in
+                if let error = error {
+                    NSLog("Error: \(error)")
+                    let image = UIImage(named: "User Avatar Image")!
+                    completion(image)
+                    return
+                }
+                
+                guard let image = image else { return }
+                
+                
+                completion(image)
+            }
+        }
+        
     }
     
     var activity: Activity? {
@@ -160,21 +185,12 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    fileprivate var toolbar: Toolbar!
-    fileprivate var moreButton: IconButton!
-    
-    fileprivate var contentLabel: UILabel!
-    
-    fileprivate var bottomBar: Bar!
-    fileprivate var dateFormatter: DateFormatter!
-    fileprivate var datesLabel: UILabel!
-    fileprivate var favoriteButton: IconButton!
+    private var toolbar: Toolbar!
+    private var contentLabel: UILabel!
+    private var avatarImageView: UIImageView!
+    private var bottomBar: Bar!
+    private var dateFormatter: DateFormatter!
+    private var dateLabel: UILabel!
     
     @IBOutlet weak var card: Card!
-    @IBOutlet weak var userAvatarImageView: UIImageView!
-    @IBOutlet weak var notificationLabel: UILabel!
-    @IBOutlet weak var messageTitleLabel: UILabel!
-    @IBOutlet weak var messageBodyClipLabel: UILabel!
-    @IBOutlet weak var tagIconImageView: UIImageView!
-    @IBOutlet weak var dateLabel: UILabel!
 }
