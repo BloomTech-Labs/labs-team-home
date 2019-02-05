@@ -7,7 +7,7 @@
 1. Fork and Clone the `labs9-team-home` repo,
 2. `cd` into the frontend folder of the cloned repo,
 3. In your commandline-tool, run `yarn install` to install packages,
-4. Create an `.env` file and create the variables `REACT_APP_AUTH0_DOMAIN`, `REACT_APP_AUTH0_CLIENT_ID`, `REACT_APP_UPLOAD_PRESET`, `REACT_APP_API_KEY`, `REACT_APP_API_SECRET`, `REACT_APP_CLOUD_NAME`, `STRIPE_PUBLISHABLE_KEY` and `STRIPE_SECRET_KEY`. Instructions below on how to get the key for each variable.
+4. Create an `.env` file and create the variables `REACT_APP_AUTH0_DOMAIN`, `REACT_APP_AUTH0_CLIENT_ID`, `REACT_APP_UPLOAD_PRESET`, `REACT_APP_API_KEY`, `REACT_APP_API_SECRET`, `REACT_APP_CLOUD_NAME`, and `STRIPE_PUBLISHABLE_KEY`. Instructions below on how to get the key for each variable.
 5. In your commandline-tool, run `yarn start`,
 6. The app will open on `localhost:3000`.
 
@@ -44,8 +44,7 @@
 1. [Create an account](https://stripe.com/)
 2. Select the developer option.
 3. Click `Get your API keys`
-4. Copy `Publishable key` and `Secret key` to their respective variables.
-5. The publishable key is used in development and the secret key is used in production.
+4. Copy `Publishable key` its respective variable.
 
 ## File structure
 
@@ -59,3 +58,9 @@ frontend - (src)
 ├── App.js
 ├── index..js
 ```
+
+## Security Notes
+
+### FilePond File Type Validation
+
+FilePond uses MIME type validation that is browser dependent. This could potentially lead to corrupted images or vulnerability to files with spoofed headers and malicious payloads based on browser bugs.
