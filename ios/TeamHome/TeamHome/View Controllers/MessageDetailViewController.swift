@@ -71,6 +71,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     @IBAction func backButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
+    
     // MARK - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -82,6 +83,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         
         guard let subscribers = subscribers,
             let subscriber = subscribers[indexPath.row] else { return UICollectionViewCell() }
+        
         cell.subscriber = subscriber
         
         return cell
@@ -221,6 +223,19 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
                 }
             }
         }
+        
+        guard let comments = message.comments else { return }
+        
+        var heightConstraint: NSLayoutConstraint!
+        if comments.count == 0 {
+            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+        } else if comments.count == 1 {
+            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
+        } else if comments.count > 2 {
+            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 330)
+        }
+        
+        NSLayoutConstraint.activate([heightConstraint])
     }
     
     // MARK - Properties
@@ -259,5 +274,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     @IBOutlet weak var sendCommentButton: UIButton!
     @IBOutlet weak var subscribersLabel: UILabel!
     @IBOutlet weak var subscribersCollectionView: UICollectionView!
+    @IBOutlet weak var commentContainerView: UIView!
     
 }
