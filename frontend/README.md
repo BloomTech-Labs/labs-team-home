@@ -58,3 +58,9 @@ frontend - (src)
 ├── App.js
 ├── index..js
 ```
+
+## Security Notes
+
+### FilePond File Type Validation
+
+FilePond uses MIME type validation that is browser dependent. This could potentially lead to corrupted images or vulnerability to files with spoofed headers and malicious payloads based on browser bugs.
