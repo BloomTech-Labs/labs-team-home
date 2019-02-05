@@ -71,6 +71,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     @IBAction func backButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
+    
     // MARK - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "023-user-image-with-black-background-2.png",
       "scale" : "1x"
     },
     {
@@ -11,6 +12,7 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "023-user-image-with-black-background-1.png",
       "scale" : "3x"
     }
   ],
