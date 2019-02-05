@@ -5,9 +5,15 @@ import {
 	Navbar,
 	NavbarToggler,
 	Nav,
+	NavbarBrand,
+	DropdownToggle,
+	UncontrolledDropdown,
 	NavItem,
+	DropdownMenu,
+	DropdownItem,
 	NavLink
 } from 'reactstrap';
+
 import { StyledLink, TextIMG, RespNav } from '../Nav/styles/index';
 import Auth0 from '../Auth/Auth';
 // import styled from 'styled-components';
@@ -57,18 +63,39 @@ export default class RespNavBar extends Component {
 	}
 	render() {
 		return (
-			<RespNav>
-				<Navbar style={navStyle}>
+			<div>
+				{/* <RespNav> */}
+				<Navbar color="light" light expand="md">
 					<TextIMG src={textLogo} />
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.state.isOpen} navbar>
+						<Nav className="ml-auto" navbar>
+							<NavItem>
+								<NavLink href="/components/">Components</NavLink>
+							</NavItem>
+							<NavItem>
+								<NavLink href="https://github.com/reactstrap/reactstrap">
+									GitHub
+								</NavLink>
+							</NavItem>
+						</Nav>
+					</Collapse>
+				</Navbar>
+
+				{/* <Navbar style={navStyle}>
+					<TextIMG src={textLogo} />
+					<NavbarToggler onClick={this.toggle} />
+				</Navbar>
+					<Collapse isOpen={this.state.isOpen} className="navbar collapse-navbar" navbar>
+          <Nav className="ml-auto" navbar>
 						<LandingNavOptions
 							handleLogin={this.handleLogin}
 							handleSignUp={this.handleSignUp}
 						/>
-					</Collapse>
-				</Navbar>
-			</RespNav>
+          </Nav>
+					</Collapse> */}
+				{/* </RespNav> */}
+			</div>
 		);
 	}
 }

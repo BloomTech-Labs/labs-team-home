@@ -34,30 +34,25 @@ let btn1 = 'Login',
 const LandingNavOptions = ({ handleLogin, handleSignUp }) => {
 	return (
 		<BtnContainer>
-			<Nav navbar>
-				<NavItem>
-					<Button
-						style={BtnStyles}
-						btnprop={btn1}
-						onClick={() => {
-							handleLogin();
-						}}
-					>
-						Login
-					</Button>
-				</NavItem>
-				<NavItem>
-					<Button
-						style={BtnStyles}
-						btnprop={btn2}
-						onClick={() => {
-							handleSignUp();
-						}}
-					>
-						Sign Up
-					</Button>
-				</NavItem>
-			</Nav>
+			<Button
+				style={BtnStyles}
+				btnprop={btn1}
+				onClick={() => {
+					handleLogin();
+				}}
+			>
+				Login
+			</Button>
+
+			<Button
+				style={BtnStyles}
+				btnprop={btn2}
+				onClick={() => {
+					handleSignUp();
+				}}
+			>
+				Sign Up
+			</Button>
 		</BtnContainer>
 	);
 };
