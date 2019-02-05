@@ -94,6 +94,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                                     return
                             }
                             
+                            print(currentUser)
                             // Perform segue to Dashboard VC.
                             self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         })

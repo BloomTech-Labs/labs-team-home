@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Add New Message View Controller-->
+        <!--Add Edit Message View Controller-->
         <scene sceneID="N9h-zd-mbz">
             <objects>
-                <viewController id="ccT-8I-13Z" customClass="AddNewMessageViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ccT-8I-13Z" customClass="AddEditMessageViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H3Y-0g-mNg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,41 +37,62 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KTQ-qk-DRd" customClass="TextView" customModule="Material">
-                                                <rect key="frame" x="0.0" y="77.5" width="300" height="267"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KTQ-qk-DRd" customClass="TextView" customModule="Material">
+                                                <rect key="frame" x="0.0" y="77.5" width="300" height="175"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="Axl-me-6gY">
-                                                <rect key="frame" x="0.0" y="348.5" width="300" height="133"/>
+                                                <rect key="frame" x="0.0" y="256.5" width="300" height="133"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="133" id="NzR-Ld-ZMB"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6u-iQ-2JA" customClass="FlatButton" customModule="Material">
-                                                <rect key="frame" x="0.0" y="352.5" width="300" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6u-iQ-2JA" customClass="FlatButton" customModule="Material">
+                                                <rect key="frame" x="0.0" y="260.5" width="300" height="30"/>
                                                 <state key="normal" title="Add Photo"/>
                                                 <connections>
                                                     <action selector="addPhoto:" destination="ccT-8I-13Z" eventType="touchUpInside" id="hzT-a5-vxb"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSi-PG-aGQ">
-                                                <rect key="frame" x="0.0" y="390.5" width="300" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Select one tag from the list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSi-PG-aGQ">
+                                                <rect key="frame" x="0.0" y="298.5" width="300" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-c1-hVp" customClass="TagListView" customModule="TagListView">
+                                                <rect key="frame" x="0.0" y="327" width="300" height="84"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                        <color key="value" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
+                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="tagBackgroundColor">
+                                                        <color key="value" red="0.68015772100000005" green="0.28776535390000002" blue="0.22742334010000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="9tC-sl-f6I">
                                                 <rect key="frame" x="0.0" y="419" width="300" height="30"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Separate tags by comma" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ExJ-lD-e2X">
-                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Create a tag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ExJ-lD-e2X">
+                                                        <rect key="frame" x="0.0" y="0.0" width="264" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FWx-KM-zbt">
+                                                        <rect key="frame" x="278" y="0.0" width="22" height="30"/>
+                                                        <connections>
+                                                            <action selector="createTag:" destination="ccT-8I-13Z" eventType="touchUpInside" id="bm2-FA-mJk"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="XMe-3b-YMK">
@@ -120,16 +141,17 @@
                     <connections>
                         <outlet property="cancelButton" destination="7qB-uC-5MU" id="4iy-Ge-xKZ"/>
                         <outlet property="imageView" destination="Axl-me-6gY" id="g6M-qf-YGR"/>
-                        <outlet property="messageBodyTextView" destination="KTQ-qk-DRd" id="ixJ-zl-epD"/>
+                        <outlet property="messageContentTextView" destination="KTQ-qk-DRd" id="ixJ-zl-epD"/>
                         <outlet property="messageTitleTextField" destination="mLQ-M6-lzs" id="wNL-cj-SxU"/>
                         <outlet property="newMessageView" destination="GVD-T7-uOD" id="4Dk-AW-d5I"/>
                         <outlet property="submitButton" destination="whv-iB-VoT" id="17w-5g-BUg"/>
+                        <outlet property="tagListView" destination="yDB-c1-hVp" id="Km2-aP-gwT"/>
                         <outlet property="tagsTextField" destination="ExJ-lD-e2X" id="FCV-ai-ZOt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="015-2a-7XY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2662" y="-1740"/>
+            <point key="canvasLocation" x="2661.5999999999999" y="-1740.1799100449775"/>
         </scene>
     </scenes>
 </document>
