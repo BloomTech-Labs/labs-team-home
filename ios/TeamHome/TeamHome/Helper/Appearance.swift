@@ -24,7 +24,7 @@ enum Appearance {
     static let likeGrayColor = UIColor(red: 118/255.0, green: 117/255.0, blue: 125/255.0, alpha: 1.0)
     
     static func setTheme() {
-        UIButton.appearance().tintColor = Appearance.plumColor
+        UIButton.appearance().tintColor = Appearance.yellowColor
         
         UINavigationBar.appearance().barTintColor = Appearance.darkMauveColor
         UINavigationBar.appearance().isTranslucent = false
@@ -32,15 +32,17 @@ enum Appearance {
         UIBarButtonItem.appearance().tintColor = .white
         let titleFont = Appearance.setTitleFont(with: .title1, pointSize: 20)
         let titleAttributes = [NSAttributedString.Key.font: titleFont, NSAttributedString.Key.foregroundColor: Appearance.yellowColor]
+        let titleLargeFont = Appearance.setTitleFont(with: .title1, pointSize: 30)
+        let titleLargeAttributes = [NSAttributedString.Key.font: titleLargeFont, NSAttributedString.Key.foregroundColor: Appearance.yellowColor]
         
         UINavigationBar.appearance().titleTextAttributes = titleAttributes
-        UINavigationBar.appearance().largeTitleTextAttributes = titleAttributes
+        UINavigationBar.appearance().largeTitleTextAttributes = titleLargeAttributes
         
         UITabBar.appearance().barTintColor = Appearance.plumColor
-        UITabBar.appearance().tintColor = .white
+        UITabBar.appearance().tintColor = Appearance.yellowColor
         UITabBar.appearance().unselectedItemTintColor = Appearance.darkMauveColor
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.darkMauveColor], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.yellowColor], for: .selected)
         
         UITextField.appearance().keyboardAppearance = .dark
         UISwitch.appearance().onTintColor = Appearance.yellowColor
