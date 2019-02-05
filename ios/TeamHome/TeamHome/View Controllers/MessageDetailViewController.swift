@@ -34,6 +34,9 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         setUpViewAppearance()
         subscribersCollectionView.backgroundColor = .clear
         Appearance.styleOrange(button: sendCommentButton)
+        let editImage = UIImage(named: "New Message")!
+        let editMessageBarButton = UIBarButtonItem(image: editImage, style: .plain, target: self, action: #selector(clickedEditButton))
+        navigationItem.rightBarButtonItem = editMessageBarButton
         
         setUpCommentTextView()
         
@@ -120,6 +123,10 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    @objc func clickedEditButton() {
+        performSegue(withIdentifier: "EditMessage", sender: self)
     }
     
     // MARK - Private Methods

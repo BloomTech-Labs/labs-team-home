@@ -96,8 +96,10 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
                     return
                 }
                 
-                guard let result = result else { return }
-                print(result.data?.updateUser)
+                guard let result = result,
+                    let user = result.data?.updateUser else { return }
+                print(user)
+                
                 self.watcher?.refetch()
             }
             return
@@ -122,8 +124,9 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
                     NSLog("\(error)")
                 }
                 
-                guard let result = result else { return }
-                print(result.data?.updateUser)
+                guard let result = result,
+                    let user = result.data?.updateUser else { return }
+                print(user)
                 self.watcher?.refetch()
             }
         }
@@ -172,12 +175,13 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
             
             _ = apollo.perform(mutation: UpdateTeamMutation(id: teamId, name: team.name, users: teamUserInputs), queue: DispatchQueue.global(), resultHandler: { (result, error) in
                 if let error = error {
-                    
+                    NSLog("\(error)")
+                    return
                 }
                 
                 guard let result = result else { return }
                 
-                
+                print(result)
             })
         }
     }

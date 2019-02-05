@@ -28,13 +28,14 @@ class CreateNewUserViewController: UIViewController {
         
         apollo.perform(mutation: CreateNewUserMutation(firstName: firstName, lastName: lastName, email: email, avatar: ""), queue: DispatchQueue.global()) { (result, error) in
             if let error = error {
+                NSLog("\(error)")
                 return
             }
             
             guard let result = result,
                 let data = result.data,
                 let user = data.addUser else { return }
-            
+            print(user)
             self.performSegue(withIdentifier: "ShowDashboard", sender: self)
         }
     }

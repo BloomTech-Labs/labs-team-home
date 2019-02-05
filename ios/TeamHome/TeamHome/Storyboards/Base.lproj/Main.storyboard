@@ -86,7 +86,7 @@
                         <outlet property="emailTextField" destination="jeL-4O-V3C" id="8Og-7t-HXy"/>
                         <outlet property="firstNameTextField" destination="9Th-rj-7OF" id="YUL-vr-jjf"/>
                         <outlet property="lastNameTextField" destination="nK2-3k-WPm" id="Mvl-ux-eu6"/>
-                        <segue destination="ody-ES-6Lo" kind="show" id="DPm-Su-I7i"/>
+                        <segue destination="ody-ES-6Lo" kind="show" identifier="ShowDashboard" id="DPm-Su-I7i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBK-5n-DND" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -151,13 +151,7 @@
                             <outlet property="delegate" destination="ody-ES-6Lo" id="OIe-SG-Qu8"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="My teams" id="MDL-0w-HUZ">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="f2g-yS-H2u">
-                            <connections>
-                                <action selector="addTeam:" destination="ody-ES-6Lo" id="t2R-b4-m7E"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="My teams" id="MDL-0w-HUZ"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kiJ-qT-G6q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -176,9 +170,6 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo With Nodes" translatesAutoresizingMaskIntoConstraints="NO" id="fw1-pX-lZQ">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="179.33333333333334"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="fw1-pX-lZQ" secondAttribute="height" multiplier="1:1" id="JSX-cy-NLs"/>
-                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team communication in one home" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHu-Vw-4eh">
                                         <rect key="frame" x="0.0" y="197.33333333333331" width="350" height="20.333333333333343"/>
@@ -379,28 +370,27 @@
                                         <rect key="frame" x="0.0" y="38" width="382" height="687"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cfd-2u-PfS">
-                                            <size key="itemSize" width="381" height="172"/>
+                                            <size key="itemSize" width="381" height="164"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="ActivityCell" id="aW5-Z1-c8j" customClass="ActivityCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                                <rect key="frame" x="0.66666666666666663" y="0.0" width="381" height="172"/>
+                                                <rect key="frame" x="0.66666666666666663" y="0.0" width="381" height="164"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="381" height="172"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="381" height="164"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gmO-bT-qJM" customClass="Card" customModule="Material">
-                                                            <rect key="frame" x="8" y="8" width="365" height="164"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmO-bT-qJM" customClass="Card" customModule="Material">
+                                                            <rect key="frame" x="8" y="8" width="365" height="124"/>
                                                             <subviews>
                                                                 <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="sKV-KG-cZB">
                                                                     <rect key="frame" x="357" y="8" width="0.0" height="0.0"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
                                                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qRN-wb-fcT">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="36" height="0.0"/>
                                                                             <subviews>
                                                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User Avatar Image" translatesAutoresizingMaskIntoConstraints="NO" id="bJJ-o2-8rH">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -441,12 +431,6 @@
                                                                                 </stackView>
                                                                             </subviews>
                                                                         </stackView>
-                                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vuq-8R-7fD">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="36" height="0.0"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                            <nil key="textColor"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
@@ -462,7 +446,6 @@
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="card" destination="gmO-bT-qJM" id="JHn-D8-ASV"/>
-                                                    <outlet property="dateLabel" destination="vuq-8R-7fD" id="cCh-63-dJy"/>
                                                     <outlet property="messageBodyClipLabel" destination="YXb-xt-Du4" id="xjk-BC-Sjj"/>
                                                     <outlet property="messageTitleLabel" destination="6ST-jH-VSJ" id="HvS-eU-kRn"/>
                                                     <outlet property="notificationLabel" destination="Yh0-fL-HdI" id="pjX-Wm-e6E"/>
@@ -496,7 +479,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O30-uR-lXq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2668.1159420289855" y="-367.63392857142856"/>
+            <point key="canvasLocation" x="2666.666666666667" y="-367.63392857142856"/>
         </scene>
         <!--MessageDetailView-->
         <scene sceneID="udm-S5-1gT">
@@ -833,7 +816,7 @@
                         <viewLayoutGuide key="safeArea" id="pu9-Jz-5NJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Message Board" id="9lm-7P-GIr">
-                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="uB1-kW-E9H">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="uB1-kW-E9H">
                             <connections>
                                 <segue destination="rKC-mD-nFa" kind="unwind" unwindAction="unwindToDashboardWithSegue:" id="SNe-Ec-pEK"/>
                             </connections>
@@ -863,17 +846,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="EgB-v1-EGV">
-                            <size key="itemSize" width="414" height="173"/>
+                            <size key="itemSize" width="414" height="166"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="MessageCell" id="GUR-Ge-V8W" customClass="MessageCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="173"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="166"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="173"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="166"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcE-Dr-iL2" customClass="Card" customModule="Material">

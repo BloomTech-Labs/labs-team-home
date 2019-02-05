@@ -21,9 +21,11 @@ class CommentCollectionViewCell: UICollectionViewCell {
      
         if hasLiked {
             delegate?.unlikeComment(cell: self)
+            favoriteButton = IconButton(image: Icon.favorite, tintColor: .white)
             self.hasLiked = false
         } else {
             delegate?.likeComment(cell: self)
+            favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
             self.hasLiked = true
         }
     }
@@ -45,7 +47,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         prepareContentView(with: comment)
         prepareBottomBar()
         prepareCard()
-//        
+       
 //        guard let avatar = comment.user.avatar else { return }
 //        
 //        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
@@ -61,8 +63,6 @@ class CommentCollectionViewCell: UICollectionViewCell {
 //                self.avatarImageView.image = image
 //            }
 //        }
-        
-        
     }
     
     private func prepareDateLabel(with dateString: String) {
@@ -85,7 +85,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         //            self.hasLiked = true
         //        }
         
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.white)
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: .white)
         favoriteButton.addTarget(self, action: #selector(self.clickedLikeButton(_:)), for: .touchUpInside)
     }
     
@@ -112,7 +112,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
     private func prepareBottomBar() {
         bottomBar = Bar()
         
-        bottomBar.leftViews = [favoriteButton]
+        bottomBar.leftViews = [favoriteButton, likeCountLabel]
         bottomBar.rightViews = [dateLabel]
         bottomBar.backgroundColor = .clear
     }
