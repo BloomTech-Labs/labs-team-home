@@ -17,7 +17,7 @@ import {
 import { StyledLink, TextIMG, RespNav } from '../Nav/styles/index';
 import Auth0 from '../Auth/Auth';
 // import styled from 'styled-components';
-// import Button from '../components/SignInUpButton';
+import LandingButton from '../Nav/components/LandingButton';
 import textLogo from '../assets/TH_text_filled.svg';
 // import { StyledAvatar } from '../SettingsView/styles/container.styles';
 import LandingNavOptions from './components/LandingNavOptions';
@@ -36,7 +36,9 @@ export default class RespNavBar extends Component {
 		this.toggle = this.toggle.bind(this);
 		this.state = {
 			isOpen: false,
-			auth: new Auth0()
+			auth: new Auth0(),
+			login: 'Login',
+			signup: 'Sign Up'
 		};
 	}
 
@@ -71,12 +73,16 @@ export default class RespNavBar extends Component {
 					<Collapse isOpen={this.state.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<NavLink href="/components/">Components</NavLink>
+								<LandingButton
+									clickFxn={this.handleLogin}
+									label={this.state.login}
+								/>
 							</NavItem>
 							<NavItem>
-								<NavLink href="https://github.com/reactstrap/reactstrap">
-									GitHub
-								</NavLink>
+								<LandingButton
+									clickFxn={this.handleLogin}
+									label={this.state.signup}
+								/>
 							</NavItem>
 						</Nav>
 					</Collapse>
