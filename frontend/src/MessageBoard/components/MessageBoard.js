@@ -239,15 +239,13 @@ class MessageBoard extends React.Component {
 		return (
 			<>
 				<Messageboard>
-					{this.state.showModal ? (
-						<AddMessage
-							closeHandler={this.closeModalHandler}
-							stopProp={this.stopProp}
-							team={this.props.team._id}
-							user={this.props.currentUser._id}
-						/>
-					) : null}
-
+					<AddMessage
+						closeHandler={this.closeModalHandler}
+						stopProp={this.stopProp}
+						team={this.props.team._id}
+						user={this.props.currentUser._id}
+						open={this.state.showModal}
+					/>
 					<Mutation mutation={mutation.INVITE_USER}>
 						{inviteUser => (
 							<Invites
@@ -281,7 +279,6 @@ class MessageBoard extends React.Component {
 							/>
 						)}
 					</Mutation>
-
 					<TeamName>
 						<h1>{this.props.team.name}</h1>
 						<Teamlogo>
