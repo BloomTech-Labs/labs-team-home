@@ -1,38 +1,14 @@
 import styled from 'styled-components';
 import mediaQueryFor from '../../../_global_styles/responsive_querie';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
 import { colors } from '../../../colorVariables';
-
-const styles = {
-	root: {
-		padding: '2px 4px',
-		display: 'flex',
-		alignItems: 'center',
-		width: 400
-	},
-	input: {
-		marginLeft: 8,
-		flex: 1
-	},
-	iconButton: {
-		padding: 10
-	},
-	divider: {
-		width: 1,
-		height: 28,
-		margin: 4
-	}
-};
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
 	position: relative;
-	top: 50px;
+	top: 90px;
 	width: 80%;
 	display: flex;
 	flex-direction: column;
@@ -41,9 +17,8 @@ export const Container = styled.div`
 	color: white;
 	font-family: Comfortaa;
 
-	h3 {
-		color: ${colors.text};
-		margin: 0 auto;
+	h1 {
+		color: ${colors.header};
 	}
 	${mediaQueryFor.mdDevice`
 
@@ -97,6 +72,10 @@ const Input = styled(InputBase)`
 const Button = styled(IconButton)`
 	background-color: ${colors.button};
 	color: ${colors.text};
+
+	:hover {
+		background-color: rgba(107, 40, 59, 0.7);
+	}
 `;
 
 const TeamsList = styled.div`
@@ -104,14 +83,17 @@ const TeamsList = styled.div`
 	margin: 0 auto;
 	display: flex;
 	flex-flow: column;
-	color: #f1fcef;
+	color: ${colors.text};
 	h3 {
 		font-size: 2.4rem;
 	}
 `;
 
-const LinkStyles = styled.a`
+const LinkStyles = styled(Link)`
 	text-decoration: none;
+	background-color: ${colors.button};
+	margin-bottom: 20px;
+	border-radius: 5px;
 `;
 
 export { Form, TeamsList, LinkStyles, Input, Button };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import * as style from './TeamList.styles';
 import * as query from '../../../constants/queries';
@@ -9,10 +9,10 @@ import * as mutation from '../../../constants/mutations';
 import TeamCard from './TeamCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+// import Paper from '@material-ui/core/Paper';
+// import InputBase from '@material-ui/core/InputBase';
+// import Divider from '@material-ui/core/Divider';
+// import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 
 const styles = {
@@ -82,21 +82,19 @@ const TeamList = props => {
 					</style.Form>
 				)}
 			</Mutation>
-			<h3>My Teams</h3>
+			<h1>My Teams</h1>
 			<style.TeamsList>
 				<Query query={query.FIND_TEAMS_BY_USER}>
 					{({ loading, error, data: { findTeamsByUser } }) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error :(</p>;
 						return findTeamsByUser.map(team => (
-							<style.LinkStyles>
-								<Link
-									to={`/${team._id}/home`}
-									key={team._id}
-									style={{ textDecoration: 'none' }}
-								>
-									<TeamCard team={team} />
-								</Link>
+							<style.LinkStyles
+								to={`/${team._id}/home`}
+								key={team._id}
+								style={{ textDecoration: 'none' }}
+							>
+								<TeamCard team={team} />
 							</style.LinkStyles>
 						));
 					}}
@@ -104,6 +102,10 @@ const TeamList = props => {
 			</style.TeamsList>
 		</style.Container>
 	);
+};
+
+TeamList.propTypes = {
+	classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(TeamList);

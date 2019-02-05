@@ -1,12 +1,12 @@
 import React from 'react';
 
-import * as s from './TeamCard.styles';
+import * as styles from './TeamCard.styles';
 
 const TeamCard = ({ team: { name, premium } }) => (
-	<s.Container>
+	<styles.Container>
 		<h3>{name}</h3>
 		<p>Premium? {premium ? '✔️' : '❌'}</p>
-	</s.Container>
+	</styles.Container>
 );
 
 export default TeamCard;
