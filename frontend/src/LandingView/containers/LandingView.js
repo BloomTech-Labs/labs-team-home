@@ -6,6 +6,7 @@ import TH_desktop from '../../assets/TH_desktop.svg';
 import Auth0 from '../../Auth/Auth';
 import Particles from 'react-particles-js';
 import particles from '../../animated/particles.json';
+import RespNavBAr from '../../Nav/NavResp';
 
 const styles = {
 	position: 'fixed',
@@ -43,11 +44,12 @@ export default class LandingView extends Component {
 	render() {
 		return (
 			<div>
-				<SignInSignUp
+				{/* <SignInSignUp
 					handleLogin={this.handleLogin}
 					handleSignUp={this.handleSignUp}
-				/>
+				/> */}
 				{/* <SVGAnimation src={TH_desktop}/> */}
+				<RespNavBAr />
 				<Particles params={particles} style={styles} />
 				<LogoBanner />
 			</div>
