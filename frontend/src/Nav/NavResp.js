@@ -9,10 +9,11 @@ import {
 	NavLink
 } from 'reactstrap';
 import { StyledLink, TextIMG, RespNav } from '../Nav/styles/index';
-import styled from 'styled-components';
+import Auth0 from '../Auth/Auth';
+// import styled from 'styled-components';
 // import Button from '../components/SignInUpButton';
 import textLogo from '../assets/TH_text_filled.svg';
-import { StyledAvatar } from '../SettingsView/styles/container.styles';
+// import { StyledAvatar } from '../SettingsView/styles/container.styles';
 import LandingNavOptions from './components/LandingNavOptions';
 
 const navStyle = {
@@ -28,9 +29,27 @@ export default class RespNavBar extends Component {
 
 		this.toggle = this.toggle.bind(this);
 		this.state = {
-			isOpen: false
+			isOpen: false,
+			auth: new Auth0()
 		};
 	}
+
+	componentDidMount() {
+		// Upon successful authentication, via Auth0, a token is set to localstorage
+		this.state.auth.lock.on('authenticated', authResult => {
+			localStorage.setItem('token', authResult.accessToken);
+			this.props.history.push('/dashboard');
+		});
+	}
+
+	handleLogin = () => {
+		this.state.auth.login();
+	};
+
+	handleSignUp = () => {
+		this.state.auth.signUp();
+	};
+
 	toggle() {
 		this.setState({
 			isOpen: !this.state.isOpen
@@ -43,7 +62,10 @@ export default class RespNavBar extends Component {
 					<TextIMG src={textLogo} />
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.state.isOpen} navbar>
-						<LandingNavOptions />
+						<LandingNavOptions
+							handleLogin={this.handleLogin}
+							handleSignUp={this.handleSignUp}
+						/>
 					</Collapse>
 				</Navbar>
 			</RespNav>
