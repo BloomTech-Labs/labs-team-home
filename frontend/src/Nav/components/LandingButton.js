@@ -14,19 +14,17 @@ const LandBtn = styled.button`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	font-family: Comfortaa;
 	color: #f1fcef;
-	color: #000;
 	text-decoration: none;
 	margin: 5px;
 	font-weight: bold;
 	background: none;
 	text-align: center;
 	padding: 0.6em 1em;
-	border: 1px solid gray;
-	border-radius: 4px;
+	border: none;
+	border-bottom: 1px solid #ecff26;
 	transition: 0.4s;
 	&:hover {
-		background-color: #f1fcef;
-		color: #17151b;
+		color: #ecff26;
 		transform: scale(1.05, 1.05);
 	}
 `;

@@ -26,7 +26,8 @@ const navStyle = {
 	width: '100%',
 	display: 'flex',
 	flexFlow: 'row',
-	justifyContent: 'space-between'
+	justifyContent: 'space-between',
+	backgroundColor: 'rgba(0,0,0,0)'
 };
 
 export default class RespNavBar extends Component {
@@ -66,41 +67,28 @@ export default class RespNavBar extends Component {
 	render() {
 		return (
 			<div>
-				{/* <RespNav> */}
-				<Navbar color="light" light expand="md">
-					<TextIMG src={textLogo} />
-					<NavbarToggler onClick={this.toggle} />
-					<Collapse isOpen={this.state.isOpen} navbar>
-						<Nav className="ml-auto" navbar>
-							<NavItem>
-								<LandingButton
-									clickFxn={this.handleLogin}
-									label={this.state.login}
-								/>
-							</NavItem>
-							<NavItem>
-								<LandingButton
-									clickFxn={this.handleLogin}
-									label={this.state.signup}
-								/>
-							</NavItem>
-						</Nav>
-					</Collapse>
-				</Navbar>
-
-				{/* <Navbar style={navStyle}>
-					<TextIMG src={textLogo} />
-					<NavbarToggler onClick={this.toggle} />
-				</Navbar>
-					<Collapse isOpen={this.state.isOpen} className="navbar collapse-navbar" navbar>
-          <Nav className="ml-auto" navbar>
-						<LandingNavOptions
-							handleLogin={this.handleLogin}
-							handleSignUp={this.handleSignUp}
-						/>
-          </Nav>
-					</Collapse> */}
-				{/* </RespNav> */}
+				<RespNav>
+					<Navbar expand="xl" style={navStyle}>
+						<TextIMG src={textLogo} />
+						<NavbarToggler onClick={this.toggle} />
+						<Collapse isOpen={this.state.isOpen} navbar>
+							<Nav className="ml-auto" navbar>
+								<NavItem>
+									<LandingButton
+										clickFxn={this.handleLogin}
+										label={this.state.login}
+									/>
+								</NavItem>
+								<NavItem>
+									<LandingButton
+										clickFxn={this.handleLogin}
+										label={this.state.signup}
+									/>
+								</NavItem>
+							</Nav>
+						</Collapse>
+					</Navbar>
+				</RespNav>
 			</div>
 		);
 	}
