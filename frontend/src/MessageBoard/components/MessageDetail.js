@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import { Query, Mutation, compose } from 'react-apollo';
-import { updateComment } from './mutations/comments';
+import { addComment, updateComment, deleteComment } from './mutations/comments';
 import { updateMessage, deleteMessage } from './mutations/messages';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -62,7 +62,11 @@ class MessageDetail extends Component {
 			hideModal,
 			message,
 			currentUser,
-			updateMsgComment
+			updateMsgComment,
+			addMsgComment,
+			deleteMsgComment,
+			updateMessage,
+			deleteMessage
 		} = this.props;
 		return (
 			<Dialog
@@ -159,15 +163,14 @@ class MessageDetail extends Component {
 																				)
 																					updateInput.content = this.state.content;
 
-																				return this.props
-																					.updateMessage(updateInput)
-																					.then(() =>
+																				return updateMessage(updateInput).then(
+																					() =>
 																						this.setState({
 																							editingMessage: false,
 																							title: '',
 																							content: ''
 																						})
-																					);
+																				);
 																			}
 																		}}
 																		style={{
@@ -257,95 +260,59 @@ class MessageDetail extends Component {
 																			color="secondary"
 																			onClick={e => {
 																				e.preventDefault();
-																				this.props
-																					.deleteMessage({
-																						id: findMessage._id
-																					})
-																					.then(() => {
-																						this.setState({
-																							editing: false,
-																							editingMessage: false,
-																							edited: null,
-																							title: '',
-																							content: ''
-																						});
-																						hideModal();
+																				deleteMessage({
+																					id: findMessage._id
+																				}).then(() => {
+																					this.setState({
+																						editing: false,
+																						editingMessage: false,
+																						edited: null,
+																						title: '',
+																						content: ''
 																					});
+																					hideModal();
+																				});
 																			}}
 																		>
 																			Delete Message
 																		</Button>
 																	</>
 																)}
-
-																<Mutation
-																	mutation={mutation.UPDATE_MESSAGE}
-																	update={(
-																		cache,
-																		{ data: { updateMessage } }
-																	) => {
-																		const {
-																			findMessagesByTeam
-																		} = cache.readQuery({
-																			query: query.FIND_MESSAGES_BY_TEAM,
-																			variables: { team: this.props.team }
-																		});
-																		cache.writeQuery({
-																			query: query.FIND_MESSAGES_BY_TEAM,
-																			variables: { team: this.props.team },
-																			data: {
-																				findMessagesByTeam: findMessagesByTeam.map(
-																					message =>
-																						message._id === updateMessage._id
-																							? updateMessage
-																							: message
-																				)
-																			}
-																		});
+																<Button
+																	size="small"
+																	style={{ color: '#fff' }}
+																	color="secondary"
+																	onClick={e => {
+																		e.preventDefault();
+																		findMessage.subscribedUsers.find(
+																			({ _id }) => _id === currentUser._id
+																		)
+																			? updateMessage({
+																					id: findMessage._id,
+																					subscribedUsers: findMessage.subscribedUsers
+																						.filter(
+																							({ _id }) =>
+																								_id !== currentUser._id
+																						)
+																						.map(({ _id }) => _id)
+																			  })
+																			: updateMessage({
+																					id: findMessage._id,
+																					subscribedUsers: [
+																						...findMessage.subscribedUsers.map(
+																							({ _id }) => _id
+																						),
+																						currentUser._id
+																					]
+																			  });
 																	}}
 																>
-																	{updateMessage => (
-																		<Button
-																			size="small"
-																			style={{ color: '#fff' }}
-																			color="secondary"
-																			onClick={e => {
-																				e.preventDefault();
-																				findMessage.subscribedUsers.find(
-																					({ _id }) => _id === currentUser._id
-																				)
-																					? updateMessage({
-																							variables: {
-																								id: findMessage._id,
-																								subscribedUsers: findMessage.subscribedUsers
-																									.filter(
-																										({ _id }) =>
-																											_id !== currentUser._id
-																									)
-																									.map(({ _id }) => _id)
-																							}
-																					  })
-																					: updateMessage({
-																							variables: {
-																								id: findMessage._id,
-																								subscribedUsers: [
-																									...findMessage.subscribedUsers.map(
-																										({ _id }) => _id
-																									),
-																									currentUser._id
-																								]
-																							}
-																					  });
-																			}}
-																		>
-																			{findMessage.subscribedUsers.find(
-																				({ _id }) => _id === currentUser._id
-																			)
-																				? 'Unsubscribe'
-																				: 'Subscribe'}
-																		</Button>
-																	)}
-																</Mutation>
+																	{findMessage.subscribedUsers.find(
+																		({ _id }) => _id === currentUser._id
+																	)
+																		? 'Unsubscribe'
+																		: 'Subscribe'}
+																</Button>
 															</CardActions>
 														</Card>
 														<Typography
@@ -436,46 +403,19 @@ class MessageDetail extends Component {
 																	</Button>
 																)}
 																{comment.user._id === currentUser._id && (
-																	<Mutation
-																		mutation={mutation.DELETE_COMMENT}
-																		update={(
-																			cache,
-																			{ data: { deleteMsgComment } }
-																		) => {
-																			const {
-																				findMsgCommentsByMessage
-																			} = cache.readQuery({
-																				query: query.FIND_COMMENTS_BY_MESSAGE,
-																				variables: { message: message._id }
-																			});
-																			cache.writeQuery({
-																				query: query.FIND_COMMENTS_BY_MESSAGE,
-																				variables: { message: message._id },
-																				data: {
-																					findMsgCommentsByMessage: findMsgCommentsByMessage.filter(
-																						({ _id }) =>
-																							_id !== deleteMsgComment._id
-																					)
-																				}
+																	<Button
+																		size="small"
+																		style={{ color: '#fff' }}
+																		color="secondary"
+																		onClick={e => {
+																			e.preventDefault();
+																			deleteMsgComment({
+																				id: comment._id
 																			});
 																		}}
 																	>
-																		{deleteMsgComment => (
-																			<Button
-																				size="small"
-																				style={{ color: '#fff' }}
-																				color="secondary"
-																				onClick={e => {
-																					e.preventDefault();
-																					deleteMsgComment({
-																						variables: { id: comment._id }
-																					});
-																				}}
-																			>
-																				Delete Comment
-																			</Button>
-																		)}
-																	</Mutation>
+																		Delete Comment
+																	</Button>
 																)}
 																<Button
 																	size="small"
@@ -505,55 +445,29 @@ class MessageDetail extends Component {
 															</Paper>
 														))}
 													</Card>
-													<Mutation
-														mutation={mutation.ADD_COMMENT}
-														update={(cache, { data: { addMsgComment } }) => {
-															const {
-																findMsgCommentsByMessage
-															} = cache.readQuery({
-																query: query.FIND_COMMENTS_BY_MESSAGE,
-																variables: { message: message._id }
+													<form
+														action="submit"
+														onSubmit={e => {
+															e.preventDefault();
+															addMsgComment({
+																message: message._id,
+																content: content.value
 															});
-															cache.writeQuery({
-																query: query.FIND_COMMENTS_BY_MESSAGE,
-																variables: { message: message._id },
-																data: {
-																	findMsgCommentsByMessage: [
-																		...findMsgCommentsByMessage,
-																		addMsgComment
-																	]
-																}
-															});
+															content.value = '';
 														}}
 													>
-														{addMsgComment => (
-															<form
-																action="submit"
-																onSubmit={e => {
-																	e.preventDefault();
-																	addMsgComment({
-																		variables: {
-																			message: message._id,
-																			content: content.value
-																		}
-																	});
-																	content.value = '';
+														<label htmlFor="comment-content">
+															<TextField
+																placeholder="Leave a comment.."
+																inputRef={node => {
+																	content = node;
 																}}
-															>
-																<label htmlFor="comment-content">
-																	<TextField
-																		placeholder="Leave a comment.."
-																		inputRef={node => {
-																			content = node;
-																		}}
-																		inputProps={{ style: { color: '#fff' } }}
-																		variant="outlined"
-																		fullWidth
-																	/>
-																</label>
-															</form>
-														)}
-													</Mutation>
+																inputProps={{ style: { color: '#fff' } }}
+																variant="outlined"
+																fullWidth
+															/>
+														</label>
+													</form>
 												</>
 											);
 										}}
@@ -569,7 +483,9 @@ class MessageDetail extends Component {
 }
 
 export default compose(
+	addComment,
 	updateComment,
+	deleteComment,
 	updateMessage,
 	deleteMessage
 )(MessageDetail);
