@@ -30,5 +30,6 @@ mutation CreateNewTag($name: String!, $teamId: String) {
            team: $teamId
            }) {
         _id
+        name
     }
 }

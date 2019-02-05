@@ -2183,7 +2183,7 @@ public final class UpdateMessageMutation: GraphQLMutation {
 
 public final class CreateNewTagMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation CreateNewTag($name: String!, $teamId: String) {\n  addTag(input: {name: $name, team: $teamId}) {\n    __typename\n    _id\n  }\n}"
+    "mutation CreateNewTag($name: String!, $teamId: String) {\n  addTag(input: {name: $name, team: $teamId}) {\n    __typename\n    _id\n    name\n  }\n}"
 
   public var name: String
   public var teamId: String?
@@ -2229,6 +2229,7 @@ public final class CreateNewTagMutation: GraphQLMutation {
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("_id", type: .scalar(GraphQLID.self)),
+        GraphQLField("name", type: .nonNull(.scalar(String.self))),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -2237,8 +2238,8 @@ public final class CreateNewTagMutation: GraphQLMutation {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Tag", "_id": id])
+      public init(id: GraphQLID? = nil, name: String) {
+        self.init(unsafeResultMap: ["__typename": "Tag", "_id": id, "name": name])
       }
 
       public var __typename: String {
@@ -2256,6 +2257,15 @@ public final class CreateNewTagMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+
+      public var name: String {
+        get {
+          return resultMap["name"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "name")
         }
       }
     }

@@ -24,7 +24,11 @@ class InviteToTeamViewController: UIViewController {
                 return
             }
             
-            guard let result = result else { return }
+            guard let result = result,
+                let data = result.data,
+                let user = data.inviteUser else { return }
+            
+            print(user)
             teamWatcher?.refetch()
             
         }
