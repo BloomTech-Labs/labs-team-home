@@ -45,6 +45,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
                 
                 let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
                 self.avatarImageView = UIImageView(image: resizedImage.image)
+                self.avatarImageView.frame = CGRect(x: 0, y: 0, width: self.avatarImageView.frame.width, height: self.avatarImageView.frame.height)
                 self.avatarImageView.contentMode = .scaleAspectFit
                 self.prepareToolbar(firstName: message.user.firstName, lastName: message.user.lastName, messageTitle: message.title, message: message)
                 self.prepareCard()
@@ -77,10 +78,9 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     private func prepareComments(for message: FindMessagesByTeamQuery.Data.FindMessagesByTeam) {
         let commentImage = UIImage(named: "Comments")!
-        let resizedImage = Toucan.init(image: commentImage).resize(CGSize(width: 48, height: 48))
-        commentIcon = UIImageView(image: resizedImage.image)
+        commentIcon = UIImageView(image: commentImage)
         commentIcon.tintColor = .white
-        commentIcon.contentMode = .scaleAspectFit
+//        commentIcon.contentMode = .scaleAspectFit
         commentIcon.contentScaleFactor = Screen.scale
         
         commentsCountLabel = UILabel()
@@ -139,7 +139,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         card.toolbarEdgeInsets.right = 8
         
         card.contentView = contentLabel
-        card.contentViewEdgeInsetsPreset = .wideRectangle4
+        card.contentViewEdgeInsetsPreset = .wideRectangle5
         
         card.bottomBar = bottomBar
         card.bottomBarEdgeInsetsPreset = .wideRectangle2

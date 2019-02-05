@@ -54,29 +54,31 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
         
         let id = currentUser.id
         
-        var likeIDs = likes.compactMap({ $0?.id })
-        if !likeIDs.contains(id) {
-            likeIDs.append(id)
-            apollo.perform(mutation: UpdateLikeMutation(commentId: commentId, likes: likeIDs), queue: DispatchQueue.global()) { (result, error) in
-                if let error = error {
-                    return
-                }
-                
-                
-            }
-        } else {
-            likeIDs = likeIDs.compactMap({ (likeID) -> GraphQLID? in
-                if likeID == id { return nil}
-                return likeID
-                })
-            apollo.perform(mutation: UpdateLikeMutation(commentId: commentId, likes: likeIDs), queue: DispatchQueue.global()) { (result, error) in
-                if let error = error {
-                    return
-                }
-                
-                
-            }
-        }
+//        var likeIDs = likes.compactMap({ $0?.id })
+//        if !likeIDs.contains(id) {
+//            likeIDs.append(id)
+//            apollo.perform(mutation: UpdateLikeMutation(commentId: commentId, likes: likeIDs), queue: DispatchQueue.global()) { (result, error) in
+//                if let error = error {
+//                    NSLog("\(error)")
+//                    return
+//                }
+//                
+//                
+//            }
+//        } else {
+//            likeIDs = likeIDs.compactMap({ (likeID) -> GraphQLID? in
+//                if likeID == id { return nil}
+//                return likeID
+//                })
+//            apollo.perform(mutation: UpdateLikeMutation(commentId: commentId, likes: likeIDs), queue: DispatchQueue.global()) { (result, error) in
+//                if let error = error {
+//                    NSLog("\(error)")
+//                    return
+//                }
+//                
+//                
+//            }
+//        }
     }
     
     

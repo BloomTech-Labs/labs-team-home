@@ -18,19 +18,27 @@ query FindCommentsByMessage($messageId: ID!) {
     }
 }
 
-mutation updateLike($commentId: ID!, $likes: [ID]) {
-    updateMsgComment(input: {
-                     id: $commentId
-                     likes: $likes
+mutation likeComment($id: ID!) {
+    likeMsgComment(input: {
+                   id: $id
+                   }) {
+        _id
+    }
+}
+
+mutation unlikeComment($id: ID!) {
+    unLikeMsgComment(input: {
+                     id: $id
                      }) {
         _id
     }
 }
 
-mutation CreateComment($message: String!, $content: String!) {
+mutation CreateComment($message: String!, $content: String!, $image: String) {
     addMsgComment(input: {
                   message: $message
                   content: $content
+                  image: $image
                   }) {
         _id
     }

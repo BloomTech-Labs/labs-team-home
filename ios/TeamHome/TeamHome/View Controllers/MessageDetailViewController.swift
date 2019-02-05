@@ -35,15 +35,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         subscribersCollectionView.backgroundColor = .clear
         Appearance.styleOrange(button: sendCommentButton)
         
-        self.commentTextView.delegate = self
-        commentTextView.maxLength = 140
-        commentTextView.trimWhiteSpaceWhenEndEditing = false
-        commentTextView.placeholder = "Say something..."
-        commentTextView.placeholderColor = UIColor(white: 0.8, alpha: 1.0)
-        commentTextView.minHeight = 25.0
-        commentTextView.maxHeight = 70.0
-        commentTextView.backgroundColor = UIColor.white
-        commentTextView.layer.cornerRadius = 4.0
+        setUpCommentTextView()
         
         guard let apollo = apollo else { return }
         
@@ -66,6 +58,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             }
             
             guard let result = result else { return }
+            
+            print(result)
             
             commentsWatcher?.refetch()
         }
@@ -130,6 +124,18 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     
     // MARK - Private Methods
     
+    private func setUpCommentTextView() {
+        self.commentTextView.delegate = self
+        commentTextView.maxLength = 140
+        commentTextView.trimWhiteSpaceWhenEndEditing = false
+        commentTextView.placeholder = "Say something..."
+        commentTextView.placeholderColor = UIColor(white: 0.8, alpha: 1.0)
+        commentTextView.minHeight = 25.0
+        commentTextView.maxHeight = 70.0
+        commentTextView.backgroundColor = UIColor.white
+        commentTextView.layer.cornerRadius = 4.0
+    }
+    
     private func loadMessageDetails(with apollo: ApolloClient) {
         
         guard let messageId = messageId else { return }
@@ -152,12 +158,17 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     private func updateViews() {
-        guard let message = message else { return }
+        guard let message = message,
+            let dateString = message.createdAt,
+            let dateDouble = Double(dateString) else { return }
+        
+        let dateDouble2 = dateDouble / 1000.0
+        let date = dateDouble2.getDateStringFromUTC()
         
         messageTitleLabel.text = message.title
         firstNameLabel.text = message.user.firstName
         lastNameLabel.text = message.user.lastName
-        dateLabel.text = ""
+        dateLabel.text = date
         messageBodyLabel.text = message.content
         
         // Download image and display as user avatar
@@ -223,7 +234,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     var subscribersHorixzontal: MEVHorizontalContacts!
-    
     var watcher: GraphQLQueryWatcher<FindMessageByIdQuery>?
     var messageId: GraphQLID?
     var apollo: ApolloClient?

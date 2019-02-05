@@ -1657,27 +1657,25 @@ public final class FindCommentsByMessageQuery: GraphQLQuery {
   }
 }
 
-public final class UpdateLikeMutation: GraphQLMutation {
+public final class LikeCommentMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation updateLike($commentId: ID!, $likes: [ID]) {\n  updateMsgComment(input: {id: $commentId, likes: $likes}) {\n    __typename\n    _id\n  }\n}"
+    "mutation likeComment($id: ID!) {\n  likeMsgComment(input: {id: $id}) {\n    __typename\n    _id\n  }\n}"
 
-  public var commentId: GraphQLID
-  public var likes: [GraphQLID?]?
+  public var id: GraphQLID
 
-  public init(commentId: GraphQLID, likes: [GraphQLID?]? = nil) {
-    self.commentId = commentId
-    self.likes = likes
+  public init(id: GraphQLID) {
+    self.id = id
   }
 
   public var variables: GraphQLMap? {
-    return ["commentId": commentId, "likes": likes]
+    return ["id": id]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("updateMsgComment", arguments: ["input": ["id": GraphQLVariable("commentId"), "likes": GraphQLVariable("likes")]], type: .object(UpdateMsgComment.selections)),
+      GraphQLField("likeMsgComment", arguments: ["input": ["id": GraphQLVariable("id")]], type: .object(LikeMsgComment.selections)),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -1686,20 +1684,99 @@ public final class UpdateLikeMutation: GraphQLMutation {
       self.resultMap = unsafeResultMap
     }
 
-    public init(updateMsgComment: UpdateMsgComment? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Mutation", "updateMsgComment": updateMsgComment.flatMap { (value: UpdateMsgComment) -> ResultMap in value.resultMap }])
+    public init(likeMsgComment: LikeMsgComment? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "likeMsgComment": likeMsgComment.flatMap { (value: LikeMsgComment) -> ResultMap in value.resultMap }])
     }
 
-    public var updateMsgComment: UpdateMsgComment? {
+    public var likeMsgComment: LikeMsgComment? {
       get {
-        return (resultMap["updateMsgComment"] as? ResultMap).flatMap { UpdateMsgComment(unsafeResultMap: $0) }
+        return (resultMap["likeMsgComment"] as? ResultMap).flatMap { LikeMsgComment(unsafeResultMap: $0) }
       }
       set {
-        resultMap.updateValue(newValue?.resultMap, forKey: "updateMsgComment")
+        resultMap.updateValue(newValue?.resultMap, forKey: "likeMsgComment")
       }
     }
 
-    public struct UpdateMsgComment: GraphQLSelectionSet {
+    public struct LikeMsgComment: GraphQLSelectionSet {
+      public static let possibleTypes = ["MsgComment"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "MsgComment", "_id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+    }
+  }
+}
+
+public final class UnlikeCommentMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation unlikeComment($id: ID!) {\n  unLikeMsgComment(input: {id: $id}) {\n    __typename\n    _id\n  }\n}"
+
+  public var id: GraphQLID
+
+  public init(id: GraphQLID) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("unLikeMsgComment", arguments: ["input": ["id": GraphQLVariable("id")]], type: .object(UnLikeMsgComment.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(unLikeMsgComment: UnLikeMsgComment? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "unLikeMsgComment": unLikeMsgComment.flatMap { (value: UnLikeMsgComment) -> ResultMap in value.resultMap }])
+    }
+
+    public var unLikeMsgComment: UnLikeMsgComment? {
+      get {
+        return (resultMap["unLikeMsgComment"] as? ResultMap).flatMap { UnLikeMsgComment(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "unLikeMsgComment")
+      }
+    }
+
+    public struct UnLikeMsgComment: GraphQLSelectionSet {
       public static let possibleTypes = ["MsgComment"]
 
       public static let selections: [GraphQLSelection] = [
@@ -1740,25 +1817,27 @@ public final class UpdateLikeMutation: GraphQLMutation {
 
 public final class CreateCommentMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation CreateComment($message: String!, $content: String!) {\n  addMsgComment(input: {message: $message, content: $content}) {\n    __typename\n    _id\n  }\n}"
+    "mutation CreateComment($message: String!, $content: String!, $image: String) {\n  addMsgComment(input: {message: $message, content: $content, image: $image}) {\n    __typename\n    _id\n  }\n}"
 
   public var message: String
   public var content: String
+  public var image: String?
 
-  public init(message: String, content: String) {
+  public init(message: String, content: String, image: String? = nil) {
     self.message = message
     self.content = content
+    self.image = image
   }
 
   public var variables: GraphQLMap? {
-    return ["message": message, "content": content]
+    return ["message": message, "content": content, "image": image]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("addMsgComment", arguments: ["input": ["message": GraphQLVariable("message"), "content": GraphQLVariable("content")]], type: .object(AddMsgComment.selections)),
+      GraphQLField("addMsgComment", arguments: ["input": ["message": GraphQLVariable("message"), "content": GraphQLVariable("content"), "image": GraphQLVariable("image")]], type: .object(AddMsgComment.selections)),
     ]
 
     public private(set) var resultMap: ResultMap

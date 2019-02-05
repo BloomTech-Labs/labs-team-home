@@ -33,7 +33,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         
         prepareDateFormatter()
         prepareDateLabel()
-        prepareFavoriteButton()
+        prepareLikeButton()
         prepareMoreButton()
         prepareToolbar()
         prepareContentView()
@@ -91,8 +91,8 @@ class CommentCollectionViewCell: UICollectionViewCell {
         datesLabel.text = dateFormatter.string(from: Date.distantFuture)
     }
     
-    fileprivate func prepareFavoriteButton() {
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
+    fileprivate func prepareLikeButton() {
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.white)
     }
     
     fileprivate func prepareMoreButton() {
