@@ -93,6 +93,7 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
     private func fetchCurrentUser(with apollo: ApolloClient) {
         apollo.fetch(query: CurrentUserQuery()) { (result, error) in
             if let error = error {
+                NSLog("\(error)")
                 return
             }
             

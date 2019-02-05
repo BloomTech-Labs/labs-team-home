@@ -122,7 +122,7 @@ class DashboardCollectionViewController: UICollectionViewController {
                 guard let result = result else { return }
                 // Call water to reload teams and present them to user
                 self.watcher?.refetch()
-                print(self.teams)
+                print(result)
             })
         }))
         

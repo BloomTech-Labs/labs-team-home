@@ -11,18 +11,21 @@ import Cloudinary
 import Material
 
 protocol CommentCollectionCellDelegate: class {
-    func didClickLikeButton(cell: CommentCollectionViewCell)
+    func likeComment(cell: CommentCollectionViewCell)
+    func unlikeComment(cell: CommentCollectionViewCell)
 }
 
 class CommentCollectionViewCell: UICollectionViewCell {
     
-    @IBAction func likeComment(_ sender: Any) {
-        delegate?.didClickLikeButton(cell: self)
-        
-        guard let hasLiked = hasLiked else { return }
+    @objc func clickedLikeButton(_ sender: IconButton) {
+     
         if hasLiked {
+            delegate?.unlikeComment(cell: self)
+            favoriteButton = IconButton(image: Icon.favorite, tintColor: .white)
             self.hasLiked = false
         } else {
+            delegate?.likeComment(cell: self)
+            favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
             self.hasLiked = true
         }
     }
@@ -31,35 +34,20 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     private func updateViews() {
         
-        prepareDateFormatter()
-        prepareDateLabel()
-        prepareFavoriteButton()
-        prepareMoreButton()
-        prepareToolbar()
-        prepareContentView()
+        guard let comment = comment,
+            let dateString = comment.createdAt,
+            let dateDouble = Double(dateString) else { return }
+        
+        let dateDouble2 = dateDouble / 1000.0
+        let date = dateDouble2.getDateStringFromUTC()
+
+        prepareDateLabel(with: date)
+        prepareLikes(for: comment)
+        prepareToolbar(with: comment)
+        prepareContentView(with: comment)
         prepareBottomBar()
         prepareCard()
-        
-        guard let comment = comment,
-            let currentUser = currentUser else { return }
-//        
-//        let id = currentUser.id 
-//        
-//        firstNameLabel.text = comment.user.firstName
-//        lastNameLabel.text = comment.user.lastName
-//        commentBodyText.text = comment.content
-//        dateLabel.text = ""
-//        
-//        guard let likes = comment.likes else { return }
-//        likeCountLabel.text = "\(likes.count) likes"
-//        
-//        let likeIDs = likes.compactMap({ $0?.id })
-//        if !likeIDs.contains(id) {
-//            self.hasLiked = false
-//        } else {
-//            self.hasLiked = true
-//        }
-//        
+       
 //        guard let avatar = comment.user.avatar else { return }
 //        
 //        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
@@ -77,56 +65,59 @@ class CommentCollectionViewCell: UICollectionViewCell {
 //        }
     }
     
-    
-    fileprivate func prepareDateFormatter() {
-        dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+    private func prepareDateLabel(with dateString: String) {
+        dateLabel = UILabel()
+        dateLabel.font = RobotoFont.regular(with: 12)
+        dateLabel.textColor = Color.grey.base
+        dateLabel.text = dateString
     }
     
-    fileprivate func prepareDateLabel() {
-        datesLabel = UILabel()
-        datesLabel.font = RobotoFont.regular(with: 12)
-        datesLabel.textColor = Color.grey.base
-        datesLabel.text = dateFormatter.string(from: Date.distantFuture)
-    }
-    
-    fileprivate func prepareFavoriteButton() {
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
-    }
-    
-    fileprivate func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
-    }
-    
-    fileprivate func prepareToolbar() {
-        toolbar = Toolbar(rightViews: [moreButton])
+    private func prepareLikes(for comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+        guard let likes = comment.likes else { return }
         
-        toolbar.title = "Material"
+        likeCountLabel = UILabel()
+        likeCountLabel.text = "\(likes.count) likes"
+        //
+        //        let likeIDs = likes.compactMap({ $0?.id })
+        //        if !likeIDs.contains(id) {
+        //            self.hasLiked = false
+        //        } else {
+        //            self.hasLiked = true
+        //        }
+        
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: .white)
+        favoriteButton.addTarget(self, action: #selector(self.clickedLikeButton(_:)), for: .touchUpInside)
+    }
+    
+    private func prepareToolbar(with comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+        toolbar = Toolbar()
+        
+        toolbar.title = "\(comment.user.firstName) \(comment.user.lastName)"
         toolbar.titleLabel.textAlignment = .left
+        toolbar.titleLabel.textColor = .white
         
-        toolbar.detail = "Build Beautiful Software"
+        toolbar.detail = ""
         toolbar.detailLabel.textAlignment = .left
-        toolbar.detailLabel.textColor = Color.grey.base
+        toolbar.detailLabel.textColor = .white
         toolbar.backgroundColor = .clear
     }
     
-    fileprivate func prepareContentView() {
+    private func prepareContentView(with comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
         contentLabel = UILabel()
         contentLabel.numberOfLines = 0
-        contentLabel.text = "Material is an animation and graphics framework that is used to create beautiful applications."
+        contentLabel.text = comment.content
         contentLabel.font = RobotoFont.regular(with: 14)
     }
     
-    fileprivate func prepareBottomBar() {
+    private func prepareBottomBar() {
         bottomBar = Bar()
         
-        bottomBar.leftViews = [favoriteButton]
-        bottomBar.rightViews = [datesLabel]
+        bottomBar.leftViews = [favoriteButton, likeCountLabel]
+        bottomBar.rightViews = [dateLabel]
         bottomBar.backgroundColor = .clear
     }
     
-    fileprivate func prepareCard() {
+    private func prepareCard() {
         
         card.toolbar = toolbar
         card.toolbarEdgeInsetsPreset = .square3
@@ -144,34 +135,27 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     // MARK - Properties
     
+    private var hasLiked: Bool = false
+    
+    weak var delegate: CommentCollectionCellDelegate?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     var comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage? {
         didSet {
             self.updateViews()
         }
     }
     
-    var hasLiked: Bool? = false
-    var currentUser: CurrentUserQuery.Data.CurrentUser?
-    weak var delegate: CommentCollectionCellDelegate?
-    
-    
-    fileprivate var toolbar: Toolbar!
-    fileprivate var moreButton: IconButton!
-    
-    fileprivate var contentLabel: UILabel!
-    
-    fileprivate var bottomBar: Bar!
-    fileprivate var dateFormatter: DateFormatter!
-    fileprivate var datesLabel: UILabel!
-    fileprivate var favoriteButton: IconButton!
+    private var toolbar: Toolbar!
+    private var contentLabel: UILabel!
+    private var bottomBar: Bar!
+    private var dateLabel: UILabel!
+    private var favoriteButton: IconButton!
+    private var likeCountLabel: UILabel!
     
     @IBOutlet weak var card: Card!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var commentBodyText: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var commentImageView: UIImageView!
-    @IBOutlet weak var likeCountLabel: UILabel!
-    @IBOutlet weak var likeButton: UIButton!
 }

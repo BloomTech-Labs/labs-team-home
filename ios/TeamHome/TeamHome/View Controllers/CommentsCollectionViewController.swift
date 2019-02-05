@@ -45,40 +45,39 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
     
     // MARK - CommentCollectionCellDelegate
     
-    func didClickLikeButton(cell: CommentCollectionViewCell) {
+    func likeComment(cell: CommentCollectionViewCell) {
         guard let apollo = apollo,
-           let comment = cell.comment,
-        let commentId = comment.id,
-            let currentUser = currentUser,
-            let likes = comment.likes else { return }
+            let comment = cell.comment,
+            let commentId = comment.id else { return }
         
-        let id = currentUser.id
-        
-        var likeIDs = likes.compactMap({ $0?.id })
-        if !likeIDs.contains(id) {
-            likeIDs.append(id)
-            apollo.perform(mutation: UpdateLikeMutation(commentId: commentId, likes: likeIDs), queue: DispatchQueue.global()) { (result, error) in
-                if let error = error {
-                    return
-                }
-                
-                
+        // Check if already liked
+        apollo.perform(mutation: LikeCommentMutation(id: commentId), queue: DispatchQueue.global()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
             }
-        } else {
-            likeIDs = likeIDs.compactMap({ (likeID) -> GraphQLID? in
-                if likeID == id { return nil}
-                return likeID
-                })
-            apollo.perform(mutation: UpdateLikeMutation(commentId: commentId, likes: likeIDs), queue: DispatchQueue.global()) { (result, error) in
-                if let error = error {
-                    return
-                }
-                
-                
-            }
+            
+            guard let result = result else { return }
+            
+            print(result)
         }
     }
     
+    func unlikeComment(cell: CommentCollectionViewCell) {
+        guard let apollo = apollo,
+            let comment = cell.comment,
+            let commentId = comment.id else { return }
+        
+        // Check if already liked
+        apollo.perform(mutation: UnlikeCommentMutation(id: commentId), queue: DispatchQueue.global()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let result = result else { return }
+            
+            print(result)
+        }
+    }
     
     // MARK - Private Methods
     
