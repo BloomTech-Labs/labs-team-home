@@ -30,9 +30,9 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         self.setNeedsStatusBarAppearanceUpdate()
         
         createGradientLayer()
-        
-        Appearance.styleOrange(button: advancedSettingsButton)
-        Appearance.styleOrange(button: saveChangesButton)
+//        
+//        Appearance.styleOrange(button: advancedSettingsButton)
+//        Appearance.styleOrange(button: saveChangesButton)
         
         guard let apollo = apollo else { return }
         
