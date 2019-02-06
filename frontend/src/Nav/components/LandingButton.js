@@ -1,16 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-	Collapse,
-	Navbar,
-	NavbarToggler,
-	Nav,
-	NavItem,
-	NavLink
-} from 'reactstrap';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 
-// yellow text rgb(236, 255, 38); #ecff26;
 const LandBtn = styled.button`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	font-family: Comfortaa;

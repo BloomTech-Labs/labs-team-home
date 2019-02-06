@@ -1,5 +1,5 @@
 export const palette = {
-	yellow: '#FAED26',
+	yellow: '#ecff26',
 	plum: '#3E3145',
 	gray: '#5A5560',
 	beige: '#9D8D8F',

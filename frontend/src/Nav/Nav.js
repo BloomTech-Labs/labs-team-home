@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
 import { StyledLink, TextIMG, RespNav } from './styles/index';
 import { Spin } from 'react-burgers';
 import textLogo from '../assets/TH_text_filled.svg';
-
-const navStyle = {
-	width: '100%',
-	display: 'flex',
-	flexFlow: 'row',
-	justifyContent: 'space-between',
-	backgroundColor: 'rgba(0,0,0,0)'
-};
 
 export default class AppNavBar extends Component {
 	constructor(props) {
