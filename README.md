@@ -18,6 +18,7 @@
     - [React](#react)
     - [Apollo Client](#apollo-client)
     - [Styled Components](#styled-components)
+    - [Material UI](#material-ui)
     - [Stripe](#stripe)
   - [Front-End Development Dependencies](#front-end-development-dependencies)
     - [Husky](#husky)
@@ -59,6 +60,10 @@ Apollo Client is designed to quickly build a UI that works with GraphQL and inte
 ### Styled Components
 
 Styled Components is a popular CSS-in-JS library that provides flexibility and seamless integration with React allowing for customizable themes and styling that responds to props and JS logic.<br/>[Styled Components info](https://www.styled-components.com/docs/)
+
+### Material-UI
+
+Material-UI is an open source library that uses React components which implement Google's Material Design. It makes using and designing components easier for anyone that uses it.<br/>[Material-UI info](https://material-ui.com/)
 
 ### Stripe
 
