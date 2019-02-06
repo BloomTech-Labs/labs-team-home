@@ -241,7 +241,7 @@ class SettingsView extends Component {
 										/>
 									</AvatarUploadContainer>
 									<FormInput
-										inputtype="text"
+										inputType="text"
 										name={'firstName'}
 										title={'First Name'}
 										value={this.state.firstName}
@@ -250,10 +250,10 @@ class SettingsView extends Component {
 												? this.props.currentUser.firstName
 												: 'Enter your first name'
 										}
-										onChange={this.handleChange}
+										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputtype="text"
+										inputType="text"
 										name={'lastName'}
 										title={'Last Name'}
 										value={this.state.lastName}
@@ -262,10 +262,10 @@ class SettingsView extends Component {
 												? this.props.currentUser.lastName
 												: 'Enter your last name'
 										}
-										onChange={this.handleChange}
+										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputtype={'text'}
+										inputType={'text'}
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
@@ -274,10 +274,10 @@ class SettingsView extends Component {
 												? this.props.currentUser.email
 												: 'Enter your email'
 										}
-										onChange={this.handleChange}
+										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputtype="text"
+										inputType="text"
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
@@ -286,7 +286,7 @@ class SettingsView extends Component {
 												? this.props.currentUser.phoneNumber
 												: 'Enter your phone number'
 										}
-										onChange={this.handleChange}
+										handleChange={this.handleChange}
 									/>
 									<FormCheckbox
 										title={'Receive emails?'}
@@ -358,7 +358,7 @@ class SettingsView extends Component {
 									}}
 								>
 									<FormInput
-										inputtype="text"
+										inputType="text"
 										title={'First Name'}
 										name={'firstName'}
 										value={this.state.firstName}
@@ -366,7 +366,7 @@ class SettingsView extends Component {
 										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputtype="text"
+										inputType="text"
 										title={'Phone Number'}
 										name={'lastName'}
 										value={this.state.lastName}
@@ -374,7 +374,7 @@ class SettingsView extends Component {
 										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputtype={'text'}
+										inputType={'text'}
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
@@ -382,7 +382,7 @@ class SettingsView extends Component {
 										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputtype={'text'}
+										inputType={'text'}
 										title={'Avatar'}
 										name={'avatar'}
 										value={this.state.avatar}
@@ -390,7 +390,7 @@ class SettingsView extends Component {
 										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputtype="text"
+										inputType="text"
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
@@ -401,7 +401,11 @@ class SettingsView extends Component {
 								</form>
 							</div>
 							<div label="Team Billing">
-								<BillingView />
+								<BillingView
+									teamId={this.state.teamId}
+									handlePickTeam={this.handlePickTeam}
+									currentUser={currentUser}
+								/>
 							</div>
 						</SettingsTabs>
 					</SettingsContainer>
