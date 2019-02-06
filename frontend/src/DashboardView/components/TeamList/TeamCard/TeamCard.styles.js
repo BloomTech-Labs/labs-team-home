@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { colors } from '../../../../colorVariables';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import { colors } from '../../colorVariables';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
-export const Container = styled.div`
+export const Container = styled(Card)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -20,13 +25,20 @@ export const Container = styled.div`
 		float: left;
 		padding-left: 20px;
 	}
-	p {
-		position: relative;
-		text-align: right;
-		width: 40%;
-		padding-right: 20px;
-	}
 	:hover {
 		background-color: rgba(107, 40, 59, 0.7);
 	}
 `;
+
+const Info = styled(CardContent)`
+	padding: 20px;
+`;
+
+// p {
+// 	position: relative;
+// 	text-align: right;
+// 	width: 40%;
+// 	padding-right: 20px;
+// }
+
+export { Info };
