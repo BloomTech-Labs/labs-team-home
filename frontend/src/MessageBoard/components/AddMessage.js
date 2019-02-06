@@ -17,7 +17,7 @@ import CloseIcon from '@material-ui/icons/Close';
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import { addMessage } from './mutations/messages';
-import { palette, colors } from '../../colorVariables';
+import { colors } from '../../colorVariables';
 const { button } = colors;
 
 registerPlugin(
@@ -32,6 +32,17 @@ const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 const apiKey = process.env.REACT_APP_API_KEY;
 const apiSecret = process.env.REACT_APP_API_SECRET;
 const cloudName = process.env.REACT_APP_CLOUD_NAME;
+
+const Container = styled(Dialog)`
+	@media (max-width: 696px) {
+		div {
+			div {
+				margin-left: 0;
+				margin-right: 0;
+			}
+		}
+	}
+`;
 
 const Overlay = styled(DialogContent)`
 	background-color: ${button};
@@ -124,7 +135,7 @@ function AddMessage(props) {
 	images = [];
 	const { addMessage } = props;
 	return (
-		<Dialog open={props.open} onClose={props.closeHandler} fullWidth>
+		<Container open={props.open} onClose={props.closeHandler} fullWidth>
 			<Overlay>
 				{/*Close button*/}
 				<DialogActions>
@@ -260,7 +271,7 @@ function AddMessage(props) {
 					</SubmitButton>
 				</form>
 			</Overlay>
-		</Dialog>
+		</Container>
 	);
 }
 

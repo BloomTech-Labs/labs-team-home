@@ -1,43 +1,58 @@
 import styled from 'styled-components';
+import { colors } from '../../../../colorVariables';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import mediaQueryFor from '../../../../_global_styles/responsive_querie';
 
-/**
- * Color palette:
- * #17151B << Dark Gray
- * #FF8C63 << Orange
- * #FFD17C << Lt Orange
- * #DE3B61 << Red
- * #3F1F6A << Purple
- * #F1FCEF << Creme
- * #73FF6D << Green
- */
-
-export const Container = styled.div`
+const Container = styled(Card)`
 	display: flex;
 	flex-direction: row;
-	align-items: space-around;
-	justify-content: space-around;
+	align-items: center;
+	justify-content: space-between;
 	width: 100%;
-	border: 1px solid;
-	color: #17151b;
-	background-color: #f1fcef;
+	color: ${colors.text};
+	background-color: ${colors.button};
 	border-radius: 3px;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
-	/* :first-child {
-    border-radius: 5px 5px 0 0;
-  }
-  :last-child {
-    border-radius: 0 0 5px 5px;
-  } */
+
 	h3 {
-		width: 25%;
 		font-size: 1.2rem;
 		text-decoration: none;
+		position: relative;
+		float: left;
+		padding-left: 20px;
 	}
+
 	p {
-		width: 25%;
+		position: relative;
+		text-align: right;
+		padding-right: 20px;
 	}
+
 	:hover {
-		background-color: #ff8c63;
-		color: #f1fcef;
+		background-color: rgba(107, 40, 59, 0.7);
 	}
 `;
+
+const Info = styled(CardContent)`
+	padding: 20px;
+`;
+
+const StyledTypography = styled(Typography)`
+	color: ${colors.text};
+
+	${mediaQueryFor.xsDevice`
+		font-size: .95rem;
+	`}
+`;
+
+const Prem = styled(Typography)`
+	color: ${colors.text};
+
+	${mediaQueryFor.xsDevice`
+		display: none;
+	`}
+`;
+
+export { Container, Info, StyledTypography, Prem };

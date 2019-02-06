@@ -10,6 +10,17 @@ import { colors } from '../../colorVariables';
 
 const { button } = colors;
 
+const Container = styled(Dialog)`
+	@media (max-width: 696px) {
+		div {
+			div {
+				margin-left: 0;
+				margin-right: 0;
+			}
+		}
+	}
+`;
+
 const Overlay = styled(DialogContent)`
 	background-color: ${button};
 	form {
@@ -68,7 +79,7 @@ export default function Invites({
 	submitHandler
 }) {
 	return (
-		<Dialog open={open} onClose={closeHandler}>
+		<Container open={open} onClose={closeHandler}>
 			<Overlay>
 				<Title id="form-dialog-title" style={{ color: '#fff' }}>
 					Invite User
@@ -103,6 +114,6 @@ export default function Invites({
 					</DialogActions>
 				</form>
 			</Overlay>
-		</Dialog>
+		</Container>
 	);
 }
