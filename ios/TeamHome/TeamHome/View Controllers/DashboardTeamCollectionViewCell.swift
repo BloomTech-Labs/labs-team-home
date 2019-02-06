@@ -17,8 +17,6 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
     
     private func prepareBottomBar() {
         bottomBar = Bar()
-//        
-//        bottomBar.leftViews = [favoriteButton]
         bottomBar.backgroundColor = .clear
     }
     
@@ -29,14 +27,24 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
         prepareFavoriteButton()
         prepareBottomBar()
         
+        premiumIcon = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let commentImage = UIImage(named: "Premium")!
+        let imageView = UIImageView(image: commentImage)
+        imageView.frame = CGRect(x: 8, y: 8, width: 24, height: 24)
+        imageView.tintColor = .white
+        
+        if team.premium {
+            premiumIcon.addSubview(imageView)
+        }
+        
         moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
         
-        toolbar = Toolbar(rightViews: [moreButton])
+        toolbar = Toolbar(rightViews: [premiumIcon, moreButton])
         
         toolbar.title = team.name
         toolbar.titleLabel.textAlignment = .left
         toolbar.titleLabel.textColor = .white
-        toolbar.detail = "premium?"
+        toolbar.detail = ""
         toolbar.detailLabel.textAlignment = .left
         toolbar.detailLabel.textColor = Color.grey.base
         toolbar.backgroundColor = .clear
@@ -62,7 +70,7 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
     
     private var toolbar: Toolbar!
     private var moreButton: IconButton!
-    
+    private var premiumIcon: UIView!
     private var favoriteButton: IconButton!
     private var bottomBar: Bar!
     

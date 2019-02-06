@@ -1426,7 +1426,7 @@ public final class InviteUserToTeamMutation: GraphQLMutation {
 
 public final class FindCommentsByMessageQuery: GraphQLQuery {
   public let operationDefinition =
-    "query FindCommentsByMessage($messageId: ID!) {\n  findMsgCommentsByMessage(input: {message: $messageId}) {\n    __typename\n    _id\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    content\n    likes {\n      __typename\n      _id\n      firstName\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "query FindCommentsByMessage($messageId: ID!) {\n  findMsgCommentsByMessage(input: {message: $messageId}) {\n    __typename\n    _id\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n      _id\n    }\n    content\n    image\n    likes {\n      __typename\n      _id\n      firstName\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public var messageId: GraphQLID
 
@@ -1472,6 +1472,7 @@ public final class FindCommentsByMessageQuery: GraphQLQuery {
         GraphQLField("_id", type: .scalar(GraphQLID.self)),
         GraphQLField("user", type: .nonNull(.object(User.selections))),
         GraphQLField("content", type: .nonNull(.scalar(String.self))),
+        GraphQLField("image", type: .scalar(String.self)),
         GraphQLField("likes", type: .list(.object(Like.selections))),
         GraphQLField("createdAt", type: .scalar(String.self)),
         GraphQLField("updatedAt", type: .scalar(String.self)),
@@ -1483,8 +1484,8 @@ public final class FindCommentsByMessageQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID? = nil, user: User, content: String, likes: [Like?]? = nil, createdAt: String? = nil, updatedAt: String? = nil) {
-        self.init(unsafeResultMap: ["__typename": "MsgComment", "_id": id, "user": user.resultMap, "content": content, "likes": likes.flatMap { (value: [Like?]) -> [ResultMap?] in value.map { (value: Like?) -> ResultMap? in value.flatMap { (value: Like) -> ResultMap in value.resultMap } } }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID? = nil, user: User, content: String, image: String? = nil, likes: [Like?]? = nil, createdAt: String? = nil, updatedAt: String? = nil) {
+        self.init(unsafeResultMap: ["__typename": "MsgComment", "_id": id, "user": user.resultMap, "content": content, "image": image, "likes": likes.flatMap { (value: [Like?]) -> [ResultMap?] in value.map { (value: Like?) -> ResultMap? in value.flatMap { (value: Like) -> ResultMap in value.resultMap } } }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1523,6 +1524,15 @@ public final class FindCommentsByMessageQuery: GraphQLQuery {
         }
       }
 
+      public var image: String? {
+        get {
+          return resultMap["image"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "image")
+        }
+      }
+
       public var likes: [Like?]? {
         get {
           return (resultMap["likes"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Like?] in value.map { (value: ResultMap?) -> Like? in value.flatMap { (value: ResultMap) -> Like in Like(unsafeResultMap: value) } } }
@@ -1558,6 +1568,7 @@ public final class FindCommentsByMessageQuery: GraphQLQuery {
           GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
           GraphQLField("lastName", type: .nonNull(.scalar(String.self))),
           GraphQLField("avatar", type: .scalar(String.self)),
+          GraphQLField("_id", type: .nonNull(.scalar(GraphQLID.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -1566,8 +1577,8 @@ public final class FindCommentsByMessageQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(firstName: String, lastName: String, avatar: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "avatar": avatar])
+        public init(firstName: String, lastName: String, avatar: String? = nil, id: GraphQLID) {
+          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "avatar": avatar, "_id": id])
         }
 
         public var __typename: String {
@@ -1603,6 +1614,15 @@ public final class FindCommentsByMessageQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "avatar")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return resultMap["_id"]! as! GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "_id")
           }
         }
       }
@@ -2353,7 +2373,7 @@ public final class CreateNewTagMutation: GraphQLMutation {
 
 public final class FindTeamsByUserQuery: GraphQLQuery {
   public let operationDefinition =
-    "query findTeamsByUser {\n  findTeamsByUser {\n    __typename\n    name\n    _id\n  }\n}"
+    "query findTeamsByUser {\n  findTeamsByUser {\n    __typename\n    name\n    _id\n    premium\n  }\n}"
 
   public init() {
   }
@@ -2391,6 +2411,7 @@ public final class FindTeamsByUserQuery: GraphQLQuery {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
         GraphQLField("_id", type: .scalar(GraphQLID.self)),
+        GraphQLField("premium", type: .nonNull(.scalar(Bool.self))),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -2399,8 +2420,8 @@ public final class FindTeamsByUserQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String, id: GraphQLID? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Team", "name": name, "_id": id])
+      public init(name: String, id: GraphQLID? = nil, premium: Bool) {
+        self.init(unsafeResultMap: ["__typename": "Team", "name": name, "_id": id, "premium": premium])
       }
 
       public var __typename: String {
@@ -2427,6 +2448,15 @@ public final class FindTeamsByUserQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+
+      public var premium: Bool {
+        get {
+          return resultMap["premium"]! as! Bool
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "premium")
         }
       }
     }
@@ -2516,7 +2546,7 @@ public final class CreateTeamMutation: GraphQLMutation {
 
 public final class FindActivityByTeamQuery: GraphQLQuery {
   public let operationDefinition =
-    "query FindActivityByTeam($teamId: ID!) {\n  findMessagesByTeam(input: {team: $teamId}) {\n    __typename\n    _id\n    title\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    content\n    images\n    tag {\n      __typename\n      name\n    }\n    comments\n    createdAt\n    updatedAt\n  }\n}"
+    "query FindActivityByTeam($teamId: ID!) {\n  findMessagesByTeam(input: {team: $teamId}) {\n    __typename\n    _id\n    title\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n      _id\n    }\n    content\n    images\n    tag {\n      __typename\n      name\n    }\n    comments\n    createdAt\n    updatedAt\n  }\n}"
 
   public var teamId: GraphQLID
 
@@ -2678,6 +2708,7 @@ public final class FindActivityByTeamQuery: GraphQLQuery {
           GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
           GraphQLField("lastName", type: .nonNull(.scalar(String.self))),
           GraphQLField("avatar", type: .scalar(String.self)),
+          GraphQLField("_id", type: .nonNull(.scalar(GraphQLID.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -2686,8 +2717,8 @@ public final class FindActivityByTeamQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(firstName: String, lastName: String, avatar: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "avatar": avatar])
+        public init(firstName: String, lastName: String, avatar: String? = nil, id: GraphQLID) {
+          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "avatar": avatar, "_id": id])
         }
 
         public var __typename: String {
@@ -2723,6 +2754,15 @@ public final class FindActivityByTeamQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "avatar")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return resultMap["_id"]! as! GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "_id")
           }
         }
       }

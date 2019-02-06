@@ -2,6 +2,7 @@ query findTeamsByUser {
     findTeamsByUser {
         name
         _id
+        premium
     }
 }
 

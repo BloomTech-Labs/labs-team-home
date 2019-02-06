@@ -23,7 +23,8 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         
         setUpViewAppearance()
         createGradientLayer()
-        teamNameLabel.textColor = Appearance.yellowColor
+        teamNameLabel.textColor = .white
+        teamNameLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
         
         // Show team name on label
         displayTeamInfo()
@@ -54,16 +55,13 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
             let team = team else { return }
         
         // Pass Apollo Client and team info to Team Detail VC, Messages Container View and Add New Message VC
-        if segue.identifier == "ViewTeam" {
-            guard let destinationVC = segue.destination as? TeamDetailTableViewController else { return }
+        if segue.identifier == "EmbeddedMessages" {
+            guard let destinationVC = segue.destination as? MessagesCollectionViewController,
+                let currentUser = currentUser else { return }
             
             destinationVC.apollo = apollo
             destinationVC.team = team
-        } else if segue.identifier == "EmbeddedMessages" {
-            guard let destinationVC = segue.destination as? MessagesCollectionViewController else { return }
-            
-            destinationVC.apollo = apollo
-            destinationVC.team = team
+            destinationVC.currentUser = currentUser
             self.delegate = destinationVC
         } else if segue.identifier == "AddMessage" {
             guard let destinationVC = segue.destination as? AddEditMessageViewController else { return }
@@ -102,8 +100,9 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     private var gradientLayer: CAGradientLayer!
     
-    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var delegate: MessageBoardFilterDelegate?
     
     @IBOutlet weak var teamNameLabel: UILabel!

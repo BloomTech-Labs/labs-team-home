@@ -21,9 +21,11 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         setUpViewAppearance()
         createGradientLayer()
         collectionView.backgroundColor = .clear
-        teamNameLabel.textColor = Appearance.yellowColor
+        teamNameLabel.textColor = .white
+        teamNameLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
         
         loadActivity(with: apollo, team: team)
+        fetchCurrentUser(with: apollo)
     }
     
     func createGradientLayer() {
@@ -50,9 +52,11 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActivityCell", for: indexPath) as! ActivityCollectionViewCell
         
-        guard let activity = sortedActivity?[indexPath.row] else { return UICollectionViewCell() }
+        guard let activity = sortedActivity?[indexPath.row],
+            let currentUser = currentUser else { return UICollectionViewCell() }
 
         cell.activity = activity
+        cell.currentUser = currentUser
         
         return cell
     }
@@ -112,6 +116,21 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         })
     }
     
+    private func fetchCurrentUser(with apollo: ApolloClient) {
+        apollo.fetch(query: CurrentUserQuery(), queue: DispatchQueue.global()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            guard let result = result,
+                let data = result.data,
+                let user = data.currentUser else { return }
+            
+            self.currentUser = user
+        }
+    }
+    
     private func mergeAllActivity() {
         
         guard let messages = messages,
@@ -139,10 +158,6 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     
     private var messages: [FindActivityByTeamQuery.Data.FindMessagesByTeam?]?
     private var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]?
-    
-    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
-    var apollo: ApolloClient?
-    var gradientLayer: CAGradientLayer!
     private var activityTimeline: [Activity]?
     private var sortedActivity: [Activity]? {
         didSet {
@@ -151,6 +166,11 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
             }
         }
     }
+    
+    var apollo: ApolloClient?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
+    var gradientLayer: CAGradientLayer!
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
