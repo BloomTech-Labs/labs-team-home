@@ -3,7 +3,8 @@ import * as query from '../../../constants/queries';
 import {
 	ADD_MESSAGE,
 	UPDATE_MESSAGE,
-	DELETE_MESSAGE
+	DELETE_MESSAGE,
+	ADD_TAG
 } from '../../../constants/mutations';
 
 const addMessageOptions = {
@@ -84,3 +85,27 @@ const deleteMessageOptions = {
 };
 
 export const deleteMessage = graphql(DELETE_MESSAGE, deleteMessageOptions);
+
+const addTagOptions = {
+	props: ({ ownProps: { team }, mutate }) => ({
+		addTag: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { addTag } }) => {
+					const { findTagsByTeam } = cache.readQuery({
+						query: query.FIND_TAGS_BY_TEAM,
+						variables: { team: team }
+					});
+					cache.writeQuery({
+						query: query.FIND_TAGS_BY_TEAM,
+						variables: { team: team },
+						data: {
+							findTagsByTeam: [...findTagsByTeam, addTag]
+						}
+					});
+				}
+			})
+	})
+};
+
+export const addTag = graphql(ADD_TAG, addTagOptions);

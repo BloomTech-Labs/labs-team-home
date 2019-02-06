@@ -36,10 +36,9 @@ export const FULL_TAG = gql`
 		_id
 		name
 		team {
-			...FullTeam
+			_id
 		}
 	}
-	${FULL_TEAM}
 `;
 
 export const FULL_MESSAGE = gql`
