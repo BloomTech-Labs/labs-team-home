@@ -29,26 +29,26 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
  
-//        // Credential manager checks if user has a valid token.
-//        guard credentialsManager.hasValid() else { return }
-//        
-//        // Fetches the credentials.
-//        credentialsManager.credentials { (error, credentials) in
-//            if let error = error {
-//                NSLog("\(error)")
-//                return
-//            }
-//            
-//            // Unwrap idToken to use for Apollo and to decode.
-//            guard let credentials = credentials,
-//                let idToken = credentials.idToken else { return }
-//            
-//            // Set up Apollo client with idToken from auth0.
-//            self.setUpApollo(with: idToken)
-//            
-//            // Perform segue to Dashboard VC.
-//            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
-//        }
+        // Credential manager checks if user has a valid token.
+        guard credentialsManager.hasValid() else { return }
+        
+        // Fetches the credentials.
+        credentialsManager.credentials { (error, credentials) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            // Unwrap idToken to use for Apollo and to decode.
+            guard let credentials = credentials,
+                let idToken = credentials.idToken else { return }
+            
+            // Set up Apollo client with idToken from auth0.
+            self.setUpApollo(with: idToken)
+            
+            // Perform segue to Dashboard VC.
+            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+        }
     }
     
     
@@ -88,12 +88,11 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                             guard let result = result,
                                 let data = result.data,
                                 let currentUser = data.currentUser else {
-                                    
                                     // Perform other segue
                                     self.performSegue(withIdentifier: "ShowNewUser", sender: self)
                                     return
                             }
-                            
+                            self.currentUser = currentUser
                             print(currentUser)
                             // Perform segue to Dashboard VC.
                             self.performSegue(withIdentifier: "ShowDashboard", sender: self)
@@ -254,6 +253,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
             
             // Pass Apollo client.
             destinationVC.apollo = apollo
+            destinationVC.currentUser = currentUser
             
         } else if segue.identifier == "ShowNewUser" {
             guard let destinationVC = segue.destination as? CreateNewUserViewController,
@@ -373,10 +373,11 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         
         passwordTextField.placeholder = "Password"
-        passwordTextField.detail = "At least 8 characters including a lower-case letter, an upper-case letter, a number and a special character"
+        passwordTextField.detail = ""
         passwordTextField.clearButtonMode = .whileEditing
         passwordTextField.isVisibilityIconButtonEnabled = true
         passwordTextField.dividerNormalColor = .white
+        passwordTextField.placeholderActiveColor = Appearance.yellowColor
         passwordTextField.detailColor = .white
         passwordTextField.placeholderAnimation = .hidden
         passwordTextField.textColor = .white
@@ -421,6 +422,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     private var apollo: ApolloClient?
     private var credentials: Credentials?
     private var user: DatabaseUser?
+    private var currentUser: CurrentUserQuery.Data.CurrentUser?
     private var gradientLayer: CAGradientLayer!
     
     //All IBOutlets on storyboard view scene

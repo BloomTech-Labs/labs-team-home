@@ -26,8 +26,6 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
         
         //Load messages with watcher that can be called by other VCs
         loadMessages(with: apollo)
-        filter()
-        fetchCurrentUser(with: apollo)
     }
 
     // MARK: UICollectionViewDataSource
@@ -41,9 +39,11 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! MessageCollectionViewCell
         
-        guard let message = messages?[indexPath.row] else { return UICollectionViewCell() }
+        guard let message = messages?[indexPath.row],
+            let currentUser = currentUser else { return UICollectionViewCell() }
 
         cell.message = message
+        cell.currentUser = currentUser
     
         return cell
     }
@@ -61,10 +61,14 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
             let indexPath = collectionView.indexPathsForSelectedItems?.first,
             let messages = messages,
             let messageId = messages[indexPath.row]?.id,
-            let currentUser = currentUser else { return }
+            let currentUser = currentUser,
+            let team = team else { return }
+            
+            
+                destinationVC.currentUser = currentUser
+                destinationVC.team = team
                 destinationVC.apollo = apollo
                 destinationVC.messageId = messageId
-                destinationVC.currentUser = currentUser
         }
     }
     

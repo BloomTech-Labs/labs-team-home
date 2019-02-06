@@ -24,6 +24,7 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
         let inviteBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(clickedInviteUser))
         navigationItem.rightBarButtonItem = inviteBarButton
         navigationItem.title = "Team Detail"
+        teamNameLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
         
         guard let team = team else { return }
         
@@ -194,6 +195,7 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     var gradientLayer: CAGradientLayer!
     
     

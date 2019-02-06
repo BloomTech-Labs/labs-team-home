@@ -19,13 +19,14 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     @objc func clickedLikeButton(_ sender: IconButton) {
      
+        guard let hasLiked = hasLiked else { return }
         if hasLiked {
             delegate?.unlikeComment(cell: self)
-            favoriteButton = IconButton(image: Icon.favorite, tintColor: .white)
+            favoriteButton.tintColor = Color.grey.base
             self.hasLiked = false
         } else {
             delegate?.likeComment(cell: self)
-            favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
+            favoriteButton.tintColor = Color.red.base
             self.hasLiked = true
         }
     }
@@ -47,28 +48,13 @@ class CommentCollectionViewCell: UICollectionViewCell {
         prepareContentView(with: comment)
         prepareBottomBar()
         prepareCard()
-       
-//        guard let avatar = comment.user.avatar else { return }
-//        
-//        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
-//            
-//        }) { (image, error) in
-//            if let error = error {
-//                NSLog("\(error)")
-//            }
-//            
-//            guard let image = image else { return }
-//            
-//            DispatchQueue.main.async {
-//                self.avatarImageView.image = image
-//            }
-//        }
+    
     }
     
     private func prepareDateLabel(with dateString: String) {
         dateLabel = UILabel()
         dateLabel.font = RobotoFont.regular(with: 12)
-        dateLabel.textColor = Color.grey.base
+        dateLabel.textColor = Appearance.mauveColor
         dateLabel.text = dateString
     }
     
@@ -77,16 +63,23 @@ class CommentCollectionViewCell: UICollectionViewCell {
         
         likeCountLabel = UILabel()
         likeCountLabel.text = "\(likes.count) likes"
-        //
-        //        let likeIDs = likes.compactMap({ $0?.id })
-        //        if !likeIDs.contains(id) {
-        //            self.hasLiked = false
-        //        } else {
-        //            self.hasLiked = true
-        //        }
+        likeCountLabel.textColor = Appearance.darkMauveColor
         
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: .white)
+        guard let currentUser = currentUser else { return }
+        let id = currentUser.id
+        
+        let likeIDs = likes.compactMap({ $0?.id })
+        if likeIDs.contains(id) {
+            favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
+            self.hasLiked = true
+        } else {
+            favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.grey.base)
+            self.hasLiked = false
+        }
+        
         favoriteButton.addTarget(self, action: #selector(self.clickedLikeButton(_:)), for: .touchUpInside)
+        
+        
     }
     
     private func prepareToolbar(with comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
@@ -94,7 +87,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         
         toolbar.title = "\(comment.user.firstName) \(comment.user.lastName)"
         toolbar.titleLabel.textAlignment = .left
-        toolbar.titleLabel.textColor = .white
+        toolbar.titleLabel.textColor = Appearance.darkMauveColor
         
         toolbar.detail = ""
         toolbar.detailLabel.textAlignment = .left
@@ -107,6 +100,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         contentLabel.numberOfLines = 0
         contentLabel.text = comment.content
         contentLabel.font = RobotoFont.regular(with: 14)
+        contentLabel.textColor = Appearance.darkMauveColor
     }
     
     private func prepareBottomBar() {
@@ -129,13 +123,13 @@ class CommentCollectionViewCell: UICollectionViewCell {
         
         card.bottomBar = bottomBar
         card.bottomBarEdgeInsetsPreset = .wideRectangle2
-        card.backgroundColor = Appearance.plumColor
+        card.backgroundColor = .white
     }
     
     
     // MARK - Properties
     
-    private var hasLiked: Bool = false
+    private var hasLiked: Bool?
     
     weak var delegate: CommentCollectionCellDelegate?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
