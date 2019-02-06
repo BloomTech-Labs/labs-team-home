@@ -125,7 +125,6 @@ const FormCheckboxStyles = styled.div`
 		margin-right: 3%;
 	}
 	input {
-		width: 2%;
 	}
 	${mediaQueryFor.smDevice`
     flex-direction: column;
@@ -144,6 +143,8 @@ const FormCheckboxStyles = styled.div`
 `;
 
 const StyledCheckbox = styled.input`
+	width: 16px;
+	height: 16px;
 	border: 2px solid ${colors.header};
 	padding: 0;
 `;
