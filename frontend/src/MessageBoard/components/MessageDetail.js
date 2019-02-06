@@ -435,10 +435,10 @@ class MessageDetail extends Component {
 																	comment.likes.find(
 																		({ _id }) => _id === currentUser._id
 																	)
-																		? like({
+																		? unLike({
 																				id: comment._id
 																		  })
-																		: unLike({
+																		: like({
 																				id: comment._id
 																		  });
 																}}
