@@ -13,26 +13,46 @@ import Apollo
 import SafariServices
 import Auth0
 import Toucan
+import Material
 
 class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        teamNameLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
+        
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
         emailTextField.delegate = self
         phoneTextField.delegate = self
         
+        firstNameTextField.dividerActiveColor = Appearance.yellowColor
+        firstNameTextField.placeholderActiveColor = Appearance.yellowColor
+        firstNameTextField.textColor = Appearance.darkMauveColor
+        
+        lastNameTextField.dividerActiveColor = Appearance.yellowColor
+        lastNameTextField.placeholderActiveColor = Appearance.yellowColor
+        lastNameTextField.textColor = Appearance.darkMauveColor
+        
+        emailTextField.dividerActiveColor = Appearance.yellowColor
+        emailTextField.placeholderActiveColor = Appearance.yellowColor
+        emailTextField.textColor = Appearance.darkMauveColor
+        
+        phoneTextField.dividerActiveColor = Appearance.yellowColor
+        phoneTextField.placeholderActiveColor = Appearance.yellowColor
+        phoneTextField.textColor = Appearance.darkMauveColor
+        
         self.setUpViewAppearance()
         UILabel.appearance().textColor = .white
+        teamNameLabel.textColor = .white
+        notificationsLabel.font = Appearance.setTitleFont(with: .title3, pointSize: 18)
+        
         
         self.setNeedsStatusBarAppearanceUpdate()
         
         createGradientLayer()
-//        
-//        Appearance.styleOrange(button: advancedSettingsButton)
-//        Appearance.styleOrange(button: saveChangesButton)
+        saveChangesButton.backgroundColor = Appearance.darkMauveColor
         
         guard let apollo = apollo else { return }
         
@@ -138,53 +158,53 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         performSegue(withIdentifier: "unwindSegueToVC1", sender: self)
     }
     
-    @IBAction func leaveTeam(_ sender: Any) {
-        // Fetch all users in this team
-        guard let apollo = apollo,
-            let team = team,
-            let teamId = team.id,
-            let currentUser = currentUser else { return }
-        
-        let currentUserId = currentUser.id
-        
-        _ = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-            }
-            
-            guard let result = result,
-                let data = result.data,
-                let team = data.findTeam,
-                let users = team.users else { return }
-            
-            var userIds = users.compactMap({ $0?.user.id })
-            
-            for index in 0...userIds.count {
-                let userId = userIds[index]
-                if userId == currentUserId {
-                    userIds.remove(at: index)
-                }
-            }
-            
-            var teamUserInputs: [TeamUserInput] = []
-            for userId in userIds {
-                let teamUserInput = TeamUserInput(user: userId)
-                teamUserInputs.append(teamUserInput)
-            }
-
-            
-            _ = apollo.perform(mutation: UpdateTeamMutation(id: teamId, name: team.name, users: teamUserInputs), queue: DispatchQueue.global(), resultHandler: { (result, error) in
-                if let error = error {
-                    NSLog("\(error)")
-                    return
-                }
-                
-                guard let result = result else { return }
-                
-                print(result)
-            })
-        }
-    }
+//    @IBAction func leaveTeam(_ sender: Any) {
+//        // Fetch all users in this team
+//        guard let apollo = apollo,
+//            let team = team,
+//            let teamId = team.id,
+//            let currentUser = currentUser else { return }
+//
+//        let currentUserId = currentUser.id
+//
+//        _ = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
+//            if let error = error {
+//                NSLog("\(error)")
+//            }
+//
+//            guard let result = result,
+//                let data = result.data,
+//                let team = data.findTeam,
+//                let users = team.users else { return }
+//
+//            var userIds = users.compactMap({ $0?.user.id })
+//
+//            for index in 0...userIds.count {
+//                let userId = userIds[index]
+//                if userId == currentUserId {
+//                    userIds.remove(at: index)
+//                }
+//            }
+//
+//            var teamUserInputs: [TeamUserInput] = []
+//            for userId in userIds {
+//                let teamUserInput = TeamUserInput(user: userId)
+//                teamUserInputs.append(teamUserInput)
+//            }
+//
+//
+//            _ = apollo.perform(mutation: UpdateTeamMutation(id: teamId, name: team.name, users: teamUserInputs), queue: DispatchQueue.global(), resultHandler: { (result, error) in
+//                if let error = error {
+//                    NSLog("\(error)")
+//                    return
+//                }
+//
+//                guard let result = result else { return }
+//
+//                print(result)
+//            })
+//        }
+//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -245,7 +265,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
             
             guard let image = image else { return }
             
-            let resizedAndMaskedImage = Toucan(image: image).maskWithEllipse()
+            let resizedAndMaskedImage = Toucan(image: image).resizeByCropping(CGSize(width: 128, height: 128)).maskWithEllipse()
             
             DispatchQueue.main.async {
                 self.userAvatarImageView.image = resizedAndMaskedImage.image
@@ -275,7 +295,6 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         gradientLayer.locations = [0.0, 0.5]
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        teamNameLabel.textColor = Appearance.yellowColor
         
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
@@ -304,14 +323,14 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     @IBOutlet weak var advancedSettingsButton: UIButton!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var addRemoveImageButton: UIButton!
-    @IBOutlet weak var firstNameTextField: UITextField!
-    @IBOutlet weak var lastNameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var phoneTextField: UITextField!
+    @IBOutlet weak var firstNameTextField: TextField!
+    @IBOutlet weak var lastNameTextField: TextField!
+    @IBOutlet weak var emailTextField: TextField!
+    @IBOutlet weak var phoneTextField: TextField!
+    @IBOutlet weak var notificationsLabel: UILabel!
     @IBOutlet weak var emailSwitch: UISwitch!
     @IBOutlet weak var textSMSSwitch: UISwitch!
     @IBOutlet weak var saveChangesButton: UIButton!
-    @IBOutlet weak var leaveTeamButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
     
 }

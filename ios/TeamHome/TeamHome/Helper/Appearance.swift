@@ -40,12 +40,12 @@ enum Appearance {
         
         UITabBar.appearance().barTintColor = Appearance.plumColor
         UITabBar.appearance().tintColor = Appearance.yellowColor
-        UITabBar.appearance().unselectedItemTintColor = Appearance.darkMauveColor
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.darkMauveColor], for: .normal)
+        UITabBar.appearance().unselectedItemTintColor = .white
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Color.white], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.yellowColor], for: .selected)
         
         UITextField.appearance().keyboardAppearance = .dark
-        UISwitch.appearance().onTintColor = Appearance.yellowColor
+        UISwitch.appearance().onTintColor = Appearance.mauveColor
         
     }
     

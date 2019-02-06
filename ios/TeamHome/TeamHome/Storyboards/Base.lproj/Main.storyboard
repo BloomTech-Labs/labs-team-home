@@ -639,9 +639,10 @@
                         <outlet property="advancedSettingsButton" destination="bi8-7w-d9a" id="rNQ-8c-AtY"/>
                         <outlet property="emailSwitch" destination="qgJ-ep-4lM" id="BNW-55-Ce2"/>
                         <outlet property="emailTextField" destination="18j-Cx-RBf" id="pyq-RJ-dOB"/>
-                        <outlet property="firstNameTextField" destination="hvp-j2-anc" id="w7V-W1-Guh"/>
+                        <outlet property="firstNameTextField" destination="hvp-j2-anc" id="Xbb-O5-cwf"/>
                         <outlet property="lastNameTextField" destination="n5c-s1-98f" id="5vf-p1-hdD"/>
                         <outlet property="logOutButton" destination="fgj-W3-X7h" id="qSq-kN-T6T"/>
+                        <outlet property="notificationsLabel" destination="nzg-5n-F7p" id="Son-m3-gsf"/>
                         <outlet property="phoneTextField" destination="7V6-Fa-7QN" id="OnU-Z2-9Gq"/>
                         <outlet property="saveChangesButton" destination="PS8-Io-TaF" id="gur-7g-Th8"/>
                         <outlet property="teamNameLabel" destination="FlK-8m-H5p" id="UP6-VX-pdY"/>
