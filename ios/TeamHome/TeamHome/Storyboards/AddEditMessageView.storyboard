@@ -37,34 +37,77 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KTQ-qk-DRd" customClass="TextView" customModule="Material">
-                                                <rect key="frame" x="0.0" y="77.5" width="300" height="175"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KTQ-qk-DRd" customClass="TextView" customModule="Material">
+                                                <rect key="frame" x="0.0" y="77.5" width="300" height="209"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="Axl-me-6gY">
-                                                <rect key="frame" x="0.0" y="256.5" width="300" height="133"/>
+                                                <rect key="frame" x="0.0" y="290.5" width="300" height="133"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="133" id="NzR-Ld-ZMB"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6u-iQ-2JA" customClass="FlatButton" customModule="Material">
-                                                <rect key="frame" x="0.0" y="260.5" width="300" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6u-iQ-2JA" customClass="FlatButton" customModule="Material">
+                                                <rect key="frame" x="0.0" y="294.5" width="300" height="30"/>
                                                 <state key="normal" title="Add Photo"/>
                                                 <connections>
                                                     <action selector="addPhoto:" destination="ccT-8I-13Z" eventType="touchUpInside" id="hzT-a5-vxb"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Select one tag from the list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSi-PG-aGQ">
-                                                <rect key="frame" x="0.0" y="298.5" width="300" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select one tag from the list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSi-PG-aGQ">
+                                                <rect key="frame" x="0.0" y="332.5" width="300" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-c1-hVp" customClass="TagListView" customModule="TagListView">
-                                                <rect key="frame" x="0.0" y="327" width="300" height="84"/>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HcU-Ey-wh0">
+                                                <rect key="frame" x="0.0" y="361" width="300" height="50"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="ukk-nC-1eK"/>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7OM-pG-Elh">
+                                                    <size key="itemSize" width="96" height="29"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="TagCell" id="6nw-UB-uh1" customClass="TagCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="96" height="29"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="96" height="29"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weY-qL-Ld6">
+                                                                    <rect key="frame" x="8" y="-10.5" width="80" height="21"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </view>
+                                                        <constraints>
+                                                            <constraint firstItem="weY-qL-Ld6" firstAttribute="centerY" secondItem="6nw-UB-uh1" secondAttribute="centerY" id="BL1-hQ-DCw"/>
+                                                            <constraint firstAttribute="trailing" secondItem="weY-qL-Ld6" secondAttribute="trailing" constant="8" id="C2U-2r-aGK"/>
+                                                            <constraint firstItem="weY-qL-Ld6" firstAttribute="leading" secondItem="6nw-UB-uh1" secondAttribute="leading" constant="8" id="rYO-XO-Em0"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="tagLabel" destination="weY-qL-Ld6" id="O6T-E7-JT3"/>
+                                                        </connections>
+                                                    </collectionViewCell>
+                                                </cells>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="ccT-8I-13Z" id="viO-kF-xXH"/>
+                                                    <outlet property="delegate" destination="ccT-8I-13Z" id="dL6-cd-2sq"/>
+                                                </connections>
+                                            </collectionView>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-c1-hVp" customClass="TagListView" customModule="TagListView">
+                                                <rect key="frame" x="0.0" y="415" width="300" height="0.0"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
@@ -140,6 +183,7 @@
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="7qB-uC-5MU" id="4iy-Ge-xKZ"/>
+                        <outlet property="collectionView" destination="HcU-Ey-wh0" id="YBZ-mR-iSk"/>
                         <outlet property="imageView" destination="Axl-me-6gY" id="g6M-qf-YGR"/>
                         <outlet property="messageContentTextView" destination="KTQ-qk-DRd" id="ixJ-zl-epD"/>
                         <outlet property="messageTitleTextField" destination="mLQ-M6-lzs" id="wNL-cj-SxU"/>
@@ -147,6 +191,7 @@
                         <outlet property="submitButton" destination="whv-iB-VoT" id="17w-5g-BUg"/>
                         <outlet property="tagListView" destination="yDB-c1-hVp" id="Km2-aP-gwT"/>
                         <outlet property="tagsTextField" destination="ExJ-lD-e2X" id="FCV-ai-ZOt"/>
+                        <outlet property="titleLabel" destination="8S2-u3-1FE" id="U9I-G7-GVd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="015-2a-7XY" userLabel="First Responder" sceneMemberID="firstResponder"/>

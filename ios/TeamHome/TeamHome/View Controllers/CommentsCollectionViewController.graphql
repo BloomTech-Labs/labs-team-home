@@ -7,8 +7,10 @@ query FindCommentsByMessage($messageId: ID!) {
             firstName
             lastName
             avatar
+            _id
         }
         content
+        image
         likes {
             _id
             firstName

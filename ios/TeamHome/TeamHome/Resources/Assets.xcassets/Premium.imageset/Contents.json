@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "005-team-1.png",
+      "filename" : "005-insignia.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "005-insignia-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "005-insignia-2.png",
       "scale" : "3x"
     }
   ],

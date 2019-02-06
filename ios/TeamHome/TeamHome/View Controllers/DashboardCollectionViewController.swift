@@ -21,6 +21,24 @@ class DashboardCollectionViewController: UICollectionViewController {
         guard let apollo = apollo else { return }
         
         loadTeams(with: apollo)
+        
+        guard let currentUser = currentUser else {
+            apollo.fetch(query: CurrentUserQuery(), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result,
+                    let data = result.data,
+                    let currentUser = data.currentUser else { return }
+                self.currentUser = currentUser
+                print(currentUser)
+            }
+            return
+        }
+        
+        print(currentUser)
     }
 
    @IBAction func unwindToDashboard(segue:UIStoryboardSegue) { }
@@ -38,6 +56,7 @@ class DashboardCollectionViewController: UICollectionViewController {
         if segue.identifier == "ShowMainTabBar" {
             guard let destinationVC = segue.destination as? UITabBarController,
                 let teams = teams,
+                let currentUser = currentUser,
                 let indexPaths = collectionView.indexPathsForSelectedItems,
                 let indexPath = indexPaths.first else { return }
             // Pass Apollo client and team thru navigation controller to the view controller desired
@@ -48,6 +67,7 @@ class DashboardCollectionViewController: UICollectionViewController {
                         let team = teams[indexPath.row]
                         nextVC.team = team
                         nextVC.apollo = apollo
+                        nextVC.currentUser = currentUser
                     }
                 }
             }
@@ -167,6 +187,7 @@ class DashboardCollectionViewController: UICollectionViewController {
     
     private var watcher: GraphQLQueryWatcher<FindTeamsByUserQuery>?
     var apollo: ApolloClient?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     
     var gradientLayer: CAGradientLayer!
     
