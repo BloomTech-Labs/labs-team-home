@@ -53,7 +53,8 @@ class SettingsView extends Component {
 			avatar: '',
 			phoneNumber: '',
 			selected: [],
-			toggles: {}
+			toggles: {},
+			teamId: ''
 		};
 	}
 
@@ -114,6 +115,11 @@ class SettingsView extends Component {
 
 	handleImageUpload = url => {
 		this.setState({ avatar: url });
+	};
+
+	handlePickTeam = e => {
+		console.log('PICK A TEAM', e.currentTarget.dataset.id);
+		this.setState({ teamId: e.currentTarget.dataset.id });
 	};
 
 	render() {
@@ -307,7 +313,10 @@ class SettingsView extends Component {
 								</form>
 							</div>
 							<div label="Team Billing">
-								<BillingView />
+								<BillingView
+									teamId={this.state.teamId}
+									handlePickTeam={this.handlePickTeam}
+								/>
 							</div>
 						</SettingsTabs>
 					</SettingsContainer>
