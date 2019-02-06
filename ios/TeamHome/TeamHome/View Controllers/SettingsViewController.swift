@@ -54,12 +54,13 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         createGradientLayer()
         saveChangesButton.backgroundColor = Appearance.darkMauveColor
         
-        guard let apollo = apollo else { return }
+//        guard let apollo = apollo else { return }
         
         // Distinguish if you is admin or not
         
         // Load user's account settings
-        loadUserSettings(with: apollo)
+//        loadUserSettings(with: apollo)
+        updateViews()
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -307,10 +308,12 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     private var watcher: GraphQLQueryWatcher<CurrentUserQuery>?
     
     
-    private var currentUser: CurrentUserQuery.Data.CurrentUser? {
+    var currentUser: CurrentUserQuery.Data.CurrentUser? {
         didSet {
             DispatchQueue.main.async {
-                self.updateViews()
+                if self.isViewLoaded {
+                    self.updateViews()
+                }
             }
         }
     }

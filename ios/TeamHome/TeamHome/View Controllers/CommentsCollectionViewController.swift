@@ -61,6 +61,7 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
             guard let result = result else { return }
             
             print(result)
+            commentsWatcher?.refetch()
         }
     }
     
@@ -78,6 +79,7 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
             guard let result = result else { return }
             
             print(result)
+            commentsWatcher?.refetch()
         }
     }
     
@@ -98,14 +100,17 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
     
     private func handleEmptyComments() {
         
-        guard let comments = comments else { return }
+        guard let comments = comments else {
+            return
+        }
         
         if comments.count == 0 {
             DispatchQueue.main.async {
                 let label = UILabel()
                 label.text = "No comments yet."
-                label.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
-                label.textColor = .white
+                label.frame = CGRect(x: 8, y: 8, width: 200, height: 30)
+                label.backgroundColor = .white
+                label.textColor = Appearance.darkMauveColor
                 self.collectionView.addSubview(label)
             }
         }

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
-            timestampString = "571111649.856663"
+            timestampString = "571169713.424564"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "signUp(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
-            timestampString = "571111649.85672"
+            timestampString = "571169713.4246351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "signUp(_:)"
             landmarkType = "7">
             <Locations>
@@ -42,11 +42,11 @@
                   moduleName = "TeamHome"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/danielaparra/Documents/Git%20Repo/TeamHome/labs9-team-home/ios/TeamHome/TeamHome/View%20Controllers/LandingPageViewController.swift"
-                  timestampString = "571160481.13756"
+                  timestampString = "571169713.669751"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "195"
-                  endingLineNumber = "195"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
                   offsetFromSymbolStart = "89">
                </Location>
                <Location
@@ -57,11 +57,11 @@
                   moduleName = "TeamHome"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/danielaparra/Documents/Git%20Repo/TeamHome/labs9-team-home/ios/TeamHome/TeamHome/View%20Controllers/LandingPageViewController.swift"
-                  timestampString = "571160481.1396"
+                  timestampString = "571169713.680144"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "195"
-                  endingLineNumber = "195"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
                   offsetFromSymbolStart = "145">
                </Location>
             </Locations>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
-            timestampString = "571111649.856804"
+            timestampString = "571169713.42468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "signUp(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
-            timestampString = "571111649.856878"
+            timestampString = "571169713.424721"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
             landmarkName = "signUp(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
-            timestampString = "571111649.85693"
+            timestampString = "571169713.424758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "signUp(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
-            timestampString = "571111649.85698"
+            timestampString = "571169713.424796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "signUp(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
-            timestampString = "571111649.857029"
+            timestampString = "571169713.4248331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "logIn(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
-            timestampString = "571111649.857083"
+            timestampString = "571169713.424868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
             landmarkName = "logIn(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
-            timestampString = "571111649.857115"
+            timestampString = "571169713.424904"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "logIn(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/DashboardCollectionViewController.swift"
-            timestampString = "571159751.738748"
+            timestampString = "571169713.424951"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "presentCreateTeamAlert(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/DashboardCollectionViewController.swift"
-            timestampString = "571159751.738812"
+            timestampString = "571169713.425331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "loadTeams(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/DashboardCollectionViewController.swift"
-            timestampString = "571159751.7388591"
+            timestampString = "571169713.425531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "loadTeams(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/DashboardCollectionViewController.swift"
-            timestampString = "571159751.738902"
+            timestampString = "571169713.425724"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "presentCreateTeamAlert(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/DashboardCollectionViewController.swift"
-            timestampString = "571159751.7389441"
+            timestampString = "571169713.425926"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "loadTeams(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/DashboardCollectionViewController.swift"
-            timestampString = "571159751.738986"
+            timestampString = "571169713.4261169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "presentCreateTeamAlert(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/CreateNewUserViewController.swift"
-            timestampString = "571111649.857362"
+            timestampString = "571169713.426314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "37"
@@ -298,7 +298,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/CreateNewUserViewController.swift"
-            timestampString = "571111649.857394"
+            timestampString = "571169713.426353"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "36"
@@ -314,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/CreateNewUserViewController.swift"
-            timestampString = "571111649.857424"
+            timestampString = "571169713.426386"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
@@ -330,7 +330,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/CreateNewUserViewController.swift"
-            timestampString = "571111649.857455"
+            timestampString = "571169713.42642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
@@ -346,7 +346,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/AddEditMessageViewController.swift"
-            timestampString = "571164021.01305"
+            timestampString = "571169713.4264539"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "269"
@@ -362,7 +362,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/AddEditMessageViewController.swift"
-            timestampString = "571164021.013113"
+            timestampString = "571169713.4265341"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "317"
@@ -378,7 +378,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/AddEditMessageViewController.swift"
-            timestampString = "571164021.013153"
+            timestampString = "571169713.426574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "316"
@@ -394,12 +394,108 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamHome/View Controllers/AddEditMessageViewController.swift"
-            timestampString = "571164021.01319"
+            timestampString = "571169713.42661"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "327"
             endingLineNumber = "327"
             landmarkName = "createNewMessage(with:messageTitle:teamId:content:tagId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamHome/View Controllers/CommentsCollectionViewController.swift"
+            timestampString = "571169713.4266469"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "handleEmptyComments()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamHome/View Controllers/CommentCollectionViewCell.swift"
+            timestampString = "571169713.426692"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "clickedLikeButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
+            timestampString = "571169713.42673"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "googleLogIn(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Auth0.Result&lt;Auth0.Credentials&gt;) -&gt; () in TeamHome.LandingPageViewController.googleLogIn(Any) -&gt; ()"
+                  moduleName = "TeamHome"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielaparra/Documents/Git%20Repo/TeamHome/labs9-team-home/ios/TeamHome/TeamHome/View%20Controllers/LandingPageViewController.swift"
+                  timestampString = "571169713.7778111"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "355">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Apollo.GraphQLResult&lt;TeamHome.CurrentUserQuery.Data&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 () -&gt; () in closure #1 (Auth0.Result&lt;Auth0.Credentials&gt;) -&gt; () in TeamHome.LandingPageViewController.googleLogIn(Any) -&gt; ()"
+                  moduleName = "TeamHome"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielaparra/Documents/Git%20Repo/TeamHome/labs9-team-home/ios/TeamHome/TeamHome/View%20Controllers/LandingPageViewController.swift"
+                  timestampString = "571169713.779202"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "89">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamHome/View Controllers/LandingPageViewController.swift"
+            timestampString = "571169713.426767"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "googleLogIn(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

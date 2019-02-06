@@ -159,7 +159,6 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     private var messages: [FindActivityByTeamQuery.Data.FindMessagesByTeam?]?
     private var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]?
     private var activityTimeline: [Activity]?
-    private var currentUser: CurrentUserQuery.Data.CurrentUser?
     private var sortedActivity: [Activity]? {
         didSet {
             DispatchQueue.main.async {
@@ -168,8 +167,9 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         }
     }
     
-    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     var gradientLayer: CAGradientLayer!
     
     @IBOutlet weak var teamNameLabel: UILabel!

@@ -191,6 +191,7 @@
 		7B734DF821FFF48D00F56C5F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */,
 				7B734DF621FF6E3900F56C5F /* Appearance.swift */,
 				7B734E022200F21600F56C5F /* DateFormatter.swift */,
 			);
@@ -220,7 +221,6 @@
 				7BD6589F21F020ED004FF34A /* DashboardCollectionViewController.graphql */,
 				7BE481C522037B6200F518F9 /* DashboardCollectionReusableView.swift */,
 				7BD6589221EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift */,
-				7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */,
 				7BA77E9D21E807D200C862C1 /* MessageBoardViewController.swift */,
 				7BA77E9F21E80D6C00C862C1 /* MessagesCollectionViewController.swift */,
 				7BA77ECF21ED50BA00C862C1 /* MessagesCollectionViewController.graphql */,

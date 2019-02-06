@@ -103,8 +103,9 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     private var gradientLayer: CAGradientLayer!
     
-    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var delegate: MessageBoardFilterDelegate?
     
     @IBOutlet weak var teamNameLabel: UILabel!

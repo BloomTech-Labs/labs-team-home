@@ -195,6 +195,7 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     var gradientLayer: CAGradientLayer!
     
     
