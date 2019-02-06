@@ -96,7 +96,6 @@ const TeamsList = styled.div`
 const LinkStyles = styled.a`
 	padding: 0.1rem;
 	text-decoration: none;
-	padding: 10;
 `;
 
 /**
