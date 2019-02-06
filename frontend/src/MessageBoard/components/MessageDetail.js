@@ -16,13 +16,12 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import { palette } from '../../colorVariables';
+import { colors, palette } from '../../colorVariables';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import * as query from '../../constants/queries';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { colors } from '../../colorVariables';
 import styled from 'styled-components';
 import DialogActions from '@material-ui/core/DialogActions';
 

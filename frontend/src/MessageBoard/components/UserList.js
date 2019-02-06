@@ -6,9 +6,27 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
-import { Overlay } from './MessageDetail';
+import { Overlay, Close } from './MessageDetail';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
+import { colors, palette } from '../../colorVariables';
+import styled from 'styled-components';
+
+const UserCard = styled(CardHeader)`
+	@media (max-width: 400px) {
+		display: flex;
+		flex-direction: column;
+		div {
+			margin: 0 auto;
+		}
+	}
+`;
+
+const Kick = styled(Button)`
+	@media (max-width: 400px) {
+		width: 100%;
+	}
+`;
 
 export default class UserList extends React.Component {
 	state = { width: 0 };
@@ -32,23 +50,23 @@ export default class UserList extends React.Component {
 				onClose={hideModal}
 				scroll="body"
 				fullScreen={this.state.width <= 700}
+				PaperProps={{
+					style: {
+						background: palette.plum,
+						color: '#fff'
+					}
+				}}
 			>
-				<Overlay>
-					<div
-						style={{
-							width: '100%',
-							display: 'flex',
-							justifyContent: 'flex-end'
-						}}
+				<Close>
+					<IconButton
+						aria-label="Close"
+						onClick={hideModal}
+						style={{ color: '#fff' }}
 					>
-						<IconButton
-							aria-label="Close"
-							onClick={hideModal}
-							style={{ color: '#fff' }}
-						>
-							<CloseIcon />
-						</IconButton>
-					</div>
+						<CloseIcon />
+					</IconButton>
+				</Close>
+				<Overlay>
 					<Query query={query.FIND_TEAM} variables={{ id: team }}>
 						{({ loading, error, data: { findTeam } }) =>
 							loading ? (
@@ -59,7 +77,7 @@ export default class UserList extends React.Component {
 								<div>
 									<h2 style={{ color: '#fff' }}>Members of {findTeam.name}</h2>
 									{findTeam.users.map(({ user, admin }) => (
-										<CardHeader
+										<UserCard
 											key={user._id}
 											avatar={
 												<Avatar
@@ -95,7 +113,7 @@ export default class UserList extends React.Component {
 															item => item.user._id === currentUser._id
 														).admin &&
 														user._id !== currentUser._id && (
-															<Button
+															<Kick
 																color="secondary"
 																onClick={e => {
 																	e.preventDefault();
@@ -119,7 +137,7 @@ export default class UserList extends React.Component {
 																}}
 															>
 																Kick User
-															</Button>
+															</Kick>
 														)
 													}
 												</Mutation>
