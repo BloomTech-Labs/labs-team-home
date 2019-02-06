@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import SignInSignUp from '../components/SignInSignUp';
 import LogoBanner from '../components/LandingLogoBanner';
-import { SVGAnimation } from '../styles/LandingViewStyled';
-import TH_desktop from '../../assets/TH_desktop.svg';
+// import { SVGAnimation } from '../styles/LandingViewStyled';
+// import TH_desktop from '../../assets/TH_desktop.svg';
 import Auth0 from '../../Auth/Auth';
 import Particles from 'react-particles-js';
 import particles from '../../animated/particles.json';

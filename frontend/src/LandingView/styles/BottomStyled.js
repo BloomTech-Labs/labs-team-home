@@ -8,7 +8,7 @@ const BtmContentStyles = styled.div`
 	font-size: 1rem;
 	margin: 0 auto;
   width: 90%;
-	color: rgba(255, 255, 255, 1);
+	color: ${colors.text};
   z-index:11;
 	/* background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 49% ,rgba(0,0,0,0) 100%); */
 
