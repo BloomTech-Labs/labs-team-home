@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Collapse, Nav, NavItem } from 'reactstrap';
 import LandingButton from '../components/LandingButton';
 

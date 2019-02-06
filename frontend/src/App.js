@@ -1,4 +1,4 @@
-import React, { Component, Route } from 'react';
+import React, { Component } from 'react';
 import { Switch, withRouter } from 'react-router-dom';
 import GlobalStyle from './GlobalStyles';
 import LandingView from './LandingView/containers/LandingView';
