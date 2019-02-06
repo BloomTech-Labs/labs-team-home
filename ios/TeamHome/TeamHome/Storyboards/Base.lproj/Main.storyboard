@@ -739,7 +739,7 @@
                         <viewLayoutGuide key="safeArea" id="pu9-Jz-5NJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Message Board" id="9lm-7P-GIr">
-                        <barButtonItem key="leftBarButtonItem" title="All my teams" style="done" id="uB1-kW-E9H">
+                        <barButtonItem key="leftBarButtonItem" image="Change Team" style="done" id="uB1-kW-E9H">
                             <connections>
                                 <segue destination="rKC-mD-nFa" kind="unwind" unwindAction="unwindToDashboardWithSegue:" id="SNe-Ec-pEK"/>
                             </connections>
@@ -908,6 +908,7 @@
     <resources>
         <image name="Activity Tab" width="56.347827911376953" height="56.347827911376953"/>
         <image name="Arrow Down" width="13.60629940032959" height="13.60629940032959"/>
+        <image name="Change Team" width="50.823528289794922" height="50.823528289794922"/>
         <image name="Logo With Nodes" width="246" height="245"/>
         <image name="Messages Tab" width="46.285713195800781" height="46.285713195800781"/>
         <image name="Settings Tab" width="94.254547119140625" height="94.254547119140625"/>
