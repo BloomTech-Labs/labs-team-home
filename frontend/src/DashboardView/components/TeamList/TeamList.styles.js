@@ -43,25 +43,6 @@ const Form = styled(Paper)`
 		color: ${colors.text};
 		margin: 0 auto;
 	}
-	// button {
-	// 	display: inline-block;
-	// 	border: none;
-	// 	margin: 0;
-	// 	text-decoration: none;
-	// 	background-color: #17151b;
-	// 	color: #ffd17c;
-	// 	font-family: sans-serif;
-	// 	font-size: 2.2rem;
-	// 	cursor: pointer;
-	// 	text-align: center;
-	// 	transition: background-color 250ms ease-in-out, transform 150ms ease;
-	// 	-webkit-appearance: none;
-	// 	-moz-appearance: none;
-	// 	:hover {
-	// 		background-color: #ffd17c;
-	// 		color: #17151b;
-	// 	}
-	// }
 `;
 
 const Input = styled(InputBase)`
@@ -94,6 +75,11 @@ const LinkStyles = styled(Link)`
 	background-color: ${colors.button};
 	margin-bottom: 20px;
 	border-radius: 5px;
+
+	${mediaQueryFor.xsDevice`
+		margin-bottom: 0;
+		border-bottom: 1px solid ${colors.border};
+	`}
 `;
 
 export { Form, TeamsList, LinkStyles, Input, Button, Container };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import * as style from './TeamList.styles';
 import * as query from '../../../constants/queries';

@@ -17,13 +17,19 @@ const Container = styled(Card)`
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
 
 	h3 {
-		width: 40%;
 		font-size: 1.2rem;
 		text-decoration: none;
 		position: relative;
 		float: left;
 		padding-left: 20px;
 	}
+
+	p {
+		position: relative;
+		text-align: right;
+		padding-right: 20px;
+	}
+
 	:hover {
 		background-color: rgba(107, 40, 59, 0.7);
 	}
@@ -41,11 +47,12 @@ const StyledTypography = styled(Typography)`
 	`}
 `;
 
-// p {
-// 	position: relative;
-// 	text-align: right;
-// 	width: 40%;
-// 	padding-right: 20px;
-// }
+const Prem = styled(Typography)`
+	color: ${colors.text};
 
-export { Container, Info, StyledTypography };
+	${mediaQueryFor.xsDevice`
+		display: none;
+	`}
+`;
+
+export { Container, Info, StyledTypography, Prem };
