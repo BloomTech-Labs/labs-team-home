@@ -35,6 +35,8 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     private func updateViews() {
         
+        print(self.contentView)
+        
         guard let comment = comment,
             let dateString = comment.createdAt,
             let dateDouble = Double(dateString) else { return }
@@ -96,11 +98,37 @@ class CommentCollectionViewCell: UICollectionViewCell {
     }
     
     private func prepareContentView(with comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+        
         contentLabel = UILabel()
         contentLabel.numberOfLines = 0
         contentLabel.text = comment.content
         contentLabel.font = RobotoFont.regular(with: 14)
         contentLabel.textColor = Appearance.darkMauveColor
+        contentLabel.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 20)
+        
+        if let image = comment.image {
+            
+            cloudinary.createDownloader().fetchImage(image, { (progress) in
+                // Show progress
+                print(progress)
+            }) { (image, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let image = image else { return }
+                
+                DispatchQueue.main.async {
+                    self.imageView = UIImageView(image: image.resize(toHeight: 50)!)
+                }
+            }
+            
+        }
+        
+        imageView = UIImageView(frame: .zero)
+        imageView.frame.origin.y = contentLabel.frame.height + 8
+        imageView.contentMode = .scaleAspectFit
     }
     
     private func prepareBottomBar() {
@@ -118,7 +146,11 @@ class CommentCollectionViewCell: UICollectionViewCell {
         card.toolbarEdgeInsets.bottom = 0
         card.toolbarEdgeInsets.right = 8
         
-        card.contentView = contentLabel
+        messageContentView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: contentLabel.frame.height + imageView.frame.height + 8))
+        messageContentView.addSubview(contentLabel)
+        messageContentView.addSubview(imageView)
+        
+        card.contentView = messageContentView
         card.contentViewEdgeInsetsPreset = .wideRectangle4
         
         card.bottomBar = bottomBar
@@ -145,11 +177,9 @@ class CommentCollectionViewCell: UICollectionViewCell {
     private var dateLabel: UILabel!
     private var favoriteButton: IconButton!
     private var likeCountLabel: UILabel!
+    private var messageContentView: UIView!
+    private var imageView: UIImageView!
     
     @IBOutlet weak var card: Card!
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var firstNameLabel: UILabel!
-    @IBOutlet weak var lastNameLabel: UILabel!
-    @IBOutlet weak var commentBodyText: UILabel!
-    @IBOutlet weak var commentImageView: UIImageView!
+    
 }

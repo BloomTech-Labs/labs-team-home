@@ -11,7 +11,12 @@ import Apollo
 
 var commentsWatcher: GraphQLQueryWatcher<FindCommentsByMessageQuery>?
 
-class CommentsCollectionViewController: UICollectionViewController, CommentCollectionCellDelegate {
+class CommentsCollectionViewController: UICollectionViewController, AddNewCommentDelegate, CommentCollectionCellDelegate {
+    
+    func didAddNewComment() {
+        self.label.removeFromSuperview()
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +103,7 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
         })
     }
     
-    private func handleEmptyComments() {
+    func handleEmptyComments() {
         
         guard let comments = comments else {
             return
@@ -106,12 +111,12 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
         
         if comments.count == 0 {
             DispatchQueue.main.async {
-                let label = UILabel()
-                label.text = "No comments yet."
-                label.frame = CGRect(x: 8, y: 8, width: 200, height: 30)
-                label.backgroundColor = .white
-                label.textColor = Appearance.darkMauveColor
-                self.collectionView.addSubview(label)
+                self.label = UILabel()
+                self.label.text = "No comments yet."
+                self.label.frame = CGRect(x: 8, y: 8, width: 200, height: 30)
+                self.label.backgroundColor = .white
+                self.label.textColor = Appearance.darkMauveColor
+                self.collectionView.addSubview(self.label)
             }
         }
     }
@@ -121,6 +126,7 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
     var apollo: ApolloClient?
     var messageId: GraphQLID?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
+    var label: UILabel!
     
     var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]? {
         didSet {

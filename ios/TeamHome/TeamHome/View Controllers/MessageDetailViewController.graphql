@@ -29,3 +29,23 @@ query FindMessageById($id: ID!) {
         updatedAt
     }
 }
+
+mutation CreateImageComment($message: String!, $content: String!, $image: String) {
+    addMsgComment(input: {
+                  message: $message
+                  content: $content
+                  image: $image
+                  }) {
+        _id
+    }
+}
+
+mutation CreateComment($message: String!, $content: String!) {
+    addMsgComment(input: {
+                  message: $message
+                  content: $content
+                  }) {
+        _id
+    }
+}
+

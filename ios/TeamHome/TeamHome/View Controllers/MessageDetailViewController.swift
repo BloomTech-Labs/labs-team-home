@@ -13,6 +13,10 @@ import GrowingTextView
 import Toucan
 import Material
 
+protocol AddNewCommentDelegate: class {
+    func didAddNewComment()
+}
+
 class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, EditMessageDelegate, GrowingTextViewDelegate {
     
     func editedMessage() {
@@ -58,18 +62,29 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             let messageId = message.id,
             let commentContent = commentTextView.text else { return }
         
-        apollo.perform(mutation: CreateCommentMutation(message: messageId, content: commentContent), queue: DispatchQueue.global()) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-                return
+        guard let imageData = imageData else {
+            
+            apollo.perform(mutation: CreateCommentMutation(message: messageId, content: commentContent), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                
+                print(result)
+                
+                commentsWatcher?.refetch()
+                DispatchQueue.main.async {
+                    self.commentTextView.text = ""
+                    self.delegate?.didAddNewComment()
+                }
             }
-            
-            guard let result = result else { return }
-            
-            print(result)
-            
-            commentsWatcher?.refetch()
+            return
         }
+        
+        
+
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -107,6 +122,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             destinationVC.apollo = apollo
             destinationVC.messageId = messageId
             destinationVC.currentUser = currentUser
+            self.delegate = destinationVC
         } else if segue.identifier == "EditMessage" {
             guard let destinationVC = segue.destination as? AddEditMessageViewController,
                 let message = message,
@@ -247,7 +263,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         if comments.count == 1 {
             heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
         } else if comments.count > 2 {
-            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 330)
+            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
         }
         
         NSLayoutConstraint.activate([heightConstraint])
@@ -291,6 +307,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
+    var imageData: Data?
+    var delegate: AddNewCommentDelegate?
     
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var userAvatarImageView: UIImageView!
