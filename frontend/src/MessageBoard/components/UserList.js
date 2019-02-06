@@ -22,12 +22,6 @@ const UserCard = styled(CardHeader)`
 	}
 `;
 
-const Kick = styled(Button)`
-	@media (max-width: 400px) {
-		width: 100%;
-	}
-`;
-
 export default class UserList extends React.Component {
 	state = { width: 0 };
 
@@ -113,7 +107,7 @@ export default class UserList extends React.Component {
 															item => item.user._id === currentUser._id
 														).admin &&
 														user._id !== currentUser._id && (
-															<Kick
+															<Button
 																color="secondary"
 																onClick={e => {
 																	e.preventDefault();
@@ -137,7 +131,7 @@ export default class UserList extends React.Component {
 																}}
 															>
 																Kick User
-															</Kick>
+															</Button>
 														)
 													}
 												</Mutation>
