@@ -102,6 +102,7 @@ const RespNav = styled.div`
 		width: 100%;
 		padding: 10px;
 		.nav-item {
+			font-size: 1.2rem;
 			margin: 10px 0 10px 0;
 		}
 	}
@@ -131,9 +132,6 @@ const RespNav = styled.div`
       border-top: solid 1px rgba(0,0,0,0.3);
     }
   `}
-	/* &:hover {
-		background-color: #17151b;
-	} */
 
 	-webkit-animation: AnimationName 26s ease infinite;
 	-moz-animation: AnimationName 26s ease infinite;
