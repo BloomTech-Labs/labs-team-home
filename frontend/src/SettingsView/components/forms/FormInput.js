@@ -1,6 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
-import mediaQueryFor from '../../../_global_styles/responsive_querie';
 import { FormInputStyles, StyledInput } from '../../styles/container.styles';
 
 const FormInput = props => {

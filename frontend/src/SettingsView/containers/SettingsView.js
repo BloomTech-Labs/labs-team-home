@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import SettingsTabs from '../components/tabs/SettingsTabs';
 import FormInput from '../components/forms/FormInput';

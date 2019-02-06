@@ -17,7 +17,7 @@ import CloseIcon from '@material-ui/icons/Close';
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import { addMessage } from './mutations/messages';
-import { palette, colors } from '../../colorVariables';
+import { colors } from '../../colorVariables';
 const { button } = colors;
 
 registerPlugin(
@@ -97,11 +97,6 @@ const Title = styled(DialogTitle)`
 // 		}
 // 	}
 // `;
-
-const ImageUploadContainer = styled(FilePond)`
-	/* width: 84%; */
-	margin: 0 auto;
-`;
 
 const Input = styled(TextField)`
 	input,

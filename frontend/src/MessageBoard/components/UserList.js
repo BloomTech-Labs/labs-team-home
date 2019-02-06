@@ -8,7 +8,6 @@ import Avatar from '@material-ui/core/Avatar';
 import { palette, colors } from '../../colorVariables';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import CardActions from '@material-ui/core/CardActions';
 
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
@@ -31,7 +30,11 @@ export default class UserList extends Component {
 		return (
 			<Dialog
 				isOpen={open}
-				style={{ background: palette.plum, color: '#fff', borderRadius: '3px' }}
+				style={{
+					background: palette.plum,
+					color: colors.text,
+					borderRadius: '3px'
+				}}
 			>
 				<div
 					style={{
@@ -43,7 +46,7 @@ export default class UserList extends Component {
 					<IconButton
 						aria-label="Close"
 						onClick={hideModal}
-						style={{ color: '#fff' }}
+						style={{ color: colors.text }}
 					>
 						<CloseIcon />
 					</IconButton>
@@ -67,19 +70,19 @@ export default class UserList extends Component {
 												// style={{ height: '64px', width: '64px' }}
 											/>
 										}
-										title={`${user.firstName} 
+										title={`${user.firstName}
 										${user.lastName}`}
 										subheader={`${user.email}`}
-										subheaderTypographyProps={{ style: { color: '#fff' } }}
-										titleTypographyProps={{ style: { color: '#fff' } }}
+										subheaderTypographyProps={{ style: { color: colors.text } }}
+										titleTypographyProps={{ style: { color: colors.text } }}
 										action={
 											<Mutation
 												mutation={mutation.UPDATE_TEAM}
 												update={(cache, { data: { updateTeam } }) => {
-													const { findTeam } = cache.readQuery({
-														query: query.FIND_TEAM,
-														variables: { id: team }
-													});
+													// const { findTeam } = cache.readQuery({
+													// 	query: query.FIND_TEAM,
+													// 	variables: { id: team }
+													// });
 													cache.writeQuery({
 														query: query.FIND_TEAM,
 														variables: { id: team },
