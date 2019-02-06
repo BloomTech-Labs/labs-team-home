@@ -77,7 +77,7 @@ export const FULL_COMMENT = gql`
 		content
 		image
 		likes {
-			...FullUser
+			_id
 		}
 		createdAt
 		updatedAt
