@@ -7,7 +7,7 @@ import {
 const FormCheckbox = props => {
 	return (
 		<FormCheckboxStyles className="form-group">
-			<label for={props.name} className="form-label">
+			<label htmlFor={props.name} className="form-label">
 				{props.title}
 			</label>
 			<StyledCheckbox

@@ -4,14 +4,14 @@ import { FormInputStyles, StyledInput } from '../../styles/container.styles';
 const FormInput = props => {
 	return (
 		<FormInputStyles className="form-group">
-			<label for={props.name} className="form-label">
+			<label htmlFor={props.name} className="form-label">
 				{props.title}
 			</label>
 			<StyledInput
 				className="form-control"
 				id={props.name}
 				name={props.name}
-				type={props.inputType}
+				type={props.inputtype}
 				value={props.value}
 				onChange={props.handleChange}
 				placeholder={props.placeholder}
