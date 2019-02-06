@@ -8,8 +8,21 @@
 
 import UIKit
 import Apollo
+import Material
 
 class InviteToTeamViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setUpViewAppearance()
+        emailTextField.dividerActiveColor = Appearance.yellowColor
+        emailTextField.placeholderActiveColor = Appearance.yellowColor
+        emailTextField.textColor = .white
+        phoneNumberTextField.dividerActiveColor = Appearance.yellowColor
+            phoneNumberTextField.placeholderActiveColor = Appearance.yellowColor
+        phoneNumberTextField.textColor = .white
+    }
 
     @IBAction func inviteToTeam(_ sender: Any) {
         
@@ -30,6 +43,7 @@ class InviteToTeamViewController: UIViewController {
             
             print(user)
             teamWatcher?.refetch()
+            self.navigationController?.popViewController(animated: true)
             
         }
     }
@@ -40,7 +54,7 @@ class InviteToTeamViewController: UIViewController {
     var teamId: GraphQLID?
 
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var emailTextField: TextField!
+    @IBOutlet weak var phoneNumberTextField: TextField!
     
 }

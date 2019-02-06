@@ -1,6 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
-import mediaQueryFor from '../../../_global_styles/responsive_querie';
 import {
 	FormCheckboxStyles,
 	StyledCheckbox
@@ -9,7 +7,7 @@ import {
 const FormCheckbox = props => {
 	return (
 		<FormCheckboxStyles className="form-group">
-			<label for={props.name} className="form-label">
+			<label htmlFor={props.name} className="form-label">
 				{props.title}
 			</label>
 			<StyledCheckbox

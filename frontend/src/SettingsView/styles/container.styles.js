@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import backgroundGradient from '../../_global_styles/background_gradient';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import { colors } from '../../colorVariables';
-import { Button, TextField, Input, Checkbox } from '@material-ui/core';
+import { Button, Input } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({

@@ -6,13 +6,13 @@ const { ValidationError } = require('apollo-server-express');
 
 const messageResolvers = {
 	Query: {
-		messages: () => Message.find().populate('user team tags subscribedUsers'),
+		messages: () => Message.find().populate('user team tag subscribedUsers'),
 		findMessage: (_, { input: { id } }) =>
 			Message.findById(id)
-				.populate('user team tags subscribedUsers')
+				.populate('user team tag subscribedUsers')
 				.then(message => message),
 		findMessagesByTeam: (_, { input: { team } }) =>
-			Message.find({ team: team }).populate('user team tags subscribedUsers')
+			Message.find({ team: team }).populate('user team tag subscribedUsers')
 	},
 	Mutation: {
 		addMessage: (_, { input }, { user: { _id } }) =>
@@ -23,7 +23,7 @@ const messageResolvers = {
 			})
 				.save()
 				.then(message =>
-					message.populate('user team tags subscribedUsers').execPopulate()
+					message.populate('user team tag subscribedUsers').execPopulate()
 				),
 		updateMessage: (_, { input }) => {
 			const { id } = input;
@@ -33,7 +33,7 @@ const messageResolvers = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user team tags subscribedUsers');
+					).populate('user team tag subscribedUsers');
 				} else {
 					throw new ValidationError("Message doesn't exist");
 				}
@@ -54,13 +54,13 @@ const messageResolvers = {
 				{ _id: id },
 				{ $addToSet: { subscribedUsers: _id } },
 				{ new: true }
-			).populate('user team tags subscribedUsers'),
+			).populate('user team tag subscribedUsers'),
 		unsubscribe: (_, { input: { id } }, { user: { _id } }) =>
 			Message.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { subscribedUsers: _id } },
 				{ new: true }
-			).populate('user team tags subscribedUsers')
+			).populate('user team tag subscribedUsers')
 	}
 };
 

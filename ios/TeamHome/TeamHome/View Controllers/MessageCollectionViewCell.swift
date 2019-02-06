@@ -54,10 +54,10 @@ class MessageCollectionViewCell: UICollectionViewCell {
     }
     
     private func prepareDateLabel(date: String) {
-        datesLabel = UILabel()
-        datesLabel.font = RobotoFont.regular(with: 12)
-        datesLabel.textColor = Color.grey.base
-        datesLabel.text = date
+        dateLabel = UILabel()
+        dateLabel.font = RobotoFont.regular(with: 12)
+        dateLabel.textColor = Color.grey.base
+        dateLabel.text = date
     }
     
     private func prepareImageButton(for message: FindMessagesByTeamQuery.Data.FindMessagesByTeam) {
@@ -127,7 +127,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
     private func prepareBottomBar() {
         bottomBar = Bar()
         bottomBar.leftViews = [imageButton]
-        bottomBar.rightViews = [datesLabel]
+        bottomBar.rightViews = [dateLabel]
         bottomBar.backgroundColor = .clear
     }
     
@@ -193,7 +193,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
     private var commentIcon: UIImageView!
     private var commentsCountLabel: UILabel!
     private var bottomBar: Bar!
-    private var datesLabel: UILabel!
+    private var dateLabel: UILabel!
     private var imageButton: IconButton!
     
     // All IBOutlets in message collection view cell.

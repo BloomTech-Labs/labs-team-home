@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import SettingsTabs from '../components/tabs/SettingsTabs';
 import FormInput from '../components/forms/FormInput';
@@ -217,7 +216,6 @@ class SettingsView extends Component {
 															// the load method accepts either a string (id) or an object
 															const response = JSON.parse(request.response);
 															this.setState({ avatar: response.secure_url });
-															console.log('THIS DOT AVATAR', this.avatar);
 															//add new url to the images array in preparation of creating new message
 															load(request.responseText);
 														} else {
@@ -243,7 +241,7 @@ class SettingsView extends Component {
 										/>
 									</AvatarUploadContainer>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										name={'firstName'}
 										title={'First Name'}
 										value={this.state.firstName}
@@ -252,10 +250,10 @@ class SettingsView extends Component {
 												? this.props.currentUser.firstName
 												: 'Enter your first name'
 										}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										name={'lastName'}
 										title={'Last Name'}
 										value={this.state.lastName}
@@ -264,10 +262,10 @@ class SettingsView extends Component {
 												? this.props.currentUser.lastName
 												: 'Enter your last name'
 										}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType={'text'}
+										inputtype={'text'}
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
@@ -276,10 +274,10 @@ class SettingsView extends Component {
 												? this.props.currentUser.email
 												: 'Enter your email'
 										}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
@@ -288,7 +286,7 @@ class SettingsView extends Component {
 												? this.props.currentUser.phoneNumber
 												: 'Enter your phone number'
 										}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormCheckbox
 										title={'Receive emails?'}
@@ -359,7 +357,7 @@ class SettingsView extends Component {
 									}}
 								>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										title={'First Name'}
 										name={'firstName'}
 										value={this.state.firstName}
@@ -367,7 +365,7 @@ class SettingsView extends Component {
 										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										title={'Phone Number'}
 										name={'lastName'}
 										value={this.state.lastName}
@@ -375,7 +373,7 @@ class SettingsView extends Component {
 										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputType={'text'}
+										inputtype={'text'}
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
@@ -383,7 +381,7 @@ class SettingsView extends Component {
 										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputType={'text'}
+										inputtype={'text'}
 										title={'Avatar'}
 										name={'avatar'}
 										value={this.state.avatar}
@@ -391,7 +389,7 @@ class SettingsView extends Component {
 										handleChange={this.handleChange}
 									/>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
