@@ -184,6 +184,8 @@
                                         <constraints>
                                             <constraint firstItem="9o5-Sd-XQ9" firstAttribute="leading" secondItem="eQg-AY-dIy" secondAttribute="leading" constant="16" id="5jB-Ei-1hd"/>
                                             <constraint firstAttribute="trailing" secondItem="9o5-Sd-XQ9" secondAttribute="trailing" constant="16" id="6Fa-IY-EJc"/>
+                                            <constraint firstAttribute="trailing" secondItem="DCL-Kh-M5G" secondAttribute="trailing" constant="16" id="YrW-n6-gOa"/>
+                                            <constraint firstAttribute="trailing" secondItem="xYx-fq-X6R" secondAttribute="trailing" constant="16" id="dFg-Jb-Y64"/>
                                             <constraint firstAttribute="height" constant="734" id="yu0-v2-ZGV"/>
                                         </constraints>
                                     </stackView>
@@ -247,21 +249,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZGV-JU-QEA">
-                            <size key="itemSize" width="370" height="122"/>
+                            <size key="itemSize" width="370" height="160"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CommentCell" id="n96-ro-2Uy" customClass="CommentCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                <rect key="frame" x="2.6666666666666665" y="0.0" width="370" height="122"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="CommentCell" id="n96-ro-2Uy" customClass="CommentCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
+                                <rect key="frame" x="2.6666666666666665" y="0.0" width="370" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="370" height="122"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="370" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n7J-Ox-M1G" customClass="Card" customModule="Material">
-                                            <rect key="frame" x="0.0" y="0.0" width="354" height="122"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="338" height="0.0"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="QKu-eA-B0r">
@@ -318,7 +320,7 @@
                                     <constraint firstItem="n7J-Ox-M1G" firstAttribute="leading" secondItem="n96-ro-2Uy" secondAttribute="leading" id="88w-WW-aKZ"/>
                                     <constraint firstItem="n7J-Ox-M1G" firstAttribute="top" secondItem="n96-ro-2Uy" secondAttribute="top" id="ET2-oy-ek0"/>
                                     <constraint firstAttribute="bottom" secondItem="n7J-Ox-M1G" secondAttribute="bottom" id="REo-uA-bZe"/>
-                                    <constraint firstAttribute="trailing" secondItem="n7J-Ox-M1G" secondAttribute="trailing" constant="16" id="bMM-Kn-eEf"/>
+                                    <constraint firstAttribute="trailing" secondItem="n7J-Ox-M1G" secondAttribute="trailing" constant="32" id="bMM-Kn-eEf"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="avatarImageView" destination="3uJ-Nd-bnS" id="6wN-sD-3OQ"/>

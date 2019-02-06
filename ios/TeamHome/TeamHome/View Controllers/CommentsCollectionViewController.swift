@@ -23,11 +23,13 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
             let apollo = apollo else { return }
 
         loadComments(from: messageId, with: apollo)
+        
     }
 
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return comments?.count ?? 0
     }
 
@@ -87,22 +89,27 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
                 NSLog("\(error)")
             }
             
-            guard let result = result else { return }
-            self.comments = result.data?.findMsgCommentsByMessage
+            guard let result = result,
+                let comments = result.data?.findMsgCommentsByMessage else { return }
+            
+            self.comments = comments
         })
     }
     
-//    private func fetchCurrentUser(with apollo: ApolloClient) {
-//        apollo.fetch(query: CurrentUserQuery()) { (result, error) in
-//            if let error = error {
-//                return
-//            }
-//
-//            guard let result = result else { return }
-//
-//            self.currentUser = result.data?.currentUser
-//        }
-//    }
+    private func handleEmptyComments() {
+        
+        guard let comments = comments else { return }
+        
+        if comments.count == 0 {
+            DispatchQueue.main.async {
+                let label = UILabel()
+                label.text = "No comments yet."
+                label.frame = CGRect(x: 0, y: 0, width: 200, height: 30)
+                label.textColor = .white
+                self.collectionView.addSubview(label)
+            }
+        }
+    }
     
     // MARK - Properties
     
@@ -114,6 +121,7 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                self.handleEmptyComments()
             }
         }
     }
