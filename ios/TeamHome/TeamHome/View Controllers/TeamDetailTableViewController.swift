@@ -13,7 +13,7 @@ import Toucan
 
 var teamWatcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
 
-class TeamDetailTableViewController: UITableViewController {
+class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,13 @@ class TeamDetailTableViewController: UITableViewController {
         setUpViewAppearance()
         view.backgroundColor = Appearance.plumColor
         UILabel.appearance().tintColor = .white
-        //createGradientLayer()
+        let inviteBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(clickedInviteUser))
+        navigationItem.rightBarButtonItem = inviteBarButton
+        navigationItem.title = "Team Detail"
+        
+        guard let team = team else { return }
+        
+        teamNameLabel.text = team.name
         
         guard let apollo = apollo else { return }
         
@@ -41,7 +47,16 @@ class TeamDetailTableViewController: UITableViewController {
         
         let firstName = user.user.firstName
         let lastName = user.user.lastName
-        let email = user.user.email
+        var email = ""
+        
+        if user.user.email == "" {
+            email = "no email"
+        } else {
+            email = user.user.email
+        }
+        
+        
+        
 
         cell.textLabel?.text = "\(firstName) \(lastName)"
         cell.detailTextLabel?.text = email
@@ -77,11 +92,48 @@ class TeamDetailTableViewController: UITableViewController {
         }    
     }
 
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let edit = editAction(at: indexPath)
+        let delete = deleteAction(at: indexPath)
+        
+        return UISwipeActionsConfiguration(actions: [delete, edit])
+    }
+
+    func editAction(at indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .normal, title: "edit") { (action, view, completion) in
+            // Present alert to change admin status
+            self.updateAdminStatus(at: indexPath)
+            completion(true)
+        }
+        
+        action.backgroundColor = Appearance.beigeColor
+        action.title = "Edit"
+        
+        return action
+    }
+    
+    func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .destructive, title: "delete") { (action, view, completion) in
+            self.users?.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            completion(true)
+        }
+        
+        action.backgroundColor = .red
+        action.title = "Delete"
+        
+        return action
+    }
+    
+    func updateAdminStatus(at indexPath: IndexPath) {
+        
+    }
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowInviteToTeam" {
+        if segue.identifier == "InviteUser" {
             guard let destinationVC = segue.destination as? InviteToTeamViewController,
                 let apollo = apollo,
                 let team = team,
@@ -108,6 +160,10 @@ class TeamDetailTableViewController: UITableViewController {
                 let team = data.findTeam else { return }
             self.users = team.users
         }
+    }
+    
+    @objc func clickedInviteUser() {
+        performSegue(withIdentifier: "InviteUser", sender: self)
     }
     
     func createGradientLayer() {
@@ -142,6 +198,5 @@ class TeamDetailTableViewController: UITableViewController {
     
     
     @IBOutlet weak var teamNameLabel: UILabel!
-    @IBOutlet weak var addMembersButton: UIButton!
     
 }
