@@ -14,91 +14,98 @@ import Toucan
 
 class MessageCollectionViewCell: UICollectionViewCell {
     
+    // MARK - Private Methods
+    
     // Set up message collection view cell with message details
     private func updateViews() {
         
-        guard let message = message else { return }
-        
-        guard let dateString = message.createdAt,
+        guard let message = message,
+            let dateString = message.createdAt,
             let dateDouble = Double(dateString) else { return }
         
         let dateDouble2 = dateDouble / 1000.0
         
         let date = dateDouble2.getDateStringFromUTC()
         
-        prepareAvatarImage(message: message)
+        prepareAvatarImage(for: message)
+        prepareComments(for: message)
         prepareDateLabel(date: date)
-        prepareImageButton()
+        prepareImageButton(for: message)
         prepareMoreButton()
         prepareContentView(messageContent: message.content)
         prepareBottomBar()
         prepareCard()
         
-        
-//        // Show image attachment icon if images are included in message
-//        if let images = message.images {
-//            if images.count > 0 {
-//                imageAttachmentIconImageView.isHidden = false
-//                imageAttachmentIconImageView.tintColor = .white
-//            } else {
-//                imageAttachmentIconImageView.isHidden = true
-//            }
-//        } else {
-//            imageAttachmentIconImageView.isHidden = true
-//        }
-//
-//        // Display number of comments in message or hides count if no comments
-//        if let comments = message.comments {
-//            if comments.count > 0 {
-//                commentCountLabel.text = "\(comments.count)"
-//                commentIconImageView.isHidden = false
-//                commentIconImageView.tintColor = .white
-//            } else {
-//                commentCountLabel.isHidden = true
-//                commentIconImageView.isHidden = true
-//            }
-//        }
-//
-//        // Download image and display as user avatar string of image url
-//        guard let avatar = message.user.avatar else { return }
-//
-//        // Use cloudinary to fetch image because using their image hosting service
-//        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
-//            // Show progress bar for download
-//
-//        }) { (image, error) in
-//            if let error = error {
-//                print("\(error)")
-//            }
-//
-//            guard let image = image else { return }
-//
-//            DispatchQueue.main.async {
-//                self.userAvatarImageView.image = image
-//            }
-//        }
     }
     
+    private func prepareAvatarImage(for message: FindMessagesByTeamQuery.Data.FindMessagesByTeam) {
+        
+        setImage(for: message) { (image) in
+            DispatchQueue.main.async {
+                
+                let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
+                self.avatarImageView = UIImageView(image: resizedImage.image)
+                self.avatarImageView.frame = CGRect(x: 0, y: 0, width: self.avatarImageView.frame.width, height: self.avatarImageView.frame.height)
+                self.avatarImageView.contentMode = .scaleAspectFit
+                self.prepareToolbar(firstName: message.user.firstName, lastName: message.user.lastName, messageTitle: message.title, message: message)
+                self.prepareCard()
+            }
+        }
+    }
     
     private func prepareDateLabel(date: String) {
-        datesLabel = UILabel()
-        datesLabel.font = RobotoFont.regular(with: 12)
-        datesLabel.textColor = Color.grey.base
-        datesLabel.text = date
+        dateLabel = UILabel()
+        dateLabel.font = RobotoFont.regular(with: 12)
+        dateLabel.textColor = Color.grey.base
+        dateLabel.text = date
     }
     
-    private func prepareImageButton() {
-        imageButton = IconButton(image: Icon.image, tintColor: Color.grey.base)
+    private func prepareImageButton(for message: FindMessagesByTeamQuery.Data.FindMessagesByTeam) {
+        // Create image button.
+        imageButton = IconButton(image: Icon.image, tintColor: Color.white)
+        
+         // Show image icon if images are included in message.
+        if let images = message.images {
+            if images.count > 0 {
+                imageButton.isHidden = false
+            } else {
+                imageButton.isHidden = true
+            }
+        } else {
+            imageButton.isHidden = true
+        }
+    }
+    
+    private func prepareComments(for message: FindMessagesByTeamQuery.Data.FindMessagesByTeam) {
+        let commentImage = UIImage(named: "Comments")!
+        commentIcon = UIImageView(image: commentImage)
+        commentIcon.tintColor = .white
+//        commentIcon.contentMode = .scaleAspectFit
+        commentIcon.contentScaleFactor = Screen.scale
+        
+        commentsCountLabel = UILabel()
+        
+        // Display number of comments in message or hides count if no comments
+        if let comments = message.comments {
+            if comments.count > 0 {
+                commentsCountLabel.textAlignment = .right
+                commentsCountLabel.font = RobotoFont.regular(with: 12)
+                commentsCountLabel.textColor = Color.grey.base
+                commentsCountLabel.text = "\(comments.count)"
+            } else {
+                commentIcon.isHidden = true
+            }
+        } else  {
+            commentIcon.isHidden = true
+        }
     }
     
     private func prepareMoreButton() {
         moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
-        let commentImage = UIImage(named: "Comments")!
-        commentButton = IconButton(image: commentImage, tintColor: Color.grey.base)
     }
     
     private func prepareToolbar(firstName: String, lastName: String, messageTitle: String, message: FindMessagesByTeamQuery.Data.FindMessagesByTeam ) {
-        toolbar = Toolbar(leftViews: [more2Button], rightViews: [commentsCountLabel, commentButton, moreButton])
+        toolbar = Toolbar(leftViews: [avatarImageView], rightViews: [commentsCountLabel, commentIcon, moreButton])
         
         toolbar.title = "\(firstName) \(lastName)"
         toolbar.titleLabel.textAlignment = .left
@@ -107,7 +114,6 @@ class MessageCollectionViewCell: UICollectionViewCell {
         toolbar.detailLabel.textAlignment = .left
         toolbar.detailLabel.textColor = Color.grey.base
         toolbar.backgroundColor = .clear
-        
     }
     
     private func prepareContentView(messageContent: String) {
@@ -120,9 +126,8 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     private func prepareBottomBar() {
         bottomBar = Bar()
-        
         bottomBar.leftViews = [imageButton]
-        bottomBar.rightViews = [datesLabel]
+        bottomBar.rightViews = [dateLabel]
         bottomBar.backgroundColor = .clear
     }
     
@@ -134,7 +139,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         card.toolbarEdgeInsets.right = 8
         
         card.contentView = contentLabel
-        card.contentViewEdgeInsetsPreset = .wideRectangle4
+        card.contentViewEdgeInsetsPreset = .wideRectangle5
         
         card.bottomBar = bottomBar
         card.bottomBarEdgeInsetsPreset = .wideRectangle2
@@ -143,32 +148,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         
     }
     
-    private func prepareAvatarImage(message: FindMessagesByTeamQuery.Data.FindMessagesByTeam) {
-        
-        commentsCountLabel = UILabel()
-        
-        // Display number of comments in message or hides count if no comments
-        if let comments = message.comments {
-            if comments.count > 0 {
-                commentsCountLabel.textAlignment = .right
-                commentsCountLabel.font = RobotoFont.regular(with: 12)
-                commentsCountLabel.textColor = Color.grey.base
-                commentsCountLabel.text = "\(comments.count)"
-            }
-        }
-        
-        setImage(for: message) { (image) in
-            DispatchQueue.main.async {
-                
-                let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
-                self.more2Button = UIImageView(image: resizedImage.image)
-                self.more2Button.contentMode = .scaleAspectFit
-                self.prepareToolbar(firstName: message.user.firstName, lastName: message.user.lastName, messageTitle: message.title, message: message)
-                self.prepareCard()
-            }
-        }
-    }
-    
+    // Set image for a given message.
     private func setImage(for message: FindMessagesByTeamQuery.Data.FindMessagesByTeam, completion: @escaping (UIImage) -> Void) {
         // Download image and display as user avatar string of image url
         guard let avatar = message.user.avatar else {
@@ -197,32 +177,6 @@ class MessageCollectionViewCell: UICollectionViewCell {
 
     }
     
-    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
-        let size = image.size
-        
-        let widthRatio  = targetSize.width  / image.size.width
-        let heightRatio = targetSize.height / image.size.height
-        
-        // Figure out what our orientation is, and use that to form the rectangle
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
-        }
-        
-        // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage
-    }
-    
     // MARK - Properties
     
     var message: FindMessagesByTeamQuery.Data.FindMessagesByTeam? {
@@ -231,19 +185,18 @@ class MessageCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // Components in the card.
     private var toolbar: Toolbar!
     private var moreButton: IconButton!
-    private var more2Button: UIImageView!
-    
+    private var avatarImageView: UIImageView!
     private var contentLabel: UILabel!
-    private var commentButton: IconButton!
+    private var commentIcon: UIImageView!
     private var commentsCountLabel: UILabel!
-    
     private var bottomBar: Bar!
-    private var datesLabel: UILabel!
+    private var dateLabel: UILabel!
     private var imageButton: IconButton!
     
-    // All IBOutlets in message collection view cell
+    // All IBOutlets in message collection view cell.
     @IBOutlet weak var card: Card!
     
 }
