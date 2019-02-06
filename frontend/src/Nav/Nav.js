@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import NavBar, { StyledLink, TextIMG } from './styles/index';
 import styled from 'styled-components';
 // import Button from '../components/SignInUpButton';

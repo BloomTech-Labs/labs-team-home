@@ -1,4 +1,4 @@
-import React, { Component, Route } from 'react';
+import React, { Component } from 'react';
 import { Switch, withRouter } from 'react-router-dom';
 import GlobalStyle from './GlobalStyles';
 import LandingView from './LandingView/containers/LandingView';
@@ -23,9 +23,6 @@ const jss = create({
 	// We define a custom insertion point that JSS will look for injecting the styles in the DOM.
 	insertionPoint: document.getElementById('jss-insertion-point')
 });
-
-const appearDuration = 500;
-const transitionName = `example`;
 
 class App extends Component {
 	handleLogout() {

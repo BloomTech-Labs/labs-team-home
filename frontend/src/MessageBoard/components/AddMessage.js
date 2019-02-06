@@ -35,6 +35,17 @@ const apiKey = process.env.REACT_APP_API_KEY;
 const apiSecret = process.env.REACT_APP_API_SECRET;
 const cloudName = process.env.REACT_APP_CLOUD_NAME;
 
+const Container = styled(Dialog)`
+	@media (max-width: 696px) {
+		div {
+			div {
+				margin-left: 0;
+				margin-right: 0;
+			}
+		}
+	}
+`;
+
 const Overlay = styled(DialogContent)`
 	background-color: ${button};
 	.filepond--wrapper {
@@ -99,11 +110,6 @@ const Title = styled(DialogTitle)`
 // 		}
 // 	}
 // `;
-
-const ImageUploadContainer = styled(FilePond)`
-	/* width: 84%; */
-	margin: 0 auto;
-`;
 
 const Input = styled(TextField)`
 	input,
