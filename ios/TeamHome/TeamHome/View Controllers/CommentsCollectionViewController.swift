@@ -38,8 +38,8 @@ class CommentsCollectionViewController: UICollectionViewController, CommentColle
     
         guard let comment = comments?[indexPath.row],
             let currentUser = currentUser else { return UICollectionViewCell() }
-        cell.comment = comment
         cell.currentUser = currentUser
+        cell.comment = comment
         cell.delegate = self
         
         return cell

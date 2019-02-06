@@ -19,6 +19,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     @objc func clickedLikeButton(_ sender: IconButton) {
      
+        guard let hasLiked = hasLiked else { return }
         if hasLiked {
             delegate?.unlikeComment(cell: self)
             favoriteButton.tintColor = Color.grey.base
@@ -63,16 +64,22 @@ class CommentCollectionViewCell: UICollectionViewCell {
         likeCountLabel = UILabel()
         likeCountLabel.text = "\(likes.count) likes"
         likeCountLabel.textColor = Appearance.darkMauveColor
-        //
-        //        let likeIDs = likes.compactMap({ $0?.id })
-        //        if !likeIDs.contains(id) {
-        //            self.hasLiked = false
-        //        } else {
-        //            self.hasLiked = true
-        //        }
         
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.grey.base)
+        guard let currentUser = currentUser else { return }
+        let id = currentUser.id
+        
+        let likeIDs = likes.compactMap({ $0?.id })
+        if likeIDs.contains(id) {
+            favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
+            self.hasLiked = true
+        } else {
+            favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.grey.base)
+            self.hasLiked = false
+        }
+        
         favoriteButton.addTarget(self, action: #selector(self.clickedLikeButton(_:)), for: .touchUpInside)
+        
+        
     }
     
     private func prepareToolbar(with comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
@@ -122,7 +129,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     // MARK - Properties
     
-    private var hasLiked: Bool = false
+    private var hasLiked: Bool?
     
     weak var delegate: CommentCollectionCellDelegate?
     var currentUser: CurrentUserQuery.Data.CurrentUser?

@@ -88,7 +88,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="fkz-Vk-QXr">
+                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="758" translatesAutoresizingMaskIntoConstraints="NO" id="fkz-Vk-QXr">
                                                 <rect key="frame" x="0.0" y="111.33333333333334" width="343" height="270"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="270" id="Usw-J4-IsO"/>

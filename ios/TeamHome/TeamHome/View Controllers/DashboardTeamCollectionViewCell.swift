@@ -17,8 +17,6 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
     
     private func prepareBottomBar() {
         bottomBar = Bar()
-//        
-//        bottomBar.leftViews = [favoriteButton]
         bottomBar.backgroundColor = .clear
     }
     

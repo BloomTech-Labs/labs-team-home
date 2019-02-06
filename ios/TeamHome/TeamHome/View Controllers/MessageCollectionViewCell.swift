@@ -92,7 +92,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
             if comments.count > 0 {
                 commentsCountLabel.textAlignment = .right
                 commentsCountLabel.font = RobotoFont.regular(with: 12)
-                commentsCountLabel.textColor = Color.grey.base
+                commentsCountLabel.textColor = .white
                 commentsCountLabel.text = "\(comments.count)"
             } else {
                 commentIcon.isHidden = true
@@ -181,6 +181,8 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     // MARK - Properties
     
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     var message: FindMessagesByTeamQuery.Data.FindMessagesByTeam? {
         didSet {
             self.updateViews()

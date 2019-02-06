@@ -17,6 +17,10 @@ import TagListView
 let config = CLDConfiguration(cloudName: "massamb", secure: true)
 let cloudinary = CLDCloudinary(configuration: config)
 
+protocol EditMessageDelegate: class {
+    func editedMessage()
+}
+
 class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, TagListViewDelegate {
     
     // MARK - UICollectionViewDataSource
@@ -51,8 +55,10 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         Appearance.styleLandingPage(button: submitButton)
         messageContentTextView.placeholder = "Enter your message"
         messageContentTextView.tintColor = .white
+        messageContentTextView.textColor = .white
         messageTitleTextField.placeholderActiveColor = Appearance.yellowColor
         messageTitleTextField.dividerActiveColor = Appearance.yellowColor
+        messageTitleTextField.textColor = .white
         tagListView.delegate = self
         
         updateViews()
@@ -367,6 +373,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                 DispatchQueue.main.async {
                     // Call messages watcher to refetch all messages.
                     messagesWatcher?.refetch()
+                    
                     // Go back to previous view controller.
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -379,9 +386,35 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         // Check to see if user selected image.
         guard let imageData = imageData else {
             
-            // Check for existing image url
+            if let imageURL = imageURL {
+                
+                apollo.perform(mutation: UpdateMessageMutation(id: messageId, title: messageTitle, teamId: teamId, content: content, images: [imageURL], tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
+                    // Check for errors.
+                    if let error = error {
+                        NSLog("\(error)")
+                        return
+                    }
+                    
+                    guard let result = result,
+                        let data = result.data,
+                        let message = data.updateMessage else { return }
+                    
+                    print(message.title)
+                    
+                    DispatchQueue.main.async {
+                        // Call messages watcher to refetch all messages.
+                        messagesWatcher?.refetch()
+                        
+                        self.delegate?.editedMessage()
+                        
+                        // Go back to previous view controller.
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                
+            }
             
-            apollo.perform(mutation: UpdateMessageMutation(id: messageId, title: messageTitle, teamId: teamId, content: content, images: [""], tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
+            apollo.perform(mutation: UpdateMessageMutation(id: messageId, title: messageTitle, teamId: teamId, content: content, images: nil, tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
                 // Check for errors.
                 if let error = error {
                     NSLog("\(error)")
@@ -397,6 +430,9 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                 DispatchQueue.main.async {
                     // Call messages watcher to refetch all messages.
                     messagesWatcher?.refetch()
+                    
+                    self.delegate?.editedMessage()
+                    
                     // Go back to previous view controller.
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -440,6 +476,8 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                 DispatchQueue.main.async {
                     // Call messages watcher to refetch all messages.
                     messagesWatcher?.refetch()
+                    
+                    
                     // Go back to previous view controller.
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -455,6 +493,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
     private var tagsWatcher: GraphQLQueryWatcher<FindTagsByTeamQuery>?
     
+    weak var delegate: EditMessageDelegate?
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var message: FindMessageByIdQuery.Data.FindMessage? {

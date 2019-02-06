@@ -9,29 +9,22 @@
 import UIKit
 import Apollo
 import Cloudinary
-import MEVHorizontalContacts
 import GrowingTextView
 import Toucan
 import Material
 
-class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, GrowingTextViewDelegate {
+class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, EditMessageDelegate, GrowingTextViewDelegate {
+    
+    func editedMessage() {
+        watcher?.refetch()
+    }
+    
     
     // MARK - Lifecycle Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        subscribersHorixzontal = MEVHorizontalContacts()
-//        subscribersHorixzontal.backgroundColor = .clear
-//        subscribersHorixzontal.dataSource = self
-//        subscribersHorixzontal.delegate = self
-//        self.view.addSubview(subscribersHorixzontal)
-//        let constraint = NSLayoutConstraint(item: subscribersHorixzontal, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1, constant: 0)
-//        let constraint2 = NSLayoutConstraint(item: subscribersHorixzontal, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 100)
-//        NSLayoutConstraint.activate([constraint, constraint2])
-//        // constraints
-        
-        
+
         setUpViewAppearance()
         subscribersCollectionView.backgroundColor = .clear
         Appearance.styleOrange(button: sendCommentButton)
@@ -41,9 +34,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         let imageView = UIImageView(image: editImage)
         imageView.frame = CGRect(x: 8, y: 8, width: 20, height: 20)
         editMessageBarButtonView.addSubview(imageView)
-        
-//        let barButton = UIBarButtonItem(customView: editMessageBarButtonView)
-//        let editMessageBarButton = UIBarButtonItem(image: editImage, style: .plain, target: self, action: #selector(clickedEditButton))
         
         let barButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(clickedEditButton))
         navigationItem.rightBarButtonItem = barButton
@@ -119,10 +109,13 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             destinationVC.currentUser = currentUser
         } else if segue.identifier == "EditMessage" {
             guard let destinationVC = segue.destination as? AddEditMessageViewController,
-                let message = message else { return }
+                let message = message,
+                let team = team else { return }
             
             destinationVC.apollo = apollo
+            destinationVC.team = team
             destinationVC.message = message
+            destinationVC.delegate = self
         }
     }
     
@@ -260,6 +253,22 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         NSLayoutConstraint.activate([heightConstraint])
     }
     
+    func fetchMessage(with apollo: ApolloClient, id: GraphQLID) {
+        
+        watcher = apollo.watch(query: FindMessageByIdQuery(id: id), resultHandler: { (result, error) in
+            if let error = error {
+                print("\(error)")
+                return
+            }
+            
+            guard let result = result,
+                let data = result.data,
+                let message = data.findMessage else { return }
+            
+            self.message = message
+        })
+    }
+    
     // MARK - Properties
     
     private var message: FindMessageByIdQuery.Data.FindMessage? {
@@ -277,7 +286,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         }
     }
     
-    var subscribersHorixzontal: MEVHorizontalContacts!
     var watcher: GraphQLQueryWatcher<FindMessageByIdQuery>?
     var messageId: GraphQLID?
     var apollo: ApolloClient?
