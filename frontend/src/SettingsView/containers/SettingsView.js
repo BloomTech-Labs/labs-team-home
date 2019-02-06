@@ -118,7 +118,6 @@ class SettingsView extends Component {
 	};
 
 	handlePickTeam = e => {
-		console.log('PICK A TEAM', e.currentTarget.dataset.id);
 		this.setState({ teamId: e.currentTarget.dataset.id });
 	};
 
