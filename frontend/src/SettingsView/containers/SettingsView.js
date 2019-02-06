@@ -313,6 +313,7 @@ class SettingsView extends Component {
 								<BillingView
 									teamId={this.state.teamId}
 									handlePickTeam={this.handlePickTeam}
+									currentUser={currentUser}
 								/>
 							</div>
 						</SettingsTabs>
