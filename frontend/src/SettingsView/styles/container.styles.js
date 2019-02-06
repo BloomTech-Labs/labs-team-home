@@ -149,6 +149,12 @@ const StyledCheckbox = styled.input`
 	padding: 0;
 `;
 
+const StyledBillingContainer = styled.div`
+	width: 100%;
+`;
+
+const StyledTeamCard = styled.div``;
+
 export default withStyles(styles)(SettingsContainer);
 export {
 	StyledAvatar,
@@ -158,5 +164,7 @@ export {
 	FormInputStyles,
 	StyledInput,
 	FormCheckboxStyles,
-	StyledCheckbox
+	StyledCheckbox,
+	StyledBillingContainer,
+	StyledTeamCard
 };
