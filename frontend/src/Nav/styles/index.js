@@ -99,18 +99,31 @@ const RespNav = styled.div`
 	flex-flow: row;
 	z-index: 1001;
 	justify-content: space-between;
-	${mediaQueryFor.smDevice`
+	.navbar {
+		width: 100%;
+	}
+	${mediaQueryFor.mdDevice`
+    display:flex;
     flex-flow: column;
-    align-items:center;
-    &.navbar-nav{
-      padding:0;
+    justify-content: space-between;
+    .nav-item{
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+    }
+  `}
+	${mediaQueryFor.smDevice`
+    display:flex;
+    flex-flow: column;
+    justify-content: space-between;
+    .nav-item{
+      display: flex;
+      flex-flow: column;
+      align-items: center;
     }
   `}
 	&:hover {
 		background-color: #17151b;
-	}
-
-	@media (max-width: 700px) {
 	}
 
 	-webkit-animation: AnimationName 26s ease infinite;

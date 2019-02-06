@@ -8,6 +8,7 @@ import {
 	NavItem,
 	NavLink
 } from 'reactstrap';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 // yellow text rgb(236, 255, 38); #ecff26;
 const LandBtn = styled.button`
@@ -27,6 +28,12 @@ const LandBtn = styled.button`
 		color: #ecff26;
 		transform: scale(1.05, 1.05);
 	}
+	${mediaQueryFor.mdDevice`
+    text-align:center;
+  `}
+	${mediaQueryFor.smDevice`
+    text-align:center;
+  `}
 `;
 
 const LandButton = props => {
