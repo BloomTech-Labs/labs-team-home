@@ -24,9 +24,6 @@ const jss = create({
 	insertionPoint: document.getElementById('jss-insertion-point')
 });
 
-const appearDuration = 500;
-const transitionName = `example`;
-
 class App extends Component {
 	handleLogout() {
 		localStorage.removeItem('token');

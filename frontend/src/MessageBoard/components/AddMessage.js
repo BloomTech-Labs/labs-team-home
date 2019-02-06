@@ -109,11 +109,6 @@ const Title = styled(DialogTitle)`
 // 	}
 // `;
 
-const ImageUploadContainer = styled(FilePond)`
-	/* width: 84%; */
-	margin: 0 auto;
-`;
-
 const Input = styled(TextField)`
 	input,
 	textarea,

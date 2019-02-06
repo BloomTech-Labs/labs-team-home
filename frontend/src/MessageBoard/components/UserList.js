@@ -55,7 +55,7 @@ export default class UserList extends React.Component {
 					<IconButton
 						aria-label="Close"
 						onClick={hideModal}
-						style={{ color: '#fff' }}
+						style={{ color: colors.text }}
 					>
 						<CloseIcon />
 					</IconButton>
@@ -80,7 +80,7 @@ export default class UserList extends React.Component {
 													// style={{ height: '64px', width: '64px' }}
 												/>
 											}
-											title={`${user.firstName} 
+											title={`${user.firstName}
 										${user.lastName}`}
 											subheader={`${user.email}`}
 											subheaderTypographyProps={{ style: { color: '#fff' } }}
