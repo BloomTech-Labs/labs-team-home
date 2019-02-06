@@ -1,35 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import {
-	Collapse,
-	Navbar,
-	NavbarToggler,
-	Nav,
-	NavbarBrand,
-	DropdownToggle,
-	UncontrolledDropdown,
-	NavItem,
-	DropdownMenu,
-	DropdownItem,
-	NavLink
-} from 'reactstrap';
-import { StyledLink, TextIMG, RespNav } from '../Nav/styles/index';
+import { Navbar, NavbarToggler } from 'reactstrap';
+import { TextIMG, RespNav } from '../Nav/styles/index';
 import { Spin } from 'react-burgers';
 import Auth0 from '../Auth/Auth';
-// import styled from 'styled-components';
-import LandingButton from '../Nav/components/LandingButton';
 import textLogo from '../assets/TH_text_filled.svg';
-import graphLogo from '../assets/TH_icon_logo_wout_nodes.svg';
-// import { StyledAvatar } from '../SettingsView/styles/container.styles';
 import LandingNavOptions from './components/LandingNavOptions';
-
-const navStyle = {
-	width: '100%',
-	display: 'flex',
-	flexFlow: 'row',
-	justifyContent: 'space-between',
-	backgroundColor: 'rgba(0,0,0,0)'
-};
 
 export default class RespNavBar extends Component {
 	constructor(props) {
@@ -73,22 +48,11 @@ export default class RespNavBar extends Component {
 						<NavbarToggler onClick={this.toggle}>
 							<Spin active={this.state.isOpen} color="#fff" />
 						</NavbarToggler>
-						<Collapse isOpen={this.state.isOpen} navbar>
-							<Nav className="ml-auto nav-btns" navbar>
-								<NavItem>
-									<LandingButton
-										clickFxn={this.handleLogin}
-										label={this.state.login}
-									/>
-								</NavItem>
-								<NavItem>
-									<LandingButton
-										clickFxn={this.handleLogin}
-										label={this.state.signup}
-									/>
-								</NavItem>
-							</Nav>
-						</Collapse>
+						<LandingNavOptions
+							handleLogin={this.handleLogin}
+							handleSignUp={this.handleSignUp}
+							isOpen={this.state.isOpen}
+						/>
 					</Navbar>
 				</RespNav>
 			</div>

@@ -8,7 +8,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
 import AppStyles from './app-styles';
 import SettingsView from './SettingsView/containers/SettingsView';
-import Nav from './Nav/Nav';
+import AppNavBar from './Nav/Nav';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
@@ -37,7 +37,7 @@ class App extends Component {
 				<AppStyles>
 					<GlobalStyle />
 					<TextIMG alt={'TeamHome banner'} src={iconLogo} />
-					{localStorage.token && <Nav handleLogout={this.handleLogout} />}
+					{localStorage.token && <AppNavBar handleLogout={this.handleLogout} />}
 					<TransitionGroup>
 						<CSSTransition
 							key={this.props.location.key}
