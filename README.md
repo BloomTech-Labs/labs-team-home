@@ -7,6 +7,7 @@
 | [<img src="https://avatars2.githubusercontent.com/u/41486018?s=80" width="80">](https://github.com/koennecker) | [<img src="https://avatars0.githubusercontent.com/u/26748571?s=80" width="80">](https://github.com/sherlock270) | [<img src="https://avatars1.githubusercontent.com/u/41768821?s=80" width="80">](https://github.com/danielaparra) | [<img src="https://avatars2.githubusercontent.com/u/34250625?s=80" width="80">](https://github.com/david-pok) | [<img src="https://avatars0.githubusercontent.com/u/3199036?s=80" width="80">](https://github.com/ErikKimsey) | [<img src="https://avatars2.githubusercontent.com/u/36084491?s=80" width="80">](https://github.com/zacharyarney) |
 |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/koennecker)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/sherlock270)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/danielaparra)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/david-pok)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/ErikKimsey)         |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/zacharyarney)          |
 
+- [Technical Design Document](https://docs.google.com/document/d/1kNjsQN3wasR7accKpKR836aFewaEpWMwHhahp6uzRIo/)
 - [iOS Setup](ios/README.md)
 - [Front End Setup](frontend/README.md)
 - [Back End Setup](backend/README.md)
@@ -18,6 +19,7 @@
     - [React](#react)
     - [Apollo Client](#apollo-client)
     - [Styled Components](#styled-components)
+    - [Material UI](#material-ui)
     - [Stripe](#stripe)
   - [Front-End Development Dependencies](#front-end-development-dependencies)
     - [Husky](#husky)
@@ -59,6 +61,10 @@ Apollo Client is designed to quickly build a UI that works with GraphQL and inte
 ### Styled Components
 
 Styled Components is a popular CSS-in-JS library that provides flexibility and seamless integration with React allowing for customizable themes and styling that responds to props and JS logic.<br/>[Styled Components info](https://www.styled-components.com/docs/)
+
+### Material-UI
+
+Material-UI is an open source library that uses React components which implement Google's Material Design. It makes using and designing components easier for anyone that uses it.<br/>[Material-UI info](https://material-ui.com/)
 
 ### Stripe
 
