@@ -262,8 +262,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="370" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n7J-Ox-M1G" customClass="Card" customModule="Material">
-                                            <rect key="frame" x="0.0" y="0.0" width="338" height="0.0"/>
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n7J-Ox-M1G" customClass="Card" customModule="Material">
+                                            <rect key="frame" x="0.0" y="0.0" width="338" height="160"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="QKu-eA-B0r">
@@ -340,7 +340,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YOa-hl-SbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5812" y="-1148.2758620689656"/>
+            <point key="canvasLocation" x="5812" y="-1148.6453201970444"/>
         </scene>
         <!--AddEditMessageView-->
         <scene sceneID="HG9-g9-PQd">

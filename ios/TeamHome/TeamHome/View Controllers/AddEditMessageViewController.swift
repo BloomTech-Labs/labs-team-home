@@ -17,7 +17,30 @@ import TagListView
 let config = CLDConfiguration(cloudName: "massamb", secure: true)
 let cloudinary = CLDCloudinary(configuration: config)
 
-class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, TagListViewDelegate {
+class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, TagListViewDelegate {
+    
+    // MARK - UICollectionViewDataSource
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tags?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCollectionViewCell
+        
+        guard let tag = tags?[indexPath.row] else { return UICollectionViewCell() }
+        cell.tagLabel.text = tag.name
+        cell.backgroundColor = Appearance.darkMauveColor
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let tag = tags?[indexPath.row] else { return }
+        self.tagSelected = tag.name
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = Appearance.mauveColor
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,8 +160,6 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     
     // Cancel create new message and return to message board.
     @IBAction func cancelNewMessage(_ sender: Any) {
-//        // For modal segue
-//        self.dismiss(animated: true, completion: nil)
         
         navigationController?.popViewController(animated: true)
     }
@@ -174,6 +195,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         guard isViewLoaded,
             let message = message else { return }
         
+        titleLabel.text = "Edit message"
         messageTitleTextField.text = message.title
         messageContentTextView.text = message.content
         
@@ -223,8 +245,9 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
             
             // Save tags and populate collection view
             print(tags)
-            self.setUpTagListView(for: tags)
+//            self.setUpTagListView(for: tags)
             self.tags = tags
+            self.collectionView.reloadData()
         }
     }
     
@@ -262,17 +285,13 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     }
     
     private func findSelectedTag() -> GraphQLID? {
-        // Unwrap tag selection or recently created tag
-        let selectedTags = tagListView.selectedTags()
-        
-        guard let selectedTag = selectedTags.first,
-            let selectedLabel = selectedTag.titleLabel,
-            let selectedString = selectedLabel.text,
+        // Unwrap tag selection or recently created tag.
+        guard let selectedTag = self.tagSelected,
             let tags = tags else { return nil }
         
         for tag in tags {
             if let tag = tag {
-                if tag.name == selectedString {
+                if tag.name == selectedTag {
                     return tag.id
                 }
             }
@@ -300,9 +319,10 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                 
                 print(message.title)
                 
+                // Call messages watcher to refetch all messages.
+                messagesWatcher?.refetch()
+                
                 DispatchQueue.main.async {
-                    // Call messages watcher to refetch all messages.
-                    messagesWatcher?.refetch()
                     // Go back to previous view controller.
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -429,6 +449,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     
     // MARK - Properties
     
+    private var tagSelected: String?
     private var imageURL: String?
     private var imageData: Data?
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
@@ -444,6 +465,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         }
     }
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: FlatButton!
     @IBOutlet weak var submitButton: RaisedButton!
     @IBOutlet weak var newMessageView: UIView!
@@ -451,6 +473,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     @IBOutlet weak var messageContentTextView: TextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tagListView: TagListView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tagsTextField: UITextField!
     
 }
