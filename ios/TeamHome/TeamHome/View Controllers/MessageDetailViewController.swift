@@ -78,6 +78,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
                 DispatchQueue.main.async {
                     self.commentTextView.text = ""
                     self.delegate?.didAddNewComment()
+                    self.updateViews()
                 }
             }
             return

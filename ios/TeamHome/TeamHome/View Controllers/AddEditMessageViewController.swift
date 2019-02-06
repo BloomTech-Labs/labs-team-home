@@ -312,7 +312,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         guard let imageData = imageData else {
             
             // If no photo is selected, create message without images attached.
-            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: nil, tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
+            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
                 // Check for errors.
                 if let error = error {
                     NSLog("\(error)")
@@ -357,7 +357,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                 let url = result.url else { return }
             
             // Pass image url to Apollo client to create message.
-            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: [url]), queue: DispatchQueue.global()) { (result, error) in
+            apollo.perform(mutation: AddNewImagesMessageMutation(title: messageTitle, team: teamId, content: content, images: [url], tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
                 // Check for errors.
                 if let error = error {
                     NSLog("\(error)")

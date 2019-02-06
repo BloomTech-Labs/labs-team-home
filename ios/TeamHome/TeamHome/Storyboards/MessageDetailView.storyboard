@@ -23,7 +23,7 @@
                                 <rect key="frame" x="16" y="32" width="343" height="764"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="9o5-Sd-XQ9">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="111.33333333333333"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="150.33333333333334"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="754" text="Message title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dai-gO-o6P">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="20.333333333333332"/>
@@ -89,27 +89,27 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="758" translatesAutoresizingMaskIntoConstraints="NO" id="fkz-Vk-QXr">
-                                                <rect key="frame" x="0.0" y="111.33333333333334" width="343" height="270"/>
+                                                <rect key="frame" x="0.0" y="116" width="343" height="270"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="270" id="Usw-J4-IsO"/>
                                                 </constraints>
                                             </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCD-iF-K8Z">
+                                                <rect key="frame" x="0.0" y="120.33333333333334" width="343" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0R-Kb-IRz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                                        <state key="normal" title="Subscribe"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="hoR-iD-zcH" secondAttribute="trailing" constant="16" id="aNi-ed-iwj"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCD-iF-K8Z">
-                                        <rect key="frame" x="0.0" y="123.33333333333334" width="343" height="30"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0R-Kb-IRz">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
-                                                <state key="normal" title="Subscribe"/>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
                                     <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="gVp-iT-8Zf">
-                                        <rect key="frame" x="0.0" y="165.33333333333331" width="343" height="553.66666666666674"/>
+                                        <rect key="frame" x="0.0" y="162.33333333333331" width="343" height="556.66666666666674"/>
                                         <connections>
                                             <segue destination="eTr-fg-d1x" kind="embed" identifier="EmbeddedComments" id="4jd-Ls-HUM"/>
                                         </connections>
@@ -255,7 +255,7 @@
             <objects>
                 <collectionViewController id="eTr-fg-d1x" customClass="CommentsCollectionViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="oGR-RR-Q7X">
-                        <rect key="frame" x="0.0" y="0.0" width="343" height="553.66666666666674"/>
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="556.66666666666674"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZGV-JU-QEA">
