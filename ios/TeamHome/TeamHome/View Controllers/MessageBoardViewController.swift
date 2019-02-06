@@ -23,7 +23,8 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         
         setUpViewAppearance()
         createGradientLayer()
-        teamNameLabel.textColor = Appearance.yellowColor
+        teamNameLabel.textColor = .white
+        teamNameLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
         
         // Show team name on label
         displayTeamInfo()

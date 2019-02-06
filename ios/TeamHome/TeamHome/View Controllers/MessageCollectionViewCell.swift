@@ -77,11 +77,13 @@ class MessageCollectionViewCell: UICollectionViewCell {
     }
     
     private func prepareComments(for message: FindMessagesByTeamQuery.Data.FindMessagesByTeam) {
+        
+        commentIcon = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         let commentImage = UIImage(named: "Comments")!
-        commentIcon = UIImageView(image: commentImage)
-        commentIcon.tintColor = .white
-//        commentIcon.contentMode = .scaleAspectFit
-        commentIcon.contentScaleFactor = Screen.scale
+        let imageView = UIImageView(image: commentImage)
+        imageView.frame = CGRect(x: 8, y: 8, width: 24, height: 24)
+        imageView.tintColor = .white
+        commentIcon.addSubview(imageView)
         
         commentsCountLabel = UILabel()
         
@@ -112,7 +114,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         toolbar.titleLabel.textColor = .white
         toolbar.detail = messageTitle
         toolbar.detailLabel.textAlignment = .left
-        toolbar.detailLabel.textColor = Color.grey.base
+        toolbar.detailLabel.textColor = .white
         toolbar.backgroundColor = .clear
     }
     
@@ -190,7 +192,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
     private var moreButton: IconButton!
     private var avatarImageView: UIImageView!
     private var contentLabel: UILabel!
-    private var commentIcon: UIImageView!
+    private var commentIcon: UIView!
     private var commentsCountLabel: UILabel!
     private var bottomBar: Bar!
     private var dateLabel: UILabel!

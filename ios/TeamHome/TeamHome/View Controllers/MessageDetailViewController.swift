@@ -227,6 +227,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         guard let comments = message.comments else { return }
         
         var heightConstraint: NSLayoutConstraint!
+        
+        heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
         if comments.count == 0 {
             heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
         } else if comments.count == 1 {
