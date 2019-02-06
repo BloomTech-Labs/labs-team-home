@@ -368,7 +368,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmO-bT-qJM" customClass="Card" customModule="Material">
-                                                            <rect key="frame" x="0.0" y="0.0" width="381" height="146"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="381" height="160"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                     </subviews>
@@ -683,14 +683,6 @@
             </objects>
             <point key="canvasLocation" x="1749" y="1116"/>
         </scene>
-        <!--TeamDetailView-->
-        <scene sceneID="1QD-F1-Gfb">
-            <objects>
-                <viewControllerPlaceholder storyboardName="TeamDetailView" id="h3N-Xr-BZq" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="loV-uU-EC3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3267.3913043478265" y="-679.01785714285711"/>
-        </scene>
         <!--Message Board-->
         <scene sceneID="cNf-P6-4iS">
             <objects>
@@ -747,7 +739,7 @@
                         <viewLayoutGuide key="safeArea" id="pu9-Jz-5NJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Message Board" id="9lm-7P-GIr">
-                        <barButtonItem key="leftBarButtonItem" style="done" id="uB1-kW-E9H">
+                        <barButtonItem key="leftBarButtonItem" title="All my teams" style="done" id="uB1-kW-E9H">
                             <connections>
                                 <segue destination="rKC-mD-nFa" kind="unwind" unwindAction="unwindToDashboardWithSegue:" id="SNe-Ec-pEK"/>
                             </connections>
