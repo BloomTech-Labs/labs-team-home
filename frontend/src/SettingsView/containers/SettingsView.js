@@ -241,7 +241,7 @@ class SettingsView extends Component {
 										/>
 									</AvatarUploadContainer>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										name={'firstName'}
 										title={'First Name'}
 										value={this.state.firstName}
@@ -250,10 +250,10 @@ class SettingsView extends Component {
 												? this.props.currentUser.firstName
 												: 'Enter your first name'
 										}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										name={'lastName'}
 										title={'Last Name'}
 										value={this.state.lastName}
@@ -262,10 +262,10 @@ class SettingsView extends Component {
 												? this.props.currentUser.lastName
 												: 'Enter your last name'
 										}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType={'text'}
+										inputtype={'text'}
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
@@ -274,10 +274,10 @@ class SettingsView extends Component {
 												? this.props.currentUser.email
 												: 'Enter your email'
 										}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
@@ -358,44 +358,44 @@ class SettingsView extends Component {
 									}}
 								>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										title={'First Name'}
 										name={'firstName'}
 										value={this.state.firstName}
 										placeholder={'Enter your first name'}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										title={'Phone Number'}
 										name={'lastName'}
 										value={this.state.lastName}
 										placeholder={'Enter your last name'}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType={'text'}
+										inputtype={'text'}
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
 										placeholder={'Enter your email'}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType={'text'}
+										inputtype={'text'}
 										title={'Avatar'}
 										name={'avatar'}
 										value={this.state.avatar}
 										placeholder={'Enter an image URL'}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormInput
-										inputType="text"
+										inputtype="text"
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
 										placeholder={'Enter your phone number (US numbers only)'}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormButton title={'Save'} />
 								</form>
