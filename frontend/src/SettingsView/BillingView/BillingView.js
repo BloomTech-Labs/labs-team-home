@@ -26,17 +26,23 @@ const BillingView = props => {
 				{({ loading, error, data: { findTeamsByUser } }) => {
 					if (loading) return <p>Loading...</p>;
 					if (error) return <p>Error :(</p>;
-					return findTeamsByUser.map(team => (
-						<StyledTeamCard
-							team={team}
-							key={team._id}
-							data-id={team._id}
-							onClick={props.handlePickTeam}
-						>
-							<h3>{team.name}</h3>
-							<p>Premium? {team.premium ? '✔️' : '❌'}</p>
-						</StyledTeamCard>
-					));
+					return findTeamsByUser
+						.filter(
+							({ users }) =>
+								users.find(({ user }) => user._id === props.currentUser._id)
+									.admin
+						)
+						.map(team => (
+							<StyledTeamCard
+								team={team}
+								key={team._id}
+								data-id={team._id}
+								onClick={props.handlePickTeam}
+							>
+								<h3>{team.name}</h3>
+								<p>Premium? {team.premium ? '✔️' : '❌'}</p>
+							</StyledTeamCard>
+						));
 				}}
 			</Query>
 			<Mutation mutation={STRIPE_SOURCE}>
