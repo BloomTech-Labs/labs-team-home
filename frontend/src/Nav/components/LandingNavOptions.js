@@ -10,7 +10,7 @@ const LandingNavOptions = ({ handleLogin, handleSignUp, isOpen }) => {
 					<LandingButton clickFxn={handleLogin} label="Login" />
 				</NavItem>
 				<NavItem>
-					<LandingButton clickFxn={handleLogin} label="Sign Up" />
+					<LandingButton clickFxn={handleSignUp} label="Sign Up" />
 				</NavItem>
 			</Nav>
 		</Collapse>

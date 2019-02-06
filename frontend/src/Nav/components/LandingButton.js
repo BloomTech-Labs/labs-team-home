@@ -27,6 +27,7 @@ const LandBtn = styled.button`
 	&:hover {
 		color: #ecff26;
 		transform: scale(1.05, 1.05);
+		border: none;
 	}
 	${mediaQueryFor.mdDevice`
     text-align:center;

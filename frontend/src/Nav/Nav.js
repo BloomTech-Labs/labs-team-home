@@ -28,6 +28,10 @@ export default class AppNavBar extends Component {
 		});
 	};
 
+	makeIsOpenFalse = () => {
+		this.setState({ isOpen: false });
+	};
+
 	render() {
 		return (
 			<div>
@@ -38,13 +42,16 @@ export default class AppNavBar extends Component {
 							<Spin active={this.state.isOpen} color="#fff" />
 						</NavbarToggler>
 						<Collapse isOpen={this.state.isOpen} navbar>
-							{/* <BtnContainer> */}
 							<Nav className="ml-auto" navbar>
 								<NavItem>
-									<StyledLink to="/dashboard">Dashboard</StyledLink>
+									<StyledLink to="/dashboard" onClick={this.makeIsOpenFalse}>
+										Dashboard
+									</StyledLink>
 								</NavItem>
 								<NavItem>
-									<StyledLink to="/settings">Settings</StyledLink>
+									<StyledLink to="/settings" onClick={this.makeIsOpenFalse}>
+										Settings
+									</StyledLink>
 								</NavItem>
 								<NavItem>
 									<StyledLink to="/" onClick={this.props.handleLogout}>
@@ -52,7 +59,6 @@ export default class AppNavBar extends Component {
 									</StyledLink>
 								</NavItem>
 							</Nav>
-							{/* </BtnContainer> */}
 						</Collapse>
 					</Navbar>
 				</RespNav>
@@ -60,27 +66,3 @@ export default class AppNavBar extends Component {
 		);
 	}
 }
-
-const BtnContainer = styled.div`
-	max-width: 400px;
-	width: 100%;
-	display: flex;
-	flex-flow: row;
-`;
-
-// const Nav = props => {
-// 	return (
-// 		<NavBar>
-// 			<TextIMG alt={'TeamHome banner'} src={textLogo} />
-// 			<BtnContainer>
-// 				<StyledLink to="/dashboard">Dashboard</StyledLink>
-// 				<StyledLink to="/settings">Settings</StyledLink>
-// 				<StyledLink to="/" onClick={props.handleLogout}>
-// 					Logout
-// 				</StyledLink>
-// 			</BtnContainer>
-// 		</NavBar>
-// 	);
-// };
-
-// export default Nav;

@@ -95,14 +95,18 @@ const RespNav = styled.div`
 	left: 0px;
 	top: 0px;
 	margin: 0 auto;
-	padding: 10px;
 	flex-flow: row;
 	z-index: 1001;
-	justify-content: space-between;
+	justify-content: space-around;
 	.navbar {
 		width: 100%;
+		padding: 10px;
+		.nav-item {
+			margin: 10px 0 10px 0;
+		}
 	}
 	${mediaQueryFor.mdDevice`
+    padding: 0;
     display:flex;
     flex-flow: column;
     justify-content: space-between;
@@ -110,21 +114,26 @@ const RespNav = styled.div`
       display: flex;
       flex-flow: column;
       align-items: center;
+      border-top: solid 1px rgba(0,0,0,0.3);
+      font-size:1.5rem;
     }
   `}
 	${mediaQueryFor.smDevice`
+    padding: 0;
     display:flex;
     flex-flow: column;
     justify-content: space-between;
     .nav-item{
+      font-size:1.5rem;
       display: flex;
       flex-flow: column;
       align-items: center;
+      border-top: solid 1px rgba(0,0,0,0.3);
     }
   `}
-	&:hover {
+	/* &:hover {
 		background-color: #17151b;
-	}
+	} */
 
 	-webkit-animation: AnimationName 26s ease infinite;
 	-moz-animation: AnimationName 26s ease infinite;

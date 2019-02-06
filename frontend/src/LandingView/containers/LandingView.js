@@ -26,7 +26,7 @@ export default class LandingView extends Component {
 		return (
 			<div>
 				<RespNavBAr />
-				<Particles params={particles} style={styles} />
+				{/* <Particles params={particles} style={styles} /> */}
 				<LogoBanner />
 			</div>
 		);

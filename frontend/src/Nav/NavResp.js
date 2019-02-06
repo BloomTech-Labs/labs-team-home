@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Navbar, NavbarToggler } from 'reactstrap';
 import { TextIMG, RespNav } from '../Nav/styles/index';
 import { Spin } from 'react-burgers';
@@ -6,7 +7,7 @@ import Auth0 from '../Auth/Auth';
 import textLogo from '../assets/TH_text_filled.svg';
 import LandingNavOptions from './components/LandingNavOptions';
 
-export default class RespNavBar extends Component {
+class RespNavBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -25,12 +26,18 @@ export default class RespNavBar extends Component {
 		});
 	}
 
+	makeIsOpenFalse = () => {
+		this.setState({ isOpen: false });
+	};
+
 	handleLogin = () => {
 		this.state.auth.login();
+		this.makeIsOpenFalse();
 	};
 
 	handleSignUp = () => {
 		this.state.auth.signUp();
+		this.makeIsOpenFalse();
 	};
 
 	toggle = () => {
@@ -59,3 +66,5 @@ export default class RespNavBar extends Component {
 		);
 	}
 }
+
+export default withRouter(RespNavBar);
