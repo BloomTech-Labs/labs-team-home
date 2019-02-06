@@ -89,6 +89,56 @@ const deleteCommentOptions = {
 
 export const deleteComment = graphql(DELETE_COMMENT, deleteCommentOptions);
 
-export const like = graphql(LIKE);
+const likeOptions = {
+	props: ({ ownProps: { message }, mutate }) => ({
+		like: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { likeMsgComment } }) => {
+					const { findMsgCommentsByMessage } = cache.readQuery({
+						query: query.FIND_COMMENTS_BY_MESSAGE,
+						variables: { message: message._id }
+					});
+					cache.writeQuery({
+						query: query.FIND_COMMENTS_BY_MESSAGE,
+						variables: { message: message._id },
+						data: {
+							findMsgCommentsByMessage: findMsgCommentsByMessage.map(comment =>
+								comment._id === likeMsgComment._id ? likeMsgComment : comment
+							)
+						}
+					});
+				}
+			})
+	})
+};
 
-export const unlike = graphql(UNLIKE);
+export const like = graphql(LIKE, likeOptions);
+
+const unLikeOptions = {
+	props: ({ ownProps: { message }, mutate }) => ({
+		unLike: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { unLikeMsgComment } }) => {
+					const { findMsgCommentsByMessage } = cache.readQuery({
+						query: query.FIND_COMMENTS_BY_MESSAGE,
+						variables: { message: message._id }
+					});
+					cache.writeQuery({
+						query: query.FIND_COMMENTS_BY_MESSAGE,
+						variables: { message: message._id },
+						data: {
+							findMsgCommentsByMessage: findMsgCommentsByMessage.map(comment =>
+								comment._id === unLikeMsgComment._id
+									? unLikeMsgComment
+									: comment
+							)
+						}
+					});
+				}
+			})
+	})
+};
+
+export const unLike = graphql(UNLIKE, unLikeOptions);
