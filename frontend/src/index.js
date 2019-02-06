@@ -6,6 +6,7 @@ import { ApolloProvider } from 'react-apollo';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const URI =
 	process.env.NODE_ENV === 'production'
