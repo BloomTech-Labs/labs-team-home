@@ -3,10 +3,9 @@ import { colors } from '../../../../colorVariables';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { colors } from '../../colorVariables';
-import mediaQueryFor from '../../_global_styles/responsive_querie';
+import mediaQueryFor from '../../../../_global_styles/responsive_querie';
 
-export const Container = styled(Card)`
+const Container = styled(Card)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -34,6 +33,14 @@ const Info = styled(CardContent)`
 	padding: 20px;
 `;
 
+const StyledTypography = styled(Typography)`
+	color: ${colors.text};
+
+	${mediaQueryFor.xsDevice`
+		font-size: .95rem;
+	`}
+`;
+
 // p {
 // 	position: relative;
 // 	text-align: right;
@@ -41,4 +48,4 @@ const Info = styled(CardContent)`
 // 	padding-right: 20px;
 // }
 
-export { Info };
+export { Container, Info, StyledTypography };

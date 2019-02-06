@@ -89,11 +89,7 @@ const TeamList = props => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error :(</p>;
 						return findTeamsByUser.map(team => (
-							<style.LinkStyles
-								to={`/${team._id}/home`}
-								key={team._id}
-								style={{ textDecoration: 'none' }}
-							>
+							<style.LinkStyles to={`/${team._id}/home`} key={team._id}>
 								<TeamCard team={team} />
 							</style.LinkStyles>
 						));

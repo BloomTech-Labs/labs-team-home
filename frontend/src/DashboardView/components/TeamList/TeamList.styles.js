@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { colors } from '../../../colorVariables';
 import { Link } from 'react-router-dom';
 
-export const Container = styled.div`
+const Container = styled.div`
 	position: relative;
 	top: 90px;
 	width: 80%;
@@ -96,4 +96,4 @@ const LinkStyles = styled(Link)`
 	border-radius: 5px;
 `;
 
-export { Form, TeamsList, LinkStyles, Input, Button };
+export { Form, TeamsList, LinkStyles, Input, Button, Container };
