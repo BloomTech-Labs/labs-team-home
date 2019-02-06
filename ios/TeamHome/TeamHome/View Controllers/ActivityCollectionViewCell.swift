@@ -17,7 +17,6 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         
         guard let activity = activity else { return }
         
-        
         prepareAvatarImage(for: activity)
         prepareDateLabel(with: activity)
         prepareContentView(with: activity)
@@ -39,30 +38,56 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     }
     
     private func prepareToolbar(with activity: Activity) {
-        toolbar = Toolbar(leftViews: [avatarImageView])
         
-        toolbar.titleLabel.textAlignment = .left
-        toolbar.titleLabel.textColor = .white
+        guard let currentUser = currentUser else { return }
         
-        toolbar.detailLabel.textAlignment = .left
-        toolbar.detailLabel.textColor = .white
-        toolbar.backgroundColor = .clear
+        toolbar = Toolbar()
         
         if activity.comment != nil {
             guard let comment = activity.comment else { return }
+            
+            if comment.user.id == currentUser.id {
+                toolbar = Toolbar(rightViews: [avatarImageView])
+                
+                toolbar.titleLabel.textAlignment = .right
+                toolbar.detailLabel.textAlignment = .right
+            } else {
+                toolbar = Toolbar(leftViews: [avatarImageView])
+                
+                toolbar.titleLabel.textAlignment = .left
+                toolbar.detailLabel.textAlignment = .left
+            }
+            
             toolbar.title = "\(comment.user.firstName) \(comment.user.lastName)"
             toolbar.detail = "added a comment"
         } else {
             guard let message = activity.message else { return }
+            
+            if message.user.id == currentUser.id {
+                toolbar = Toolbar(rightViews: [avatarImageView])
+                
+                toolbar.titleLabel.textAlignment = .right
+                toolbar.detailLabel.textAlignment = .right
+            } else {
+                toolbar = Toolbar(leftViews: [avatarImageView])
+                
+                toolbar.titleLabel.textAlignment = .left
+                toolbar.detailLabel.textAlignment = .left
+            }
+            
             toolbar.title = "\(message.user.firstName) \(message.user.lastName)"
             toolbar.detail = "added a message: \(message.title)"
         }
+        
+        toolbar.backgroundColor = .clear
+        toolbar.titleLabel.textColor = .white
+        toolbar.detailLabel.textColor = .white
     }
     
     fileprivate func prepareContentView(with activity: Activity) {
         
         contentLabel = UILabel()
-        contentLabel.numberOfLines = 2
+        contentLabel.numberOfLines = 1
         contentLabel.font = RobotoFont.regular(with: 14)
         contentLabel.textColor = .white
         
@@ -103,7 +128,6 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         DispatchQueue.main.async {
             
             self.updateUI()
-            
         }
     }
     
@@ -179,6 +203,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         
     }
     
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     var activity: Activity? {
         didSet {
             self.updateViews()
