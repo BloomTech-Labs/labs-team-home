@@ -1,7 +1,7 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import gql from 'graphql-tag';
-import { Mutation } from 'react-apollo';
+import { Mutation, Query } from 'react-apollo';
 import Logo from '../../assets/TH_favicon.png';
 
 const STRIPE_SOURCE = gql`
@@ -12,42 +12,62 @@ const STRIPE_SOURCE = gql`
 	}
 `;
 
-const BillingView = () => {
+const BillingView = props => {
 	const publishableKey = 'pk_test_GedRIIhEwHrV1xzzkxMsRuUX';
 
+	console.log(props);
 	return (
-		<Mutation mutation={STRIPE_SOURCE}>
-			{(setPremium, { data }) => (
-				<StripeCheckout
-					label="Go Premium" //Component button text
-					name="TeamHome" //Modal Header
-					description="Upgrade to a premium account today."
-					panelLabel="Go Premium" //Submit button in modal
-					amount={999} //Amount in cents $9.99
-					token={token =>
-						setPremium({
-							variables: {
-								//need to un hard code this later
-								team: '5c37dc6d9c1469aa08f703e2',
-								amount: 999,
-								token: token.id
-							}
-						})
-							.then(res => {
-								console.log(res);
-								alert('Payment Success');
+		<StyledBillingContainer>
+			<Query query={query.FIND_TEAMS_BY_USER}>
+				{({ loading, error, data: { findTeamsByUser } }) => {
+					if (loading) return <p>Loading...</p>;
+					if (error) return <p>Error :(</p>;
+					return findTeamsByUser.map(team => (
+						<StyledTeamCard
+							team={team}
+							key={team._id}
+							data-id={team._id}
+							onClick={props.handlePickTeam}
+						>
+							<h3>{team.name}</h3>
+							<p>Premium? {team.premium ? '✔️' : '❌'}</p>
+						</StyledTeamCard>
+					));
+				}}
+			</Query>
+			<Mutation mutation={STRIPE_SOURCE}>
+				{(setPremium, { data }) => (
+					<StripeCheckout
+						label="Go Premium" //Component button text
+						name="TeamHome" //Modal Header
+						description="Upgrade to a premium account today."
+						panelLabel="Go Premium" //Submit button in modal
+						amount={999} //Amount in cents $9.99
+						token={token =>
+							setPremium({
+								variables: {
+									//need to un hard code this later
+									team: props.teamId,
+									amount: 999,
+									token: token.id
+								}
 							})
-							.catch(err => {
-								console.log(err);
-								alert('Payment Error');
-							})
-					}
-					stripeKey={publishableKey}
-					image={Logo} //Pop-in header image
-					billingAddress={false}
-				/>
-			)}
-		</Mutation>
+								.then(res => {
+									console.log(res);
+									alert('Payment Success');
+								})
+								.catch(err => {
+									console.log(err);
+									alert('Payment Error');
+								})
+						}
+						stripeKey={publishableKey}
+						image={Logo} //Pop-in header image
+						billingAddress={false}
+					/>
+				)}
+			</Mutation>
+		</StyledBillingContainer>
 	);
 };
 
