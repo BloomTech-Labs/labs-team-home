@@ -32,11 +32,17 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         cancelButton.tintColor = Appearance.yellowColor
         Appearance.styleLandingPage(button: submitButton)
         messageContentTextView.placeholder = "Enter your message"
-        messageContentTextView.tintColor = .white
         messageContentTextView.textColor = .white
+        messageContentTextView.dividerColor = Appearance.yellowColor
         messageTitleTextField.placeholderActiveColor = Appearance.yellowColor
         messageTitleTextField.dividerActiveColor = Appearance.yellowColor
         messageTitleTextField.textColor = .white
+        tagsTextField.placeholderActiveColor = Appearance.yellowColor
+        tagsTextField.dividerActiveColor = Appearance.yellowColor
+        tagsTextField.textColor = .white
+        tagsTextField.placeholderAnimation = .hidden
+        titleLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
+        collectionView.backgroundColor = .clear
         
         updateViews()
         
@@ -511,6 +517,6 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     @IBOutlet weak var messageContentTextView: TextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var tagsTextField: UITextField!
+    @IBOutlet weak var tagsTextField: TextField!
     
 }
