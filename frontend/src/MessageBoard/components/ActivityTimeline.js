@@ -36,7 +36,7 @@ export default class ActivityTimeline extends React.Component {
 						//query into messages and allTheThings.
 						if (messages.length === 0) {
 							messages = findMessagesByTeam;
-							for (var message of messages) {
+							for (let message of messages) {
 								allTheThings.add(message);
 							}
 						}
@@ -58,7 +58,7 @@ export default class ActivityTimeline extends React.Component {
 									//only add to the allTheThings array if the end of the messages
 									//array has not been reached
 									if (!loaded) {
-										for (var comment of findMsgCommentsByMessage) {
+										for (let comment of findMsgCommentsByMessage) {
 											allTheThings.add(comment);
 										}
 									}
