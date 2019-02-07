@@ -79,7 +79,8 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         _ = credentialsManager.store(credentials: credentials)
                         
                         guard let apollo = self.apollo else {return}
-                        apollo.fetch(query: CurrentUserQuery(), cachePolicy: .returnCacheDataElseFetch, queue: DispatchQueue.global(), resultHandler: { (result, error) in
+                        
+                        apollo.fetch(query: CurrentUserQuery(), queue: DispatchQueue.global(), resultHandler: { (result, error) in
                             if let error = error {
                                 NSLog("Error logging in with google: \(error)")
                                 return
@@ -93,13 +94,14 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                                     return
                             }
                             self.currentUser = currentUser
-                            print(currentUser)
+                            print(currentUser.firstName)
+                            
                             // Perform segue to Dashboard VC.
                             self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         })
                         
-                        // Perform segue to Dashboard VC.
-                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+//                        // Perform segue to Dashboard VC.
+//                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
 
                     case .failure(let error):
                         
@@ -131,8 +133,30 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         // Store credentials with manager for future handling
                         _ = credentialsManager.store(credentials: credentials)
                         
-                        // Perform segue to Dashboard VC.
-                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        guard let apollo = self.apollo else {return}
+                        
+                        apollo.fetch(query: CurrentUserQuery(), queue: DispatchQueue.global(), resultHandler: { (result, error) in
+                            if let error = error {
+                                NSLog("Error logging in with facebook: \(error)")
+                                return
+                            }
+                            
+                            guard let result = result,
+                                let data = result.data,
+                                let currentUser = data.currentUser else {
+                                    // Perform other segue
+                                    self.performSegue(withIdentifier: "ShowNewUser", sender: self)
+                                    return
+                            }
+                            self.currentUser = currentUser
+                            print(currentUser.firstName)
+                            
+                            // Perform segue to Dashboard VC.
+                            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        })
+
+//                        // Perform segue to Dashboard VC.
+//                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         
                     case .failure(let error):
                         
@@ -167,8 +191,30 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         // Store credentials with manager for future handling
                         _ = credentialsManager.store(credentials: credentials)
                         
-                        // Perform segue to Dashboard VC.
-                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        guard let apollo = self.apollo else {return}
+                        
+                        apollo.fetch(query: CurrentUserQuery(), cachePolicy: .returnCacheDataElseFetch, queue: DispatchQueue.global(), resultHandler: { (result, error) in
+                            if let error = error {
+                                NSLog("Error logging in with google: \(error)")
+                                return
+                            }
+                            
+                            guard let result = result,
+                                let data = result.data,
+                                let currentUser = data.currentUser else {
+                                    // Present alert and suggest to sign up and not sign in?
+                                    
+                                    return
+                            }
+                            self.currentUser = currentUser
+                            print(currentUser.firstName)
+                            
+                            // Perform segue to Dashboard VC.
+                            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+                        })
+                        
+//                        // Perform segue to Dashboard VC.
+//                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         
                     case .failure(let error):
                         
@@ -266,6 +312,8 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK - Keyboard Animation and Delegate functions
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
@@ -283,6 +331,16 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
     // MARK - Private Methods
@@ -323,42 +381,6 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         print("Failed with \(error)")
     }
     
-    private func logInAfterSignUp(with email: String, password: String) {
-        Auth0
-            .authentication()
-            .login(
-                usernameOrEmail: email,
-                password: password,
-                realm: "Username-Password-Authentication",
-                scope: "openid profile")
-            .start { result in
-                
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let credentials):
-                        // For testing
-                        print("success")
-                        
-                        // Unwrap tokens to use for Apollo and to decode.
-                        guard let idToken = credentials.idToken else { return }
-                        
-                        // Set up Apollo client with accessToken from auth0.
-                        self.setUpApollo(with: idToken)
-                        
-                        // Store credentials with manager for future handling
-                        _ = credentialsManager.store(credentials: credentials)
-                        
-                        // Perform segue to Dashboard VC.
-                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
-                        
-                    case .failure(let error):
-                        
-                        // Present alert to user and bring back to landing page
-                        self.presentAlert(for: error)
-                    }
-                }
-        }
-    }
     
     private func setUpAppearance() {
         
@@ -402,20 +424,10 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    // Makes status bar text white.
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
     }
-    
-    @objc func hideKeyboard() {
-        view.endEditing(true)
-    }
-    
-    func hideKeyboardWhenTappedAround() {
-        let tapGesture = UITapGestureRecognizer(target: self,
-                                                action: #selector(hideKeyboard))
-        view.addGestureRecognizer(tapGesture)
-    }
-    
     
     // MARK - Properties
 
