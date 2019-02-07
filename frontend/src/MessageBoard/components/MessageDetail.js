@@ -31,6 +31,8 @@ export const Overlay = styled(DialogContent)`
 	background-color: ${button};
 	color: #fff;
 	word-wrap: break-word;
+	padding-top: 0;
+	margin-top: 0;
 `;
 
 export const Close = styled(DialogActions)`
@@ -38,6 +40,15 @@ export const Close = styled(DialogActions)`
 	div {
 		background-color: ${button};
 		color: #fff;
+	}
+`;
+
+const CommentInputLabel = styled.label`
+	width: 100%;
+	background-color: #fff;
+	padding: 0px;
+	.MuiInputBase-root-320 {
+		padding: 0px;
 	}
 `;
 
@@ -213,7 +224,10 @@ class MessageDetail extends Component {
 															/>
 															<Button
 																size="small"
-																style={{ color: '#fff' }}
+																style={{
+																	color: '#fff',
+																	borderBottom: 'solid 1px rgb(177,177,10)'
+																}}
 																type="submit"
 															>
 																Save
@@ -248,12 +262,23 @@ class MessageDetail extends Component {
 															style={{ maxWidth: '50%', height: 'auto' }}
 														/>
 													))}
-													<CardActions>
+													<CardActions
+														style={{
+															width: '100%',
+															display: 'flex',
+															flexFlow: 'row',
+															justifyContent: 'space-around'
+														}}
+													>
 														{findMessage.user._id === currentUser._id && (
 															<>
 																<Button
 																	size="small"
-																	style={{ color: '#fff' }}
+																	style={{
+																		color: '#fff',
+																		borderBottom: `solid 1px ${palette.yellow}`,
+																		borderRadius: '0px'
+																	}}
 																	onClick={e => {
 																		e.preventDefault();
 																		this.setState({
@@ -267,7 +292,11 @@ class MessageDetail extends Component {
 																</Button>
 																<Button
 																	size="small"
-																	style={{ color: '#fff' }}
+																	style={{
+																		color: '#fff',
+																		borderBottom: `solid 1px ${palette.yellow}`,
+																		borderRadius: '0px'
+																	}}
 																	color="secondary"
 																	onClick={e => {
 																		e.preventDefault();
@@ -291,7 +320,11 @@ class MessageDetail extends Component {
 														)}
 														<Button
 															size="small"
-															style={{ color: '#fff' }}
+															style={{
+																color: '#fff',
+																borderBottom: `solid 1px ${palette.yellow}`,
+																borderRadius: '0px'
+															}}
 															color="secondary"
 															onClick={e => {
 																e.preventDefault();
@@ -459,17 +492,30 @@ class MessageDetail extends Component {
 															content.value = '';
 														}}
 													>
-														<label htmlFor="comment-content">
+														<CommentInputLabel
+															className="comment-input"
+															htmlFor="comment-content"
+														>
 															<TextField
 																placeholder="Leave a comment.."
 																inputRef={node => {
 																	content = node;
 																}}
-																inputProps={{ style: { color: '#fff' } }}
+																inputProps={{
+																	style: {
+																		color: '#000',
+																		height: '100px',
+																		backgroundColor: '#fff',
+																		padding: '0px'
+																	}
+																}}
 																variant="outlined"
 																fullWidth
+																multiline={true}
+																rows={2}
+																rowsMax={4}
 															/>
-														</label>
+														</CommentInputLabel>
 													</form>
 												</>
 											);
