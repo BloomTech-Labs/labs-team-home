@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
 import { StyledLink, TextIMG, RespNav } from './styles/index';
 import { Spin } from 'react-burgers';
-import textLogo from '../assets/TH_text_filled.svg';
+import textLogo from '../../src/assets/Sveza_white.svg';
 
 export default class AppNavBar extends Component {
 	constructor(props) {
