@@ -43,6 +43,11 @@ class DashboardCollectionViewController: UICollectionViewController {
             }
             return
         }
+        
+        let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "This is your dashboard where you can find all the teams you're part of. Remember you can switch teams at any time.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Get started", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 
    @IBAction func unwindToDashboard(segue:UIStoryboardSegue) { }
