@@ -14,7 +14,6 @@ const TextIMG = styled.img`
   width:80%;
   top: 100px;
   opacity:1;
-  /* filter: drop-shadow( 4px 4px 5px rgba(0, 0, 0, 0.7)); */
   filter: drop-shadow( 7px 5px 4px rgba(0,0,0,1));
   ${mediaQueryFor.lgDevice`
   width:300%;

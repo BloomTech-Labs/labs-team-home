@@ -11,7 +11,6 @@ import Apollo
 import Cloudinary
 import Photos
 import Material
-import TagListView
 
 // Set up cloudinary with account details for all app to use
 let config = CLDConfiguration(cloudName: "massamb", secure: true)
@@ -21,30 +20,9 @@ protocol EditMessageDelegate: class {
     func editedMessage()
 }
 
-class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, TagListViewDelegate {
+class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    // MARK - UICollectionViewDataSource
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCollectionViewCell
-        
-        guard let tag = tags?[indexPath.row] else { return UICollectionViewCell() }
-        cell.tagLabel.text = tag.name
-        cell.backgroundColor = Appearance.darkMauveColor
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let tag = tags?[indexPath.row] else { return }
-        self.tagSelected = tag.name
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.backgroundColor = Appearance.mauveColor
-    }
+    // MARK - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,12 +32,17 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         cancelButton.tintColor = Appearance.yellowColor
         Appearance.styleLandingPage(button: submitButton)
         messageContentTextView.placeholder = "Enter your message"
-        messageContentTextView.tintColor = .white
         messageContentTextView.textColor = .white
+        messageContentTextView.dividerColor = Appearance.yellowColor
         messageTitleTextField.placeholderActiveColor = Appearance.yellowColor
         messageTitleTextField.dividerActiveColor = Appearance.yellowColor
         messageTitleTextField.textColor = .white
-        tagListView.delegate = self
+        tagsTextField.placeholderActiveColor = Appearance.yellowColor
+        tagsTextField.dividerActiveColor = Appearance.yellowColor
+        tagsTextField.textColor = .white
+        tagsTextField.placeholderAnimation = .hidden
+        titleLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
+        collectionView.backgroundColor = .clear
         
         updateViews()
         
@@ -170,6 +153,42 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         navigationController?.popViewController(animated: true)
     }
     
+    // MARK - UICollectionViewDataSource for tags
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tags?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCollectionViewCell
+        
+        guard let tag = tags?[indexPath.row] else { return UICollectionViewCell() }
+        cell.tagLabel.text = tag.name
+        cell.backgroundColor = Appearance.darkMauveColor
+        cell.layer.cornerRadius = cell.frame.height / 2
+        
+        if let message = self.message {
+            
+            if let messageTag = message.tag {
+                let this = messageTag.name
+                
+                if tag.name == this {
+                    self.tagSelected = messageTag.id
+                    cell.backgroundColor = Appearance.mauveColor
+                }
+            }
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let tag = tags?[indexPath.row] else { return }
+        self.tagSelected = tag.name
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = Appearance.mauveColor
+    }
+    
     // MARK - UIImagePickerControllerDelegate
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -187,12 +206,6 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK - TagListViewDelegate
-    
-    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
-        print(title)
     }
     
     // MARK - Private Methods
@@ -251,18 +264,10 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
             
             // Save tags and populate collection view
             print(tags)
-//            self.setUpTagListView(for: tags)
+
             self.tags = tags
             self.collectionView.reloadData()
         }
-    }
-    
-    private func setUpTagListView(for tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]) {
-        
-        let tagStrings = tags.compactMap({ $0?.name })
-        
-        tagListView.alignment = .center
-        tagListView.addTags(tagStrings)
     }
     
     private func createNewTag(with apollo: ApolloClient,under teamId: GraphQLID, for string: String) {
@@ -312,7 +317,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         guard let imageData = imageData else {
             
             // If no photo is selected, create message without images attached.
-            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: nil, tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
+            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
                 // Check for errors.
                 if let error = error {
                     NSLog("\(error)")
@@ -357,7 +362,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                 let url = result.url else { return }
             
             // Pass image url to Apollo client to create message.
-            apollo.perform(mutation: AddNewMessageMutation(title: messageTitle, team: teamId, content: content, images: [url]), queue: DispatchQueue.global()) { (result, error) in
+            apollo.perform(mutation: AddNewImagesMessageMutation(title: messageTitle, team: teamId, content: content, images: [url], tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
                 // Check for errors.
                 if let error = error {
                     NSLog("\(error)")
@@ -511,8 +516,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     @IBOutlet weak var messageTitleTextField: TextField!
     @IBOutlet weak var messageContentTextView: TextView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var tagListView: TagListView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var tagsTextField: UITextField!
+    @IBOutlet weak var tagsTextField: TextField!
     
 }

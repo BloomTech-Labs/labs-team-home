@@ -4,7 +4,7 @@ import { Navbar, NavbarToggler } from 'reactstrap';
 import { TextIMG, RespNav } from '../Nav/styles/index';
 import { Spin } from 'react-burgers';
 import Auth0 from '../Auth/Auth';
-import textLogo from '../assets/TH_text_filled.svg';
+import textLogo from '../assets/Sveza_white.svg';
 import LandingNavOptions from './components/LandingNavOptions';
 
 class RespNavBar extends Component {

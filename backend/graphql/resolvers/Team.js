@@ -5,7 +5,8 @@ const User = require('../../models/User');
 const {
 	ForbiddenError,
 	ValidationError,
-	UserInputError
+	UserInputError,
+	ApolloError
 } = require('apollo-server-express');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -105,50 +106,56 @@ const teamResolvers = {
 			}
 			return Team.findById(id).then(team => {
 				if (team) {
-					return User.find(criteria).then(users => {
-						if (users) {
-							const filteredUsers = users.filter(
-								user =>
-									!team.users.find(
-										item => item.user.toString() === user._id.toString()
-									)
-							);
-							if (filteredUsers.length) {
-								const addedUsers = filteredUsers.map(({ _id }) => ({
-									user: _id,
-									admin: false
-								}));
-								email &&
-									sgMail.send({
-										// notifies invited user
-										to: email,
-										from: `${team.name.split(' ').join('')}@team.home`,
-										subject: `You have been been invited to ${team.name}`,
-										text: `You have been invited to ${
-											team.name
-										} by ${firstName} ${lastName}`,
-										html: /* HTML */ `
-											<h1>${team.name}</h1>
-											<div>
-												<p>
-													You been invited to ${team.name} by ${firstName}
-													${lastName}
-												</p>
-											</div>
-										`
-									});
-								return Team.findOneAndUpdate(
-									{ _id: id },
-									{ $set: { users: [...team.users, ...addedUsers] } },
-									{ new: true }
-								).populate('users.user');
+					if (team.users.length < 5 || team.premium) {
+						return User.find(criteria).then(users => {
+							if (users) {
+								const filteredUsers = users.filter(
+									user =>
+										!team.users.find(
+											item => item.user.toString() === user._id.toString()
+										)
+								);
+								if (filteredUsers.length) {
+									const addedUsers = filteredUsers.map(({ _id }) => ({
+										user: _id,
+										admin: false
+									}));
+									email &&
+										sgMail.send({
+											// notifies invited user
+											to: email,
+											from: `${team.name.split(' ').join('')}@team.home`,
+											subject: `You have been been invited to ${team.name}`,
+											text: `You have been invited to ${
+												team.name
+											} by ${firstName} ${lastName}`,
+											html: /* HTML */ `
+												<h1>${team.name}</h1>
+												<div>
+													<p>
+														You been invited to ${team.name} by ${firstName}
+														${lastName}
+													</p>
+												</div>
+											`
+										});
+									return Team.findOneAndUpdate(
+										{ _id: id },
+										{ $set: { users: [...team.users, ...addedUsers] } },
+										{ new: true }
+									).populate('users.user');
+								} else
+									throw new UserInputError('The user is already on the team.');
 							} else
-								throw new UserInputError('The user is already on the team.');
-						} else
-							throw new ValidationError(
-								'No user exists with that email or phone number.'
-							);
-					});
+								throw new ValidationError(
+									'No user exists with that email or phone number.'
+								);
+						});
+					} else
+						throw new ApolloError(
+							'Free teams are only allowed 5 members.',
+							'NOT_PREMIUM'
+						);
 				} else throw new ValidationError("Team doesn't exist");
 			});
 		},

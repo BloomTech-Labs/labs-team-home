@@ -1,6 +1,5 @@
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
-import { Link } from 'react-router-dom';
 
 import * as style from './TeamList.styles';
 import * as query from '../../../constants/queries';
@@ -36,69 +35,87 @@ const styles = {
 	}
 };
 
-const TeamList = props => {
-	let name;
-	const { classes } = props;
-	return (
-		<style.Container>
-			<Mutation
-				mutation={mutation.ADD_TEAM}
-				update={(cache, { data: { addTeam } }) => {
-					const { findTeamsByUser } = cache.readQuery({
-						query: query.FIND_TEAMS_BY_USER
-					});
-					cache.writeQuery({
-						query: query.FIND_TEAMS_BY_USER,
-						data: { findTeamsByUser: [...findTeamsByUser, addTeam] }
-					});
-				}}
-			>
-				{addTeam => (
-					<style.Form className={classes.root} elevation={1}>
-						<style.Input
-							className={classes.input}
-							placeholder="Add a Team..."
-							inputRef={node => {
-								name = node;
-							}}
-						/>
-						<style.Button
-							className={classes.iconButton}
-							aria-label="Directions"
-							onClick={e => {
-								e.preventDefault();
-								console.log('name', name);
-								name.value.length &&
-									addTeam({
-										variables: {
-											name: name.value
-										}
-									});
-								name.value = '';
-							}}
-						>
-							<AddIcon />
-						</style.Button>
-					</style.Form>
-				)}
-			</Mutation>
-			<h1>My Teams</h1>
-			<style.TeamsList>
-				<Query query={query.FIND_TEAMS_BY_USER}>
-					{({ loading, error, data: { findTeamsByUser } }) => {
-						if (loading) return <p>Loading...</p>;
-						if (error) return <p>Error :(</p>;
-						return findTeamsByUser.map(team => (
-							<style.LinkStyles to={`/${team._id}/home`} key={team._id}>
-								<TeamCard team={team} />
-							</style.LinkStyles>
-						));
+class TeamList extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			input: '',
+			classes: props.classes
+		};
+
+		this.changeHandler = this.changeHandler.bind(this);
+	}
+
+	changeHandler(e) {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	}
+
+	render() {
+		return (
+			<style.Container>
+				<Mutation
+					mutation={mutation.ADD_TEAM}
+					update={(cache, { data: { addTeam } }) => {
+						const { findTeamsByUser } = cache.readQuery({
+							query: query.FIND_TEAMS_BY_USER
+						});
+						cache.writeQuery({
+							query: query.FIND_TEAMS_BY_USER,
+							data: { findTeamsByUser: [...findTeamsByUser, addTeam] }
+						});
 					}}
-				</Query>
-			</style.TeamsList>
-		</style.Container>
-	);
-};
+				>
+					{addTeam => (
+						<style.Form className={this.state.classes.root} elevation={1}>
+							<style.Input
+								className={this.state.classes.input}
+								placeholder="Add a Team..."
+								name="input"
+								value={this.state.input}
+								onChange={this.changeHandler}
+							/>
+							<style.Button
+								className={this.state.classes.iconButton}
+								aria-label="Directions"
+								onClick={e => {
+									e.preventDefault();
+									this.state.input.length &&
+										addTeam({
+											variables: {
+												name: this.state.input
+											}
+										});
+									this.setState({
+										input: ''
+									});
+								}}
+							>
+								<AddIcon />
+							</style.Button>
+						</style.Form>
+					)}
+				</Mutation>
+				<h1>My Teams</h1>
+				<style.TeamsList>
+					<Query query={query.FIND_TEAMS_BY_USER}>
+						{({ loading, error, data: { findTeamsByUser } }) => {
+							if (loading) return <p>Loading...</p>;
+							if (error) return <p>Error :(</p>;
+							return findTeamsByUser.map(team => (
+								<style.LinkStyles to={`/${team._id}/home`} key={team._id}>
+									<TeamCard team={team} />
+								</style.LinkStyles>
+							));
+						}}
+					</Query>
+				</style.TeamsList>
+			</style.Container>
+		);
+	}
+}
 
 TeamList.propTypes = {
 	classes: PropTypes.object.isRequired
