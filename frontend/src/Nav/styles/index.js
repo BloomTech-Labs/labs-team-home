@@ -25,6 +25,7 @@ const StyledLink = styled(Link)`
 const TextIMG = styled.img`
 	height: 50px;
 	width: 40%;
+	margin-left: 20px;
 `;
 
 const NavBar = styled.div`
@@ -35,11 +36,8 @@ const NavBar = styled.div`
 	left: 0px;
 	top: 0px;
 	margin: 0 auto;
-	/* padding: 10px; */
-	/* display: flex;
-	flex-flow: row; */
 	z-index: 1001;
-	/* justify-content: space-between; */
+
 	&:hover {
 		background-color: #17151b;
 	}

@@ -19,11 +19,12 @@ const Container = styled.div`
 
 	h1 {
 		color: ${colors.header};
+		padding-left: 20px;
 	}
 	${mediaQueryFor.mdDevice`
-
-      width:100%;
-    `}
+		margin-bottom: 20px;
+    width:100%;
+  `}
 `;
 
 const Form = styled(Paper)`
@@ -76,7 +77,7 @@ const LinkStyles = styled(Link)`
 	margin-bottom: 20px;
 	border-radius: 5px;
 
-	${mediaQueryFor.xsDevice`
+	${mediaQueryFor.mdDevice`
 		margin-bottom: 0;
 		border-bottom: 1px solid ${colors.border};
 	`}

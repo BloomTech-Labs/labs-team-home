@@ -11,12 +11,11 @@ import mediaQueryFor from './_global_styles/responsive_querie';
  * #F1FCEF << Creme
  * #73FF6D << Green
  */
-
+import iconLogo from './assets/Sveza_graph_logo.png';
 const GlobalStyle = createGlobalStyle`
   body {
     @import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
     background-size:100vw;
-    background-color: #5A5560;
     margin:0 auto;
     ${
 			'' /* background: rgb(155,120,111);

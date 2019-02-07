@@ -90,7 +90,7 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
                 let messages = result.data?.findMessagesByTeam else { return }
             
             self.messages = messages
-            self.filter()
+            self.sort()
         }
     }
     
@@ -111,14 +111,22 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
         guard let messages = messages else { return }
         
         if newestToOldest {
-            let sortedMessages = messages.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
+            let sortedMessages = messages.sorted(by: { ($0?.createdAt)! < ($1?.createdAt)!})
             self.messages = sortedMessages
             newestToOldest = false
         } else {
-            let sortedMessages = messages.sorted(by: { ($0?.createdAt)! < ($1?.createdAt)!})
+            let sortedMessages = messages.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
             self.messages = sortedMessages
             newestToOldest = true
         }
+    }
+    
+    private func sort() {
+        guard let messages = messages else { return }
+        
+        let sortedMessages = messages.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
+        self.messages = sortedMessages
+        newestToOldest = true
     }
     
     // MARK - Properties

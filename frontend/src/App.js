@@ -6,16 +6,14 @@ import MessageBoardContainer from './MessageBoard/containers/MessageBoardContain
 import Dashboard from './DashboardView/containers/Dashboard';
 import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
-import AppStyles from './app-styles';
+import AppStyles, { BackgroundIMG } from './app-styles';
 import SettingsView from './SettingsView/containers/SettingsView';
 import AppNavBar from './Nav/Nav';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
-import { TextIMG } from './LandingView/styles/LogoBannerStyled';
-import iconLogo from './assets/BigTHv2.png';
+import iconLogo from './assets/Sveza_logo.png';
 
 const generateClassName = createGenerateClassName();
 const jss = create({
@@ -33,7 +31,7 @@ class App extends Component {
 			<JssProvider jss={jss} generateClassName={generateClassName}>
 				<AppStyles>
 					<GlobalStyle />
-					<TextIMG alt={'TeamHome banner'} src={iconLogo} />
+					<BackgroundIMG alt={'Sveza banner'} src={iconLogo} />
 					{localStorage.token && <AppNavBar handleLogout={this.handleLogout} />}
 					<TransitionGroup>
 						<CSSTransition
