@@ -1,7 +1,15 @@
-mutation InviteUserToTeam($id: ID!, $email: String, $phoneNumber: String) {
+mutation InviteUserToTeamWithEmail($id: ID!, $email: String) {
     inviteUser(input: {
                id: $id
                email: $email
+               }) {
+        _id
+    }
+}
+
+mutation InviteUserToTeamWithPhone($id: ID!, $phoneNumber: String) {
+    inviteUser(input: {
+               id: $id
                phoneNumber: $phoneNumber
                }) {
         _id

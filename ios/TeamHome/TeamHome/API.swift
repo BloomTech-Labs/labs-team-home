@@ -1683,29 +1683,108 @@ public final class FindTagsByTeamQuery: GraphQLQuery {
   }
 }
 
-public final class InviteUserToTeamMutation: GraphQLMutation {
+public final class InviteUserToTeamWithEmailMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation InviteUserToTeam($id: ID!, $email: String, $phoneNumber: String) {\n  inviteUser(input: {id: $id, email: $email, phoneNumber: $phoneNumber}) {\n    __typename\n    _id\n  }\n}"
+    "mutation InviteUserToTeamWithEmail($id: ID!, $email: String) {\n  inviteUser(input: {id: $id, email: $email}) {\n    __typename\n    _id\n  }\n}"
 
   public var id: GraphQLID
   public var email: String?
-  public var phoneNumber: String?
 
-  public init(id: GraphQLID, email: String? = nil, phoneNumber: String? = nil) {
+  public init(id: GraphQLID, email: String? = nil) {
     self.id = id
     self.email = email
-    self.phoneNumber = phoneNumber
   }
 
   public var variables: GraphQLMap? {
-    return ["id": id, "email": email, "phoneNumber": phoneNumber]
+    return ["id": id, "email": email]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("inviteUser", arguments: ["input": ["id": GraphQLVariable("id"), "email": GraphQLVariable("email"), "phoneNumber": GraphQLVariable("phoneNumber")]], type: .object(InviteUser.selections)),
+      GraphQLField("inviteUser", arguments: ["input": ["id": GraphQLVariable("id"), "email": GraphQLVariable("email")]], type: .object(InviteUser.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(inviteUser: InviteUser? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "inviteUser": inviteUser.flatMap { (value: InviteUser) -> ResultMap in value.resultMap }])
+    }
+
+    public var inviteUser: InviteUser? {
+      get {
+        return (resultMap["inviteUser"] as? ResultMap).flatMap { InviteUser(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "inviteUser")
+      }
+    }
+
+    public struct InviteUser: GraphQLSelectionSet {
+      public static let possibleTypes = ["Team"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Team", "_id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+    }
+  }
+}
+
+public final class InviteUserToTeamWithPhoneMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation InviteUserToTeamWithPhone($id: ID!, $phoneNumber: String) {\n  inviteUser(input: {id: $id, phoneNumber: $phoneNumber}) {\n    __typename\n    _id\n  }\n}"
+
+  public var id: GraphQLID
+  public var phoneNumber: String?
+
+  public init(id: GraphQLID, phoneNumber: String? = nil) {
+    self.id = id
+    self.phoneNumber = phoneNumber
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id, "phoneNumber": phoneNumber]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("inviteUser", arguments: ["input": ["id": GraphQLVariable("id"), "phoneNumber": GraphQLVariable("phoneNumber")]], type: .object(InviteUser.selections)),
     ]
 
     public private(set) var resultMap: ResultMap
