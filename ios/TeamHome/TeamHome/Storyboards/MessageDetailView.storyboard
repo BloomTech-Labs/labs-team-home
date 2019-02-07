@@ -88,12 +88,13 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="758" translatesAutoresizingMaskIntoConstraints="NO" id="fkz-Vk-QXr">
-                                                <rect key="frame" x="0.0" y="116" width="343" height="270"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Au-Kv-tZA">
+                                                <rect key="frame" x="0.0" y="116" width="343" height="0.0"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="270" id="Usw-J4-IsO"/>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="200" id="dRB-NR-rZg"/>
                                                 </constraints>
-                                            </imageView>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCD-iF-K8Z">
                                                 <rect key="frame" x="0.0" y="120.33333333333334" width="343" height="30"/>
                                                 <subviews>
@@ -111,7 +112,7 @@
                                             <constraint firstAttribute="trailing" secondItem="hoR-iD-zcH" secondAttribute="trailing" constant="16" id="aNi-ed-iwj"/>
                                         </constraints>
                                     </stackView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="gVp-iT-8Zf">
+                                    <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="255" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="gVp-iT-8Zf">
                                         <rect key="frame" x="0.0" y="162.33333333333331" width="343" height="556.66666666666674"/>
                                         <connections>
                                             <segue destination="eTr-fg-d1x" kind="embed" identifier="EmbeddedComments" id="4jd-Ls-HUM"/>
@@ -196,30 +197,15 @@
                                     </collectionView>
                                 </subviews>
                             </stackView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KyG-aA-vtI">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="KyG-aA-vtI" firstAttribute="leading" secondItem="pUQ-H7-xuz" secondAttribute="leading" id="5Xd-bY-njj"/>
-                            <constraint firstItem="KyG-aA-vtI" firstAttribute="bottom" secondItem="pUQ-H7-xuz" secondAttribute="bottom" id="DF2-Nk-e3O"/>
-                            <constraint firstAttribute="trailing" secondItem="KyG-aA-vtI" secondAttribute="trailing" id="HVo-4r-Q93"/>
                             <constraint firstAttribute="trailing" secondItem="eQg-AY-dIy" secondAttribute="trailing" constant="16" id="NhI-Xh-JaR"/>
                             <constraint firstItem="eQg-AY-dIy" firstAttribute="leading" secondItem="U4D-sZ-GeQ" secondAttribute="leading" constant="16" id="UxS-ah-CVa"/>
                             <constraint firstItem="eQg-AY-dIy" firstAttribute="top" secondItem="pUQ-H7-xuz" secondAttribute="top" constant="32" id="mwx-eH-GK6"/>
                             <constraint firstAttribute="bottom" secondItem="eQg-AY-dIy" secondAttribute="bottom" constant="16" id="oqN-wi-unO"/>
-                            <constraint firstItem="KyG-aA-vtI" firstAttribute="top" secondItem="pUQ-H7-xuz" secondAttribute="top" id="ro2-fl-lJW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U4D-sZ-GeQ"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="5Xd-bY-njj"/>
-                                <exclude reference="DF2-Nk-e3O"/>
-                                <exclude reference="HVo-4r-Q93"/>
-                                <exclude reference="ro2-fl-lJW"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mXd-hQ-kv5">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="St8-EK-SAC">
@@ -236,7 +222,7 @@
                         <outlet property="commentTextView" destination="YK0-H8-ngA" id="KMA-ly-ueM"/>
                         <outlet property="dateLabel" destination="Ifr-Sx-1B4" id="dpd-LF-Itc"/>
                         <outlet property="firstNameLabel" destination="GP9-J8-O9S" id="6Zf-bL-W15"/>
-                        <outlet property="imageView" destination="fkz-Vk-QXr" id="JOk-Kr-6cI"/>
+                        <outlet property="imageHolderView" destination="8Au-Kv-tZA" id="p0A-df-S7B"/>
                         <outlet property="lastNameLabel" destination="KSw-Hp-1Fb" id="h3D-ZT-tpq"/>
                         <outlet property="messageBodyLabel" destination="KZn-VX-Npz" id="jk8-hC-i2V"/>
                         <outlet property="messageTitleLabel" destination="dai-gO-o6P" id="YaC-mc-Byo"/>
@@ -293,11 +279,6 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="dividerColor">
-                                <color key="value" red="0.16456043719999999" green="0.1008872762" blue="0.14510232209999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="eTr-fg-d1x" id="VDE-ga-klJ"/>
                             <outlet property="delegate" destination="eTr-fg-d1x" id="OOA-Pl-22M"/>

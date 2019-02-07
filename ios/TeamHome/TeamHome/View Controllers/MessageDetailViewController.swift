@@ -22,8 +22,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     func editedMessage() {
         watcher?.refetch()
     }
-    
-    
+
     // MARK - Lifecycle Functions
 
     override func viewDidLoad() {
@@ -278,25 +277,49 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         guard let images = message.images else { return }
         
         if images.count > 0 {
-            guard let image = images.first,
-                let imageURL = image else { return }
             
-            downloader.fetchImage(imageURL, { (progress) in
-                // Show progress
-                
-            }) { (image, error) in
-                if let error = error {
-                    print("\(error)")
-                    return
-                }
-                
-                guard let image = image else { return }
-                
-                DispatchQueue.main.async {
-                    self.imageView.isHidden = false
-                    self.imageView.image = image
+            imageHolderView.isHidden = false
+            
+            for image in images {
+                if let imageURL = image {
+                    downloader.fetchImage(imageURL, { (progress) in
+                        // Show progress
+                        
+                    }) { (image, error) in
+                        if let error = error {
+                            print("\(error)")
+                            return
+                        }
+                        
+                        guard let image = image else { return }
+                        
+                        DispatchQueue.main.async {
+                            let imageView = UIImageView(image: image.resize(toHeight: self.imageHolderView.frame.height))
+                            imageView.contentMode = .scaleAspectFit
+                            self.imageHolderView.addSubview(imageView)
+                        }
+                    }
                 }
             }
+//            guard let image = images.first,
+//                let imageURL = image else { return }
+//
+//            downloader.fetchImage(imageURL, { (progress) in
+//                // Show progress
+//
+//            }) { (image, error) in
+//                if let error = error {
+//                    print("\(error)")
+//                    return
+//                }
+//
+//                guard let image = image else { return }
+//
+//                DispatchQueue.main.async {
+//                    self.imageView.isHidden = false
+//                    self.imageView.image = image
+//                }
+//            }
         }
         
         guard let comments = message.comments else { return }
@@ -376,7 +399,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var messageBodyLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageHolderView: UIView!
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var commentTextView: GrowingTextView!
     @IBOutlet weak var sendCommentButton: UIButton!
