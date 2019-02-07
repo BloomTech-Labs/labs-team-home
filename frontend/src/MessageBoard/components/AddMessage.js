@@ -16,8 +16,10 @@ import CloseIcon from '@material-ui/icons/Close';
 // image preview not working
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
-import { addMessage } from './mutations/messages';
+import { addMessage, addTag } from './mutations/messages';
 import { colors } from '../../colorVariables';
+import { compose, Query } from 'react-apollo';
+import { FIND_TAGS_BY_TEAM } from '../../constants/queries';
 const { button } = colors;
 
 registerPlugin(
@@ -124,150 +126,199 @@ const Input = styled(TextField)`
 `;
 
 function AddMessage(props) {
-	let team, user, title, content, images;
+	let team, user, title, content, tag, images, tags;
 	team = props.team;
 	user = props.user;
 	images = [];
-	const { addMessage } = props;
+	const { addMessage, addTag } = props;
 	return (
-		<Container open={props.open} onClose={props.closeHandler} fullWidth>
-			<Overlay>
-				{/*Close button*/}
-				<DialogActions>
-					<IconButton
-						aria-label="Close"
-						onClick={props.closeHandler}
-						style={{ color: '#fff' }}
-					>
-						<CloseIcon />
-					</IconButton>
-				</DialogActions>
-				<Title>Add a New Message</Title>
-				<form
-					onSubmit={e => {
-						e.preventDefault();
-						//create newMessage object using the variables created in advance
-
-						let newMessage = {
-							user: user,
-							title: title.value,
-							content: content.value,
-							team: team,
-							images: images
-						};
-						//pass newMessage object as a variable to addMessage mutation
-						addMessage(newMessage)
-							.then(res => {
-								return props.closeHandler();
-								// alert('Message added');
-								// window.location.reload(true);
-							})
-							.catch(err => {
-								console.error(err);
-							});
-						//reset title, content, and images
-						title.value = '';
-						content.value = '';
-					}}
-				>
-					<Input
-						type="text"
-						name="title"
-						placeholder="title"
-						variant="outlined"
-						inputRef={node => {
-							title = node;
-						}}
-						fullWidth
-					/>
-					<Input
-						name="contents"
-						placeholder="content"
-						variant="outlined"
-						inputRef={node => {
-							content = node;
-						}}
-						multiline
-						fullWidth
-					/>
-
-					<FilePond
-						allowMultiple={true}
-						acceptedFileTypes="image/jpeg, image/png, image/gif"
-						imageResizeTargetWidth={1280}
-						imageResizeTargetHeight={800}
-						imageResizeMode="contain"
-						imageResizeUpscale={false}
-						server={{
-							url: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-							process: (
-								fieldName,
-								file,
-								metadata,
-								load,
-								error,
-								progress,
-								abort
-							) => {
-								// fieldName is the name of the input field
-								// file is the actual file object to send
-								const formData = new FormData();
-								formData.append(fieldName, file, file.name);
-								formData.append('file', file);
-								formData.append('upload_preset', uploadPreset);
-								formData.append('api_key', apiKey);
-
-								const request = new XMLHttpRequest();
-								request.open(
-									'POST',
-									`https://${apiKey}:${apiSecret}@api.cloudinary.com/v1_1/${cloudName}/image/upload`
-								);
-
-								// Should call the progress method to update the progress to 100% before calling load
-								// Setting computable to false switches the loading indicator to infinite mode
-								request.upload.onprogress = e => {
-									progress(e.lengthComputable, e.loaded, e.total);
-								};
-
-								// Should call the load method when done and pass the returned server file id
-								// this server file id is then used later on when reverting or restoring a file
-								// so your server knows which file to return without exposing that info to the client
-								request.onload = function() {
-									if (request.status >= 200 && request.status < 300) {
-										// the load method accepts either a string (id) or an object
-										const response = JSON.parse(request.response);
-										console.log(response);
-										//add new url to the images array in preparation of creating new message
-										images.push(response.secure_url);
-										load(request.responseText);
-									} else {
-										// Can call the error method if something is wrong, should exit after
-										error('oh no');
+		<Query query={FIND_TAGS_BY_TEAM} variables={{ team }}>
+			{({ loading, error, data: { findTagsByTeam } }) =>
+				loading ? (
+					<p>Loading...</p>
+				) : error ? (
+					<p>Error :(</p>
+				) : (
+					<Dialog open={props.open} onClose={props.closeHandler} fullWidth>
+						<Overlay>
+							{/*Close button*/}
+							<DialogActions>
+								<IconButton
+									aria-label="Close"
+									onClick={props.closeHandler}
+									style={{ color: '#fff' }}
+								>
+									<CloseIcon />
+								</IconButton>
+							</DialogActions>
+							<Title>Add a New Message</Title>
+							<form
+								onSubmit={e => {
+									e.preventDefault();
+									//create newMessage object using the variables created in advance
+									let newMessage = {
+										user: user,
+										title: title.value,
+										content: content.value,
+										team: team,
+										images: images
+									};
+									if (tag.value.length) {
+										const exists = findTagsByTeam.find(
+											({ name }) => name === tag.value
+										);
+										if (exists) {
+											newMessage.tag = exists._id;
+											addMessage(newMessage)
+												.then(() => props.closeHandler())
+												.catch(err => {
+													console.error(err);
+												});
+										} else {
+											return addTag({ name: tag.value, team })
+												.then(async ({ data: { addTag: { _id } } }) => {
+													try {
+														await (newMessage.tag = _id);
+														await addMessage(newMessage);
+														await props.closeHandler();
+													} catch (err) {
+														console.error(err);
+													}
+												})
+												.catch(err => console.error(err));
+										}
 									}
-								};
-
-								request.send(formData);
-
-								// Should expose an abort method so the request can be cancelled
-								return {
-									abort: () => {
-										// This function is entered if the user has tapped the cancel button
-										request.abort();
-
-										// Let FilePond know the request has been cancelled
-										abort();
+									//pass newMessage object as a variable to addMessage mutation
+									else {
+										addMessage(newMessage)
+											.then(res => {
+												return props.closeHandler();
+												// alert('Message added');
+												// window.location.reload(true);
+											})
+											.catch(err => {
+												console.error(err);
+											});
 									}
-								};
-							}
-						}}
-					/>
-					<SubmitButton type="submit" size="large" fullWidth>
-						Save
-					</SubmitButton>
-				</form>
-			</Overlay>
-		</Container>
+									//reset title, content, tag, and images
+									title.value = '';
+									content.value = '';
+									tag.value = '';
+								}}
+							>
+								<Input
+									type="text"
+									name="title"
+									placeholder="title"
+									variant="outlined"
+									inputRef={node => {
+										title = node;
+									}}
+									fullWidth
+								/>
+								<Input
+									name="contents"
+									placeholder="content"
+									variant="outlined"
+									inputRef={node => {
+										content = node;
+									}}
+									multiline
+									fullWidth
+								/>
+								<Input
+									type="text"
+									name="tag"
+									placeholder="tag"
+									variant="outlined"
+									inputRef={node => {
+										tag = node;
+									}}
+									fullWidth
+								/>
+								<FilePond
+									allowMultiple={true}
+									acceptedFileTypes="image/jpeg, image/png, image/gif"
+									imageResizeTargetWidth={1280}
+									imageResizeTargetHeight={800}
+									imageResizeMode="contain"
+									imageResizeUpscale={false}
+									server={{
+										url: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+										process: (
+											fieldName,
+											file,
+											metadata,
+											load,
+											error,
+											progress,
+											abort
+										) => {
+											// fieldName is the name of the input field
+											// file is the actual file object to send
+											const formData = new FormData();
+											formData.append(fieldName, file, file.name);
+											formData.append('file', file);
+											formData.append('upload_preset', uploadPreset);
+											formData.append('api_key', apiKey);
+
+											const request = new XMLHttpRequest();
+											request.open(
+												'POST',
+												`https://${apiKey}:${apiSecret}@api.cloudinary.com/v1_1/${cloudName}/image/upload`
+											);
+
+											// Should call the progress method to update the progress to 100% before calling load
+											// Setting computable to false switches the loading indicator to infinite mode
+											request.upload.onprogress = e => {
+												progress(e.lengthComputable, e.loaded, e.total);
+											};
+
+											// Should call the load method when done and pass the returned server file id
+											// this server file id is then used later on when reverting or restoring a file
+											// so your server knows which file to return without exposing that info to the client
+											request.onload = function() {
+												if (request.status >= 200 && request.status < 300) {
+													// the load method accepts either a string (id) or an object
+													const response = JSON.parse(request.response);
+													console.log(response);
+													//add new url to the images array in preparation of creating new message
+													images.push(response.secure_url);
+													load(request.responseText);
+												} else {
+													// Can call the error method if something is wrong, should exit after
+													error('oh no');
+												}
+											};
+
+											request.send(formData);
+
+											// Should expose an abort method so the request can be cancelled
+											return {
+												abort: () => {
+													// This function is entered if the user has tapped the cancel button
+													request.abort();
+
+													// Let FilePond know the request has been cancelled
+													abort();
+												}
+											};
+										}
+									}}
+								/>
+								<SubmitButton type="submit" size="large" fullWidth>
+									Save
+								</SubmitButton>
+							</form>
+						</Overlay>
+					</Dialog>
+				)
+			}
+		</Query>
 	);
 }
 
-export default addMessage(AddMessage);
+export default compose(
+	addTag,
+	addMessage
+)(AddMessage);

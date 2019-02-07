@@ -125,7 +125,6 @@ const FormCheckboxStyles = styled.div`
 		margin-right: 3%;
 	}
 	input {
-		width: 2%;
 	}
 	${mediaQueryFor.smDevice`
     flex-direction: column;
@@ -144,9 +143,17 @@ const FormCheckboxStyles = styled.div`
 `;
 
 const StyledCheckbox = styled.input`
+	width: 16px;
+	height: 16px;
 	border: 2px solid ${colors.header};
 	padding: 0;
 `;
+
+const StyledBillingContainer = styled.div`
+	width: 100%;
+`;
+
+const StyledTeamCard = styled.div``;
 
 export default withStyles(styles)(SettingsContainer);
 export {
@@ -157,5 +164,7 @@ export {
 	FormInputStyles,
 	StyledInput,
 	FormCheckboxStyles,
-	StyledCheckbox
+	StyledCheckbox,
+	StyledBillingContainer,
+	StyledTeamCard
 };
