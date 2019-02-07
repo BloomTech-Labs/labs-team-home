@@ -301,12 +301,6 @@ class SettingsView extends Component {
 										checked={this.state.toggles.receiveTexts}
 									/>
 									<FormButton type="submit" title="save" />
-
-									<FormButton
-										type={'primary'}
-										title={'Leave Team'}
-										style={buttonStyle}
-									/>
 								</form>
 							</div>
 							<div label="Team Billing">
