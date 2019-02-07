@@ -28,7 +28,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 const { button } = colors;
 
 export const Overlay = styled(DialogContent)`
-	background-color: ${button};
+	background-color: ${palette.plumTransparent};
 	color: #fff;
 	word-wrap: break-word;
 	padding-top: 0;
@@ -38,7 +38,7 @@ export const Overlay = styled(DialogContent)`
 export const Close = styled(DialogActions)`
 	&,
 	div {
-		background-color: ${button};
+		background-color: transparent;
 		color: #fff;
 	}
 `;
@@ -113,7 +113,8 @@ class MessageDetail extends Component {
 				fullScreen={this.state.width <= 696}
 				PaperProps={{
 					style: {
-						background: palette.plum,
+						background: `transparent`,
+						boxShadow: 'none',
 						color: '#fff'
 					}
 				}}
@@ -122,7 +123,7 @@ class MessageDetail extends Component {
 					<IconButton
 						aria-label="Close"
 						onClick={hideModal}
-						style={{ color: '#fff' }}
+						style={{ color: '#fff', background: `${palette.plumTransparent}` }}
 					>
 						<CloseIcon />
 					</IconButton>
