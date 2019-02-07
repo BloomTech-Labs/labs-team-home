@@ -23,4 +23,12 @@ const AppStyles = styled.div`
 	}
 `;
 
+const BackgroundIMG = styled.img`
+	position: fixed;
+	right: 20%;
+	width: 900px;
+	filter: drop-shadow(-2px 10px 6px #111);
+`;
+
 export default AppStyles;
+export { BackgroundIMG };
