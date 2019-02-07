@@ -37,7 +37,6 @@ const TH_logo = 'https://i.imgur.com/31LTJFH.png';
 
 const Messageboard = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
-	border-right: 2px solid transparent;
 	box-sizing: border-box;
 	border-radius: 10px;
 	font-family: sans-serif;
@@ -47,22 +46,8 @@ const Messageboard = styled.div`
 	margin-top: 20px;
 	color: ${colors.text};
 
-	${mediaQueryFor.lgDevice`
-      border-width:10px;
-  `}
 	${mediaQueryFor.mdDevice`
-      border-width:7px;
-  `}
-	${mediaQueryFor.smDevice`
-      width:100%;
-      margin:0;
-      border-width:4px;
-  `}
-	${mediaQueryFor.xsDevice`
-      width:100%;
-      margin:0;
-
-      border-width:2px;
+    width: 100%;
   `}
 `;
 
@@ -103,6 +88,11 @@ const MessagesContainer = styled.div`
 			height: 50px;
 		}
 	}
+
+	${mediaQueryFor.mdDevice`
+		margin-bottom: 20px;
+		width: 100%;
+	`}
 `;
 
 const AddMsgBtn = styled(Fab)`
