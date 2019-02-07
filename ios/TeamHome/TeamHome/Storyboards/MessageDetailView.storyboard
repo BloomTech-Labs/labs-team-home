@@ -100,6 +100,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0R-Kb-IRz">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
                                                         <state key="normal" title="Subscribe"/>
+                                                        <connections>
+                                                            <action selector="clickedSubscribe:" destination="Sdh-Dm-6bQ" eventType="touchUpInside" id="0nG-6e-KYc"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -238,6 +241,7 @@
                         <outlet property="messageBodyLabel" destination="KZn-VX-Npz" id="jk8-hC-i2V"/>
                         <outlet property="messageTitleLabel" destination="dai-gO-o6P" id="YaC-mc-Byo"/>
                         <outlet property="sendCommentButton" destination="hqs-nM-T9Y" id="iyh-Sr-gRM"/>
+                        <outlet property="subscribeButton" destination="v0R-Kb-IRz" id="fN8-ol-02H"/>
                         <outlet property="subscribersCollectionView" destination="lxy-xh-IDu" id="fGz-sk-QSk"/>
                         <outlet property="subscribersLabel" destination="Hf5-uR-7vt" id="TQv-zO-Z2Q"/>
                         <outlet property="tagsLabel" destination="pxk-NL-cJL" id="m7Y-vO-wa5"/>

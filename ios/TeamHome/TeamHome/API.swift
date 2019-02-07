@@ -30,7 +30,7 @@ public struct TeamUserInput: GraphQLMapConvertible {
 
 public final class FindMessageByIdQuery: GraphQLQuery {
   public let operationDefinition =
-    "query FindMessageById($id: ID!) {\n  findMessage(input: {id: $id}) {\n    __typename\n    _id\n    title\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    team {\n      __typename\n      name\n      _id\n    }\n    content\n    images\n    tag {\n      __typename\n      name\n      _id\n    }\n    comments\n    subscribedUsers {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "query FindMessageById($id: ID!) {\n  findMessage(input: {id: $id}) {\n    __typename\n    _id\n    title\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    team {\n      __typename\n      name\n      _id\n    }\n    content\n    images\n    tag {\n      __typename\n      name\n      _id\n    }\n    comments\n    subscribedUsers {\n      __typename\n      firstName\n      lastName\n      avatar\n      _id\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public var id: GraphQLID
 
@@ -363,6 +363,7 @@ public final class FindMessageByIdQuery: GraphQLQuery {
           GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
           GraphQLField("lastName", type: .nonNull(.scalar(String.self))),
           GraphQLField("avatar", type: .scalar(String.self)),
+          GraphQLField("_id", type: .nonNull(.scalar(GraphQLID.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -371,8 +372,8 @@ public final class FindMessageByIdQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(firstName: String, lastName: String, avatar: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "avatar": avatar])
+        public init(firstName: String, lastName: String, avatar: String? = nil, id: GraphQLID) {
+          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "avatar": avatar, "_id": id])
         }
 
         public var __typename: String {
@@ -408,6 +409,15 @@ public final class FindMessageByIdQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "avatar")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return resultMap["_id"]! as! GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "_id")
           }
         }
       }
@@ -556,6 +566,164 @@ public final class CreateCommentMutation: GraphQLMutation {
 
       public init(id: GraphQLID? = nil) {
         self.init(unsafeResultMap: ["__typename": "MsgComment", "_id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+    }
+  }
+}
+
+public final class SubscribeMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation Subscribe($id: ID!) {\n  subscribe(input: {id: $id}) {\n    __typename\n    _id\n  }\n}"
+
+  public var id: GraphQLID
+
+  public init(id: GraphQLID) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("subscribe", arguments: ["input": ["id": GraphQLVariable("id")]], type: .object(Subscribe.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(subscribe: Subscribe? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "subscribe": subscribe.flatMap { (value: Subscribe) -> ResultMap in value.resultMap }])
+    }
+
+    public var subscribe: Subscribe? {
+      get {
+        return (resultMap["subscribe"] as? ResultMap).flatMap { Subscribe(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "subscribe")
+      }
+    }
+
+    public struct Subscribe: GraphQLSelectionSet {
+      public static let possibleTypes = ["Message"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Message", "_id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+    }
+  }
+}
+
+public final class UnsubscribeMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation Unsubscribe($id: ID!) {\n  unsubscribe(input: {id: $id}) {\n    __typename\n    _id\n  }\n}"
+
+  public var id: GraphQLID
+
+  public init(id: GraphQLID) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("unsubscribe", arguments: ["input": ["id": GraphQLVariable("id")]], type: .object(Unsubscribe.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(unsubscribe: Unsubscribe? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "unsubscribe": unsubscribe.flatMap { (value: Unsubscribe) -> ResultMap in value.resultMap }])
+    }
+
+    public var unsubscribe: Unsubscribe? {
+      get {
+        return (resultMap["unsubscribe"] as? ResultMap).flatMap { Unsubscribe(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "unsubscribe")
+      }
+    }
+
+    public struct Unsubscribe: GraphQLSelectionSet {
+      public static let possibleTypes = ["Message"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Message", "_id": id])
       }
 
       public var __typename: String {

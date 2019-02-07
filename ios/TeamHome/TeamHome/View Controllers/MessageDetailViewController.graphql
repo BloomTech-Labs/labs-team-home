@@ -24,6 +24,7 @@ query FindMessageById($id: ID!) {
             firstName
             lastName
             avatar
+            _id
         }
         createdAt
         updatedAt
@@ -45,6 +46,18 @@ mutation CreateComment($message: String!, $content: String!) {
                   message: $message
                   content: $content
                   }) {
+        _id
+    }
+}
+
+mutation Subscribe($id: ID!) {
+    subscribe(input: { id: $id }) {
+        _id
+    }
+}
+
+mutation Unsubscribe($id: ID!) {
+    unsubscribe(input: { id: $id }) {
         _id
     }
 }

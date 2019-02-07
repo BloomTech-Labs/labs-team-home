@@ -55,6 +55,47 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     
     // MARK - IBActions
     
+    @IBAction func clickedSubscribe(_ sender: Any) {
+        guard let currentUser = currentUser,
+            let apollo = apollo,
+            let isSubscribed = isSubscribed else { return }
+        let id = currentUser.id
+        
+        if isSubscribed {
+            apollo.perform(mutation: UnsubscribeMutation(id: id), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+
+                guard let result = result else { return }
+
+                print(result)
+
+                DispatchQueue.main.async {
+                    self.isSubscribed = false
+                    self.subscribeButton.setTitle("Subscribe", for: .normal)
+                }
+            }
+        } else {
+            apollo.perform(mutation: SubscribeMutation(id: id), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                
+                print(result)
+                
+                DispatchQueue.main.async {
+                    self.isSubscribed = true
+                    self.subscribeButton.setTitle("Unsubscribe", for: .normal)
+                }
+            }
+        }
+    }
+    
     @IBAction func submitCommit(_ sender: Any) {
         
         guard let apollo = apollo,
@@ -187,6 +228,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             self.message = message
             self.messageId = id
             self.subscribers = message.subscribedUsers
+            
+            // Find out if I'm subscribed?
         }
     }
     
@@ -286,8 +329,23 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         })
     }
     
+    private func figureOutIfSubscribed() {
+        guard let subscribers = subscribers,
+            let currentUser = currentUser else { return }
+        
+        for subscriber in subscribers {
+            if let subscriber = subscriber {
+                if subscriber.id == currentUser.id {
+                    self.isSubscribed = true
+                    self.subscribeButton.setTitle("Unsubscribe", for: .normal)
+                }
+            }
+        }
+    }
+    
     // MARK - Properties
     
+    private var isSubscribed: Bool?
     private var message: FindMessageByIdQuery.Data.FindMessage? {
         didSet {
             DispatchQueue.main.async {
@@ -298,7 +356,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     private var subscribers: [FindMessageByIdQuery.Data.FindMessage.SubscribedUser?]? {
         didSet {
             DispatchQueue.main.async {
-                self.subscribersCollectionView.reloadData()
+                self.figureOutIfSubscribed()
             }
         }
     }
@@ -311,6 +369,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     var imageData: Data?
     var delegate: AddNewCommentDelegate?
     
+    @IBOutlet weak var subscribeButton: UIButton!
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!
