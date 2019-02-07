@@ -249,6 +249,8 @@ class MessageBoard extends React.Component {
 					<Mutation mutation={mutation.INVITE_USER}>
 						{inviteUser => (
 							<Invites
+								currentUser={this.props.currentUser}
+								team={this.props.team}
 								open={this.state.showInvite}
 								closeHandler={this.closeInviteHandler}
 								stopProp={this.stopProp}
