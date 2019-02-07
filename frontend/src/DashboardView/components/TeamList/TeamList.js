@@ -44,6 +44,8 @@ class TeamList extends React.Component {
 			input: '',
 			classes: props.classes
 		};
+
+		this.changeHandler = this.changeHandler.bind(this);
 	}
 
 	changeHandler(e) {
@@ -53,8 +55,6 @@ class TeamList extends React.Component {
 	}
 
 	render() {
-		console.log('classes', this.state.classes);
-
 		return (
 			<style.Container>
 				<Mutation
@@ -76,6 +76,7 @@ class TeamList extends React.Component {
 								placeholder="Add a Team..."
 								name="input"
 								value={this.state.input}
+								onChange={this.changeHandler}
 							/>
 							<style.Button
 								className={this.state.classes.iconButton}
