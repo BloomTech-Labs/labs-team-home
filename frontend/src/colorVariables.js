@@ -5,7 +5,7 @@ export const palette = {
 	beige: '#9D8D8F',
 	gold: '#9B786F',
 	white: '#FFFFFF',
-	plumTransparent: 'rgba(62,49,69,0.8)'
+	plumTransparent: 'rgba(62,49,69,0.9)'
 };
 
 export const colors = {
