@@ -176,7 +176,7 @@ function Message(props) {
 								Tag
 							</StyledTypography>
 							<StyledTypography variant="h5" component="h5">
-								{message.tag ? message.tag.name : 'Uncategorized'}
+								{message.tag ? message.tag.name : 'None'}
 							</StyledTypography>
 						</TagInfo>
 					</Grid>

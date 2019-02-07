@@ -19,7 +19,7 @@ export default class ActivityTimeline extends React.Component {
 		//allTheThings will hold all the messages and comments will be added to this
 		//array. This is seperate from the messages array so that mapping queries
 		//will not accidentally use comments instead of messages
-		let allTheThings = [];
+		let allTheThings = new Set();
 		//loaded will be used to keep from adding more to allTheThings once all messages
 		//have been mapped
 		let loaded = false;
@@ -36,7 +36,9 @@ export default class ActivityTimeline extends React.Component {
 						//query into messages and allTheThings.
 						if (messages.length === 0) {
 							messages = findMessagesByTeam;
-							allTheThings = allTheThings.concat(messages);
+							for (var message of messages) {
+								allTheThings.add(message);
+							}
 						}
 						//i is current index, starts at 0. End is the index of the end of
 						//the messages array
@@ -55,30 +57,35 @@ export default class ActivityTimeline extends React.Component {
 
 									//only add to the allTheThings array if the end of the messages
 									//array has not been reached
-									if (!loaded)
-										allTheThings = allTheThings.concat(
-											findMsgCommentsByMessage
-										);
+									if (!loaded) {
+										for (var comment of findMsgCommentsByMessage) {
+											allTheThings.add(comment);
+										}
+									}
+
 									if (i === end) {
 										//if reached the end of the messages array set loaded to true
 										loaded = true;
 										//convert all updatedAt timestamps to date objects
-										allTheThings.map(thing => {
+										let activities = [];
+										for (let thing of allTheThings) {
 											if (typeof thing.updatedAt === 'string')
 												thing.updatedAt = new Date(
 													parseInt(thing.updatedAt, 10)
 												);
-											return null;
-										});
+											activities.push(thing);
+										}
+
 										//sort in reverse chronological order
-										allTheThings.sort((a, b) => {
+										activities.sort((a, b) => {
 											if (a.updatedAt < b.updatedAt) return 1;
 											if (a.updatedAt > b.updatedAt) return -1;
 											return 0;
 										});
+										console.log('activities', activities);
 										//create elements based on whether the current thing is created
 										//by the current user
-										return allTheThings.map(thing => {
+										return activities.map(thing => {
 											if (thing.user._id === this.props.currentUser._id) {
 												return <UserActivity message={thing} key={thing._id} />;
 											}
