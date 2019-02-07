@@ -121,7 +121,14 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         card.bottomBar = bottomBar
         card.bottomBarEdgeInsetsPreset = .wideRectangle2
         
-        card.backgroundColor = Appearance.darkMauveColor
+        guard let activity = activity else { return }
+        
+        if activity.message != nil {
+            card.backgroundColor = Appearance.plumColor
+        } else {
+            card.backgroundColor = Appearance.darkMauveColor
+        }
+    
     }
     
     private func updateViews() {

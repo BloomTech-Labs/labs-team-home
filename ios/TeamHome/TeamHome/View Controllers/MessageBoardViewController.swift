@@ -37,6 +37,9 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     @IBAction func filterMessages(_ sender: Any) {
         guard let delegate = delegate else { return }
         
+        // Call delegate to filter messages.
+        delegate.didClickFilter()
+        
         // Update button based on order of messages.
         if delegate.newestToOldest {
             let image = UIImage(named: "Arrow Down")!
@@ -46,8 +49,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
             filterButton.setImage(image, for: .normal)
         }
         
-        // Call delegate to filter messages.
-        delegate.didClickFilter()
+        
     }
     
     // MARK: - Navigation

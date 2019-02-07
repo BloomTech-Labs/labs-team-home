@@ -39,7 +39,7 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
                 self.currentUser = currentUser
                 print(currentUser.firstName)
                 
-                let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "Looks like you're already sign in. This is your team dashboard. Pick a team to start.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "Looks like you're already sign in. Pick a team to start.", preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: "Get started", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)

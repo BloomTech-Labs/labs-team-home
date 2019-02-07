@@ -24,6 +24,10 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         teamNameLabel.textColor = .white
         teamNameLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
         
+        label = UILabel()
+        label.text = "Loading activity"
+        collectionView.addSubview(label)
+        
         loadActivity(with: apollo, team: team)
         fetchCurrentUser(with: apollo)
     }
@@ -91,6 +95,12 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
             
             self.messages = messages
             
+            self.activityTimeline = []
+            for message in messages {
+                let activity = Activity(message: message, comment: nil, date: message?.createdAt)
+                self.activityTimeline?.append(activity)
+            }
+            
             let group = DispatchGroup()
             
             for message in messages {
@@ -105,7 +115,8 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
                     guard let result = result,
                         let comments = result.data?.findMsgCommentsByMessage else { return }
                     
-                    self.comments = comments
+                    self.comments.append(contentsOf: comments)
+                
                     group.leave()
                 })
             }
@@ -133,14 +144,11 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     
     private func mergeAllActivity() {
         
-        guard let messages = messages,
-            let comments = comments else { return }
-        
-        self.activityTimeline = []
-        for message in messages {
-            let activity = Activity(message: message, comment: nil, date: message?.createdAt)
-            activityTimeline?.append(activity)
-        }
+//        self.activityTimeline = []
+//        for message in messages {
+//            let activity = Activity(message: message, comment: nil, date: message?.createdAt)
+//            activityTimeline?.append(activity)
+//        }
         
         for comment in comments {
             let activity = Activity(message: nil, comment: comment, date: comment?.createdAt)
@@ -154,15 +162,18 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     }
     
     // MARK - Properties
-    
+    private var label: UILabel!
     
     private var messages: [FindActivityByTeamQuery.Data.FindMessagesByTeam?]?
-    private var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]?
+    private var comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?] = []
     private var activityTimeline: [Activity]?
     private var sortedActivity: [Activity]? {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                if self.label != nil {
+                    self.label.removeFromSuperview()
+                }
             }
         }
     }
