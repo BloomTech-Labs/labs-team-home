@@ -137,6 +137,9 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="258" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="me3-1d-lig">
                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="33"/>
+                                                <connections>
+                                                    <action selector="addImage:" destination="Sdh-Dm-6bQ" eventType="touchUpInside" id="Hco-q3-CMn"/>
+                                                </connections>
                                             </button>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="259" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YK0-H8-ngA" customClass="GrowingTextView" customModule="GrowingTextView">
                                                 <rect key="frame" x="8" y="0.0" width="327" height="33"/>
