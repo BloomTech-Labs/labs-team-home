@@ -129,7 +129,7 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
     
     private func sort() {
         guard let messages = messages else { return }
-        
+
         let sortedMessages = messages.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
         self.messages = sortedMessages
         newestToOldest = true

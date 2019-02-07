@@ -14,7 +14,9 @@ var commentsWatcher: GraphQLQueryWatcher<FindCommentsByMessageQuery>?
 class CommentsCollectionViewController: UICollectionViewController, AddNewCommentDelegate, CommentCollectionCellDelegate {
     
     func didAddNewComment() {
-        self.label.removeFromSuperview()
+        if label != nil {
+            self.label.removeFromSuperview()
+        }
     }
     
 

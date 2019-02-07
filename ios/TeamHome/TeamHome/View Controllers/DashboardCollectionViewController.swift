@@ -39,19 +39,22 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
                 self.currentUser = currentUser
                 print(currentUser.firstName)
                 
-                let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "Looks like you're already sign in. This is your team dashboard. Pick a team to start.", preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "Get started", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "Looks like you're already sign in. Pick a team to start.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Get started", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
             return
         }
         
-        let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "This is your dashboard where you can find all the teams you're part of. Pick a team to start.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Get started", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "This is your team dashboard. Pick a team to start.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Get started", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } 
     }
 
    @IBAction func unwindToDashboard(segue:UIStoryboardSegue) { }
