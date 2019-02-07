@@ -52,7 +52,11 @@ const BillingView = props => {
 					});
 					cache.writeQuery({
 						query: query.FIND_TEAMS_BY_USER,
-						data: { findTeamsByUser: [...findTeamsByUser, setPremium] }
+						data: {
+							findTeamsByUser: findTeamsByUser.map(team =>
+								team._id === setPremium._id ? setPremium : team
+							)
+						}
 					});
 				}}
 			>
