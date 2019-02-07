@@ -13,6 +13,10 @@ import Toucan
 
 var teamWatcher: GraphQLQueryWatcher<FindTeamByIdQuery>?
 
+protocol TeamDetailCellDelegate: class {
+    func presentAdminActionSheet(with optionMenu: UIAlertController)
+}
+
 class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtocol {
 
     override func viewDidLoad() {
@@ -56,9 +60,6 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
             email = user.user.email
         }
         
-        
-        
-
         cell.textLabel?.text = "\(firstName) \(lastName)"
         cell.detailTextLabel?.text = email
 
@@ -83,16 +84,6 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
         return cell
     }
 
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let edit = editAction(at: indexPath)
@@ -103,7 +94,7 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
 
     func editAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: "edit") { (action, view, completion) in
-            // Present alert to change admin status
+            // Present action sheet to change admin status if admin
             self.updateAdminStatus(at: indexPath)
             completion(true)
         }
@@ -115,9 +106,10 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
     }
     
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
+
         let action = UIContextualAction(style: .destructive, title: "delete") { (action, view, completion) in
-            self.users?.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            // Delete member if admin
+            self.deleteTeamMember(at: indexPath)
             completion(true)
         }
         
@@ -127,8 +119,105 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
         return action
     }
     
-    func updateAdminStatus(at indexPath: IndexPath) {
+    
+    func deleteTeamMember(at indexPath: IndexPath) {
+        guard let apollo = apollo,
+            let team = team,
+            let teamId = team.id,
+            let currentUser = currentUser,
+            let users = users,
+            let kickedUser = users[indexPath.row] else { return }
         
+        let userArray = users.compactMap { (user) -> FindTeamByIdQuery.Data.FindTeam.User? in
+            if user?.user.id == currentUser.id {
+                return user
+            }
+            return nil
+        }
+        
+        let user = userArray.first!
+        let adminStatus = user.admin
+        
+        if adminStatus {
+//            self.users?.remove(at: indexPath.row)
+            
+            apollo.perform(mutation: KickUserMutation(teamId: teamId, userKickedId: kickedUser.user.id), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                
+                print(result)
+                
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                teamWatcher?.refetch()
+            }
+            
+        } else {
+            let alert = UIAlertController(title: "Not authorized", message: "Looks like your not an admin and you can't delete members", preferredStyle: .alert)
+            
+            self.present(alert, animated: true, completion: nil)
+            
+            let when = DispatchTime.now() + 2
+            DispatchQueue.main.asyncAfter(deadline: when){
+                
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func updateAdminStatus(at indexPath: IndexPath) {
+        guard let currentUser = currentUser,
+            let users = users else { return }
+        
+        let userArray = users.compactMap { (user) -> FindTeamByIdQuery.Data.FindTeam.User? in
+            if user?.user.id == currentUser.id {
+                return user
+            }
+            return nil
+        }
+        
+        let user = userArray.first!
+        let adminStatus = user.admin
+        
+        if adminStatus {
+            
+            let optionMenu = UIAlertController(title: nil, message: "Message Options", preferredStyle: .actionSheet)
+            
+            let makeAdminAction = UIAlertAction(title: "Make admin", style: .default) { (action) in
+                self.makeUserAdmin(at: indexPath)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            optionMenu.addAction(makeAdminAction)
+            optionMenu.addAction(cancelAction)
+            
+            delegate?.presentAdminActionSheet(with: optionMenu)
+        } else {
+            let alert = UIAlertController(title: "Not authorized", message: "Looks like your not an admin and you can't edit members", preferredStyle: .alert)
+            
+            self.present(alert, animated: true, completion: nil)
+            
+            let when = DispatchTime.now() + 2
+            DispatchQueue.main.asyncAfter(deadline: when){
+                
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    private func makeUserAdmin(at indexPath: IndexPath) {
+        guard let apollo = apollo,
+            let users = users,
+            let userEdited = users[indexPath.row] else { return }
+        
+        if userEdited.admin {
+            // Present alert that explains user is already admin.
+        } else {
+            
+        }
     }
 
     // MARK: - Navigation
@@ -183,6 +272,8 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
     }
     
     // MARK - Properties
+    
+    weak var delegate: TeamDetailCellDelegate?
     var users: [FindTeamByIdQuery.Data.FindTeam.User?]? {
         didSet {
             if isViewLoaded {

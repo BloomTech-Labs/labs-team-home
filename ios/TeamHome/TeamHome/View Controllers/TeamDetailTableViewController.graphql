@@ -17,3 +17,13 @@ query FindTeamById($id: ID!) {
         }
     }
 }
+
+mutation kickUser($teamId: ID!, $userKickedId: ID!) {
+    kickUser(input: {
+             id: $teamId
+             user: $userKickedId
+             }) {
+        _id
+    }
+}
+
