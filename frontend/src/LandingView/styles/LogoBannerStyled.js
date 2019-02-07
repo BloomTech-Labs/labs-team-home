@@ -15,21 +15,6 @@ const TextIMG = styled.img`
   top: 100px;
   opacity:1;
   filter: drop-shadow( 7px 5px 4px rgba(0,0,0,1));
-  ${mediaQueryFor.lgDevice`
-  width:300%;
-    left: 0%;
-    top: 5%;
-  `}
-  ${mediaQueryFor.mdDevice`
-  width:250%;
-    left: 0%;
-    top: 10%;
-  `}
-  ${mediaQueryFor.smDevice`
-  /* width:300%; */
-    left: -10%;
-    top: 15%;
-  `}
 `;
 
 const BannerStyles = styled.div`

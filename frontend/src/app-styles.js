@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import mediaQueryFor from './_global_styles/responsive_querie';
 
 const AppStyles = styled.div`
-	/* width: 100%; */
 	margin: 0 auto;
 	height: 100vh;
 	.fade-enter {
@@ -27,7 +27,22 @@ const BackgroundIMG = styled.img`
 	position: fixed;
 	right: 20%;
 	width: 900px;
-	filter: drop-shadow(-2px 10px 6px #111);
+  filter: drop-shadow(-2px 10px 6px #111);
+  ${mediaQueryFor.lgDevice`
+    width:70%;
+    left: 0%;
+    top: 5%;
+    `}
+    ${mediaQueryFor.mdDevice`
+    width:80%;
+    left: 0%;
+    top: 10%;
+    `}
+    ${mediaQueryFor.smDevice`
+    width:100%;
+    left:-10%;
+    top: 15%;
+  `}
 `;
 
 export default AppStyles;

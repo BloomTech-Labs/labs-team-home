@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// import Button from '../components/SignInUpButton';
 import StyledSignInUp, { TextIMG } from '../styles/SignInSignUpStyled';
 import textLogo from '../../../src/assets/Sveza_white.svg';
 import Button from '@material-ui/core/Button';
