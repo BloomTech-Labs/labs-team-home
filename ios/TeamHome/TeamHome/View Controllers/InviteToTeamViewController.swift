@@ -22,6 +22,7 @@ class InviteToTeamViewController: UIViewController {
         phoneNumberTextField.dividerActiveColor = Appearance.yellowColor
             phoneNumberTextField.placeholderActiveColor = Appearance.yellowColor
         phoneNumberTextField.textColor = .white
+        inviteButton.backgroundColor = Appearance.darkMauveColor
     }
 
     @IBAction func inviteToTeam(_ sender: Any) {
@@ -56,5 +57,6 @@ class InviteToTeamViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var emailTextField: TextField!
     @IBOutlet weak var phoneNumberTextField: TextField!
+    @IBOutlet weak var inviteButton: RaisedButton!
     
 }
