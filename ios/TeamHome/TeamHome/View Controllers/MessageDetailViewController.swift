@@ -29,7 +29,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         super.viewDidLoad()
 
         setUpViewAppearance()
-        subscribersCollectionView.backgroundColor = .clear
         Appearance.styleOrange(button: sendCommentButton)
         
         let editMessageBarButtonView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
@@ -321,12 +320,15 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
 //            }
         }
         
-        guard let comments = message.comments else { return }
-        
         var heightConstraint: NSLayoutConstraint!
         
-        heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 60)
-        if comments.count == 1 {
+        heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
+        
+        guard let comments = message.comments else { return }
+        
+        if comments.count == 0 {
+            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+        } else if comments.count == 1 {
             heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
         } else if comments.count > 2 {
             heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
@@ -402,8 +404,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var commentTextView: GrowingTextView!
     @IBOutlet weak var sendCommentButton: UIButton!
-    @IBOutlet weak var subscribersLabel: UILabel!
-    @IBOutlet weak var subscribersCollectionView: UICollectionView!
     @IBOutlet weak var commentContainerView: UIView!
     
 }
