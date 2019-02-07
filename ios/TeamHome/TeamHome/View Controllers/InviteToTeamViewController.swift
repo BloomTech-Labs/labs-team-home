@@ -22,6 +22,7 @@ class InviteToTeamViewController: UIViewController {
         phoneNumberTextField.dividerActiveColor = Appearance.yellowColor
             phoneNumberTextField.placeholderActiveColor = Appearance.yellowColor
         phoneNumberTextField.textColor = .white
+        inviteButton.backgroundColor = Appearance.darkMauveColor
     }
 
     @IBAction func inviteToTeam(_ sender: Any) {
@@ -31,23 +32,97 @@ class InviteToTeamViewController: UIViewController {
             let email = emailTextField.text,
             let phoneNumber = phoneNumberTextField.text else { return }
         
-        apollo.perform(mutation: InviteUserToTeamMutation(id: teamId, email: email, phoneNumber: phoneNumber), queue: DispatchQueue.global()) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-                return
+        if phoneNumber == "" {
+            apollo.perform(mutation: InviteUserToTeamWithEmailMutation(id: teamId, email: email), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                
+                if let errors = result.errors {
+                    let errorDescription = errors[0].localizedDescription
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Error", message: errorDescription, preferredStyle: .alert)
+                        
+                        self.present(alert, animated: true, completion: nil)
+                        
+                        let when = DispatchTime.now() + 2
+                        DispatchQueue.main.asyncAfter(deadline: when){
+                            
+                            alert.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                }
+                
+                guard let data = result.data,
+                    let user = data.inviteUser else { return }
+                
+                print(user)
+                
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Invitation Sent", message: "The team is getting bigger!", preferredStyle: .alert)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    let when = DispatchTime.now() + 2
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        
+                        alert.dismiss(animated: true, completion: nil)
+                    }
+                }
+                
+                teamWatcher?.refetch()
             }
-            
-            guard let result = result,
-                let data = result.data,
-                let user = data.inviteUser else { return }
-            
-            print(user)
-            teamWatcher?.refetch()
-            self.navigationController?.popViewController(animated: true)
-            
+        
+        } else if email == "" {
+            apollo.perform(mutation: InviteUserToTeamWithPhoneMutation(id: teamId, phoneNumber: phoneNumber), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                
+                if let errors = result.errors {
+                    let errorDescription = errors[0].localizedDescription
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Error", message: errorDescription, preferredStyle: .alert)
+                        
+                        self.present(alert, animated: true, completion: nil)
+                        
+                        let when = DispatchTime.now() + 2
+                        DispatchQueue.main.asyncAfter(deadline: when){
+                            
+                            alert.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                }
+                
+                guard let data = result.data,
+                    let user = data.inviteUser else { return }
+                
+                print(user)
+                
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Invitation Sent", message: "The team is getting bigger!", preferredStyle: .alert)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    let when = DispatchTime.now() + 2
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        
+                        alert.dismiss(animated: true, completion: nil)
+                    }
+                }
+                
+                teamWatcher?.refetch()
+            }
         }
     }
     
+
     // MARK - Properties
     
     var apollo: ApolloClient?
@@ -56,5 +131,6 @@ class InviteToTeamViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var emailTextField: TextField!
     @IBOutlet weak var phoneNumberTextField: TextField!
+    @IBOutlet weak var inviteButton: RaisedButton!
     
 }

@@ -30,7 +30,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         setUpViewAppearance()
         newMessageView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
-        Appearance.styleLandingPage(button: submitButton)
+        submitButton.backgroundColor = Appearance.darkMauveColor
         messageContentTextView.placeholder = "Enter your message"
         messageContentTextView.textColor = .white
         messageContentTextView.dividerColor = Appearance.yellowColor

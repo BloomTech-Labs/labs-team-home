@@ -10,6 +10,11 @@
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Create New User View Controller-->
         <scene sceneID="kRb-Ws-IjM">
@@ -436,20 +441,20 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1mW-bb-gN2">
-                                                <rect key="frame" x="24" y="32" width="366" height="568.33333333333337"/>
+                                                <rect key="frame" x="24" y="32" width="366" height="574.33333333333337"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Nnh-bM-4MD">
                                                         <rect key="frame" x="0.0" y="0.0" width="366" height="31.333333333333332"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Team Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FlK-8m-H5p">
-                                                                <rect key="frame" x="0.0" y="0.0" width="251" height="31.333333333333332"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="258" height="31.333333333333332"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="254" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bi8-7w-d9a" customClass="FlatButton" customModule="Material">
-                                                                <rect key="frame" x="259" y="0.0" width="107" height="31.333333333333332"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                <rect key="frame" x="266" y="0.0" width="100" height="31.333333333333332"/>
+                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                                 <state key="normal" title="Advanced Settings"/>
                                                                 <connections>
                                                                     <action selector="advancedSettings:" destination="MeU-xO-Ld3" eventType="touchUpInside" id="GhE-Qn-2KK"/>
@@ -461,23 +466,24 @@
                                                         <rect key="frame" x="0.0" y="41.333333333333343" width="366" height="145"/>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlH-rI-sij" customClass="FlatButton" customModule="Material">
-                                                        <rect key="frame" x="0.0" y="196.33333333333331" width="366" height="30"/>
-                                                        <state key="normal" title="Add/Remove Avatar"/>
+                                                        <rect key="frame" x="0.0" y="196.33333333333331" width="366" height="35"/>
+                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
+                                                        <state key="normal" title="Change Avatar"/>
                                                         <connections>
                                                             <action selector="addRemoveAvatar:" destination="MeU-xO-Ld3" eventType="touchUpInside" id="Q5E-f7-Hfj"/>
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="253" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Jaz-0w-qEs">
-                                                        <rect key="frame" x="0.0" y="236.33333333333331" width="366" height="30"/>
+                                                        <rect key="frame" x="0.0" y="241.33333333333331" width="366" height="30"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="754" text="First Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8U-wO-Gkk">
-                                                                <rect key="frame" x="0.0" y="0.0" width="74" height="30"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="73.666666666666671" height="30"/>
+                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hvp-j2-anc" customClass="TextField" customModule="Material">
-                                                                <rect key="frame" x="82" y="0.0" width="284" height="30"/>
+                                                                <rect key="frame" x="81.666666666666657" y="0.0" width="284.33333333333337" height="30"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -485,16 +491,16 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1oC-Pq-byF">
-                                                        <rect key="frame" x="0.0" y="276.33333333333331" width="366" height="30"/>
+                                                        <rect key="frame" x="0.0" y="281.33333333333331" width="366" height="30"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" text="Last Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaX-DI-nya">
-                                                                <rect key="frame" x="0.0" y="0.0" width="74" height="30"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="73.666666666666671" height="30"/>
+                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n5c-s1-98f" customClass="TextField" customModule="Material">
-                                                                <rect key="frame" x="82" y="0.0" width="284" height="30"/>
+                                                                <rect key="frame" x="81.666666666666657" y="0.0" width="284.33333333333337" height="30"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -502,16 +508,16 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hyH-sq-yUo">
-                                                        <rect key="frame" x="0.0" y="316.33333333333331" width="366" height="30"/>
+                                                        <rect key="frame" x="0.0" y="321.33333333333331" width="366" height="30"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="254" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkB-kv-bA7">
-                                                                <rect key="frame" x="0.0" y="0.0" width="74" height="30"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="73.666666666666671" height="30"/>
+                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="18j-Cx-RBf" customClass="TextField" customModule="Material">
-                                                                <rect key="frame" x="82" y="0.0" width="284" height="30"/>
+                                                                <rect key="frame" x="81.666666666666657" y="0.0" width="284.33333333333337" height="30"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -519,16 +525,16 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="X4G-wB-cD8">
-                                                        <rect key="frame" x="0.0" y="356.33333333333331" width="366" height="30"/>
+                                                        <rect key="frame" x="0.0" y="361.33333333333331" width="366" height="30"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBv-th-BHn">
-                                                                <rect key="frame" x="0.0" y="0.0" width="74" height="30"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="73.666666666666671" height="30"/>
+                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7V6-Fa-7QN" customClass="TextField" customModule="Material">
-                                                                <rect key="frame" x="82" y="0.0" width="284" height="30"/>
+                                                                <rect key="frame" x="81.666666666666657" y="0.0" width="284.33333333333337" height="30"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -536,24 +542,24 @@
                                                         </subviews>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GNY-nK-eC9">
-                                                        <rect key="frame" x="0.0" y="396.33333333333337" width="366" height="10"/>
+                                                        <rect key="frame" x="0.0" y="401.33333333333337" width="366" height="10"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="10" id="Eda-Pk-EzL"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification preferences" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzg-5n-F7p">
-                                                        <rect key="frame" x="0.0" y="416.33333333333337" width="366" height="24"/>
+                                                        <rect key="frame" x="0.0" y="421.33333333333337" width="366" height="24"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="GgY-VS-tW0">
-                                                        <rect key="frame" x="0.0" y="450.33333333333337" width="366" height="40"/>
+                                                        <rect key="frame" x="0.0" y="455.33333333333337" width="366" height="40"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="749" verticalHuggingPriority="255" text="Email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3y-tl-Va1">
                                                                 <rect key="frame" x="0.0" y="0.0" width="85.666666666666671" height="40"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -562,7 +568,7 @@
                                                             </switch>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="749" verticalHuggingPriority="254" horizontalCompressionResistancePriority="766" text="Text (SMS)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9he-IW-ZwT">
                                                                 <rect key="frame" x="187" y="0.0" width="85.666666666666686" height="40"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -575,22 +581,22 @@
                                                         </constraints>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PS8-Io-TaF" customClass="RaisedButton" customModule="Material">
-                                                        <rect key="frame" x="0.0" y="500.33333333333337" width="366" height="31"/>
+                                                        <rect key="frame" x="0.0" y="505.33333333333337" width="366" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="31" id="aps-5z-XS9"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                         <state key="normal" title="Save all changes"/>
                                                         <connections>
                                                             <action selector="saveChanges:" destination="MeU-xO-Ld3" eventType="touchUpInside" id="ruG-8U-0fx"/>
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vx7-Oc-yoI">
-                                                        <rect key="frame" x="0.0" y="541.33333333333337" width="366" height="27"/>
+                                                        <rect key="frame" x="0.0" y="546.33333333333337" width="366" height="28"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgj-W3-X7h" customClass="FlatButton" customModule="Material">
-                                                                <rect key="frame" x="0.0" y="0.0" width="366" height="27"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="366" height="28"/>
+                                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                                 <state key="normal" title="Log out"/>
                                                                 <connections>
                                                                     <action selector="logOut:" destination="MeU-xO-Ld3" eventType="touchUpInside" id="yea-Uq-u9x"/>
@@ -751,6 +757,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="containerView" destination="tbm-nW-x5P" id="rfG-ch-RGh"/>
                         <outlet property="filterButton" destination="PCQ-lV-f1I" id="jbl-vc-fx0"/>
                         <outlet property="teamNameLabel" destination="5vJ-i4-0nI" id="3z4-3e-roR"/>
                     </connections>

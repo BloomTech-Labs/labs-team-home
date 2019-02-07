@@ -28,6 +28,9 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         
         // Show team name on label
         displayTeamInfo()
+        
+        // Set this view controller as delegate for all cells.
+        
     }
     
     // Filter messages by date.
@@ -107,5 +110,6 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterButton: UIButton!
-
+    @IBOutlet weak var containerView: UIView!
+    
 }

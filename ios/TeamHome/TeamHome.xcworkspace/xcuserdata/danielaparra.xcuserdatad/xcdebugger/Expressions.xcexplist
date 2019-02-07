@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "closure #1 in AddEditMessageViewController.createNewMessage(with:messageTitle:teamId:content:tagId:):AddEditMessageViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MessageDetailViewController.updateViews():MessageDetailViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CommentsCollectionViewController.handleEmptyComments():CommentsCollectionViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MessageDetailViewController.submitCommit(_:):MessageDetailViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "AddEditMessageViewController.findSelectedTag():AddEditMessageViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in InviteToTeamViewController.inviteToTeam(_:):InviteToTeamViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CommentCollectionViewCell.prepareLikes(for:):CommentCollectionViewCell.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
