@@ -25,6 +25,7 @@ const StyledLink = styled(Link)`
 const TextIMG = styled.img`
 	height: 50px;
 	width: 40%;
+	margin-left: 20px;
 `;
 
 const NavBar = styled.div`

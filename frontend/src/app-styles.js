@@ -25,18 +25,19 @@ const AppStyles = styled.div`
 
 const BackgroundIMG = styled.img`
 	position: fixed;
-	right: 20%;
-	width: 900px;
+  width: 900px;
+  left:5%;
+  top: 20px;
   filter: drop-shadow(-2px 10px 6px #111);
   ${mediaQueryFor.lgDevice`
     width:70%;
-    left: 0%;
+    left: 5%;
     top: 5%;
     `}
     ${mediaQueryFor.mdDevice`
     width:80%;
-    left: 0%;
-    top: 10%;
+  left: 5%;
+    top: 12%;
     `}
     ${mediaQueryFor.smDevice`
     width:100%;
