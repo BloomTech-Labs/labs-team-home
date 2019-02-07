@@ -5,9 +5,13 @@ import {
 	StyledTeamCardDiv
 } from '../styles/container.styles';
 
-export default function BillingContainer(props) {
+export default function BillingTeamCard(props) {
 	return (
-		<StyledTeamCardDiv>
+		<StyledTeamCardDiv
+			selected={props.teamId !== props.team._id ? false : true}
+			onClick={props.handlePickTeam}
+			data-id={props.team._id}
+		>
 			<StyledTeamCardH3>{props.team.name}</StyledTeamCardH3>
 			<StyledTeamCardP>
 				Premium? {props.team.premium ? '✔️' : '❌'}
