@@ -37,6 +37,10 @@ const Container = styled(Card)`
 	margin: 20px 3%;
 	background-color: #3e3145;
 
+	&:focus {
+		outline: none;
+	}
+
 	${mediaQueryFor.xsDevice`
 		width: 100%;
 		margin: 0;

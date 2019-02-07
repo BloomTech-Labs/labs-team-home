@@ -46,7 +46,7 @@ const Messageboard = styled.div`
 	margin: 0 auto;
 	margin-top: 20px;
 	color: ${colors.text};
-	
+
 	${mediaQueryFor.lgDevice`
       border-width:10px;
   `}
@@ -320,7 +320,10 @@ class MessageBoard extends React.Component {
 						<form>
 							<label>
 								Sort:
-								<select value={this.state.value} onChange={this.sortChange}>
+								<select
+									value={this.state.sortOption}
+									onChange={this.sortChange}
+								>
 									<option value="newest">Newest First</option>
 									<option value="oldest">Oldest First</option>
 								</select>
@@ -336,15 +339,15 @@ class MessageBoard extends React.Component {
 								switch (this.state.sortOption) {
 									case 'newest':
 										findMessagesByTeam.sort((a, b) => {
-											if (a.updatedAt < b.updatedAt) return 1;
-											if (a.updatedAt > b.updatedAt) return -1;
+											if (a.createdAt < b.createdAt) return 1;
+											if (a.createdAt > b.createdAt) return -1;
 											return 0;
 										});
 										break;
 									case 'oldest':
 										findMessagesByTeam.sort((a, b) => {
-											if (a.updatedAt < b.updatedAt) return -1;
-											if (a.updatedAt > b.updatedAt) return 1;
+											if (a.createdAt < b.createdAt) return -1;
+											if (a.createdAt > b.createdAt) return 1;
 											return 0;
 										});
 										break;
