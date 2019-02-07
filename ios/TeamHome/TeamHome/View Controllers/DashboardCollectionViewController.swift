@@ -33,12 +33,16 @@ class DashboardCollectionViewController: UICollectionViewController {
                     let data = result.data,
                     let currentUser = data.currentUser else { return }
                 self.currentUser = currentUser
-                print(currentUser)
+                print(currentUser.firstName)
+                
+                let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "Looks like you're already sign in. This is your dashboard where you can find all the teams you're part of.", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Get started", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
             }
             return
         }
-        
-        print(currentUser)
     }
 
    @IBAction func unwindToDashboard(segue:UIStoryboardSegue) { }
@@ -112,7 +116,8 @@ class DashboardCollectionViewController: UICollectionViewController {
             // Save teams from result to variable or let user create a team to join
             guard let teams = result?.data?.findTeamsByUser else { return }
             if teams.count == 0 {
-//                self.presentCreateTeamAlert(with: apollo)
+                // Let user know they should create new team
+                
                 return
             }
             
