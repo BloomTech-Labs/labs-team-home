@@ -468,7 +468,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlH-rI-sij" customClass="FlatButton" customModule="Material">
                                                         <rect key="frame" x="0.0" y="196.33333333333331" width="366" height="35"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
-                                                        <state key="normal" title="Add/Remove Avatar"/>
+                                                        <state key="normal" title="Change Avatar"/>
                                                         <connections>
                                                             <action selector="addRemoveAvatar:" destination="MeU-xO-Ld3" eventType="touchUpInside" id="Q5E-f7-Hfj"/>
                                                         </connections>

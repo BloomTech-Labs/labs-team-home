@@ -16,7 +16,7 @@ enum Appearance {
     static let lightMauveColor = UIColor(red: 120/255.0, green: 69/255.0, blue: 85/255.0, alpha: 1.0)
     static let mauveColor = UIColor(red: 121/255.0, green: 46/255.0, blue: 74/255.0, alpha: 1.0)
     static let darkMauveColor = UIColor(red: 45/255.0, green: 25/255.0, blue: 38/255.0, alpha: 1.0)
-    static let yellowColor = UIColor(red: 250/255.0, green: 237/255.0, blue: 38/255.0, alpha: 1.0)
+    static let yellowColor = UIColor(red: 255/255.0, green: 197/255.0, blue: 38/255.0, alpha: 1.0)
     static let grayColor = UIColor(red: 90/255.0, green: 85/255.0, blue: 96/255.0, alpha: 1.0)
     static let plumColor = UIColor(red: 62/255.0, green: 49/255.0, blue: 69/255.0, alpha: 1.0)
     static let beigeColor = UIColor(red: 157/255.0, green: 141/255.0, blue: 143/255.0, alpha: 1.0)

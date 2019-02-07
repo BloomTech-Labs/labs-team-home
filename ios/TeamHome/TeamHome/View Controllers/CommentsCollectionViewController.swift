@@ -130,8 +130,10 @@ class CommentsCollectionViewController: UICollectionViewController, AddNewCommen
             DispatchQueue.main.async {
                 self.label = UILabel()
                 self.label.text = "No comments yet."
-                self.label.frame = CGRect(x: 8, y: 8, width: 200, height: 30)
+                self.label.frame = CGRect(x: 8, y: 8, width: self.collectionView.frame.width - 16, height: 30)
                 self.label.backgroundColor = .white
+                self.label.layer.cornerRadius = 4
+                self.label.clipsToBounds = true
                 self.label.textColor = Appearance.darkMauveColor
                 self.collectionView.addSubview(self.label)
             }

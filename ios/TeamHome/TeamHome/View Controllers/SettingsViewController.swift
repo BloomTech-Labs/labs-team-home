@@ -47,7 +47,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         UILabel.appearance().textColor = .white
         teamNameLabel.textColor = .white
         notificationsLabel.font = Appearance.setTitleFont(with: .title3, pointSize: 18)
-        
+        advancedSettingsButton.tintColor = Appearance.darkMauveColor
         
         self.setNeedsStatusBarAppearanceUpdate()
         
