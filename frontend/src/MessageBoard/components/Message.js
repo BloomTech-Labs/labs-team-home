@@ -108,7 +108,7 @@ const StyledAvatar = styled(Avatar)`
 	height: 60px;
 
 	${mediaQueryFor.xsDevice`
-		margin-right: 20px;
+		margin-right: 0px;
 		width: 40px;
 		height: 40px;
 	`}
@@ -116,7 +116,7 @@ const StyledAvatar = styled(Avatar)`
 
 const ImgGrid = styled(Grid)`
 	${mediaQueryFor.mdDevice`
-		margin-right: 10px;
+		margin-right: 0px;
 	`}
 `;
 
