@@ -34,14 +34,12 @@ const BillingView = props => {
 						)
 						.map(team => (
 							<StyledTeamCard
+								teamId={props.teamId}
 								team={team}
 								key={team._id}
 								data-id={team._id}
 								onClick={props.handlePickTeam}
-							>
-								<h3>{team.name}</h3>
-								<p>Premium? {team.premium ? '✔️' : '❌'}</p>
-							</StyledTeamCard>
+							/>
 						));
 				}}
 			</Query>
