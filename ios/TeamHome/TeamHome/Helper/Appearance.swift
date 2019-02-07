@@ -50,11 +50,11 @@ enum Appearance {
     
     // Style button with button background color
     static func styleLandingPage(button: UIButton) {
-        button.backgroundColor = .clear
+        button.backgroundColor = Appearance.darkMauveColor
         button.layer.cornerRadius = button.frame.height / 2
         button.contentEdgeInsets.top = 10
         button.contentEdgeInsets.bottom = 10
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 0
         button.layer.borderColor = Appearance.yellowColor.cgColor
         button.setTitleColor(.white, for: .normal)
     }
