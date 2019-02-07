@@ -172,18 +172,22 @@ const StyledTeamCardDiv = styled.div`
 `;
 
 const StyledTeamCardH3 = styled.h3`
+	font-family: inherit;
 	font-size: 1rem;
 	text-decoration: none;
 	/* position: relative;
 	float: left; */
 	padding-left: 20px;
+	margin: 1rem 0;
 `;
 
 const StyledTeamCardP = styled.p`
+	font-family: inherit;
 	font-size: 1rem;
 	position: relative;
 	text-align: right;
 	padding-right: 20px;
+	margin: 1rem 0;
 `;
 
 export default withStyles(styles)(SettingsContainer);
