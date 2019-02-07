@@ -169,6 +169,12 @@ const StyledTeamCardDiv = styled.div`
 	:hover {
 		background-color: rgba(107, 40, 59, 0.7);
 	}
+
+	${mediaQueryFor.mdDevice`
+		margin-bottom: 0;
+		border-bottom: 1px solid ${colors.border};
+		border-radius: 0;
+	`}
 `;
 
 const StyledTeamCardH3 = styled.h3`
