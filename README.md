@@ -44,6 +44,11 @@
     - [Prettier](#prettier-1)
     - [Pretty-Quick](#pretty-quick-1)
     - [Nodemon](#nodemon)
+    
+# Installation instructions
+
+1. Clone on your local machine by typing in the terminal `git clone https://github.com/Lambda-School-Labs/labs9-team-home/`
+1.. To test and run the different parts of the repository reference the README files, in the [frontend](/frontend/README.md), [backend](/backend/README.md), and [iOS](ios/README.md) folders respectively.
 
 # Tech-Stack
 
