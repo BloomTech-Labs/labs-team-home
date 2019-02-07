@@ -36,12 +36,11 @@ mutation unlikeComment($id: ID!) {
     }
 }
 
-mutation CreateComment($message: String!, $content: String!, $image: String) {
-    addMsgComment(input: {
-                  message: $message
-                  content: $content
-                  image: $image
-                  }) {
+mutation deleteComment($id: ID!) {
+    deleteMsgComment(input: {
+                     id: $id
+                     }) {
         _id
     }
 }
+

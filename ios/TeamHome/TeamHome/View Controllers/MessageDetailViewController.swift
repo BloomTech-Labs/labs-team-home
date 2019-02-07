@@ -13,13 +13,16 @@ import GrowingTextView
 import Toucan
 import Material
 
+protocol AddNewCommentDelegate: class {
+    func didAddNewComment()
+}
+
 class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, EditMessageDelegate, GrowingTextViewDelegate {
     
     func editedMessage() {
         watcher?.refetch()
     }
-    
-    
+
     // MARK - Lifecycle Functions
 
     override func viewDidLoad() {
@@ -51,6 +54,47 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     
     // MARK - IBActions
     
+    @IBAction func clickedSubscribe(_ sender: Any) {
+        guard let currentUser = currentUser,
+            let apollo = apollo,
+            let isSubscribed = isSubscribed else { return }
+        let id = currentUser.id
+        
+        if isSubscribed {
+            apollo.perform(mutation: UnsubscribeMutation(id: id), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+
+                guard let result = result else { return }
+
+                print(result)
+
+                DispatchQueue.main.async {
+                    self.isSubscribed = false
+                    self.subscribeButton.setTitle("Subscribe", for: .normal)
+                }
+            }
+        } else {
+            apollo.perform(mutation: SubscribeMutation(id: id), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                
+                print(result)
+                
+                DispatchQueue.main.async {
+                    self.isSubscribed = true
+                    self.subscribeButton.setTitle("Unsubscribe", for: .normal)
+                }
+            }
+        }
+    }
+    
     @IBAction func submitCommit(_ sender: Any) {
         
         guard let apollo = apollo,
@@ -58,18 +102,30 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             let messageId = message.id,
             let commentContent = commentTextView.text else { return }
         
-        apollo.perform(mutation: CreateCommentMutation(message: messageId, content: commentContent), queue: DispatchQueue.global()) { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-                return
+        guard let imageData = imageData else {
+            
+            apollo.perform(mutation: CreateCommentMutation(message: messageId, content: commentContent), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                
+                print(result)
+                
+                commentsWatcher?.refetch()
+                DispatchQueue.main.async {
+                    self.commentTextView.text = ""
+                    self.delegate?.didAddNewComment()
+                    self.updateViews()
+                }
             }
-            
-            guard let result = result else { return }
-            
-            print(result)
-            
-            commentsWatcher?.refetch()
+            return
         }
+        
+        
+
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -107,6 +163,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             destinationVC.apollo = apollo
             destinationVC.messageId = messageId
             destinationVC.currentUser = currentUser
+            self.delegate = destinationVC
         } else if segue.identifier == "EditMessage" {
             guard let destinationVC = segue.destination as? AddEditMessageViewController,
                 let message = message,
@@ -170,6 +227,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             self.message = message
             self.messageId = id
             self.subscribers = message.subscribedUsers
+            
+            // Find out if I'm subscribed?
         }
     }
     
@@ -218,25 +277,49 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         guard let images = message.images else { return }
         
         if images.count > 0 {
-            guard let image = images.first,
-                let imageURL = image else { return }
             
-            downloader.fetchImage(imageURL, { (progress) in
-                // Show progress
-                
-            }) { (image, error) in
-                if let error = error {
-                    print("\(error)")
-                    return
-                }
-                
-                guard let image = image else { return }
-                
-                DispatchQueue.main.async {
-                    self.imageView.isHidden = false
-                    self.imageView.image = image
+            imageHolderView.isHidden = false
+            
+            for image in images {
+                if let imageURL = image {
+                    downloader.fetchImage(imageURL, { (progress) in
+                        // Show progress
+                        
+                    }) { (image, error) in
+                        if let error = error {
+                            print("\(error)")
+                            return
+                        }
+                        
+                        guard let image = image else { return }
+                        
+                        DispatchQueue.main.async {
+                            let imageView = UIImageView(image: image.resize(toHeight: self.imageHolderView.frame.height))
+                            imageView.contentMode = .scaleAspectFit
+                            self.imageHolderView.addSubview(imageView)
+                        }
+                    }
                 }
             }
+//            guard let image = images.first,
+//                let imageURL = image else { return }
+//
+//            downloader.fetchImage(imageURL, { (progress) in
+//                // Show progress
+//
+//            }) { (image, error) in
+//                if let error = error {
+//                    print("\(error)")
+//                    return
+//                }
+//
+//                guard let image = image else { return }
+//
+//                DispatchQueue.main.async {
+//                    self.imageView.isHidden = false
+//                    self.imageView.image = image
+//                }
+//            }
         }
         
         guard let comments = message.comments else { return }
@@ -247,7 +330,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         if comments.count == 1 {
             heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
         } else if comments.count > 2 {
-            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 330)
+            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
         }
         
         NSLayoutConstraint.activate([heightConstraint])
@@ -269,8 +352,23 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         })
     }
     
+    private func figureOutIfSubscribed() {
+        guard let subscribers = subscribers,
+            let currentUser = currentUser else { return }
+        
+        for subscriber in subscribers {
+            if let subscriber = subscriber {
+                if subscriber.id == currentUser.id {
+                    self.isSubscribed = true
+                    self.subscribeButton.setTitle("Unsubscribe", for: .normal)
+                }
+            }
+        }
+    }
+    
     // MARK - Properties
     
+    private var isSubscribed: Bool?
     private var message: FindMessageByIdQuery.Data.FindMessage? {
         didSet {
             DispatchQueue.main.async {
@@ -281,7 +379,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     private var subscribers: [FindMessageByIdQuery.Data.FindMessage.SubscribedUser?]? {
         didSet {
             DispatchQueue.main.async {
-                self.subscribersCollectionView.reloadData()
+                self.figureOutIfSubscribed()
             }
         }
     }
@@ -291,14 +389,17 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
+    var imageData: Data?
+    var delegate: AddNewCommentDelegate?
     
+    @IBOutlet weak var subscribeButton: UIButton!
     @IBOutlet weak var messageTitleLabel: UILabel!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var messageBodyLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageHolderView: UIView!
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var commentTextView: GrowingTextView!
     @IBOutlet weak var sendCommentButton: UIButton!

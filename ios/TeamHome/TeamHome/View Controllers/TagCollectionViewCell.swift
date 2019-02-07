@@ -10,5 +10,5 @@ import UIKit
 
 class TagCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var tagLabel: UILabel! 
 }

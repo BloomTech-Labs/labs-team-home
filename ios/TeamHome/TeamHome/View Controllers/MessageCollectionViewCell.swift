@@ -61,6 +61,15 @@ class MessageCollectionViewCell: UICollectionViewCell {
     }
     
     private func prepareImageButton(for message: FindMessagesByTeamQuery.Data.FindMessagesByTeam) {
+        
+        tagLabel = UILabel()
+        if let tag = message.tag {
+            tagLabel.text = "#\(tag.name)"
+            tagLabel.textAlignment = .left
+            tagLabel.font = RobotoFont.regular(with: 12)
+            tagLabel.textColor = .white
+        }
+        
         // Create image button.
         imageButton = IconButton(image: Icon.image, tintColor: Color.white)
         
@@ -104,15 +113,17 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     private func prepareMoreButton() {
         moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
+    
+//        moreButton.sendAction(<#T##action: Selector##Selector#>, to: <#T##Any?#>, for: <#T##UIEvent?#>)
     }
     
     private func prepareToolbar(firstName: String, lastName: String, messageTitle: String, message: FindMessagesByTeamQuery.Data.FindMessagesByTeam ) {
         toolbar = Toolbar(leftViews: [avatarImageView], rightViews: [commentsCountLabel, commentIcon, moreButton])
         
-        toolbar.title = "\(firstName) \(lastName)"
+        toolbar.title = messageTitle
         toolbar.titleLabel.textAlignment = .left
         toolbar.titleLabel.textColor = .white
-        toolbar.detail = messageTitle
+        toolbar.detail = "\(firstName) \(lastName)"
         toolbar.detailLabel.textAlignment = .left
         toolbar.detailLabel.textColor = .white
         toolbar.backgroundColor = .clear
@@ -128,7 +139,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     private func prepareBottomBar() {
         bottomBar = Bar()
-        bottomBar.leftViews = [imageButton]
+        bottomBar.leftViews = [imageButton, tagLabel]
         bottomBar.rightViews = [dateLabel]
         bottomBar.backgroundColor = .clear
     }
@@ -198,6 +209,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
     private var commentsCountLabel: UILabel!
     private var bottomBar: Bar!
     private var dateLabel: UILabel!
+    private var tagLabel: UILabel!
     private var imageButton: IconButton!
     
     // All IBOutlets in message collection view cell.
