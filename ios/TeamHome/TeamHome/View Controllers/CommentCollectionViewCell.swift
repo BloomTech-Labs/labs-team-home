@@ -84,11 +84,13 @@ class CommentCollectionViewCell: UICollectionViewCell {
         
         favoriteButton.addTarget(self, action: #selector(self.clickedLikeButton(_:)), for: .touchUpInside)
         
-        deleteButton = IconButton(frame: .zero)
-        
         if comment.user.id == currentUser.id {
             deleteButton = IconButton(title: "Delete", titleColor: Appearance.darkMauveColor)
+            deleteButton.fontSize = 12
             deleteButton.addTarget(self, action: #selector(self.deleteComment(_:)), for: .touchUpInside)
+            
+        } else {
+            deleteButton = IconButton(frame: .zero)
         }
         
     }
@@ -145,10 +147,10 @@ class CommentCollectionViewCell: UICollectionViewCell {
     }
     
     private func prepareBottomBar() {
-        bottomBar = Bar()
+        bottomBar = Bar(leftViews: [favoriteButton, likeCountLabel], rightViews: [deleteButton, dateLabel], centerViews: nil)
         
-        bottomBar.leftViews = [favoriteButton, likeCountLabel]
-        bottomBar.rightViews = [dateLabel, deleteButton]
+//        bottomBar.leftViews = [favoriteButton, likeCountLabel]
+//        bottomBar.rightViews = [deleteButton, dateLabel]
         bottomBar.backgroundColor = .clear
     }
     

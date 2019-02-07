@@ -125,7 +125,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         }
         
         
-
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -201,7 +200,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         self.commentTextView.delegate = self
         commentTextView.maxLength = 140
         commentTextView.trimWhiteSpaceWhenEndEditing = false
-        commentTextView.placeholder = "Say something..."
+        commentTextView.placeholder = "Leave a comment"
         commentTextView.placeholderColor = UIColor(white: 0.8, alpha: 1.0)
         commentTextView.minHeight = 25.0
         commentTextView.maxHeight = 70.0
@@ -249,7 +248,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         
         tagsLabel.font = RobotoFont.regular(with: 12)
         if let tag = message.tag {
-            tagsLabel.text = tag.name
+            tagsLabel.text = "#\(tag.name)"
         } else {
             tagsLabel.text = ""
         }
@@ -326,11 +325,11 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         
         var heightConstraint: NSLayoutConstraint!
         
-        heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+        heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 60)
         if comments.count == 1 {
             heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
         } else if comments.count > 2 {
-            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
+            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
         }
         
         NSLayoutConstraint.activate([heightConstraint])
