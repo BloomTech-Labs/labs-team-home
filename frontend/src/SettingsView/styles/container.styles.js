@@ -154,18 +154,14 @@ const StyledCheckbox = styled.input`
 
 const StyledBillingContainer = styled.div``;
 
-const StyledTeamCard = styled(BillingTeamCard)`
-	width: 100%;
-`;
-const StyledTeamCardDiv = styled(Card)`
+const StyledTeamCardDiv = styled.div`
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	color: ${colors.text};
-	background-color: ${props =>
-		props.teamId !== props.key ? colors.text : colors.button};
+	color: ${props => (props.selected ? colors.button : colors.text)};
+	background-color: ${props => (props.selected ? colors.text : colors.button)};
 	border-radius: 3px;
 	margin-bottom: 20px;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
@@ -201,7 +197,7 @@ export {
 	FormCheckboxStyles,
 	StyledCheckbox,
 	StyledBillingContainer,
-	StyledTeamCard,
+	// StyledTeamCard,
 	StyledTeamCardDiv,
 	StyledTeamCardH3,
 	StyledTeamCardP

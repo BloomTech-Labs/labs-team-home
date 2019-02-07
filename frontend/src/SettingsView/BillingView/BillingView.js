@@ -1,5 +1,6 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
+import BillingTeamCard from './BillingTeamCard';
 import gql from 'graphql-tag';
 import { Mutation, Query } from 'react-apollo';
 import Logo from '../../assets/TH_favicon.png';
@@ -33,12 +34,12 @@ const BillingView = props => {
 									.admin
 						)
 						.map(team => (
-							<StyledTeamCard
+							<BillingTeamCard
 								teamId={props.teamId}
 								team={team}
 								key={team._id}
 								data-id={team._id}
-								onClick={props.handlePickTeam}
+								handlePickTeam={props.handlePickTeam}
 							/>
 						));
 				}}
