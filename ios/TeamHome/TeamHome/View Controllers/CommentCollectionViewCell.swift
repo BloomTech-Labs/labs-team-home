@@ -13,6 +13,7 @@ import Material
 protocol CommentCollectionCellDelegate: class {
     func likeComment(cell: CommentCollectionViewCell)
     func unlikeComment(cell: CommentCollectionViewCell)
+    func deleteComment(cell: CommentCollectionViewCell)
 }
 
 class CommentCollectionViewCell: UICollectionViewCell {
@@ -60,7 +61,9 @@ class CommentCollectionViewCell: UICollectionViewCell {
         dateLabel.text = dateString
     }
     
-    private func prepareLikes(for comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+    private func prepareLikes(for comment:
+        FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+        
         guard let likes = comment.likes else { return }
         
         likeCountLabel = UILabel()
@@ -81,6 +84,12 @@ class CommentCollectionViewCell: UICollectionViewCell {
         
         favoriteButton.addTarget(self, action: #selector(self.clickedLikeButton(_:)), for: .touchUpInside)
         
+        deleteButton = IconButton(frame: .zero)
+        
+        if comment.user.id == currentUser.id {
+            deleteButton = IconButton(title: "Delete", titleColor: Appearance.darkMauveColor)
+            deleteButton.addTarget(self, action: #selector(self.deleteComment(_:)), for: .touchUpInside)
+        }
         
     }
     
@@ -95,6 +104,10 @@ class CommentCollectionViewCell: UICollectionViewCell {
         toolbar.detailLabel.textAlignment = .left
         toolbar.detailLabel.textColor = .white
         toolbar.backgroundColor = .clear
+    }
+    
+    @objc func deleteComment(_ sender: IconButton) {
+        delegate?.deleteComment(cell: self)
     }
     
     private func prepareContentView(with comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
@@ -135,7 +148,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         bottomBar = Bar()
         
         bottomBar.leftViews = [favoriteButton, likeCountLabel]
-        bottomBar.rightViews = [dateLabel]
+        bottomBar.rightViews = [dateLabel, deleteButton]
         bottomBar.backgroundColor = .clear
     }
     
@@ -144,7 +157,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         card.toolbar = toolbar
         card.toolbarEdgeInsetsPreset = .square3
         card.toolbarEdgeInsets.bottom = 0
-        card.toolbarEdgeInsets.right = 8
+        card.toolbarEdgeInsets.right = 4
         
         messageContentView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: contentLabel.frame.height + imageView.frame.height + 8))
         messageContentView.addSubview(contentLabel)
@@ -175,6 +188,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
     private var contentLabel: UILabel!
     private var bottomBar: Bar!
     private var dateLabel: UILabel!
+    private var deleteButton: IconButton!
     private var favoriteButton: IconButton!
     private var likeCountLabel: UILabel!
     private var messageContentView: UIView!

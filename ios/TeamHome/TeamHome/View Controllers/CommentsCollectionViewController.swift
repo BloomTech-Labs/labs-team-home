@@ -88,6 +88,23 @@ class CommentsCollectionViewController: UICollectionViewController, AddNewCommen
         }
     }
     
+    func deleteComment(cell: CommentCollectionViewCell) {
+        guard let apollo = apollo,
+            let comment = cell.comment,
+            let id = comment.id else { return }
+        
+        apollo.perform(mutation: DeleteCommentMutation(id: id), queue: DispatchQueue.global()) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let result = result else { return }
+            
+            print(result)
+            commentsWatcher?.refetch()
+        }
+    }
+    
     // MARK - Private Methods
     
     private func loadComments(from messageId: GraphQLID, with apollo: ApolloClient) {

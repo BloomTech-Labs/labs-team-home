@@ -36,3 +36,11 @@ mutation unlikeComment($id: ID!) {
     }
 }
 
+mutation deleteComment($id: ID!) {
+    deleteMsgComment(input: {
+                     id: $id
+                     }) {
+        _id
+    }
+}
+
