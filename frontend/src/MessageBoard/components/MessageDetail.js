@@ -516,7 +516,10 @@ class MessageDetail extends Component {
 																	}
 																}}
 																variant="outlined"
-																multiline
+																fullWidth
+																multiline={true}
+																rows={2}
+																rowsMax={4}
 															/>
 														</CommentInputLabel>
 														<IconButton type="submit">
