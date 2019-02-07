@@ -251,6 +251,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                             print(result)
                             
                             DispatchQueue.main.async {
+                                
                                 switch result {
                                 case .success(let credentials):
                                     

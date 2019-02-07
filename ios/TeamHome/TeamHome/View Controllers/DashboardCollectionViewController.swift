@@ -9,8 +9,12 @@
 import UIKit
 import Apollo
 
-class DashboardCollectionViewController: UICollectionViewController {
-
+class DashboardCollectionViewController: UICollectionViewController, TeamCellDelegate {
+   
+    func presentActionSheet(with optionMenu: UIAlertController) {
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
     // MARK - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -35,7 +39,7 @@ class DashboardCollectionViewController: UICollectionViewController {
                 self.currentUser = currentUser
                 print(currentUser.firstName)
                 
-                let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "Looks like you're already sign in. This is your dashboard where you can find all the teams you're part of.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "Looks like you're already sign in. This is your team dashboard. Pick a team to start.", preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: "Get started", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
@@ -44,7 +48,7 @@ class DashboardCollectionViewController: UICollectionViewController {
             return
         }
         
-        let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "This is your dashboard where you can find all the teams you're part of. Remember you can switch teams at any time.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Welcome \(currentUser.firstName)", message: "This is your dashboard where you can find all the teams you're part of. Pick a team to start.", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Get started", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -96,6 +100,7 @@ class DashboardCollectionViewController: UICollectionViewController {
     
         guard let team = teams?[indexPath.row] else { return UICollectionViewCell()}
         cell.team = team
+        cell.delegate = self
         
         return cell
     }

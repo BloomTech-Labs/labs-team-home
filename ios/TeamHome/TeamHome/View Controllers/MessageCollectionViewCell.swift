@@ -12,6 +12,10 @@ import Cloudinary
 import Material
 import Toucan
 
+protocol MessageCellDelegate: class {
+    func presentActionSheet(with optionMenu: UIAlertController)
+}
+
 class MessageCollectionViewCell: UICollectionViewCell {
     
     // MARK - Private Methods
@@ -113,8 +117,15 @@ class MessageCollectionViewCell: UICollectionViewCell {
     
     private func prepareMoreButton() {
         moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
-    
-//        moreButton.sendAction(<#T##action: Selector##Selector#>, to: <#T##Any?#>, for: <#T##UIEvent?#>)
+
+        moreButton.addTarget(self, action: #selector(presentActionSheet(_:)), for: .touchUpInside)
+        
+        guard let currentUser = currentUser,
+            let message = message else { return }
+        
+        if message.user.id == currentUser.id {
+            moreButton.addTarget(self, action: #selector(presentDeleteActionSheet(_:)), for: .touchUpInside)
+        }
     }
     
     private func prepareToolbar(firstName: String, lastName: String, messageTitle: String, message: FindMessagesByTeamQuery.Data.FindMessagesByTeam ) {
@@ -190,8 +201,35 @@ class MessageCollectionViewCell: UICollectionViewCell {
 
     }
     
+    @objc func presentActionSheet(_ sender: IconButton) {
+        let optionMenu = UIAlertController(title: nil, message: "Message Options", preferredStyle: .actionSheet)
+        
+        let viewAction = UIAlertAction(title: "View", style: .default)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        optionMenu.addAction(viewAction)
+        optionMenu.addAction(cancelAction)
+        
+        delegate?.presentActionSheet(with: optionMenu)
+    }
+    
+    @objc func presentDeleteActionSheet(_ sender: IconButton) {
+        let optionMenu = UIAlertController(title: nil, message: "Message Options", preferredStyle: .actionSheet)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
+        let viewAction = UIAlertAction(title: "View", style: .default)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        optionMenu.addAction(deleteAction)
+        optionMenu.addAction(viewAction)
+        optionMenu.addAction(cancelAction)
+        
+        delegate?.presentActionSheet(with: optionMenu)
+    }
+
     // MARK - Properties
     
+    weak var delegate: MessageCellDelegate?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var message: FindMessagesByTeamQuery.Data.FindMessagesByTeam? {

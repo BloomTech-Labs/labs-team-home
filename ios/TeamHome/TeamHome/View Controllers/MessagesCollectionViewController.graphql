@@ -8,6 +8,7 @@ query FindMessagesByTeam($teamId: ID!) {
             firstName
             lastName
             avatar
+            _id
         }
         content
         images
