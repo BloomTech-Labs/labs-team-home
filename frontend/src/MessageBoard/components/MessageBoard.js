@@ -90,7 +90,7 @@ const MessagesContainer = styled.div`
 	}
 
 	${mediaQueryFor.mdDevice`
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 		width: 100%;
 	`}
 `;

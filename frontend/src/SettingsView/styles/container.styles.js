@@ -163,7 +163,7 @@ const StyledTeamCardDiv = styled.div`
 	color: ${props => (props.selected ? colors.button : colors.text)};
 	background-color: ${props => (props.selected ? colors.text : colors.button)};
 	border-radius: 3px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
 
 	:hover {
