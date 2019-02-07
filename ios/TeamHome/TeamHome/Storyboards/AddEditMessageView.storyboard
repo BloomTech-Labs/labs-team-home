@@ -73,17 +73,17 @@
                                                     <size key="itemSize" width="96" height="29"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <inset key="sectionInset" minX="16" minY="8" maxX="16" maxY="8"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="TagCell" id="6nw-UB-uh1" customClass="TagCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="96" height="29"/>
+                                                        <rect key="frame" x="16" y="8" width="96" height="29"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                             <rect key="frame" x="0.0" y="0.0" width="96" height="29"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weY-qL-Ld6">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weY-qL-Ld6">
                                                                     <rect key="frame" x="8" y="-10.5" width="80" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -106,21 +106,6 @@
                                                     <outlet property="delegate" destination="ccT-8I-13Z" id="dL6-cd-2sq"/>
                                                 </connections>
                                             </collectionView>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-c1-hVp" customClass="TagListView" customModule="TagListView">
-                                                <rect key="frame" x="0.0" y="415" width="300" height="0.0"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                        <color key="value" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="tagBackgroundColor">
-                                                        <color key="value" red="0.68015772100000005" green="0.28776535390000002" blue="0.22742334010000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="9tC-sl-f6I">
                                                 <rect key="frame" x="0.0" y="419" width="300" height="30"/>
                                                 <subviews>
@@ -189,7 +174,6 @@
                         <outlet property="messageTitleTextField" destination="mLQ-M6-lzs" id="wNL-cj-SxU"/>
                         <outlet property="newMessageView" destination="GVD-T7-uOD" id="4Dk-AW-d5I"/>
                         <outlet property="submitButton" destination="whv-iB-VoT" id="17w-5g-BUg"/>
-                        <outlet property="tagListView" destination="yDB-c1-hVp" id="Km2-aP-gwT"/>
                         <outlet property="tagsTextField" destination="ExJ-lD-e2X" id="FCV-ai-ZOt"/>
                         <outlet property="titleLabel" destination="8S2-u3-1FE" id="U9I-G7-GVd"/>
                     </connections>
