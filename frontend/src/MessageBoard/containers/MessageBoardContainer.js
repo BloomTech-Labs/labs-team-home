@@ -48,6 +48,10 @@ const StyledPaper = styled(Paper)`
 
 const StyledTab = styled(Tab)`
 	width: 30%;
+
+	&:focus {
+		outline: none;
+	}
 `;
 
 class MessageBoardContainer extends React.Component {

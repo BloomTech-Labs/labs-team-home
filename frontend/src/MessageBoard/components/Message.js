@@ -47,7 +47,7 @@ const Container = styled(Card)`
 	&:hover {
 		background-color: rgba(107, 40, 59, 0.7);
 	}
-	${mediaQueryFor.xsDevice`
+	${mediaQueryFor.mdDevice`
 		margin: 0;
 		border-bottom: 1px solid ${colors.border};
 	`}
@@ -68,9 +68,8 @@ const CommentInfo = styled(CardContent)`
 	margin: 5px 10px;
 	width: 100%;
 
-	${mediaQueryFor.xsDevice`
-		margin-left: -40px;
-		width: 185%;
+	${mediaQueryFor.mdDevice`
+		display: none;
 	`}
 `;
 
@@ -81,9 +80,8 @@ const TagInfo = styled(CardContent)`
 	text-align: center;
 	margin: 5px 10px;
 
-	${mediaQueryFor.xsDevice`
-		margin-left: -25px;
-		width: 150%;
+	${mediaQueryFor.mdDevice`
+		right: 1%;
 	`}
 `;
 
@@ -110,9 +108,21 @@ const StyledAvatar = styled(Avatar)`
 	height: 60px;
 
 	${mediaQueryFor.xsDevice`
-		margin: 0px;
+		margin-right: 0px;
 		width: 40px;
 		height: 40px;
+	`}
+`;
+
+const ImgGrid = styled(Grid)`
+	${mediaQueryFor.mdDevice`
+		margin-right: 0px;
+	`}
+`;
+
+const CommentGrid = styled(Grid)`
+	${mediaQueryFor.mdDevice`
+		display: none;
 	`}
 `;
 
@@ -128,13 +138,13 @@ function Message(props) {
 		<Container onClick={props.openMessage}>
 			<CardActionArea className={classes.cardButton}>
 				<Grid container spacing={8} className={classes.gridContainer}>
-					<Grid item xs={1}>
+					<ImgGrid item xs={1}>
 						<StyledAvatar
 							src={userInfo.avatar}
 							alt="User avatar"
 							className={classes.bigAvatar}
 						/>
-					</Grid>
+					</ImgGrid>
 					<Grid item xs={6}>
 						<Info>
 							<Title
@@ -160,7 +170,7 @@ function Message(props) {
 							</StyledTypography>
 						</Info>
 					</Grid>
-					<Grid item xs={2}>
+					<CommentGrid item xs={2}>
 						<CommentInfo>
 							<StyledTypography variant="h5" component="h5">
 								Comments
@@ -169,14 +179,14 @@ function Message(props) {
 								{message.comments.length}
 							</StyledTypography>
 						</CommentInfo>
-					</Grid>
+					</CommentGrid>
 					<Grid item xs={3}>
 						<TagInfo>
 							<StyledTypography variant="h5" component="h5">
 								Tag
 							</StyledTypography>
 							<StyledTypography variant="h5" component="h5">
-								{message.tag ? message.tag.name : 'Uncategorized'}
+								{message.tag ? message.tag.name : 'None'}
 							</StyledTypography>
 						</TagInfo>
 					</Grid>

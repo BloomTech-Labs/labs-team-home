@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import { colors } from '../../colorVariables';
-import { Button, Input } from '@material-ui/core';
+import { Button, Input, Card } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import BillingTeamCard from '../BillingView/BillingTeamCard';
 
 const styles = theme => ({
 	root: {
@@ -18,6 +19,8 @@ const styles = theme => ({
 	}
 });
 
+const lighter = `rgba(255, 255, 255, 0.7)`;
+
 const SettingsContainer = styled.div`
 	position: relative;
 	top: 70px;
@@ -29,14 +32,14 @@ const SettingsContainer = styled.div`
 	color: white;
 	/* font-family: Comfortaa; */
 
-	h3 {
-		color: #fff;
-		margin: 0 auto;
-	}
 	${mediaQueryFor.smDevice`
     display: flex;
 	  flex-direction: column;
     `}
+`;
+const StyledContainerH3 = styled.h3`
+	color: #fff;
+	margin: 0 auto;
 `;
 
 const AvatarUploadContainer = styled.div`
@@ -149,11 +152,43 @@ const StyledCheckbox = styled.input`
 	padding: 0;
 `;
 
-const StyledBillingContainer = styled.div`
+const StyledBillingContainer = styled.div``;
+
+const StyledTeamCard = styled(BillingTeamCard)`
 	width: 100%;
 `;
+const StyledTeamCardDiv = styled(Card)`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	color: ${colors.text};
+	background-color: ${props =>
+		props.teamId !== props.key ? colors.text : colors.button};
+	border-radius: 3px;
+	margin-bottom: 20px;
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
 
-const StyledTeamCard = styled.div``;
+	:hover {
+		background-color: rgba(107, 40, 59, 0.7);
+	}
+`;
+
+const StyledTeamCardH3 = styled.h3`
+	font-size: 1rem;
+	text-decoration: none;
+	/* position: relative;
+	float: left; */
+	padding-left: 20px;
+`;
+
+const StyledTeamCardP = styled.p`
+	font-size: 1rem;
+	position: relative;
+	text-align: right;
+	padding-right: 20px;
+`;
 
 export default withStyles(styles)(SettingsContainer);
 export {
@@ -166,5 +201,8 @@ export {
 	FormCheckboxStyles,
 	StyledCheckbox,
 	StyledBillingContainer,
-	StyledTeamCard
+	StyledTeamCard,
+	StyledTeamCardDiv,
+	StyledTeamCardH3,
+	StyledTeamCardP
 };
