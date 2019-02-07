@@ -39,10 +39,11 @@ const Container = styled(Card)`
 	position: relative;
 	float: right;
 
-	${mediaQueryFor.xsDevice`
+	${mediaQueryFor.mdDevice`
 		width: 100%;
 		margin: 0;
 		border-bottom: 1px solid ${colors.border};
+		padding-left: 40px;
 	`}
 `;
 
