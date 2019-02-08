@@ -370,7 +370,10 @@ class MessageDetail extends Component {
 													{findMsgCommentsByMessage.map(comment => (
 														<Paper
 															key={comment._id}
-															style={{ background: palette.plum }}
+															style={{
+																background: palette.plum,
+																marginBottom: '10px'
+															}}
 															elevation={1}
 														>
 															<CardHeader
