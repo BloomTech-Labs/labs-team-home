@@ -11,6 +11,7 @@
 - [iOS Setup](ios/README.md)
 - [Front End Setup](frontend/README.md)
 - [Back End Setup](backend/README.md)
+- [Testing for Web App](misc/README.md)
 
 - [Team Home](#team-home)
   - [Team](#team)
