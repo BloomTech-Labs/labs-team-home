@@ -35,7 +35,7 @@ const TextIMG = styled.img`
 `;
 
 const NavBar = styled.div`
-	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 0.6), #17151b);
+	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 1), #17151b);
 	background-size: 600% 600%;
 	width: 100%;
 	position: fixed;
@@ -46,9 +46,6 @@ const NavBar = styled.div`
 
 	&:hover {
 		background-color: #17151b;
-	}
-
-	@media (max-width: 700px) {
 	}
 
 	-webkit-animation: AnimationName 26s ease infinite;
@@ -90,7 +87,7 @@ const NavBar = styled.div`
 `;
 
 const RespNav = styled.div`
-	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 0.6), #17151b);
+	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 1), #17151b);
 	background-size: 600% 600%;
 	width: 100%;
 	position: fixed;
