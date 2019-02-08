@@ -34,7 +34,7 @@ const styles = {
 const Container = styled(Card)`
 	width: 70%;
 	color: white;
-	margin: 20px 3%;
+	margin: 5px 3%;
 	background-color: #3e3145;
 
 	${mediaQueryFor.mdDevice`
