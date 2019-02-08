@@ -20,7 +20,6 @@ enum Appearance {
     static let grayColor = UIColor(red: 90/255.0, green: 85/255.0, blue: 96/255.0, alpha: 1.0)
     static let plumColor = UIColor(red: 62/255.0, green: 49/255.0, blue: 69/255.0, alpha: 1.0)
     static let beigeColor = UIColor(red: 157/255.0, green: 141/255.0, blue: 143/255.0, alpha: 1.0)
-    static let goldColor = UIColor(red: 155/255.0, green: 120/255.0, blue: 111/255.0, alpha: 1.0)
     static let likeGrayColor = UIColor(red: 118/255.0, green: 117/255.0, blue: 125/255.0, alpha: 1.0)
     
     static func setTheme() {
@@ -51,11 +50,11 @@ enum Appearance {
     
     // Style button with button background color
     static func styleLandingPage(button: UIButton) {
-        button.backgroundColor = .clear
+        button.backgroundColor = Appearance.darkMauveColor
         button.layer.cornerRadius = button.frame.height / 2
         button.contentEdgeInsets.top = 10
         button.contentEdgeInsets.bottom = 10
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 0
         button.layer.borderColor = Appearance.yellowColor.cgColor
         button.setTitleColor(.white, for: .normal)
     }

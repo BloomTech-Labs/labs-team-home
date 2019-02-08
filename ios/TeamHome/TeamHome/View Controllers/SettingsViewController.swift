@@ -47,7 +47,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         UILabel.appearance().textColor = .white
         teamNameLabel.textColor = .white
         notificationsLabel.font = Appearance.setTitleFont(with: .title3, pointSize: 18)
-        
+        advancedSettingsButton.tintColor = Appearance.darkMauveColor
         
         self.setNeedsStatusBarAppearanceUpdate()
         
@@ -121,6 +121,18 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
                     let user = result.data?.updateUser else { return }
                 print(user)
                 
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Saved", message: "All the changes to your account settings have been changed.", preferredStyle: .alert)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    let when = DispatchTime.now() + 2
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        
+                        alert.dismiss(animated: true, completion: nil)
+                    }
+                }
+                
                 self.watcher?.refetch()
             }
             return
@@ -148,7 +160,21 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
                 guard let result = result,
                     let user = result.data?.updateUser else { return }
                 print(user)
+                
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Saved", message: "All the changes to your account settings have been changed.", preferredStyle: .alert)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    let when = DispatchTime.now() + 2
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        
+                        alert.dismiss(animated: true, completion: nil)
+                    }
+                }
+                
                 self.watcher?.refetch()
+                
             }
         }
     }
@@ -158,54 +184,6 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         apollo = nil
         performSegue(withIdentifier: "unwindSegueToVC1", sender: self)
     }
-    
-//    @IBAction func leaveTeam(_ sender: Any) {
-//        // Fetch all users in this team
-//        guard let apollo = apollo,
-//            let team = team,
-//            let teamId = team.id,
-//            let currentUser = currentUser else { return }
-//
-//        let currentUserId = currentUser.id
-//
-//        _ = apollo.watch(query: FindTeamByIdQuery(id: teamId)) { (result, error) in
-//            if let error = error {
-//                NSLog("\(error)")
-//            }
-//
-//            guard let result = result,
-//                let data = result.data,
-//                let team = data.findTeam,
-//                let users = team.users else { return }
-//
-//            var userIds = users.compactMap({ $0?.user.id })
-//
-//            for index in 0...userIds.count {
-//                let userId = userIds[index]
-//                if userId == currentUserId {
-//                    userIds.remove(at: index)
-//                }
-//            }
-//
-//            var teamUserInputs: [TeamUserInput] = []
-//            for userId in userIds {
-//                let teamUserInput = TeamUserInput(user: userId)
-//                teamUserInputs.append(teamUserInput)
-//            }
-//
-//
-//            _ = apollo.perform(mutation: UpdateTeamMutation(id: teamId, name: team.name, users: teamUserInputs), queue: DispatchQueue.global(), resultHandler: { (result, error) in
-//                if let error = error {
-//                    NSLog("\(error)")
-//                    return
-//                }
-//
-//                guard let result = result else { return }
-//
-//                print(result)
-//            })
-//        }
-//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

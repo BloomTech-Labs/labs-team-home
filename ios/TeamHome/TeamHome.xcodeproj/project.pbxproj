@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B2C51EC220B2CF7004990BB /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C51EB220B2CF7004990BB /* TagCollectionViewCell.swift */; };
+		7B2C51F2220CB563004990BB /* CommentsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C51F1220CB563004990BB /* CommentsCollectionReusableView.swift */; };
 		7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D021E5733D0099E42C /* AppDelegate.swift */; };
 		7B6BE7D621E5733D0099E42C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D421E5733D0099E42C /* Main.storyboard */; };
 		7B6BE7D821E5733E0099E42C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D721E5733E0099E42C /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 		465546B36BE62E5867C66338 /* Pods-TeamHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.release.xcconfig"; sourceTree = "<group>"; };
 		5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B2C51EB220B2CF7004990BB /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		7B2C51F1220CB563004990BB /* CommentsCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsCollectionReusableView.swift; sourceTree = "<group>"; };
 		7B6BE7CD21E5733D0099E42C /* TeamHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6BE7D021E5733D0099E42C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B6BE7D521E5733D0099E42C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				7BA77EAF21E93B1300C862C1 /* MessageDetailViewController.swift */,
 				7BF8735921F7BA8400737729 /* MessageDetailViewController.graphql */,
 				7BA77EB121E93B2200C862C1 /* CommentsCollectionViewController.swift */,
+				7B2C51F1220CB563004990BB /* CommentsCollectionReusableView.swift */,
 				7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */,
 				7BA77EB321E93B3400C862C1 /* CommentCollectionViewCell.swift */,
 				7BA77EBF21E950BB00C862C1 /* SubscriberCollectionViewCell.swift */,
@@ -498,6 +501,7 @@
 				7BD6589E21F00A55004FF34A /* API.swift in Sources */,
 				7B2C51EC220B2CF7004990BB /* TagCollectionViewCell.swift in Sources */,
 				7BF8736221FA6B4B00737729 /* Activity.swift in Sources */,
+				7B2C51F2220CB563004990BB /* CommentsCollectionReusableView.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* TabBarChildrenProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

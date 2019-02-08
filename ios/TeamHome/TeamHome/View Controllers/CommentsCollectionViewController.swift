@@ -14,7 +14,9 @@ var commentsWatcher: GraphQLQueryWatcher<FindCommentsByMessageQuery>?
 class CommentsCollectionViewController: UICollectionViewController, AddNewCommentDelegate, CommentCollectionCellDelegate {
     
     func didAddNewComment() {
-        self.label.removeFromSuperview()
+        if label != nil {
+            self.label.removeFromSuperview()
+        }
     }
     
 
@@ -49,6 +51,15 @@ class CommentsCollectionViewController: UICollectionViewController, AddNewCommen
         
         return cell
     }
+    
+//    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        let headerView = collectionView.dequeueReusableSupplementaryView(
+//            ofKind: kind,
+//            withReuseIdentifier: "CommentsHeader",
+//            for: indexPath) as! CommentsCollectionReusableView
+//        
+//        return headerView
+//    }
     
     // MARK - CommentCollectionCellDelegate
     
@@ -129,9 +140,11 @@ class CommentsCollectionViewController: UICollectionViewController, AddNewCommen
         if comments.count == 0 {
             DispatchQueue.main.async {
                 self.label = UILabel()
-                self.label.text = "No comments yet."
-                self.label.frame = CGRect(x: 8, y: 8, width: 200, height: 30)
+                self.label.text = "  No comments yet."
+                self.label.frame = CGRect(x: 8, y: 8, width: self.collectionView.frame.width - 16, height: 30)
                 self.label.backgroundColor = .white
+                self.label.layer.cornerRadius = 4
+                self.label.clipsToBounds = true
                 self.label.textColor = Appearance.darkMauveColor
                 self.collectionView.addSubview(self.label)
             }

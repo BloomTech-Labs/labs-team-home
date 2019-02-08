@@ -28,11 +28,17 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         
         // Show team name on label
         displayTeamInfo()
+        
+        // Set this view controller as delegate for all cells.
+        
     }
     
     // Filter messages by date.
     @IBAction func filterMessages(_ sender: Any) {
         guard let delegate = delegate else { return }
+        
+        // Call delegate to filter messages.
+        delegate.didClickFilter()
         
         // Update button based on order of messages.
         if delegate.newestToOldest {
@@ -43,8 +49,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
             filterButton.setImage(image, for: .normal)
         }
         
-        // Call delegate to filter messages.
-        delegate.didClickFilter()
+        
     }
     
     // MARK: - Navigation
@@ -107,5 +112,6 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterButton: UIButton!
-
+    @IBOutlet weak var containerView: UIView!
+    
 }

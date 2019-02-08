@@ -19,6 +19,7 @@ import Paper from '@material-ui/core/Paper';
 import { colors, palette } from '../../colorVariables';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import SendIcon from '@material-ui/icons/Send';
 import * as query from '../../constants/queries';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -50,6 +51,10 @@ const CommentInputLabel = styled.label`
 	.MuiInputBase-root-320 {
 		padding: 0px;
 	}
+`;
+
+const Form = styled.form`
+	display: flex;
 `;
 
 class MessageDetail extends Component {
@@ -485,7 +490,7 @@ class MessageDetail extends Component {
 														</Paper>
 													))}
 
-													<form
+													<Form
 														action="submit"
 														onSubmit={e => {
 															e.preventDefault();
@@ -520,7 +525,10 @@ class MessageDetail extends Component {
 																rowsMax={4}
 															/>
 														</CommentInputLabel>
-													</form>
+														<IconButton type="submit">
+															<SendIcon style={{ color: '#fff' }} />
+														</IconButton>
+													</Form>
 												</>
 											);
 										}}

@@ -1,7 +1,13 @@
 import { Auth0Lock } from 'auth0-lock';
+import { colors } from '../colorVariables';
 
 // 'options' object contains Auth0 Lock-specific features to customize the Auth0 widget.
 const options = {
+	theme: {
+		logo:
+			'https://res.cloudinary.com/massamb/image/upload/v1549565867/TH_favicon.png',
+		primaryColor: colors.button
+	},
 	languageDictionary: {
 		title: 'TeamHome'
 	},
@@ -27,7 +33,7 @@ export default class Auth0 {
 
 	login() {
 		this.lock.show({
-			allowedConnections: ['facebook', 'linkedin', 'google-oauth2'],
+			allowedConnections: ['facebook', 'google-oauth2'],
 			initialScreen: 'login',
 			sso: false
 		});
@@ -35,7 +41,7 @@ export default class Auth0 {
 
 	signUp() {
 		this.lock.show({
-			allowedConnections: ['facebook', 'linkedin', 'google-oauth2'],
+			allowedConnections: ['facebook', 'google-oauth2'],
 			initialScreen: 'signUp',
 			sso: false
 		});

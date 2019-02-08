@@ -44,7 +44,22 @@ const BillingView = props => {
 						));
 				}}
 			</Query>
-			<Mutation mutation={STRIPE_SOURCE}>
+			<Mutation
+				mutation={STRIPE_SOURCE}
+				update={(cache, { data: { setPremium } }) => {
+					const { findTeamsByUser } = cache.readQuery({
+						query: query.FIND_TEAMS_BY_USER
+					});
+					cache.writeQuery({
+						query: query.FIND_TEAMS_BY_USER,
+						data: {
+							findTeamsByUser: findTeamsByUser.map(team =>
+								team._id === setPremium._id ? setPremium : team
+							)
+						}
+					});
+				}}
+			>
 				{(setPremium, { data }) => (
 					<StripeCheckout
 						label="Go Premium" //Component button text

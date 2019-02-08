@@ -11,7 +11,7 @@ import Apollo
 
 var messagesWatcher: GraphQLQueryWatcher<FindMessagesByTeamQuery>?
 
-class MessagesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, MessageBoardFilterDelegate {
+class MessagesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, MessageBoardFilterDelegate, MessageCellDelegate {
     
     func didClickFilter() {
         filter()
@@ -44,13 +44,19 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
 
         cell.message = message
         cell.currentUser = currentUser
-    
+        cell.delegate = self
+        
         return cell
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        return CGSize(width: view.frame.width, height: 170)
 //    }
+    
+    
+    func presentActionSheet(with optionMenu: UIAlertController) {
+        self.present(optionMenu, animated: true, completion: nil)
+    }
     
     // MARK: - Navigation
     
@@ -123,7 +129,7 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
     
     private func sort() {
         guard let messages = messages else { return }
-        
+
         let sortedMessages = messages.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
         self.messages = sortedMessages
         newestToOldest = true

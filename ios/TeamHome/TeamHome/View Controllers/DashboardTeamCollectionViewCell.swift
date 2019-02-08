@@ -9,6 +9,10 @@
 import UIKit
 import Material
 
+protocol TeamCellDelegate: class {
+    func presentActionSheet(with optionMenu: UIAlertController)
+}
+
 class DashboardTeamCollectionViewCell: UICollectionViewCell {
     
     fileprivate func prepareFavoriteButton() {
@@ -38,6 +42,13 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
         }
         
         moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
+        moreButton.addTarget(self, action: #selector(presentActionSheet(_:)), for: .touchUpInside)
+        
+        // If current user is admin show them delete functionality.
+//        if message.user.id == currentUser.id {
+//            moreButton.addTarget(self, action: #selector(presentDeleteActionSheet(_:)), for: .touchUpInside)
+//        }
+        
         
         toolbar = Toolbar(rightViews: [premiumIcon, moreButton])
         
@@ -60,8 +71,35 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
         
     }
     
+    @objc func presentActionSheet(_ sender: IconButton) {
+        let optionMenu = UIAlertController(title: nil, message: "Message Options", preferredStyle: .actionSheet)
+        
+        let viewAction = UIAlertAction(title: "View", style: .default)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        optionMenu.addAction(viewAction)
+        optionMenu.addAction(cancelAction)
+        
+        delegate?.presentActionSheet(with: optionMenu)
+    }
+    
+    @objc func presentDeleteActionSheet(_ sender: IconButton) {
+        let optionMenu = UIAlertController(title: nil, message: "Message Options", preferredStyle: .actionSheet)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive)
+        let viewAction = UIAlertAction(title: "View", style: .default)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        optionMenu.addAction(deleteAction)
+        optionMenu.addAction(viewAction)
+        optionMenu.addAction(cancelAction)
+        
+        delegate?.presentActionSheet(with: optionMenu)
+    }
+    
     // MARK - Properties
     
+    weak var delegate: TeamCellDelegate?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser? {
         didSet {
             setTheme()
