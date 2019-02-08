@@ -5,10 +5,7 @@ import gql from 'graphql-tag';
 import { Mutation, Query } from 'react-apollo';
 import Logo from '../../assets/TH_favicon.png';
 import * as query from '../../constants/queries';
-import {
-	StyledBillingContainer,
-	StyledTeamCard
-} from '../styles/container.styles';
+import { StyledBillingContainer } from '../styles/container.styles';
 const STRIPE_SOURCE = gql`
 	mutation setPremium($team: ID!, $amount: Int!, $token: String!) {
 		setPremium(input: { id: $team, charge: $amount, source: $token }) {

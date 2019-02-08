@@ -36,10 +36,6 @@ const apiKey = process.env.REACT_APP_API_KEY;
 const apiSecret = process.env.REACT_APP_API_SECRET;
 const cloudName = process.env.REACT_APP_CLOUD_NAME;
 
-const buttonStyle = {
-	margin: '10px 10px 10px 10px'
-};
-
 class SettingsView extends Component {
 	constructor(props) {
 		super(props);
