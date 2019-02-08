@@ -93,18 +93,16 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
             
             guard let messages = result?.data?.findMessagesByTeam else { return }
             
-            self.messages = messages
+            self.messages = messages.reversed()
             
             self.activityTimeline = []
-            for message in messages {
+            for message in messages.reversed() {
                 let activity = Activity(message: message, comment: nil, date: message?.createdAt)
                 self.activityTimeline?.append(activity)
             }
             
-            let group = DispatchGroup()
-            
-            for message in messages {
-                group.enter()
+            for message in messages.reversed() {
+
                 guard let messageId = message?.id else { return }
                 _ = apollo.watch(query: FindCommentsByMessageQuery(messageId: messageId), resultHandler: { (result, error) in
                     if let error = error {
@@ -114,16 +112,10 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
                     
                     guard let result = result,
                         let comments = result.data?.findMsgCommentsByMessage else { return }
-                    
-                    self.comments.append(contentsOf: comments)
-                
-                    group.leave()
+
+                    self.mergeAllActivity(with: comments)
                 })
             }
-            
-            group.notify(queue: DispatchQueue.global(), execute: {
-                self.mergeAllActivity()
-            })
         })
     }
     
@@ -142,13 +134,7 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         }
     }
     
-    private func mergeAllActivity() {
-        
-//        self.activityTimeline = []
-//        for message in messages {
-//            let activity = Activity(message: message, comment: nil, date: message?.createdAt)
-//            activityTimeline?.append(activity)
-//        }
+    private func mergeAllActivity(with comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]) {
         
         for comment in comments {
             let activity = Activity(message: nil, comment: comment, date: comment?.createdAt)
@@ -171,9 +157,6 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-                if self.label != nil {
-                    self.label.removeFromSuperview()
-                }
             }
         }
     }

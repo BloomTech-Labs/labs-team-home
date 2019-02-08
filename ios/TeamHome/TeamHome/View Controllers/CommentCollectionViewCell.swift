@@ -196,6 +196,6 @@ class CommentCollectionViewCell: UICollectionViewCell {
     private var messageContentView: UIView!
     private var imageView: UIImageView!
     
-    @IBOutlet weak var card: Card!
+    @IBOutlet weak var card: PresenterCard!
     
 }

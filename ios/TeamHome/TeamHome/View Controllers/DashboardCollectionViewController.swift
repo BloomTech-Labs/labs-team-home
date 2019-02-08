@@ -9,11 +9,7 @@
 import UIKit
 import Apollo
 
-class DashboardCollectionViewController: UICollectionViewController, TeamCellDelegate {
-   
-    func presentActionSheet(with optionMenu: UIAlertController) {
-        self.present(optionMenu, animated: true, completion: nil)
-    }
+class DashboardCollectionViewController: UICollectionViewController, TeamCellDelegate, DashboardReusableViewDelegate {
     
     // MARK - Lifecycle Methods
     
@@ -56,39 +52,10 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
             self.present(alert, animated: true, completion: nil)
         } 
     }
+    
+    // MARK - IBActions
 
    @IBAction func unwindToDashboard(segue:UIStoryboardSegue) { }
-    
-    @IBAction func addTeam(_ sender: Any) {
-        guard let apollo = apollo else { return }
-
-        presentCreateTeamAlert(with: apollo)
-    }
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        // Pass variable to all the views that branch off main tab bar
-        if segue.identifier == "ShowMainTabBar" {
-            guard let destinationVC = segue.destination as? UITabBarController,
-                let teams = teams,
-                let currentUser = currentUser,
-                let indexPaths = collectionView.indexPathsForSelectedItems,
-                let indexPath = indexPaths.first else { return }
-            // Pass Apollo client and team thru navigation controller to the view controller desired
-            for childVC in destinationVC.children {
-                if let childVC = childVC as? UINavigationController {
-                    guard let nextVC = childVC.viewControllers.first else { return }
-                    if let nextVC = nextVC as? TabBarChildrenProtocol {
-                        let team = teams[indexPath.row]
-                        nextVC.team = team
-                        nextVC.apollo = apollo
-                        nextVC.currentUser = currentUser
-                    }
-                }
-            }
-        }
-    }
 
     // MARK: UICollectionViewDataSource
 
@@ -113,7 +80,49 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
             ofKind: kind,
             withReuseIdentifier: "DashboardCollectionReusableView", for: indexPath) as? DashboardCollectionReusableView else { return UICollectionReusableView()}
         
+        headerView.delegate = self
+        
         return headerView
+    }
+    
+    // MARK - DashboardReusableViewDelegate
+    
+    func didClickAddTeam() {
+        guard let apollo = apollo else { return }
+        
+        presentCreateTeamAlert(with: apollo)
+    }
+    
+    // MARK - TeamCellDelegate
+    
+    func presentActionSheet(with optionMenu: UIAlertController) {
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Pass variable to all the views that branch off main tab bar
+        if segue.identifier == "ShowMainTabBar" {
+            guard let destinationVC = segue.destination as? UITabBarController,
+                let teams = teams,
+                let currentUser = currentUser,
+                let indexPaths = collectionView.indexPathsForSelectedItems,
+                let indexPath = indexPaths.first else { return }
+            // Pass Apollo client and team thru navigation controller to the view controller desired
+            for childVC in destinationVC.children {
+                if let childVC = childVC as? UINavigationController {
+                    guard let nextVC = childVC.viewControllers.first else { return }
+                    if let nextVC = nextVC as? TabBarChildrenProtocol {
+                        let team = teams[indexPath.row]
+                        nextVC.team = team
+                        nextVC.apollo = apollo
+                        nextVC.currentUser = currentUser
+                    }
+                }
+            }
+        }
     }
     
     // MARK - Private Methods
@@ -163,6 +172,7 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
                 print(result)
             })
         }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
