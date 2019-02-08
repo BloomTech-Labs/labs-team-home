@@ -10,7 +10,7 @@ The font used in our header logo can be found here: https://www.dafont.com/round
 
 All web icons are from the free and open source library [Material UI](https://material-ui.com/) that is released under the MIT license.
 
-All iOS icon are from 2 sources: Flaticon and the Cosmic Mind Material framework. 
+All iOS icon are from 2 sources: Flaticon and the Cosmic Mind Material framework.
 
 The [Flaticon license](https://file000.flaticon.com/downloads/license/license.pdf) is a Free License (with attribution).
 
