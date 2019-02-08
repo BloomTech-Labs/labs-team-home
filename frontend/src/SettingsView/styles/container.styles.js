@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import { colors } from '../../colorVariables';
-import { Button, Input, Card } from '@material-ui/core';
+import { Button, Input } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import BillingTeamCard from '../BillingView/BillingTeamCard';
 
 const styles = theme => ({
 	root: {
@@ -18,8 +17,6 @@ const styles = theme => ({
 		color: colors.text
 	}
 });
-
-const lighter = `rgba(255, 255, 255, 0.7)`;
 
 const SettingsContainer = styled.div`
 	position: relative;
@@ -36,10 +33,6 @@ const SettingsContainer = styled.div`
     display: flex;
 	  flex-direction: column;
     `}
-`;
-const StyledContainerH3 = styled.h3`
-	color: #fff;
-	margin: 0 auto;
 `;
 
 const AvatarUploadContainer = styled.div`
