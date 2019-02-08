@@ -245,6 +245,7 @@ class SettingsView extends Component {
 										name={'firstName'}
 										title={'First Name'}
 										value={this.state.firstName}
+										autoComplete="off"
 										placeholder={
 											this.props.currentUser.firstName
 												? this.props.currentUser.firstName
@@ -257,6 +258,7 @@ class SettingsView extends Component {
 										name={'lastName'}
 										title={'Last Name'}
 										value={this.state.lastName}
+										autoComplete="off"
 										placeholder={
 											this.props.currentUser.lastName
 												? this.props.currentUser.lastName
@@ -269,6 +271,7 @@ class SettingsView extends Component {
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
+										autoComplete="off"
 										placeholder={
 											this.props.currentUser.email
 												? this.props.currentUser.email
@@ -281,6 +284,7 @@ class SettingsView extends Component {
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
+										autoComplete="off"
 										placeholder={
 											this.props.currentUser.phoneNumber
 												? this.props.currentUser.phoneNumber
@@ -356,6 +360,7 @@ class SettingsView extends Component {
 										title={'First Name'}
 										name={'firstName'}
 										value={this.state.firstName}
+										autoComplete="off"
 										placeholder={'Enter your first name'}
 										onChange={this.handleChange}
 									/>
@@ -364,6 +369,7 @@ class SettingsView extends Component {
 										title={'Phone Number'}
 										name={'lastName'}
 										value={this.state.lastName}
+										autoComplete="off"
 										placeholder={'Enter your last name'}
 										onChange={this.handleChange}
 									/>
@@ -372,6 +378,7 @@ class SettingsView extends Component {
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
+										autoComplete="off"
 										placeholder={'Enter your email'}
 										onChange={this.handleChange}
 									/>
@@ -380,6 +387,7 @@ class SettingsView extends Component {
 										title={'Avatar'}
 										name={'avatar'}
 										value={this.state.avatar}
+										autoComplete="off"
 										placeholder={'Enter an image URL'}
 										onChange={this.handleChange}
 									/>
@@ -388,6 +396,7 @@ class SettingsView extends Component {
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
+										autoComplete="off"
 										placeholder={'Enter your phone number (US numbers only)'}
 										onChange={this.handleChange}
 									/>
