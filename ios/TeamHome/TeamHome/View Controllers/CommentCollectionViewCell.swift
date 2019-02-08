@@ -136,6 +136,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
                 
                 DispatchQueue.main.async {
                     self.imageView = UIImageView(image: image.resize(toHeight: 50)!)
+                    self.prepareCard()
                 }
             }
             
@@ -165,7 +166,8 @@ class CommentCollectionViewCell: UICollectionViewCell {
         messageContentView.addSubview(contentLabel)
         messageContentView.addSubview(imageView)
         
-        card.contentView = messageContentView
+        card.contentView = contentLabel
+        card.presenterView = imageView
         card.contentViewEdgeInsetsPreset = .wideRectangle4
         
         card.bottomBar = bottomBar
