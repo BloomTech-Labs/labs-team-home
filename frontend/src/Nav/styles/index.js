@@ -6,20 +6,26 @@ const StyledLink = styled(Link)`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	font-family: Comfortaa;
 	color: #f1fcef;
-	text-decoration: none;
 	margin: 5px;
 	font-weight: bold;
 	background: none;
 	text-align: center;
 	padding: 0.6em 1em;
-	border: 1px solid gray;
-	border-radius: 4px;
+	border: none;
+	border-bottom: 1px solid #ecff26;
 	transition: 0.4s;
 	&:hover {
-		background-color: #f1fcef;
-		color: #17151b;
+		text-decoration: none;
+		color: #ecff26;
 		transform: scale(1.05, 1.05);
+		border: none;
 	}
+	${mediaQueryFor.mdDevice`
+    text-align:center;
+  `}
+	${mediaQueryFor.smDevice`
+    text-align:center;
+  `}
 `;
 
 const TextIMG = styled.img`
@@ -95,6 +101,8 @@ const RespNav = styled.div`
 	margin: 0 auto;
 	flex-flow: row;
 	z-index: 1001;
+	text-decoration: none;
+
 	justify-content: space-around;
 	.navbar {
 		width: 100%;
@@ -102,6 +110,12 @@ const RespNav = styled.div`
 		.nav-item {
 			font-size: 1.2rem;
 			margin: 10px 0 10px 0;
+			transition: 0.4s;
+			&:hover {
+				color: #ecff26;
+				transform: scale(1.05, 1.05);
+				border: none;
+			}
 		}
 	}
 	${mediaQueryFor.mdDevice`
