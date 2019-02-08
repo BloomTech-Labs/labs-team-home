@@ -12,8 +12,8 @@ const StyledLink = styled(Link)`
 	background: none;
 	text-align: center;
 	padding: 0.6em 1em;
-	border: 1px solid gray;
-	border-radius: 4px;
+	border: none;
+	border-bottom: 1px solid #ecff26;
 	transition: 0.4s;
 	&:hover {
 		background-color: #f1fcef;
@@ -29,7 +29,7 @@ const TextIMG = styled.img`
 `;
 
 const NavBar = styled.div`
-	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 0.6), #17151b);
+	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 1), #17151b);
 	background-size: 600% 600%;
 	width: 100%;
 	position: fixed;
@@ -40,9 +40,6 @@ const NavBar = styled.div`
 
 	&:hover {
 		background-color: #17151b;
-	}
-
-	@media (max-width: 700px) {
 	}
 
 	-webkit-animation: AnimationName 26s ease infinite;
@@ -84,7 +81,7 @@ const NavBar = styled.div`
 `;
 
 const RespNav = styled.div`
-	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 0.6), #17151b);
+	background: linear-gradient(100deg, #17151b, rgba(222, 59, 97, 1), #17151b);
 	background-size: 600% 600%;
 	width: 100%;
 	position: fixed;
