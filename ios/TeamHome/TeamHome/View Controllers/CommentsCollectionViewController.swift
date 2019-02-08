@@ -49,6 +49,9 @@ class CommentsCollectionViewController: UICollectionViewController, AddNewCommen
         cell.comment = comment
         cell.delegate = self
         
+        let height = cell.card.frame.height
+        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: height)
+        
         return cell
     }
     

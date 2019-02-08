@@ -44,6 +44,8 @@ class InviteToTeamViewController: UIViewController {
                 if let errors = result.errors {
                     let errorDescription = errors[0].localizedDescription
                     DispatchQueue.main.async {
+                        self.emailTextField.text = ""
+                        
                         let alert = UIAlertController(title: "Error", message: errorDescription, preferredStyle: .alert)
                         
                         self.present(alert, animated: true, completion: nil)
@@ -53,6 +55,7 @@ class InviteToTeamViewController: UIViewController {
                             
                             alert.dismiss(animated: true, completion: nil)
                         }
+                        
                     }
                 }
                 

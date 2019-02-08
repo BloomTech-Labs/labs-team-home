@@ -49,6 +49,8 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         
         setUpCommentTextView()
         
+        self.updateViews()
+        
         guard let apollo = apollo else { return }
         
         loadMessageDetails(with: apollo)
@@ -379,7 +381,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
                 if let imageURL = image {
                     downloader.fetchImage(imageURL, { (progress) in
                         // Show progress
-                        
+                        print(progress)
                     }) { (image, error) in
                         if let error = error {
                             print("\(error)")
@@ -396,25 +398,6 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
                     }
                 }
             }
-//            guard let image = images.first,
-//                let imageURL = image else { return }
-//
-//            downloader.fetchImage(imageURL, { (progress) in
-//                // Show progress
-//
-//            }) { (image, error) in
-//                if let error = error {
-//                    print("\(error)")
-//                    return
-//                }
-//
-//                guard let image = image else { return }
-//
-//                DispatchQueue.main.async {
-//                    self.imageView.isHidden = false
-//                    self.imageView.image = image
-//                }
-//            }
         }
         
         var heightConstraint: NSLayoutConstraint!
@@ -481,7 +464,9 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     private var message: FindMessageByIdQuery.Data.FindMessage? {
         didSet {
             DispatchQueue.main.async {
-                self.updateViews()
+                if self.isViewLoaded {
+                    self.updateViews()
+                }
             }
         }
     }

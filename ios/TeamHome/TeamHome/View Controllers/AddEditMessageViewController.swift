@@ -21,7 +21,7 @@ protocol EditMessageDelegate: class {
     func editedMessage()
 }
 
-class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
     // MARK - Lifecycle Methods
     
@@ -174,7 +174,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                 let this = messageTag.name
                 
                 if tag.name == this {
-                    self.tagSelected = messageTag.id
+                    self.tagSelected = messageTag.name
                     cell.backgroundColor = Appearance.mauveColor
                 }
             }
@@ -208,6 +208,37 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK - Keyboard Animation and Delegate functions
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height / 2
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
     // MARK - Private Methods
@@ -400,7 +431,6 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         
         // Check to see if user selected image.
         guard let imageData = imageData else {
-            
             
             if let imageURL = imageURL {
                 
