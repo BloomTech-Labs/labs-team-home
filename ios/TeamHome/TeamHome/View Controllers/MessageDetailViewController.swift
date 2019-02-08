@@ -12,15 +12,18 @@ import Cloudinary
 import GrowingTextView
 import Toucan
 import Material
+import Photos
 
 protocol AddNewCommentDelegate: class {
     func didAddNewComment()
 }
 
-class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, EditMessageDelegate, GrowingTextViewDelegate {
+var messageWatcher: GraphQLQueryWatcher<FindMessageByIdQuery>?
+
+class MessageDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, EditMessageDelegate, GrowingTextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func editedMessage() {
-        watcher?.refetch()
+        messageWatcher?.refetch()
     }
 
     // MARK - Lifecycle Functions
@@ -55,8 +58,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     
     @IBAction func clickedSubscribe(_ sender: Any) {
         guard let currentUser = currentUser,
-            let apollo = apollo,
-            let isSubscribed = isSubscribed else { return }
+            let apollo = apollo else { return }
         let id = currentUser.id
         
         if isSubscribed {
@@ -114,20 +116,96 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
                 print(result)
                 
                 commentsWatcher?.refetch()
+                messagesWatcher?.refetch()
+                
                 DispatchQueue.main.async {
                     self.commentTextView.text = ""
-                    self.delegate?.didAddNewComment()
                     self.updateViews()
+                    self.delegate?.didAddNewComment()
                 }
             }
             return
         }
         
+        // Set up upload request parameters.
+        let params = CLDUploadRequestParams()
         
+        // Upload image to cloudinary.
+        cloudinary.createUploader().upload(data: imageData, uploadPreset: "dfcfme0b", params: params, progress: { (progress) in
+            //Show progress.
+            
+        }) { (result, error) in
+            // Check for errors.
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            // Unwrap image url.
+            guard let result = result,
+                let url = result.url else { return }
+            
+            apollo.perform(mutation: CreateImageCommentMutation(message: messageId, content: commentContent, image: url), queue: DispatchQueue.global()) { (result, error) in
+                if let error = error {
+                    NSLog("\(error)")
+                    return
+                }
+                
+                guard let result = result else { return }
+                
+                print(result)
+                
+                commentsWatcher?.refetch()
+                messagesWatcher?.refetch()
+                
+                DispatchQueue.main.async {
+                    self.commentTextView.text = ""
+                    self.updateViews()
+                    self.delegate?.didAddNewComment()
+                }
+            }
+        }
     }
     
     @IBAction func backButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func addImage(_ sender: Any) {
+        let status = PHPhotoLibrary.authorizationStatus()
+        
+        switch status {
+        // If status is already authorized, present the image picker to the user
+        case .authorized:
+            presentImagePickerController()
+        // If status is not determined, request authorization and check status again
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { (authorizationStatus) in
+                
+                switch authorizationStatus {
+                // If user authorizes, present the image picker to the user
+                case .authorized:
+                    self.presentImagePickerController()
+                case .notDetermined:
+                    // Present alert
+                    break
+                case .restricted:
+                    // Present alert
+                    break
+                case .denied:
+                    // Present alert
+                    break
+                }
+            }
+        // If status is already denied, present alert and direct user to change status
+        case .denied:
+            // Present alert
+            break
+        // If status is restricted, present alert to explain that they can't add photos
+        case .restricted:
+            // Present alert
+            break
+        }
     }
     
     // MARK - UICollectionViewDataSource
@@ -193,6 +271,25 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         performSegue(withIdentifier: "EditMessage", sender: self)
     }
     
+    // MARK - UIImagePickerControllerDelegate
+    
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[.originalImage] as? UIImage else { return }
+        
+//        imageView.isHidden = false
+//        imageView.image = image
+        guard let imageData: Data = image.jpegData(compressionQuality: 0) else { return }
+        self.imageData = imageData
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK - Private Methods
     
     private func setUpCommentTextView() {
@@ -211,7 +308,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         
         guard let messageId = messageId else { return }
         
-        self.watcher = apollo.watch(query: FindMessageByIdQuery(id: messageId)) { (result, error) in
+        messageWatcher = apollo.watch(query: FindMessageByIdQuery(id: messageId)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
@@ -339,7 +436,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
     
     func fetchMessage(with apollo: ApolloClient, id: GraphQLID) {
         
-        watcher = apollo.watch(query: FindMessageByIdQuery(id: id), resultHandler: { (result, error) in
+        messageWatcher = apollo.watch(query: FindMessageByIdQuery(id: id), resultHandler: { (result, error) in
             if let error = error {
                 print("\(error)")
                 return
@@ -367,9 +464,20 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         }
     }
     
+    private func presentImagePickerController() {
+        
+        let imagePicker = UIImagePickerController()
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
     // MARK - Properties
     
-    private var isSubscribed: Bool?
+    private var isSubscribed: Bool = false
     private var message: FindMessageByIdQuery.Data.FindMessage? {
         didSet {
             DispatchQueue.main.async {
@@ -384,8 +492,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
             }
         }
     }
-    
-    var watcher: GraphQLQueryWatcher<FindMessageByIdQuery>?
+
     var messageId: GraphQLID?
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?

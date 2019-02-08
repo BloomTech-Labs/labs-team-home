@@ -316,8 +316,8 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                 let currentUser = currentUser else { return }
             
             // Pass Apollo client.
-            destinationVC.apollo = apollo
             destinationVC.currentUser = currentUser
+            destinationVC.apollo = apollo
             
         } else if segue.identifier == "ShowNewUser" {
             guard let destinationVC = segue.destination as? CreateNewUserViewController,
