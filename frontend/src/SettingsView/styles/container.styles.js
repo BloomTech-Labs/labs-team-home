@@ -181,7 +181,6 @@ const StyledTeamCardP = styled.p`
 
 export default withStyles(styles)(SettingsContainer);
 export {
-	StyledContainerH3,
 	StyledAvatar,
 	ImageFigure,
 	AvatarUploadContainer,
