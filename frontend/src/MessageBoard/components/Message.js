@@ -37,7 +37,7 @@ const styles = {
 };
 
 const Container = styled(Card)`
-	margin: 2% auto;
+	margin: 10px auto;
 	background-color: ${colors.button};
 	color: ${colors.text};
 	width: 100%;
