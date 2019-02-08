@@ -91,25 +91,15 @@ const FormInputStyles = styled.div`
 
 const StyledInput = styled(Input)`
 width: 50%;
-color: ${colors.text};
+/* color: ${colors.text}; */
 padding: 10px;
-border-radius: 5px;
+/* border-radius: 5px; */
 /* border-bottom: 1px solid ${colors.text}; */
-::before{
-	transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-	border-bottom: 1px solid rgb(255, 255, 255);
-}
-::after{
-	transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
-	border-bottom: 2px solid ${colors.text};
-}
+
 	${mediaQueryFor.smDevice`
 		width: 98%;
 	`}
-	transition: background-color 250ms ease-in-out, transform 150ms ease;
-	&:hover {
-		background-color: rgba(62, 49, 69, 0.7);
-}
+	/* transition: background-color 250ms ease-in-out, transform 150ms ease; */
 `;
 
 const FormCheckboxStyles = styled.div`
@@ -162,6 +152,12 @@ const StyledTeamCardDiv = styled.div`
 	:hover {
 		background-color: rgba(107, 40, 59, 0.7);
 	}
+
+	${mediaQueryFor.mdDevice`
+		margin-bottom: 0;
+		border-bottom: 1px solid ${colors.border};
+		border-radius: 0;
+	`}
 `;
 
 const StyledTeamCardH3 = styled.h3`
@@ -185,6 +181,7 @@ const StyledTeamCardP = styled.p`
 
 export default withStyles(styles)(SettingsContainer);
 export {
+	StyledContainerH3,
 	StyledAvatar,
 	ImageFigure,
 	AvatarUploadContainer,

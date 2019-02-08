@@ -13,6 +13,7 @@
 - [Front End Setup](frontend/README.md)
 - [Back End Setup](backend/README.md)
 - [Testing for Web App](misc/README.md)
+- [Security for Web App](misc/SECURITY.md)
 
 - [Team Home](#team-home)
   - [Team](#team)

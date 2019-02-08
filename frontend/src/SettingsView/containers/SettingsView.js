@@ -59,47 +59,49 @@ class SettingsView extends Component {
 
 	componentDidMount() {
 		const { currentUser } = this.props;
-		const { email, firstName, lastName, avatar, phoneNumber } = currentUser;
-		const { receiveEmails, receiveTexts } = currentUser.toggles;
-		currentUser
-			? this.setState({
-					email: email,
-					firstName: firstName,
-					lastName: lastName,
-					avatar: avatar ? avatar : '',
-					phoneNumber: phoneNumber ? phoneNumber : '',
-					toggles: {
-						receiveEmails: receiveEmails ? receiveEmails : false,
-						receiveTexts: receiveTexts ? receiveTexts : false
+		if (currentUser) {
+			const { email, firstName, lastName, avatar, phoneNumber } = currentUser;
+			const { receiveEmails, receiveTexts } = currentUser.toggles;
+			this.setState({
+				email: email,
+				firstName: firstName,
+				lastName: lastName,
+				avatar: avatar ? avatar : '',
+				phoneNumber: phoneNumber ? phoneNumber : '',
+				toggles: {
+					receiveEmails: receiveEmails ? receiveEmails : false,
+					receiveTexts: receiveTexts ? receiveTexts : false
+				}
+			});
+		} else {
+			this.state.auth.lock.getUserInfo(
+				localStorage.token,
+				(
+					err,
+					{
+						given_name,
+						family_name,
+						picture,
+						email,
+						phoneNumber,
+						receiveEmails,
+						receiveTexts
 					}
-			  })
-			: this.state.auth.lock.getUserInfo(
-					localStorage.token,
-					(
-						err,
-						{
-							given_name,
-							family_name,
-							picture,
-							email,
-							phoneNumber,
-							receiveEmails,
-							receiveTexts
+				) =>
+					this.setState({
+						// populates form with data from auth0
+						firstName: given_name ? given_name : '',
+						lastName: family_name ? family_name : '',
+						avatar: picture ? picture : '',
+						email: email ? email : '',
+						phoneNumber: phoneNumber ? phoneNumber : '',
+						toggles: {
+							receiveEmails: receiveEmails ? receiveEmails : false,
+							receiveTexts: receiveTexts ? receiveTexts : false
 						}
-					) =>
-						this.setState({
-							// populates form with data from auth0
-							firstName: given_name ? given_name : '',
-							lastName: family_name ? family_name : '',
-							avatar: picture ? picture : '',
-							email: email ? email : '',
-							phoneNumber: phoneNumber ? phoneNumber : '',
-							toggles: {
-								receiveEmails: receiveEmails ? receiveEmails : false,
-								receiveTexts: receiveTexts ? receiveTexts : false
-							}
-						})
-			  );
+					})
+			);
+		}
 	}
 
 	handleChange = e => {
@@ -245,6 +247,7 @@ class SettingsView extends Component {
 										name={'firstName'}
 										title={'First Name'}
 										value={this.state.firstName}
+										autoComplete="off"
 										placeholder={
 											this.props.currentUser.firstName
 												? this.props.currentUser.firstName
@@ -257,6 +260,7 @@ class SettingsView extends Component {
 										name={'lastName'}
 										title={'Last Name'}
 										value={this.state.lastName}
+										autoComplete="off"
 										placeholder={
 											this.props.currentUser.lastName
 												? this.props.currentUser.lastName
@@ -269,6 +273,7 @@ class SettingsView extends Component {
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
+										autoComplete="off"
 										placeholder={
 											this.props.currentUser.email
 												? this.props.currentUser.email
@@ -281,6 +286,7 @@ class SettingsView extends Component {
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
+										autoComplete="off"
 										placeholder={
 											this.props.currentUser.phoneNumber
 												? this.props.currentUser.phoneNumber
@@ -301,12 +307,6 @@ class SettingsView extends Component {
 										checked={this.state.toggles.receiveTexts}
 									/>
 									<FormButton type="submit" title="save" />
-
-									<FormButton
-										type={'primary'}
-										title={'Leave Team'}
-										style={buttonStyle}
-									/>
 								</form>
 							</div>
 							<div label="Team Billing">
@@ -362,6 +362,7 @@ class SettingsView extends Component {
 										title={'First Name'}
 										name={'firstName'}
 										value={this.state.firstName}
+										autoComplete="off"
 										placeholder={'Enter your first name'}
 										onChange={this.handleChange}
 									/>
@@ -370,6 +371,7 @@ class SettingsView extends Component {
 										title={'Phone Number'}
 										name={'lastName'}
 										value={this.state.lastName}
+										autoComplete="off"
 										placeholder={'Enter your last name'}
 										onChange={this.handleChange}
 									/>
@@ -378,6 +380,7 @@ class SettingsView extends Component {
 										title={'Email'}
 										name={'email'}
 										value={this.state.email}
+										autoComplete="off"
 										placeholder={'Enter your email'}
 										onChange={this.handleChange}
 									/>
@@ -386,6 +389,7 @@ class SettingsView extends Component {
 										title={'Avatar'}
 										name={'avatar'}
 										value={this.state.avatar}
+										autoComplete="off"
 										placeholder={'Enter an image URL'}
 										onChange={this.handleChange}
 									/>
@@ -394,6 +398,7 @@ class SettingsView extends Component {
 										title={'Phone Number'}
 										name={'phoneNumber'}
 										value={this.state.phoneNumber}
+										autoComplete="off"
 										placeholder={'Enter your phone number (US numbers only)'}
 										onChange={this.handleChange}
 									/>

@@ -21,6 +21,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         prepareDateLabel(with: activity)
         prepareContentView(with: activity)
         prepareBottomBar()
+        
     }
     
     private func prepareDateLabel(with activity: Activity) {
@@ -56,10 +57,12 @@ class ActivityCollectionViewCell: UICollectionViewCell {
                 
                 toolbar.titleLabel.textAlignment = .left
                 toolbar.detailLabel.textAlignment = .left
+                
             }
             
             toolbar.title = "\(comment.user.firstName) \(comment.user.lastName)"
             toolbar.detail = "added a comment"
+            
         } else {
             guard let message = activity.message else { return }
             
@@ -68,11 +71,13 @@ class ActivityCollectionViewCell: UICollectionViewCell {
                 
                 toolbar.titleLabel.textAlignment = .right
                 toolbar.detailLabel.textAlignment = .right
+                
             } else {
                 toolbar = Toolbar(leftViews: [avatarImageView])
                 
                 toolbar.titleLabel.textAlignment = .left
                 toolbar.detailLabel.textAlignment = .left
+                
             }
             
             toolbar.title = "\(message.user.firstName) \(message.user.lastName)"
@@ -82,6 +87,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         toolbar.backgroundColor = .clear
         toolbar.titleLabel.textColor = .white
         toolbar.detailLabel.textColor = .white
+        
     }
     
     fileprivate func prepareContentView(with activity: Activity) {
@@ -128,7 +134,29 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         } else {
             card.backgroundColor = Appearance.darkMauveColor
         }
-    
+        
+//        guard let currentUser = currentUser else { return }
+//    
+//        var widthConstraint: NSLayoutConstraint!
+//        if activity.comment != nil {
+//            guard let comment = activity.comment else { return }
+//            
+//            if comment.user.id == currentUser.id {
+//                widthConstraint = NSLayoutConstraint(item: card, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 0, constant: 16)
+//            } else {
+//                widthConstraint = NSLayoutConstraint(item: card, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 0, constant: 16)
+//            }
+//        } else {
+//            guard let message = activity.message else { return }
+//            
+//            if message.user.id == currentUser.id {
+//                widthConstraint = NSLayoutConstraint(item: card, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 0, constant: 16)
+//            } else {
+//                widthConstraint = NSLayoutConstraint(item: card, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 0, constant: 16)
+//            }
+//        }
+//        
+//        NSLayoutConstraint.activate([widthConstraint])
     }
     
     private func updateViews() {
@@ -154,7 +182,6 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     }
     
     private func setImage(for activity: Activity, completion: @escaping (UIImage) -> Void) {
-        
         
         if activity.comment != nil {
             guard let comment = activity.comment,
@@ -202,7 +229,6 @@ class ActivityCollectionViewCell: UICollectionViewCell {
                 }
                 
                 guard let image = image else { return }
-                
                 
                 completion(image)
             }
