@@ -59,47 +59,49 @@ class SettingsView extends Component {
 
 	componentDidMount() {
 		const { currentUser } = this.props;
-		const { email, firstName, lastName, avatar, phoneNumber } = currentUser;
-		const { receiveEmails, receiveTexts } = currentUser.toggles;
-		currentUser
-			? this.setState({
-					email: email,
-					firstName: firstName,
-					lastName: lastName,
-					avatar: avatar ? avatar : '',
-					phoneNumber: phoneNumber ? phoneNumber : '',
-					toggles: {
-						receiveEmails: receiveEmails ? receiveEmails : false,
-						receiveTexts: receiveTexts ? receiveTexts : false
+		if (currentUser) {
+			const { email, firstName, lastName, avatar, phoneNumber } = currentUser;
+			const { receiveEmails, receiveTexts } = currentUser.toggles;
+			this.setState({
+				email: email,
+				firstName: firstName,
+				lastName: lastName,
+				avatar: avatar ? avatar : '',
+				phoneNumber: phoneNumber ? phoneNumber : '',
+				toggles: {
+					receiveEmails: receiveEmails ? receiveEmails : false,
+					receiveTexts: receiveTexts ? receiveTexts : false
+				}
+			});
+		} else {
+			this.state.auth.lock.getUserInfo(
+				localStorage.token,
+				(
+					err,
+					{
+						given_name,
+						family_name,
+						picture,
+						email,
+						phoneNumber,
+						receiveEmails,
+						receiveTexts
 					}
-			  })
-			: this.state.auth.lock.getUserInfo(
-					localStorage.token,
-					(
-						err,
-						{
-							given_name,
-							family_name,
-							picture,
-							email,
-							phoneNumber,
-							receiveEmails,
-							receiveTexts
+				) =>
+					this.setState({
+						// populates form with data from auth0
+						firstName: given_name ? given_name : '',
+						lastName: family_name ? family_name : '',
+						avatar: picture ? picture : '',
+						email: email ? email : '',
+						phoneNumber: phoneNumber ? phoneNumber : '',
+						toggles: {
+							receiveEmails: receiveEmails ? receiveEmails : false,
+							receiveTexts: receiveTexts ? receiveTexts : false
 						}
-					) =>
-						this.setState({
-							// populates form with data from auth0
-							firstName: given_name ? given_name : '',
-							lastName: family_name ? family_name : '',
-							avatar: picture ? picture : '',
-							email: email ? email : '',
-							phoneNumber: phoneNumber ? phoneNumber : '',
-							toggles: {
-								receiveEmails: receiveEmails ? receiveEmails : false,
-								receiveTexts: receiveTexts ? receiveTexts : false
-							}
-						})
-			  );
+					})
+			);
+		}
 	}
 
 	handleChange = e => {
