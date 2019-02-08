@@ -54,12 +54,12 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         createGradientLayer()
         saveChangesButton.backgroundColor = Appearance.darkMauveColor
         
-//        guard let apollo = apollo else { return }
+        guard let apollo = apollo else { return }
         
         // Distinguish if you is admin or not
         
-        // Load user's account settings
-//        loadUserSettings(with: apollo)
+//         Load user's account settings
+        loadUserSettings(with: apollo)
         updateViews()
     }
     
@@ -134,6 +134,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
                 }
                 
                 self.watcher?.refetch()
+                messagesWatcher?.refetch()
             }
             return
         }
@@ -174,7 +175,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
                 }
                 
                 self.watcher?.refetch()
-                
+                messagesWatcher?.refetch()
             }
         }
     }

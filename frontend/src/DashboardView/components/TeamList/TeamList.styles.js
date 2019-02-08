@@ -22,7 +22,7 @@ const Container = styled.div`
 		padding-left: 20px;
 	}
 	${mediaQueryFor.mdDevice`
-		margin-bottom: 20px;
+		margin-bottom: 10px;
     width:100%;
   `}
 `;
@@ -74,7 +74,7 @@ const TeamsList = styled.div`
 const LinkStyles = styled(Link)`
 	text-decoration: none;
 	background-color: ${colors.button};
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	border-radius: 5px;
 
 	${mediaQueryFor.mdDevice`

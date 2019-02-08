@@ -8,9 +8,12 @@
 |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/koennecker)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/sherlock270)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/danielaparra)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/david-pok)          |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/ErikKimsey)         |         [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/zacharyarney)          |
 
 - [Technical Design Document](https://docs.google.com/document/d/1kNjsQN3wasR7accKpKR836aFewaEpWMwHhahp6uzRIo/)
+- [Asset licenses](assets.md)
 - [iOS Setup](ios/README.md)
 - [Front End Setup](frontend/README.md)
 - [Back End Setup](backend/README.md)
+- [Testing for Web App](misc/README.md)
+- [Security for Web App](misc/SECURITY.md)
 
 - [Team Home](#team-home)
   - [Team](#team)

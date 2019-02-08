@@ -16,7 +16,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import { colors, palette } from '../../colorVariables';
+import { palette } from '../../colorVariables';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
@@ -25,8 +25,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import styled from 'styled-components';
 import DialogActions from '@material-ui/core/DialogActions';
-
-const { button } = colors;
 
 export const Overlay = styled(DialogContent)`
 	background-color: ${palette.plumTransparent};
@@ -375,7 +373,10 @@ class MessageDetail extends Component {
 													{findMsgCommentsByMessage.map(comment => (
 														<Paper
 															key={comment._id}
-															style={{ background: palette.plum }}
+															style={{
+																background: palette.plum,
+																marginBottom: '10px'
+															}}
 															elevation={1}
 														>
 															<CardHeader

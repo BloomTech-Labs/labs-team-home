@@ -35,17 +35,6 @@ const apiKey = process.env.REACT_APP_API_KEY;
 const apiSecret = process.env.REACT_APP_API_SECRET;
 const cloudName = process.env.REACT_APP_CLOUD_NAME;
 
-const Container = styled(Dialog)`
-	@media (max-width: 696px) {
-		div {
-			div {
-				margin-left: 0;
-				margin-right: 0;
-			}
-		}
-	}
-`;
-
 const Overlay = styled(DialogContent)`
 	background-color: ${button};
 	.filepond--wrapper {
@@ -66,51 +55,6 @@ const Title = styled(DialogTitle)`
 	}
 `;
 
-// const MessageFormContainer = styled.div`
-// 	display: flex;
-// 	flex-flow: column;
-// 	width: 60%;
-// 	height: 80%;
-// 	margin: auto;
-// 	padding: 1%;
-// 	z-index: 1001;
-// 	background-color: ${palette.plum};
-// 	border: 1px solid black;
-// 	position: fixed;
-// 	top: 0;
-// 	bottom: 0;
-// 	left: 0;
-// 	right: 0;
-// 	color: white;
-
-// 	& form {
-// 		width: 100%;
-// 		display: -webkit-box;
-// 		display: -webkit-flex;
-// 		display: -ms-flexbox;
-// 		display: flex;
-// 		-webkit-flex-flow: column;
-// 		-ms-flex-flow: column;
-// 		flex-flow: column;
-// 		margin: 0 auto;
-// 		label {
-// 			display: flex;
-// 			flex-flow: column;
-// 			font-size: 1.2rem;
-// 			input {
-// 				height: 50px;
-// 				background: black;
-// 				color: yellow;
-// 				font-size: 1.2rem;
-// 			}
-// 			textarea {
-// 				height: 233px;
-// 				background: black;
-// 			}
-// 		}
-// 	}
-// `;
-
 const Input = styled(TextField)`
 	input,
 	textarea,
@@ -126,7 +70,7 @@ const Input = styled(TextField)`
 `;
 
 function AddMessage(props) {
-	let team, user, title, content, tag, images, tags;
+	let team, user, title, content, tag, images;
 	team = props.team;
 	user = props.user;
 	images = [];

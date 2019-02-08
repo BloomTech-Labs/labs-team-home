@@ -14,7 +14,9 @@ var commentsWatcher: GraphQLQueryWatcher<FindCommentsByMessageQuery>?
 class CommentsCollectionViewController: UICollectionViewController, AddNewCommentDelegate, CommentCollectionCellDelegate {
     
     func didAddNewComment() {
-        self.label.removeFromSuperview()
+        if label != nil {
+            self.label.removeFromSuperview()
+        }
     }
     
 
@@ -46,6 +48,9 @@ class CommentsCollectionViewController: UICollectionViewController, AddNewCommen
         cell.currentUser = currentUser
         cell.comment = comment
         cell.delegate = self
+        
+        let height = cell.card.frame.height
+        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: height)
         
         return cell
     }

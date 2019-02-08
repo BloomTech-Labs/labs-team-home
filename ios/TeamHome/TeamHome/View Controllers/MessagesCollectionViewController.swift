@@ -46,6 +46,9 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
         cell.currentUser = currentUser
         cell.delegate = self
         
+//        let height = cell.card.frame.height
+//        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: height)
+        
         return cell
     }
     
@@ -129,7 +132,7 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
     
     private func sort() {
         guard let messages = messages else { return }
-        
+
         let sortedMessages = messages.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
         self.messages = sortedMessages
         newestToOldest = true

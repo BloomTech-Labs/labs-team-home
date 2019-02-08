@@ -9,7 +9,7 @@ const options = {
 		primaryColor: colors.button
 	},
 	languageDictionary: {
-		title: 'TeamHome'
+		title: 'Sveza'
 	},
 	auth: {
 		sso: false,

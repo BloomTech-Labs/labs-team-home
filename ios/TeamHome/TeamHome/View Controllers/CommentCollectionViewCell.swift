@@ -9,6 +9,7 @@
 import UIKit
 import Cloudinary
 import Material
+import Toucan
 
 protocol CommentCollectionCellDelegate: class {
     func likeComment(cell: CommentCollectionViewCell)
@@ -45,12 +46,13 @@ class CommentCollectionViewCell: UICollectionViewCell {
         let dateDouble2 = dateDouble / 1000.0
         let date = dateDouble2.getDateStringFromUTC()
 
+        prepareAvatarImage(for: comment)
         prepareDateLabel(with: date)
         prepareLikes(for: comment)
-        prepareToolbar(with: comment)
         prepareContentView(with: comment)
         prepareBottomBar()
-        prepareCard()
+//        prepareToolbar(comment: comment)
+//        prepareCard()
     
     }
     
@@ -95,8 +97,8 @@ class CommentCollectionViewCell: UICollectionViewCell {
         
     }
     
-    private func prepareToolbar(with comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
-        toolbar = Toolbar()
+    private func prepareToolbar(comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+        toolbar = Toolbar(leftViews: [avatarImageView])
         
         toolbar.title = "\(comment.user.firstName) \(comment.user.lastName)"
         toolbar.titleLabel.textAlignment = .left
@@ -136,6 +138,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
                 
                 DispatchQueue.main.async {
                     self.imageView = UIImageView(image: image.resize(toHeight: 50)!)
+                    self.prepareCard()
                 }
             }
             
@@ -165,7 +168,8 @@ class CommentCollectionViewCell: UICollectionViewCell {
         messageContentView.addSubview(contentLabel)
         messageContentView.addSubview(imageView)
         
-        card.contentView = messageContentView
+        card.contentView = contentLabel
+        card.presenterView = imageView
         card.contentViewEdgeInsetsPreset = .wideRectangle4
         
         card.bottomBar = bottomBar
@@ -173,6 +177,49 @@ class CommentCollectionViewCell: UICollectionViewCell {
         card.backgroundColor = .white
     }
     
+    private func prepareAvatarImage(for comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+        
+        setImage(for: comment) { (image) in
+            DispatchQueue.main.async {
+                
+                let resizedImage = Toucan.init(image: image).resize(CGSize(width: 50, height: 50), fitMode: .crop).maskWithEllipse()
+                self.avatarImageView = UIImageView(image: resizedImage.image)
+                self.avatarImageView.frame = CGRect(x: 0, y: 0, width: self.avatarImageView.frame.width, height: self.avatarImageView.frame.height)
+                self.avatarImageView.contentMode = .scaleAspectFit
+                self.prepareToolbar(comment: comment)
+                self.prepareCard()
+            }
+        }
+    }
+    
+    // Set image for a given message.
+    private func setImage(for comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage, completion: @escaping (UIImage) -> Void) {
+        // Download image and display as user avatar string of image url
+        guard let avatar = comment.user.avatar else {
+            let image = UIImage(named: "User Avatar Image")!
+            completion(image)
+            return
+        }
+        
+        // Use cloudinary to fetch image because using their image hosting service
+        cloudinary.createDownloader().fetchImage(avatar, { (progress) in
+            // Show progress bar for download
+            
+        }) { (image, error) in
+            if let error = error {
+                NSLog("Error: \(error)")
+                let image = UIImage(named: "User Avatar Image")!
+                completion(image)
+                return
+            }
+            
+            guard let image = image else { return }
+            
+            
+            completion(image)
+        }
+        
+    }
     
     // MARK - Properties
     
@@ -187,6 +234,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
     }
     
     private var toolbar: Toolbar!
+    private var avatarImageView: UIImageView!
     private var contentLabel: UILabel!
     private var bottomBar: Bar!
     private var dateLabel: UILabel!
@@ -196,6 +244,6 @@ class CommentCollectionViewCell: UICollectionViewCell {
     private var messageContentView: UIView!
     private var imageView: UIImageView!
     
-    @IBOutlet weak var card: Card!
+    @IBOutlet weak var card: PresenterCard!
     
 }

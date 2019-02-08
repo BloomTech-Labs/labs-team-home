@@ -46,8 +46,27 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
             // Set up Apollo client with idToken from auth0.
             self.setUpApollo(with: idToken)
             
-            // Perform segue to Dashboard VC.
-            self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+            guard let apollo = self.apollo else {return}
+            
+            apollo.fetch(query: CurrentUserQuery(), queue: DispatchQueue.global(), resultHandler: { (result, error) in
+                if let error = error {
+                    NSLog("Error logging in: \(error)")
+                    return
+                }
+                
+                guard let result = result,
+                    let data = result.data,
+                    let currentUser = data.currentUser else {
+                        // Perform other segue
+                        self.performSegue(withIdentifier: "ShowNewUser", sender: self)
+                        return
+                }
+                self.currentUser = currentUser
+                print(currentUser.firstName)
+                
+                // Perform segue to Dashboard VC.
+                self.performSegue(withIdentifier: "ShowDashboard", sender: self)
+            })
         }
     }
     
@@ -99,9 +118,6 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                             // Perform segue to Dashboard VC.
                             self.performSegue(withIdentifier: "ShowDashboard", sender: self)
                         })
-                        
-//                        // Perform segue to Dashboard VC.
-//                        self.performSegue(withIdentifier: "ShowDashboard", sender: self)
 
                     case .failure(let error):
                         
@@ -296,11 +312,12 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
             guard let destinationVC = segue.destination as? DashboardCollectionViewController,
 //                let topView = destinationVC.topViewController,
 //                let nextVC = topView as? DashboardCollectionViewController,
-                let apollo = apollo else { return }
+                let apollo = apollo,
+                let currentUser = currentUser else { return }
             
             // Pass Apollo client.
-            destinationVC.apollo = apollo
             destinationVC.currentUser = currentUser
+            destinationVC.apollo = apollo
             
         } else if segue.identifier == "ShowNewUser" {
             guard let destinationVC = segue.destination as? CreateNewUserViewController,

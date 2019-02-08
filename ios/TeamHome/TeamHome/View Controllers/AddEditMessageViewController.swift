@@ -11,6 +11,7 @@ import Apollo
 import Cloudinary
 import Photos
 import Material
+import Motion
 
 // Set up cloudinary with account details for all app to use
 let config = CLDConfiguration(cloudName: "massamb", secure: true)
@@ -20,7 +21,7 @@ protocol EditMessageDelegate: class {
     func editedMessage()
 }
 
-class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
     // MARK - Lifecycle Methods
     
@@ -173,7 +174,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                 let this = messageTag.name
                 
                 if tag.name == this {
-                    self.tagSelected = messageTag.id
+                    self.tagSelected = messageTag.name
                     cell.backgroundColor = Appearance.mauveColor
                 }
             }
@@ -186,6 +187,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         guard let tag = tags?[indexPath.row] else { return }
         self.tagSelected = tag.name
         let cell = collectionView.cellForItem(at: indexPath)
+        
         cell?.backgroundColor = Appearance.mauveColor
     }
     
@@ -208,6 +210,37 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         picker.dismiss(animated: true, completion: nil)
     }
     
+    // MARK - Keyboard Animation and Delegate functions
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height / 2
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
     // MARK - Private Methods
     
     private func updateViews() {
@@ -217,6 +250,8 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         titleLabel.text = "Edit message"
         messageTitleTextField.text = message.title
         messageContentTextView.text = message.content
+        
+        self.tagSelectedId = message.tag?.id
         
         guard let images = message.images else { return }
         
@@ -296,9 +331,15 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     }
     
     private func findSelectedTag() -> GraphQLID? {
+        
         // Unwrap tag selection or recently created tag.
         guard let selectedTag = self.tagSelected,
-            let tags = tags else { return nil }
+            let tags = tags else {
+                if let tagId = tagSelectedId {
+                    return tagId
+                }
+                return nil
+        }
         
         for tag in tags {
             if let tag = tag {
@@ -409,6 +450,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                     DispatchQueue.main.async {
                         // Call messages watcher to refetch all messages.
                         messagesWatcher?.refetch()
+                        messageWatcher?.refetch()
                         
                         self.delegate?.editedMessage()
                         
@@ -417,29 +459,30 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                     }
                 }
                 
-            }
-            
-            apollo.perform(mutation: UpdateMessageMutation(id: messageId, title: messageTitle, teamId: teamId, content: content, images: nil, tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
-                // Check for errors.
-                if let error = error {
-                    NSLog("\(error)")
-                    return
-                }
-                
-                guard let result = result,
-                    let data = result.data,
-                    let message = data.updateMessage else { return }
-                
-                print(message.title)
-                
-                DispatchQueue.main.async {
-                    // Call messages watcher to refetch all messages.
-                    messagesWatcher?.refetch()
+            } else {
+                apollo.perform(mutation: UpdateMessageMutation(id: messageId, title: messageTitle, teamId: teamId, content: content, tagId: tagId), queue: DispatchQueue.global()) { (result, error) in
+                    // Check for errors.
+                    if let error = error {
+                        NSLog("\(error)")
+                        return
+                    }
                     
-                    self.delegate?.editedMessage()
+                    guard let result = result,
+                        let data = result.data,
+                        let message = data.updateMessage else { return }
                     
-                    // Go back to previous view controller.
-                    self.navigationController?.popViewController(animated: true)
+                    print(message.title)
+                    
+                    DispatchQueue.main.async {
+                        // Call messages watcher to refetch all messages.
+                        messagesWatcher?.refetch()
+                        messageWatcher?.refetch()
+                        
+                        self.delegate?.editedMessage()
+                        
+                        // Go back to previous view controller.
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
             return
@@ -481,7 +524,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
                 DispatchQueue.main.async {
                     // Call messages watcher to refetch all messages.
                     messagesWatcher?.refetch()
-                    
+                    messageWatcher?.refetch()
                     
                     // Go back to previous view controller.
                     self.navigationController?.popViewController(animated: true)
@@ -493,6 +536,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
     // MARK - Properties
     
     private var tagSelected: String?
+    private var tagSelectedId: GraphQLID?
     private var imageURL: String?
     private var imageData: Data?
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
