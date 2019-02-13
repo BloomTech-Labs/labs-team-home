@@ -45,6 +45,20 @@ From the root directory of the project, enter the following commands to install 
     
 Note that from now on, you'll need to open the `.xcworkspace` file instead of `.xcproject`, or the project's code will not compile.
 
+#### Apollo Tooling & Node
+
+If you open the project now there will be errors for `apollo cli` so you will need to install node if you don't have it already.
+
+To install node through Homebrew, enter the following into your terminal:
+
+    brew install node
+    
+After node is installed, you will need to add the apollo tooling. To do so, enter the following into your terminal:
+
+    npm install -g apollo
+    
+Now you can run the Xcode workspace file without any errors.
+
 ## Project Structure
 
 The projects files are organized into folders in the Xcode project, the following is the file structure from the Team Home folder inside the project.
