@@ -38,7 +38,7 @@
 		"reactstrap": "^7.1.0",
 		"styled-components": "^4.1.3"
 	},
-	"homepage": "https://team-home.netlify.com/",
+	"homepage": "https://team-home-2.netlify.com/",
 	"devDependencies": {
 		"eslint-config-prettier": "^3.1.0",
 		"eslint-plugin-prettier": "^3.0.0",

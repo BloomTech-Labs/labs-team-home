@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const URI =
 	process.env.NODE_ENV === 'production'
-		? 'https://team-home.herokuapp.com/graphql'
+		? 'https://team-home-2-graphql-mongodb.herokuapp.com/'
 		: 'http://localhost:5000/graphql';
 
 const client = new ApolloClient({
