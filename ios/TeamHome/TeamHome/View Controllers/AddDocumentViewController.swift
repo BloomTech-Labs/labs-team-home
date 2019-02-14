@@ -23,7 +23,9 @@ class AddDocumentViewController: UIViewController {
         newDocumentView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
-        documentNotesTextView.placeholder = "Enter your message"
+        documentLinkTextField.textColor = Appearance.darkMauveColor
+        documentLinkTextField.placeholder = "Add a link"
+        documentNotesTextView.placeholder = "Add a note"
         documentNotesTextView.textColor = .white
         documentNotesTextView.dividerColor = Appearance.yellowColor
         documentTitleTextField.placeholderActiveColor = Appearance.yellowColor
@@ -46,7 +48,7 @@ class AddDocumentViewController: UIViewController {
     @IBOutlet weak var newDocumentView: UIView!
     @IBOutlet weak var documentTitleTextField: TextField!
     
-    @IBOutlet weak var documentLinkTextField: UITextField!
+    @IBOutlet weak var documentLinkTextField: TextField!
     @IBOutlet weak var documentNotesTextView: TextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
