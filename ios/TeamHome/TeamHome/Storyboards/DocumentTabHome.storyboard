@@ -213,10 +213,10 @@
             </objects>
             <point key="canvasLocation" x="2484" y="153.37331334332833"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Document View Controller-->
         <scene sceneID="9u2-Io-UhV">
             <objects>
-                <viewController id="Gjh-D1-vhX" sceneMemberID="viewController">
+                <viewController id="Gjh-D1-vhX" customClass="AddDocumentViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WHs-eC-9fZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -360,6 +360,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vcF-Se-sQx"/>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="vks-v4-e09" id="Okv-35-Jte"/>
+                        <outlet property="collectionView" destination="Tqk-wu-jEX" id="upd-8T-l84"/>
+                        <outlet property="documentLinkTextField" destination="wNb-Lw-uj0" id="uaP-Gu-5TL"/>
+                        <outlet property="documentNotesTextView" destination="BHQ-Px-4pc" id="Y1I-4P-ZOV"/>
+                        <outlet property="documentTitleTextField" destination="yh7-UD-BNh" id="O5K-eV-oeu"/>
+                        <outlet property="imageView" destination="TYs-h8-hHN" id="l8t-By-GjD"/>
+                        <outlet property="newDocumentView" destination="rAZ-4k-C2y" id="qGL-RU-Hn5"/>
+                        <outlet property="submitButton" destination="Jdc-Gj-j0w" id="zZg-eX-pOP"/>
+                        <outlet property="tagsTextField" destination="l8Z-hU-z1g" id="EZ8-d2-Qyf"/>
+                        <outlet property="titleLabel" destination="6Qd-mG-lC4" id="T7A-ox-Gvi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cUf-ob-Rhj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
