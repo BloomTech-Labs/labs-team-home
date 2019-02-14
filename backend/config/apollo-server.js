@@ -12,7 +12,7 @@ const schema = makeExecutableSchema({
 	typeDefs,
 	resolvers
 });
-
+// testing my push/pull request and branch auth. sorry for the frivolous pull request.
 const context = async ({ req }) => {
 	let currentUser;
 	const token = req.headers.authorization;
@@ -26,7 +26,7 @@ const context = async ({ req }) => {
 		});
 	const options = {
 		aud: `https://team-home-2-graphql-mongodb.herokuapp.com/`,
-		iss: `${AUTH0_DOMAIN}/api/v2/`,
+		biss: `${AUTH0_DOMAIN}/api/v2/`,
 		algorithms: ['RS256']
 	};
 	try {
