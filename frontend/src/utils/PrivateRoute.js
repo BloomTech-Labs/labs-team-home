@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import g_decode from 'jwt-decode';
 import { Query } from 'react-apollo';
 import { CURRENT_USER } from '../constants/queries';
 
