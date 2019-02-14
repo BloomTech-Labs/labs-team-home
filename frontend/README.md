@@ -4,7 +4,7 @@
 
 ##### Starting Up the FrontEnd:
 
-1. Fork and Clone the `labs9-team-home` repo,
+1. Fork and Clone the `labs10-team-home` repo,
 2. `cd` into the frontend folder of the cloned repo,
 3. In your commandline-tool, run `yarn install` to install packages,
 4. Create an `.env` file and create the variables `REACT_APP_AUTH0_DOMAIN`, `REACT_APP_AUTH0_CLIENT_ID`, `REACT_APP_UPLOAD_PRESET`, `REACT_APP_API_KEY`, `REACT_APP_API_SECRET`, `REACT_APP_CLOUD_NAME`, and `STRIPE_PUBLISHABLE_KEY`. Instructions below on how to get the key for each variable.
