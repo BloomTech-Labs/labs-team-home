@@ -65,6 +65,7 @@
 		7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */; };
 		7BF8736221FA6B4B00737729 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8736121FA6B4B00737729 /* Activity.swift */; };
 		C4D48ED210903108208DB396 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */; };
+		F8E77CDA2214DB3B00E12C8B /* DocumentTabHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +131,7 @@
 		7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CommentsCollectionViewController.graphql; sourceTree = "<group>"; };
 		7BF8736121FA6B4B00737729 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		DE4B1FF0DF331C25C53901F0 /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
+		F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DocumentTabHome.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +213,7 @@
 				7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */,
 				7B6BE7D921E5733E0099E42C /* LaunchScreen.storyboard */,
 				108020BF2214E1BD00B38D5F /* DocumentCreateStoryboard.storyboard */,
+				F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				7BF8735821F7B4C500737729 /* AddNewMessageViewController.graphql in Resources */,
 				7BA77E9C21E8033C00C862C1 /* UserExample.json in Resources */,
 				108020C02214E1BD00B38D5F /* DocumentCreateStoryboard.storyboard in Resources */,
+				F8E77CDA2214DB3B00E12C8B /* DocumentTabHome.storyboard in Resources */,
 				7B6BE7DB21E5733E0099E42C /* LaunchScreen.storyboard in Resources */,
 				7BA77EAA21E9177300C862C1 /* MessageDetailView.storyboard in Resources */,
 				7BF8734C21F6B4C200737729 /* LandingPageViewController.graphql in Resources */,
@@ -655,6 +659,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 579Y2HH9JP;
+				DEVELOPMENT_TEAM = 8J9VUCBX92;
 				INFOPLIST_FILE = "$(SRCROOT)/TeamHome/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -674,6 +679,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 579Y2HH9JP;
+				DEVELOPMENT_TEAM = 8J9VUCBX92;
 				INFOPLIST_FILE = "$(SRCROOT)/TeamHome/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
