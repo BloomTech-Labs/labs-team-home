@@ -8,10 +8,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 	<Route
 		{...rest}
 		render={props => {
-			if (localStorage.token) {
-				if (
-					jwt_decode(localStorage.token).exp > Math.floor(Date.now() / 1000) // checks if token is a JWT and if it isn't expired
-				) {
+			// if (localStorage.token) {
+			// 	if (
+			// 		jwt_decode(localStorage.token).exp > Math.floor(Date.now() / 1000) // checks if token is a JWT and if it isn't expired
+			// 	) {
 					return (
 						<Query query={CURRENT_USER}>
 							{({ loading, error, data: { currentUser } }) => {
@@ -28,17 +28,21 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 							}}
 						</Query>
 					);
-				} else {
-					localStorage.removeItem('token');
-					alert('Session expired, please login.');
-					return <Redirect to="/" />;
-				}
-			} else {
-				alert('You must login to access that page.');
-				return <Redirect to="/" />;
-			}
-		}}
+// 				} else {
+// 					localStorage.removeItem('token');
+// 					alert('Session expired, please login.');
+// 					return <Redirect to="/" />;
+// 				}
+// 			} else {
+// 				alert('You must login to access that page.');
+// 				return <Redirect to="/" />;
+// 			}
+// 		}}
+// 	/>
+// );
+		}
+	}
 	/>
-);
+)
 
 export default PrivateRoute;
