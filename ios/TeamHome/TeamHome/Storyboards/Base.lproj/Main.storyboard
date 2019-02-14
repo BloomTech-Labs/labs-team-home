@@ -874,6 +874,7 @@
                         <segue destination="2mg-eU-hVf" kind="relationship" relationship="viewControllers" id="tCd-Vp-oka"/>
                         <segue destination="EZM-fP-Luk" kind="relationship" relationship="viewControllers" id="yjn-Ap-vLc"/>
                         <segue destination="E2R-Ee-Kon" kind="relationship" relationship="viewControllers" id="a3R-QW-bka"/>
+                        <segue destination="OJi-cF-0Cz" kind="relationship" relationship="viewControllers" id="kJj-No-64Z"/>
                         <segue destination="k4i-wu-yJ9" kind="relationship" relationship="viewControllers" id="1q6-8S-0On"/>
                     </connections>
                 </tabBarController>
@@ -920,6 +921,34 @@
             </objects>
             <point key="canvasLocation" x="1728.985507246377" y="-367.63392857142856"/>
         </scene>
+        <!--DocumentTabHome-->
+        <scene sceneID="VsZ-BU-s98">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DocumentTabHome" id="xgJ-gm-YgW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="PeZ-yT-WYd"/>
+                    <navigationItem key="navigationItem" id="N0q-bd-sET"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ChS-fc-JWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-22" y="835"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="zhO-Nn-azM">
+            <objects>
+                <navigationController id="OJi-cF-0Cz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="Documents" id="Qmb-tS-u3g"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kLa-Hw-Y0h">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="xgJ-gm-YgW" kind="relationship" relationship="rootViewController" id="XXU-Z5-zbY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lze-lI-TjE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-23" y="398"/>
+        </scene>
         <!--Settings-->
         <scene sceneID="5W3-Bv-UUg">
             <objects>
@@ -946,6 +975,7 @@
         <image name="Activity Tab" width="56.347827911376953" height="56.347827911376953"/>
         <image name="Arrow Down" width="13.60629940032959" height="13.60629940032959"/>
         <image name="Change Team" width="50.823528289794922" height="50.823528289794922"/>
+        <image name="Documents" width="54" height="54"/>
         <image name="Logo With Nodes" width="246" height="245"/>
         <image name="Messages Tab" width="46.285713195800781" height="46.285713195800781"/>
         <image name="Settings Tab" width="94.254547119140625" height="94.254547119140625"/>
@@ -955,6 +985,6 @@
         <image name="google-plus" width="365" height="365"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DPm-Su-I7i"/>
+        <segue reference="9db-bK-rdS"/>
     </inferredMetricsTieBreakers>
 </document>
