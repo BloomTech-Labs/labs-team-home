@@ -150,7 +150,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My teams" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4M-uB-xAH">
-                                    <rect key="frame" x="157" y="27.666666666666671" width="100" height="23"/>
+                                    <rect key="frame" x="163" y="27.666666666666671" width="88" height="23"/>
                                     <fontDescription key="fontDescription" name="Comfortaa-Regular" family="Comfortaa" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -932,11 +932,11 @@
             </objects>
             <point key="canvasLocation" x="-22" y="835"/>
         </scene>
-        <!--Item-->
+        <!--Documents-->
         <scene sceneID="zhO-Nn-azM">
             <objects>
                 <navigationController id="OJi-cF-0Cz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="Documents" id="Qmb-tS-u3g"/>
+                    <tabBarItem key="tabBarItem" title="Documents" image="Documents" id="Qmb-tS-u3g"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kLa-Hw-Y0h">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
