@@ -50,6 +50,7 @@ class App extends Component {
 							timeout={{ enter: 300, exit: 300 }}
 							classNames={'fade'}
 						>
+							{/* Switch renders only the first route that matches the location */}
 							<Switch location={this.props.location}>
 								<PublicRoute exact path="/" component={LandingView} />
 								<PrivateRoute
