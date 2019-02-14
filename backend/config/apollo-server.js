@@ -26,7 +26,7 @@ const context = async ({ req }) => {
 		});
 	const options = {
 		aud: `https://team-home-2-graphql-mongodb.herokuapp.com/`,
-		biss: `${AUTH0_DOMAIN}/api/v2/`,
+		iss: `${AUTH0_DOMAIN}/api/v2/`,
 		algorithms: ['RS256']
 	};
 	try {
