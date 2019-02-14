@@ -26,6 +26,13 @@
 4. Select your single page application.
 5. In the settings tab copy `Domain` into `REACT_APP_AUTH0_DOMAIN` and `Client ID` into `REACT_APP_AUTH0_CLIENT_ID`.
 
+##### Setting Auth0 API Configuration (Necessary for using project with own BackEnd):
+
+1. From the tabs on the left of the screen select `APIs`.
+2. Click on the `Create API` button.
+3. Add any name you wish under the `Name` field and add your Backend API under the `Identifier` field.
+4. Click ont the `Create` button.
+
 ##### Getting Cloudinary Keys:
 
 1. [Create an account](https://cloudinary.com/)
