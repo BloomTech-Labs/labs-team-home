@@ -12,7 +12,7 @@ const schema = makeExecutableSchema({
 	typeDefs,
 	resolvers
 });
-
+// testing my push/pull request and branch auth. sorry for the frivolous pull request.
 const context = async ({ req }) => {
 	let currentUser;
 	const token = req.headers.authorization;
