@@ -199,5 +199,4 @@ Nodemon is a utility that will monitor for any changes in your source and automa
 ## Note on .env files
 
 For security purposes, we will not post the keys on this repo, but if you need the keys to test the repo out on your
-personal development computer, they are in the slack channel labs10_team_home. Give a DM to any of the labs10 members, and they
-can probably get you up to speed on that.
+personal development computer, access to them can be obtained in the slack channel labs10_team_home. Give a DM to any of the labs10 members, and they can probably get you up to speed on that.
