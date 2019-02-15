@@ -55,10 +55,13 @@ class TeamList extends React.Component {
 
 	render() {
 		return (
-			<style.Container>
+			/* NOTE: anything with <style.name> is essentially a styled component */
+			<style.Container> 
+				{/* specifies what mutation you want to use */}
 				<Mutation
-					mutation={mutation.ADD_TEAM}
-					update={(cache, { data: { addTeam } }) => {
+					mutation={mutation.ADD_TEAM} 
+					update={(cache, { data: { addTeam } }) => { 
+						{/* data is the result of the mutation. In this case it is addTeam from below */}
 						const { findTeamsByUser } = cache.readQuery({
 							query: query.FIND_TEAMS_BY_USER
 						});
@@ -66,9 +69,9 @@ class TeamList extends React.Component {
 							query: query.FIND_TEAMS_BY_USER,
 							data: { findTeamsByUser: [...findTeamsByUser, addTeam] }
 						});
-					}}
+					}} /* updates the chache after the mutation happens */
 				>
-					{addTeam => (
+					{addTeam => ( // on submit
 						<style.Form className={this.state.classes.root} elevation={1}>
 							<style.Input
 								className={this.state.classes.input}
@@ -101,6 +104,7 @@ class TeamList extends React.Component {
 				<h1>My Teams</h1>
 				<style.TeamsList>
 					<Query query={query.FIND_TEAMS_BY_USER}>
+						{/* data is the result of the query. Query component can also return loading bool and error bool. */}
 						{({ loading, error, data: { findTeamsByUser } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error :(</p>;

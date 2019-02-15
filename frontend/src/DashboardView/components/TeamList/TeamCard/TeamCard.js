@@ -1,8 +1,9 @@
 import React from 'react';
+// ------------- Material UI -------------- //
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-
+// --------- imported styles/ JSS --------- //
 import * as style from './TeamCard.styles';
 
 const styles = {
@@ -23,10 +24,12 @@ function TeamCard(props) {
 	const { classes } = props;
 
 	return (
+		/* components styled via JSS */
 		<style.Container>
 			<CardActionArea>
 				<style.Info>
-					<Grid container spacing={8}>
+					{/* Grid component comes from materia ul. Allows for responsive layout. */}
+					<Grid container spacing={8}> 
 						<Grid item xs={6} className={classes.gridStyle}>
 							<style.StyledTypography noWrap variant="title" component="h3">
 								{name}
@@ -36,7 +39,7 @@ function TeamCard(props) {
 							item
 							xs={6}
 							className={(classes.alignRight, classes.gridStyle)}
-						>
+						> {/* emoji were used here */}
 							<style.Prem component="p" noWrap>
 								Premium? {premium ? '✔️' : '❌'}
 							</style.Prem>
