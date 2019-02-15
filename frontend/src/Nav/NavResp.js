@@ -30,11 +30,6 @@ class RespNavBar extends Component {
 		this.setState({ isOpen: false });
 	};
 
-	handleLogin = () => {
-		this.state.auth.login();
-		this.makeIsOpenFalse();
-	};
-
 	handleSignUp = () => {
 		this.state.auth.signUp();
 		this.makeIsOpenFalse();
