@@ -6,7 +6,7 @@ const LogoBanner = props => {
 	return (
 		<LogoBannerStyles>
 			<BannerStyles />
-			<BottomContent />
+			<BottomContent /> {/* The main text of the landing page is here */}
 		</LogoBannerStyles>
 	);
 };
