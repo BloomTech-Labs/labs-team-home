@@ -12,8 +12,10 @@ const userResolvers = {
 		findUser: (_, { input: { id } }) => User.findById(id)
 	},
 	Mutation: {
+		// removed sub to allow creation without auth
 		addUser: (_, { input }, { user: { sub } }) =>
 			new User({ authId: sub, ...input }).save(),
+		// addUser: (_, { input }) => new User({ ...input }).save(),
 		updateUser: (_, { input }, { user: { _id } }) =>
 			User.findById(_id).then(exists => {
 				if (exists) {
