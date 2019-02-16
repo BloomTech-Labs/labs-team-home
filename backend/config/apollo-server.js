@@ -46,6 +46,7 @@ const context = async ({ req }) => {
 				);
 			})
 		);
+		console.log(currentUser);
 	} catch (e) {
 		throw new AuthenticationError(`${e}`);
 	}
@@ -54,11 +55,7 @@ const context = async ({ req }) => {
 
 const server = new ApolloServer({
 	schema,
-	context: {},
-	debug: true,
-	tracing: true,
-	introspection: true,
-	playground: true
+	context
 });
 
 module.exports = app => server.applyMiddleware({ app });

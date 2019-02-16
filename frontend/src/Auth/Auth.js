@@ -33,7 +33,7 @@ export default class Auth0 {
 
 	login() {
 		this.lock.show({
-			allowedConnections: ['facebook', 'google-oauth2'],
+			allowedConnections: ['facebook', 'github', 'google-oauth2'],
 			initialScreen: 'login',
 			sso: false
 		});
@@ -41,7 +41,7 @@ export default class Auth0 {
 
 	signUp() {
 		this.lock.show({
-			allowedConnections: ['facebook', 'google-oauth2'],
+			allowedConnections: ['facebook', 'github', 'google-oauth2'],
 			initialScreen: 'signUp',
 			sso: false
 		});
