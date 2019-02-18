@@ -30,24 +30,21 @@ class RespNavBar extends Component {
 		this.setState({ isOpen: false });
 	};
 
-	// did someone remove this code? added back in and i commented it out
-	// handleLogin = () => {	
-	// 	this.state.auth.login();	
-	// 	this.makeIsOpenFalse();	
-	// };
+	handleLogin = () => {
+		this.state.auth.login();
+		this.makeIsOpenFalse();
+	};
 
 	handleSignUp = () => {
 		this.state.auth.signUp();
 		this.makeIsOpenFalse();
 	};
 
-
 	toggle = () => {
 		this.setState({
 			isOpen: !this.state.isOpen
 		});
 	};
-
 
 	render() {
 		return (
