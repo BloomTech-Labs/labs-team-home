@@ -2,7 +2,22 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 
+
+
 /* styling for the navbar buttons */
+
+const NavBarTogglerDiv = styled.div`
+	display: none;
+	${mediaQueryFor.mdDevice`
+    display: block
+  `}
+	${mediaQueryFor.smDevice`
+    display: block
+  `} 
+	${mediaQueryFor.xsDevice`
+    display: block
+  `}
+`;
 const StyledLink = styled(Link)`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	font-family: Comfortaa;
@@ -148,4 +163,4 @@ const RespNav = styled.div`
 `;
 
 export default NavBar;
-export { TextIMG, StyledLink, RespNav };
+export { TextIMG, StyledLink, RespNav, NavBarTogglerDiv };

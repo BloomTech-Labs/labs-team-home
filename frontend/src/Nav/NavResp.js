@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Navbar, NavbarToggler } from 'reactstrap';
+import { Navbar } from 'reactstrap';
 import { TextIMG, RespNav } from '../Nav/styles/index';
 import { Spin } from 'react-burgers';
 import Auth0 from '../Auth/Auth';
 import textLogo from '../assets/Sveza_white.svg';
 import LandingNavOptions from './components/LandingNavOptions';
+import { NavBarTogglerDiv } from './styles/index';
 
 class RespNavBar extends Component {
 	constructor(props) {
@@ -30,17 +31,15 @@ class RespNavBar extends Component {
 		this.setState({ isOpen: false });
 	};
 
-	// did someone remove this code? added back in and i commented it out
-	// handleLogin = () => {	
-	// 	this.state.auth.login();	
-	// 	this.makeIsOpenFalse();	
-	// };
+	handleLogin = () => {
+		this.state.auth.login();
+		this.makeIsOpenFalse();
+	};
 
 	handleSignUp = () => {
 		this.state.auth.signUp();
 		this.makeIsOpenFalse();
 	};
-
 
 	toggle = () => {
 		this.setState({
@@ -48,16 +47,18 @@ class RespNavBar extends Component {
 		});
 	};
 
-
 	render() {
 		return (
 			<div>
 				<RespNav>
 					<Navbar expand="md">
 						<TextIMG className="text-img" src={textLogo} />
-						<NavbarToggler onClick={this.toggle}>
+						<NavBarTogglerDiv onClick={this.toggle}>
 							<Spin active={this.state.isOpen} color="#fff" />
-						</NavbarToggler>
+						</NavBarTogglerDiv>
+						{/* This was  originally a NavbarToggler 
+						imported from React-strap, but threw errors on the console ('can not 
+						nest a button in a button'). Changing it to a div preserves all functionality */}
 						<LandingNavOptions
 							handleLogin={this.handleLogin}
 							handleSignUp={this.handleSignUp}
