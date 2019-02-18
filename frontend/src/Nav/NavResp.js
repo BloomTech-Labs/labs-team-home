@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Navbar, NavbarToggler } from 'reactstrap';
+import { Navbar } from 'reactstrap';
 import { TextIMG, RespNav } from '../Nav/styles/index';
 import { Spin } from 'react-burgers';
 import Auth0 from '../Auth/Auth';

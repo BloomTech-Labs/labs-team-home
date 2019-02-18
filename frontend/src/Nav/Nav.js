@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
+import { Collapse, Navbar, Nav, NavItem } from 'reactstrap';
 import { StyledLink, TextIMG, RespNav, NavBarTogglerDiv } from './styles/index';
 import { Spin } from 'react-burgers';
 import textLogo from '../assets/Sveza_white.svg';
