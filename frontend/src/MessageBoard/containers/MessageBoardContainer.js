@@ -67,12 +67,13 @@ class MessageBoardContainer extends React.Component {
 	}
 
 	handleChange = (event, value) => {
+		console.log('botton clicked on message board nav bar');
 		this.setState({ value });
 	};
 
 	render() {
 		const { classes } = this.props;
-
+		console.log('MessageBoardContainer has been rendered');
 		return (
 			<MsgContainer>
 				<StyledPaper classes={{ root: classes.root }}>
@@ -91,17 +92,24 @@ class MessageBoardContainer extends React.Component {
 							classes={{ label: classes.label }}
 							label="Activity Timeline"
 						/>
+						{/* This is where we will be adding a link to the Documents Section: 
+						<StyledTab classes={{ label: classes.label }} label="Documents" /> 
+						// BTW, Bondor presently does not know how this.state.value is set, 
+						and kinda feels like this entire component does not presently allow 
+						for scale in this capacity*/}
 					</Tabs>
 				</StyledPaper>
 				<Query //this is from Apollo
 					query={queries.FIND_TEAM} //what we are finding: the team
 					variables={{ id: this.props.match.params.team }} //by the team ID, which is in the props from router
 				>
-					{({ loading, error, data: { findTeam } }) => { //this is the return from the query
+					{({ loading, error, data: { findTeam } }) => {
+						//this is the return from the query
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error!</p>;
 
-						if (!this.state.value) { //this decides which component to render
+						if (!this.state.value) {
+							//this decides which component to render
 							return (
 								<MessageBoard
 									currentUser={this.props.currentUser}
