@@ -46,7 +46,6 @@ const context = async ({ req }) => {
 				);
 			})
 		);
-		console.log(currentUser);
 	} catch (e) {
 		throw new AuthenticationError(`${e}`);
 	}
