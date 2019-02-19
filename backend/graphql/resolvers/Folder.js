@@ -11,11 +11,18 @@ const folderResolver = {
 			Folder.findById(id)
 				.populate('user team documents')
 				.then(folder => folder),
-		findFoldersByTeam: (_, { input: { team } }) => {
+		findFoldersByTeam: async (_, { input: { team } }) => {
 			console.log(team);
-			Folder.find({ team: team }).populate('user team documents');
+			const folders = await Folder.find({ team: team }).populate(
+				'user team documents'
+			);
+			return folders.map(x => {
+				x._id = x._id.toString();
+				return x;
+			});
 		}
 	},
+
 	Mutation: {
 		addFolder: (_, { input }, { user: { _id } }) =>
 			new Folder({ ...input, user: _id })

@@ -17,7 +17,7 @@ const Document = /* GRAPHQL */ `
     input FindDocumentsByTeamInput {
         team: ID!
     }
-    input FindDocumentByFolderInput {
+    input FindDocumentsByFolderInput {
         folder: ID!
     }
     input AddDocumentInput {
@@ -44,7 +44,7 @@ const Document = /* GRAPHQL */ `
         documents: [Document]
         findDocument(input: FindDocumentInput): Document
         findDocumentsByTeam(input: FindDocumentsByTeamInput): [Document]
-        findDocumentsByFolder(input: FindDocumentByFolderInput): [Document]
+        findDocumentsByFolder(input: FindDocumentsByFolderInput): [Document]
     }
     extend type Mutation {
         addDocument(input: AddDocumentInput): Document

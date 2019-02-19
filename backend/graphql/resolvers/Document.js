@@ -8,6 +8,10 @@ const { ValidationError } = require('apollo-server-express');
 const documentResolver = {
 	Query: {
 		documents: () => Document.find().populate('user name'),
+		findDocument: (_, { input: { id } }) =>
+			Document.findById(id)
+				.populate('team folder user')
+				.then(document => document),
 		findDocumentsByFolder: (_, { input: { folder } }) =>
 			Document.find({ folder: folder })
 				.populate('user team folder')
