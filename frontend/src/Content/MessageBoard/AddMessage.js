@@ -16,7 +16,7 @@ import CloseIcon from '@material-ui/icons/Close';
 // image preview not working
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
-import { addMessage, addTag } from './mutations/messages';
+import { addMessage, addTag } from '../mutations/messages';
 import { colors } from '../../colorVariables';
 import { compose, Query } from 'react-apollo';
 import { FIND_TAGS_BY_TEAM } from '../../constants/queries';
@@ -66,6 +66,9 @@ const Input = styled(TextField)`
 		textarea {
 			min-height: 200px;
 		}
+	}
+	&:nth-child(3) {
+		margin-bottom: 10px;
 	}
 `;
 
