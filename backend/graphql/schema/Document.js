@@ -21,4 +21,3 @@ const Document = /* GRAPHQL */ `
 `;
 
 module.exports = Document;
-
