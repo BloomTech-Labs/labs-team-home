@@ -4,7 +4,7 @@ const Folder = /* GraphQL */ `
 		title: String!
 		user: User!
 		team: Team!
-		documents: [ID]
+		documents: [Document]
 		createdAt: String
 		updatedAt: String
 	}

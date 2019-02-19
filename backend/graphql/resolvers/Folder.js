@@ -40,6 +40,7 @@ const folderResolver = {
 				if (folder) {
 					await Folder.findByIdAndDelete({ _id: id });
 					await Document.deleteMany({ folder: folder._id });
+					return folder;
 				} else {
 					throw new ValidationError("Folder doesn't exist.");
 				}
