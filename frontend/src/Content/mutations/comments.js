@@ -1,12 +1,12 @@
 import { graphql } from 'react-apollo';
-import * as query from '../../../constants/queries';
+import * as query from '../../constants/queries';
 import {
 	ADD_COMMENT,
 	UPDATE_COMMENT,
 	DELETE_COMMENT,
 	LIKE,
 	UNLIKE
-} from '../../../constants/mutations';
+} from '../../constants/mutations';
 
 const addCommentOptions = {
 	props: ({ ownProps: { message }, mutate }) => ({

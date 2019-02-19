@@ -1,7 +1,7 @@
 import React from 'react';
-import MessageBoard from '../components/MessageBoard';
-import ActivityTimeline from '../components/ActivityTimeline';
-import mediaQueryFor from '../../_global_styles/responsive_querie';
+import MessageBoard from './MessageBoard/MessageBoard';
+import ActivityTimeline from './ActivityTimeline/ActivityTimeline';
+import mediaQueryFor from '../_global_styles/responsive_querie';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,7 +10,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 //Query is a GET request for GraphQl, imported from apollo imprementation
 import { Query } from 'react-apollo';
-import * as queries from '../../constants/queries';
+import * as queries from '../constants/queries';
 
 const styles = {
 	root: {
@@ -55,7 +55,7 @@ const StyledTab = styled(Tab)`
 	}
 `;
 
-class MessageBoardContainer extends React.Component {
+class ContentContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -95,6 +95,7 @@ class MessageBoardContainer extends React.Component {
 						{/* Within the tabs bar, clicking on any of the components sets the value to 0, 1, or 2 respectively*/}
 					</Tabs>
 				</StyledPaper>
+				{/* Invite User and Title and user list here */}
 				<Query //this is from Apollo
 					query={queries.FIND_TEAM} //what we are finding: the team
 					variables={{ id: this.props.match.params.team }} //by the team ID, which is in the props from router
@@ -123,8 +124,8 @@ class MessageBoardContainer extends React.Component {
 	}
 }
 
-MessageBoardContainer.propTypes = {
+ContentContainer.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(MessageBoardContainer);
+export default withStyles(styles)(ContentContainer);
