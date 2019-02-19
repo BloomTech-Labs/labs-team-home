@@ -8,9 +8,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-//Query is a GET request for GraphQl, imported from apollo imprementation
 import { Query } from 'react-apollo';
 import * as queries from '../constants/queries';
+import TeamInfo from './components/TeamInfo';
 
 const styles = {
 	root: {
@@ -60,10 +60,9 @@ class ContentContainer extends React.Component {
 		super(props);
 
 		this.state = {
-			value: 0
+			value: 0,
+			isAdmin: false
 		};
-
-		this.handleChange = this.handleChange.bind(this);
 	}
 
 	handleChange = (event, value) => {
@@ -75,48 +74,58 @@ class ContentContainer extends React.Component {
 
 		return (
 			<MsgContainer>
-				<StyledPaper classes={{ root: classes.root }}>
-					<Tabs
-						value={this.state.value}
-						onChange={this.handleChange}
-						textColor="primary"
-						classes={{ indicator: classes.tabsIndicator }}
-						centered
-					>
-						<StyledTab
-							classes={{ label: classes.label }}
-							label="Message Board"
-						/>
-						{/* <StyledTab classes={{ label: classes.label }} label="Documents" /> */}
-						<StyledTab
-							classes={{ label: classes.label }}
-							label="Activity Timeline"
-						/>
-						{/* Within the tabs bar, clicking on any of the components sets the value to 0, 1, or 2 respectively*/}
-					</Tabs>
-				</StyledPaper>
-				{/* Invite User and Title and user list here */}
-				<Query //this is from Apollo
-					query={queries.FIND_TEAM} //what we are finding: the team
-					variables={{ id: this.props.match.params.team }} //by the team ID, which is in the props from router
+				<Query
+					query={queries.FIND_TEAM}
+					variables={{ id: this.props.match.params.team }}
 				>
 					{({ loading, error, data: { findTeam } }) => {
-						//this is the return from the query
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error!</p>;
 
-						if (!this.state.value) {
-							//this decides which component to render
-							return (
-								<MessageBoard
+						return (
+							<>
+								{/* Team users name*/}
+								<TeamInfo
 									currentUser={this.props.currentUser}
-									team={findTeam} //this is the team acquired from the server/graphQL
+									team={findTeam}
 								/>
-							);
-						} else {
-							//
-							return <ActivityTimeline {...this.props} team={findTeam} />; //this is the team acquired from the server/graphQL
-						}
+
+								{/* List of content sections the user can choose to view */}
+								<StyledPaper classes={{ root: classes.root }}>
+									<Tabs
+										value={this.state.value}
+										onChange={this.handleChange}
+										textColor="primary"
+										classes={{ indicator: classes.tabsIndicator }}
+										centered
+									>
+										<StyledTab
+											classes={{ label: classes.label }}
+											label="Message Board"
+										/>
+
+										{/* <StyledTab classes={{ label: classes.label }} label="Documents" /> */}
+
+										<StyledTab
+											classes={{ label: classes.label }}
+											label="Activity Timeline"
+										/>
+
+										{/* Within the tabs bar, clicking on any of the components sets the value to 0, 1, or 2 respectively*/}
+									</Tabs>
+								</StyledPaper>
+
+								{/* this decides which component to render based on the user choice */}
+								{!this.state.value ? (
+									<MessageBoard
+										currentUser={this.props.currentUser}
+										team={findTeam}
+									/>
+								) : (
+									<ActivityTimeline {...this.props} team={findTeam} />
+								)}
+							</>
+						);
 					}}
 				</Query>
 			</MsgContainer>
