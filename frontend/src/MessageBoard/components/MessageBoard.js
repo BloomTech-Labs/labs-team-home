@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// import axios from 'axios';
 import Message from './Message';
 import AddMessage from './AddMessage';
 import { Query, Mutation } from 'react-apollo';
@@ -31,9 +30,6 @@ const styles = theme => ({
 		color: colors.text
 	}
 });
-
-const TH_logo = 'https://i.imgur.com/31LTJFH.png';
-// const TH_name = 'TeamHome';
 
 const Messageboard = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
@@ -68,13 +64,6 @@ const Teamlogo = styled.div`
 	display: flex;
 	align-items: center;
 	flex-flow: column;
-`;
-
-const Logo = styled.img`
-	width: 200px;
-	display: inline;
-	margin: 5px;
-	border-radius: 45px;
 `;
 
 const MessagesContainer = styled.div`
@@ -125,103 +114,57 @@ class MessageBoard extends React.Component {
 			userListOpen: false,
 			email: '',
 			number: '',
-			images: [],
 			isAdmin: false,
 			sortOption: 'newest',
 			teamName: props.team.name
 		};
-
-		this.openModalHandler = this.openModalHandler.bind(this);
-		this.closeModalHandler = this.closeModalHandler.bind(this);
-		this.openInviteHandler = this.openInviteHandler.bind(this);
-		this.closeInviteHandler = this.closeInviteHandler.bind(this);
-		this.inviteChangeHandler = this.inviteChangeHandler.bind(this);
-		// this.inviteSubmitHandler = this.inviteSubmitHandler.bind(this);
-		this.stopProp = this.stopProp.bind(this);
-		this.sortChange = this.sortChange.bind(this);
-	}
-	//
-	// componentDidMount() {
-	// 	this.setState({ user: this.props.currentUser._id });
-	// }
-
-	sortChange(e) {
-		this.setState({ sortOption: e.target.value });
 	}
 
-	openInviteHandler() {
-		this.setState({
-			showInvite: true
-		});
-	}
-
-	closeInviteHandler() {
-		this.setState({
-			showInvite: false
-		});
-	}
-
-	inviteChangeHandler(e) {
-		this.setState({
-			[e.target.name]: e.target.value
-		});
-	}
-
-	// inviteSubmitHandler(e) {
-	// 	e.preventDefault();
-	// 	axios
-	// 		.post(this.URI, { email: this.state.email, number: this.state.number })
-	// 		.then(res => {
-	// 			this.setState({
-	// 				email: ''
-	// 			});
-	// 		})
-	// 		.then(() => {
-	// 			this.closeInviteHandler();
-	// 			alert('Invitation sent');
-	// 		})
-	// 		.catch(err => {
-	// 			console.error(err);
-	// 		});
-	// }
-
-	componentDidMount() {
+	componentDidMount = () => {
 		this.props.team.users.map(user => {
 			if (user.user._id === this.props.currentUser._id) {
 				if (user.admin) this.setState({ isAdmin: true });
 			}
 			return null;
 		});
-	}
+	};
 
-	openModalHandler() {
+	sortChange = e => {
+		this.setState({ sortOption: e.target.value });
+	};
+
+	inviteChangeHandler = e => {
 		this.setState({
-			showModal: true
+			[e.target.name]: e.target.value
 		});
-	}
-
-	closeModalHandler() {
-		this.setState({
-			showModal: false
-		});
-	}
-
-	stopProp(e) {
-		e.stopPropagation();
-	}
-
-	openMessageDetail = e => {
-		this.setState({ messageDetailOpen: true });
-	};
-	closeMessageDetail = e => {
-		this.setState({ messageDetailOpen: false, currentMessage: null });
 	};
 
-	openUserList = e => {
-		this.setState({ userListOpen: true });
+	toggleInviteHandler = e => {
+		e.preventDefault();
+		this.setState(prevState => ({
+			showInvite: !prevState.showInvite
+		}));
 	};
-	closeUserList = e => {
-		this.setState({ userListOpen: false });
+
+	toggleModalHandler = () => {
+		this.setState(prevState => ({
+			showModal: !prevState.showModal
+		}));
+	};
+
+	toggleUserListHandler = e => {
+		e.preventDefault();
+		this.setState(prevState => ({
+			userListOpen: !prevState.userListOpen
+		}));
+	};
+
+	toggleMessageDetail = (e, msg) => {
+		e.preventDefault();
+		this.setState(prevState => ({
+			messageDetailOpen: !prevState.messageDetailOpen,
+			currentMessage: msg
+		}));
 	};
 
 	render() {
@@ -229,21 +172,24 @@ class MessageBoard extends React.Component {
 		return (
 			<>
 				<Messageboard>
+					{/* All modals */}
+					{/* Add a message modal*/}
 					<AddMessage
-						closeHandler={this.closeModalHandler}
-						stopProp={this.stopProp}
+						closeHandler={this.toggleModalHandler}
+						stopProp={e => e.stopPropagation()}
 						team={this.props.team._id}
 						user={this.props.currentUser._id}
 						open={this.state.showModal}
 					/>
+					{/* Invite a user Modal */}
 					<Mutation mutation={mutation.INVITE_USER}>
 						{inviteUser => (
 							<Invites
 								currentUser={this.props.currentUser}
 								team={this.props.team}
 								open={this.state.showInvite}
-								closeHandler={this.closeInviteHandler}
-								stopProp={this.stopProp}
+								closeHandler={this.toggleInviteHandler}
+								stopProp={e => e.stopPropagation()}
 								submitHandler={e => {
 									e.preventDefault();
 									let input = { id: this.props.team._id };
@@ -258,7 +204,7 @@ class MessageBoard extends React.Component {
 											});
 										})
 										.then(() => {
-											this.closeInviteHandler();
+											this.toggleInviteHandler();
 											alert('Invitation sent');
 										})
 										.catch(err => {
@@ -271,29 +217,44 @@ class MessageBoard extends React.Component {
 							/>
 						)}
 					</Mutation>
+					{/* Click on a message and view its contents modal */}
+					<MessageDetail
+						open={this.state.messageDetailOpen}
+						hideModal={e => this.toggleMessageDetail(e, null)}
+						message={this.state.currentMessage}
+						currentUser={this.props.currentUser}
+						team={this.props.team._id}
+					/>
+
+					{/* click on the user list and view its contents modal */}
+					<UserList
+						open={this.state.userListOpen}
+						team={this.props.team._id}
+						currentUser={this.props.currentUser}
+						hideModal={e => this.toggleUserListHandler(e)}
+					/>
+					{/* All other content */}
+					{/* Team name and message board menu options header */}
 					<TeamName>
 						<h1>{this.props.team.name}</h1>
 						<Teamlogo>
-							<Logo src={TH_logo} alt="team logo" />
 							{this.state.isAdmin ? (
 								<StyledButton
 									variant="contained"
-									onClick={this.openInviteHandler}
+									onClick={this.toggleInviteHandler}
 								>
 									Invite
 								</StyledButton>
 							) : null}
 							<StyledButton
 								variant="contained"
-								onClick={e => {
-									e.preventDefault();
-									this.setState({ userListOpen: true });
-								}}
+								onClick={e => this.toggleUserListHandler(e)}
 							>
 								Open User List
 							</StyledButton>
 						</Teamlogo>
 					</TeamName>
+					{/* List of all the messages */}
 					<MessagesContainer>
 						<Tooltip
 							title="Add Message"
@@ -301,12 +262,13 @@ class MessageBoard extends React.Component {
 							classes={{ tooltip: classes.styledTooltip }}
 						>
 							<AddMsgBtn
-								onClick={this.openModalHandler}
+								onClick={this.toggleModalHandler}
 								className={classes.fab}
 							>
 								<AddIcon />
 							</AddMsgBtn>
 						</Tooltip>
+						{/* Sorting options */}
 						<form>
 							<label>
 								Sort:
@@ -344,38 +306,18 @@ class MessageBoard extends React.Component {
 									default:
 										break;
 								}
-
 								return findMessagesByTeam.map(message => (
 									<Message
 										message={message}
 										userInfo={message.user}
 										key={message._id}
-										openMessage={e => {
-											e.preventDefault();
-											this.setState({
-												messageDetailOpen: true,
-												currentMessage: message
-											});
-										}}
+										openMessage={e => this.toggleMessageDetail(e, message)}
 									/>
 								));
 							}}
 						</Query>
 					</MessagesContainer>
 				</Messageboard>
-				<MessageDetail
-					open={this.state.messageDetailOpen}
-					hideModal={this.closeMessageDetail}
-					message={this.state.currentMessage}
-					currentUser={this.props.currentUser}
-					team={this.props.team._id}
-				/>
-				<UserList
-					open={this.state.userListOpen}
-					team={this.props.team._id}
-					currentUser={this.props.currentUser}
-					hideModal={this.closeUserList}
-				/>
 			</>
 		);
 	}

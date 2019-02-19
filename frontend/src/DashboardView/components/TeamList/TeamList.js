@@ -8,10 +8,6 @@ import * as mutation from '../../../constants/mutations';
 import TeamCard from './TeamCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// import Paper from '@material-ui/core/Paper';
-// import InputBase from '@material-ui/core/InputBase';
-// import Divider from '@material-ui/core/Divider';
-// import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 
 const styles = {
@@ -56,12 +52,12 @@ class TeamList extends React.Component {
 	render() {
 		return (
 			/* NOTE: anything with <style.name> is essentially a styled component */
-			<style.Container> 
+			<style.Container>
 				{/* specifies what mutation you want to use */}
 				<Mutation
-					mutation={mutation.ADD_TEAM} 
-					update={(cache, { data: { addTeam } }) => { 
-						{/* data is the result of the mutation. In this case it is addTeam from below */}
+					mutation={mutation.ADD_TEAM}
+					update={(cache, { data: { addTeam } }) => {
+						//  data is the result of the mutation. In this case it is addTeam from below
 						const { findTeamsByUser } = cache.readQuery({
 							query: query.FIND_TEAMS_BY_USER
 						});
@@ -71,7 +67,9 @@ class TeamList extends React.Component {
 						});
 					}} /* updates the chache after the mutation happens */
 				>
-					{addTeam => ( // on submit
+					{(
+						addTeam // on submit
+					) => (
 						<style.Form className={this.state.classes.root} elevation={1}>
 							<style.Input
 								className={this.state.classes.input}
