@@ -12,6 +12,7 @@ const folderResolver = {
 				.populate('user team documents')
 				.then(folder => folder),
 		findFoldersByTeam: async (_, { input: { team } }) => {
+
 			const folders = await Folder.find({ team: team }).populate(
 				'user team documents'
 			);
@@ -21,6 +22,7 @@ const folderResolver = {
 			});
 		}
 	},
+
 	Mutation: {
 		addFolder: (_, { input }, { user: { _id } }) =>
 			new Folder({ ...input, user: _id })
