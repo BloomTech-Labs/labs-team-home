@@ -21,11 +21,4 @@ const Document = /* GRAPHQL */ `
 `;
 
 module.exports = Document;
-// input FindDocumentbyUser {
 
-//     user: User!
-// }
-// input FindDocumentComments {
-
-//     comments
-// }
