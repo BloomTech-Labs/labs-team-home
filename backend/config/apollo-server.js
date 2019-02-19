@@ -55,6 +55,9 @@ const context = async ({ req }) => {
 const server = new ApolloServer({
 	schema,
 	context,
+	debug: true,
+	playground: true,
+	tracing: true,
 	introspection: true
 });
 
