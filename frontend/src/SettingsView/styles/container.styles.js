@@ -20,12 +20,12 @@ const styles = theme => ({
 
 const SettingsContainer = styled.div`
 	position: relative;
-	top: 70px;
+	top: 85px;
 	width: 80%;
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-	margin-left: 0 5% 0 5%;
+	/* margin-left: 0 5% 0 5%; */
 	color: white;
 	/* font-family: Comfortaa; */
 
@@ -38,7 +38,8 @@ const SettingsContainer = styled.div`
 const AvatarUploadContainer = styled.div`
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: space-around;
+	margin: 20px 0;
 	${mediaQueryFor.smDevice`
 		display: flex;
 		flex-direction: column;
@@ -105,10 +106,12 @@ padding: 10px;
 const FormCheckboxStyles = styled.div`
 	display: flex;
 	flex-direction: row;
-	padding: 5px 4%;
+	align-items: center;
+	padding: 5px 1%;
+	margin-top: 10px;
 	label {
-		width: 25%;
-		margin-right: 3%;
+		width: 20%;
+		/* margin-right: 3%; */
 	}
 	input {
 	}
@@ -117,12 +120,13 @@ const FormCheckboxStyles = styled.div`
     margin: 0 auto;
     // font-size:1.5rem;
     label {
-      width:80%;
-      justify-content: space-between;
+			width:100%;
+			text-align: center;
+		}
 
       input {
-        width: 20%;
-        height:50px
+        width: 100%;
+        height: 25px
       }
     }
     `}
