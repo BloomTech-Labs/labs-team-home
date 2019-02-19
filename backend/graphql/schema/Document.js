@@ -6,7 +6,7 @@ const Document = /* GRAPHQL */ `
         folder: ID!
         team: Team!
         title: String!
-        content: String
+        comments: [String]
         createdAt: String
         updatedAt: String
     }
@@ -16,6 +16,9 @@ const Document = /* GRAPHQL */ `
     extend type Query {
         documents: [Document]
     }
+
+
 `;
 
 module.exports = Document;
+
