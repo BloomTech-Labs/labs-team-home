@@ -55,7 +55,9 @@ const context = async ({ req }) => {
 
 const server = new ApolloServer({
 	schema,
-	context
+	context,
+	introspection: true,
+	playground: true
 });
 
 module.exports = app => server.applyMiddleware({ app });
