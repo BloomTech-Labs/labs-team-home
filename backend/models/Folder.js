@@ -9,7 +9,7 @@ const Folder = new Schema({
 		required: true
 	},
 	user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-	documents: [{ type: Schema.Types.ObjectId, ref: 'DocComment' }],
+	documents: [{ type: Schema.Types.ObjectId, ref: 'Document' }],
 	createdAt: Schema.Types.Date,
 	updatedAt: Schema.Types.Date
 });

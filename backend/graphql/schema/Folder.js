@@ -7,9 +7,6 @@ const Folder = /* GraphQL */ `
 		createdAt: String
 		updatedAt: String
 	}
-	input FindFolderInput {
-		id: ID!
-	}
 	extend type Query {
 		folders: [Folder]
 	}
