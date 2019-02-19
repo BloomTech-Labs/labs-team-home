@@ -51,6 +51,8 @@ const Document = /* GRAPHQL */ `
         updateDocument(input: UpdateDocumentInput): Document
         deleteDocument(input: DeleteDocumentInput): Document
     }
+
+
 `;
 
 module.exports = Document;

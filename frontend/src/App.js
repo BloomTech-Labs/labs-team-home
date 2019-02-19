@@ -4,11 +4,11 @@ import { Switch, withRouter } from 'react-router-dom';
 // --------------------- imports ------------------------- //
 import GlobalStyle from './GlobalStyles'; // styling
 import LandingView from './LandingView/containers/LandingView'; // component
-import MessageBoardContainer from './MessageBoard/containers/MessageBoardContainer'; // component
+import MessageBoardContainer from './Content/ContentContainer'; // component
 import Dashboard from './DashboardView/containers/Dashboard'; // component
 import PrivateRoute from './utils/PrivateRoute'; // higher order component
 import PublicRoute from './utils/PublicRoute'; // higher order component
-import AppStyles, { BackgroundIMG } from './app-styles'; // styling
+import AppStyles from './app-styles'; // styling
 import SettingsView from './SettingsView/containers/SettingsView'; // component
 import AppNavBar from './Nav/Nav'; // component
 
@@ -17,7 +17,6 @@ import JssProvider from 'react-jss/lib/JssProvider'; // lets you write style she
 import { create } from 'jss'; // lets you write style sheets in javascript
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles'; // gets styling from material-ui
 import { CSSTransition, TransitionGroup } from 'react-transition-group'; // some transitions
-import iconLogo from './assets/Sveza_logo.png';
 
 const generateClassName = createGenerateClassName();
 const jss = create({
