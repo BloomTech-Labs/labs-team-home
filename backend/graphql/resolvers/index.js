@@ -5,6 +5,7 @@ const MsgComment = require('./MsgComment');
 const Team = require('./Team');
 const Folder = require('./Folder');
 const Document = require('./Document');
+const DocComment = require('./DocComment');
 const { merge } = require('lodash');
 
 module.exports = merge(
@@ -15,5 +16,6 @@ module.exports = merge(
 	MsgComment,
 	Message,
 	Folder,
-	Document
+	Document,
+	DocComment
 );

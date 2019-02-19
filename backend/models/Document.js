@@ -14,7 +14,7 @@ const Document = new Schema(
 		user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 		folder: { type: Schema.Types.ObjectId, ref: 'Folder', required: true },
 		title: { type: String, trim: true, required: true },
-		content: { type: String },
+		textContent: { type: String },
 		images: [{ type: String }],
 		comments: [{ type: Schema.Types.ObjectId, ref: 'DocComment' }]
 	},
