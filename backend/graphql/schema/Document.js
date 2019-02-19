@@ -4,10 +4,11 @@ const Document = /* GRAPHQL */ `
         doc_url: String!
         user: User!
         folder: ID!
+        team: Team!
         title: String!
         content: String
-        createdAt: String!
-        updatedAt: String!
+        createdAt: String
+        updatedAt: String
     }
     input FindDocumentInput {
         id: ID!

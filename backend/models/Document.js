@@ -6,10 +6,17 @@ const Document = new Schema(
 			type: String,
 			required: true
 		},
+		team: {
+			type: Schema.Types.ObjectId,
+			ref: 'Team',
+			required: true
+		},
 		user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 		folder: { type: Schema.Types.ObjectId, ref: 'Folder', required: true },
 		title: { type: String, trim: true, required: true },
-		content: { type: String }
+		content: { type: String },
+		images: [{ type: String }],
+		comments: [{ type: Schema.Types.ObjectId, ref: 'DocComment' }]
 	},
 	{ timestamps: true }
 );
