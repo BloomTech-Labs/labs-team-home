@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 
-
-
 /* styling for the navbar buttons */
 
 const NavBarTogglerDiv = styled.div`
@@ -119,7 +117,6 @@ const RespNav = styled.div`
 	flex-flow: row;
 	z-index: 1001;
 	text-decoration: none;
-	margin-bottom: 20px;
 
 	justify-content: space-around;
 	.navbar {
