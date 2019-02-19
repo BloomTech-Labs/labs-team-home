@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 
-const LandBtn = styled.button`
+const LandBtn = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	font-family: Comfortaa;
 	color: #f1fcef;

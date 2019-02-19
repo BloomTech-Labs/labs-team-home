@@ -82,7 +82,7 @@ export default class ActivityTimeline extends React.Component {
 											if (a.updatedAt > b.updatedAt) return -1;
 											return 0;
 										});
-										console.log('activities', activities);
+
 										//create elements based on whether the current thing is created
 										//by the current user
 										return activities.map(thing => {

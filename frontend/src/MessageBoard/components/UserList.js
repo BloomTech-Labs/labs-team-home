@@ -89,10 +89,11 @@ export default class UserList extends React.Component {
 												<Mutation
 													mutation={mutation.UPDATE_TEAM}
 													update={(cache, { data: { updateTeam } }) => {
-														const { findTeam } = cache.readQuery({
-															query: query.FIND_TEAM,
-															variables: { id: team }
-														});
+														// const { findTeam } = cache.readQuery({
+														// 	query: query.FIND_TEAM,
+														// 	variables: { id: team }
+														// });
+														// This code was throwing an error in the console as findTeam is defined but never used. - Bondor
 														cache.writeQuery({
 															query: query.FIND_TEAM,
 															variables: { id: team },

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
-import { StyledLink, TextIMG, RespNav } from './styles/index';
+import { Collapse, Navbar, Nav, NavItem } from 'reactstrap';
+import { StyledLink, TextIMG, RespNav, NavBarTogglerDiv } from './styles/index';
 import { Spin } from 'react-burgers';
 import textLogo from '../assets/Sveza_white.svg';
 
@@ -28,9 +28,12 @@ export default class AppNavBar extends Component {
 				<RespNav>
 					<Navbar expand="md">
 						<TextIMG className="text-img" src={textLogo} />
-						<NavbarToggler onClick={this.toggle}>
+						<NavBarTogglerDiv onClick={this.toggle}>
+							{/* This was  originally a NavbarToggler 
+						imported from React-strap, but threw errors on the console ('can not 
+						nest a button in a button'). Changing it to a div preserves all functionality */}
 							<Spin active={this.state.isOpen} color="#fff" />
-						</NavbarToggler>
+						</NavBarTogglerDiv>
 						<Collapse isOpen={this.state.isOpen} navbar>
 							<Nav className="ml-auto" navbar>
 								<NavItem>
