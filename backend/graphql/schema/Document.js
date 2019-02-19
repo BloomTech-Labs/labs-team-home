@@ -7,6 +7,7 @@ const Document = /* GRAPHQL */ `
         team: Team!
         title: String!
         textContent: String
+        images: [String]
         comments: [String]
         createdAt: String
         updatedAt: String
