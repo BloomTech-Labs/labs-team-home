@@ -35,7 +35,8 @@ class App extends Component {
 			<JssProvider jss={jss} generateClassName={generateClassName}>
 				<AppStyles>
 					<GlobalStyle />
-					<BackgroundIMG alt={'Sveza banner'} src={iconLogo} />
+					{/* Adds the giant logo (Temporarily removed for less distraction) */}
+					{/* <BackgroundIMG alt={'Sveza banner'} src={iconLogo} /> */}
 					{localStorage.token && <AppNavBar handleLogout={this.handleLogout} />}
 					<TransitionGroup>
 						<CSSTransition

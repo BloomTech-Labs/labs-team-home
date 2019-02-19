@@ -87,21 +87,25 @@ class MessageBoardContainer extends React.Component {
 							classes={{ label: classes.label }}
 							label="Message Board"
 						/>
+						{/* <StyledTab classes={{ label: classes.label }} label="Documents" /> */}
 						<StyledTab
 							classes={{ label: classes.label }}
 							label="Activity Timeline"
 						/>
+						{/* Within the tabs bar, clicking on any of the components sets the value to 0, 1, or 2 respectively*/}
 					</Tabs>
 				</StyledPaper>
 				<Query //this is from Apollo
 					query={queries.FIND_TEAM} //what we are finding: the team
 					variables={{ id: this.props.match.params.team }} //by the team ID, which is in the props from router
 				>
-					{({ loading, error, data: { findTeam } }) => { //this is the return from the query
+					{({ loading, error, data: { findTeam } }) => {
+						//this is the return from the query
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error!</p>;
 
-						if (!this.state.value) { //this decides which component to render
+						if (!this.state.value) {
+							//this decides which component to render
 							return (
 								<MessageBoard
 									currentUser={this.props.currentUser}
@@ -109,6 +113,7 @@ class MessageBoardContainer extends React.Component {
 								/>
 							);
 						} else {
+							//
 							return <ActivityTimeline {...this.props} team={findTeam} />; //this is the team acquired from the server/graphQL
 						}
 					}}

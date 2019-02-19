@@ -29,7 +29,9 @@ const BackgroundIMG = styled.img`
   left:5%;
   top: 20px;
   z-index:-10;
-  filter: drop-shadow(-2px 10px 6px #111);
+  opacity: 0.1;
+  /* filter: drop-shadow(-2px 10px 6px #111); */
+  filter: drop-shadow(-1px 5px 5px #111);
   ${mediaQueryFor.lgDevice`
     width:70%;
     left: 5%;
