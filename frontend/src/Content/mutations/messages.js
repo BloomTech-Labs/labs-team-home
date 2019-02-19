@@ -1,11 +1,11 @@
 import { graphql } from 'react-apollo';
-import * as query from '../../../constants/queries';
+import * as query from '../../constants/queries';
 import {
 	ADD_MESSAGE,
 	UPDATE_MESSAGE,
 	DELETE_MESSAGE,
 	ADD_TAG
-} from '../../../constants/mutations';
+} from '../../constants/mutations';
 
 const addMessageOptions = {
 	props: ({ ownProps: { team }, mutate }) => ({

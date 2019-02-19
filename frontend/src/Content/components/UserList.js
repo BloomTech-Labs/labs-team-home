@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
-import { Overlay, Close } from './MessageDetail';
+import { Overlay, Close } from '../MessageBoard/MessageDetail';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
 import { colors, palette } from '../../colorVariables';
