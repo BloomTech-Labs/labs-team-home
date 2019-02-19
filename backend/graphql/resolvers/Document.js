@@ -35,9 +35,12 @@ const documentResolver = {
 		deleteDocument: (_, { input: { id } }) => {
 			Document.findById(id).then(async document => {
 				if (document) {
-					await Document.findOneAndDelete({ _id: id });
+					const doc = await Document.findOneAndDelete({ _id: id });
 					// await DocComment.deleteMany({ document: document._id });
-					return document[id];
+					doc._id = doc._id.toString();
+					doc.user = doc.user.toString();
+					console.log(doc);
+					return doc;
 				} else {
 					throw new ValidationError("Document doesn't exist");
 				}
