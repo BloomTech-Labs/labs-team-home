@@ -67,13 +67,12 @@ class MessageBoardContainer extends React.Component {
 	}
 
 	handleChange = (event, value) => {
-		console.log('botton clicked on message board nav bar');
 		this.setState({ value });
 	};
 
 	render() {
 		const { classes } = this.props;
-		console.log('MessageBoardContainer has been rendered');
+
 		return (
 			<MsgContainer>
 				<StyledPaper classes={{ root: classes.root }}>
@@ -88,15 +87,12 @@ class MessageBoardContainer extends React.Component {
 							classes={{ label: classes.label }}
 							label="Message Board"
 						/>
+						{/* <StyledTab classes={{ label: classes.label }} label="Documents" /> */}
 						<StyledTab
 							classes={{ label: classes.label }}
 							label="Activity Timeline"
 						/>
-						{/* This is where we will be adding a link to the Documents Section: 
-						<StyledTab classes={{ label: classes.label }} label="Documents" /> 
-						// BTW, Bondor presently does not know how this.state.value is set, 
-						and kinda feels like this entire component does not presently allow 
-						for scale in this capacity*/}
+						{/* Within the tabs bar, clicking on any of the components sets the value to 0, 1, or 2 respectively*/}
 					</Tabs>
 				</StyledPaper>
 				<Query //this is from Apollo
@@ -117,6 +113,7 @@ class MessageBoardContainer extends React.Component {
 								/>
 							);
 						} else {
+							//
 							return <ActivityTimeline {...this.props} team={findTeam} />; //this is the team acquired from the server/graphQL
 						}
 					}}
