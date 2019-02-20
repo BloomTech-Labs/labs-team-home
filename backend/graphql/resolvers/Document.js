@@ -12,10 +12,22 @@ const documentResolver = {
 			Document.findById(id)
 				.populate('team folder user')
 				.then(document => document),
+
 		findDocumentsByFolder: (_, { input: { folder } }) =>
 			Document.find({ folder: folder })
 				.populate('user team folder')
 				.then(document => document)
+		//findDocumentsByTeam: async(_, { input: { team } })
+
+		// findFoldersByTeam: async (_, { input: { team } }) => {
+		// 	const folders = await Folder.find({ team: team }).populate(
+		// 		'user team documents'
+		// 	);
+		// 	return folders.map(x => {
+		// 		x._id = x._id.toString();
+		// 		return x;
+		// 	});
+		// }
 	},
 	Mutation: {
 		addDocument: (_, { input }, { user: { _id } }) =>
@@ -39,9 +51,12 @@ const documentResolver = {
 		deleteDocument: (_, { input: { id } }) => {
 			Document.findById(id).then(async document => {
 				if (document) {
-					await Document.findOneAndDelete({ _id: id });
+					const doc = await Document.findOneAndDelete({ _id: id });
 					// await DocComment.deleteMany({ document: document._id });
-					return document[id];
+					doc._id = doc._id.toString();
+					doc.user = doc.user.toString();
+					console.log(doc);
+					return doc;
 				} else {
 					throw new ValidationError("Document doesn't exist");
 				}
