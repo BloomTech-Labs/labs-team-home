@@ -749,29 +749,27 @@ public final class UnsubscribeMutation: GraphQLMutation {
 
 public final class CreateNewUserMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation CreateNewUser($firstName: String!, $lastName: String!, $email: String!, $avatar: String) {\n  addUser(input: {firstName: $firstName, lastName: $lastName, email: $email, avatar: $avatar}) {\n    __typename\n    _id\n  }\n}"
+    "mutation CreateNewUser($firstName: String!, $lastName: String!, $email: String!) {\n  addUser(input: {firstName: $firstName, lastName: $lastName, email: $email}) {\n    __typename\n    _id\n  }\n}"
 
   public var firstName: String
   public var lastName: String
   public var email: String
-  public var avatar: String?
 
-  public init(firstName: String, lastName: String, email: String, avatar: String? = nil) {
+  public init(firstName: String, lastName: String, email: String) {
     self.firstName = firstName
     self.lastName = lastName
     self.email = email
-    self.avatar = avatar
   }
 
   public var variables: GraphQLMap? {
-    return ["firstName": firstName, "lastName": lastName, "email": email, "avatar": avatar]
+    return ["firstName": firstName, "lastName": lastName, "email": email]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("addUser", arguments: ["input": ["firstName": GraphQLVariable("firstName"), "lastName": GraphQLVariable("lastName"), "email": GraphQLVariable("email"), "avatar": GraphQLVariable("avatar")]], type: .object(AddUser.selections)),
+      GraphQLField("addUser", arguments: ["input": ["firstName": GraphQLVariable("firstName"), "lastName": GraphQLVariable("lastName"), "email": GraphQLVariable("email")]], type: .object(AddUser.selections)),
     ]
 
     public private(set) var resultMap: ResultMap
