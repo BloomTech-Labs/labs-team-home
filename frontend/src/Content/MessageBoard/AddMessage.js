@@ -80,12 +80,10 @@ function AddMessage(props) {
 	const { addMessage, addTag } = props;
 	return (
 		<Query query={FIND_TAGS_BY_TEAM} variables={{ team }}>
-			{({ loading, error, data: { findTagsByTeam } }) =>
-				loading ? (
-					<p>Loading...</p>
-				) : error ? (
-					<p>Error :(</p>
-				) : (
+			{({ loading, error, data: { findTagsByTeam } }) => {
+				if (loading) return <p>Loading...</p>;
+				if (error) return <p>Error!</p>;
+				return (
 					<Dialog open={props.open} onClose={props.closeHandler} fullWidth>
 						<Overlay>
 							{/*Close button*/}
@@ -259,8 +257,8 @@ function AddMessage(props) {
 							</form>
 						</Overlay>
 					</Dialog>
-				)
-			}
+				);
+			}}
 		</Query>
 	);
 }

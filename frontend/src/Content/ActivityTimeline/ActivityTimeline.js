@@ -1,8 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import * as query from '../../constants/queries';
-import UserActivity from './UserActivity';
-import GeneralActivity from './GeneralActivity';
+import Activity from './Activity';
 
 export default class ActivityTimeline extends React.Component {
 	constructor(props) {
@@ -87,10 +86,16 @@ export default class ActivityTimeline extends React.Component {
 										//by the current user
 										return activities.map(thing => {
 											if (thing.user._id === this.props.currentUser._id) {
-												return <UserActivity message={thing} key={thing._id} />;
+												return (
+													<Activity
+														message={thing}
+														key={thing._id}
+														own={true}
+													/>
+												);
 											}
 											return (
-												<GeneralActivity message={thing} key={thing._id} />
+												<Activity message={thing} key={thing._id} own={false} />
 											);
 										});
 									}
