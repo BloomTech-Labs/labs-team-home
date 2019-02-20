@@ -72,3 +72,21 @@ export const CURRENT_USER = gql`
 		}
 	}
 `;
+
+export const FIND_FOLDER = gql`
+	query findFolders($id: ID!) {
+		findFolders(input: { id: $id }) {
+			...FullFolder
+		}
+	}
+	${f.FULL_FOLDER}
+`;
+
+export const FIND_FOLDERS_BY_TEAM = gql`
+	query findFoldersByTeam($team: ID!) {
+		findFoldersByTeam(input: { team: $team }) {
+			...FullFolder
+		}
+	}
+	${f.FULL_FOLDER}
+`;
