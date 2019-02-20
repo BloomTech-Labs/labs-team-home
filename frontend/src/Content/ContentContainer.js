@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import { Query } from 'react-apollo';
 import * as queries from '../constants/queries';
 import TeamInfo from './components/TeamInfo';
-import Folders from './Documents/Folders';
+import DocumentsTab from './DocumentsTab/TabContainer'; // renamed from TabContainer
 
 const styles = {
 	root: {
@@ -130,7 +130,7 @@ class ContentContainer extends React.Component {
 								) : this.state.value === 1 ? (
 									<ActivityTimeline {...this.props} team={findTeam} />
 								) : (
-									<Folders {...this.props} team={findTeam} />
+									<DocumentsTab {...this.props} team={findTeam} />
 								)}
 							</>
 						);
