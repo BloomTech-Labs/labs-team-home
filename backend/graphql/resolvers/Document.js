@@ -12,10 +12,22 @@ const documentResolver = {
 			Document.findById(id)
 				.populate('team folder user')
 				.then(document => document),
+
 		findDocumentsByFolder: (_, { input: { folder } }) =>
 			Document.find({ folder: folder })
 				.populate('user team folder')
 				.then(document => document)
+		//findDocumentsByTeam: async(_, { input: { team } })
+
+		// findFoldersByTeam: async (_, { input: { team } }) => {
+		// 	const folders = await Folder.find({ team: team }).populate(
+		// 		'user team documents'
+		// 	);
+		// 	return folders.map(x => {
+		// 		x._id = x._id.toString();
+		// 		return x;
+		// 	});
+		// }
 	},
 	Mutation: {
 		addDocument: (_, { input }, { user: { _id } }) =>

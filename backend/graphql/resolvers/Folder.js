@@ -12,7 +12,6 @@ const folderResolver = {
 				.populate('user team documents')
 				.then(folder => folder),
 		findFoldersByTeam: async (_, { input: { team } }) => {
-
 			const folders = await Folder.find({ team: team }).populate(
 				'user team documents'
 			);
