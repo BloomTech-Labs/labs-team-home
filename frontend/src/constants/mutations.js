@@ -5,7 +5,8 @@ import {
 	FULL_TAG,
 	FULL_COMMENT,
 	FULL_TEAM,
-	FULL_USER
+	FULL_USER,
+	FULL_FOLDER
 } from './fragments';
 
 export const ADD_MESSAGE = gql`
@@ -272,4 +273,13 @@ export const UNLIKE = gql`
 		}
 	}
 	${FULL_COMMENT}
+`;
+
+export const ADD_FOLDER = gql`
+	mutation addFolder($team: String!, $title: String!) {
+		addFolder(input: { title: $title, team: $team }) {
+			...FullFolder
+		}
+	}
+	${FULL_FOLDER}
 `;
