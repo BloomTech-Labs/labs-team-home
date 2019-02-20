@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import { Query } from 'react-apollo';
 import * as queries from '../constants/queries';
 import TeamInfo from './components/TeamInfo';
-import Folders from './Documents/Folders';
+import DocumentsTab from './DocumentsTab/TabContainer'; // renamed from TabContainer
 
 const styles = {
 	root: {
@@ -105,8 +105,6 @@ class ContentContainer extends React.Component {
 											label="Message Board"
 										/>
 
-										{/* <StyledTab classes={{ label: classes.label }} label="Documents" /> */}
-
 										<StyledTab
 											classes={{ label: classes.label }}
 											label="Activity Timeline"
@@ -116,12 +114,11 @@ class ContentContainer extends React.Component {
 											classes={{ label: classes.label }}
 											label="Documents"
 										/>
-
-										{/* Within the tabs bar, clicking on any of the components sets the value to 0, 1, or 2 respectively*/}
 									</Tabs>
 								</StyledPaper>
-
-								{/* this decides which component to render based on the user choice */}
+								{/* Within the tabs bar, clicking on any of the components sets 
+								the value to 0, 1, or 2 respectively this decides which component 
+								to render based on the value */}
 								{this.state.value === 0 ? (
 									<MessageBoard
 										currentUser={this.props.currentUser}
@@ -130,7 +127,7 @@ class ContentContainer extends React.Component {
 								) : this.state.value === 1 ? (
 									<ActivityTimeline {...this.props} team={findTeam} />
 								) : (
-									<Folders {...this.props} team={findTeam} />
+									<DocumentsTab {...this.props} team={findTeam} />
 								)}
 							</>
 						);
