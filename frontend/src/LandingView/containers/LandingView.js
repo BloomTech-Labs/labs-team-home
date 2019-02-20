@@ -22,8 +22,10 @@ export default class LandingView extends Component {
 	render() {
 		return (
 			<div>
-				<RespNavBAr /> {/* The navigation bar for specifically the landing page */}
-				<Particles params={particles} style={styles} /> {/* The cool animation effct */}
+				<RespNavBAr />{' '}
+				{/* The navigation bar for specifically the landing page */}
+				<Particles params={particles} style={styles} />{' '}
+				{/* The cool animation effct */}
 				<LogoBanner /> {/** Landing Page Content */}
 			</div>
 		);
