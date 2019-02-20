@@ -134,12 +134,10 @@ class MessageDetail extends Component {
 				<Overlay>
 					{message && (
 						<Query query={query.FIND_MESSAGE} variables={{ id: message._id }}>
-							{({ loading, error, data: { findMessage } }) =>
-								loading ? (
-									<p>Loading...</p>
-								) : error ? (
-									<p>Error :(</p>
-								) : (
+							{({ loading, error, data: { findMessage } }) => {
+								if (loading) return <p>Loading...</p>;
+								if (error) return <p>Error!</p>;
+								return (
 									<Query
 										query={query.FIND_COMMENTS_BY_MESSAGE}
 										variables={{ message: message._id }}
@@ -531,8 +529,8 @@ class MessageDetail extends Component {
 											);
 										}}
 									</Query>
-								)
-							}
+								);
+							}}
 						</Query>
 					)}
 				</Overlay>
