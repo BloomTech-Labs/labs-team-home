@@ -21,6 +21,7 @@ const folderResolver = {
 			});
 		}
 	},
+
 	Mutation: {
 		addFolder: (_, { input }, { user: { _id } }) =>
 			new Folder({ ...input, user: _id })

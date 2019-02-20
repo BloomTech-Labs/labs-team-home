@@ -66,30 +66,6 @@ const GoPro = styled(Link)`
 	}
 `;
 
-// const FormContainer = styled.div`
-// 	width: 60%;
-// 	height: 80%;
-// 	margin: auto;
-// 	z-index: 1001;
-// 	background-color: white;
-// 	border: 1px solid black;
-// 	position: fixed;
-// 	top: 0;
-// 	bottom: 0;
-// 	left: 0;
-// 	right: 0;
-
-// 	& form {
-// 		display: flex;
-// 		flex-direction: column;
-// 		align-items: center;
-// 	}
-
-// 	& form input {
-// 		margin: 20px;
-// 	}
-// `;
-
 export default function Invites({
 	open,
 	number,
