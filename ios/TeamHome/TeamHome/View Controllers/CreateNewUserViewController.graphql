@@ -1,9 +1,8 @@
-mutation CreateNewUser($firstName: String!, $lastName: String!, $email: String!, $avatar: String) {
+mutation CreateNewUser($firstName: String!, $lastName: String!, $email: String!) {
     addUser(input:  {
             firstName: $firstName
             lastName: $lastName
             email: $email
-            avatar: $avatar
             }) {
         _id
     }
