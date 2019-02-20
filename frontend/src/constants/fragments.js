@@ -83,3 +83,15 @@ export const FULL_COMMENT = gql`
 	}
 	${FULL_USER}
 `;
+
+export const FULL_FOLDER = gql`
+	fragment FullFolder on Folder {
+		_id
+		title
+		team {
+			name
+		}
+		createdAt
+		updatedAt
+	}
+`;
