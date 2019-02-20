@@ -16,18 +16,17 @@ const documentResolver = {
 		findDocumentsByFolder: (_, { input: { folder } }) =>
 			Document.find({ folder: folder })
 				.populate('user team folder')
-				.then(document => document)
-		//findDocumentsByTeam: async(_, { input: { team } })
+				.then(document => document),
 
-		// findFoldersByTeam: async (_, { input: { team } }) => {
-		// 	const folders = await Folder.find({ team: team }).populate(
-		// 		'user team documents'
-		// 	);
-		// 	return folders.map(x => {
-		// 		x._id = x._id.toString();
-		// 		return x;
-		// 	});
-		// }
+		findDocumentsByTeam: async (_, { input: { team } }) => {
+			const documents = await Document.find({ team: team }).populate(
+				'user team folders'
+			);
+			return documents.map(x => {
+				x._id = x._id.toString();
+				return x;
+			});
+		}
 	},
 	Mutation: {
 		addDocument: (_, { input }, { user: { _id } }) =>
@@ -53,8 +52,6 @@ const documentResolver = {
 				if (document) {
 					const doc = await Document.findOneAndDelete({ _id: id });
 					// await DocComment.deleteMany({ document: document._id });
-					doc._id = doc._id.toString();
-					doc.user = doc.user.toString();
 					console.log(doc);
 					return doc;
 				} else {
