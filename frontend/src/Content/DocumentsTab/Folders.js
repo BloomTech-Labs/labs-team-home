@@ -59,18 +59,9 @@ class Folders extends Component {
 			currentFolder: dir
 		}));
 	};
-
 	render() {
 		return (
 			<FolderContainer>
-				{/* All the Modals */}
-				<FolderDetails
-					open={this.state.folderDetailOpen}
-					hideModal={() => this.toggleFolderDetail(null)}
-					folder={this.state.currentFolder}
-					currentUser={this.props.currentUser}
-					team={this.props.team._id}
-				/>
 				{/* All the Folders */}
 				<Query
 					query={query.FIND_FOLDERS_BY_TEAM}
@@ -103,6 +94,14 @@ class Folders extends Component {
 						}
 					}}
 				</Query>
+				{/* All the Modals */}
+				<FolderDetails
+					open={this.state.folderDetailOpen}
+					hideModal={() => this.toggleFolderDetail(null)}
+					folder={this.state.currentFolder}
+					currentUser={this.props.currentUser}
+					team={this.props.team._id}
+				/>
 			</FolderContainer>
 		);
 	}

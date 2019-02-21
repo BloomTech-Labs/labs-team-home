@@ -21,7 +21,7 @@ const documentResolver = {
 			const documents = await Document.find({ team: team }).populate(
 				'user team folder subscribedUsers'
 			);
-			console.log(documents);
+
 			return documents.map(x => {
 				x._id = x._id.toString();
 				return x;
