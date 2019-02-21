@@ -31,18 +31,11 @@ const IndividualFolder = styled.p`
 	);
 `;
 
+const Error = styled.p`
+	color: white;
+`;
+
 class Folders extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			displayButtons: false
-		};
-	}
-
-	toggleButtons = () => {
-		this.setState({ displayButtons: !this.state.displayButtons });
-	};
-
 	render() {
 		return (
 			<FolderContainer>
@@ -57,10 +50,17 @@ class Folders extends Component {
 							return findFoldersByTeam.map(folder => (
 								<IndividualFolder key={folder._id}>
 									{folder.title}
+									{folder.documents.length ? (
+										folder.documents.map(doc => {
+											return <p>{doc.title}</p>;
+										})
+									) : (
+										<></>
+									)}
 								</IndividualFolder>
 							));
 						} else {
-							return <p>No Documents Available For This Team</p>;
+							return <Error>No Folders Available For This Team</Error>;
 						}
 					}}
 				</Query>
