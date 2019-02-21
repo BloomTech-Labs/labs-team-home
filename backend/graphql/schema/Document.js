@@ -57,11 +57,11 @@ const Document = /* GRAPHQL */ `
         findDocumentsByFolder(input: FindDocumentsByFolderInput): [Document]
     }
     extend type Mutation {
-        addDocument(input: AddDocumentInput): Document
-        updateDocument(input: UpdateDocumentInput): Document
-        deleteDocument(input: DeleteDocumentInput): Document
-        subscribeDoc(input: SubscribeDocInput): Document
-        unsubscribeDoc(input: UnsubscribeDocInput): Document
+        addDocument(input: AddDocumentInput!): Document
+        updateDocument(input: UpdateDocumentInput!): Document
+        deleteDocument(input: DeleteDocumentInput!): Document
+        subscribeDoc(input: SubscribeDocInput!): Document
+        unsubscribeDoc(input: UnsubscribeDocInput!): Document
     }
 
 
