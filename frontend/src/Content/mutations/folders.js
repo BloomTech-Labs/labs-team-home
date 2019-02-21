@@ -51,29 +51,3 @@ const deleteFolderOptions = {
 };
 
 export const deleteFolder = graphql(DELETE_FOLDER, deleteFolderOptions);
-
-// const deleteMessageOptions = {
-// 	props: ({ ownProps: { team }, mutate }) => ({
-// 		deleteMessage: input =>
-// 			mutate({
-// 				variables: input,
-// 				update: (cache, { data: { deleteMessage } }) => {
-// 					const { findMessagesByTeam } = cache.readQuery({
-// 						query: query.FIND_MESSAGES_BY_TEAM,
-// 						variables: { team: team }
-// 					});
-// 					cache.writeQuery({
-// 						query: query.FIND_MESSAGES_BY_TEAM,
-// 						variables: { team: team },
-// 						data: {
-// 							findMessagesByTeam: findMessagesByTeam.filter(
-// 								({ _id }) => _id !== deleteMessage._id
-// 							)
-// 						}
-// 					});
-// 				}
-// 			})
-// 	})
-// };
-
-// export const deleteMessage = graphql(DELETE_MESSAGE, deleteMessageOptions);
