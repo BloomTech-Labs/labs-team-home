@@ -91,6 +91,22 @@ export const FULL_FOLDER = gql`
 		team {
 			name
 		}
+		documents {
+			title
+		}
+		createdAt
+		updatedAt
+	}
+`;
+
+export const FULL_DOCUMENT = gql`
+	fragment FullDocument on Document {
+		_id
+		title
+		doc_url
+		team {
+			_id
+		}
 		createdAt
 		updatedAt
 	}
