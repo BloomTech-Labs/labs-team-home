@@ -1522,8 +1522,8 @@
               "description": "",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "ID",
+                "kind": "OBJECT",
+                "name": "Folder",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1566,9 +1566,13 @@
               "description": "",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1598,7 +1602,23 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "String",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "subscribedUsers",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "User",
                   "ofType": null
                 }
               },
@@ -2603,6 +2623,52 @@
                   "type": {
                     "kind": "INPUT_OBJECT",
                     "name": "DeleteDocumentInput",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Document",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "subscribeDoc",
+              "description": "",
+              "args": [
+                {
+                  "name": "input",
+                  "description": "",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "SubscribeDocInput",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Document",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "unsubscribeDoc",
+              "description": "",
+              "args": [
+                {
+                  "name": "input",
+                  "description": "",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UnsubscribeDocInput",
                     "ofType": null
                   },
                   "defaultValue": null
@@ -3854,6 +3920,16 @@
               "name": "folder",
               "description": "",
               "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "textContent",
+              "description": "",
+              "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
@@ -3865,17 +3941,21 @@
               "defaultValue": null
             },
             {
-              "name": "textContent",
+              "name": "images",
               "description": "",
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "defaultValue": null
             },
             {
-              "name": "images",
+              "name": "subscribedUsers",
               "description": "",
               "type": {
                 "kind": "LIST",
@@ -3980,6 +4060,20 @@
                 }
               },
               "defaultValue": null
+            },
+            {
+              "name": "subscribedUsers",
+              "description": "",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
             }
           ],
           "interfaces": null,
@@ -3989,6 +4083,56 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "DeleteDocumentInput",
+          "description": "",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "id",
+              "description": "",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "SubscribeDocInput",
+          "description": "",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "id",
+              "description": "",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "UnsubscribeDocInput",
           "description": "",
           "fields": null,
           "inputFields": [
