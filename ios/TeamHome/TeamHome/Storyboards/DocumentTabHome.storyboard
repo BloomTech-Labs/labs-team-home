@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xhe-7c-dlh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fDV-sB-tgI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,50 +11,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Document Board-->
-        <scene sceneID="ObU-q8-0m7">
-            <objects>
-                <viewController id="xhe-7c-dlh" sceneMemberID="viewController">
-                    <stackView key="view" opaque="NO" contentMode="scaleToFill" axis="vertical" id="deD-kr-Ccs">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z5W-AB-0yD">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <connections>
-                                    <segue destination="fDV-sB-tgI" kind="embed" id="uBh-HM-K4W"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="Z5W-AB-0yD" firstAttribute="leading" secondItem="cre-k0-zQR" secondAttribute="leading" id="cY3-2q-AkG"/>
-                            <constraint firstItem="Z5W-AB-0yD" firstAttribute="trailing" secondItem="cre-k0-zQR" secondAttribute="trailing" id="fll-og-JNK"/>
-                            <constraint firstItem="Z5W-AB-0yD" firstAttribute="top" secondItem="deD-kr-Ccs" secondAttribute="top" id="mPd-31-Jy3"/>
-                            <constraint firstAttribute="bottom" secondItem="Z5W-AB-0yD" secondAttribute="bottom" id="v1h-7l-Nvj"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="cre-k0-zQR"/>
-                    </stackView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Document Board" id="THL-nQ-xUS">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="Change Team" style="done" id="3LH-IC-EJC"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="N8f-33-zu3">
-                            <connections>
-                                <segue destination="Gjh-D1-vhX" kind="show" identifier="AddDocument" id="r6h-OX-kaa"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dXV-NF-YE9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="694" y="155"/>
-        </scene>
-        <!--Collection View Controller-->
+        <!--Documents Collection View Controller-->
         <scene sceneID="Ymj-MR-Hib">
             <objects>
-                <collectionViewController id="Bqt-qo-Iad" sceneMemberID="viewController">
+                <collectionViewController id="Bqt-qo-Iad" customClass="DocumentsCollectionViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="jzS-3t-MNe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hiv-do-ykf">
@@ -91,11 +53,11 @@
             <objects>
                 <viewController id="XfM-TF-4xr" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qcw-5s-OyT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TYT-XU-pvL">
-                                <rect key="frame" x="16" y="52" width="343" height="535.5"/>
+                                <rect key="frame" x="16" y="52" width="343" height="482"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6vL-8R-k1M">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -191,11 +153,11 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zfE-Vc-DwP" userLabel="Comment Container View">
-                                        <rect key="frame" x="0.0" y="341" width="343" height="161.5"/>
+                                        <rect key="frame" x="0.0" y="341" width="343" height="108"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Sx-Ss-NdC">
-                                        <rect key="frame" x="0.0" y="502.5" width="343" height="33"/>
+                                        <rect key="frame" x="0.0" y="449" width="343" height="33"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yp9-f4-dOG">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="33"/>
@@ -238,11 +200,11 @@
             <objects>
                 <viewController id="Gjh-D1-vhX" customClass="AddDocumentViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WHs-eC-9fZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAZ-4k-C2y">
-                                <rect key="frame" x="16" y="84" width="343" height="475"/>
+                                <rect key="frame" x="16" y="64" width="343" height="475"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gHi-jW-i5M">
                                         <rect key="frame" x="21.5" y="16" width="300" height="443"/>
@@ -353,6 +315,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jdc-Gj-j0w" customClass="RaisedButton" customModule="Material">
                                                         <rect key="frame" x="153" y="0.0" width="147" height="30"/>
                                                         <state key="normal" title="Submit"/>
+                                                        <connections>
+                                                            <action selector="addDocument:" destination="Gjh-D1-vhX" eventType="touchUpInside" id="SIX-lt-qfz"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -381,32 +346,32 @@
                         <viewLayoutGuide key="safeArea" id="vcF-Se-sQx"/>
                     </view>
                     <connections>
-                        <outlet property="cancelButton" destination="vks-v4-e09" id="Okv-35-Jte"/>
+                        <outlet property="cancelButton" destination="vks-v4-e09" id="doA-TA-K9H"/>
                         <outlet property="collectionView" destination="Tqk-wu-jEX" id="upd-8T-l84"/>
                         <outlet property="documentLinkTextField" destination="wNb-Lw-uj0" id="uaP-Gu-5TL"/>
                         <outlet property="documentNotesTextView" destination="BHQ-Px-4pc" id="Y1I-4P-ZOV"/>
                         <outlet property="documentTitleTextField" destination="yh7-UD-BNh" id="O5K-eV-oeu"/>
                         <outlet property="imageView" destination="TYs-h8-hHN" id="l8t-By-GjD"/>
                         <outlet property="newDocumentView" destination="rAZ-4k-C2y" id="qGL-RU-Hn5"/>
-                        <outlet property="submitButton" destination="Jdc-Gj-j0w" id="zZg-eX-pOP"/>
+                        <outlet property="submitButton" destination="Jdc-Gj-j0w" id="uK2-jz-NNL"/>
                         <outlet property="tagsTextField" destination="l8Z-hU-z1g" id="EZ8-d2-Qyf"/>
                         <outlet property="titleLabel" destination="6Qd-mG-lC4" id="T7A-ox-Gvi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cUf-ob-Rhj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="694" y="956"/>
+            <point key="canvasLocation" x="601" y="575"/>
         </scene>
-        <!--Message Board-->
+        <!--Documents-->
         <scene sceneID="Lvc-1L-8j7">
             <objects>
-                <viewController id="fDV-sB-tgI" sceneMemberID="viewController">
+                <viewController id="fDV-sB-tgI" customClass="DocumentsViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8uO-CI-h0J">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="FOx-SN-I5G">
-                                <rect key="frame" x="0.0" y="63.5" width="375" height="603.5"/>
+                                <rect key="frame" x="0.0" y="53" width="375" height="550"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="550" id="YgN-iS-LMV">
                                         <variation key="heightClass=regular-widthClass=regular" constant="905.5"/>
@@ -417,19 +382,19 @@
                                 </connections>
                             </containerView>
                             <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sLw-Ke-Nmi">
-                                <rect key="frame" x="16" y="16" width="343" height="31.5"/>
+                                <rect key="frame" x="16" y="16" width="343" height="21"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fFF-fW-LC5">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="31.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="253" text="Team home 2" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHn-Px-kkQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="150.5" height="31.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="150.5" height="21"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="255" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKf-q4-mce" customClass="FlatButton" customModule="Material">
-                                                <rect key="frame" x="158.5" y="0.0" width="184.5" height="31.5"/>
+                                                <rect key="frame" x="158.5" y="0.0" width="184.5" height="21"/>
                                                 <state key="normal" image="Arrow Down"/>
                                                 <connections>
                                                     <action selector="filterMessages:" destination="fDV-sB-tgI" eventType="touchUpInside" id="HwC-ow-TNc"/>
@@ -452,19 +417,29 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="I2i-lf-nnN"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Message Board" id="3hn-IV-Jqe">
+                    <navigationItem key="navigationItem" title="Documents" id="3hn-IV-Jqe">
                         <barButtonItem key="leftBarButtonItem" image="Change Team" style="done" id="PK1-XC-FFk">
                             <connections>
                                 <segue destination="dLH-pj-8Cp" kind="unwind" unwindAction="unwindToDashboardWithSegue:" id="TMB-uU-rmK"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Wxi-BA-qIs"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Wxi-BA-qIs">
+                            <connections>
+                                <segue destination="Gjh-D1-vhX" kind="show" identifier="AddDocument" id="2HZ-Sp-MoN"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="containerView" destination="FOx-SN-I5G" id="9BN-ON-Kib"/>
+                        <outlet property="filterButton" destination="eKf-q4-mce" id="7P4-6Z-hcy"/>
+                        <outlet property="teamNameLabel" destination="GHn-Px-kkQ" id="zoU-R5-1cb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jt2-aE-irp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="dLH-pj-8Cp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1561" y="-169"/>
+            <point key="canvasLocation" x="600.79999999999995" y="-197.45127436281859"/>
         </scene>
     </scenes>
     <resources>
