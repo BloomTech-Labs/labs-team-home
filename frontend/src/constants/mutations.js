@@ -283,3 +283,11 @@ export const ADD_FOLDER = gql`
 	}
 	${FULL_FOLDER}
 `;
+
+export const DELETE_FOLDER = gql`
+	mutation deleteFolder($id: ID!) {
+		deleteFolder(input: { id: $id }) {
+			_id
+		}
+	}
+`;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import * as query from '../../constants/queries';
+import FolderDetails from './FolderDetails';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -28,6 +29,8 @@ const IndividualFolder = styled.p`
 		100% 100%,
 		0% 100%
 	);
+
+	cursor: pointer;
 `;
 
 const Error = styled.p`
@@ -35,9 +38,38 @@ const Error = styled.p`
 `;
 
 class Folders extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			displayButtons: false,
+			currentFolder: null,
+			folderDetailOpen: false
+		};
+	}
+
+	toggleButtons = () => {
+		this.setState({ displayButtons: !this.state.displayButtons });
+	};
+
+	toggleFolderDetail = dir => {
+		this.setState(prevState => ({
+			folderDetailOpen: !prevState.folderDetailOpen,
+			currentFolder: dir
+		}));
+	};
+
 	render() {
 		return (
 			<FolderContainer>
+				{/* All the Modals */}
+				<FolderDetails
+					open={this.state.folderDetailOpen}
+					hideModal={() => this.toggleFolderDetail(null)}
+					folder={this.state.currentFolder}
+					currentUser={this.props.currentUser}
+					team={this.props.team._id}
+				/>
+				{/* All the Folders */}
 				<Query
 					query={query.FIND_FOLDERS_BY_TEAM}
 					variables={{ team: this.props.team._id }}
@@ -47,7 +79,11 @@ class Folders extends Component {
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
 							return findFoldersByTeam.map(folder => (
-								<IndividualFolder key={folder._id}>
+								<IndividualFolder
+									key={folder._id}
+									folder={folder}
+									onClick={() => this.toggleFolderDetail(folder)}
+								>
 									{folder.title}
 									{folder.documents.length ? (
 										folder.documents.map(doc => {
