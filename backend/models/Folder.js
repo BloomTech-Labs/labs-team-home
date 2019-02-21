@@ -11,9 +11,7 @@ const Folder = new Schema(
 		},
 		team: { type: Schema.Types.ObjectId, ref: 'Team', required: true },
 		user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-		documents: [{ type: Schema.Types.ObjectId, ref: 'Document' }],
-		createdAt: Schema.Types.Date,
-		updatedAt: Schema.Types.Date
+		documents: [{ type: Schema.Types.ObjectId, ref: 'Document' }]
 	},
 	{ timestamps: true }
 );

@@ -90,3 +90,12 @@ export const FIND_FOLDERS_BY_TEAM = gql`
 	}
 	${f.FULL_FOLDER}
 `;
+
+export const FIND_DOCUMENTS_BY_TEAM = gql`
+	query findDocumentsByTeam($team: ID!) {
+		findDocumentsByTeam(input: { team: $team }) {
+			...FullDocument
+		}
+	}
+	${f.FULL_DOCUMENT}
+`;

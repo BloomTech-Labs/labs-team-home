@@ -33,6 +33,10 @@ const IndividualFolder = styled.p`
 	cursor: pointer;
 `;
 
+const Error = styled.p`
+	color: white;
+`;
+
 class Folders extends Component {
 	constructor(props) {
 		super(props);
@@ -81,10 +85,17 @@ class Folders extends Component {
 									onClick={() => this.toggleFolderDetail(folder)}
 								>
 									{folder.title}
+									{folder.documents.length ? (
+										folder.documents.map(doc => {
+											return <p>{doc.title}</p>;
+										})
+									) : (
+										<></>
+									)}
 								</IndividualFolder>
 							));
 						} else {
-							return <p>No Documents Available For This Team</p>;
+							return <Error>No Folders Available For This Team</Error>;
 						}
 					}}
 				</Query>
