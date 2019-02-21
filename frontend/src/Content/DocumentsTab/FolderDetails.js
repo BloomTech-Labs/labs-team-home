@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose } from 'react-apollo';
 import styled from 'styled-components';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,12 +9,15 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { Close } from '../MessageBoard/MessageDetail';
 import { colors, palette } from '../../colorVariables';
-import { addFolder } from '../mutations/folders';
+import { deleteFolder } from '../mutations/folders';
+import CardActions from '@material-ui/core/CardActions';
+
+//Pretty much all of these components are defined elsewhere,
+//we really ought to have a component for modal styling
 
 const StyledDialog = styled(Dialog)`
 	max-width: 696px;
 	margin: 0 auto;
-
 	/* should add a media query here to make the modal go full screen if less than max width */
 `;
 
@@ -26,11 +28,6 @@ const Overlay = styled(DialogContent)`
 	}
 `;
 
-const SubmitButton = styled(Button)`
-	color: ${colors.text};
-	margin: 0 auto;
-`;
-
 const Title = styled(DialogTitle)`
 	padding-left: 0;
 	background-color: ${colors.button};
@@ -39,24 +36,17 @@ const Title = styled(DialogTitle)`
 	}
 `;
 
-const Input = styled(TextField)`
-	input,
-	textarea,
-	label {
-		color: ${colors.text};
-	}
-	&:nth-child(2) {
-		margin: 10px 0;
-		textarea {
-			min-height: 200px;
-		}
-	}
-	&:nth-child(3) {
-		margin-bottom: 10px;
-	}
+const StyledButton = styled(Button).attrs(() => ({
+	//defined static props passed to button component:
+	size: 'small' //this literally doesn't do anything
+}))`
+	border-bottom: solid 1px ${palette.yellow};
+	color: ${colors.text};
+	border-radius: 0px;
+	margin: 10px;
 `;
 
-class AddFolder extends React.Component {
+class FolderDetails extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -65,17 +55,14 @@ class AddFolder extends React.Component {
 		};
 	}
 
-	handleChange = e => {
-		this.setState({ [e.target.name]: e.target.value });
-	};
-
 	render() {
-		const { addFolder } = this.props;
+		const { deleteFolder } = this.props;
 
+		if (this.props.folder === null) return <></>;
 		return (
 			<StyledDialog
 				open={this.props.open}
-				onClose={this.props.closeHandler}
+				onClose={this.props.hideModal}
 				PaperProps={{
 					style: {
 						background: `transparent`,
@@ -83,11 +70,10 @@ class AddFolder extends React.Component {
 					}
 				}}
 			>
-				{/*Close button*/}
 				<Close>
 					<IconButton
 						aria-label="Close"
-						onClick={this.props.closeHandler}
+						onClick={this.props.hideModal}
 						style={{
 							color: colors.text,
 							background: palette.plumTransparent
@@ -97,40 +83,38 @@ class AddFolder extends React.Component {
 					</IconButton>
 				</Close>
 				<Overlay>
-					<Title>Add a New Folder</Title>
+					{/* All fo the folder info should go here 
+                    Not just the ability to delete 
+                    Should also include a list of all the files */}
+					<Title>"{this.props.folder.title}" </Title>
+					<Title>Stuff is in here but we can not see it just yet</Title>
+					<Title>Delete this folder ? </Title>
 
-					<form
-						onSubmit={e => {
-							e.preventDefault();
-							//create newFolder
-							addFolder({
-								user: this.props.user,
-								title: this.state.title,
-								team: this.props.team
-							})
-								.then(res => {
-									return this.props.closeHandler();
-								})
-								.catch(err => {
-									console.error(err);
-								});
+					<CardActions
+						style={{
+							width: '100%',
+							display: 'flex',
+							flexFlow: 'row',
+							justifyContent: 'space-around'
 						}}
 					>
-						<Input
-							name="title"
-							placeholder="title"
-							variant="outlined"
-							fullWidth
-							onChange={this.handleChange}
-						/>
-						<SubmitButton type="submit" size="large" fullWidth>
-							Add
-						</SubmitButton>
-					</form>
+						<StyledButton
+							onClick={e => {
+								e.preventDefault();
+								deleteFolder({
+									id: this.props.folder._id
+								}).then(() => {
+									this.props.hideModal();
+								});
+							}}
+						>
+							Delete
+						</StyledButton>
+					</CardActions>
 				</Overlay>
 			</StyledDialog>
 		);
 	}
 }
 
-export default compose(addFolder)(AddFolder);
+export default compose(deleteFolder)(FolderDetails);

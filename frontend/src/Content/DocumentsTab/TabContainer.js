@@ -15,7 +15,7 @@ const TabContainer = props => {
 	return (
 		<MainContainer>
 			<DocsButtonMenu {...props} />
-			<Folders team={props.team} />
+			<Folders team={props.team} {...props} />
 		</MainContainer>
 	);
 };
