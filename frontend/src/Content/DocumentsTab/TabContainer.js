@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import DocsButtonMenu from './DocsButtonMenu';
@@ -14,7 +14,7 @@ const MainContainer = styled.div`
 const TabContainer = props => {
 	return (
 		<MainContainer>
-			<DocsButtonMenu />
+			<DocsButtonMenu {...props} />
 			<Folders team={props.team} />
 		</MainContainer>
 	);

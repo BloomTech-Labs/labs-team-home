@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import * as query from '../../constants/queries';
-import { addFolder } from '../mutations/folders';
 
 const FolderContainer = styled.div`
 	display: flex;

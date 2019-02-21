@@ -70,7 +70,7 @@ const StyledEditCommentLabel = styled.label`
 
 const CommentInputLabel = styled.label`
 	width: 100%;
-	/* background-color: #fff; */
+	background-color: #fff;
 	padding: 5px;
 	.MuiInputBase-root-320 {
 		padding: 0px;
@@ -477,7 +477,7 @@ class MessageDetail extends Component {
 														padding: '0px'
 													}
 												}}
-												variant="outlined"
+												// variant="outlined"
 												fullWidth
 												multiline={true}
 												rows={2}
