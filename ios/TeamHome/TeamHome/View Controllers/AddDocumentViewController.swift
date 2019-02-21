@@ -45,13 +45,19 @@ class AddDocumentViewController: UIViewController {
             let link = documentLinkTextField.text else { return}
         let note = documentNotesTextView.text ?? ""
         
-//        apollo.perform(mutation: AddDocumentMutation())
-        
+        apollo.perform(mutation: AddNewDocumentMutation(title: title, doc_url: link, team: team.id!, textContent: note)) { (result, error) in
+            if let error = error{
+                NSLog("Error adding document: \(error)")
+                return
+            }
+            print("Add Document Successful: \(result?.data?.addDocument?.title ?? "No Title")")
+        }
         
     }
     
     //MARK: - Properties
     var apollo: ApolloClient!
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: FlatButton!

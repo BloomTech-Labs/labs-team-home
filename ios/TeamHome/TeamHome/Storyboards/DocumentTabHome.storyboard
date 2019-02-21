@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Collection View Controller-->
+        <!--Documents Collection View Controller-->
         <scene sceneID="Ymj-MR-Hib">
             <objects>
-                <collectionViewController id="Bqt-qo-Iad" sceneMemberID="viewController">
+                <collectionViewController id="Bqt-qo-Iad" customClass="DocumentsCollectionViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="jzS-3t-MNe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -425,7 +425,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Wxi-BA-qIs">
                             <connections>
-                                <segue destination="Gjh-D1-vhX" kind="show" id="2HZ-Sp-MoN"/>
+                                <segue destination="Gjh-D1-vhX" kind="show" identifier="AddDocument" id="2HZ-Sp-MoN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
