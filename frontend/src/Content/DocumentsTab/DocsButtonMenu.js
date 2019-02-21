@@ -6,6 +6,7 @@ import Folder from '@material-ui/icons/Folder';
 import NoteAdd from '@material-ui/icons/NoteAdd';
 import Close from '@material-ui/icons/Close';
 import { colors } from '../../colorVariables';
+import AddFolder from './AddFolder';
 
 const AddBtn = styled(Fab)`
 	background-color: ${colors.button};
@@ -39,7 +40,8 @@ class DocsButtonMenu extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			displayButtons: false
+			displayButtons: false,
+			showNewFolderModal: false
 		};
 	}
 
@@ -47,15 +49,30 @@ class DocsButtonMenu extends Component {
 		this.setState({ displayButtons: !this.state.displayButtons });
 	};
 
+	toggleNewFolderModalHandler = () => {
+		this.setState(prevState => ({
+			showNewFolderModal: !prevState.showNewFolderModal
+		}));
+	};
+
 	render() {
 		return (
 			<div>
+				{/* Modals called form menu Items */}
+				<AddFolder
+					closeHandler={this.toggleNewFolderModalHandler}
+					stopProp={e => e.stopPropagation()}
+					team={this.props.team._id}
+					user={this.props.currentUser._id}
+					open={this.state.showNewFolderModal}
+				/>
+				{/* Menu Items */}
 				<AddBtn onClick={() => this.toggleButtons()}>
 					<MainFabIconAdd display={this.state.displayButtons} />
 					<MainFabIconClose display={this.state.displayButtons} />
 				</AddBtn>
 				<AddMenuFab display={this.state.displayButtons}>
-					<Folder />
+					<Folder onClick={() => this.toggleNewFolderModalHandler()} />
 				</AddMenuFab>
 				<AddMenuFab display={this.state.displayButtons}>
 					<NoteAdd />

@@ -15,7 +15,7 @@ const MainContainer = styled.div`
 const TabContainer = props => {
 	return (
 		<MainContainer>
-			<DocsButtonMenu />
+			<DocsButtonMenu {...props} />
 			<Folders team={props.team} />
 			<Documents team={props.team} />
 		</MainContainer>
