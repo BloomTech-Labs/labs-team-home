@@ -6,6 +6,8 @@ import Folder from '@material-ui/icons/Folder';
 import NoteAdd from '@material-ui/icons/NoteAdd';
 import Close from '@material-ui/icons/Close';
 import { colors } from '../../colorVariables';
+import AddFolder from './AddFolder';
+import AddDocument from './AddDocument';
 
 const AddBtn = styled(Fab)`
 	background-color: ${colors.button};
@@ -39,7 +41,9 @@ class DocsButtonMenu extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			displayButtons: false
+			displayButtons: false,
+			showNewFolderModal: false,
+			showNewDocumentModal: false
 		};
 	}
 
@@ -47,19 +51,47 @@ class DocsButtonMenu extends Component {
 		this.setState({ displayButtons: !this.state.displayButtons });
 	};
 
+	toggleNewFolderModal = () => {
+		this.setState(prevState => ({
+			showNewFolderModal: !prevState.showNewFolderModal
+		}));
+	};
+
+	toggleNewDocumentModal = () => {
+		this.setState(prevState => ({
+			showNewDocumentModal: !prevState.showNewDocumentModal
+		}));
+	};
+
 	render() {
 		return (
 			<div>
+				{/* Menu Items */}
 				<AddBtn onClick={() => this.toggleButtons()}>
 					<MainFabIconAdd display={this.state.displayButtons} />
 					<MainFabIconClose display={this.state.displayButtons} />
 				</AddBtn>
 				<AddMenuFab display={this.state.displayButtons}>
-					<Folder />
+					<Folder onClick={() => this.toggleNewFolderModal()} />
 				</AddMenuFab>
 				<AddMenuFab display={this.state.displayButtons}>
-					<NoteAdd />
+					<NoteAdd onClick={() => this.toggleNewDocumentModal()} />
 				</AddMenuFab>
+				{/* Modals called from menu Items */}
+				<AddFolder
+					closeHandler={this.toggleNewFolderModal}
+					stopProp={e => e.stopPropagation()}
+					team={this.props.team._id}
+					user={this.props.currentUser._id}
+					open={this.state.showNewFolderModal}
+				/>
+				<AddDocument
+					closeHandler={this.toggleNewDocumentModal}
+					stopProp={e => e.stopPropagation()}
+					team={this.props.team._id}
+					user={this.props.currentUser._id}
+					open={this.state.showNewDocumentModal}
+				/>
 			</div>
 		);
 	}

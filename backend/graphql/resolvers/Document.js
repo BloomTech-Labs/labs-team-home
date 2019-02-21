@@ -1,26 +1,27 @@
 require('dotenv').config();
 const Document = require('../../models/Document');
-const Folder = require('../../models/Folder');
 const DocComment = require('../../models/DocComment');
 
 const { ValidationError } = require('apollo-server-express');
 
 const documentResolver = {
 	Query: {
-		documents: () => Document.find().populate('user name'),
+		documents: () =>
+			Document.find().populate('user team folder subscribedUsers'),
 		findDocument: (_, { input: { id } }) =>
 			Document.findById(id)
-				.populate('team folder user')
+				.populate('team folder user subscribedUsers')
 				.then(document => document),
 
 		findDocumentsByFolder: (_, { input: { folder } }) =>
 			Document.find({ folder: folder })
-				.populate('user team folder')
+				.populate('user team folder subscribedUsers')
 				.then(document => document),
 		findDocumentsByTeam: async (_, { input: { team } }) => {
 			const documents = await Document.find({ team: team }).populate(
-				'user team folders'
+				'user team folder subscribedUsers'
 			);
+
 			return documents.map(x => {
 				x._id = x._id.toString();
 				return x;
@@ -31,7 +32,9 @@ const documentResolver = {
 		addDocument: (_, { input }, { user: { _id } }) =>
 			new Document({ ...input, user: _id })
 				.save()
-				.then(document => document.populate('user team')),
+				.then(document =>
+					document.populate('user team subscribedUsers folder').execPopulate()
+				),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
 			return Document.findById(id).then(document => {
@@ -40,7 +43,7 @@ const documentResolver = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user team folder');
+					).populate('user team folder subscribedUsers');
 				} else {
 					throw new ValidationError("Document doesn't exist.");
 				}
@@ -50,16 +53,26 @@ const documentResolver = {
 			Document.findById(id).then(async document => {
 				if (document) {
 					const doc = await Document.findOneAndDelete({ _id: id });
-					// await DocComment.deleteMany({ document: document._id });
-					doc._id = doc._id.toString();
-					doc.user = doc.user.toString();
-					console.log(doc);
+					await DocComment.deleteMany({ document: document._id });
+					// console.log(doc);
 					return doc;
 				} else {
 					throw new ValidationError("Document doesn't exist");
 				}
 			});
-		}
+		},
+		subscribeDoc: (_, { input: { id } }, { user: { _id } }) =>
+			Document.findOneAndUpdate(
+				{ _id: id },
+				{ $addToSet: { subscribedUsers: _id } },
+				{ new: true }
+			).populate('user team folder subscribedUsers'),
+		unsubscribeDoc: (_, { input: { id } }, { user: { _id } }) =>
+			Document.findOneAndUpdate(
+				{ _id: id },
+				{ $pull: { subscribedUsers: _id } },
+				{ new: true }
+			).populate('user team folder subscribedUsers')
 	}
 };
 

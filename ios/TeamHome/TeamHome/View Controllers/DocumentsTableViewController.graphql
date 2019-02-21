@@ -1,0 +1,29 @@
+query FindDocumentsByTeam($teamID: ID!){
+    findDocumentsByTeam(input: {
+                              team: $teamID
+                              }){
+        _id
+        doc_url
+        user{
+            firstName
+            lastName
+            avatar
+            _id
+        }
+        folder{
+            _id
+            title
+        }
+        title
+        textContent
+        images
+        comments
+        subscribedUsers{
+            firstName
+            lastName
+            avatar
+        }
+        createdAt
+        updatedAt
+    }
+}

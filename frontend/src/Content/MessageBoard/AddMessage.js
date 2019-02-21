@@ -8,7 +8,6 @@ import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,10 +16,10 @@ import CloseIcon from '@material-ui/icons/Close';
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import { addMessage, addTag } from '../mutations/messages';
-import { colors } from '../../colorVariables';
+import { colors, palette } from '../../colorVariables';
 import { compose, Query } from 'react-apollo';
 import { FIND_TAGS_BY_TEAM } from '../../constants/queries';
-const { button } = colors;
+import { Close } from './MessageDetail';
 
 registerPlugin(
 	FilePondPluginImageExifOrientation,
@@ -36,22 +35,22 @@ const apiSecret = process.env.REACT_APP_API_SECRET;
 const cloudName = process.env.REACT_APP_CLOUD_NAME;
 
 const Overlay = styled(DialogContent)`
-	background-color: ${button};
+	background-color: ${colors.button};
 	.filepond--wrapper {
 		width: 100%;
 	}
 `;
 
 const SubmitButton = styled(Button)`
-	color: #fff;
+	color: ${colors.text};
 	margin: 0 auto;
 `;
 
 const Title = styled(DialogTitle)`
 	padding-left: 0;
-	background-color: ${button};
+	background-color: ${colors.button};
 	h2 {
-		color: #fff;
+		color: ${colors.text};
 	}
 `;
 
@@ -59,7 +58,7 @@ const Input = styled(TextField)`
 	input,
 	textarea,
 	label {
-		color: #fff;
+		color: ${colors.text};
 	}
 	&:nth-child(2) {
 		margin: 10px 0;
@@ -73,30 +72,48 @@ const Input = styled(TextField)`
 `;
 
 function AddMessage(props) {
+	//this is there state... but why?
+
 	let team, user, title, content, tag, images;
 	team = props.team;
 	user = props.user;
 	images = [];
 	const { addMessage, addTag } = props;
+
 	return (
-		<Query query={FIND_TAGS_BY_TEAM} variables={{ team }}>
-			{({ loading, error, data: { findTagsByTeam } }) => {
-				if (loading) return <p>Loading...</p>;
-				if (error) return <p>Error!</p>;
-				return (
-					<Dialog open={props.open} onClose={props.closeHandler} fullWidth>
-						<Overlay>
-							{/*Close button*/}
-							<DialogActions>
-								<IconButton
-									aria-label="Close"
-									onClick={props.closeHandler}
-									style={{ color: '#fff' }}
-								>
-									<CloseIcon />
-								</IconButton>
-							</DialogActions>
-							<Title>Add a New Message</Title>
+		<Dialog
+			open={props.open}
+			onClose={props.closeHandler}
+			scroll="body"
+			PaperProps={{
+				style: {
+					background: `transparent`,
+					boxShadow: 'none'
+				}
+			}}
+		>
+			{/*Close button*/}
+			<Close>
+				<IconButton
+					aria-label="Close"
+					onClick={props.closeHandler}
+					style={{
+						color: colors.text,
+						background: palette.plumTransparent
+					}}
+				>
+					<CloseIcon />
+				</IconButton>
+			</Close>
+			{/* Overlay is the dark area that the message and comments fill */}
+			<Overlay>
+				{/* The header information: name, avatar */}
+				<Title>Add a New Message</Title>
+				<Query query={FIND_TAGS_BY_TEAM} variables={{ team }}>
+					{({ loading, error, data: { findTagsByTeam } }) => {
+						if (loading) return <p>Loading...</p>;
+						if (error) return <p>Error</p>;
+						return (
 							<form
 								onSubmit={e => {
 									e.preventDefault();
@@ -108,6 +125,7 @@ function AddMessage(props) {
 										team: team,
 										images: images
 									};
+									//check if the tag length is not 0 to do stuff with tags
 									if (tag.value.length) {
 										const exists = findTagsByTeam.find(
 											({ name }) => name === tag.value
@@ -138,8 +156,6 @@ function AddMessage(props) {
 										addMessage(newMessage)
 											.then(res => {
 												return props.closeHandler();
-												// alert('Message added');
-												// window.location.reload(true);
 											})
 											.catch(err => {
 												console.error(err);
@@ -152,7 +168,6 @@ function AddMessage(props) {
 								}}
 							>
 								<Input
-									type="text"
 									name="title"
 									placeholder="title"
 									variant="outlined"
@@ -172,7 +187,6 @@ function AddMessage(props) {
 									fullWidth
 								/>
 								<Input
-									type="text"
 									name="tag"
 									placeholder="tag"
 									variant="outlined"
@@ -255,11 +269,11 @@ function AddMessage(props) {
 									Save
 								</SubmitButton>
 							</form>
-						</Overlay>
-					</Dialog>
-				);
-			}}
-		</Query>
+						);
+					}}
+				</Query>
+			</Overlay>
+		</Dialog>
 	);
 }
 

@@ -7,7 +7,7 @@ const { ValidationError } = require('apollo-server-express');
 const folderResolver = {
 	Query: {
 		folders: () => Folder.find().populate('user team documents'),
-		findFolders: (_, { input: { id } }) =>
+		findFolder: (_, { input: { id } }) =>
 			Folder.findById(id)
 				.populate('user team documents')
 				.then(folder => folder),

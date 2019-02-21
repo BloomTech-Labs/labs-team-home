@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import * as query from '../../constants/queries';
-import { addFolder } from '../mutations/folders';
+import FolderDetails from './FolderDetails';
+import Droppable from './DnD/Droppable';
+import Draggable from './DnD/Draggable';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -13,10 +15,10 @@ const FolderContainer = styled.div`
 const IndividualFolder = styled.p`
 	min-height: 200px;
 	color: black;
-	background-color: white;
+	background-color: #a9a4b0;
 	text-align: center;
 	padding: 40px 10px 10px 10px;
-	border: 1px solid white;
+	border: 2px solid white;
 	border-radius: 5px;
 	margin: 10px;
 	clip-path: polygon(
@@ -29,13 +31,21 @@ const IndividualFolder = styled.p`
 		100% 100%,
 		0% 100%
 	);
+
+	cursor: pointer;
+`;
+
+const Error = styled.p`
+	color: white;
 `;
 
 class Folders extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			displayButtons: false
+			displayButtons: false,
+			currentFolder: null,
+			folderDetailOpen: false
 		};
 	}
 
@@ -43,9 +53,16 @@ class Folders extends Component {
 		this.setState({ displayButtons: !this.state.displayButtons });
 	};
 
+	toggleFolderDetail = dir => {
+		this.setState(prevState => ({
+			folderDetailOpen: !prevState.folderDetailOpen,
+			currentFolder: dir
+		}));
+	};
 	render() {
 		return (
 			<FolderContainer>
+				{/* All the Folders */}
 				<Query
 					query={query.FIND_FOLDERS_BY_TEAM}
 					variables={{ team: this.props.team._id }}
@@ -55,15 +72,36 @@ class Folders extends Component {
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
 							return findFoldersByTeam.map(folder => (
-								<IndividualFolder key={folder._id}>
-									{folder.title}
-								</IndividualFolder>
+								<Droppable>
+									<IndividualFolder
+										key={folder._id}
+										folder={folder}
+										onClick={() => this.toggleFolderDetail(folder)}
+									>
+										{folder.title}
+										{folder.documents.length ? (
+											folder.documents.map(doc => {
+												return <p>{doc.title}</p>;
+											})
+										) : (
+											<></>
+										)}
+									</IndividualFolder>
+								</Droppable>
 							));
 						} else {
-							return <p>No Documents Available For This Team</p>;
+							return <Error>No Folders Available For This Team</Error>;
 						}
 					}}
 				</Query>
+				{/* All the Modals */}
+				<FolderDetails
+					open={this.state.folderDetailOpen}
+					hideModal={() => this.toggleFolderDetail(null)}
+					folder={this.state.currentFolder}
+					currentUser={this.props.currentUser}
+					team={this.props.team._id}
+				/>
 			</FolderContainer>
 		);
 	}

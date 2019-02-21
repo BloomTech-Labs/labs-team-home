@@ -26,6 +26,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import styled from 'styled-components';
 import DialogActions from '@material-ui/core/DialogActions';
 
+const StyledDialog = styled(Dialog)`
+	max-width: 696px;
+	margin: 0 auto;
+	/* should add a media query here to make the modal 
+    go full screen if less than max width 
+    also, something gotta be done about that scroll bar*/
+`;
+
 export const Overlay = styled(DialogContent)`
 	background-color: ${palette.plumTransparent};
 	color: #fff;
@@ -46,10 +54,7 @@ const StyledTextField = styled(TextField)`
 	}
 `;
 
-const StyledButton = styled(Button).attrs(() => ({
-	//defined static props passed to button component:
-	size: 'small' //this literally doesn't do anything
-}))`
+const StyledButton = styled(Button)`
 	border-bottom: solid 1px ${palette.yellow};
 	color: ${colors.text};
 	border-radius: 0px;
@@ -70,7 +75,7 @@ const StyledEditCommentLabel = styled.label`
 
 const CommentInputLabel = styled.label`
 	width: 100%;
-	/* background-color: #fff; */
+	background-color: #fff;
 	padding: 5px;
 	.MuiInputBase-root-320 {
 		padding: 0px;
@@ -95,17 +100,6 @@ class MessageDetail extends Component {
 		};
 		this.edit = React.createRef();
 	}
-
-	componentDidMount() {
-		this.updateWindowDimensions();
-		window.addEventListener('resize', this.updateWindowDimensions);
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.updateWindowDimensions);
-	}
-
-	updateWindowDimensions = () => this.setState({ width: window.innerWidth });
 
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -138,7 +132,7 @@ class MessageDetail extends Component {
 		if (message === null) return <> </>;
 
 		return (
-			<Dialog //open the Dialog box this is the part that makes everything else around darker
+			<StyledDialog //open the Dialog box this is the part that makes everything else around darker
 				open={open}
 				onClose={() => {
 					hideModal();
@@ -149,7 +143,6 @@ class MessageDetail extends Component {
 					this.resetState();
 				}}
 				scroll="body"
-				fullScreen={this.state.width <= 696}
 				PaperProps={{
 					style: {
 						background: `transparent`,
@@ -194,15 +187,13 @@ class MessageDetail extends Component {
 						<form
 							onSubmit={e => {
 								e.preventDefault();
-								let updateInput = {
+								message.title = this.state.title;
+								message.content = this.state.content;
+								updateMessage({
 									id: message._id,
 									title: this.state.title,
 									content: this.state.content
-								};
-								message.title = this.state.title;
-								message.content = this.state.content;
-								this.resetState();
-								updateMessage(updateInput);
+								}).then(() => this.resetState());
 							}}
 							style={{
 								width: '100%',
@@ -366,13 +357,12 @@ class MessageDetail extends Component {
 											{this.state.editing && this.state.edited === comment ? (
 												<form
 													action="submit"
-													onSubmit={async e => {
+													onSubmit={e => {
 														e.preventDefault();
-														await updateMsgComment({
+														updateMsgComment({
 															id: this.state.edited._id,
 															content: this.state.commentContent
-														});
-														await this.resetState();
+														}).then(() => this.resetState());
 													}}
 												>
 													<StyledEditCommentLabel htmlFor="comment-content">
@@ -401,6 +391,7 @@ class MessageDetail extends Component {
 														<>
 															<StyledButton
 																onClick={async e => {
+																	//why is this async, and does it need focus ??????
 																	e.preventDefault();
 																	if (!this.state.editingMessage) {
 																		await this.setState({
@@ -477,11 +468,8 @@ class MessageDetail extends Component {
 														padding: '0px'
 													}
 												}}
-												variant="outlined"
 												fullWidth
 												multiline={true}
-												rows={2}
-												rowsMax={4}
 											/>
 										</CommentInputLabel>
 										<IconButton type="submit">
@@ -493,7 +481,7 @@ class MessageDetail extends Component {
 						}}
 					</Query>
 				</Overlay>
-			</Dialog>
+			</StyledDialog>
 		);
 	}
 }
