@@ -1,0 +1,12 @@
+mutation AddDocument($title: String!, $doc_url: String!, $team: String!, $folder: String, $textContent: String!) {
+    addDocument(input: {
+                title: String!
+                doc_url: String!
+                team: String!
+                folder: String
+                textContent: String!
+                }) {
+        title
+        _id
+    }
+}

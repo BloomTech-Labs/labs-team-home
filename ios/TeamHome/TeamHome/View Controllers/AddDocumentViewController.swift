@@ -15,10 +15,10 @@ import Motion
 
 
 class AddDocumentViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpViewAppearance()
         newDocumentView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
@@ -39,7 +39,16 @@ class AddDocumentViewController: UIViewController {
         collectionView.backgroundColor = .clear
     }
     
-
+    //MARK: - IBActions
+    @IBAction func addDocument(_ sender: Any) {
+        guard let title = documentTitleTextField.text,
+            let link = documentLinkTextField.text else { return}
+        let note = documentNotesTextView.text ?? ""
+        
+        
+        
+    }
+    
     //MARK: - Properties
     
     @IBOutlet weak var titleLabel: UILabel!
