@@ -59,7 +59,6 @@ class Folders extends Component {
 			currentFolder: dir
 		}));
 	};
-
 	render() {
 		return (
 			<FolderContainer>
