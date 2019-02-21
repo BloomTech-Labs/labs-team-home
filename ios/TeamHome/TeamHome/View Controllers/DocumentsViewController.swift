@@ -60,6 +60,11 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             destinationVC.team = team
             
         }
+        if segue.identifier == "EmbeddedTable"{
+            let destinationVC = segue.destination as! DocumentsTableViewController
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+        }
     }
     
     private var gradientLayer: CAGradientLayer!
