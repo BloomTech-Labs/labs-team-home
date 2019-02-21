@@ -45,11 +45,13 @@ class AddDocumentViewController: UIViewController {
             let link = documentLinkTextField.text else { return}
         let note = documentNotesTextView.text ?? ""
         
+//        apollo.perform(mutation: AddDocumentMutation())
         
         
     }
     
     //MARK: - Properties
+    var apollo: ApolloClient!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: FlatButton!

@@ -83,7 +83,6 @@ enum Appearance {
 
 extension UIViewController {
     func setUpViewAppearance() {
-        
         view.backgroundColor = Appearance.grayColor
         
         UILabel.appearance().textColor = .white

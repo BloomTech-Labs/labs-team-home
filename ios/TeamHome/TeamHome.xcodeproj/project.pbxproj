@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		10409404221E265F00EC4389 /* AddDocumentViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 10409403221E265F00EC4389 /* AddDocumentViewController.graphql */; };
+		1060AA0C221E6416008A72A2 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */; };
 		10E2A19C2216153F007EC662 /* AddDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E2A19B2216153F007EC662 /* AddDocumentViewController.swift */; };
 		7B2C51EC220B2CF7004990BB /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C51EB220B2CF7004990BB /* TagCollectionViewCell.swift */; };
 		7B2C51F2220CB563004990BB /* CommentsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C51F1220CB563004990BB /* CommentsCollectionReusableView.swift */; };
@@ -71,6 +72,7 @@
 
 /* Begin PBXFileReference section */
 		10409403221E265F00EC4389 /* AddDocumentViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AddDocumentViewController.graphql; sourceTree = "<group>"; };
+		1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
 		10E2A19B2216153F007EC662 /* AddDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDocumentViewController.swift; sourceTree = "<group>"; };
 		465546B36BE62E5867C66338 /* Pods-TeamHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.release.xcconfig"; sourceTree = "<group>"; };
 		5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,6 +257,7 @@
 				7BF8735521F6D50B00737729 /* SettingsViewController.graphql */,
 				10E2A19B2216153F007EC662 /* AddDocumentViewController.swift */,
 				10409403221E265F00EC4389 /* AddDocumentViewController.graphql */,
+				1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */,
 				10E2A19C2216153F007EC662 /* AddDocumentViewController.swift in Sources */,
 				7B734DF721FF6E3900F56C5F /* Appearance.swift in Sources */,
+				1060AA0C221E6416008A72A2 /* DocumentsViewController.swift in Sources */,
 				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
 				7BA77EAC21E9376E00C862C1 /* AddEditMessageViewController.swift in Sources */,
 				7BA77E8521E7B2B500C862C1 /* User.swift in Sources */,
