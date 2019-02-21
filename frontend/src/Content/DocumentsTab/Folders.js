@@ -3,6 +3,8 @@ import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import * as query from '../../constants/queries';
 import FolderDetails from './FolderDetails';
+import Droppable from './DnD/Droppable';
+import Draggable from './DnD/Draggable';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -13,10 +15,10 @@ const FolderContainer = styled.div`
 const IndividualFolder = styled.p`
 	min-height: 200px;
 	color: black;
-	background-color: white;
+	background-color: #a9a4b0;
 	text-align: center;
 	padding: 40px 10px 10px 10px;
-	border: 1px solid white;
+	border: 2px solid white;
 	border-radius: 5px;
 	margin: 10px;
 	clip-path: polygon(
@@ -79,20 +81,22 @@ class Folders extends Component {
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
 							return findFoldersByTeam.map(folder => (
-								<IndividualFolder
-									key={folder._id}
-									folder={folder}
-									onClick={() => this.toggleFolderDetail(folder)}
-								>
-									{folder.title}
-									{folder.documents.length ? (
-										folder.documents.map(doc => {
-											return <p>{doc.title}</p>;
-										})
-									) : (
-										<></>
-									)}
-								</IndividualFolder>
+								<Droppable>
+									<IndividualFolder
+										key={folder._id}
+										folder={folder}
+										onClick={() => this.toggleFolderDetail(folder)}
+									>
+										{folder.title}
+										{folder.documents.length ? (
+											folder.documents.map(doc => {
+												return <p>{doc.title}</p>;
+											})
+										) : (
+											<></>
+										)}
+									</IndividualFolder>
+								</Droppable>
 							));
 						} else {
 							return <Error>No Folders Available For This Team</Error>;

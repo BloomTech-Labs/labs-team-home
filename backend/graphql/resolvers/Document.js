@@ -54,7 +54,7 @@ const documentResolver = {
 				if (document) {
 					const doc = await Document.findOneAndDelete({ _id: id });
 					await DocComment.deleteMany({ document: document._id });
-					console.log(doc);
+					// console.log(doc);
 					return doc;
 				} else {
 					throw new ValidationError("Document doesn't exist");
