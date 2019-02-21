@@ -3,12 +3,13 @@ const Document = /* GRAPHQL */ `
         _id: ID
         doc_url: String!
         user: User!
-        folder: ID
+        folder: Folder
         team: Team!
         title: String!
-        textContent: String
+        textContent: String!
         images: [String]
-        comments: [String]
+        comments: [ID]
+        subscribedUsers: [User]
         createdAt: String
         updatedAt: String
     }
@@ -25,9 +26,10 @@ const Document = /* GRAPHQL */ `
         title: String!
         doc_url: String!
         team: String!
-        folder: String!
-        textContent: String
+        folder: String
+        textContent: String!
         images: [String]
+        subscribedUsers: [String]
     }
     input UpdateDocumentInput {
         id: ID!
@@ -37,8 +39,15 @@ const Document = /* GRAPHQL */ `
         textContent: String
         images: [String]
         comments: [String]
+        subscribedUsers: [String]
     }
     input DeleteDocumentInput {
+        id: ID!
+    }
+    input SubscribeDocInput {
+        id: ID!
+    }
+    input UnsubscribeDocInput {
         id: ID!
     }
     extend type Query {
@@ -51,6 +60,8 @@ const Document = /* GRAPHQL */ `
         addDocument(input: AddDocumentInput): Document
         updateDocument(input: UpdateDocumentInput): Document
         deleteDocument(input: DeleteDocumentInput): Document
+        subscribeDoc(input: SubscribeDocInput): Document
+        unsubscribeDoc(input: UnsubscribeDocInput): Document
     }
 
 
