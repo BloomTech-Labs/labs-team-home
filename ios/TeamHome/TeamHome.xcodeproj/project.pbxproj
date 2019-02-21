@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		10409404221E265F00EC4389 /* AddDocumentViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 10409403221E265F00EC4389 /* AddDocumentViewController.graphql */; };
 		1060AA0C221E6416008A72A2 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */; };
+		1092D5B1221E8A5300579B34 /* DocumentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */; };
+		1092D5B3221E8B7D00579B34 /* DocumentsTableViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */; };
 		10E2A19C2216153F007EC662 /* AddDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E2A19B2216153F007EC662 /* AddDocumentViewController.swift */; };
 		7B2C51EC220B2CF7004990BB /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C51EB220B2CF7004990BB /* TagCollectionViewCell.swift */; };
 		7B2C51F2220CB563004990BB /* CommentsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C51F1220CB563004990BB /* CommentsCollectionReusableView.swift */; };
@@ -73,6 +75,8 @@
 /* Begin PBXFileReference section */
 		10409403221E265F00EC4389 /* AddDocumentViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AddDocumentViewController.graphql; sourceTree = "<group>"; };
 		1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
+		1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewController.swift; sourceTree = "<group>"; };
+		1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DocumentsTableViewController.graphql; sourceTree = "<group>"; };
 		10E2A19B2216153F007EC662 /* AddDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDocumentViewController.swift; sourceTree = "<group>"; };
 		465546B36BE62E5867C66338 /* Pods-TeamHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.release.xcconfig"; sourceTree = "<group>"; };
 		5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -257,6 +261,8 @@
 				7BF8735521F6D50B00737729 /* SettingsViewController.graphql */,
 				10E2A19B2216153F007EC662 /* AddDocumentViewController.swift */,
 				10409403221E265F00EC4389 /* AddDocumentViewController.graphql */,
+				1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */,
+				1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */,
 				1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */,
 			);
 			path = "View Controllers";
@@ -497,6 +503,7 @@
 				7BA77EBC21E93D1300C862C1 /* TeamDetailTableViewController.swift in Sources */,
 				7BA77EB421E93B3400C862C1 /* CommentCollectionViewCell.swift in Sources */,
 				10409404221E265F00EC4389 /* AddDocumentViewController.graphql in Sources */,
+				1092D5B1221E8A5300579B34 /* DocumentsTableViewController.swift in Sources */,
 				7BE481C622037B6200F518F9 /* DashboardCollectionReusableView.swift in Sources */,
 				7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */,
 				7BA77EA221E80E3E00C862C1 /* MessageCollectionViewCell.swift in Sources */,
@@ -508,6 +515,7 @@
 				7BA77EB221E93B2200C862C1 /* CommentsCollectionViewController.swift in Sources */,
 				7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */,
 				7BA77EB021E93B1300C862C1 /* MessageDetailViewController.swift in Sources */,
+				1092D5B3221E8B7D00579B34 /* DocumentsTableViewController.graphql in Sources */,
 				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,
 				7BD6589121EF8E8B004FF34A /* DashboardCollectionViewController.swift in Sources */,
 				7BD6589321EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift in Sources */,
