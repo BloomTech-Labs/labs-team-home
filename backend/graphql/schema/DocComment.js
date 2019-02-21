@@ -13,12 +13,12 @@ const DocComment = /* GraphQL */ `
 		id: ID!
 	}
 	input FindDocCommentsByDocumentInput {
-		id: ID!
+		document: ID!
 	}
 	input AddDocCommentInput {
 		document: String!
 		content: String!
-		image: String!
+		image: String
 	}
 	input UpdateDocCommentInput {
 		id: ID!
