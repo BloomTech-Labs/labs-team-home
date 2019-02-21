@@ -19,7 +19,8 @@ import 'filepond/dist/filepond.min.css';
 import SettingsContainer, {
 	StyledAvatar,
 	ImageFigure,
-	AvatarUploadContainer
+	AvatarUploadContainer,
+	StyledForm
 } from '../styles/container.styles';
 import Auth0 from '../../Auth/Auth';
 
@@ -132,7 +133,7 @@ class SettingsView extends Component {
 						<h1>User Settings</h1>
 						<SettingsTabs>
 							<div label="Account Settings">
-								<form
+								<StyledForm
 									onSubmit={e => {
 										console.log('submitted');
 										e.preventDefault();
@@ -303,7 +304,7 @@ class SettingsView extends Component {
 										checked={this.state.toggles.receiveTexts}
 									/>
 									<FormButton type="submit" title="save" />
-								</form>
+								</StyledForm>
 							</div>
 							<div label="Team Billing">
 								<BillingView
