@@ -28,6 +28,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         
     }
     
+
     // MARK: - IBActions
     
     // I don't remember if an IBAction is necessary, but here's the connection in case
@@ -77,7 +78,12 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         }
     }
     
+
     // MARK: - Properties
+<<<<<<< HEAD
+=======
+    
+>>>>>>> labs10-master
 
     private var gradientLayer: CAGradientLayer!
     

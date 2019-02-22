@@ -429,6 +429,7 @@
                         <outlet property="documentsFoldersSegmentedIndex" destination="mT3-Xk-wof" id="5xQ-eZ-sL5"/>
                         <outlet property="filterButton" destination="eKf-q4-mce" id="7P4-6Z-hcy"/>
                         <outlet property="newFolderButton" destination="hCP-Ad-IEK" id="ERC-Uh-MTh"/>
+
                         <outlet property="teamNameLabel" destination="GHn-Px-kkQ" id="zoU-R5-1cb"/>
                     </connections>
                 </viewController>
