@@ -55,9 +55,17 @@ class AddDocumentViewController: UIViewController {
         
     }
     
+
+    @IBAction func addToFolder(_ sender: Any) {
+        
+    }
+    
     //MARK: - Properties
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
+    
+    @IBOutlet weak var folderButton: UIBarButtonItem!
+
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: FlatButton!
