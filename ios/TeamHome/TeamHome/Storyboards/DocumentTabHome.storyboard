@@ -381,6 +381,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="253" ambiguous="YES" text="Team home 2" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHn-Px-kkQ">
+
                                                 <rect key="frame" x="0.0" y="0.0" width="150.5" height="21"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>

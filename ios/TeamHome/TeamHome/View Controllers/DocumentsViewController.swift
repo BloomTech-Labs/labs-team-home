@@ -80,7 +80,10 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     
 
     // MARK: - Properties
+<<<<<<< HEAD
+=======
     
+>>>>>>> labs10-master
 
     private var gradientLayer: CAGradientLayer!
     
