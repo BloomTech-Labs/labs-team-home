@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rPz-tA-5O3">
-                                <rect key="frame" x="16" y="96" width="343" height="555"/>
+                                <rect key="frame" x="16" y="52" width="343" height="599"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a Folder:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIF-vY-fJ6">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="24"/>
@@ -28,10 +28,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPR-1p-eLW">
-                                        <rect key="frame" x="0.0" y="24" width="343" height="501"/>
+                                        <rect key="frame" x="0.0" y="24" width="343" height="545"/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvQ-sR-FgU">
-                                        <rect key="frame" x="0.0" y="525" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="569" width="343" height="30"/>
                                         <state key="normal" title="Move Document"/>
                                         <connections>
                                             <action selector="moveDocument:" destination="4XX-sW-19f" eventType="touchUpInside" id="omr-I8-ajr"/>
@@ -52,6 +52,8 @@
                     <navigationItem key="navigationItem" title="Folder Management" id="VKU-GA-mlm">
                         <barButtonItem key="leftBarButtonItem" title="&lt; Back" id="N1j-wC-dgj"/>
                     </navigationItem>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="chooseFolderLabel" destination="vIF-vY-fJ6" id="kAP-cz-XNa"/>
                         <outlet property="folderSelectPicker" destination="BPR-1p-eLW" id="rVN-ZR-8gy"/>

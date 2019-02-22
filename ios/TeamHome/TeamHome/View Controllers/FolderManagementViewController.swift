@@ -7,34 +7,45 @@
 //
 
 import UIKit
+import Apollo
 
-class FolderManagementViewController: UIViewController {
+class FolderManagementViewController: UIViewController, TabBarChildrenProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setUpViewAppearance()
     }
     
     // MARK: - IBActions
     
     @IBAction func moveDocument(_ sender: Any) {
         
+        // unwrap variables for use in network client
+        
+        // perform fetch with apollo
+        
+            // error handling
+        
+        // pop the navigation stack
     }
     
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        
+        // I'm not sure we need this; everything handled within navigation controller or popped from moveDocument
     }
-    */
+    
     
     // MARK: - Properties
     
     @IBOutlet weak var folderSelectPicker: UIPickerView!
     @IBOutlet weak var chooseFolderLabel: UILabel!
+    
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var apollo: ApolloClient?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     
 }
