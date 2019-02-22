@@ -28,6 +28,15 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         
     }
     
+    // MARK: - IBActions
+    
+    // I don't remember if an IBAction is necessary, but here's the connection in case
+    @IBAction func documentsFoldersSegmentedControl(_ sender: Any) {
+    }
+    
+    @IBAction func createNewFolder(_ sender: Any) {
+    }
+    
     // MARK: - Private Functions
     // Create gradient layer for view background.
     private func createGradientLayer() {
@@ -67,12 +76,16 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         }
     }
     
+    // MARK: - Properties
+    
     private var gradientLayer: CAGradientLayer!
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     
+    @IBOutlet weak var newFolderButton: UIButton!
+    @IBOutlet weak var documentsFoldersSegmentedIndex: UISegmentedControl!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var containerView: UIView!
