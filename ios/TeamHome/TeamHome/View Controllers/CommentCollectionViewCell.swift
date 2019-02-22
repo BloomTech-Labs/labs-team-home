@@ -33,7 +33,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     private func updateViews() {
         
@@ -221,7 +221,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     private var hasLiked: Bool?
     

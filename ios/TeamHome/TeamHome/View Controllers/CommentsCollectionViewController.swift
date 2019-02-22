@@ -64,7 +64,7 @@ class CommentsCollectionViewController: UICollectionViewController, AddNewCommen
 //        return headerView
 //    }
     
-    // MARK - CommentCollectionCellDelegate
+    // MARK: - CommentCollectionCellDelegate
     
     func likeComment(cell: CommentCollectionViewCell) {
         guard let apollo = apollo,
@@ -119,7 +119,7 @@ class CommentsCollectionViewController: UICollectionViewController, AddNewCommen
         }
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     private func loadComments(from messageId: GraphQLID, with apollo: ApolloClient) {
         commentsWatcher = apollo.watch(query: FindCommentsByMessageQuery(messageId: messageId), resultHandler: { (result, error) in
@@ -154,7 +154,7 @@ class CommentsCollectionViewController: UICollectionViewController, AddNewCommen
         }
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     var apollo: ApolloClient?
     var messageId: GraphQLID?

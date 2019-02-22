@@ -47,7 +47,7 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    // MARK - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sortedActivity?.count ?? 0
@@ -77,7 +77,7 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         }
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     private func loadActivity(with apollo: ApolloClient, team: FindTeamsByUserQuery.Data.FindTeamsByUser) {
         
@@ -147,7 +147,7 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         self.sortedActivity = sortedActivity
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     private var label: UILabel!
     
     private var messages: [FindActivityByTeamQuery.Data.FindMessagesByTeam?]?
