@@ -4,7 +4,7 @@ import { Switch, withRouter } from 'react-router-dom';
 // --------------------- imports ------------------------- //
 import GlobalStyle from './GlobalStyles'; // styling
 import LandingView from './LandingView/containers/LandingView'; // component
-import MessageBoardContainer from './Content/ContentContainer'; // component
+import ContentContainer from './Content/ContentContainer'; // component
 import Dashboard from './DashboardView/containers/Dashboard'; // component
 import PrivateRoute from './utils/PrivateRoute'; // higher order component
 import PublicRoute from './utils/PublicRoute'; // higher order component
@@ -46,10 +46,7 @@ class App extends Component {
 							{/* Switch renders only the first route that matches the location */}
 							<Switch location={this.props.location}>
 								<PublicRoute exact path="/" component={LandingView} />
-								<PrivateRoute
-									path="/:team/home"
-									component={MessageBoardContainer}
-								/>
+								<PrivateRoute path="/:team/home" component={ContentContainer} />
 								<PrivateRoute path="/dashboard" component={Dashboard} />
 								<PrivateRoute path="/settings" component={SettingsView} />
 							</Switch>

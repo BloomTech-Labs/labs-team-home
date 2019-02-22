@@ -8,7 +8,7 @@ const Folder = /* GraphQL */ `
 		createdAt: String
 		updatedAt: String
 	}
-	input FindFoldersInput {
+	input FindFolderInput {
 		id: ID!
 	}
 	input FindFoldersByTeamInput {
@@ -30,7 +30,7 @@ const Folder = /* GraphQL */ `
 	extend type Query {
 		folders: [Folder]
 		findFoldersByTeam(input: FindFoldersByTeamInput): [Folder]
-		findFolders(input: FindFoldersInput): Folder
+		findFolder(input: FindFolderInput): Folder
 	}
 	extend type Mutation {
 		addFolder(input: AddFolderInput!): Folder

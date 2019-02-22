@@ -35,10 +35,15 @@ const SettingsContainer = styled.div`
     `}
 `;
 
+const StyledForm = styled.form`
+	width: 75%;
+	margin: 0 auto;
+`;
+
 const AvatarUploadContainer = styled.div`
 	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
 	margin: 20px 0;
 	${mediaQueryFor.smDevice`
 		display: flex;
@@ -60,8 +65,9 @@ const ImageFigure = styled.figure`
 
 const StyledAvatar = styled.img`
 	max-width: 50px;
-	height: auto;
+	height: 50px;
 	border-radius: 50%;
+	margin-bottom: 5px;
 `;
 
 const StyledButton = styled(Button)`
@@ -76,9 +82,11 @@ const StyledButton = styled(Button)`
 const FormInputStyles = styled.div`
 	display: flex;
 	flex-flow: row;
-	padding: 5px 1%;
+	justify-content: space-between;
+	padding: 10px 1%;
 	label {
 		width: 25%;
+		margin-right: 5px;
 	}
 	${mediaQueryFor.smDevice`
 		display: flex;
@@ -91,7 +99,7 @@ const FormInputStyles = styled.div`
 `;
 
 const StyledInput = styled(Input)`
-width: 50%;
+max-width: 70%;
 /* color: ${colors.text}; */
 padding: 10px;
 /* border-radius: 5px; */
@@ -137,6 +145,7 @@ const StyledCheckbox = styled.input`
 	height: 16px;
 	border: 2px solid ${colors.header};
 	padding: 0;
+	margin-left: 10%;
 `;
 
 const StyledBillingContainer = styled.div``;
@@ -197,5 +206,6 @@ export {
 	// StyledTeamCard,
 	StyledTeamCardDiv,
 	StyledTeamCardH3,
-	StyledTeamCardP
+	StyledTeamCardP,
+	StyledForm
 };

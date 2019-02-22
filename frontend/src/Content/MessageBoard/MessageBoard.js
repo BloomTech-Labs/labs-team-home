@@ -108,8 +108,7 @@ class MessageBoard extends React.Component {
 		}));
 	};
 
-	toggleMessageDetail = (e, msg) => {
-		e.preventDefault();
+	toggleMessageDetail = msg => {
 		this.setState(prevState => ({
 			messageDetailOpen: !prevState.messageDetailOpen,
 			currentMessage: msg
@@ -134,7 +133,7 @@ class MessageBoard extends React.Component {
 					{/* Click on a message and view its contents modal */}
 					<MessageDetail
 						open={this.state.messageDetailOpen}
-						hideModal={e => this.toggleMessageDetail(e, null)}
+						hideModal={() => this.toggleMessageDetail(null)}
 						message={this.state.currentMessage}
 						currentUser={this.props.currentUser}
 						team={this.props.team._id}
@@ -198,7 +197,7 @@ class MessageBoard extends React.Component {
 										message={message}
 										userInfo={message.user}
 										key={message._id}
-										openMessage={e => this.toggleMessageDetail(e, message)}
+										openMessage={() => this.toggleMessageDetail(message)}
 									/>
 								));
 							}}
