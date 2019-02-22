@@ -55,6 +55,7 @@ class AddDocumentViewController: UIViewController {
         
     }
     
+
     @IBAction func addToFolder(_ sender: Any) {
         
     }
@@ -64,6 +65,7 @@ class AddDocumentViewController: UIViewController {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     
     @IBOutlet weak var folderButton: UIBarButtonItem!
+
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: FlatButton!
