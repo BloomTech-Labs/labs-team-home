@@ -9,12 +9,21 @@
 import UIKit
 import Apollo
 
+var watcher: GraphQLQueryWatcher<FindDocumentsByTeamQuery>?
+
 class DocumentsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let watcher = watcher{
+            watcher.refetch()
+        }
     }
 
     // MARK: - Table view data source
@@ -24,9 +33,8 @@ class DocumentsTableViewController: UITableViewController {
         return documents?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentCell") as! UITableViewCell
-        
-        guard let document = documents?[indexPath.row] else {return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentCell"),
+             let document = documents?[indexPath.row] else {return UITableViewCell()}
         cell.backgroundColor = .clear
         cell.textLabel?.text = document.title
         cell.detailTextLabel?.text = document.docUrl
@@ -41,7 +49,7 @@ class DocumentsTableViewController: UITableViewController {
             let teamID  = team.id else { return }
         
         // Fetch messages using team's id
-        _ = apollo.watch(query: FindDocumentsByTeamQuery(teamID: teamID)) { (result, error) in
+        watcher = apollo.watch(query: FindDocumentsByTeamQuery(teamID: teamID)) { (result, error) in
             if let error = error {
                 NSLog("Error loading Documents\(error)")
             }
