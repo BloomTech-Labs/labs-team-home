@@ -81,7 +81,7 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
         }
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     // Load all messages from current team
     private func loadMessages(with apollo: ApolloClient) {
@@ -138,7 +138,7 @@ class MessagesCollectionViewController: UICollectionViewController, UICollection
         newestToOldest = true
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     private var messages: [FindMessagesByTeamQuery.Data.FindMessagesByTeam?]? {
         didSet {

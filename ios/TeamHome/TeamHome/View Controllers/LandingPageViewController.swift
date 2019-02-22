@@ -71,7 +71,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // MARK - IBActions
+    // MARK: - IBActions
     
     // To unwind to this view from settings view when user logs out.
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
@@ -330,7 +330,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK - Keyboard Animation and Delegate functions
+    // MARK: - Keyboard Animation and Delegate functions
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -361,7 +361,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tapGesture)
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     // Create gradient layer for view background.
     private func createGradientLayer() {
@@ -447,7 +447,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         return .lightContent
     }
     
-    // MARK - Properties
+    // MARK: - Properties
 
     private var apollo: ApolloClient?
     private var credentials: Credentials?

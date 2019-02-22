@@ -55,7 +55,7 @@ class CreateNewUserViewController: UIViewController {
         }
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     var apollo: ApolloClient?
     var user: DatabaseUser?

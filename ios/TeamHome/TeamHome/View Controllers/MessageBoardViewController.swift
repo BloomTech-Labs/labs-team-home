@@ -16,7 +16,7 @@ protocol MessageBoardFilterDelegate: class {
 
 class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
     
-    // MARK - Lifecycle Methods
+    // MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +76,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         }
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     // Display team name at the top of the view.
     private func displayTeamInfo() {
@@ -101,7 +101,7 @@ class MessageBoardViewController: UIViewController, TabBarChildrenProtocol {
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     private var gradientLayer: CAGradientLayer!
     

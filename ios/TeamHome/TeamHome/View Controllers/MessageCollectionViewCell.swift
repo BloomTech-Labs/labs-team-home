@@ -18,7 +18,7 @@ protocol MessageCellDelegate: class {
 
 class MessageCollectionViewCell: UICollectionViewCell {
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     // Set up message collection view cell with message details
     private func updateViews() {
@@ -227,7 +227,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         delegate?.presentActionSheet(with: optionMenu)
     }
 
-    // MARK - Properties
+    // MARK: - Properties
     
     weak var delegate: MessageCellDelegate?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
