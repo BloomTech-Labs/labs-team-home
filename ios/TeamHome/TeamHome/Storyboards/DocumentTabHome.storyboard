@@ -436,7 +436,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jt2-aE-irp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="dLH-pj-8Cp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="600.79999999999995" y="-197.45127436281859"/>
+            <point key="canvasLocation" x="570" y="-146"/>
         </scene>
         <!--Documents Table View Controller-->
         <scene sceneID="uEc-rN-G8I">
