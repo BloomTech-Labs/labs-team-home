@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { Close } from '../MessageBoard/MessageDetail';
 import { colors, palette } from '../../colorVariables';
-import { deleteFolder } from '../mutations/folders';
+import { deleteDocument } from '../mutations/documents';
 import CardActions from '@material-ui/core/CardActions';
 
 //Pretty much all of these components are defined elsewhere,
@@ -43,7 +43,7 @@ const StyledButton = styled(Button)`
 	margin: 10px;
 `;
 
-class FolderDetails extends React.Component {
+class DocumentDetails extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -52,9 +52,9 @@ class FolderDetails extends React.Component {
 	}
 
 	render() {
-		const { deleteFolder } = this.props;
+		const { deleteDocument } = this.props;
 
-		if (this.props.folder === null) return <></>;
+		if (this.props.document === null) return <></>;
 
 		return (
 			<StyledDialog
@@ -83,9 +83,9 @@ class FolderDetails extends React.Component {
 					{/* All fo the folder info should go here 
                     Not just the ability to delete 
                     Should also include a list of all the files */}
-					<Title>"{this.props.folder.title}" </Title>
+					<Title>"{this.props.document.title}" </Title>
 					<Title>Stuff is in here but we can not see it just yet</Title>
-					<Title>Delete this folder? </Title>
+					<Title>Delete this document? </Title>
 
 					<CardActions
 						style={{
@@ -98,8 +98,8 @@ class FolderDetails extends React.Component {
 						<StyledButton
 							onClick={e => {
 								e.preventDefault();
-								deleteFolder({
-									id: this.props.folder._id
+								deleteDocument({
+									id: this.props.document._id
 								}).then(() => {
 									this.props.hideModal();
 								});
@@ -114,4 +114,4 @@ class FolderDetails extends React.Component {
 	}
 }
 
-export default compose(deleteFolder)(FolderDetails);
+export default compose(deleteDocument)(DocumentDetails);
