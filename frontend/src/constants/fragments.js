@@ -107,6 +107,10 @@ export const FULL_DOCUMENT = gql`
 		team {
 			_id
 		}
+		folder {
+			_id
+			title
+		}
 		createdAt
 		updatedAt
 	}

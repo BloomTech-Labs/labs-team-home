@@ -317,3 +317,32 @@ export const ADD_DOCUMENT = gql`
 	}
 	${FULL_DOCUMENT}
 `;
+
+export const UPDATE_DOCUMENT = gql`
+	mutation updateDocument(
+		$id: ID!
+		$title: String
+		$doc_url: String
+		$team: String
+		$folder: String
+		$textContent: String
+		$images: [String]
+		$subscribedUsers: [String]
+	) {
+		updateDocument(
+			input: {
+				id: $id
+				doc_url: $doc_url
+				title: $title
+				team: $team
+				folder: $folder
+				textContent: $textContent
+				images: $images
+				subscribedUsers: $subscribedUsers
+			}
+		) {
+			...FullDocument
+		}
+	}
+	${FULL_DOCUMENT}
+`;
