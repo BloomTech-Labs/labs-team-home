@@ -51,9 +51,11 @@ const documentResolver = {
 		},
 		deleteDocument: (_, { input: { id } }) =>
 			Document.findById(id).then(async document => {
+				console.log(document);
 				if (document) {
 					await Document.findByIdAndDelete({ _id: id });
 					await DocComment.deleteMany({ document: document._id });
+
 					return document;
 				} else {
 					throw new ValidationError("Document doesn't exist");
