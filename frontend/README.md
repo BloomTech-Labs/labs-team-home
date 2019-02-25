@@ -64,6 +64,16 @@ Instructions below on how to get the key for each variable.
 3. Click `Get your API keys`
 4. Copy `Publishable key` its respective variable.
 
+##### Getting Netlify Vairables Set:
+
+1. Open up Netlify, and log into the deployment area.
+2. Open up `Settings`
+3. Click `Build and Deploy`
+4. Scroll down to `Build environment variables` and hit `Edit variables`
+5. Add a Key: `NODE_ENV` with the Value: `production`
+
+Be sure to add the remaining ENV variables (outlined above) to the Netlify as well.
+
 ## File structure
 
 ```javascript
