@@ -317,3 +317,11 @@ export const ADD_DOCUMENT = gql`
 	}
 	${FULL_DOCUMENT}
 `;
+
+export const DELETE_DOCUMENT = gql`
+	mutation deleteDocument($id: ID!) {
+		deleteDocument(input: { id: $id }) {
+			_id
+		}
+	}
+`;

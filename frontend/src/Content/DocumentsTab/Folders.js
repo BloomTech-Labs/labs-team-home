@@ -43,15 +43,10 @@ class Folders extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			displayButtons: false,
 			currentFolder: null,
 			folderDetailOpen: false
 		};
 	}
-
-	toggleButtons = () => {
-		this.setState({ displayButtons: !this.state.displayButtons });
-	};
 
 	toggleFolderDetail = dir => {
 		this.setState(prevState => ({
@@ -59,6 +54,7 @@ class Folders extends Component {
 			currentFolder: dir
 		}));
 	};
+
 	render() {
 		return (
 			<FolderContainer>
@@ -72,9 +68,8 @@ class Folders extends Component {
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
 							return findFoldersByTeam.map(folder => (
-								<Droppable>
+								<Droppable key={folder._id}>
 									<IndividualFolder
-										key={folder._id}
 										folder={folder}
 										onClick={() => this.toggleFolderDetail(folder)}
 									>

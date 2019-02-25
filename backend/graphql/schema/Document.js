@@ -63,8 +63,6 @@ const Document = /* GRAPHQL */ `
         subscribeDoc(input: SubscribeDocInput!): Document
         unsubscribeDoc(input: UnsubscribeDocInput!): Document
     }
-
-
 `;
 
 module.exports = Document;
