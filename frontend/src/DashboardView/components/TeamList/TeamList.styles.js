@@ -30,7 +30,7 @@ const Container = styled.div`
 const Form = styled(Paper)`
 	display: flex;
 	flex-flow: row;
-	justify-items: center;
+	justify-items: space-between;
 	width: 100%;
 	margin: 3% auto;
 	font-family: Comfortaa;
@@ -44,16 +44,22 @@ const Form = styled(Paper)`
 		color: ${colors.text};
 		margin: 0 auto;
 	}
+
+	form {
+		width: 100%;
+	}
 `;
 
 const Input = styled(InputBase)`
 	background-color: white;
 	color: black;
+	width: 90%;
 `;
 
 const Button = styled(IconButton)`
 	background-color: ${colors.button};
 	color: ${colors.text};
+	margin-left: 1.5%;
 
 	:hover {
 		background-color: rgba(107, 40, 59, 0.7);

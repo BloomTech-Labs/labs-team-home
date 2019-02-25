@@ -65,37 +65,41 @@ class TeamList extends React.Component {
 							query: query.FIND_TEAMS_BY_USER,
 							data: { findTeamsByUser: [...findTeamsByUser, addTeam] }
 						});
-					}} /* updates the chache after the mutation happens */
+					}} /* updates the cache after the mutation happens */
 				>
 					{(
 						addTeam // on submit
 					) => (
 						<style.Form className={this.state.classes.root} elevation={1}>
-							<style.Input
-								className={this.state.classes.input}
-								placeholder="Add a Team..."
-								name="input"
-								value={this.state.input}
-								onChange={this.changeHandler}
-							/>
-							<style.Button
-								className={this.state.classes.iconButton}
-								aria-label="Directions"
-								onClick={e => {
+							<form
+								onSubmit={e => {
 									e.preventDefault();
 									this.state.input.length &&
-										addTeam({
-											variables: {
-												name: this.state.input
-											}
-										});
-									this.setState({
-										input: ''
-									});
+										addTeam({ variables: { name: this.state.input } });
+									this.setState({ input: '' });
 								}}
 							>
-								<AddIcon />
-							</style.Button>
+								<style.Input
+									className={this.state.classes.input}
+									placeholder="Add a Team..."
+									name="input"
+									value={this.state.input}
+									onChange={this.changeHandler}
+								/>
+								{/* The button does not submit unless the onClick is present */}
+								<style.Button
+									className={this.state.classes.iconButton}
+									aria-label="Directions"
+									onClick={e => {
+										e.preventDefault();
+										this.state.input.length &&
+											addTeam({ variables: { name: this.state.input } });
+										this.setState({ input: '' });
+									}}
+								>
+									<AddIcon />
+								</style.Button>
+							</form>
 						</style.Form>
 					)}
 				</Mutation>
