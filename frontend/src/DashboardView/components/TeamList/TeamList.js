@@ -65,7 +65,7 @@ class TeamList extends React.Component {
 							query: query.FIND_TEAMS_BY_USER,
 							data: { findTeamsByUser: [...findTeamsByUser, addTeam] }
 						});
-					}} /* updates the chache after the mutation happens */
+					}} /* updates the cache after the mutation happens */
 				>
 					{(
 						addTeam // on submit
