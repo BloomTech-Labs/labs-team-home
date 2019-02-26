@@ -41,6 +41,9 @@ const StyledDialog = styled(Dialog)`
 	.MuiDialog-paper-37 {
 		display: block;
 	}
+	.MuiDialog-paper-251 {
+		display: block;
+	}
 	/* should add a media query here to make the modal go full screen if less than max width */
 `;
 
