@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { Close } from '../MessageBoard/MessageDetail';
@@ -39,7 +38,9 @@ const StyledDialog = styled(Dialog)`
 			max-width: 100%;
 		}
 	}
-
+	.MuiDialog-paper-37 {
+		display: block;
+	}
 	/* should add a media query here to make the modal go full screen if less than max width */
 `;
 
@@ -81,6 +82,11 @@ const CommentInputLabel = styled.label`
 	background-color: #fff;
 	padding: 5px;
 	margin: 0 auto;
+`;
+
+const CommentForm = styled.form`
+	display: flex;
+	flex-direction: column;
 `;
 
 class DocumentDetails extends React.Component {
@@ -143,7 +149,10 @@ class DocumentDetails extends React.Component {
 				<Close>
 					<IconButton
 						aria-label="Close"
-						onClick={this.props.hideModal}
+						onClick={() => {
+							hideModal();
+							this.resetState();
+						}}
 						style={{
 							color: colors.text,
 							background: palette.plumTransparent
@@ -296,9 +305,12 @@ class DocumentDetails extends React.Component {
 											key={comment._id}
 											style={{
 												background: palette.plum,
-												marginBottom: '10px'
+												marginBottom: '10px',
+												display: 'flex',
+												flexDirection: 'column'
 											}}
 											elevation={1}
+											fullWidth
 										>
 											<CardHeader
 												avatar={
@@ -318,7 +330,7 @@ class DocumentDetails extends React.Component {
 											{/* Check to see if the user can edit the comment */}
 											{this.state.editingComment &&
 											this.state.editedComment === comment ? (
-												<form
+												<CommentForm
 													action="submit"
 													onSubmit={e => {
 														e.preventDefault();
@@ -340,7 +352,7 @@ class DocumentDetails extends React.Component {
 														/>
 													</StyledEditCommentLabel>
 													<StyledButton type="submit">Save</StyledButton>
-												</form>
+												</CommentForm>
 											) : (
 												<>
 													<CardContent>
@@ -351,7 +363,7 @@ class DocumentDetails extends React.Component {
 
 													{/* Check to see if the comment is the users and thus can be edited or deleted */}
 													{comment.user._id === currentUser._id && (
-														<>
+														<CardContent>
 															<StyledButton
 																onClick={e => {
 																	e.preventDefault();
@@ -380,7 +392,7 @@ class DocumentDetails extends React.Component {
 															>
 																Delete
 															</StyledButton>
-														</>
+														</CardContent>
 													)}
 													{/* Like button */}
 													{/* <StyledButton
