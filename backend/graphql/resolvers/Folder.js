@@ -15,10 +15,11 @@ const folderResolver = {
 			const folders = await Folder.find({ team: team }).populate(
 				'user team documents'
 			);
-			return folders.map(x => {
-				x._id = x._id.toString();
-				return x;
-			});
+			// return folders.map(x => {
+			// 	x._id = x._id.toString();
+			// 	return x;
+			// });
+			return folders;
 		}
 	},
 

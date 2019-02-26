@@ -1,6 +1,7 @@
 require('dotenv').config();
 const Document = require('../../models/Document');
 const DocComment = require('../../models/DocComment');
+const Folder = require('../../models/Folder');
 
 const { ValidationError } = require('apollo-server-express');
 
@@ -13,10 +14,16 @@ const documentResolver = {
 				.populate('team folder user subscribedUsers')
 				.then(document => document),
 
-		findDocumentsByFolder: (_, { input: { folder } }) =>
-			Document.find({ folder: folder })
-				.populate('user team folder subscribedUsers')
-				.then(document => document),
+		findDocumentsByFolder: async (_, { input: { folder } }) => {
+			const documents = await Document.find({ folder: folder }).populate(
+				'user team folder subscribedUsers'
+			);
+
+			return documents.map(x => {
+				x._id = x._id.toString();
+				return x;
+			});
+		},
 		findDocumentsByTeam: async (_, { input: { team } }) => {
 			const documents = await Document.find({ team: team }).populate(
 				'user team folder subscribedUsers'
@@ -30,37 +37,47 @@ const documentResolver = {
 	},
 	Mutation: {
 		addDocument: (_, { input }, { user: { _id } }) =>
-			new Document({ ...input, user: _id })
-				.save()
-				.then(document =>
-					document.populate('user team subscribedUsers folder').execPopulate()
-				),
+			new Document({ ...input, user: _id }).save().then(async document => {
+				await Folder.findOneAndUpdate(
+					{ _id: input.folder },
+					{ $push: { documents: [document._id] } },
+					{ new: true }
+				).populate('user team subscribedUsers folder');
+				return document;
+			}),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
-			return Document.findById(id).then(document => {
+			return Document.findById(id).then(async document => {
+				console.log(document);
 				if (document) {
-					return Document.findOneAndUpdate(
+					await Document.findOneAndUpdate(
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
 					).populate('user team folder subscribedUsers');
+					await Folder.findOneAndUpdate(
+						{ _id: input.folder },
+						{ $push: { documents: [document._id] } },
+						{ new: true }
+					).populate('user team folder subscribedUsers');
+					return document;
 				} else {
 					throw new ValidationError("Document doesn't exist.");
 				}
 			});
 		},
-		deleteDocument: (_, { input: { id } }) => {
+		deleteDocument: (_, { input: { id } }) =>
 			Document.findById(id).then(async document => {
 				if (document) {
-					const doc = await Document.findOneAndDelete({ _id: id });
+					await Document.findOneAndDelete({ _id: id });
 					await DocComment.deleteMany({ document: document._id });
 					// console.log(doc);
-					return doc;
+					return document;
 				} else {
 					throw new ValidationError("Document doesn't exist");
 				}
-			});
-		},
+			}),
+
 		subscribeDoc: (_, { input: { id } }, { user: { _id } }) =>
 			Document.findOneAndUpdate(
 				{ _id: id },

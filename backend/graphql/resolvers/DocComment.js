@@ -28,7 +28,7 @@ const docCommentResolver = {
 						{ _id: input.document },
 						{ $push: { comments: [comment._id] } },
 						{ new: true }
-					).populate('team subscribedUsers');
+					).populate('team subscribedUsers document');
 					// 		console.log(document.subscribedUsers);
 					// 		const email = document.subscribedUsers
 					// 			.filter(

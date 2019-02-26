@@ -35,6 +35,13 @@ const IndividualFolder = styled.p`
 	cursor: pointer;
 `;
 
+const IndividualDocument = styled.p`
+	color: white;
+	margin: 10px;
+	padding: 10px;
+	border: 2px solid white;
+`;
+
 const Error = styled.p`
 	color: white;
 `;
@@ -59,6 +66,7 @@ class Folders extends Component {
 			currentFolder: dir
 		}));
 	};
+
 	render() {
 		return (
 			<FolderContainer>
@@ -72,16 +80,20 @@ class Folders extends Component {
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
 							return findFoldersByTeam.map(folder => (
-								<Droppable>
+								<Droppable folder={folder} key={folder._id}>
 									<IndividualFolder
-										key={folder._id}
 										folder={folder}
 										onClick={() => this.toggleFolderDetail(folder)}
 									>
 										{folder.title}
+										{console.log(folder.documents)}
 										{folder.documents.length ? (
 											folder.documents.map(doc => {
-												return <p>{doc.title}</p>;
+												return (
+													<Draggable id={`${doc._id}`} key={doc._id}>
+														<IndividualDocument>{doc.title}</IndividualDocument>
+													</Draggable>
+												);
 											})
 										) : (
 											<></>
