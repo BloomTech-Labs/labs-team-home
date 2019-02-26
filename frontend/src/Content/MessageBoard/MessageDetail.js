@@ -95,8 +95,7 @@ class MessageDetail extends Component {
 			edited: null,
 			title: '',
 			content: '',
-			commentContent: '',
-			width: 0
+			commentContent: ''
 		};
 		this.edit = React.createRef();
 	}
@@ -456,7 +455,7 @@ class MessageDetail extends Component {
 									>
 										<CommentInputLabel htmlFor="comment-content">
 											<TextField
-												placeholder="Leave a comment.."
+												placeholder="Leave a comment..."
 												inputRef={node => {
 													content = node;
 												}}
