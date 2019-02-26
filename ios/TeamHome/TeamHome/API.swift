@@ -1277,6 +1277,95 @@ public final class FindDocumentsByTeamQuery: GraphQLQuery {
   }
 }
 
+public final class DeleteDocumentMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation DeleteDocument($docID: ID!) {\n  deleteDocument(input: {id: $docID}) {\n    __typename\n    _id\n    title\n  }\n}"
+
+  public var docID: GraphQLID
+
+  public init(docID: GraphQLID) {
+    self.docID = docID
+  }
+
+  public var variables: GraphQLMap? {
+    return ["docID": docID]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("deleteDocument", arguments: ["input": ["id": GraphQLVariable("docID")]], type: .object(DeleteDocument.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(deleteDocument: DeleteDocument? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "deleteDocument": deleteDocument.flatMap { (value: DeleteDocument) -> ResultMap in value.resultMap }])
+    }
+
+    public var deleteDocument: DeleteDocument? {
+      get {
+        return (resultMap["deleteDocument"] as? ResultMap).flatMap { DeleteDocument(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "deleteDocument")
+      }
+    }
+
+    public struct DeleteDocument: GraphQLSelectionSet {
+      public static let possibleTypes = ["Document"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+        GraphQLField("title", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil, title: String) {
+        self.init(unsafeResultMap: ["__typename": "Document", "_id": id, "title": title])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+
+      public var title: String {
+        get {
+          return resultMap["title"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "title")
+        }
+      }
+    }
+  }
+}
+
 public final class FindTeamByIdQuery: GraphQLQuery {
   public let operationDefinition =
     "query FindTeamById($id: ID!) {\n  findTeam(input: {id: $id}) {\n    __typename\n    _id\n    name\n    users {\n      __typename\n      user {\n        __typename\n        _id\n        firstName\n        lastName\n        email\n        phoneNumber\n        avatar\n      }\n      admin\n    }\n  }\n}"
