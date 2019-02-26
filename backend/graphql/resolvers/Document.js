@@ -29,38 +29,32 @@ const documentResolver = {
 		}
 	},
 	Mutation: {
-		// addDocument: (_, { input }, { user: { _id } }) =>
-		// 	new Document({ ...input, user: _id })
-		// 		.save()
-		// 		.then(document =>
-		// 			document.populate('user team subscribedUsers folder').execPopulate()
-		// 		),
-
 		addDocument: (_, { input }, { user: { _id } }) =>
-			new Document({ ...input, user: _id }).save().then(async document => {
-				await Folder.findOneAndUpdate(
-					{ _id: input.folder },
-					{ $push: { documents: [document._id] } },
-					{ new: true }
-				).populate('user team subscribedUsers folder');
-				return document;
-			}),
+			new Document({ ...input, user: _id })
+				.save()
+				.then(document =>
+					document.populate('user team subscribedUsers folder').execPopulate()
+				),
+
+		// addDocument: (_, { input }, { user: { _id } }) =>
+		// 	new Document({ ...input, user: _id }).save().then(async document => {
+		// 		await Folder.findOneAndUpdate(
+		// 			{ _id: input.folder },
+		// 			{ $push: { documents: [document._id] } },
+		// 			{ new: true }
+		// 		);
+		// 		document.populate('user team subscribedUsers').execPopulate();
+		// return document;
+		// }),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
-			// console.log('during update folderID  -> ' + input.folder);
 			Document.findById(id).then(async document => {
 				if (document) {
-					console.log('current document FolderID  -> ' + document.folder);
-					console.log('input.Folder ID  ->  ' + input.folder);
-					console.log('document ID -> ' + id);
 					if (document.folder !== undefined) {
-						const beforeFolderUpdate = await Folder.findById(document.folder);
-						console.log('documents before PULL -> ' + beforeFolderUpdate);
 						const folderDeleteUpdate = await Folder.findOneAndUpdate(
 							{ _id: document.folder },
 							{ $pull: { documents: document._id } }
 						);
-						console.log('documents after PULL -> ' + folderDeleteUpdate);
 					}
 
 					const updateDoc = await Document.findOneAndUpdate(
@@ -68,15 +62,16 @@ const documentResolver = {
 						{ $set: input },
 						{ new: true }
 					).populate('user team folder subscribedUsers');
-					// console.log(updateDoc);
 
-					const folderAddDoc = await Folder.findOneAndUpdate(
-						{ _id: input.folder },
-						{ $push: { documents: [document._id] } },
-						{ new: true }
-					).populate('user team subscribedUsers folder');
-					// console.log(folderAddDoc);
-					return { document, folderAddDoc };
+					if (document.folder !== null) {
+						const folderAddDoc = await Folder.findOneAndUpdate(
+							{ _id: input.folder },
+							{ $push: { documents: [document._id] } },
+							{ new: true }
+						).populate('user team subscribedUsers folder');
+					}
+
+					return { document };
 				} else {
 					throw new ValidationError("Document doesn't exist.");
 				}

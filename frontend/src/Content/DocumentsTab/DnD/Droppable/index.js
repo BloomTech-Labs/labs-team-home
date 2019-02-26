@@ -9,7 +9,7 @@ class Droppable extends React.Component {
 		const data = e.dataTransfer.getData('transfer');
 		e.target.appendChild(document.getElementById(data));
 		console.log('dragging  ->  ' + data);
-		if (this.props.folder !== 'one') {
+		if (this.props.folder !== null) {
 			console.log('dropped  ->  ' + this.props.folder._id);
 			this.props.updateDocument({ id: data, folder: this.props.folder._id });
 		} else {
