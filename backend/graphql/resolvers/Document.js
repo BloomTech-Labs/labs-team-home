@@ -1,7 +1,7 @@
 require('dotenv').config();
 const Document = require('../../models/Document');
 const DocComment = require('../../models/DocComment');
-
+const Folder = require('../../models/Folder');
 const { ValidationError } = require('apollo-server-express');
 
 const documentResolver = {
@@ -29,12 +29,22 @@ const documentResolver = {
 		}
 	},
 	Mutation: {
+		// addDocument: (_, { input }, { user: { _id } }) =>
+		// 	new Document({ ...input, user: _id })
+		// 		.save()
+		// 		.then(document =>
+		// 			document.populate('user team subscribedUsers folder').execPopulate()
+		// 		),
+
 		addDocument: (_, { input }, { user: { _id } }) =>
-			new Document({ ...input, user: _id })
-				.save()
-				.then(document =>
-					document.populate('user team subscribedUsers folder').execPopulate()
-				),
+			new Document({ ...input, user: _id }).save().then(async document => {
+				await Folder.findOneAndUpdate(
+					{ _id: input.folder },
+					{ $push: { documents: [document._id] } },
+					{ new: true }
+				).populate('user team subscribedUsers folder');
+				return document;
+			}),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
 			return Document.findById(id).then(document => {
