@@ -39,6 +39,7 @@ const StyledDialog = styled(Dialog)`
 			max-width: 100%;
 		}
 	}
+
 	/* should add a media query here to make the modal go full screen if less than max width */
 `;
 
@@ -69,7 +70,6 @@ const StyledButton = styled(Button)`
 	color: ${colors.text};
 	border-radius: 0px;
 	margin: 10px;
-	border: 1px solid green;
 `;
 
 const Form = styled.form`
@@ -81,9 +81,6 @@ const CommentInputLabel = styled.label`
 	background-color: #fff;
 	padding: 5px;
 	margin: 0 auto;
-	/* .MuiInputBase-root-320 {
-		padding: 0px;
-	} */
 `;
 
 class DocumentDetails extends React.Component {
@@ -249,7 +246,7 @@ class DocumentDetails extends React.Component {
 													});
 												} else {
 													alert(
-														"Please finish editing your comment by clicking 'SAVE' before editing the message."
+														"Please finish editing your comment by clicking 'SAVE' before editing the document."
 													);
 												}
 											}}
@@ -366,7 +363,7 @@ class DocumentDetails extends React.Component {
 																		});
 																	} else {
 																		alert(
-																			"Please finish editing your message by clicking 'SAVE' before editing a comment."
+																			"Please finish editing your document by clicking 'SAVE' before editing a comment."
 																		);
 																	}
 																}}
