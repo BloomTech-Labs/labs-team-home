@@ -105,6 +105,7 @@ function Activity(props) {
 						{user.firstName} {user.lastName.slice(0, 1)}
 						{'. '}
 						posted a new {__typename === 'Message' ? 'Message' : 'Comment'}
+						{/* posted a new {__typename === 'Message' ? 'Message' : 'Comment' ? 'Comment' : 'Folder' ? 'Folder' : 'DocComment' ? 'DocComment' : 'Document' } */}
 					</StyledTypography>
 					<StyledTypography component="p" noWrap className={classes.cardText}>
 						{updatedAt.toDateString()}
