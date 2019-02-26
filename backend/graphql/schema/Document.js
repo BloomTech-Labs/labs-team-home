@@ -40,6 +40,8 @@ const Document = /* GRAPHQL */ `
         images: [String]
         comments: [String]
         subscribedUsers: [String]
+        doc_url: String
+        user: String
     }
     input DeleteDocumentInput {
         id: ID!

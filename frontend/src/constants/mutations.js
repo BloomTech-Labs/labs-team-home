@@ -7,7 +7,8 @@ import {
 	FULL_TEAM,
 	FULL_USER,
 	FULL_FOLDER,
-	FULL_DOCUMENT
+	FULL_DOCUMENT,
+	FULL_DOCCOMMENT
 } from './fragments';
 
 export const ADD_MESSAGE = gql`
@@ -324,4 +325,60 @@ export const DELETE_DOCUMENT = gql`
 			_id
 		}
 	}
+`;
+
+export const UPDATE_DOCUMENT = gql`
+	mutation updateDocument(
+		$id: ID!
+		$title: String
+		$textContent: String
+		$doc_url: String
+		$folder: String
+	) {
+		updateDocument(
+			input: {
+				id: $id
+				title: $title
+				textContent: $textContent
+				doc_url: $doc_url
+				folder: $folder
+			}
+		) {
+			...FullDocument
+		}
+	}
+	${FULL_DOCUMENT}
+`;
+
+export const ADD_DOCCOMMENT = gql`
+	mutation addDocComment($document: String!, $content: String!) {
+		addDocComment(input: { document: $document, content: $content }) {
+			...FullDocComment
+		}
+	}
+	${FULL_DOCCOMMENT}
+`;
+
+export const DELETE_DOCCOMMENT = gql`
+	mutation deleteDocComment($id: ID!) {
+		deleteDocComment(input: { id: $id }) {
+			_id
+		}
+	}
+`;
+
+export const UPDATE_DOCCOMMENT = gql`
+	mutation updateDocComment(
+		$id: ID!
+		$document: String
+		$content: String
+		$likes: [ID]
+	) {
+		updateDocComment(
+			input: { id: $id, document: $document, content: $content, likes: $likes }
+		) {
+			...FullDocComment
+		}
+	}
+	${FULL_DOCCOMMENT}
 `;

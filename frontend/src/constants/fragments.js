@@ -107,7 +107,32 @@ export const FULL_DOCUMENT = gql`
 		team {
 			_id
 		}
+		user {
+			...FullUser
+		}
+		createdAt
+		updatedAt
+		textContent
+	}
+	${FULL_USER}
+`;
+
+export const FULL_DOCCOMMENT = gql`
+	fragment FullDocComment on DocComment {
+		_id
+		user {
+			...FullUser
+		}
+		document {
+			_id
+		}
+		content
+		image
+		likes {
+			_id
+		}
 		createdAt
 		updatedAt
 	}
+	${FULL_USER}
 `;

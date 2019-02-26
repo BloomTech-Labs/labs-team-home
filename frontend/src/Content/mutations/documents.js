@@ -1,6 +1,10 @@
 import { graphql } from 'react-apollo';
 import * as query from '../../constants/queries';
-import { ADD_DOCUMENT, DELETE_DOCUMENT } from '../../constants/mutations';
+import {
+	ADD_DOCUMENT,
+	DELETE_DOCUMENT,
+	UPDATE_DOCUMENT
+} from '../../constants/mutations';
 
 const addDocumentOptions = {
 	props: ({ ownProps: { team }, mutate }) => ({
@@ -51,3 +55,31 @@ const deleteDocumentOptions = {
 };
 
 export const deleteDocument = graphql(DELETE_DOCUMENT, deleteDocumentOptions);
+
+/////////
+
+const updateDocumentOptions = {
+	props: ({ ownProps: { team }, mutate }) => ({
+		updateDocument: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { updateDocument } }) => {
+					const { findDocumentsByTeam } = cache.readQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team }
+					});
+					cache.writeQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team },
+						data: {
+							findDocumentsByTeam: findDocumentsByTeam.map(document =>
+								document._id === updateDocument._id ? updateDocument : document
+							)
+						}
+					});
+				}
+			})
+	})
+};
+
+export const updateDocument = graphql(UPDATE_DOCUMENT, updateDocumentOptions);
