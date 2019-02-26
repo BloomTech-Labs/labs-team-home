@@ -94,9 +94,13 @@ export const FULL_FOLDER = gql`
 		documents {
 			title
 		}
+		user {
+			...FullUser
+		}
 		createdAt
 		updatedAt
 	}
+	${FULL_USER}
 `;
 
 export const FULL_DOCUMENT = gql`
@@ -135,4 +139,45 @@ export const FULL_DOCCOMMENT = gql`
 		updatedAt
 	}
 	${FULL_USER}
+`;
+
+export const FULL_ACTIVITIES = gql`
+	fragment FullActivities on General {
+		documents {
+			title
+			updatedAt
+			user {
+				firstName
+				lastName
+				avatar
+			}
+		}
+		docComments {
+			content
+			updatedAt
+			user {
+				firstName
+				lastName
+				avatar
+			}
+		}
+		folders {
+			title
+			updatedAt
+			user {
+				firstName
+				lastName
+				avatar
+			}
+		}
+		messages {
+			content
+			updatedAt
+			user {
+				firstName
+				lastName
+				avatar
+			}
+		}
+	}
 `;
