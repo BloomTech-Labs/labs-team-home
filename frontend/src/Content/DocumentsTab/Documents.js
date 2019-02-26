@@ -43,7 +43,7 @@ class Documents extends Component {
 
 	render() {
 		return (
-			<Droppable folder={'one'}>
+			<Droppable folder={null}>
 				<Container>
 					{/* Find all the documents  */}
 					<Query
@@ -54,13 +54,12 @@ class Documents extends Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return console.error(error);
 							if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
-								return findDocumentsByTeam.map(doc => {
-									console.log(
-										'mapping through docs / folder info  -> ' + doc.folder._id
-									);
-									if (doc.folder === undefined || doc.folder === 'one') {
+								return findDocumentsByTeam
+									.filter(doc => doc.folder === null)
+									.map(doc => {
+										console.log(doc.folder);
 										return (
-											<Draggable id={`${doc._id}`} key={doc._id}>
+											<Draggable id={doc._id} key={doc._id}>
 												<IndividualDocument
 													document={doc}
 													onClick={() => this.toggleDocumentDetail(doc)}
@@ -69,8 +68,7 @@ class Documents extends Component {
 												</IndividualDocument>
 											</Draggable>
 										);
-									}
-								});
+									});
 							} else {
 								return <Error>No Documents Available For This Team</Error>;
 							}

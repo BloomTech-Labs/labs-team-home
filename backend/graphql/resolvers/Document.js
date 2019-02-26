@@ -47,16 +47,20 @@ const documentResolver = {
 			}),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
-			console.log('during update folderID  -> ' + input.folder);
+			// console.log('during update folderID  -> ' + input.folder);
 			Document.findById(id).then(async document => {
 				if (document) {
 					console.log('current document FolderID  -> ' + document.folder);
+					console.log('input.Folder ID  ->  ' + input.folder);
+					console.log('document ID -> ' + id);
 					if (document.folder !== undefined) {
+						const beforeFolderUpdate = await Folder.findById(document.folder);
+						console.log('documents before PULL -> ' + beforeFolderUpdate);
 						const folderDeleteUpdate = await Folder.findOneAndUpdate(
 							{ _id: document.folder },
-							{ $pull: { documents: [document._id] } }
+							{ $pull: { documents: document._id } }
 						);
-						// console.log(folderDeleteUpdate);
+						console.log('documents after PULL -> ' + folderDeleteUpdate);
 					}
 
 					const updateDoc = await Document.findOneAndUpdate(
