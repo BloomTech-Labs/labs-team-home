@@ -29,31 +29,49 @@ const documentResolver = {
 		}
 	},
 	Mutation: {
-		// addDocument: (_, { input }, { user: { _id } }) =>
-		// 	new Document({ ...input, user: _id })
-		// 		.save()
-		// 		.then(document =>
-		// 			document.populate('user team subscribedUsers folder').execPopulate()
-		// 		),
-
 		addDocument: (_, { input }, { user: { _id } }) =>
-			new Document({ ...input, user: _id }).save().then(async document => {
-				await Folder.findOneAndUpdate(
-					{ _id: input.folder },
-					{ $push: { documents: [document._id] } },
-					{ new: true }
-				).populate('user team subscribedUsers folder');
-				return document;
-			}),
+			new Document({ ...input, user: _id })
+				.save()
+				.then(document =>
+					document.populate('user team subscribedUsers folder').execPopulate()
+				),
+
+		// addDocument: (_, { input }, { user: { _id } }) =>
+		// 	new Document({ ...input, user: _id }).save().then(async document => {
+		// 		await Folder.findOneAndUpdate(
+		// 			{ _id: input.folder },
+		// 			{ $push: { documents: [document._id] } },
+		// 			{ new: true }
+		// 		);
+		// 		document.populate('user team subscribedUsers').execPopulate();
+		// return document;
+		// }),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
-			return Document.findById(id).then(document => {
+			Document.findById(id).then(async document => {
 				if (document) {
-					return Document.findOneAndUpdate(
+					if (document.folder !== undefined) {
+						const folderDeleteUpdate = await Folder.findOneAndUpdate(
+							{ _id: document.folder },
+							{ $pull: { documents: document._id } }
+						);
+					}
+
+					const updateDoc = await Document.findOneAndUpdate(
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
 					).populate('user team folder subscribedUsers');
+
+					if (document.folder !== null) {
+						const folderAddDoc = await Folder.findOneAndUpdate(
+							{ _id: input.folder },
+							{ $push: { documents: [document._id] } },
+							{ new: true }
+						).populate('user team subscribedUsers folder');
+					}
+
+					return { document };
 				} else {
 					throw new ValidationError("Document doesn't exist.");
 				}
