@@ -97,7 +97,7 @@ class DashboardTeamCollectionViewCell: UICollectionViewCell {
         delegate?.presentActionSheet(with: optionMenu)
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     weak var delegate: TeamCellDelegate?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser? {

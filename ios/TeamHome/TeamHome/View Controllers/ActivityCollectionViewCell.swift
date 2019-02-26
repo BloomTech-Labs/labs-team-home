@@ -236,6 +236,8 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         
     }
     
+    // MARK: - Properties
+    
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var activity: Activity? {
         didSet {

@@ -99,3 +99,30 @@ export const FIND_DOCUMENTS_BY_TEAM = gql`
 	}
 	${f.FULL_DOCUMENT}
 `;
+
+export const FIND_DOCUMENT = gql`
+	query findDocument($id: ID!) {
+		findDocument(input: { id: $id }) {
+			...FullDocument
+		}
+	}
+	${f.FULL_DOCUMENT}
+`;
+
+export const FIND_COMMENTS_BY_DOCUMENT = gql`
+	query findDocCommentsByDocument($document: ID!) {
+		findDocCommentsByDocument(input: { document: $document }) {
+			...FullDocComment
+		}
+	}
+	${f.FULL_DOCCOMMENT}
+`;
+
+export const FIND_DOCUMENTS_BY_FOLDER = gql`
+	query findDocumentsByFolder($folder: ID!) {
+		findDocumentsByFolder(input: { folder: $folder }) {
+			...FullDocument
+		}
+	}
+	${f.FULL_DOCUMENT}
+`;

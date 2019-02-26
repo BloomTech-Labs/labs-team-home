@@ -67,7 +67,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         return .lightContent
     }
     
-    // MARK - IBActions
+    // MARK: - IBActions
     
     // Present Safari window to direct them to web application
     @IBAction func advancedSettings(_ sender: Any) {
@@ -204,7 +204,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
         
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     private func loadUserSettings(with apollo: ApolloClient) {
         
@@ -299,7 +299,7 @@ class SettingsViewController: UIViewController, TabBarChildrenProtocol, UIImageP
     
     var gradientLayer: CAGradientLayer!
     
-    // MARK - Properties
+    // MARK: - Properties
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var advancedSettingsButton: UIButton!

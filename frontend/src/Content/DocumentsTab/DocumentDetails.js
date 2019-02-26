@@ -1,45 +1,53 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Query, compose } from 'react-apollo';
-import {
-	addComment,
-	updateComment,
-	deleteComment,
-	like,
-	unLike
-} from '../mutations/comments';
-import { updateMessage, deleteMessage } from '../mutations/messages';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
+import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import { palette, colors } from '../../colorVariables';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import SendIcon from '@material-ui/icons/Send';
-import * as query from '../../constants/queries';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import styled from 'styled-components';
-import DialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import { Close } from '../MessageBoard/MessageDetail';
+import { colors, palette } from '../../colorVariables';
+import { deleteDocument, updateDocument } from '../mutations/documents';
+import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { Paper } from '@material-ui/core';
+import * as query from '../../constants/queries';
+import CardContent from '@material-ui/core/CardContent';
+import {
+	addDocComment,
+	updateDocComment,
+	deleteDocComment
+	// like,
+	// unLike
+} from '../mutations/doccomments';
+import SendIcon from '@material-ui/icons/Send';
+
+//Pretty much all of these components are defined elsewhere,
+//we really ought to have a component for modal styling
 
 const StyledDialog = styled(Dialog)`
-	max-width: 696px;
+	min-width: 550px;
 	margin: 0 auto;
-	/* should add a media query here to make the modal 
-    go full screen if less than max width 
-    also, something gotta be done about that scroll bar*/
+	padding: 0px;
+	classes {
+		paperWidthSm-41 {
+			max-width: 100%;
+		}
+	}
+	.MuiDialog-paper-37 {
+		display: block;
+	}
+	/* should add a media query here to make the modal go full screen if less than max width */
 `;
 
-export const Overlay = styled(DialogContent)`
-	background-color: ${palette.plumTransparent};
-	color: #fff;
-	word-wrap: break-word;
-	padding-top: 0;
-	margin-top: 0;
+const Overlay = styled(DialogContent)`
+	background-color: ${colors.button};
+	min-width: 550px;
+	margin: 0 auto;
 `;
 
 const StyledTypography = styled(Typography)`
@@ -54,6 +62,10 @@ const StyledTextField = styled(TextField)`
 	}
 `;
 
+const StyledEditCommentLabel = styled.label`
+	width: 80%;
+`;
+
 const StyledButton = styled(Button)`
 	border-bottom: solid 1px ${palette.yellow};
 	color: ${colors.text};
@@ -61,87 +73,72 @@ const StyledButton = styled(Button)`
 	margin: 10px;
 `;
 
-export const Close = styled(DialogActions)`
-	&,
-	div {
-		background-color: transparent;
-		color: #fff;
-	}
-`;
-
-const StyledEditCommentLabel = styled.label`
-	width: 100%;
-`;
-
-const CommentInputLabel = styled.label`
-	width: 100%;
-	background-color: #fff;
-	padding: 5px;
-	.MuiInputBase-root-320 {
-		padding: 0px;
-	}
-`;
-
 const Form = styled.form`
 	display: flex;
 `;
 
-class MessageDetail extends Component {
+const CommentInputLabel = styled.label`
+	width: 90%;
+	background-color: #fff;
+	padding: 5px;
+	margin: 0 auto;
+`;
+
+const CommentForm = styled.form`
+	display: flex;
+	flex-direction: column;
+`;
+
+class DocumentDetails extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			editing: false,
-			editingMessage: false,
-			edited: null,
+			editingDocument: false,
 			title: '',
-			content: '',
-			commentContent: ''
+			doc_url: '',
+			textContent: '',
+			editingComment: false,
+			commentContent: '',
+			editedComment: null,
+			newCommentContent: ''
 		};
-		this.edit = React.createRef();
 	}
-
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	resetState = () =>
 		this.setState({
-			editing: false,
-			editingMessage: false,
-			edited: null,
+			editingDocument: false,
 			title: '',
-			content: '',
-			commentContent: ''
+			doc_url: '',
+			textContent: '',
+			editingComment: false,
+			commentContent: '',
+			editedComment: null,
+			newCommentContent: ''
 		});
 
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+
 	render() {
-		let content;
 		const {
-			open,
-			hideModal,
-			message,
+			deleteDocument,
+			document,
+			updateDocument,
 			currentUser,
-			updateMsgComment,
-			addMsgComment,
-			deleteMsgComment,
-			updateMessage,
-			deleteMessage,
-			like,
-			unLike
+			hideModal,
+			updateDocComment,
+			deleteDocComment,
+			addDocComment
 		} = this.props;
 
-		if (message === null) return <> </>;
-
+		if (document === null) return <></>;
+		console.log(this.props);
 		return (
-			<StyledDialog //open the Dialog box this is the part that makes everything else around darker
-				open={open}
+			<StyledDialog
+				open={this.props.open}
 				onClose={() => {
 					hideModal();
 					this.resetState();
 				}}
-				onExit={() => {
-					hideModal();
-					this.resetState();
-				}}
-				scroll="body"
 				PaperProps={{
 					style: {
 						background: `transparent`,
@@ -149,7 +146,6 @@ class MessageDetail extends Component {
 					}
 				}}
 			>
-				{/* Close the dialog box button */}
 				<Close>
 					<IconButton
 						aria-label="Close"
@@ -165,33 +161,35 @@ class MessageDetail extends Component {
 						<CloseIcon />
 					</IconButton>
 				</Close>
-				{/* Overlay is the dark area that the message and comments fill */}
 				<Overlay>
-					{/* The header information: name, avatar */}
+					{/* All fo the folder info should go here 
+                    Not just the ability to delete 
+                    Should also include a list of all the files */}
 					<CardHeader
 						avatar={
 							<Avatar
-								src={message.user.avatar}
+								src={document.user.avatar}
 								alt="avatar"
 								style={{ height: '64px', width: '64px' }}
 							/>
 						}
-						title={`${message.user.firstName} ${message.user.lastName}`}
+						title={`${document.user.firstName} ${document.user.lastName}`}
 						titleTypographyProps={{
 							style: { color: colors.text }
 						}}
 					/>
-					{/* Render the message, UNLESS someone has hit the Edit Button */}
-					{this.state.editingMessage ? (
+					{this.state.editingDocument ? (
 						<form
 							onSubmit={e => {
 								e.preventDefault();
-								message.title = this.state.title;
-								message.content = this.state.content;
-								updateMessage({
-									id: message._id,
+								document.title = this.state.title;
+								document.textContent = this.state.textContent;
+								document.doc_url = this.state.doc_url;
+								updateDocument({
+									id: document._id,
 									title: this.state.title,
-									content: this.state.content
+									doc_url: this.state.doc_url,
+									textContent: this.state.textContent
 								}).then(() => this.resetState());
 							}}
 							style={{
@@ -200,16 +198,22 @@ class MessageDetail extends Component {
 								flexDirection: 'column'
 							}}
 						>
-							<label htmlFor="message title" />
+							<label htmlFor="document title" />
 							<StyledTextField
 								name="title"
 								value={this.state.title}
 								onChange={this.handleChange}
 							/>
-							<label htmlFor="message content" />
+							<label htmlFor="document url" />
 							<StyledTextField
-								name="content"
-								value={this.state.content}
+								name="doc_url"
+								value={this.state.doc_url}
+								onChange={this.handleChange}
+							/>
+							<label htmlFor="document content" />
+							<StyledTextField
+								name="textContent"
+								value={this.state.textContent}
 								onChange={this.handleChange}
 								multiline
 							/>
@@ -218,23 +222,17 @@ class MessageDetail extends Component {
 					) : (
 						<>
 							<StyledTypography variant="h5" component="h3">
-								{message.title}
+								{document.title}
 							</StyledTypography>
 							<StyledTypography paragraph component="p">
-								{message.content}
+								{document.doc_url}
+							</StyledTypography>
+							<StyledTypography paragraph component="p">
+								{document.textContent}
 							</StyledTypography>
 
 							{/* Load all the images attached to the message */}
-							{message.images.map((image, index) => (
-								<img
-									key={index}
-									src={image}
-									alt="message-img"
-									style={{ maxWidth: '50%', height: 'auto' }}
-								/>
-							))}
 
-							{/* Display all the button actions (edit, delete, subscribe) */}
 							<CardActions
 								style={{
 									width: '100%',
@@ -243,20 +241,21 @@ class MessageDetail extends Component {
 									justifyContent: 'space-around'
 								}}
 							>
-								{message.user._id === currentUser._id && (
+								{document.user._id === currentUser._id && (
 									<>
 										<StyledButton
 											onClick={e => {
 												e.preventDefault();
-												if (!this.state.editing) {
+												if (!this.state.editingComment) {
 													this.setState({
-														editingMessage: true,
-														title: message.title,
-														content: message.content
+														editingDocument: true,
+														title: document.title,
+														textContent: document.textContent,
+														doc_url: document.doc_url
 													});
 												} else {
 													alert(
-														"Please finish editing your comment by clicking 'SAVE' before editing the message."
+														"Please finish editing your comment by clicking 'SAVE' before editing the document."
 													);
 												}
 											}}
@@ -266,10 +265,9 @@ class MessageDetail extends Component {
 										<StyledButton
 											onClick={e => {
 												e.preventDefault();
-												deleteMessage({
-													id: message._id
+												deleteDocument({
+													id: document._id
 												}).then(() => {
-													this.resetState();
 													hideModal();
 												});
 											}}
@@ -278,43 +276,17 @@ class MessageDetail extends Component {
 										</StyledButton>
 									</>
 								)}
-								{/* Subscribe or unsubscribe button */}
-								<StyledButton
-									onClick={e => {
-										e.preventDefault();
-										message.subscribedUsers.find(
-											({ _id }) => _id === currentUser._id
-										)
-											? updateMessage({
-													id: message._id,
-													subscribedUsers: message.subscribedUsers
-														.filter(({ _id }) => _id !== currentUser._id)
-														.map(({ _id }) => _id)
-											  })
-											: updateMessage({
-													id: message._id,
-													subscribedUsers: [
-														...message.subscribedUsers.map(({ _id }) => _id),
-														currentUser._id
-													]
-											  });
-									}}
-								>
-									{message.subscribedUsers.find(
-										({ _id }) => _id === currentUser._id
-									)
-										? 'Unsubscribe'
-										: 'Subscribe'}
-								</StyledButton>
+
+								{/* Subscription for the document stuff goes here */}
 							</CardActions>
 						</>
 					)}
-					{/* Get the comments for the message */}
+					{/* View all the comments of the message */}
 					<Query
-						query={query.FIND_COMMENTS_BY_MESSAGE}
-						variables={{ message: message._id }}
+						query={query.FIND_COMMENTS_BY_DOCUMENT}
+						variables={{ document: document._id }}
 					>
-						{({ loading, error, data: { findMsgCommentsByMessage } }) => {
+						{({ loading, error, data: { findDocCommentsByDocument } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
 							return (
@@ -327,15 +299,18 @@ class MessageDetail extends Component {
 									>
 										Comments
 									</StyledTypography>
-									{/* display all the comments */}
-									{findMsgCommentsByMessage.map(comment => (
+									{/* Display all the comments */}
+									{findDocCommentsByDocument.map(comment => (
 										<Paper
 											key={comment._id}
 											style={{
 												background: palette.plum,
-												marginBottom: '10px'
+												marginBottom: '10px',
+												display: 'flex',
+												flexDirection: 'column'
 											}}
 											elevation={1}
+											fullWidth
 										>
 											<CardHeader
 												avatar={
@@ -352,14 +327,15 @@ class MessageDetail extends Component {
 													style: { color: colors.text }
 												}}
 											/>
-											{/* check to see if the user can edit the comments */}
-											{this.state.editing && this.state.edited === comment ? (
-												<form
+											{/* Check to see if the user can edit the comment */}
+											{this.state.editingComment &&
+											this.state.editedComment === comment ? (
+												<CommentForm
 													action="submit"
 													onSubmit={e => {
 														e.preventDefault();
-														updateMsgComment({
-															id: this.state.edited._id,
+														updateDocComment({
+															id: comment._id,
 															content: this.state.commentContent
 														}).then(() => this.resetState());
 													}}
@@ -376,7 +352,7 @@ class MessageDetail extends Component {
 														/>
 													</StyledEditCommentLabel>
 													<StyledButton type="submit">Save</StyledButton>
-												</form>
+												</CommentForm>
 											) : (
 												<>
 													<CardContent>
@@ -387,21 +363,19 @@ class MessageDetail extends Component {
 
 													{/* Check to see if the comment is the users and thus can be edited or deleted */}
 													{comment.user._id === currentUser._id && (
-														<>
+														<CardContent>
 															<StyledButton
-																onClick={async e => {
-																	//why is this async, and does it need focus ??????
+																onClick={e => {
 																	e.preventDefault();
-																	if (!this.state.editingMessage) {
-																		await this.setState({
-																			editing: true,
-																			edited: comment,
-																			commentContent: comment.content
+																	if (!this.state.editingDocument) {
+																		this.setState({
+																			editingComment: true,
+																			commentContent: comment.content,
+																			editedComment: comment
 																		});
-																		await this.edit.current.focus();
 																	} else {
 																		alert(
-																			"Please finish editing your message by clicking 'SAVE' before editing a comment."
+																			"Please finish editing your document by clicking 'SAVE' before editing a comment."
 																		);
 																	}
 																}}
@@ -411,17 +385,17 @@ class MessageDetail extends Component {
 															<StyledButton
 																onClick={e => {
 																	e.preventDefault();
-																	deleteMsgComment({
+																	deleteDocComment({
 																		id: comment._id
 																	});
 																}}
 															>
 																Delete
 															</StyledButton>
-														</>
+														</CardContent>
 													)}
 													{/* Like button */}
-													<StyledButton
+													{/* <StyledButton
 														onClick={e => {
 															e.preventDefault();
 															comment.likes.find(
@@ -436,38 +410,34 @@ class MessageDetail extends Component {
 														}}
 													>
 														{`${comment.likes.length} likes`}
-													</StyledButton>
+													</StyledButton> */}
 												</>
 											)}
 										</Paper>
 									))}
 									{/* Add a new comment form  */}
 									<Form
-										action="submit"
 										onSubmit={e => {
 											e.preventDefault();
-											addMsgComment({
-												message: message._id,
-												content: content.value
+											addDocComment({
+												document: document._id,
+												content: this.state.newCommentContent
 											});
-											content.value = '';
 										}}
 									>
-										<CommentInputLabel htmlFor="comment-content">
+										<CommentInputLabel>
 											<TextField
 												placeholder="Leave a comment..."
-												inputRef={node => {
-													content = node;
+												style={{
+													color: '#000',
+													height: '100px',
+													backgroundColor: '#fff',
+													padding: '0px'
 												}}
-												inputProps={{
-													style: {
-														color: '#000',
-														height: '100px',
-														backgroundColor: '#fff',
-														padding: '0px'
-													}
-												}}
+												onChange={this.handleChange}
 												fullWidth
+												name="newCommentContent"
+												value={this.state.newCommentContent}
 												multiline={true}
 											/>
 										</CommentInputLabel>
@@ -486,11 +456,9 @@ class MessageDetail extends Component {
 }
 
 export default compose(
-	addComment,
-	updateComment,
-	deleteComment,
-	updateMessage,
-	deleteMessage,
-	like,
-	unLike
-)(MessageDetail);
+	addDocComment,
+	deleteDocument,
+	updateDocument,
+	updateDocComment,
+	deleteDocComment
+)(DocumentDetails);

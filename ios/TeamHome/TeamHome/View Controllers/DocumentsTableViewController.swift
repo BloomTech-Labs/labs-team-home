@@ -9,29 +9,54 @@
 import UIKit
 import Apollo
 
-class DocumentsTableViewController: UITableViewController {
+var watcher: GraphQLQueryWatcher<FindDocumentsByTeamQuery>?
 
+class DocumentsTableViewController: UITableViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let watcher = watcher{
+            watcher.refetch()
+        }
+        
+    }
+    
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
+        
         return documents?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentCell") as! UITableViewCell
-        
-        guard let document = documents?[indexPath.row] else {return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentCell"),
+            let document = documents?[indexPath.row] else {return UITableViewCell()}
         cell.backgroundColor = .clear
         cell.textLabel?.text = document.title
         cell.detailTextLabel?.text = document.docUrl
         return cell
         
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle:
+        UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let document = documents?[indexPath.row],
+            let id = document.id else {return}
+        if editingStyle == .delete{
+            apollo.perform(mutation: DeleteDocumentMutation(docID: id)) { (_, error) in
+                if let error = error {
+                    NSLog("Error deleting document: \(error)")
+                    return
+                }
+                watcher?.refetch()
+                self.deleteIndexPath = indexPath
+                print("delete success")
+            }
+        }
     }
     //MARK: - Private Functions
     
@@ -41,7 +66,7 @@ class DocumentsTableViewController: UITableViewController {
             let teamID  = team.id else { return }
         
         // Fetch messages using team's id
-        _ = apollo.watch(query: FindDocumentsByTeamQuery(teamID: teamID)) { (result, error) in
+        watcher = apollo.watch(query: FindDocumentsByTeamQuery(teamID: teamID)) { (result, error) in
             if let error = error {
                 NSLog("Error loading Documents\(error)")
             }
@@ -54,11 +79,16 @@ class DocumentsTableViewController: UITableViewController {
     }
     
     //MARK: - Properties
-    private var documents: [FindDocumentsByTeamQuery.Data.FindDocumentsByTeam?]?{
+    var documents: [FindDocumentsByTeamQuery.Data.FindDocumentsByTeam?]?{
         didSet{
             if isViewLoaded {
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    if let indexPath = self.deleteIndexPath {
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        self.deleteIndexPath = nil
+                    } else {
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }
@@ -66,6 +96,6 @@ class DocumentsTableViewController: UITableViewController {
     
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
-//    var currentUser: CurrentUserQuery.Data.CurrentUser?
-
+    //    var currentUser: CurrentUserQuery.Data.CurrentUser?
+    var deleteIndexPath: IndexPath?
 }

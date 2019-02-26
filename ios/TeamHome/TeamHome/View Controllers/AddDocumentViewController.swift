@@ -23,18 +23,20 @@ class AddDocumentViewController: UIViewController {
         newDocumentView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
-        documentLinkTextField.textColor = Appearance.darkMauveColor
+        
+        documentLinkTextField.textColor = .white
         documentLinkTextField.placeholder = "Add a link"
-        documentNotesTextView.placeholder = "Add a note"
         documentNotesTextView.textColor = .white
+        documentNotesTextView.placeholder = "Add a note"
+        
         documentNotesTextView.dividerColor = Appearance.yellowColor
-        documentTitleTextField.placeholderActiveColor = Appearance.yellowColor
-        documentTitleTextField.dividerActiveColor = Appearance.yellowColor
         documentTitleTextField.textColor = .white
-        tagsTextField.placeholderActiveColor = Appearance.yellowColor
-        tagsTextField.dividerActiveColor = Appearance.yellowColor
+    
         tagsTextField.textColor = .white
+        documentTitleTextField.placeholderAnimation = .hidden
+        documentLinkTextField.placeholderAnimation = .hidden
         tagsTextField.placeholderAnimation = .hidden
+    
         titleLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
         collectionView.backgroundColor = .clear
     }
@@ -52,12 +54,22 @@ class AddDocumentViewController: UIViewController {
             }
             print("Add Document Successful: \(result?.data?.addDocument?.title ?? "No Title")")
         }
+        watcher?.refetch()
+        navigationController?.popViewController(animated: true)
+        
+    }
+    
+
+    @IBAction func addToFolder(_ sender: Any) {
         
     }
     
     //MARK: - Properties
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
+    
+    @IBOutlet weak var folderButton: UIBarButtonItem!
+
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: FlatButton!

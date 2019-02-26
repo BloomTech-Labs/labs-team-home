@@ -94,7 +94,7 @@ function Activity(props) {
 					/>
 				) : null}
 
-				<Info own={own}>
+				<Info>
 					<StyledTypography
 						gutterBottom
 						noWrap

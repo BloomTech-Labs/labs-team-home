@@ -271,7 +271,7 @@ class TeamDetailTableViewController: UITableViewController, TabBarChildrenProtoc
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     weak var delegate: TeamDetailCellDelegate?
     var users: [FindTeamByIdQuery.Data.FindTeam.User?]? {

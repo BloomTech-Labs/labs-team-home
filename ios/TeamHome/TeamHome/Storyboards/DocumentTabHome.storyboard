@@ -158,7 +158,7 @@
             </objects>
             <point key="canvasLocation" x="2484" y="153.37331334332833"/>
         </scene>
-        <!--Add Document View Controller-->
+        <!--Title-->
         <scene sceneID="9u2-Io-UhV">
             <objects>
                 <viewController id="Gjh-D1-vhX" customClass="AddDocumentViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
@@ -308,12 +308,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vcF-Se-sQx"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="5r9-4S-leb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="AXr-d8-g8k">
+                            <connections>
+                                <action selector="addToFolder:" destination="Gjh-D1-vhX" id="nDu-Wx-ztQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="vks-v4-e09" id="doA-TA-K9H"/>
                         <outlet property="collectionView" destination="Tqk-wu-jEX" id="upd-8T-l84"/>
                         <outlet property="documentLinkTextField" destination="wNb-Lw-uj0" id="uaP-Gu-5TL"/>
                         <outlet property="documentNotesTextView" destination="BHQ-Px-4pc" id="Y1I-4P-ZOV"/>
                         <outlet property="documentTitleTextField" destination="yh7-UD-BNh" id="O5K-eV-oeu"/>
+                        <outlet property="folderButton" destination="AXr-d8-g8k" id="If0-ep-m1B"/>
                         <outlet property="imageView" destination="TYs-h8-hHN" id="l8t-By-GjD"/>
                         <outlet property="newDocumentView" destination="rAZ-4k-C2y" id="qGL-RU-Hn5"/>
                         <outlet property="submitButton" destination="Jdc-Gj-j0w" id="uK2-jz-NNL"/>
@@ -347,17 +355,39 @@
                             <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sLw-Ke-Nmi">
                                 <rect key="frame" x="16" y="16" width="343" height="21"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fFF-fW-LC5">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fBC-mx-0Tr">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="253" text="Team home 2" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHn-Px-kkQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="150.5" height="21"/>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mT3-Xk-wof">
+                                                <rect key="frame" x="0.0" y="0.0" width="169" height="22"/>
+                                                <segments>
+                                                    <segment title="Documents"/>
+                                                    <segment title="Folders"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="documentsFoldersSegmentedControl:" destination="fDV-sB-tgI" eventType="valueChanged" id="EmR-fq-gCw"/>
+                                                </connections>
+                                            </segmentedControl>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCP-Ad-IEK">
+                                                <rect key="frame" x="169" y="0.0" width="174" height="21"/>
+                                                <state key="normal" title="New Folder"/>
+                                                <connections>
+                                                    <action selector="createNewFolder:" destination="fDV-sB-tgI" eventType="touchUpInside" id="YJ1-Hq-3H2"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" ambiguous="YES" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fFF-fW-LC5">
+                                        <rect key="frame" x="0.0" y="21" width="343" height="0.0"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="253" ambiguous="YES" text="Team home 2" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHn-Px-kkQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="150.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="255" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKf-q4-mce" customClass="FlatButton" customModule="Material">
-                                                <rect key="frame" x="158.5" y="0.0" width="184.5" height="21"/>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="255" ambiguous="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKf-q4-mce" customClass="FlatButton" customModule="Material">
+                                                <rect key="frame" x="158.5" y="0.0" width="184.5" height="0.0"/>
                                                 <state key="normal" image="Arrow Down"/>
                                                 <connections>
                                                     <action selector="filterMessages:" destination="fDV-sB-tgI" eventType="touchUpInside" id="HwC-ow-TNc"/>
@@ -395,14 +425,16 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="containerView" destination="FOx-SN-I5G" id="9BN-ON-Kib"/>
+                        <outlet property="documentsFoldersSegmentedIndex" destination="mT3-Xk-wof" id="5xQ-eZ-sL5"/>
                         <outlet property="filterButton" destination="eKf-q4-mce" id="7P4-6Z-hcy"/>
+                        <outlet property="newFolderButton" destination="hCP-Ad-IEK" id="ERC-Uh-MTh"/>
                         <outlet property="teamNameLabel" destination="GHn-Px-kkQ" id="zoU-R5-1cb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jt2-aE-irp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="dLH-pj-8Cp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="600.79999999999995" y="-197.45127436281859"/>
+            <point key="canvasLocation" x="570" y="-146"/>
         </scene>
         <!--Documents Table View Controller-->
         <scene sceneID="uEc-rN-G8I">
@@ -449,7 +481,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S3t-oy-t9t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1588" y="-198"/>
+            <point key="canvasLocation" x="1596" y="-147"/>
         </scene>
     </scenes>
     <resources>

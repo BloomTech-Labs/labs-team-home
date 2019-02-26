@@ -1,7 +1,7 @@
 query FindDocumentsByTeam($teamID: ID!){
     findDocumentsByTeam(input: {
-                              team: $teamID
-                              }){
+                        team: $teamID
+                        }){
         _id
         doc_url
         user{
@@ -25,5 +25,14 @@ query FindDocumentsByTeam($teamID: ID!){
         }
         createdAt
         updatedAt
+    }
+}
+
+mutation DeleteDocument($docID: ID!){
+    deleteDocument(input: {
+                   id: $docID
+                   }){
+        _id
+        title
     }
 }

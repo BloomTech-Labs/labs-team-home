@@ -43,15 +43,10 @@ class Folders extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			displayButtons: false,
 			currentFolder: null,
 			folderDetailOpen: false
 		};
 	}
-
-	toggleButtons = () => {
-		this.setState({ displayButtons: !this.state.displayButtons });
-	};
 
 	toggleFolderDetail = dir => {
 		this.setState(prevState => ({
@@ -63,14 +58,6 @@ class Folders extends Component {
 	render() {
 		return (
 			<FolderContainer>
-				{/* All the Modals */}
-				<FolderDetails
-					open={this.state.folderDetailOpen}
-					hideModal={() => this.toggleFolderDetail(null)}
-					folder={this.state.currentFolder}
-					currentUser={this.props.currentUser}
-					team={this.props.team._id}
-				/>
 				{/* All the Folders */}
 				<Query
 					query={query.FIND_FOLDERS_BY_TEAM}
@@ -81,9 +68,8 @@ class Folders extends Component {
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
 							return findFoldersByTeam.map(folder => (
-								<Droppable>
+								<Droppable key={folder._id}>
 									<IndividualFolder
-										key={folder._id}
 										folder={folder}
 										onClick={() => this.toggleFolderDetail(folder)}
 									>
@@ -103,6 +89,14 @@ class Folders extends Component {
 						}
 					}}
 				</Query>
+				{/* All the Modals */}
+				<FolderDetails
+					open={this.state.folderDetailOpen}
+					hideModal={() => this.toggleFolderDetail(null)}
+					folder={this.state.currentFolder}
+					currentUser={this.props.currentUser}
+					team={this.props.team._id}
+				/>
 			</FolderContainer>
 		);
 	}
