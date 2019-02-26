@@ -93,6 +93,7 @@ export const FULL_FOLDER = gql`
 		}
 		documents {
 			title
+			_id
 		}
 		createdAt
 		updatedAt
@@ -105,6 +106,9 @@ export const FULL_DOCUMENT = gql`
 		title
 		doc_url
 		team {
+			_id
+		}
+		folder {
 			_id
 		}
 		user {
