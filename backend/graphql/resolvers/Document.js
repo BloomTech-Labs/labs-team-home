@@ -49,18 +49,18 @@ const documentResolver = {
 				}
 			});
 		},
-		deleteDocument: (_, { input: { id } }) => {
+		deleteDocument: (_, { input: { id } }) =>
 			Document.findById(id).then(async document => {
+				console.log(document);
 				if (document) {
-					const doc = await Document.findOneAndDelete({ _id: id });
+					await Document.findByIdAndDelete({ _id: id });
 					await DocComment.deleteMany({ document: document._id });
-					// console.log(doc);
-					return doc;
+					console.log(document);
+					return document;
 				} else {
 					throw new ValidationError("Document doesn't exist");
 				}
-			});
-		},
+			}),
 		subscribeDoc: (_, { input: { id } }, { user: { _id } }) =>
 			Document.findOneAndUpdate(
 				{ _id: id },
