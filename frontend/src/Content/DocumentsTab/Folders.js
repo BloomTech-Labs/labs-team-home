@@ -89,6 +89,9 @@ class Folders extends Component {
 										{console.log(folder.documents)}
 										{folder.documents.length ? (
 											folder.documents.map(doc => {
+												console.log(
+													'doc info  -> ' + doc.title + doc._id + doc.doc_url
+												);
 												return (
 													<Draggable id={`${doc._id}`} key={doc._id}>
 														<IndividualDocument>{doc.title}</IndividualDocument>
