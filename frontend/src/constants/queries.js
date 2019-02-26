@@ -117,3 +117,12 @@ export const FIND_COMMENTS_BY_DOCUMENT = gql`
 	}
 	${f.FULL_DOCCOMMENT}
 `;
+
+export const FIND_DOCUMENTS_BY_FOLDER = gql`
+	query findDocumentsByFolder($folder: ID!) {
+		findDocumentsByFolder(input: { folder: $folder }) {
+			...FullDocument
+		}
+	}
+	${f.FULL_DOCUMENT}
+`;

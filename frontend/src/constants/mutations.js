@@ -295,6 +295,15 @@ export const DELETE_FOLDER = gql`
 	}
 `;
 
+export const UPDATE_FOLDER = gql`
+	mutation updateFolder($id: ID!, $title: String) {
+		updateFolder(input: { id: $id, title: $title }) {
+			...FullFolder
+		}
+	}
+	${FULL_FOLDER}
+`;
+
 //Documents
 export const ADD_DOCUMENT = gql`
 	mutation addDocument(

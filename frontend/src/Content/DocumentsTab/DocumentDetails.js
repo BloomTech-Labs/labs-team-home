@@ -130,7 +130,7 @@ class DocumentDetails extends React.Component {
 			addDocComment
 		} = this.props;
 
-		if (this.props.document === null) return <></>;
+		if (document === null) return <></>;
 		console.log(this.props);
 		return (
 			<StyledDialog
@@ -268,7 +268,7 @@ class DocumentDetails extends React.Component {
 												deleteDocument({
 													id: document._id
 												}).then(() => {
-													this.props.hideModal();
+													hideModal();
 												});
 											}}
 										>
