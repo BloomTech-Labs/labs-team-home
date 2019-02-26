@@ -31,18 +31,21 @@ import SendIcon from '@material-ui/icons/Send';
 //we really ought to have a component for modal styling
 
 const StyledDialog = styled(Dialog)`
-	/* min-width: 696px; */
+	min-width: 550px;
 	margin: 0 auto;
-	border: 1px solid red;
 	padding: 0px;
+	classes {
+		paperWidthSm-41 {
+			max-width: 100%;
+		}
+	}
 	/* should add a media query here to make the modal go full screen if less than max width */
 `;
 
 const Overlay = styled(DialogContent)`
 	background-color: ${colors.button};
-	min-width: 696px;
-	*/margin: 0 auto;
-	border: 1px solid blue;
+	min-width: 550px;
+	margin: 0 auto;
 `;
 
 const StyledTypography = styled(Typography)`
@@ -58,7 +61,7 @@ const StyledTextField = styled(TextField)`
 `;
 
 const StyledEditCommentLabel = styled.label`
-	width: 60%;
+	width: 80%;
 `;
 
 const StyledButton = styled(Button)`
@@ -74,9 +77,10 @@ const Form = styled.form`
 `;
 
 const CommentInputLabel = styled.label`
-	width: 60%;
+	width: 90%;
 	background-color: #fff;
 	padding: 5px;
+	margin: 0 auto;
 	/* .MuiInputBase-root-320 {
 		padding: 0px;
 	} */
