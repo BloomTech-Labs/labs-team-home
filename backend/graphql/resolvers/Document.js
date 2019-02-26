@@ -47,13 +47,32 @@ const documentResolver = {
 			}),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
-			return Document.findById(id).then(document => {
+			console.log('during update folderID  -> ' + input.folder);
+			Document.findById(id).then(async document => {
 				if (document) {
-					return Document.findOneAndUpdate(
+					console.log('current document FolderID  -> ' + document.folder);
+					if (document.folder !== undefined) {
+						const folderDeleteUpdate = await Folder.findOneAndUpdate(
+							{ _id: document.folder },
+							{ $pull: { documents: [document._id] } }
+						);
+						// console.log(folderDeleteUpdate);
+					}
+
+					const updateDoc = await Document.findOneAndUpdate(
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
 					).populate('user team folder subscribedUsers');
+					// console.log(updateDoc);
+
+					const folderAddDoc = await Folder.findOneAndUpdate(
+						{ _id: input.folder },
+						{ $push: { documents: [document._id] } },
+						{ new: true }
+					).populate('user team subscribedUsers folder');
+					// console.log(folderAddDoc);
+					return { document, folderAddDoc };
 				} else {
 					throw new ValidationError("Document doesn't exist.");
 				}
