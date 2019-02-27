@@ -234,7 +234,6 @@ class FolderDetails extends React.Component {
 												flexDirection: 'column'
 											}}
 											elevation={1}
-											fullWidth
 										>
 											<CardHeader
 												avatar={

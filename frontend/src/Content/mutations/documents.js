@@ -72,9 +72,14 @@ const updateDocumentOptions = {
 						query: query.FIND_DOCUMENTS_BY_TEAM,
 						variables: { team: team },
 						data: {
-							findDocumentsByTeam: findDocumentsByTeam.map(document =>
-								document._id === updateDocument._id ? updateDocument : document
-							)
+							findDocumentsByTeam: findDocumentsByTeam.map(document => {
+								console.log('document from mutator: ', document);
+								console.log('updateDocument from mutator: ', updateDocument);
+
+								return document._id === updateDocument._id
+									? updateDocument
+									: document;
+							})
 						}
 					});
 				}

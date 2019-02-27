@@ -88,6 +88,7 @@ class Folders extends Component {
 	};
 
 	render() {
+		console.log('props from fodler: ', this.props);
 		return (
 			<FolderContainer>
 				<FormDiv>
@@ -107,6 +108,7 @@ class Folders extends Component {
 					variables={{ team: this.props.team._id }}
 				>
 					{({ loading, error, data: { findFoldersByTeam } }) => {
+						console.log('returned from findFoldersByTeam', findFoldersByTeam);
 						if (loading) return <p>Loading...</p>;
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
@@ -129,25 +131,39 @@ class Folders extends Component {
 									break;
 							}
 							return findFoldersByTeam.map(folder => (
-								<Droppable key={folder._id} folder={folder}>
-									<IndividualFolder
-										folder={folder}
-										onClick={() => this.toggleFolderDetail(folder)}
-									>
-										{folder.title}
-										{folder.documents.length ? (
-											folder.documents.map(doc => {
-												return (
-													<Draggable id={`${doc._id}`} key={doc._id}>
-														<IndividualDocument>{doc.title}</IndividualDocument>
-													</Draggable>
-												);
-											})
-										) : (
-											<></>
-										)}
-									</IndividualFolder>
-								</Droppable>
+								<Query
+									query={query.FIND_DOCUMENTS_BY_FOLDER}
+									variables={{ folder: folder._id }}
+									key={folder._id}
+								>
+									{({ loading, error, data: { findDocumentsByFolder } }) => {
+										if (loading) return <p>Loading...</p>;
+										if (error) return console.error(error);
+										return (
+											<Droppable folder={folder} team={this.props.team._id}>
+												<IndividualFolder
+													folder={folder}
+													onClick={() => this.toggleFolderDetail(folder)}
+												>
+													{folder.title}
+													{findDocumentsByFolder.length ? (
+														findDocumentsByFolder.map(doc => {
+															return (
+																<Draggable id={doc._id} key={doc._id}>
+																	<IndividualDocument>
+																		{doc.title}
+																	</IndividualDocument>
+																</Draggable>
+															);
+														})
+													) : (
+														<></>
+													)}
+												</IndividualFolder>
+											</Droppable>
+										);
+									}}
+								</Query>
 							));
 						} else {
 							return <Error>No Folders Available For This Team</Error>;
