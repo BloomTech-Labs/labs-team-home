@@ -391,3 +391,21 @@ export const UPDATE_DOCCOMMENT = gql`
 	}
 	${FULL_DOCCOMMENT}
 `;
+
+export const LIKE_DOCCOMMENT = gql`
+	mutation likeDocComment($id: ID!) {
+		likeDocComment(input: { id: $id }) {
+			...FullDocComment
+		}
+	}
+	${FULL_DOCCOMMENT}
+`;
+
+export const UNLIKE_DOCCOMMENT = gql`
+	mutation unLikeDocComment($id: ID!) {
+		unLikeDocComment(input: { id: $id }) {
+			...FullDocComment
+		}
+	}
+	${FULL_DOCCOMMENT}
+`;

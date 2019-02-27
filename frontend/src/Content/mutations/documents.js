@@ -60,25 +60,34 @@ export const deleteDocument = graphql(DELETE_DOCUMENT, deleteDocumentOptions);
 
 const updateDocumentOptions = {
 	props: ({ ownProps: { team }, mutate }) => ({
-		updateDocument: input =>
-			mutate({
+		updateDocument: input => {
+			// console.log('input from updateDocument: ', input, 'team: ', team);
+			return mutate({
 				variables: input,
 				update: (cache, { data: { updateDocument } }) => {
 					const { findDocumentsByTeam } = cache.readQuery({
 						query: query.FIND_DOCUMENTS_BY_TEAM,
 						variables: { team: team }
 					});
+					// console.log('Cache after query: ', cache);
 					cache.writeQuery({
 						query: query.FIND_DOCUMENTS_BY_TEAM,
 						variables: { team: team },
 						data: {
-							findDocumentsByTeam: findDocumentsByTeam.map(document =>
-								document._id === updateDocument._id ? updateDocument : document
-							)
+							findDocumentsByTeam: findDocumentsByTeam.map(document => {
+								// console.log('document from mutator: ', document);
+								// console.log('updateDocument from mutator: ', updateDocument);
+
+								return document._id ===
+									(updateDocument === null ? null : updateDocument._id)
+									? updateDocument
+									: document;
+							})
 						}
 					});
 				}
-			})
+			});
+		}
 	})
 };
 

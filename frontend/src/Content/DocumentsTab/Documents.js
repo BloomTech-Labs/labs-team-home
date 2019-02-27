@@ -67,8 +67,9 @@ class Documents extends Component {
 	};
 
 	render() {
+		// console.log('props: ', this.props);
 		return (
-			<Droppable folder={null}>
+			<Droppable folder={null} team={this.props.team._id}>
 				<Container>
 					<FormDiv>
 						<SortForm>
@@ -115,7 +116,6 @@ class Documents extends Component {
 								return findDocumentsByTeam
 									.filter(doc => doc.folder === null)
 									.map(doc => {
-										console.log(doc.folder);
 										return (
 											<Draggable id={doc._id} key={doc._id}>
 												<IndividualDocument

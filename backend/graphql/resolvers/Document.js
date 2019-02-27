@@ -48,7 +48,7 @@ const documentResolver = {
 		// }),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
-			Document.findById(id).then(async document => {
+			return Document.findById(id).then(async document => {
 				if (document) {
 					if (document.folder !== undefined) {
 						const folderDeleteUpdate = await Folder.findOneAndUpdate(
@@ -62,7 +62,7 @@ const documentResolver = {
 						{ $set: input },
 						{ new: true }
 					).populate('user team folder subscribedUsers');
-
+					// console.log('updateDoc from resolver: ', updateDoc);
 					if (document.folder !== null) {
 						const folderAddDoc = await Folder.findOneAndUpdate(
 							{ _id: input.folder },
@@ -70,8 +70,8 @@ const documentResolver = {
 							{ new: true }
 						).populate('user team subscribedUsers folder');
 					}
-
-					return { document };
+					// console.log('document from resolver: ', document);
+					return updateDoc;
 				} else {
 					throw new ValidationError("Document doesn't exist.");
 				}
