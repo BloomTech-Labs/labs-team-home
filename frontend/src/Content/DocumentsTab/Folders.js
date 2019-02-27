@@ -46,12 +46,33 @@ const Error = styled.p`
 	color: white;
 `;
 
+const FormDiv = styled.div`
+	width: 92%;
+	display: flex;
+	flex-direction: row-reverse;
+`;
+
+const SortForm = styled.form`
+	height: 50px;
+	label {
+		color: white;
+		font-size: 20px;
+	}
+	select {
+		margin-left: 10px;
+	}
+	option {
+		height: 50px;
+	}
+`;
+
 class Folders extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			currentFolder: null,
-			folderDetailOpen: false
+			folderDetailOpen: false,
+			sortOption: 'newest'
 		};
 	}
 
@@ -62,9 +83,24 @@ class Folders extends Component {
 		}));
 	};
 
+	sortChange = e => {
+		this.setState({ sortOption: e.target.value });
+	};
+
 	render() {
 		return (
 			<FolderContainer>
+				<FormDiv>
+					<SortForm>
+						<label>
+							Folder Sort:
+							<select value={this.state.sortOption} onChange={this.sortChange}>
+								<option value="newest">Newest First</option>
+								<option value="oldest">Oldest First</option>
+							</select>
+						</label>
+					</SortForm>
+				</FormDiv>
 				{/* All the Folders */}
 				<Query
 					query={query.FIND_FOLDERS_BY_TEAM}
@@ -74,6 +110,24 @@ class Folders extends Component {
 						if (loading) return <p>Loading...</p>;
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
+							switch (this.state.sortOption) {
+								case 'newest':
+									findFoldersByTeam.sort((a, b) => {
+										if (a.createdAt < b.createdAt) return 1;
+										if (a.createdAt > b.createdAt) return -1;
+										return 0;
+									});
+									break;
+								case 'oldest':
+									findFoldersByTeam.sort((a, b) => {
+										if (a.createdAt < b.createdAt) return -1;
+										if (a.createdAt > b.createdAt) return 1;
+										return 0;
+									});
+									break;
+								default:
+									break;
+							}
 							return findFoldersByTeam.map(folder => (
 								<Droppable key={folder._id} folder={folder}>
 									<IndividualFolder
