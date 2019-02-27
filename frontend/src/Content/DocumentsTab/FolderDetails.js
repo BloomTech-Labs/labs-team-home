@@ -104,7 +104,7 @@ class FolderDetails extends React.Component {
 		} = this.props;
 
 		if (folder === null) return <></>;
-		console.log(this.props);
+		// console.log(this.props);
 		return (
 			<StyledDialog
 				open={this.props.open}
@@ -234,7 +234,6 @@ class FolderDetails extends React.Component {
 												flexDirection: 'column'
 											}}
 											elevation={1}
-											fullWidth
 										>
 											<CardHeader
 												avatar={

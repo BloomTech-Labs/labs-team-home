@@ -25,12 +25,33 @@ const Error = styled.p`
 	color: white;
 `;
 
+const FormDiv = styled.div`
+	width: 92%;
+	display: flex;
+	flex-direction: row-reverse;
+`;
+
+const SortForm = styled.form`
+	height: 50px;
+	label {
+		color: white;
+		font-size: 20px;
+	}
+	select {
+		margin-left: 10px;
+	}
+	option {
+		height: 50px;
+	}
+`;
+
 class Documents extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			currentDocument: null,
-			documentDetailOpen: false
+			documentDetailOpen: false,
+			sortOption: 'newest'
 		};
 	}
 
@@ -41,10 +62,29 @@ class Documents extends Component {
 		}));
 	};
 
+	sortChange = e => {
+		this.setState({ sortOption: e.target.value });
+	};
+
 	render() {
+		// console.log('props: ', this.props);
 		return (
-			<Droppable folder={null}>
+			<Droppable folder={null} team={this.props.team._id}>
 				<Container>
+					<FormDiv>
+						<SortForm>
+							<label>
+								Folder Sort:
+								<select
+									value={this.state.sortOption}
+									onChange={this.sortChange}
+								>
+									<option value="newest">Newest First</option>
+									<option value="oldest">Oldest First</option>
+								</select>
+							</label>
+						</SortForm>
+					</FormDiv>
 					{/* Find all the documents  */}
 					<Query
 						query={query.FIND_DOCUMENTS_BY_TEAM}
@@ -54,10 +94,28 @@ class Documents extends Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return console.error(error);
 							if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
+								switch (this.state.sortOption) {
+									case 'newest':
+										findDocumentsByTeam.sort((a, b) => {
+											if (a.createdAt < b.createdAt) return 1;
+											if (a.createdAt > b.createdAt) return -1;
+											return 0;
+										});
+										break;
+									case 'oldest':
+										findDocumentsByTeam.sort((a, b) => {
+											if (a.createdAt < b.createdAt) return -1;
+											if (a.createdAt > b.createdAt) return 1;
+											return 0;
+										});
+										break;
+									default:
+										break;
+								}
+
 								return findDocumentsByTeam
 									.filter(doc => doc.folder === null)
 									.map(doc => {
-										console.log(doc.folder);
 										return (
 											<Draggable id={doc._id} key={doc._id}>
 												<IndividualDocument

@@ -22,11 +22,11 @@ const AddBtn = styled(Fab)`
 `;
 
 const MainFabIconAdd = styled(AddIcon)`
-	display: ${props => (!props.display ? 'inline' : 'none')};
+	display: ${props => (!props.displaytab ? 'inline' : 'none')};
 `;
 
 const MainFabIconClose = styled(Close)`
-	display: ${props => (props.display ? 'inline' : 'none')};
+	display: ${props => (props.displaytab ? 'inline' : 'none')};
 `;
 
 const AddMenuFab = styled(AddBtn)`
@@ -34,7 +34,7 @@ const AddMenuFab = styled(AddBtn)`
 	color: #595262;
 	height: 50px;
 	width: 50px;
-	display: ${props => (props.display ? 'inline' : 'none')};
+	display: ${props => (props.displaytab ? 'inline' : 'none')};
 `;
 
 class DocsButtonMenu extends Component {
@@ -68,13 +68,17 @@ class DocsButtonMenu extends Component {
 			<div>
 				{/* Menu Items */}
 				<AddBtn onClick={() => this.toggleButtons()}>
-					<MainFabIconAdd display={this.state.displayButtons} />
-					<MainFabIconClose display={this.state.displayButtons} />
+					<MainFabIconAdd
+						displaytab={this.state.displayButtons ? true : undefined}
+					/>
+					<MainFabIconClose
+						displaytab={this.state.displayButtons ? true : undefined}
+					/>
 				</AddBtn>
-				<AddMenuFab display={this.state.displayButtons}>
+				<AddMenuFab displaytab={this.state.displayButtons ? true : undefined}>
 					<Folder onClick={() => this.toggleNewFolderModal()} />
 				</AddMenuFab>
-				<AddMenuFab display={this.state.displayButtons}>
+				<AddMenuFab displaytab={this.state.displayButtons ? true : undefined}>
 					<NoteAdd onClick={() => this.toggleNewDocumentModal()} />
 				</AddMenuFab>
 				{/* Modals called from menu Items */}

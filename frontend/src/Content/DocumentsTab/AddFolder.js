@@ -120,8 +120,8 @@ class AddFolder extends React.Component {
 							name="title"
 							placeholder="title"
 							variant="outlined"
-							fullWidth
 							onChange={this.handleChange}
+							fullWidth
 						/>
 						<SubmitButton type="submit" size="large" fullWidth>
 							Add

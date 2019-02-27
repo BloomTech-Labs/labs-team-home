@@ -111,6 +111,9 @@ export const FULL_DOCUMENT = gql`
 		team {
 			_id
 		}
+		folder {
+			_id
+		}
 		user {
 			...FullUser
 		}
