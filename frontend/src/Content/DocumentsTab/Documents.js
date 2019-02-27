@@ -69,11 +69,7 @@ class Documents extends Component {
 	render() {
 		// console.log('props: ', this.props);
 		return (
-			<Droppable
-				folder={null}
-				team={this.props.team._id}
-				triggerUpdateState={this.triggerUpdateState}
-			>
+			<Droppable folder={null} team={this.props.team._id}>
 				<Container>
 					<FormDiv>
 						<SortForm>
@@ -125,7 +121,6 @@ class Documents extends Component {
 												<IndividualDocument
 													document={doc}
 													onClick={() => this.toggleDocumentDetail(doc)}
-													// updateState={this.state.updateState}
 												>
 													{doc.title}
 												</IndividualDocument>
@@ -144,7 +139,6 @@ class Documents extends Component {
 						document={this.state.currentDocument}
 						currentUser={this.props.currentUser}
 						team={this.props.team._id}
-						// updateState={this.state.updateState}
 					/>
 				</Container>
 			</Droppable>
