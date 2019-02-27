@@ -67,9 +67,13 @@ class Documents extends Component {
 	};
 
 	render() {
-		console.log('props: ', this.props);
+		// console.log('props: ', this.props);
 		return (
-			<Droppable folder={null} team={this.props.team._id}>
+			<Droppable
+				folder={null}
+				team={this.props.team._id}
+				triggerUpdateState={this.triggerUpdateState}
+			>
 				<Container>
 					<FormDiv>
 						<SortForm>
@@ -91,9 +95,8 @@ class Documents extends Component {
 						variables={{ team: this.props.team._id }}
 					>
 						{({ loading, error, data: { findDocumentsByTeam } }) => {
-							console.log('all documents: ', findDocumentsByTeam);
 							if (loading) return <p>Loading...</p>;
-							if (error) return console.log('this is from error YO', error);
+							if (error) return console.error(error);
 							if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
 								switch (this.state.sortOption) {
 									case 'newest':
@@ -117,12 +120,12 @@ class Documents extends Component {
 								return findDocumentsByTeam
 									.filter(doc => doc.folder === null)
 									.map(doc => {
-										console.log('Folder name: ', doc.folder);
 										return (
 											<Draggable id={doc._id} key={doc._id}>
 												<IndividualDocument
 													document={doc}
 													onClick={() => this.toggleDocumentDetail(doc)}
+													// updateState={this.state.updateState}
 												>
 													{doc.title}
 												</IndividualDocument>
@@ -141,6 +144,7 @@ class Documents extends Component {
 						document={this.state.currentDocument}
 						currentUser={this.props.currentUser}
 						team={this.props.team._id}
+						// updateState={this.state.updateState}
 					/>
 				</Container>
 			</Droppable>

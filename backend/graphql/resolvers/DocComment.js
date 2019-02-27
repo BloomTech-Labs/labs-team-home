@@ -95,7 +95,7 @@ const docCommentResolver = {
 				{ $addToSet: { likes: _id } },
 				{ new: true }
 			).populate('user document likes'),
-		unlikeDocComment: (_, { input: { id } }, { user: { _id } }) =>
+		unLikeDocComment: (_, { input: { id } }, { user: { _id } }) =>
 			DocComment.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { likes: _id } },

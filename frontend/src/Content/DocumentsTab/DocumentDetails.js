@@ -20,9 +20,9 @@ import CardContent from '@material-ui/core/CardContent';
 import {
 	addDocComment,
 	updateDocComment,
-	deleteDocComment
-	// like,
-	// unLike
+	deleteDocComment,
+	likeDocComment,
+	unLikeDocComment
 } from '../mutations/doccomments';
 import SendIcon from '@material-ui/icons/Send';
 
@@ -126,11 +126,13 @@ class DocumentDetails extends React.Component {
 			hideModal,
 			updateDocComment,
 			deleteDocComment,
-			addDocComment
+			addDocComment,
+			unLikeDocComment,
+			likeDocComment
 		} = this.props;
 
 		if (document === null) return <></>;
-		console.log(this.props);
+		// console.log(this.props);
 		return (
 			<StyledDialog
 				open={this.props.open}
@@ -309,7 +311,6 @@ class DocumentDetails extends React.Component {
 												flexDirection: 'column'
 											}}
 											elevation={1}
-											fullWidth
 										>
 											<CardHeader
 												avatar={
@@ -347,7 +348,6 @@ class DocumentDetails extends React.Component {
 															onChange={this.handleChange}
 															variant="outlined"
 															multiline={true}
-															fullWidth={true}
 														/>
 													</StyledEditCommentLabel>
 													<StyledButton type="submit">Save</StyledButton>
@@ -361,55 +361,57 @@ class DocumentDetails extends React.Component {
 													</CardContent>
 
 													{/* Check to see if the comment is the users and thus can be edited or deleted */}
-													{comment.user._id === currentUser._id && (
-														<CardContent>
-															<StyledButton
-																onClick={e => {
-																	e.preventDefault();
-																	if (!this.state.editingDocument) {
-																		this.setState({
-																			editingComment: true,
-																			commentContent: comment.content,
-																			editedComment: comment
+													<CardContent>
+														{comment.user._id === currentUser._id && (
+															<>
+																<StyledButton
+																	onClick={e => {
+																		e.preventDefault();
+																		if (!this.state.editingDocument) {
+																			this.setState({
+																				editingComment: true,
+																				commentContent: comment.content,
+																				editedComment: comment
+																			});
+																		} else {
+																			alert(
+																				"Please finish editing your document by clicking 'SAVE' before editing a comment."
+																			);
+																		}
+																	}}
+																>
+																	Edit
+																</StyledButton>
+																<StyledButton
+																	onClick={e => {
+																		e.preventDefault();
+																		deleteDocComment({
+																			id: comment._id
 																		});
-																	} else {
-																		alert(
-																			"Please finish editing your document by clicking 'SAVE' before editing a comment."
-																		);
-																	}
-																}}
-															>
-																Edit
-															</StyledButton>
-															<StyledButton
-																onClick={e => {
-																	e.preventDefault();
-																	deleteDocComment({
-																		id: comment._id
-																	});
-																}}
-															>
-																Delete
-															</StyledButton>
-														</CardContent>
-													)}
-													{/* Like button */}
-													{/* <StyledButton
-														onClick={e => {
-															e.preventDefault();
-															comment.likes.find(
-																({ _id }) => _id === currentUser._id
-															)
-																? unLike({
-																		id: comment._id
-																  })
-																: like({
-																		id: comment._id
-																  });
-														}}
-													>
-														{`${comment.likes.length} likes`}
-													</StyledButton> */}
+																	}}
+																>
+																	Delete
+																</StyledButton>
+															</>
+														)}
+														{/* Like button */}
+														<StyledButton
+															onClick={e => {
+																e.preventDefault();
+																comment.likes.find(
+																	({ _id }) => _id === currentUser._id
+																)
+																	? unLikeDocComment({
+																			id: comment._id
+																	  })
+																	: likeDocComment({
+																			id: comment._id
+																	  });
+															}}
+														>
+															{`${comment.likes.length} likes`}
+														</StyledButton>
+													</CardContent>
 												</>
 											)}
 										</Paper>
@@ -434,7 +436,6 @@ class DocumentDetails extends React.Component {
 													padding: '0px'
 												}}
 												onChange={this.handleChange}
-												fullWidth
 												name="newCommentContent"
 												value={this.state.newCommentContent}
 												multiline={true}
@@ -459,5 +460,7 @@ export default compose(
 	deleteDocument,
 	updateDocument,
 	updateDocComment,
-	deleteDocComment
+	deleteDocComment,
+	likeDocComment,
+	unLikeDocComment
 )(DocumentDetails);

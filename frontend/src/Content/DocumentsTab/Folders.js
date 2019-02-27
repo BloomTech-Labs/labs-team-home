@@ -88,7 +88,7 @@ class Folders extends Component {
 	};
 
 	render() {
-		console.log('props from fodler: ', this.props);
+		// console.log('props from folder: ', this.props);
 		return (
 			<FolderContainer>
 				<FormDiv>
@@ -108,7 +108,7 @@ class Folders extends Component {
 					variables={{ team: this.props.team._id }}
 				>
 					{({ loading, error, data: { findFoldersByTeam } }) => {
-						console.log('returned from findFoldersByTeam', findFoldersByTeam);
+						// console.log('returned from findFoldersByTeam', findFoldersByTeam);
 						if (loading) return <p>Loading...</p>;
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
@@ -140,7 +140,11 @@ class Folders extends Component {
 										if (loading) return <p>Loading...</p>;
 										if (error) return console.error(error);
 										return (
-											<Droppable folder={folder} team={this.props.team._id}>
+											<Droppable
+												folder={folder}
+												team={this.props.team._id}
+												// triggerUpdateState={this.triggerUpdateState}
+											>
 												<IndividualFolder
 													folder={folder}
 													onClick={() => this.toggleFolderDetail(folder)}
@@ -150,7 +154,9 @@ class Folders extends Component {
 														findDocumentsByFolder.map(doc => {
 															return (
 																<Draggable id={doc._id} key={doc._id}>
-																	<IndividualDocument>
+																	<IndividualDocument
+																	// updateState={this.state.updateState}
+																	>
 																		{doc.title}
 																	</IndividualDocument>
 																</Draggable>
@@ -177,6 +183,7 @@ class Folders extends Component {
 					folder={this.state.currentFolder}
 					currentUser={this.props.currentUser}
 					team={this.props.team._id}
+					// updateState={this.state.updateState}
 				/>
 			</FolderContainer>
 		);
