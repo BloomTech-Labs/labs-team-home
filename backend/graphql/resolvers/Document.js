@@ -7,19 +7,19 @@ const { ValidationError } = require('apollo-server-express');
 const documentResolver = {
 	Query: {
 		documents: () =>
-			Document.find().populate('user team folder subscribedUsers'),
+			Document.find().populate('user team folder tag subscribedUsers'),
 		findDocument: (_, { input: { id } }) =>
 			Document.findById(id)
-				.populate('team folder user subscribedUsers')
+				.populate('team folder user tag subscribedUsers')
 				.then(document => document),
 
 		findDocumentsByFolder: (_, { input: { folder } }) =>
 			Document.find({ folder: folder })
-				.populate('user team folder subscribedUsers')
+				.populate('user team folder tag subscribedUsers')
 				.then(document => document),
 		findDocumentsByTeam: async (_, { input: { team } }) => {
 			const documents = await Document.find({ team: team }).populate(
-				'user team folder subscribedUsers'
+				'user team folder tag subscribedUsers'
 			);
 
 			return documents.map(x => {
@@ -33,7 +33,9 @@ const documentResolver = {
 			new Document({ ...input, user: _id })
 				.save()
 				.then(document =>
-					document.populate('user team subscribedUsers folder').execPopulate()
+					document
+						.populate('user team tag subscribedUsers folder')
+						.execPopulate()
 				),
 
 		// addDocument: (_, { input }, { user: { _id } }) =>
@@ -61,14 +63,14 @@ const documentResolver = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user team folder subscribedUsers');
-					// console.log('updateDoc from resolver: ', updateDoc);
+					).populate('user team folder tag subscribedUsers');
+
 					if (document.folder !== null) {
 						const folderAddDoc = await Folder.findOneAndUpdate(
 							{ _id: input.folder },
 							{ $push: { documents: [document._id] } },
 							{ new: true }
-						).populate('user team subscribedUsers folder');
+						).populate('user team tag subscribedUsers folder');
 					}
 					// console.log('document from resolver: ', document);
 					return updateDoc;
@@ -94,13 +96,13 @@ const documentResolver = {
 				{ _id: id },
 				{ $addToSet: { subscribedUsers: _id } },
 				{ new: true }
-			).populate('user team folder subscribedUsers'),
+			).populate('user team folder tag subscribedUsers'),
 		unsubscribeDoc: (_, { input: { id } }, { user: { _id } }) =>
 			Document.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { subscribedUsers: _id } },
 				{ new: true }
-			).populate('user team folder subscribedUsers')
+			).populate('user team folder tag subscribedUsers')
 	}
 };
 

@@ -6,6 +6,7 @@ const User = require('./User');
 const Folder = require('./Folder');
 const Document = require('./Document');
 const DocComment = require('./DocComment');
+
 module.exports = [
 	Tag,
 	Message,

@@ -15,9 +15,6 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let apollo = apollo,
-            let team = team else { return }
-        
         setUpViewAppearance()
         createGradientLayer()
         collectionView.backgroundColor = .clear
@@ -27,7 +24,13 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         label = UILabel()
         label.text = "Loading activity"
         collectionView.addSubview(label)
+    }
+    override func viewWillAppear(_ animated: Bool) {
         
+        guard let apollo = apollo,
+            let team = team else { return }
+        
+        super.viewWillAppear(animated)
         loadActivity(with: apollo, team: team)
         fetchCurrentUser(with: apollo)
     }
@@ -96,13 +99,17 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
             self.messages = messages.reversed()
             
             self.activityTimeline = []
+            //creates activity from messages and adds to activity timeline
             for message in messages.reversed() {
-                let activity = Activity(message: message, comment: nil, date: message?.createdAt)
+                let activity = Activity(message: message, comment: nil, document: nil, date: message?.createdAt)
                 self.activityTimeline?.append(activity)
             }
+
+            //fetches the comments associated with each message
+            let dispatchGroup = DispatchGroup()
             
             for message in messages.reversed() {
-
+                dispatchGroup.enter()
                 guard let messageId = message?.id else { return }
                 _ = apollo.watch(query: FindCommentsByMessageQuery(messageId: messageId), resultHandler: { (result, error) in
                     if let error = error {
@@ -112,11 +119,18 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
                     
                     guard let result = result,
                         let comments = result.data?.findMsgCommentsByMessage else { return }
-
-                    self.mergeAllActivity(with: comments)
+                    self.appendMessageActivity(with: comments)
+                    dispatchGroup.leave()
                 })
             }
+            
+            dispatchGroup.enter()
+            self.appendDocumentActivity(with: apollo, teamID: teamId,dispatchGroup: dispatchGroup)
+            dispatchGroup.notify(queue: .global()){
+                self.sortActivity()
+            }
         })
+//        appendDocumentActivity(with: apollo, teamID: teamId)
     }
     
     private func fetchCurrentUser(with apollo: ApolloClient) {
@@ -134,13 +148,35 @@ class ActivityTimelineViewController: UIViewController, TabBarChildrenProtocol, 
         }
     }
     
-    private func mergeAllActivity(with comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]) {
+    //fetch documents and append as activity to activity timeline
+    private func appendDocumentActivity(with apollo: ApolloClient, teamID: GraphQLID, dispatchGroup:DispatchGroup?){
+        _ = apollo.fetch(query: FindDocumentsByTeamQuery(teamID: teamID), resultHandler: { (result, error) in
+            if let error = error {
+                NSLog("Error fetching document activity: \(error)")
+                return
+            }
+            guard let documents = result?.data?.findDocumentsByTeam else {return}
+            for document in documents{
+                let activity = Activity(message: nil, comment: nil, document: document, date: document?.createdAt)
+                self.activityTimeline?.append(activity)
+                //TODO: Add comments to documents in document activity
+            }
+            if let dispatchGroup = dispatchGroup{
+                dispatchGroup.leave()
+            }
+        })
+    }
+    private func appendMessageActivity(with comments: [FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?]) {
         
         for comment in comments {
-            let activity = Activity(message: nil, comment: comment, date: comment?.createdAt)
+            let activity = Activity(message: nil, comment: comment, document: nil, date: comment?.createdAt)
             activityTimeline?.append(activity)
         }
-        
+        sortActivity()
+
+    }
+    
+    private func sortActivity(){
         guard let activityTimeline = activityTimeline else { return }
         
         let sortedActivity = activityTimeline.sorted(by: { $0.date! > $1.date!})
