@@ -13,17 +13,16 @@ export default class ActivityTimeline extends React.Component {
 	}
 
 	render() {
-		//messages will hold all the messages found by the first query
-		let messages = [];
-		//allTheThings will hold all the messages and comments will be added to this
-		//array. This is seperate from the messages array so that mapping queries
-		//will not accidentally use comments instead of messages
-		let allTheThings = new Set();
-		//loaded will be used to keep from adding more to allTheThings once all messages
-		//have been mapped
-		let loaded = false;
+		let allTheThings = [];
+		/* These Bools make sure that everything is loaded before mapping over all items in
+		 allTheThings and returning Activity components */
+		let messagesLoaded = false;
+		let documentsLoaded = false;
+		let foldersLoaded = false;
+
 		return (
 			<div>
+				{/* Queries for Messages and Messages' Comments */}
 				<Query
 					query={query.FIND_MESSAGES_BY_TEAM}
 					variables={{ team: this.state.team._id }}
@@ -31,20 +30,14 @@ export default class ActivityTimeline extends React.Component {
 					{({ loading, error, data: { findMessagesByTeam } }) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error!</p>;
-						//If nothing has been loaded into messages, load results of the
-						//query into messages and allTheThings.
-						if (messages.length === 0) {
-							messages = findMessagesByTeam;
-							for (let message of messages) {
-								allTheThings.add(message);
-							}
+						if (findMessagesByTeam.length > 0) {
+							findMessagesByTeam.forEach(message => {
+								if (!allTheThings.includes(message)) {
+									allTheThings.push(message);
+								}
+							});
 						}
-						//i is current index, starts at 0. End is the index of the end of
-						//the messages array
-						let i = 0;
-						let end = messages.length - 1;
-						//map through messages and create a Query component for each one
-						return messages.map(message => (
+						findMessagesByTeam.map(message => (
 							<Query
 								query={query.FIND_COMMENTS_BY_MESSAGE}
 								variables={{ message: message._id }}
@@ -53,58 +46,94 @@ export default class ActivityTimeline extends React.Component {
 								{({ loading, error, data: { findMsgCommentsByMessage } }) => {
 									if (loading) return <p>Loading...</p>;
 									if (error) return <p>Error!</p>;
-
-									//only add to the allTheThings array if the end of the messages
-									//array has not been reached
-									if (!loaded) {
-										for (let comment of findMsgCommentsByMessage) {
-											allTheThings.add(comment);
-										}
+									if (findMsgCommentsByMessage) {
+										findMsgCommentsByMessage.forEach(comment =>
+											allTheThings.push(comment)
+										);
 									}
-
-									if (i === end) {
-										//if reached the end of the messages array set loaded to true
-										loaded = true;
-										//convert all updatedAt timestamps to date objects
-										let activities = [];
-										for (let thing of allTheThings) {
-											if (typeof thing.updatedAt === 'string')
-												thing.updatedAt = new Date(
-													parseInt(thing.updatedAt, 10)
-												);
-											activities.push(thing);
-										}
-
-										//sort in reverse chronological order
-										activities.sort((a, b) => {
-											if (a.updatedAt < b.updatedAt) return 1;
-											if (a.updatedAt > b.updatedAt) return -1;
-											return 0;
-										});
-
-										//create elements based on whether the current thing is created
-										//by the current user
-										return activities.map(thing => {
-											if (thing.user._id === this.props.currentUser._id) {
-												return (
-													<Activity
-														message={thing}
-														key={thing._id}
-														own={true}
-													/>
-												);
-											}
-											return (
-												<Activity message={thing} key={thing._id} own={false} />
-											);
-										});
-									}
-									//Next index
-									i++;
-									return null;
+									return <></>;
 								}}
 							</Query>
 						));
+						messagesLoaded = true;
+						return <></>;
+					}}
+				</Query>
+				{/* Queries for Documents and Documents' Comments */}
+				<Query
+					query={query.FIND_DOCUMENTS_BY_TEAM}
+					variables={{ team: this.state.team._id }}
+				>
+					{({ loading, error, data: { findDocumentsByTeam } }) => {
+						if (loading) return <p>Loading...</p>;
+						if (error) return <p>Error!</p>;
+						if (findDocumentsByTeam.length > 0) {
+							findDocumentsByTeam.forEach(document => {
+								if (!allTheThings.includes(document)) {
+									allTheThings.push(document);
+								}
+							});
+						}
+						findDocumentsByTeam.map(document => (
+							<Query
+								query={query.FIND_COMMENTS_BY_DOCUMENT}
+								variables={{ document: document._id }}
+								key={document._id}
+							>
+								{({ loading, error, data: { findDocCommentsByDocument } }) => {
+									if (loading) return <p>Loading...</p>;
+									if (error) return <p>Error!</p>;
+									if (findDocCommentsByDocument) {
+										findDocCommentsByDocument.forEach(comment =>
+											allTheThings.push(comment)
+										);
+									}
+									return <></>;
+								}}
+							</Query>
+						));
+						documentsLoaded = true;
+						return <></>;
+					}}
+				</Query>
+				{/* Queries for Folder and the rendering of all components */}
+				<Query
+					query={query.FIND_FOLDERS_BY_TEAM}
+					variables={{ team: this.state.team._id }}
+				>
+					{({ loading, error, data: { findFoldersByTeam } }) => {
+						if (loading) return <p>Loading...</p>;
+						if (error) return <p>Error!</p>;
+						if (findFoldersByTeam.length > 0) {
+							findFoldersByTeam.forEach(folder => {
+								if (!allTheThings.includes(folder)) {
+									allTheThings.push(folder);
+								}
+							});
+						}
+						foldersLoaded = true;
+
+						allTheThings.map(thing => {
+							if (typeof thing.updatedAt === 'string' && thing.updatedAt) {
+								thing.updatedAt = new Date(parseInt(thing.updatedAt, 10));
+							}
+						});
+
+						allTheThings.sort((a, b) => {
+							if (a.updatedAt < b.updatedAt) return 1;
+							if (a.updatedAt > b.updatedAt) return -1;
+							return 0;
+						});
+
+						if (messagesLoaded && documentsLoaded && foldersLoaded) {
+							return allTheThings.map((thing, index) => {
+								if (thing.user._id === this.props.currentUser._id) {
+									return <Activity message={thing} key={index} own={true} />;
+								}
+								return <Activity message={thing} key={index} own={false} />;
+							});
+						}
+						return <></>;
 					}}
 				</Query>
 			</div>

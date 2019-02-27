@@ -82,6 +82,23 @@ const StyledTypography = styled(Typography)`
 function Activity(props) {
 	const { classes, own } = props;
 	const { __typename, user, updatedAt, title, content } = props.message;
+	/* activitySwitch changes the message depending on the type of the object */
+	const activitySwitch = type => {
+		switch (type) {
+			case 'Message':
+				return 'Message';
+			case 'Comment':
+				return 'Comment';
+			case 'Document':
+				return 'Document';
+			case 'DocComment':
+				return 'Comment on a Document';
+			case 'Folder':
+				return 'Folder';
+			default:
+				return 'Item';
+		}
+	};
 
 	return (
 		<Container own={own}>
@@ -104,7 +121,7 @@ function Activity(props) {
 					>
 						{user.firstName} {user.lastName.slice(0, 1)}
 						{'. '}
-						posted a new {__typename === 'Message' ? 'Message' : 'Comment'}
+						posted a new {activitySwitch(__typename)}
 					</StyledTypography>
 					<StyledTypography component="p" noWrap className={classes.cardText}>
 						{updatedAt.toDateString()}
