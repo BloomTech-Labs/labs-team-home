@@ -7,6 +7,7 @@ const Document = /* GRAPHQL */ `
         team: Team!
         title: String!
         textContent: String!
+        tag: Tag
         images: [String]
         comments: [ID]
         subscribedUsers: [User]
@@ -28,6 +29,7 @@ const Document = /* GRAPHQL */ `
         team: String!
         folder: String
         textContent: String!
+        tag: String
         images: [String]
         subscribedUsers: [String]
     }
@@ -38,9 +40,12 @@ const Document = /* GRAPHQL */ `
         team: String
         folder: String
         textContent: String
+        tag: String
         images: [String]
         comments: [String]
         subscribedUsers: [String]
+        doc_url: String
+        user: String
     }
     input DeleteDocumentInput {
         id: ID!
@@ -64,8 +69,6 @@ const Document = /* GRAPHQL */ `
         subscribeDoc(input: SubscribeDocInput!): Document
         unsubscribeDoc(input: UnsubscribeDocInput!): Document
     }
-
-
 `;
 
 module.exports = Document;

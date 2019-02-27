@@ -7,7 +7,8 @@ import {
 	FULL_TEAM,
 	FULL_USER,
 	FULL_FOLDER,
-	FULL_DOCUMENT
+	FULL_DOCUMENT,
+	FULL_DOCCOMMENT
 } from './fragments';
 
 export const ADD_MESSAGE = gql`
@@ -294,6 +295,15 @@ export const DELETE_FOLDER = gql`
 	}
 `;
 
+export const UPDATE_FOLDER = gql`
+	mutation updateFolder($id: ID!, $title: String) {
+		updateFolder(input: { id: $id, title: $title }) {
+			...FullFolder
+		}
+	}
+	${FULL_FOLDER}
+`;
+
 //Documents
 export const ADD_DOCUMENT = gql`
 	mutation addDocument(
@@ -318,31 +328,84 @@ export const ADD_DOCUMENT = gql`
 	${FULL_DOCUMENT}
 `;
 
+export const DELETE_DOCUMENT = gql`
+	mutation deleteDocument($id: ID!) {
+		deleteDocument(input: { id: $id }) {
+			_id
+		}
+	}
+`;
+
 export const UPDATE_DOCUMENT = gql`
 	mutation updateDocument(
 		$id: ID!
 		$title: String
-		$doc_url: String
-		$team: String
-		$folder: String
 		$textContent: String
-		$images: [String]
-		$subscribedUsers: [String]
+		$doc_url: String
+		$folder: String
 	) {
 		updateDocument(
 			input: {
 				id: $id
-				doc_url: $doc_url
 				title: $title
-				team: $team
-				folder: $folder
 				textContent: $textContent
-				images: $images
-				subscribedUsers: $subscribedUsers
+				doc_url: $doc_url
+				folder: $folder
 			}
 		) {
 			...FullDocument
 		}
 	}
 	${FULL_DOCUMENT}
+`;
+
+export const ADD_DOCCOMMENT = gql`
+	mutation addDocComment($document: String!, $content: String!) {
+		addDocComment(input: { document: $document, content: $content }) {
+			...FullDocComment
+		}
+	}
+	${FULL_DOCCOMMENT}
+`;
+
+export const DELETE_DOCCOMMENT = gql`
+	mutation deleteDocComment($id: ID!) {
+		deleteDocComment(input: { id: $id }) {
+			_id
+		}
+	}
+`;
+
+export const UPDATE_DOCCOMMENT = gql`
+	mutation updateDocComment(
+		$id: ID!
+		$document: String
+		$content: String
+		$likes: [ID]
+	) {
+		updateDocComment(
+			input: { id: $id, document: $document, content: $content, likes: $likes }
+		) {
+			...FullDocComment
+		}
+	}
+	${FULL_DOCCOMMENT}
+`;
+
+export const LIKE_DOCCOMMENT = gql`
+	mutation likeDocComment($id: ID!) {
+		likeDocComment(input: { id: $id }) {
+			...FullDocComment
+		}
+	}
+	${FULL_DOCCOMMENT}
+`;
+
+export const UNLIKE_DOCCOMMENT = gql`
+	mutation unLikeDocComment($id: ID!) {
+		unLikeDocComment(input: { id: $id }) {
+			...FullDocComment
+		}
+	}
+	${FULL_DOCCOMMENT}
 `;

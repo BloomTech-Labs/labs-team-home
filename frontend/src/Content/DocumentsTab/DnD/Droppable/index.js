@@ -1,20 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'react-apollo';
 import { updateDocument } from '../../../mutations/documents';
 
-export default class Droppable extends React.Component {
+class Droppable extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
 	drop = e => {
 		e.preventDefault();
 		const data = e.dataTransfer.getData('transfer');
 		e.target.appendChild(document.getElementById(data));
-		console.log('dragging  ->  ' + data);
-		if (this.props.folder !== 'one') {
-			console.log('dropped  ->  ' + this.props.folder._id);
-			updateDocument({ id: data, folder: this.props.folder._id });
+		// console.log('props from Droppable: ', this.props);
+		// console.log('dragging  ->  ' + data);
+		if (this.props.folder !== null) {
+			// console.log('dropped  ->  ' + this.props.folder._id);
+			this.props.updateDocument({
+				id: data,
+				folder: this.props.folder._id
+			});
 		} else {
-			console.log('droppped  ->  ' + this.props.folder);
-			updateDocument({ id: data, folder: this.props.folder });
+			// console.log('droppped  ->  ' + this.props.folder);
+			this.props.updateDocument({ id: data, folder: this.props.folder });
 		}
+		// this.props.triggerUpdateState();
 	};
 
 	allowDrop = e => {
@@ -29,6 +39,8 @@ export default class Droppable extends React.Component {
 		);
 	}
 }
+
+export default compose(updateDocument)(Droppable);
 
 Droppable.propTypes = {
 	id: PropTypes.string,

@@ -40,17 +40,17 @@ const updateMessageOptions = {
 						variables: { team: team }
 					});
 					cache.writeQuery({
-						query: query.FIND_MESSAGE,
-						variables: { id: input.id },
-						data: updateMessage
-					});
-					cache.writeQuery({
 						query: query.FIND_MESSAGES_BY_TEAM,
 						variables: { team: team },
 						data: {
-							findMessagesByTeam: findMessagesByTeam.map(message =>
-								message._id === updateMessage._id ? updateMessage : message
-							)
+							findMessagesByTeam: findMessagesByTeam.map(message => {
+								console.log('message from mutator: ', message);
+								console.log('updateMessage from mutator: ', updateMessage);
+
+								return message._id === updateMessage._id
+									? updateMessage
+									: message;
+							})
 						}
 					});
 				}

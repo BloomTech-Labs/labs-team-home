@@ -12,7 +12,7 @@ const FolderContainer = styled.div`
 	justify-content: center;
 `;
 
-const IndividualFolder = styled.p`
+const IndividualFolder = styled.div`
 	min-height: 200px;
 	color: black;
 	background-color: #a9a4b0;
@@ -46,19 +46,35 @@ const Error = styled.p`
 	color: white;
 `;
 
+const FormDiv = styled.div`
+	width: 92%;
+	display: flex;
+	flex-direction: row-reverse;
+`;
+
+const SortForm = styled.form`
+	height: 50px;
+	label {
+		color: white;
+		font-size: 20px;
+	}
+	select {
+		margin-left: 10px;
+	}
+	option {
+		height: 50px;
+	}
+`;
+
 class Folders extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			displayButtons: false,
 			currentFolder: null,
-			folderDetailOpen: false
+			folderDetailOpen: false,
+			sortOption: 'newest'
 		};
 	}
-
-	toggleButtons = () => {
-		this.setState({ displayButtons: !this.state.displayButtons });
-	};
 
 	toggleFolderDetail = dir => {
 		this.setState(prevState => ({
@@ -67,42 +83,93 @@ class Folders extends Component {
 		}));
 	};
 
+	sortChange = e => {
+		this.setState({ sortOption: e.target.value });
+	};
+
 	render() {
+		// console.log('props from folder: ', this.props);
 		return (
 			<FolderContainer>
+				<FormDiv>
+					<SortForm>
+						<label>
+							Folder Sort:
+							<select value={this.state.sortOption} onChange={this.sortChange}>
+								<option value="newest">Newest First</option>
+								<option value="oldest">Oldest First</option>
+							</select>
+						</label>
+					</SortForm>
+				</FormDiv>
 				{/* All the Folders */}
 				<Query
 					query={query.FIND_FOLDERS_BY_TEAM}
 					variables={{ team: this.props.team._id }}
 				>
 					{({ loading, error, data: { findFoldersByTeam } }) => {
+						// console.log('returned from findFoldersByTeam', findFoldersByTeam);
 						if (loading) return <p>Loading...</p>;
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
+							switch (this.state.sortOption) {
+								case 'newest':
+									findFoldersByTeam.sort((a, b) => {
+										if (a.createdAt < b.createdAt) return 1;
+										if (a.createdAt > b.createdAt) return -1;
+										return 0;
+									});
+									break;
+								case 'oldest':
+									findFoldersByTeam.sort((a, b) => {
+										if (a.createdAt < b.createdAt) return -1;
+										if (a.createdAt > b.createdAt) return 1;
+										return 0;
+									});
+									break;
+								default:
+									break;
+							}
 							return findFoldersByTeam.map(folder => (
-								<Droppable folder={folder} key={folder._id}>
-									<IndividualFolder
-										folder={folder}
-										onClick={() => this.toggleFolderDetail(folder)}
-									>
-										{folder.title}
-										{console.log(folder.documents)}
-										{folder.documents.length ? (
-											folder.documents.map(doc => {
-												console.log(
-													'doc info  -> ' + doc.title + doc._id + doc.doc_url
-												);
-												return (
-													<Draggable id={`${doc._id}`} key={doc._id}>
-														<IndividualDocument>{doc.title}</IndividualDocument>
-													</Draggable>
-												);
-											})
-										) : (
-											<></>
-										)}
-									</IndividualFolder>
-								</Droppable>
+								<Query
+									query={query.FIND_DOCUMENTS_BY_FOLDER}
+									variables={{ folder: folder._id }}
+									key={folder._id}
+								>
+									{({ loading, error, data: { findDocumentsByFolder } }) => {
+										if (loading) return <p>Loading...</p>;
+										if (error) return console.error(error);
+										return (
+											<Droppable
+												folder={folder}
+												team={this.props.team._id}
+												// triggerUpdateState={this.triggerUpdateState}
+											>
+												<IndividualFolder
+													folder={folder}
+													onClick={() => this.toggleFolderDetail(folder)}
+												>
+													{folder.title}
+													{findDocumentsByFolder.length ? (
+														findDocumentsByFolder.map(doc => {
+															return (
+																<Draggable id={doc._id} key={doc._id}>
+																	<IndividualDocument
+																	// updateState={this.state.updateState}
+																	>
+																		{doc.title}
+																	</IndividualDocument>
+																</Draggable>
+															);
+														})
+													) : (
+														<></>
+													)}
+												</IndividualFolder>
+											</Droppable>
+										);
+									}}
+								</Query>
 							));
 						} else {
 							return <Error>No Folders Available For This Team</Error>;
@@ -116,6 +183,7 @@ class Folders extends Component {
 					folder={this.state.currentFolder}
 					currentUser={this.props.currentUser}
 					team={this.props.team._id}
+					// updateState={this.state.updateState}
 				/>
 			</FolderContainer>
 		);

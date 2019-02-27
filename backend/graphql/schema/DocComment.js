@@ -48,7 +48,7 @@ const DocComment = /* GraphQL */ `
 		updateDocComment(input: UpdateDocCommentInput!): DocComment
 		deleteDocComment(input: DeleteDocCommentInput!): DocComment
 		likeDocComment(input: LikeDocCommentInput!): DocComment
-		unlikeDocComment(input: UnLikeDocCommentInput!): DocComment
+		unLikeDocComment(input: UnLikeDocCommentInput!): DocComment
 	}
 `;
 

@@ -12,5 +12,6 @@ import Apollo
 struct Activity {
     let message: FindActivityByTeamQuery.Data.FindMessagesByTeam?
     let comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage?
+    let document: FindDocumentsByTeamQuery.Data.FindDocumentsByTeam?
     let date: String?
 }

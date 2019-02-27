@@ -109,7 +109,8 @@ class AddDocument extends React.Component {
 								title: this.state.title,
 								team: this.props.team,
 								content: this.state.content,
-								url: this.state.url
+								url: this.state.url,
+								folder: null
 							})
 								.then(res => {
 									return this.props.closeHandler();
