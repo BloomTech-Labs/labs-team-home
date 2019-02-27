@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10295B6922274F92002C8940 /* DocumentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295B6822274F92002C8940 /* DocumentDetailViewController.swift */; };
 		10409404221E265F00EC4389 /* AddDocumentViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 10409403221E265F00EC4389 /* AddDocumentViewController.graphql */; };
 		1060AA0C221E6416008A72A2 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */; };
 		1092D5B1221E8A5300579B34 /* DocumentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */; };
@@ -75,6 +76,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10295B6822274F92002C8940 /* DocumentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailViewController.swift; sourceTree = "<group>"; };
 		10409403221E265F00EC4389 /* AddDocumentViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AddDocumentViewController.graphql; sourceTree = "<group>"; };
 		1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
 		1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewController.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */,
 				1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */,
 				F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */,
+				10295B6822274F92002C8940 /* DocumentDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				7B2C51EC220B2CF7004990BB /* TagCollectionViewCell.swift in Sources */,
 				7BF8736221FA6B4B00737729 /* Activity.swift in Sources */,
 				7B2C51F2220CB563004990BB /* CommentsCollectionReusableView.swift in Sources */,
+				10295B6922274F92002C8940 /* DocumentDetailViewController.swift in Sources */,
 				7BA77E8321E798A800C862C1 /* TabBarChildrenProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
