@@ -22,11 +22,11 @@ const AddBtn = styled(Fab)`
 `;
 
 const MainFabIconAdd = styled(AddIcon)`
-	display: ${props => (!props.displaytab ? 'inline' : 'none')};
+	display: ${props => props.displaytab};
 `;
 
 const MainFabIconClose = styled(Close)`
-	display: ${props => (props.displaytab ? 'inline' : 'none')};
+	display: ${props => props.displaytab};
 `;
 
 const AddMenuFab = styled(AddBtn)`
@@ -34,21 +34,24 @@ const AddMenuFab = styled(AddBtn)`
 	color: #595262;
 	height: 50px;
 	width: 50px;
-	display: ${props => (props.displaytab ? 'inline' : 'none')};
+	display: ${props => props.displaytab};
 `;
 
 class DocsButtonMenu extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			displayButtons: false,
+			displayButtons: 'none',
+			displayAddBtn: 'inline',
 			showNewFolderModal: false,
 			showNewDocumentModal: false
 		};
 	}
 
 	toggleButtons = () => {
-		this.setState({ displayButtons: !this.state.displayButtons });
+		if (this.state.displayButtons === 'none')
+			this.setState({ displayButtons: 'inline', displayAddBtn: 'none' });
+		else this.setState({ displayButtons: 'none', displayAddBtn: 'inline' });
 	};
 
 	toggleNewFolderModal = () => {
@@ -68,17 +71,13 @@ class DocsButtonMenu extends Component {
 			<div>
 				{/* Menu Items */}
 				<AddBtn onClick={() => this.toggleButtons()}>
-					<MainFabIconAdd
-						displaytab={this.state.displayButtons ? true : undefined}
-					/>
-					<MainFabIconClose
-						displaytab={this.state.displayButtons ? true : undefined}
-					/>
+					<MainFabIconAdd displaytab={this.state.displayAddBtn} />
+					<MainFabIconClose displaytab={this.state.displayButtons} />
 				</AddBtn>
-				<AddMenuFab displaytab={this.state.displayButtons ? true : undefined}>
+				<AddMenuFab displaytab={this.state.displayButtons}>
 					<Folder onClick={() => this.toggleNewFolderModal()} />
 				</AddMenuFab>
-				<AddMenuFab displaytab={this.state.displayButtons ? true : undefined}>
+				<AddMenuFab displaytab={this.state.displayButtons}>
 					<NoteAdd onClick={() => this.toggleNewDocumentModal()} />
 				</AddMenuFab>
 				{/* Modals called from menu Items */}
