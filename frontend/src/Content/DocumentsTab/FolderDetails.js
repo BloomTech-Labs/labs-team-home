@@ -214,7 +214,7 @@ class FolderDetails extends React.Component {
 							loading,
 							error,
 							data: { findDocumentsByFolder },
-							refatch,
+							refetch,
 							networkStatus
 						}) => {
 							if (loading) return <p>Loading...</p>;
