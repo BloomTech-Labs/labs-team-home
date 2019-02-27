@@ -82,7 +82,7 @@ class DocsButtonMenu extends Component {
 					closeHandler={this.toggleNewFolderModal}
 					stopProp={e => e.stopPropagation()}
 					team={this.props.team._id}
-					user={this.props.currentUser._id}
+					user={this.props._id}
 					open={this.state.showNewFolderModal}
 				/>
 				<AddDocument

@@ -6,7 +6,6 @@ const User = require('./User');
 const Folder = require('./Folder');
 const Document = require('./Document');
 const DocComment = require('./DocComment');
-const General = require('./General');
 module.exports = [
 	Tag,
 	Message,
@@ -15,6 +14,5 @@ module.exports = [
 	User,
 	Folder,
 	Document,
-	DocComment,
-	General
+	DocComment
 ];
