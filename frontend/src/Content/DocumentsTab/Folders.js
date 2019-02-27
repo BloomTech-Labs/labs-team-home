@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import * as query from '../../constants/queries';
 import FolderDetails from './FolderDetails';
 import Droppable from './DnD/Droppable';
-// import Draggable from './DnD/Draggable';
+import Draggable from './DnD/Draggable';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -12,7 +12,7 @@ const FolderContainer = styled.div`
 	justify-content: center;
 `;
 
-const IndividualFolder = styled.p`
+const IndividualFolder = styled.div`
 	min-height: 200px;
 	color: black;
 	background-color: #a9a4b0;
