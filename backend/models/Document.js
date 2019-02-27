@@ -23,7 +23,7 @@ const Document = new Schema(
 		textContent: { type: String },
 		images: [{ type: String }],
 		comments: [{ type: Schema.Types.ObjectId, ref: 'DocComment' }],
-		subsribedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+		subscribedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 	},
 	{ timestamps: true }
 );
