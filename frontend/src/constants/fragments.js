@@ -105,6 +105,9 @@ export const FULL_DOCUMENT = gql`
 		_id
 		title
 		doc_url
+		tag {
+			...FullTag
+		}
 		team {
 			_id
 		}
@@ -117,8 +120,12 @@ export const FULL_DOCUMENT = gql`
 		createdAt
 		updatedAt
 		textContent
+		subscribedUsers {
+			_id
+		}
 	}
 	${FULL_USER}
+	${FULL_TAG}
 `;
 
 export const FULL_DOCCOMMENT = gql`

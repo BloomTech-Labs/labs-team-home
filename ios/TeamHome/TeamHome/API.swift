@@ -1869,6 +1869,97 @@ public final class CurrentUserQuery: GraphQLQuery {
   }
 }
 
+public final class AddDocumentCommentMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation AddDocumentComment($document: String!, $comment: String!) {\n  addDocComment(input: {document: $document, content: $comment}) {\n    __typename\n    _id\n    content\n  }\n}"
+
+  public var document: String
+  public var comment: String
+
+  public init(document: String, comment: String) {
+    self.document = document
+    self.comment = comment
+  }
+
+  public var variables: GraphQLMap? {
+    return ["document": document, "comment": comment]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("addDocComment", arguments: ["input": ["document": GraphQLVariable("document"), "content": GraphQLVariable("comment")]], type: .object(AddDocComment.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(addDocComment: AddDocComment? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "addDocComment": addDocComment.flatMap { (value: AddDocComment) -> ResultMap in value.resultMap }])
+    }
+
+    public var addDocComment: AddDocComment? {
+      get {
+        return (resultMap["addDocComment"] as? ResultMap).flatMap { AddDocComment(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "addDocComment")
+      }
+    }
+
+    public struct AddDocComment: GraphQLSelectionSet {
+      public static let possibleTypes = ["DocComment"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+        GraphQLField("content", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil, content: String) {
+        self.init(unsafeResultMap: ["__typename": "DocComment", "_id": id, "content": content])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+
+      public var content: String {
+        get {
+          return resultMap["content"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "content")
+        }
+      }
+    }
+  }
+}
+
 public final class FindMessagesByTeamQuery: GraphQLQuery {
   public let operationDefinition =
     "query FindMessagesByTeam($teamId: ID!) {\n  findMessagesByTeam(input: {team: $teamId}) {\n    __typename\n    _id\n    title\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n      _id\n    }\n    content\n    images\n    tag {\n      __typename\n      name\n      _id\n    }\n    comments\n    subscribedUsers {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    createdAt\n    updatedAt\n  }\n}"

@@ -58,6 +58,19 @@ class DocumentsTableViewController: UITableViewController {
             }
         }
     }
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ViewDocumentDetails"{
+            guard let destinationVC = segue.destination as? DocumentDetailViewController,
+            let indexPath = tableView.indexPathForSelectedRow,
+            let documents = documents else {return}
+            destinationVC.document = documents[indexPath.row]
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+            destinationVC.currentUser = currentUser
+        }
+    }
     //MARK: - Private Functions
     
     private func loadDocuments(with apollo: ApolloClient) {
@@ -96,6 +109,6 @@ class DocumentsTableViewController: UITableViewController {
     
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
-    //    var currentUser: CurrentUserQuery.Data.CurrentUser?
+    var currentUser: CurrentUserQuery.Data.CurrentUser?
     var deleteIndexPath: IndexPath?
 }
