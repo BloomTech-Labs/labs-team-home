@@ -98,12 +98,10 @@ function Activity(props) {
 				return 'Comment';
 			case 'Document':
 				return 'Document';
-			case 'DocComment':
-				return 'Comment on a Document';
 			case 'Folder':
 				return 'Folder';
 			default:
-				return 'Item';
+				return 'Comment';
 		}
 	};
 
