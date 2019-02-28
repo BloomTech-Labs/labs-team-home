@@ -312,6 +312,7 @@ export const ADD_DOCUMENT = gql`
 		$content: String!
 		$url: String!
 		$folder: String
+		$tag: String
 	) {
 		addDocument(
 			input: {
@@ -320,6 +321,7 @@ export const ADD_DOCUMENT = gql`
 				textContent: $content
 				doc_url: $url
 				folder: $folder
+				tag: $tag
 			}
 		) {
 			...FullDocument

@@ -56,7 +56,7 @@ const deleteFolderOptions = {
 
 export const deleteFolder = graphql(DELETE_FOLDER, deleteFolderOptions);
 
-////////// UPdate FOlder
+////////// Update Folder
 
 const updateFolderOptions = {
 	props: ({ ownProps: { team }, mutate }) => ({

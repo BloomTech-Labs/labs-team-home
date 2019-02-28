@@ -47,10 +47,42 @@ const documentResolver = {
 						{ new: true }
 					).populate('user team folder tag subscribedUsers');
 				} else {
-					throw new ValidationError("Document doesn't exist.");
+					throw new ValidationError("Document doesn't exist");
 				}
 			});
 		},
+
+		// updateDocument: (_, { input }) => {
+		// 	const { id } = input;
+		// 	return Document.findById(id).then(async document => {
+		// 		if (document) {
+		// 			if (document.folder !== undefined) {
+		// 				const folderDeleteUpdate = await Folder.findOneAndUpdate(
+		// 					{ _id: document.folder },
+		// 					{ $pull: { documents: document._id } }
+		// 				);
+		// 			}
+
+		// 			const updateDoc = await Document.findOneAndUpdate(
+		// 				{ _id: id },
+		// 				{ $set: input },
+		// 				{ new: true }
+		// 			).populate('user team folder tag subscribedUsers');
+
+		// 			if (document.folder !== null) {
+		// 				const folderAddDoc = await Folder.findOneAndUpdate(
+		// 					{ _id: input.folder },
+		// 					{ $push: { documents: [document._id] } },
+		// 					{ new: true }
+		// 				).populate('user team tag subscribedUsers folder');
+		// 			}
+		// 			// console.log('document from resolver: ', document);
+		// 			return updateDoc;
+		// 		} else {
+		// 			throw new ValidationError("Document doesn't exist.");
+		// 		}
+		// 	});
+		// },
 		deleteDocument: (_, { input: { id } }) =>
 			Document.findById(id).then(async document => {
 				console.log(document);

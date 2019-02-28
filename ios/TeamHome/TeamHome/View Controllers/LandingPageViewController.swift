@@ -24,6 +24,10 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         
         // Sets up view appearance settings like view background and more.
         setUpAppearance()
+
+        //        Auth0.webAuth().clearSession(federated: true) { (result) in
+//            print("cleared")
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

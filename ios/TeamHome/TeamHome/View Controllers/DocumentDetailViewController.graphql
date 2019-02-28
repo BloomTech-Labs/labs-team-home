@@ -1,0 +1,10 @@
+mutation AddDocumentComment($document: String!, $comment: String!){
+    addDocComment(input: {
+        document:$document
+        content: $comment
+        
+    }) {
+        _id
+        content
+    }
+}

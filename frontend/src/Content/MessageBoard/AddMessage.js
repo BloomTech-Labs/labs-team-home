@@ -72,7 +72,7 @@ const Input = styled(TextField)`
 `;
 
 function AddMessage(props) {
-	//this is there state... but why?
+	//this is their state... but why?
 
 	let team, user, title, content, tag, images;
 	team = props.team;

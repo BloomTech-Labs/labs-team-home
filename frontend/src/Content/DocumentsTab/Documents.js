@@ -15,15 +15,15 @@ const Container = styled.div`
 	min-height: 50px;
 `;
 
-const Container2 = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	background-color: blue;
-	min-width: 300px;
-	min-height: 50px;
-	width: 696px;
-`;
+// const Container2 = styled.div`
+// 	display: flex;
+// 	flex-wrap: wrap;
+// 	justify-content: center;
+// 	background-color: blue;
+// 	min-width: 300px;
+// 	min-height: 50px;
+// 	width: 696px;
+// `;
 
 const IndividualDocument = styled.p`
 	color: white;
@@ -133,7 +133,8 @@ class Documents extends Component {
 													document={doc}
 													onClick={() => this.toggleDocumentDetail(doc)}
 												>
-													{doc.title}
+													<p>{doc.title}</p>
+													<p>{doc.tag ? doc.tag.name : ''}</p>
 												</IndividualDocument>
 											</Draggable>
 										);

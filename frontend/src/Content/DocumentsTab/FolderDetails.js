@@ -144,75 +144,7 @@ class FolderDetails extends React.Component {
 				<Overlay>
 					{/* All fo the folder info should go here 
                     Not just the ability to delete 
-                    Should also include a list of all the files */}
-					{this.state.editingFolder ? (
-						<form
-							onSubmit={e => {
-								e.preventDefault();
-								folder.title = this.state.title;
-								updateFolder({
-									id: folder._id,
-									title: this.state.title
-								}).then(() => this.resetState());
-							}}
-							style={{
-								width: '100%',
-								display: 'flex',
-								flexDirection: 'column'
-							}}
-						>
-							<label htmlFor="Folder title" />
-							<StyledTextField
-								name="title"
-								value={this.state.title}
-								onChange={this.handleChange}
-							/>
-							<StyledButton type="submit">Save</StyledButton>
-						</form>
-					) : (
-						<>
-							<StyledTypography variant="h5" component="h3">
-								{folder.title}
-							</StyledTypography>
-
-							{/* Load all the images attached to the message */}
-
-							<CardActions
-								style={{
-									width: '100%',
-									display: 'flex',
-									flexFlow: 'row',
-									justifyContent: 'space-around'
-								}}
-							>
-								<StyledButton
-									onClick={e => {
-										e.preventDefault();
-										this.setState({
-											editingFolder: true,
-											title: folder.title
-										});
-									}}
-								>
-									Edit
-								</StyledButton>
-								<StyledButton
-									onClick={e => {
-										e.preventDefault();
-										deleteFolder({
-											id: this.props.folder._id
-										}).then(() => {
-											this.props.hideModal();
-										});
-									}}
-								>
-									Delete
-								</StyledButton>
-
-								{/* Subscription for the document stuff goes here */}
-							</CardActions>
-						</>
-					)}
+				Should also include a list of all the files */}
 					<Query
 						query={query.FIND_DOCUMENTS_BY_FOLDER}
 						variables={{ folder: folder._id }}
@@ -236,6 +168,80 @@ class FolderDetails extends React.Component {
 							}
 							return (
 								<>
+									{this.state.editingFolder ? (
+										<form
+											onSubmit={e => {
+												e.preventDefault();
+												folder.title = this.state.title;
+												updateFolder({
+													id: folder._id,
+													title: this.state.title
+												}).then(() => this.resetState());
+											}}
+											style={{
+												width: '100%',
+												display: 'flex',
+												flexDirection: 'column'
+											}}
+										>
+											<label htmlFor="Folder title" />
+											<StyledTextField
+												name="title"
+												value={this.state.title}
+												onChange={this.handleChange}
+											/>
+											<StyledButton type="submit">Save</StyledButton>
+										</form>
+									) : (
+										<>
+											<StyledTypography variant="h5" component="h3">
+												{folder.title}
+											</StyledTypography>
+
+											{/* Load all the images attached to the message */}
+
+											<CardActions
+												style={{
+													width: '100%',
+													display: 'flex',
+													flexFlow: 'row',
+													justifyContent: 'space-around'
+												}}
+											>
+												<StyledButton
+													onClick={e => {
+														e.preventDefault();
+														this.setState({
+															editingFolder: true,
+															title: folder.title
+														});
+													}}
+												>
+													Edit
+												</StyledButton>
+												<StyledButton
+													onClick={e => {
+														e.preventDefault();
+														findDocumentsByFolder.map(document => {
+															updateDocument({
+																id: document._id,
+																folder: null
+															});
+														});
+														deleteFolder({
+															id: this.props.folder._id
+														}).then(() => {
+															this.props.hideModal();
+														});
+													}}
+												>
+													Delete
+												</StyledButton>
+
+												{/* Subscription for the document stuff goes here */}
+											</CardActions>
+										</>
+									)}
 									<StyledTypography
 										gutterBottom
 										variant="h6"
