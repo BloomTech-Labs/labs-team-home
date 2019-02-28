@@ -294,7 +294,7 @@
             <objects>
                 <tableViewController id="qfn-G3-rx9" customClass="DocumentsTableViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fCb-hq-SUw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -417,13 +417,13 @@
                                                 </constraints>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" verticalCompressionResistancePriority="753" text="Document URL" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flS-gj-8q0">
-                                                <rect key="frame" x="0.0" y="88.5" width="343" height="17"/>
+                                                <rect key="frame" x="0.0" y="88.5" width="343" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" verticalCompressionResistancePriority="753" text="Documment Notes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIe-sG-jz5">
-                                                <rect key="frame" x="0.0" y="114.5" width="343" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="118" width="343" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -450,6 +450,9 @@
                                     </stackView>
                                     <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" verticalCompressionResistancePriority="754" translatesAutoresizingMaskIntoConstraints="NO" id="CqT-Pa-d28">
                                         <rect key="frame" x="0.0" y="156" width="343" height="301"/>
+                                        <connections>
+                                            <segue destination="cNA-SP-I5F" kind="embed" identifier="EmbeddedComments" id="eUz-eI-eEZ"/>
+                                        </connections>
                                     </containerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="260" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QiS-gJ-wEv">
                                         <rect key="frame" x="0.0" y="469" width="343" height="33"/>
@@ -518,6 +521,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HtG-iN-xb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2558" y="-147"/>
+        </scene>
+        <!--Comments Collection View Controller-->
+        <scene sceneID="rBZ-Nd-ATY">
+            <objects>
+                <collectionViewController id="cNA-SP-I5F" customClass="CommentsCollectionViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="elr-py-tQo">
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="301"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Prg-uW-UJX">
+                            <size key="itemSize" width="370" height="160"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CommentCell" id="QTg-Bb-86v" customClass="CommentCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
+                                <rect key="frame" x="-13.5" y="0.0" width="370" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="370" height="160"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDz-5y-Iar" customClass="PresenterCard" customModule="Material">
+                                            <rect key="frame" x="0.0" y="0.0" width="338" height="160"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="EDz-5y-Iar" firstAttribute="leading" secondItem="QTg-Bb-86v" secondAttribute="leading" id="GTH-38-IPb"/>
+                                    <constraint firstAttribute="bottom" secondItem="EDz-5y-Iar" secondAttribute="bottom" id="NRW-4f-whS"/>
+                                    <constraint firstAttribute="trailing" secondItem="EDz-5y-Iar" secondAttribute="trailing" constant="32" id="exP-jb-DM1"/>
+                                    <constraint firstItem="EDz-5y-Iar" firstAttribute="top" secondItem="QTg-Bb-86v" secondAttribute="top" id="hg9-oJ-H9d"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="card" destination="EDz-5y-Iar" id="D9a-W8-oZD"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="cNA-SP-I5F" id="sJg-vd-bab"/>
+                            <outlet property="delegate" destination="cNA-SP-I5F" id="sFT-Zd-UyF"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o5G-3U-sUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3402" y="-146"/>
         </scene>
     </scenes>
     <resources>

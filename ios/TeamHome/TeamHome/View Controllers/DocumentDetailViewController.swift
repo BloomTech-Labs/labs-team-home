@@ -60,10 +60,22 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
                 NSLog("Error adding comment: \(error)")
                 return
             }
-            print("Success:\(result?.data?.addDocComment?.content)")
+            print(result?.data?.addDocComment?.content)
         }
         commentTextView.text = ""
     }
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let apollo = apollo else { return }
+        
+        if segue.identifier == "EmbeddedComments" {
+            guard let destinationVC = segue.destination as? CommentsCollectionViewController,
+                let documentID = document?.id,
+                let currentUser = currentUser else { return }
+        }
+    }
+    
     //MARK: - Private Function
     private func setUpCommentTextView() {
         self.commentTextView.delegate = self
