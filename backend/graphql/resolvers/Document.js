@@ -45,7 +45,7 @@ const documentResolver = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user team folder subscribedUsers');
+					).populate('user team folder tag subscribedUsers');
 				} else {
 					throw new ValidationError("Document doesn't exist");
 				}
