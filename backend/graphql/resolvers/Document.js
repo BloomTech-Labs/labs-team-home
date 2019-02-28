@@ -39,15 +39,13 @@ const documentResolver = {
 				),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
-			return Document.findById(id).then(async document => {
+			return Document.findById(id).then(document => {
 				if (document) {
-					const updateDoc = await Document.findOneAndUpdate(
+					return Document.findOneAndUpdate(
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
 					).populate('user team folder tag subscribedUsers');
-
-					return document;
 				} else {
 					throw new ValidationError("Document doesn't exist.");
 				}

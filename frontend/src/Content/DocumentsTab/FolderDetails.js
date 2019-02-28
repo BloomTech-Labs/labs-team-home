@@ -74,7 +74,8 @@ class FolderDetails extends React.Component {
 			title: '',
 			editingFolder: false,
 			documentDetailOpen: false,
-			currentDocument: null
+			currentDocument: null,
+			refreshed: false
 		};
 	}
 
@@ -92,6 +93,12 @@ class FolderDetails extends React.Component {
 	};
 
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+
+	refreshFolderInfo = e => {
+		this.setState({
+			refreshed: !this.state.refreshed
+		});
+	};
 
 	render() {
 		const {
@@ -209,16 +216,24 @@ class FolderDetails extends React.Component {
 					<Query
 						query={query.FIND_DOCUMENTS_BY_FOLDER}
 						variables={{ folder: folder._id }}
+						notifyOnNetworkStatusChange
 					>
 						{({
 							loading,
 							error,
 							data: { findDocumentsByFolder },
-							refatch,
+							refetch,
 							networkStatus
 						}) => {
+							if (networkStatus === 4) return 'Refetching';
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
+							if (this.props.open === true && this.state.refreshed === false) {
+								console.log(this.props.open, this.state.refreshed);
+								refetch()
+									.then(this.refreshFolderInfo())
+									.catch(err => console.error(err));
+							}
 							return (
 								<>
 									<StyledTypography
@@ -276,6 +291,9 @@ class FolderDetails extends React.Component {
 															id: document._id,
 															folder: null
 														});
+														refetch()
+															.then(this.refreshFolderInfo())
+															.catch(err => console.error(err));
 													}}
 												>
 													Remove from Folder

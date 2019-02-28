@@ -128,7 +128,7 @@ class Documents extends Component {
 									.filter(doc => doc.folder === null)
 									.map(doc => {
 										return (
-											<Draggable id={doc._id} key={doc._id}>
+											<Draggable id={doc._id} key={doc._id + 1}>
 												<IndividualDocument
 													document={doc}
 													onClick={() => this.toggleDocumentDetail(doc)}
