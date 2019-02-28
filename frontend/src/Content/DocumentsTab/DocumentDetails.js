@@ -279,6 +279,33 @@ class DocumentDetails extends React.Component {
 								)}
 
 								{/* Subscription for the document stuff goes here */}
+								<StyledButton
+									onClick={e => {
+										e.preventDefault();
+										document.subscribedUsers.find(
+											({ _id }) => _id === currentUser._id
+										)
+											? updateDocument({
+													id: document._id,
+													subscribedUsers: document.subscribedUsers
+														.filter(({ _id }) => _id !== currentUser._id)
+														.map(({ _id }) => _id)
+											  })
+											: updateDocument({
+													id: document._id,
+													subscribedUsers: [
+														...document.subscribedUsers.map(({ _id }) => _id),
+														currentUser._id
+													]
+											  });
+									}}
+								>
+									{document.subscribedUsers.find(
+										({ _id }) => _id === currentUser._id
+									)
+										? 'Unsubscribe'
+										: 'Subscribe'}
+								</StyledButton>
 							</CardActions>
 						</>
 					)}

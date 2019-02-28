@@ -29,36 +29,7 @@ const docCommentResolver = {
 						{ $push: { comments: [comment._id] } },
 						{ new: true }
 					).populate('team subscribedUsers document');
-					// 		console.log(document.subscribedUsers);
-					// 		const email = document.subscribedUsers
-					// 			.filter(
-					// 				user =>
-					// 					user.toggles.receiveEmails && user.email && user._id !== _id
-					// 			)
-					// 			.map(user => user.email);
-					// 		email.length &&
-					// 			(await SpeechGrammarList.send({
-					// 				to: emails,
-					// 				from: `${document.team.name.split(' ').join('')}@team.home`,
-					// 				subject: `The message ${
-					// 					document.title
-					// 				} has a new comment from ${firstName} ${lastName} on your team ${
-					// 					document.team.name
-					// 				}`,
-					// 				text: `${content}`,
-					// 				html: /* HTML */ `
-					// 					<h1>${document.team.name}</h1>
-					// 					<div>
-					// 						<h2>Message:</h2>
-					// 						<h3>${document.title}</h3>
-					// 						<p>${document.content}</p>
-					// 					</div>
-					// 					<div>
-					// 						<h2>New comment:</h2>
-					// 						<p>${content}</p>
-					// 					</div>
-					// 				`
-					// 			}));
+
 					return comment.populate('user document likes').execPopulate();
 				});
 		},
