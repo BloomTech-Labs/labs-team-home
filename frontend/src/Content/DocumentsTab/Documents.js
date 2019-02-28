@@ -79,74 +79,81 @@ class Documents extends Component {
 	render() {
 		// console.log('props: ', this.props);
 		return (
-			<Container>
-				<FormDiv>
-					<SortForm>
-						<label>
-							Folder Sort:
-							<select value={this.state.sortOption} onChange={this.sortChange}>
-								<option value="newest">Newest First</option>
-								<option value="oldest">Oldest First</option>
-							</select>
-						</label>
-					</SortForm>
-				</FormDiv>
-				{/* Find all the documents  */}
-				<Query
-					query={query.FIND_DOCUMENTS_BY_TEAM}
-					variables={{ team: this.props.team._id }}
-				>
-					{({ loading, error, data: { findDocumentsByTeam } }) => {
-						// if (networkStatus === 4) return "Refetching";
-						if (loading) return <p>Loading...</p>;
-						if (error) return console.error(error);
-						if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
-							switch (this.state.sortOption) {
-								case 'newest':
-									findDocumentsByTeam.sort((a, b) => {
-										if (a.createdAt < b.createdAt) return 1;
-										if (a.createdAt > b.createdAt) return -1;
-										return 0;
-									});
-									break;
-								case 'oldest':
-									findDocumentsByTeam.sort((a, b) => {
-										if (a.createdAt < b.createdAt) return -1;
-										if (a.createdAt > b.createdAt) return 1;
-										return 0;
-									});
-									break;
-								default:
-									break;
-							}
+			<Droppable folder={null} team={this.props.team._id}>
+				<Container>
+					<FormDiv>
+						<SortForm>
+							<label>
+								Folder Sort:
+								<select
+									value={this.state.sortOption}
+									onChange={this.sortChange}
+								>
+									<option value="newest">Newest First</option>
+									<option value="oldest">Oldest First</option>
+								</select>
+							</label>
+						</SortForm>
+					</FormDiv>
+					{/* Find all the documents  */}
+					<Query
+						query={query.FIND_DOCUMENTS_BY_TEAM}
+						variables={{ team: this.props.team._id }}
+					>
+						{({ loading, error, data: { findDocumentsByTeam } }) => {
+							// if (networkStatus === 4) return "Refetching";
+							if (loading) return <p>Loading...</p>;
+							if (error) return console.error(error);
+							if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
+								switch (this.state.sortOption) {
+									case 'newest':
+										findDocumentsByTeam.sort((a, b) => {
+											if (a.createdAt < b.createdAt) return 1;
+											if (a.createdAt > b.createdAt) return -1;
+											return 0;
+										});
+										break;
+									case 'oldest':
+										findDocumentsByTeam.sort((a, b) => {
+											if (a.createdAt < b.createdAt) return -1;
+											if (a.createdAt > b.createdAt) return 1;
+											return 0;
+										});
+										break;
+									default:
+										break;
+								}
 
-							return findDocumentsByTeam
-								.filter(doc => doc.folder === null)
-								.map(doc => {
-									return (
-										<IndividualDocument
-											document={doc}
-											onClick={() => this.toggleDocumentDetail(doc)}
-										>
-											<p>{doc.title}</p>
-											<p>{doc.tag ? doc.tag.name : ''}</p>
-										</IndividualDocument>
-									);
-								});
-						} else {
-							return <Error>No Documents Available For This Team</Error>;
-						}
-					}}
-				</Query>
-				{/* All the Modals */}
-				<DocumentDetails
-					open={this.state.documentDetailOpen}
-					hideModal={() => this.toggleDocumentDetail(null)}
-					document={this.state.currentDocument}
-					currentUser={this.props.currentUser}
-					team={this.props.team._id}
-				/>
-			</Container>
+								return findDocumentsByTeam
+									.filter(doc => doc.folder === null)
+									.map(doc => {
+										return (
+											<Draggable id={doc._id} key={doc._id}>
+												<IndividualDocument
+													document={doc}
+													onClick={() => this.toggleDocumentDetail(doc)}
+												>
+													<p>{doc.title}</p>
+													<p>{doc.tag ? doc.tag.name : ''}</p>
+												</IndividualDocument>
+											</Draggable>
+										);
+									});
+							} else {
+								return <Error>No Documents Available For This Team</Error>;
+							}
+						}}
+					</Query>
+					{/* All the Modals */}
+					<DocumentDetails
+						open={this.state.documentDetailOpen}
+						hideModal={() => this.toggleDocumentDetail(null)}
+						document={this.state.currentDocument}
+						currentUser={this.props.currentUser}
+						team={this.props.team._id}
+					/>
+				</Container>
+			</Droppable>
 		);
 	}
 }

@@ -140,25 +140,33 @@ class Folders extends Component {
 										if (loading) return <p>Loading...</p>;
 										if (error) return console.error(error);
 										return (
-											<IndividualFolder
+											<Droppable
 												folder={folder}
-												onClick={() => this.toggleFolderDetail(folder)}
+												team={this.props.team._id}
+												// triggerUpdateState={this.triggerUpdateState}
 											>
-												{folder.title}
-												{findDocumentsByFolder.length ? (
-													findDocumentsByFolder.map(doc => {
-														return (
-															<IndividualDocument
-															// updateState={this.state.updateState}
-															>
-																{doc.title}
-															</IndividualDocument>
-														);
-													})
-												) : (
-													<></>
-												)}
-											</IndividualFolder>
+												<IndividualFolder
+													folder={folder}
+													onClick={() => this.toggleFolderDetail(folder)}
+												>
+													{folder.title}
+													{findDocumentsByFolder.length ? (
+														findDocumentsByFolder.map(doc => {
+															return (
+																<Draggable id={doc._id} key={doc._id}>
+																	<IndividualDocument
+																	// updateState={this.state.updateState}
+																	>
+																		{doc.title}
+																	</IndividualDocument>
+																</Draggable>
+															);
+														})
+													) : (
+														<></>
+													)}
+												</IndividualFolder>
+											</Droppable>
 										);
 									}}
 								</Query>
