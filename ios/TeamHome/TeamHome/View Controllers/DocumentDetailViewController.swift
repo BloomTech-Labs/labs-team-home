@@ -51,6 +51,30 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func submitComment(_ sender: Any) {
+        guard let apollo = apollo,
+            let documentID = document?.id,
+            let comment = commentTextView.text else {return}
+        apollo.perform(mutation: AddDocumentCommentMutation(document: documentID , comment: comment), queue: .global()) { (result, error) in
+            if let error = error {
+                NSLog("Error adding comment: \(error)")
+                return
+            }
+            print(result?.data?.addDocComment?.content)
+        }
+        commentTextView.text = ""
+    }
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let apollo = apollo else { return }
+        
+        if segue.identifier == "EmbeddedComments" {
+            guard let destinationVC = segue.destination as? CommentsCollectionViewController,
+                let documentID = document?.id,
+                let currentUser = currentUser else { return }
+        }
+    }
     
     //MARK: - Private Function
     private func setUpCommentTextView() {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		10295B6922274F92002C8940 /* DocumentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295B6822274F92002C8940 /* DocumentDetailViewController.swift */; };
+		103E72F72227A81000F54B0F /* DocumentDetailViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */; };
 		10409404221E265F00EC4389 /* AddDocumentViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 10409403221E265F00EC4389 /* AddDocumentViewController.graphql */; };
 		1060AA0C221E6416008A72A2 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */; };
 		1092D5B1221E8A5300579B34 /* DocumentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */; };
@@ -77,6 +78,7 @@
 
 /* Begin PBXFileReference section */
 		10295B6822274F92002C8940 /* DocumentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailViewController.swift; sourceTree = "<group>"; };
+		103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DocumentDetailViewController.graphql; sourceTree = "<group>"; };
 		10409403221E265F00EC4389 /* AddDocumentViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AddDocumentViewController.graphql; sourceTree = "<group>"; };
 		1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
 		1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewController.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */,
 				F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */,
 				10295B6822274F92002C8940 /* DocumentDetailViewController.swift */,
+				103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */,
 				7BA77EA221E80E3E00C862C1 /* MessageCollectionViewCell.swift in Sources */,
 				7BA77E9221E7FCD100C862C1 /* Comment.swift in Sources */,
+				103E72F72227A81000F54B0F /* DocumentDetailViewController.graphql in Sources */,
 				7BA77EBA21E93CDE00C862C1 /* ActivityCollectionViewCell.swift in Sources */,
 				7BA77E9021E7F68300C862C1 /* Tag.swift in Sources */,
 				7BA77EAE21E9385E00C862C1 /* InviteToTeamViewController.swift in Sources */,
