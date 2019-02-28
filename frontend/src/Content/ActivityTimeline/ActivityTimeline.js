@@ -19,6 +19,8 @@ export default class ActivityTimeline extends React.Component {
 		let messagesLoaded = false;
 		let documentsLoaded = false;
 		let foldersLoaded = false;
+		let msgCommentsLoaded = false;
+		let docCommentsLoaded = false;
 
 		return (
 			<div>
@@ -37,7 +39,8 @@ export default class ActivityTimeline extends React.Component {
 								}
 							});
 						}
-						findMessagesByTeam.map(message => (
+						messagesLoaded = true;
+						return findMessagesByTeam.map(message => (
 							<Query
 								query={query.FIND_COMMENTS_BY_MESSAGE}
 								variables={{ message: message._id }}
@@ -50,13 +53,13 @@ export default class ActivityTimeline extends React.Component {
 										findMsgCommentsByMessage.forEach(comment =>
 											allTheThings.push(comment)
 										);
+										msgCommentsLoaded = true;
 									}
 									return <></>;
 								}}
 							</Query>
 						));
-						messagesLoaded = true;
-						return <></>;
+						//return <></>;
 					}}
 				</Query>
 				{/* Queries for Documents and Documents' Comments */}
@@ -74,7 +77,8 @@ export default class ActivityTimeline extends React.Component {
 								}
 							});
 						}
-						findDocumentsByTeam.map(document => (
+						documentsLoaded = true;
+						return findDocumentsByTeam.map(document => (
 							<Query
 								query={query.FIND_COMMENTS_BY_DOCUMENT}
 								variables={{ document: document._id }}
@@ -88,12 +92,12 @@ export default class ActivityTimeline extends React.Component {
 											allTheThings.push(comment)
 										);
 									}
+									docCommentsLoaded = true;
 									return <></>;
 								}}
 							</Query>
 						));
-						documentsLoaded = true;
-						return <></>;
+						//return <></>;
 					}}
 				</Query>
 				{/* Queries for Folder and the rendering of all components */}
@@ -125,7 +129,9 @@ export default class ActivityTimeline extends React.Component {
 							return 0;
 						});
 
-						if (messagesLoaded && documentsLoaded && foldersLoaded) {
+						// if (messagesLoaded && documentsLoaded && foldersLoaded) {
+						if (allTheThings.length > 0) {
+							console.log('true', allTheThings);
 							return allTheThings.map((thing, index) => {
 								if (thing.user._id === this.props.currentUser._id) {
 									return <Activity message={thing} key={index} own={true} />;
@@ -133,6 +139,7 @@ export default class ActivityTimeline extends React.Component {
 								return <Activity message={thing} key={index} own={false} />;
 							});
 						}
+						console.log('Nothing is true', allTheThings);
 						return <></>;
 					}}
 				</Query>
