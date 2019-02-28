@@ -1871,27 +1871,25 @@ public final class CurrentUserQuery: GraphQLQuery {
 
 public final class AddDocumentCommentMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation AddDocumentComment($document: String!, $comment: String!, $image: String) {\n  addDocComment(input: {document: $document, content: $comment, image: $image}) {\n    __typename\n    _id\n    content\n  }\n}"
+    "mutation AddDocumentComment($document: String!, $comment: String!) {\n  addDocComment(input: {document: $document, content: $comment}) {\n    __typename\n    _id\n    content\n  }\n}"
 
   public var document: String
   public var comment: String
-  public var image: String?
 
-  public init(document: String, comment: String, image: String? = nil) {
+  public init(document: String, comment: String) {
     self.document = document
     self.comment = comment
-    self.image = image
   }
 
   public var variables: GraphQLMap? {
-    return ["document": document, "comment": comment, "image": image]
+    return ["document": document, "comment": comment]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("addDocComment", arguments: ["input": ["document": GraphQLVariable("document"), "content": GraphQLVariable("comment"), "image": GraphQLVariable("image")]], type: .object(AddDocComment.selections)),
+      GraphQLField("addDocComment", arguments: ["input": ["document": GraphQLVariable("document"), "content": GraphQLVariable("comment")]], type: .object(AddDocComment.selections)),
     ]
 
     public private(set) var resultMap: ResultMap
