@@ -19,30 +19,21 @@ import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
 import { updateDocument } from '../mutations/documents';
 import DocumentDetails from './DocumentDetails';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 //Pretty much all of these components are defined elsewhere,
 //we really ought to have a component for modal styling
 
 const StyledDialog = styled(Dialog)`
-	min-width: 550px;
+	max-width: 696px;
 	margin: 0 auto;
-	padding: 0px;
-	classes {
-		paperWidthSm-41 {
-			max-width: 100%;
-		}
-	}
-	.MuiDialog-paper-37 {
-		display: block;
-	}
-	.MuiDialog-paper-251 {
-		display: block;
-	}
-	/* should add a media query here to make the modal go full screen if less than max width */
 `;
 
 const Overlay = styled(DialogContent)`
 	background-color: ${colors.button};
+	word-wrap: break-word;
+	padding-top: 0;
+	margin-top: 0;
 	.filepond--wrapper {
 		width: 100%;
 	}
@@ -57,6 +48,7 @@ const StyledButton = styled(Button)`
 
 const StyledTypography = styled(Typography)`
 	color: ${colors.text};
+	margin-top: 20px;
 `;
 
 const StyledTextField = styled(TextField)`
@@ -125,6 +117,7 @@ class FolderDetails extends React.Component {
 						boxShadow: 'none'
 					}
 				}}
+				fullScreen={mediaQueryFor.smDevice}
 			>
 				<Close>
 					<IconButton

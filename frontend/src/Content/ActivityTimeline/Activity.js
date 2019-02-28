@@ -61,8 +61,8 @@ const Info = styled(CardContent)`
 	width: ${props => (props.own ? '90%' : '85%')};
 	${props => (props.own ? 'text-align: right' : 'padding-right: 85px')};
 
-	${mediaQueryFor.xsDevice`
-		max-width: 340px;
+	${mediaQueryFor.smDevice`
+		max-width: 80%;
 	`}
 `;
 
@@ -74,14 +74,21 @@ const Title = styled(Typography)`
 const StyledTypography = styled(Typography)`
 	color: ${colors.text};
 
-	${mediaQueryFor.xsDevice`
+	${mediaQueryFor.smDevice`
 		font-size: .95rem;
 	`}
 `;
 
 function Activity(props) {
 	const { classes, own } = props;
-	const { __typename, user, updatedAt, title, content } = props.message;
+	const {
+		__typename,
+		user,
+		updatedAt,
+		title,
+		content,
+		createdAt
+	} = props.message;
 	/* activitySwitch changes the message depending on the type of the object */
 	const activitySwitch = type => {
 		switch (type) {
