@@ -36,6 +36,7 @@ const Document = /* GRAPHQL */ `
     input UpdateDocumentInput {
         id: ID!
         title: String
+        doc_url: String
         team: String
         folder: String
         textContent: String

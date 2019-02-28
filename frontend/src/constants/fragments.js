@@ -91,9 +91,6 @@ export const FULL_FOLDER = gql`
 		team {
 			name
 		}
-		documents {
-			title
-		}
 		user {
 			...FullUser
 		}

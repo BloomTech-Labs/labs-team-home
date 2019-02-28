@@ -6,19 +6,18 @@ const { ValidationError } = require('apollo-server-express');
 
 const folderResolver = {
 	Query: {
-		folders: () => Folder.find().populate('user team documents'),
+		folders: () => Folder.find().populate('user team'),
 		findFolder: (_, { input: { id } }) =>
 			Folder.findById(id)
-				.populate('user team documents')
+				.populate('user team')
 				.then(folder => folder),
 		findFoldersByTeam: async (_, { input: { team } }) => {
-			const folders = await Folder.find({ team: team }).populate(
-				'user team documents'
-			);
-			return folders.map(x => {
-				x._id = x._id.toString();
-				return x;
-			});
+			const folders = await Folder.find({ team: team }).populate('user team');
+			// return folders.map(x => {
+			// 	x._id = x._id.toString();
+			// 	return x;
+			// });
+			return folders;
 		}
 	},
 
@@ -26,7 +25,7 @@ const folderResolver = {
 		addFolder: (_, { input }, { user: { _id } }) =>
 			new Folder({ ...input, user: _id })
 				.save()
-				.then(folder => folder.populate('user team documents').execPopulate()),
+				.then(folder => folder.populate('user team').execPopulate()),
 		updateFolder: (_, { input }) => {
 			const { id } = input;
 			return Folder.findById(id).then(folder => {
@@ -35,7 +34,7 @@ const folderResolver = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user team documents');
+					).populate('user team');
 				} else {
 					throw new ValidationError("Folder doesn't exist");
 				}

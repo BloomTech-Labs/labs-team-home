@@ -11,6 +11,7 @@ class Droppable extends React.Component {
 	drop = e => {
 		e.preventDefault();
 		const data = e.dataTransfer.getData('transfer');
+
 		e.target.appendChild(document.getElementById(data));
 		// console.log('props from Droppable: ', this.props);
 		// console.log('dragging  ->  ' + data);

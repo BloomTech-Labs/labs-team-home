@@ -10,8 +10,7 @@ const Folder = new Schema(
 			required: true
 		},
 		team: { type: Schema.Types.ObjectId, ref: 'Team', required: true },
-		user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-		documents: [{ type: Schema.Types.ObjectId, ref: 'Document' }]
+		user: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 	},
 	{ timestamps: true }
 );

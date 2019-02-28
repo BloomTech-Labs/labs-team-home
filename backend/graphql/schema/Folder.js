@@ -4,7 +4,6 @@ const Folder = /* GraphQL */ `
 		title: String!
 		user: User!
 		team: Team!
-		documents: [Document]
 		createdAt: String
 		updatedAt: String
 	}
@@ -22,7 +21,6 @@ const Folder = /* GraphQL */ `
 		id: ID!
 		title: String
 		team: String
-		documents: [String]
 	}
 	input DeleteFolderInput {
 		id: ID!

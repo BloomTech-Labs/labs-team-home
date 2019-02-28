@@ -15,6 +15,16 @@ const Container = styled.div`
 	min-height: 50px;
 `;
 
+const Container2 = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	background-color: blue;
+	min-width: 300px;
+	min-height: 50px;
+	width: 696px;
+`;
+
 const IndividualDocument = styled.p`
 	color: white;
 	margin: 10px;
@@ -91,6 +101,7 @@ class Documents extends Component {
 						variables={{ team: this.props.team._id }}
 					>
 						{({ loading, error, data: { findDocumentsByTeam } }) => {
+							// if (networkStatus === 4) return "Refetching";
 							if (loading) return <p>Loading...</p>;
 							if (error) return console.error(error);
 							if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
