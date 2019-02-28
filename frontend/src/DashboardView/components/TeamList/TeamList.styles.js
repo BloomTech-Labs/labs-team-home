@@ -23,7 +23,7 @@ const Container = styled.div`
 	}
 	${mediaQueryFor.mdDevice`
 		margin-bottom: 10px;
-    width:100%;
+    	width:100%;
   `}
 `;
 
@@ -54,12 +54,15 @@ const Input = styled(InputBase)`
 	background-color: white;
 	color: black;
 	width: 90%;
+	${mediaQueryFor.smDevice`
+		width: 85%;
+	`}
 `;
 
 const Button = styled(IconButton)`
 	background-color: ${colors.button};
 	color: ${colors.text};
-	margin-left: 1.5%;
+	margin-left: 1%;
 
 	:hover {
 		background-color: rgba(107, 40, 59, 0.7);

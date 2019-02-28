@@ -25,28 +25,21 @@ import {
 	unLikeDocComment
 } from '../mutations/doccomments';
 import SendIcon from '@material-ui/icons/Send';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 //Pretty much all of these components are defined elsewhere,
 //we really ought to have a component for modal styling
 
 const StyledDialog = styled(Dialog)`
-	min-width: 550px;
+	max-width: 696px;
 	margin: 0 auto;
-	padding: 0px;
-	classes {
-		display: block;
-		paperWidthSm-41 {
-			max-width: 100%;
-		}
-	}
-
-	/* should add a media query here to make the modal go full screen if less than max width */
 `;
 
 const Overlay = styled(DialogContent)`
 	background-color: ${colors.button};
-	min-width: 550px;
-	margin: 0 auto;
+	word-wrap: break-word;
+	padding-top: 0;
+	margin-top: 0;
 `;
 
 const StyledTypography = styled(Typography)`
@@ -146,6 +139,7 @@ class DocumentDetails extends React.Component {
 						boxShadow: 'none'
 					}
 				}}
+				fullScreen={mediaQueryFor.smDevice}
 			>
 				<Close>
 					<IconButton
