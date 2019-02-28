@@ -345,6 +345,7 @@ export const UPDATE_DOCUMENT = gql`
 		$textContent: String
 		$doc_url: String
 		$folder: String
+		$subscribedUsers: [String]
 	) {
 		updateDocument(
 			input: {
@@ -353,6 +354,7 @@ export const UPDATE_DOCUMENT = gql`
 				textContent: $textContent
 				doc_url: $doc_url
 				folder: $folder
+				subscribedUsers: $subscribedUsers
 			}
 		) {
 			...FullDocument

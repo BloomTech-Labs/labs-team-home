@@ -132,7 +132,7 @@ class DocumentDetails extends React.Component {
 		} = this.props;
 
 		if (document === null) return <></>;
-		// console.log(this.props);
+		console.log(this.props);
 		return (
 			<StyledDialog
 				open={this.props.open}
@@ -279,6 +279,7 @@ class DocumentDetails extends React.Component {
 								)}
 
 								{/* Subscription for the document stuff goes here */}
+								{/* Subscribe or unsubscribe button */}
 								<StyledButton
 									onClick={e => {
 										e.preventDefault();
@@ -309,7 +310,7 @@ class DocumentDetails extends React.Component {
 							</CardActions>
 						</>
 					)}
-					{/* View all the comments of the message */}
+					{/* View all the comments of the document */}
 					<Query
 						query={query.FIND_COMMENTS_BY_DOCUMENT}
 						variables={{ document: document._id }}

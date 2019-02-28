@@ -25,7 +25,7 @@ const Container = styled.div`
 // 	width: 696px;
 // `;
 
-const IndividualDocument = styled.p`
+const IndividualDocument = styled.div`
 	color: white;
 	margin: 10px;
 	padding: 10px;
