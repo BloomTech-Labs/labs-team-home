@@ -78,8 +78,7 @@ const updateDocumentOptions = {
 								// console.log('document from mutator: ', document);
 								// console.log('updateDocument from mutator: ', updateDocument);
 
-								return document._id ===
-									(updateDocument === null ? null : updateDocument._id)
+								return document._id === updateDocument._id
 									? updateDocument
 									: document;
 							})

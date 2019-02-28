@@ -210,7 +210,13 @@ class FolderDetails extends React.Component {
 						query={query.FIND_DOCUMENTS_BY_FOLDER}
 						variables={{ folder: folder._id }}
 					>
-						{({ loading, error, data: { findDocumentsByFolder } }) => {
+						{({
+							loading,
+							error,
+							data: { findDocumentsByFolder },
+							refatch,
+							networkStatus
+						}) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
 							return (
