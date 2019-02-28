@@ -25,6 +25,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import styled from 'styled-components';
 import DialogActions from '@material-ui/core/DialogActions';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 const StyledDialog = styled(Dialog)`
 	max-width: 696px;
@@ -148,6 +149,7 @@ class MessageDetail extends Component {
 						boxShadow: 'none'
 					}
 				}}
+				fullScreen={mediaQueryFor.smDevice}
 			>
 				{/* Close the dialog box button */}
 				<Close>
