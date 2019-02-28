@@ -120,6 +120,9 @@ export const FULL_DOCUMENT = gql`
 		createdAt
 		updatedAt
 		textContent
+		subscribedUsers {
+			_id
+		}
 	}
 	${FULL_USER}
 	${FULL_TAG}
