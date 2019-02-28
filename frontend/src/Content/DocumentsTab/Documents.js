@@ -122,7 +122,8 @@ class Documents extends Component {
 													document={doc}
 													onClick={() => this.toggleDocumentDetail(doc)}
 												>
-													{doc.title}
+													<p>{doc.title}</p>
+													<p>{doc.tag ? doc.tag.name : 'no tag lol'}</p>
 												</IndividualDocument>
 											</Draggable>
 										);
