@@ -51,7 +51,19 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-    
+    @IBAction func submitComment(_ sender: Any) {
+        guard let apollo = apollo,
+            let documentID = document?.id,
+            let comment = commentTextView.text else {return}
+        apollo.perform(mutation: AddDocumentCommentMutation(document: documentID , comment: comment), queue: .global()) { (result, error) in
+            if let error = error {
+                NSLog("Error adding comment: \(error)")
+                return
+            }
+            print("Success:\(result?.data?.addDocComment?.content)")
+        }
+        commentTextView.text = ""
+    }
     //MARK: - Private Function
     private func setUpCommentTextView() {
         self.commentTextView.delegate = self

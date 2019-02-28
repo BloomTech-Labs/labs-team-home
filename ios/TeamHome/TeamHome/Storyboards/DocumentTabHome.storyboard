@@ -294,7 +294,7 @@
             <objects>
                 <tableViewController id="qfn-G3-rx9" customClass="DocumentsTableViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fCb-hq-SUw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -447,9 +447,6 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="bIg-WO-3bP" secondAttribute="trailing" constant="16" id="fCi-jM-MvM"/>
-                                        </constraints>
                                     </stackView>
                                     <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" verticalCompressionResistancePriority="754" translatesAutoresizingMaskIntoConstraints="NO" id="CqT-Pa-d28">
                                         <rect key="frame" x="0.0" y="156" width="343" height="301"/>
@@ -473,7 +470,7 @@
                                                 <rect key="frame" x="343" y="0.0" width="0.0" height="33"/>
                                                 <state key="normal" title="Send"/>
                                                 <connections>
-                                                    <action selector="submitCommit:" destination="PI0-00-t65" eventType="touchUpInside" id="fPw-sM-O40"/>
+                                                    <action selector="submitComment:" destination="PI0-00-t65" eventType="touchUpInside" id="2Fb-2c-tkg"/>
                                                 </connections>
                                             </button>
                                         </subviews>
