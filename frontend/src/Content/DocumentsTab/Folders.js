@@ -6,6 +6,8 @@ import FolderDetails from './FolderDetails';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import Folder from './Folder';
+import { compose } from 'react-apollo';
+import { updateDocument } from '../mutations/documents';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -106,16 +108,26 @@ class Folders extends Component {
 									query={query.FIND_DOCUMENTS_BY_FOLDER}
 									variables={{ folder: folder._id }}
 									key={folder._id}
+									notifyOnNetworkStatusChange
 								>
-									{({ loading, error, data: { findDocumentsByFolder } }) => {
+									{({
+										loading,
+										error,
+										data: { findDocumentsByFolder },
+										refetch,
+										networkStatus
+									}) => {
+										if (networkStatus === 4) return 'Updating';
 										if (loading) return <p>Loading...</p>;
 										if (error) return console.error(error);
 										return (
 											<div>
 												<Folder
 													folder={folder}
+													upd={this.docDropped}
 													findDocumentsByFolder={findDocumentsByFolder}
 													team={this.props.team._id}
+													fetch={refetch}
 												/>
 											</div>
 										);
@@ -141,4 +153,7 @@ class Folders extends Component {
 	}
 }
 
-export default DragDropContext(HTML5Backend)(Folders);
+export default compose(
+	DragDropContext(HTML5Backend),
+	updateDocument
+)(Folders);

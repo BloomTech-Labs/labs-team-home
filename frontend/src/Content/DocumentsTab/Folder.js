@@ -32,24 +32,28 @@ function collect(connect, monitor) {
 	return {
 		connectDropTarget: connect.dropTarget(),
 		hovered: monitor.isOver(),
-		document: monitor.getItem()
+		document: monitor.getItem(),
+		canDrop: monitor.canDrop()
 	};
 }
 
+var folderId;
+
 class Folder extends React.Component {
-	updateDrop = (id, folder) => {
-		console.log('updating id: ' + id + ' folder id: ' + this.props.folder);
-		console.log(folder);
-		// this.props.updateDocument({
-		//     id: id,
-		//     folder: folderID
-		// });
+	updateDrop = id => {
+		console.log('DOC : ', id);
+		console.log('FOLDER : ', folderId);
+
+		this.props.updateDocument({ id: id, folder: folderId });
+		this.props.fetch();
 	};
 
 	render() {
 		const { connectDropTarget, hovered, folder } = this.props;
 		const backgroundColor = hovered ? 'lightgray' : '';
-
+		if (hovered) {
+			folderId = folder._id;
+		}
 		return connectDropTarget(
 			<div>
 				<IndividualFolder style={{ background: backgroundColor }}>
