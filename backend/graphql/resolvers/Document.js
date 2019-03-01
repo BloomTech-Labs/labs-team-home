@@ -40,6 +40,7 @@ const documentResolver = {
 		updateDocument: (_, { input }) => {
 			const { id } = input;
 			return Document.findById(id).then(document => {
+				// console.log(document.title)
 				if (document) {
 					return Document.findOneAndUpdate(
 						{ _id: id },

@@ -3,43 +3,14 @@ import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import * as query from '../../constants/queries';
 import FolderDetails from './FolderDetails';
-import Droppable from './DnD/Droppable';
-import Draggable from './DnD/Draggable';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
+import Folder from './Folder';
 
 const FolderContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-`;
-
-const IndividualFolder = styled.div`
-	min-height: 200px;
-	color: black;
-	background-color: #a9a4b0;
-	text-align: center;
-	padding: 40px 10px 10px 10px;
-	border: 2px solid white;
-	border-radius: 5px;
-	margin: 10px;
-	clip-path: polygon(
-		0% 0%,
-		45% 0%,
-		55% 10%,
-		100% 10%,
-		99% 10%,
-		100% 11%,
-		100% 100%,
-		0% 100%
-	);
-
-	cursor: pointer;
-`;
-
-const IndividualDocument = styled.p`
-	color: white;
-	margin: 10px;
-	padding: 10px;
-	border: 2px solid white;
 `;
 
 const Error = styled.p`
@@ -140,33 +111,13 @@ class Folders extends Component {
 										if (loading) return <p>Loading...</p>;
 										if (error) return console.error(error);
 										return (
-											<Droppable
-												folder={folder}
-												team={this.props.team._id}
-												// triggerUpdateState={this.triggerUpdateState}
-											>
-												<IndividualFolder
+											<div>
+												<Folder
 													folder={folder}
-													onClick={() => this.toggleFolderDetail(folder)}
-												>
-													{folder.title}
-													{findDocumentsByFolder.length ? (
-														findDocumentsByFolder.map(doc => {
-															return (
-																<Draggable id={doc._id} key={doc._id}>
-																	<IndividualDocument
-																	// updateState={this.state.updateState}
-																	>
-																		{doc.title}
-																	</IndividualDocument>
-																</Draggable>
-															);
-														})
-													) : (
-														<></>
-													)}
-												</IndividualFolder>
-											</Droppable>
+													findDocumentsByFolder={findDocumentsByFolder}
+													team={this.props.team._id}
+												/>
+											</div>
 										);
 									}}
 								</Query>
@@ -190,4 +141,4 @@ class Folders extends Component {
 	}
 }
 
-export default Folders;
+export default DragDropContext(HTML5Backend)(Folders);
