@@ -53,6 +53,9 @@ const teamResolvers = {
 							) // deletes all comments associated with the messages
 						);
 						await Message.deleteMany({ team: team._id }); // deletes all messages
+						//delete team document comments
+						//delete documents
+						//delete folders
 						return team;
 					} else {
 						throw new ForbiddenError('You do not have permission to do that.');

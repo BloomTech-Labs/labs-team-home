@@ -120,9 +120,9 @@ export default class ActivityTimeline extends React.Component {
 						allTheThings.map(thing =>
 							typeof thing.updatedAt === 'string' && thing.updatedAt
 								? (thing.updatedAt = new Date(parseInt(thing.updatedAt, 10)))
-								: thing
+								: ''
 						);
-
+						console.log(allTheThings);
 						allTheThings.sort((a, b) => {
 							if (a.updatedAt < b.updatedAt) return 1;
 							if (a.updatedAt > b.updatedAt) return -1;
