@@ -16,8 +16,6 @@ import { FIND_TAGS_BY_TEAM } from '../../constants/queries'; // this seems to be
 const StyledDialog = styled(Dialog)`
 	max-width: 696px;
 	margin: 0 auto;
-
-	/* should add a media query here to make the modal go full screen if less than max width */
 `;
 
 const Overlay = styled(DialogContent)`

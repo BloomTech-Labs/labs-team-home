@@ -99,14 +99,15 @@ class FolderDetails extends React.Component {
 			folder,
 			hideModal,
 			updateDocument,
-			currentUser
+			currentUser,
+			open
 		} = this.props;
 
 		if (folder === null) return <></>;
 		// console.log(this.props);
 		return (
 			<StyledDialog
-				open={this.props.open}
+				open={open}
 				onClose={() => {
 					hideModal();
 					this.resetState();

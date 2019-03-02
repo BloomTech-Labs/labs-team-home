@@ -79,61 +79,60 @@ export default function Invites({
 	return (
 		<Container open={open} onClose={closeHandler}>
 			<Overlay>
-				{team.users.length < 5 || team.premium ? (
-					<>
-						<Title id="form-dialog-title" style={{ color: '#fff' }}>
-							Invite User
-						</Title>
-						<form onSubmit={submitHandler} style={{ color: '#fff' }}>
-							<label htmlFor="email" />
-							<TextField
-								id="outlined-bare"
-								type="email"
-								name="email"
-								variant="outlined"
-								placeholder="email"
-								onChange={changeHandler}
-								value={email}
-								fullWidth
-							/>
-							<label htmlFor="phone number" />
-							<TextField
-								placeholder="phone number"
-								type="text"
-								name="number"
-								variant="outlined"
-								onChange={changeHandler}
-								value={number}
-								fullWidth
-							/>
-							<DialogActions>
-								<SubmitButton type="submit">Submit</SubmitButton>
-								<Button color="secondary" onClick={closeHandler}>
-									Cancel
-								</Button>
-							</DialogActions>
-						</form>
-					</>
-				) : (
-					<Paywall>
-						<Title>Sorry, free teams can only have up to 5 users.</Title>
-						{team.users.find(({ user }) => user._id === currentUser._id)
-							.admin ? (
-							<GoPro to="/settings">
-								<SubmitButton
-									pro
-									size="large"
-									variant="contained"
-									color="secondary"
-								>
-									Go Pro
-								</SubmitButton>
-							</GoPro>
-						) : (
-							<Title>Tell your team administrators to upgrade.</Title>
-						)}
-					</Paywall>
-				)}
+				{/* {team.users.length < 5 || team.premium ? (
+					<> */}
+				<Title id="form-dialog-title" style={{ color: '#fff' }}>
+					Invite User
+				</Title>
+				<form onSubmit={submitHandler} style={{ color: '#fff' }}>
+					<label htmlFor="email" />
+					<TextField
+						id="outlined-bare"
+						type="email"
+						name="email"
+						variant="outlined"
+						placeholder="email"
+						onChange={changeHandler}
+						value={email}
+						fullWidth
+					/>
+					<label htmlFor="phone number" />
+					<TextField
+						placeholder="phone number"
+						type="text"
+						name="number"
+						variant="outlined"
+						onChange={changeHandler}
+						value={number}
+						fullWidth
+					/>
+					<DialogActions>
+						<SubmitButton type="submit">Submit</SubmitButton>
+						<Button color="secondary" onClick={closeHandler}>
+							Cancel
+						</Button>
+					</DialogActions>
+				</form>
+				{/* </>
+				) : ( */}
+				<Paywall>
+					<Title>Sorry, free teams can only have up to 5 users.</Title>
+					{team.users.find(({ user }) => user._id === currentUser._id).admin ? (
+						<GoPro to="/settings">
+							<SubmitButton
+								pro
+								size="large"
+								variant="contained"
+								color="secondary"
+							>
+								Go Pro
+							</SubmitButton>
+						</GoPro>
+					) : (
+						<Title>Tell your team administrators to upgrade.</Title>
+					)}
+				</Paywall>
+				{/* )} */}
 			</Overlay>
 		</Container>
 	);
