@@ -1,22 +1,9 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { Query, compose } from 'react-apollo';
-import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import { Close } from '../../MessageBoard/MessageDetail';
-import { colors, palette } from '../../../colorVariables';
 import { deleteDocument, updateDocument } from '../../mutations/documents';
-import CardActions from '@material-ui/core/CardActions';
-import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import { Paper } from '@material-ui/core';
 import * as query from '../../../constants/queries';
-import CardContent from '@material-ui/core/CardContent';
 import {
 	addDocComment,
 	updateDocComment,
@@ -24,45 +11,32 @@ import {
 	likeDocComment,
 	unLikeDocComment
 } from '../../mutations/doccomments';
+
+// ------------- Style Imports ---------------------- //
+import styled from 'styled-components';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import { colors, palette } from '../../../colorVariables';
+import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
+import TextField from '@material-ui/core/TextField';
+import { Paper } from '@material-ui/core';
+import CardContent from '@material-ui/core/CardContent';
 import SendIcon from '@material-ui/icons/Send';
-import mediaQueryFor from '../../../_global_styles/responsive_querie';
+// import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
-//Pretty much all of these components are defined elsewhere,
-//we really ought to have a component for modal styling
-
-const StyledDialog = styled(Dialog)`
-	max-width: 696px;
-	margin: 0 auto;
-`;
-
-const Overlay = styled(DialogContent)`
-	background-color: ${colors.button};
-	word-wrap: break-word;
-	padding-top: 0;
-	margin-top: 0;
-`;
-
-const StyledTypography = styled(Typography)`
-	color: ${colors.text};
-`;
-
-const StyledTextField = styled(TextField)`
-	color: ${colors.text};
-	input,
-	textarea {
-		color: ${colors.text};
-	}
-`;
+// ------------- Modal styling imports ---------------------- //
+import { StyledModal, ModalOverlay, ModalClose } from '../../Modal.styles';
+import {
+	StyledModalTitle,
+	StyledModalBody,
+	StyledModalButton,
+	StyledModalInput
+} from '../../Modal.styles';
 
 const StyledEditCommentLabel = styled.label`
 	width: 80%;
-`;
-
-const StyledButton = styled(Button)`
-	border-bottom: solid 1px ${palette.yellow};
-	color: ${colors.text};
-	border-radius: 0px;
-	margin: 10px;
 `;
 
 const Form = styled.form`
@@ -127,7 +101,7 @@ class DocumentDetails extends React.Component {
 		if (document === null) return <></>;
 		// console.log(this.props);
 		return (
-			<StyledDialog
+			<StyledModal
 				open={this.props.open}
 				onClose={() => {
 					hideModal();
@@ -139,9 +113,10 @@ class DocumentDetails extends React.Component {
 						boxShadow: 'none'
 					}
 				}}
-				fullScreen={mediaQueryFor.smDevice}
+				fullScreen
+				// ={mediaQueryFor.smDevice}
 			>
-				<Close>
+				<ModalClose>
 					<IconButton
 						aria-label="Close"
 						onClick={() => {
@@ -155,8 +130,8 @@ class DocumentDetails extends React.Component {
 					>
 						<CloseIcon />
 					</IconButton>
-				</Close>
-				<Overlay>
+				</ModalClose>
+				<ModalOverlay>
 					{/* All fo the folder info should go here 
                     Not just the ability to delete 
                     Should also include a list of all the files */}
@@ -194,37 +169,37 @@ class DocumentDetails extends React.Component {
 							}}
 						>
 							<label htmlFor="document title" />
-							<StyledTextField
+							<StyledModalInput
 								name="title"
 								value={this.state.title}
 								onChange={this.handleChange}
 							/>
 							<label htmlFor="document url" />
-							<StyledTextField
+							<StyledModalInput
 								name="doc_url"
 								value={this.state.doc_url}
 								onChange={this.handleChange}
 							/>
 							<label htmlFor="document content" />
-							<StyledTextField
+							<StyledModalInput
 								name="textContent"
 								value={this.state.textContent}
 								onChange={this.handleChange}
 								multiline
 							/>
-							<StyledButton type="submit">Save</StyledButton>
+							<StyledModalButton type="submit">Save</StyledModalButton>
 						</form>
 					) : (
 						<>
-							<StyledTypography variant="h5" component="h3">
+							<StyledModalTitle variant="h5" component="h3">
 								{document.title}
-							</StyledTypography>
-							<StyledTypography paragraph component="p">
+							</StyledModalTitle>
+							<StyledModalBody paragraph component="p">
 								{document.doc_url}
-							</StyledTypography>
-							<StyledTypography paragraph component="p">
+							</StyledModalBody>
+							<StyledModalBody paragraph component="p">
 								{document.textContent}
-							</StyledTypography>
+							</StyledModalBody>
 
 							{/* Load all the images attached to the message */}
 
@@ -238,7 +213,7 @@ class DocumentDetails extends React.Component {
 							>
 								{document.user._id === currentUser._id && (
 									<>
-										<StyledButton
+										<StyledModalButton
 											onClick={e => {
 												e.preventDefault();
 												if (!this.state.editingComment) {
@@ -256,8 +231,8 @@ class DocumentDetails extends React.Component {
 											}}
 										>
 											Edit
-										</StyledButton>
-										<StyledButton
+										</StyledModalButton>
+										<StyledModalButton
 											onClick={e => {
 												e.preventDefault();
 												deleteDocument({
@@ -268,12 +243,12 @@ class DocumentDetails extends React.Component {
 											}}
 										>
 											Delete
-										</StyledButton>
+										</StyledModalButton>
 									</>
 								)}
 
 								{/* Subscribe or unsubscribe button */}
-								<StyledButton
+								<StyledModalButton
 									onClick={e => {
 										e.preventDefault();
 										document.subscribedUsers.find(
@@ -299,7 +274,7 @@ class DocumentDetails extends React.Component {
 									)
 										? 'Unsubscribe'
 										: 'Subscribe'}
-								</StyledButton>
+								</StyledModalButton>
 							</CardActions>
 						</>
 					)}
@@ -313,14 +288,13 @@ class DocumentDetails extends React.Component {
 							if (error) return <p>Error</p>;
 							return (
 								<>
-									<StyledTypography
-										gutterBottom
+									<StyledModalTitle
 										variant="h6"
 										component="h5"
 										style={{ margin: '30px 0' }}
 									>
 										Comments
-									</StyledTypography>
+									</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
 										<Paper
@@ -362,7 +336,7 @@ class DocumentDetails extends React.Component {
 													}}
 												>
 													<StyledEditCommentLabel htmlFor="comment-content">
-														<StyledTextField
+														<StyledModalInput
 															inputRef={this.edit}
 															name="commentContent"
 															value={this.state.commentContent}
@@ -371,21 +345,23 @@ class DocumentDetails extends React.Component {
 															multiline={true}
 														/>
 													</StyledEditCommentLabel>
-													<StyledButton type="submit">Save</StyledButton>
+													<StyledModalButton type="submit">
+														Save
+													</StyledModalButton>
 												</CommentForm>
 											) : (
 												<>
 													<CardContent>
-														<StyledTypography component="p">
+														<StyledModalBody component="p">
 															{comment.content}
-														</StyledTypography>
+														</StyledModalBody>
 													</CardContent>
 
 													{/* Check to see if the comment is the users and thus can be edited or deleted */}
 													<CardContent>
 														{comment.user._id === currentUser._id && (
 															<>
-																<StyledButton
+																<StyledModalButton
 																	onClick={e => {
 																		e.preventDefault();
 																		if (!this.state.editingDocument) {
@@ -402,8 +378,8 @@ class DocumentDetails extends React.Component {
 																	}}
 																>
 																	Edit
-																</StyledButton>
-																<StyledButton
+																</StyledModalButton>
+																<StyledModalButton
 																	onClick={e => {
 																		e.preventDefault();
 																		deleteDocComment({
@@ -412,11 +388,11 @@ class DocumentDetails extends React.Component {
 																	}}
 																>
 																	Delete
-																</StyledButton>
+																</StyledModalButton>
 															</>
 														)}
 														{/* Like button */}
-														<StyledButton
+														<StyledModalButton
 															onClick={e => {
 																e.preventDefault();
 																comment.likes.find(
@@ -431,7 +407,7 @@ class DocumentDetails extends React.Component {
 															}}
 														>
 															{`${comment.likes.length} likes`}
-														</StyledButton>
+														</StyledModalButton>
 													</CardContent>
 												</>
 											)}
@@ -470,8 +446,8 @@ class DocumentDetails extends React.Component {
 							);
 						}}
 					</Query>
-				</Overlay>
-			</StyledDialog>
+				</ModalOverlay>
+			</StyledModal>
 		);
 	}
 }

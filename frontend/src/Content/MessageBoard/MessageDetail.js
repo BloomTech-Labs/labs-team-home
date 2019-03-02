@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+// ------------- gql imports ---------------------- //
 import { Query, compose } from 'react-apollo';
 import {
 	addComment,
@@ -8,71 +10,31 @@ import {
 	unLike
 } from '../mutations/comments';
 import { updateMessage, deleteMessage } from '../mutations/messages';
+import * as query from '../../constants/queries';
+
+// ------------- styling libraries ---------------------- //
+import styled from 'styled-components';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import { palette, colors } from '../../colorVariables';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
-import * as query from '../../constants/queries';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import styled from 'styled-components';
-import DialogActions from '@material-ui/core/DialogActions';
+
+import { palette, colors } from '../../colorVariables';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 
-const StyledDialog = styled(Dialog)`
-	max-width: 696px;
-	margin: 0 auto;
-	/* should add a media query here to make the modal 
-    go full screen if less than max width 
-    also, something gotta be done about that scroll bar*/
-`;
-
-export const Overlay = styled(DialogContent)`
-	background-color: ${palette.plumTransparent};
-	color: #fff;
-	word-wrap: break-word;
-	padding-top: 0;
-	margin-top: 0;
-`;
-
-const StyledTypography = styled(Typography)`
-	color: ${colors.text};
-`;
-
-const StyledTextField = styled(TextField)`
-	color: ${colors.text};
-	input,
-	textarea {
-		color: ${colors.text};
-	}
-`;
-
-const StyledButton = styled(Button)`
-	border-bottom: solid 1px ${palette.yellow};
-	color: ${colors.text};
-	border-radius: 0px;
-	margin: 10px;
-`;
-
-export const Close = styled(DialogActions)`
-	&,
-	div {
-		background-color: transparent;
-		color: #fff;
-	}
-`;
-
-const StyledEditCommentLabel = styled.label`
-	width: 100%;
-`;
+// ------------- Modal styling imports ---------------------- //
+import { StyledModal, ModalOverlay, ModalClose } from '../Modal.styles';
+import {
+	StyledModalTitle,
+	StyledModalBody,
+	StyledModalButton,
+	StyledModalInput
+} from '../Modal.styles';
 
 const CommentInputLabel = styled.label`
 	width: 100%;
@@ -134,7 +96,7 @@ class MessageDetail extends Component {
 		if (message === null) return <> </>;
 
 		return (
-			<StyledDialog //open the Dialog box this is the part that makes everything else around darker
+			<StyledModal //open the Dialog box this is the part that makes everything else around darker
 				open={open}
 				onClose={() => {
 					hideModal();
@@ -154,7 +116,7 @@ class MessageDetail extends Component {
 				fullScreen={mediaQueryFor.smDevice}
 			>
 				{/* Close the dialog box button */}
-				<Close>
+				<ModalClose>
 					<IconButton
 						aria-label="Close"
 						onClick={() => {
@@ -168,9 +130,9 @@ class MessageDetail extends Component {
 					>
 						<CloseIcon />
 					</IconButton>
-				</Close>
+				</ModalClose>
 				{/* Overlay is the dark area that the message and comments fill */}
-				<Overlay>
+				<ModalOverlay>
 					{/* The header information: name, avatar */}
 					<CardHeader
 						avatar={
@@ -205,28 +167,28 @@ class MessageDetail extends Component {
 							}}
 						>
 							<label htmlFor="message title" />
-							<StyledTextField
+							<StyledModalInput
 								name="title"
 								value={this.state.title}
 								onChange={this.handleChange}
 							/>
 							<label htmlFor="message content" />
-							<StyledTextField
+							<StyledModalInput
 								name="content"
 								value={this.state.content}
 								onChange={this.handleChange}
 								multiline
 							/>
-							<StyledButton type="submit">Save</StyledButton>
+							<StyledModalButton type="submit">Save</StyledModalButton>
 						</form>
 					) : (
 						<>
-							<StyledTypography variant="h5" component="h3">
+							<StyledModalTitle variant="h5" component="h3">
 								{message.title}
-							</StyledTypography>
-							<StyledTypography paragraph component="p">
+							</StyledModalTitle>
+							<StyledModalBody paragraph component="p">
 								{message.content}
-							</StyledTypography>
+							</StyledModalBody>
 
 							{/* Load all the images attached to the message */}
 							{message.images.map((image, index) => (
@@ -249,7 +211,7 @@ class MessageDetail extends Component {
 							>
 								{message.user._id === currentUser._id && (
 									<>
-										<StyledButton
+										<StyledModalButton
 											onClick={e => {
 												e.preventDefault();
 												if (!this.state.editing) {
@@ -266,8 +228,8 @@ class MessageDetail extends Component {
 											}}
 										>
 											Edit
-										</StyledButton>
-										<StyledButton
+										</StyledModalButton>
+										<StyledModalButton
 											onClick={e => {
 												e.preventDefault();
 												deleteMessage({
@@ -279,11 +241,11 @@ class MessageDetail extends Component {
 											}}
 										>
 											Delete
-										</StyledButton>
+										</StyledModalButton>
 									</>
 								)}
 								{/* Subscribe or unsubscribe button */}
-								<StyledButton
+								<StyledModalButton
 									onClick={e => {
 										e.preventDefault();
 										message.subscribedUsers.find(
@@ -309,7 +271,7 @@ class MessageDetail extends Component {
 									)
 										? 'Unsubscribe'
 										: 'Subscribe'}
-								</StyledButton>
+								</StyledModalButton>
 							</CardActions>
 						</>
 					)}
@@ -323,14 +285,14 @@ class MessageDetail extends Component {
 							if (error) return <p>Error</p>;
 							return (
 								<>
-									<StyledTypography
+									<StyledModalTitle
 										gutterBottom
 										variant="h6"
 										component="h5"
 										style={{ margin: '30px 0' }}
 									>
 										Comments
-									</StyledTypography>
+									</StyledModalTitle>
 									{/* display all the comments */}
 									{findMsgCommentsByMessage.map(comment => (
 										<Paper
@@ -367,30 +329,31 @@ class MessageDetail extends Component {
 														}).then(() => this.resetState());
 													}}
 												>
-													<StyledEditCommentLabel htmlFor="comment-content">
-														<StyledTextField
-															name="commentContent"
-															value={this.state.commentContent}
-															onChange={this.handleChange}
-															variant="outlined"
-															multiline={true}
-															fullWidth={true}
-														/>
-													</StyledEditCommentLabel>
-													<StyledButton type="submit">Save</StyledButton>
+													<StyledModalInput
+														name="commentContent"
+														value={this.state.commentContent}
+														onChange={this.handleChange}
+														variant="outlined"
+														multiline={true}
+														fullWidth={true}
+													/>
+
+													<StyledModalButton type="submit">
+														Save
+													</StyledModalButton>
 												</form>
 											) : (
 												<>
 													<CardContent>
-														<StyledTypography component="p">
+														<StyledModalBody component="p">
 															{comment.content}
-														</StyledTypography>
+														</StyledModalBody>
 													</CardContent>
 
 													{/* Check to see if the comment is the users and thus can be edited or deleted */}
 													{comment.user._id === currentUser._id && (
 														<>
-															<StyledButton
+															<StyledModalButton
 																onClick={e => {
 																	e.preventDefault();
 																	if (!this.state.editingMessage) {
@@ -407,8 +370,8 @@ class MessageDetail extends Component {
 																}}
 															>
 																Edit
-															</StyledButton>
-															<StyledButton
+															</StyledModalButton>
+															<StyledModalButton
 																onClick={e => {
 																	e.preventDefault();
 																	deleteMsgComment({
@@ -417,11 +380,11 @@ class MessageDetail extends Component {
 																}}
 															>
 																Delete
-															</StyledButton>
+															</StyledModalButton>
 														</>
 													)}
 													{/* Like button */}
-													<StyledButton
+													<StyledModalButton
 														onClick={e => {
 															e.preventDefault();
 															comment.likes.find(
@@ -436,7 +399,7 @@ class MessageDetail extends Component {
 														}}
 													>
 														{`${comment.likes.length} likes`}
-													</StyledButton>
+													</StyledModalButton>
 												</>
 											)}
 										</Paper>
@@ -477,8 +440,8 @@ class MessageDetail extends Component {
 							);
 						}}
 					</Query>
-				</Overlay>
-			</StyledDialog>
+				</ModalOverlay>
+			</StyledModal>
 		);
 	}
 }

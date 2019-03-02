@@ -1,63 +1,35 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { compose, Query } from 'react-apollo';
-import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
+import * as query from '../../../constants/queries';
+import { deleteFolder, updateFolder } from '../../mutations/folders';
+import { updateDocument } from '../../mutations/documents';
+
+// ------------- Component Imports ---------------------- //
+import DocumentDetails from '../Documents/DocumentDetails';
+
+// ------------- Style Imports ---------------------- //
+// import styled from 'styled-components';
+
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Close } from '../../MessageBoard/MessageDetail';
-import { colors, palette } from '../../../colorVariables';
-import { deleteFolder, updateFolder } from '../../mutations/folders';
 import CardActions from '@material-ui/core/CardActions';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import * as query from '../../../constants/queries';
 import { Paper } from '@material-ui/core';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
-import { updateDocument } from '../../mutations/documents';
-import DocumentDetails from '../Documents/DocumentDetails';
-import mediaQueryFor from '../../../_global_styles/responsive_querie';
+import { colors, palette } from '../../../colorVariables';
+// import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
-//Pretty much all of these components are defined elsewhere,
-//we really ought to have a component for modal styling
-
-const StyledDialog = styled(Dialog)`
-	max-width: 696px;
-	margin: 0 auto;
-`;
-
-const Overlay = styled(DialogContent)`
-	background-color: ${colors.button};
-	word-wrap: break-word;
-	padding-top: 0;
-	margin-top: 0;
-	.filepond--wrapper {
-		width: 100%;
-	}
-`;
-
-const StyledButton = styled(Button)`
-	border-bottom: solid 1px ${palette.yellow};
-	color: ${colors.text};
-	border-radius: 0px;
-	margin: 10px;
-`;
-
-const StyledTypography = styled(Typography)`
-	color: ${colors.text};
-	margin-top: 20px;
-`;
-
-const StyledTextField = styled(TextField)`
-	color: ${colors.text};
-	input,
-	textarea {
-		color: ${colors.text};
-	}
-`;
+// ------------- Modal styling imports ---------------------- //
+import { StyledModal, ModalOverlay, ModalClose } from '../../Modal.styles';
+import {
+	StyledModalTitle,
+	StyledModalBody,
+	StyledModalButton,
+	StyledModalInput
+} from '../../Modal.styles';
 
 class FolderDetails extends React.Component {
 	constructor(props) {
@@ -106,7 +78,7 @@ class FolderDetails extends React.Component {
 		if (folder === null) return <></>;
 		// console.log(this.props);
 		return (
-			<StyledDialog
+			<StyledModal
 				open={open}
 				onClose={() => {
 					hideModal();
@@ -118,9 +90,10 @@ class FolderDetails extends React.Component {
 						boxShadow: 'none'
 					}
 				}}
-				fullScreen={mediaQueryFor.smDevice}
+				fullScreen
+				// ={mediaQueryFor.smDevice}
 			>
-				<Close>
+				<ModalClose>
 					<IconButton
 						aria-label="Close"
 						onClick={() => {
@@ -134,8 +107,8 @@ class FolderDetails extends React.Component {
 					>
 						<CloseIcon />
 					</IconButton>
-				</Close>
-				<Overlay>
+				</ModalClose>
+				<ModalOverlay>
 					{/* All fo the folder info should go here 
                     Not just the ability to delete 
 				Should also include a list of all the files */}
@@ -179,18 +152,18 @@ class FolderDetails extends React.Component {
 											}}
 										>
 											<label htmlFor="Folder title" />
-											<StyledTextField
+											<StyledModalInput
 												name="title"
 												value={this.state.title}
 												onChange={this.handleChange}
 											/>
-											<StyledButton type="submit">Save</StyledButton>
+											<StyledModalButton type="submit">Save</StyledModalButton>
 										</form>
 									) : (
 										<>
-											<StyledTypography variant="h5" component="h3">
+											<StyledModalTitle variant="h5" component="h3">
 												{folder.title}
-											</StyledTypography>
+											</StyledModalTitle>
 
 											{/* Load all the images attached to the message */}
 
@@ -202,7 +175,7 @@ class FolderDetails extends React.Component {
 													justifyContent: 'space-around'
 												}}
 											>
-												<StyledButton
+												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
 														this.setState({
@@ -212,8 +185,8 @@ class FolderDetails extends React.Component {
 													}}
 												>
 													Edit
-												</StyledButton>
-												<StyledButton
+												</StyledModalButton>
+												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
 														findDocumentsByFolder.map(document =>
@@ -230,20 +203,19 @@ class FolderDetails extends React.Component {
 													}}
 												>
 													Delete
-												</StyledButton>
+												</StyledModalButton>
 
 												{/* Subscription for the document stuff goes here */}
 											</CardActions>
 										</>
 									)}
-									<StyledTypography
-										gutterBottom
+									<StyledModalTitle
 										variant="h6"
 										component="h5"
 										style={{ margin: '30px 0' }}
 									>
 										Documents
-									</StyledTypography>
+									</StyledModalTitle>
 									{/* Display all the documents */}
 									{findDocumentsByFolder.map(document => (
 										<Paper
@@ -273,18 +245,18 @@ class FolderDetails extends React.Component {
 											/>
 
 											<CardContent>
-												<StyledTypography component="p">
+												<StyledModalTitle component="p">
 													{document.title}
-												</StyledTypography>
-												<StyledTypography paragraph component="p">
+												</StyledModalTitle>
+												<StyledModalBody paragraph component="p">
 													{document.doc_url}
-												</StyledTypography>
+												</StyledModalBody>
 											</CardContent>
 
 											{/* Check to see if the comment is the users and thus can be edited or deleted */}
 
 											<CardContent>
-												<StyledButton
+												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
 														updateDocument({
@@ -297,8 +269,8 @@ class FolderDetails extends React.Component {
 													}}
 												>
 													Remove from Folder
-												</StyledButton>
-												<StyledButton
+												</StyledModalButton>
+												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
 														//hideModal();
@@ -307,7 +279,7 @@ class FolderDetails extends React.Component {
 													}}
 												>
 													View
-												</StyledButton>
+												</StyledModalButton>
 											</CardContent>
 										</Paper>
 									))}
@@ -315,7 +287,7 @@ class FolderDetails extends React.Component {
 							);
 						}}
 					</Query>
-				</Overlay>
+				</ModalOverlay>
 				{/* // Modals */}
 				<DocumentDetails
 					open={this.state.documentDetailOpen}
@@ -324,7 +296,7 @@ class FolderDetails extends React.Component {
 					currentUser={currentUser}
 					team={this.props.team}
 				/>
-			</StyledDialog>
+			</StyledModal>
 		);
 	}
 }

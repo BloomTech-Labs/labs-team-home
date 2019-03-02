@@ -1,25 +1,33 @@
 import React from 'react';
-import styled from 'styled-components';
+
+// ------------- gql Imports ---------------------- //
+import { FIND_TAGS_BY_TEAM } from '../../constants/queries';
+import { compose, Query } from 'react-apollo';
+import { addMessage, addTag } from '../mutations/messages';
+
+// ------------- FilePond Imports ---------------------- //
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginFileTypeValidation from 'filepond-plugin-file-validate-type';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import 'filepond/dist/filepond.min.css';
 // image preview not working
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond/dist/filepond.min.css';
-import { addMessage, addTag } from '../mutations/messages';
+
+// ------------- Style Imports ---------------------- //
+// import styled from 'styled-components';
+import IconButton from '@material-ui/core/IconButton';
 import { colors, palette } from '../../colorVariables';
-import { compose, Query } from 'react-apollo';
-import { FIND_TAGS_BY_TEAM } from '../../constants/queries';
-import { Close } from './MessageDetail';
+import CloseIcon from '@material-ui/icons/Close';
+
+// ------------- Modal styling imports ---------------------- //
+import { StyledModal, ModalOverlay, ModalClose } from '../Modal.styles';
+import {
+	StyledModalTitle,
+	StyledModalButton,
+	StyledModalInput
+} from '../Modal.styles';
 
 registerPlugin(
 	FilePondPluginImageExifOrientation,
@@ -34,43 +42,6 @@ const apiKey = process.env.REACT_APP_API_KEY;
 const apiSecret = process.env.REACT_APP_API_SECRET;
 const cloudName = process.env.REACT_APP_CLOUD_NAME;
 
-const Overlay = styled(DialogContent)`
-	background-color: ${colors.button};
-	.filepond--wrapper {
-		width: 100%;
-	}
-`;
-
-const SubmitButton = styled(Button)`
-	color: ${colors.text};
-	margin: 0 auto;
-`;
-
-const Title = styled(DialogTitle)`
-	padding-left: 0;
-	background-color: ${colors.button};
-	h2 {
-		color: ${colors.text};
-	}
-`;
-
-const Input = styled(TextField)`
-	input,
-	textarea,
-	label {
-		color: ${colors.text};
-	}
-	&:nth-child(2) {
-		margin: 10px 0;
-		textarea {
-			min-height: 200px;
-		}
-	}
-	&:nth-child(3) {
-		margin-bottom: 10px;
-	}
-`;
-
 function AddMessage(props) {
 	//this is their state... but why?
 
@@ -81,7 +52,7 @@ function AddMessage(props) {
 	const { addMessage, addTag } = props;
 
 	return (
-		<Dialog
+		<StyledModal
 			open={props.open}
 			onClose={props.closeHandler}
 			scroll="body"
@@ -93,7 +64,7 @@ function AddMessage(props) {
 			}}
 		>
 			{/*Close button*/}
-			<Close>
+			<ModalClose>
 				<IconButton
 					aria-label="Close"
 					onClick={props.closeHandler}
@@ -104,11 +75,11 @@ function AddMessage(props) {
 				>
 					<CloseIcon />
 				</IconButton>
-			</Close>
+			</ModalClose>
 			{/* Overlay is the dark area that the message and comments fill */}
-			<Overlay>
+			<ModalOverlay>
 				{/* The header information: name, avatar */}
-				<Title>Add a New Message</Title>
+				<StyledModalTitle>Add a New Message</StyledModalTitle>
 				<Query query={FIND_TAGS_BY_TEAM} variables={{ team }}>
 					{({ loading, error, data: { findTagsByTeam } }) => {
 						if (loading) return <p>Loading...</p>;
@@ -167,7 +138,7 @@ function AddMessage(props) {
 									tag.value = '';
 								}}
 							>
-								<Input
+								<StyledModalInput
 									name="title"
 									placeholder="title"
 									variant="outlined"
@@ -176,7 +147,7 @@ function AddMessage(props) {
 									}}
 									fullWidth
 								/>
-								<Input
+								<StyledModalInput
 									name="contents"
 									placeholder="content"
 									variant="outlined"
@@ -186,7 +157,7 @@ function AddMessage(props) {
 									multiline
 									fullWidth
 								/>
-								<Input
+								<StyledModalInput
 									name="tag"
 									placeholder="tag"
 									variant="outlined"
@@ -265,15 +236,15 @@ function AddMessage(props) {
 										}
 									}}
 								/>
-								<SubmitButton type="submit" size="large" fullWidth>
+								<StyledModalButton type="submit" fullWidth>
 									Save
-								</SubmitButton>
+								</StyledModalButton>
 							</form>
 						);
 					}}
 				</Query>
-			</Overlay>
-		</Dialog>
+			</ModalOverlay>
+		</StyledModal>
 	);
 }
 

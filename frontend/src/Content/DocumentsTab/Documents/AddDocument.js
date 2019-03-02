@@ -1,59 +1,23 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { compose, Query } from 'react-apollo';
-import styled from 'styled-components';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import { Close } from '../../MessageBoard/MessageDetail';
-import { colors, palette } from '../../../colorVariables';
 import { addDocument, addTag } from '../../mutations/documents';
 import { FIND_TAGS_BY_TEAM } from '../../../constants/queries'; // this seems to be working
 
-const StyledDialog = styled(Dialog)`
-	max-width: 696px;
-	margin: 0 auto;
-`;
+// ------------- Style Imports ---------------------- //
+// import styled from 'styled-components';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import { colors, palette } from '../../../colorVariables';
 
-const Overlay = styled(DialogContent)`
-	background-color: ${colors.button};
-	.filepond--wrapper {
-		width: 100%;
-	}
-`;
-
-const SubmitButton = styled(Button)`
-	color: ${colors.text};
-	margin: 0 auto;
-`;
-
-const Title = styled(DialogTitle)`
-	padding-left: 0;
-	background-color: ${colors.button};
-	h2 {
-		color: ${colors.text};
-	}
-`;
-
-const Input = styled(TextField)`
-	input,
-	textarea,
-	label {
-		color: ${colors.text};
-	}
-	&:nth-child(2) {
-		margin: 10px 0;
-		textarea {
-			min-height: 200px;
-		}
-	}
-	&:nth-child(3) {
-		margin-bottom: 10px;
-	}
-`;
+// ------------- Modal styling imports ---------------------- //
+import { StyledModal, ModalOverlay, ModalClose } from '../../Modal.styles';
+import {
+	StyledModalTitle,
+	StyledModalButton,
+	StyledModalInput
+} from '../../Modal.styles';
 
 class AddDocument extends React.Component {
 	constructor(props) {
@@ -74,7 +38,7 @@ class AddDocument extends React.Component {
 		const { addDocument, addTag } = this.props;
 
 		return (
-			<StyledDialog
+			<StyledModal
 				open={this.props.open}
 				onClose={this.props.closeHandler}
 				PaperProps={{
@@ -85,7 +49,7 @@ class AddDocument extends React.Component {
 				}}
 			>
 				{/*Close button*/}
-				<Close>
+				<ModalClose>
 					<IconButton
 						aria-label="Close"
 						onClick={this.props.closeHandler}
@@ -96,9 +60,9 @@ class AddDocument extends React.Component {
 					>
 						<CloseIcon />
 					</IconButton>
-				</Close>
-				<Overlay>
-					<Title>Add a New Document</Title>
+				</ModalClose>
+				<ModalOverlay>
+					<StyledModalTitle>Add a New Document</StyledModalTitle>
 					<Query
 						query={FIND_TAGS_BY_TEAM}
 						variables={{ team: this.props.team }}
@@ -162,21 +126,21 @@ class AddDocument extends React.Component {
 										}
 									}}
 								>
-									<Input
+									<StyledModalInput
 										name="title"
 										placeholder="title"
 										variant="outlined"
 										fullWidth
 										onChange={this.handleChange}
 									/>
-									<Input
+									<StyledModalInput
 										name="url"
 										placeholder="url"
 										variant="outlined"
 										fullWidth
 										onChange={this.handleChange}
 									/>
-									<Input
+									<StyledModalInput
 										name="content"
 										placeholder="content"
 										variant="outlined"
@@ -184,7 +148,7 @@ class AddDocument extends React.Component {
 										onChange={this.handleChange}
 										multiline
 									/>
-									<Input
+									<StyledModalInput
 										name="tag"
 										placeholder="tag"
 										variant="outlined"
@@ -192,15 +156,15 @@ class AddDocument extends React.Component {
 										fullWidth
 									/>
 
-									<SubmitButton type="submit" size="large" fullWidth>
+									<StyledModalButton type="submit" size="large" fullWidth>
 										Add
-									</SubmitButton>
+									</StyledModalButton>
 								</form>
 							);
 						}}
 					</Query>
-				</Overlay>
-			</StyledDialog>
+				</ModalOverlay>
+			</StyledModal>
 		);
 	}
 }

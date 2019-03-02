@@ -1,27 +1,35 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
+import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import CardHeader from '@material-ui/core/CardHeader';
-import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Dialog from '@material-ui/core/Dialog';
-import { Close } from '../MessageBoard/MessageDetail';
 import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
-import { colors, palette } from '../../colorVariables';
-import styled from 'styled-components';
-import mediaQueryFor from '../../_global_styles/responsive_querie';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
-import DialogActions from '@material-ui/core/DialogActions';
-import StripeCheckout from 'react-stripe-checkout';
-import Logo from '../../assets/TH_favicon.png';
-import gql from 'graphql-tag';
+import Avatar from '@material-ui/core/Avatar';
 import { FULL_TEAM } from '../../constants/fragments';
 
-const { button } = colors;
+// ------------- Component Imports ---------------------- //
+import StripeCheckout from 'react-stripe-checkout';
+import Logo from '../../assets/TH_favicon.png';
+
+// ------------- Style Imports ---------------------- //
+import styled from 'styled-components';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import CardHeader from '@material-ui/core/CardHeader';
+import Button from '@material-ui/core/Button';
+import { colors, palette } from '../../colorVariables';
+// import mediaQueryFor from '../../_global_styles/responsive_querie';
+import DialogActions from '@material-ui/core/DialogActions';
+
+// ------------- Modal styling imports ---------------------- //
+import { StyledModal, ModalOverlay, ModalClose } from '../Modal.styles';
+import {
+	StyledModalTitle,
+	StyledModalBody,
+	StyledModalButton,
+	StyledModalInput
+} from '../Modal.styles';
 
 const UserCard = styled(CardHeader)`
 	@media (max-width: 400px) {
@@ -31,51 +39,6 @@ const UserCard = styled(CardHeader)`
 			margin: 0 auto;
 		}
 	}
-`;
-
-const Overlay = styled(DialogContent)`
-	background-color: ${colors.button};
-	word-wrap: break-word;
-	padding-top: 0;
-	margin-top: 0;
-	.filepond--wrapper {
-		width: 100%;
-	}
-`;
-
-const StyledDialog = styled(Dialog)`
-	max-width: 696px;
-	margin: 0 auto;
-`;
-
-const Title = styled(DialogTitle)`
-	background-color: ${button};
-	h2 {
-		color: #fff;
-	}
-`;
-
-const StyledTextField = styled(TextField)`
-	color: ${colors.text};
-	input,
-	textarea {
-		color: ${colors.text};
-	}
-`;
-
-const StyledButton = styled(Button)`
-	border-bottom: solid 1px ${palette.yellow};
-	color: ${colors.text};
-	border-radius: 0px;
-	margin: 10px;
-	/* ${({ pro }) =>
-		pro &&
-		`
-		margin: 0 auto;
-		width: 200px;
-		height: 40px;
-	`} 
-	*/
 `;
 
 const Paywall = styled.div`
@@ -89,7 +52,6 @@ class TeamDetails extends React.Component {
 		super(props);
 
 		this.state = {
-			something: true,
 			number: '',
 			email: '',
 			admin: false,
@@ -108,6 +70,15 @@ class TeamDetails extends React.Component {
 		});
 	};
 
+	resetState = () => {
+		this.setState({
+			number: '',
+			email: '',
+			editTeamName: '',
+			editingTeamName: false
+		});
+	};
+
 	changeHandler = e => {
 		this.setState({
 			[e.target.name]: e.target.value
@@ -120,9 +91,12 @@ class TeamDetails extends React.Component {
 		const publishableKey = 'pk_test_GedRIIhEwHrV1xzzkxMsRuUX';
 
 		return (
-			<StyledDialog
+			<StyledModal
 				open={open}
-				onClose={() => hideModal()}
+				onClose={() => {
+					hideModal();
+					this.resetState();
+				}}
 				scroll="body"
 				PaperProps={{
 					style: {
@@ -132,16 +106,19 @@ class TeamDetails extends React.Component {
 				}}
 				// fullScreen={mediaQueryFor.smDevice}
 			>
-				<Close>
+				<ModalClose>
 					<IconButton
 						aria-label="Close"
-						onClick={() => hideModal()}
+						onClick={() => {
+							hideModal();
+							this.resetState();
+						}}
 						style={{ color: colors.text, background: palette.plumTransparent }}
 					>
 						<CloseIcon />
 					</IconButton>
-				</Close>
-				<Overlay>
+				</ModalClose>
+				<ModalOverlay>
 					<div>
 						{editingTeamName ? (
 							// {/* If the user is the admin on a team, give them a edit button */}
@@ -179,18 +156,19 @@ class TeamDetails extends React.Component {
 											);
 										}}
 									>
-										<StyledTextField
+										<StyledModalInput
 											placeholder="Edit team name..."
 											name="editTeamName"
 											value={this.state.editTeamName}
 											onChange={this.changeHandler}
+											fullWidth
 										/>
-										<StyledButton type="submit">Save</StyledButton>
+										<StyledModalButton type="submit">Save</StyledModalButton>
 									</form>
 								)}
 							</Mutation>
 						) : (
-							<h2 style={{ color: colors.text }}>{team.name}</h2>
+							<StyledModalTitle>{team.name}</StyledModalTitle>
 						)}
 						{admin ? (
 							<>
@@ -215,7 +193,7 @@ class TeamDetails extends React.Component {
 											}}
 										>
 											{deleteTeam => (
-												<StyledButton
+												<StyledModalButton
 													color="secondary"
 													onClick={e => {
 														e.preventDefault();
@@ -225,10 +203,10 @@ class TeamDetails extends React.Component {
 													}}
 												>
 													Delete Team
-												</StyledButton>
+												</StyledModalButton>
 											)}
 										</Mutation>
-										<StyledButton
+										<StyledModalButton
 											onClick={e => {
 												e.preventDefault();
 												this.setState({
@@ -238,7 +216,7 @@ class TeamDetails extends React.Component {
 											}}
 										>
 											Edit
-										</StyledButton>
+										</StyledModalButton>
 									</>
 								) : null}
 							</>
@@ -247,7 +225,9 @@ class TeamDetails extends React.Component {
 						{!team.premium ? (
 							<>
 								<Paywall>
-									<Title>Free teams can only have up to 5 users.</Title>
+									<StyledModalBody>
+										Free teams can only have up to 5 users.
+									</StyledModalBody>
 									{admin ? (
 										<Mutation
 											mutation={STRIPE_SOURCE}
@@ -298,7 +278,9 @@ class TeamDetails extends React.Component {
 											)}
 										</Mutation>
 									) : (
-										<Title>Tell your team administrators to upgrade.</Title>
+										<StyledModalBody>
+											Tell your team administrators to upgrade.
+										</StyledModalBody>
 									)}
 								</Paywall>
 							</>
@@ -308,9 +290,7 @@ class TeamDetails extends React.Component {
 						<Mutation mutation={mutation.INVITE_USER}>
 							{inviteUser => (
 								<div>
-									<Title id="form-dialog-title" style={{ color: colors.text }}>
-										Invite User
-									</Title>
+									<StyledModalTitle>Invite User</StyledModalTitle>
 									<form
 										onSubmit={e => {
 											e.preventDefault();
@@ -336,7 +316,7 @@ class TeamDetails extends React.Component {
 										style={{ color: '#fff' }}
 									>
 										<label htmlFor="email" />
-										<StyledTextField
+										<StyledModalInput
 											type="email"
 											name="email"
 											variant="outlined"
@@ -346,7 +326,7 @@ class TeamDetails extends React.Component {
 											fullWidth
 										/>
 										<label htmlFor="phone number" />
-										<StyledTextField
+										<StyledModalInput
 											placeholder="phone number"
 											type="text"
 											name="number"
@@ -356,7 +336,9 @@ class TeamDetails extends React.Component {
 											fullWidth
 										/>
 										<DialogActions>
-											<StyledButton type="submit">Submit</StyledButton>
+											<StyledModalButton type="submit">
+												Submit
+											</StyledModalButton>
 										</DialogActions>
 									</form>
 								</div>
@@ -420,8 +402,8 @@ class TeamDetails extends React.Component {
 							/>
 						))}
 					</div>
-				</Overlay>
-			</StyledDialog>
+				</ModalOverlay>
+			</StyledModal>
 		);
 	}
 }
