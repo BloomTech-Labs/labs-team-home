@@ -3,9 +3,6 @@ import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import React from 'react';
-import { Mutation } from 'react-apollo';
-import Invites from './Invites';
-import * as mutation from '../../constants/mutations';
 import TeamDetails from './TeamDetails';
 
 const TeamOptions = styled.div`
@@ -40,9 +37,6 @@ class TeamInfo extends React.Component {
 		this.state = {
 			isAdmin: false,
 			teamDetailsOpen: false
-			// showInvite: false,
-			// email: '',
-			// number: ''
 		};
 	}
 
@@ -54,12 +48,6 @@ class TeamInfo extends React.Component {
 			return null;
 		});
 	};
-
-	// toggleInviteHandler = () => {
-	// 	this.setState(prevState => ({
-	// 		showInvite: !prevState.showInvite
-	// 	}));
-	// };
 
 	toggleTeamDetails = () => {
 		this.setState(prevState => ({
@@ -74,17 +62,6 @@ class TeamInfo extends React.Component {
 				<TeamOptions>
 					<h1>{this.props.team.name}</h1>
 					<TeamActions>
-						{/* {this.state.isAdmin ? (
-							<StyledButton
-								variant="contained"
-								onClick={e => {
-									e.preventDefault();
-									this.toggleInviteHandler();
-								}}
-							>
-								Invite
-							</StyledButton>
-						) : null} */}
 						<StyledButton
 							variant="contained"
 							onClick={e => {
@@ -97,14 +74,14 @@ class TeamInfo extends React.Component {
 					</TeamActions>
 				</TeamOptions>
 
-				{/* Invite a user Modal */}
-
 				{/* click on the user list and view its contents modal */}
 				<TeamDetails
 					open={this.state.teamDetailsOpen}
 					team={this.props.team}
 					currentUser={this.props.currentUser}
 					hideModal={this.toggleTeamDetails}
+					admin={this.props.isAdmin}
+					{...this.props}
 				/>
 			</>
 		);

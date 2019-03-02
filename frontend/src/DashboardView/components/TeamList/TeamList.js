@@ -48,10 +48,6 @@ class TeamList extends React.Component {
 		});
 	};
 	render() {
-		console.log('teamList props: ', this.props);
-
-		let { currentUser } = this.props;
-
 		return (
 			/* NOTE: anything with <style.name> is essentially a styled component */
 			<style.Container>
@@ -112,10 +108,10 @@ class TeamList extends React.Component {
 									<style.LinkStyles to={`/${team._id}/home`}>
 										<TeamCard team={team} />
 									</style.LinkStyles>
-									{team.users.find(u => u.user._id === currentUser._id)
+									{/* {team.users.find(u => u.user._id === currentUser._id)
 										.admin ? (
 										<>
-											{/* If the user is the admin on a team, give them a edit button */}
+											{/* If the user is the admin on a team, give them a edit button
 											<Mutation
 												mutation={mutation.UPDATE_TEAM}
 												update={(cache, { data: { updateTeam } }) => {
@@ -161,7 +157,7 @@ class TeamList extends React.Component {
 												)}
 											</Mutation>
 
-											{/* If the user is the admin on a team, give them a delete button */}
+											{/* If the user is the admin on a team, give them a delete button 
 											<Mutation
 												mutation={mutation.DELETE_TEAM}
 												update={(cache, { data: { deleteTeam } }) => {
@@ -193,9 +189,9 @@ class TeamList extends React.Component {
 														Delete
 													</button>
 												)}
-											</Mutation>
+											</Mutation> 
 										</>
-									) : null}
+									 ) : null} */}
 								</div>
 							));
 						}}

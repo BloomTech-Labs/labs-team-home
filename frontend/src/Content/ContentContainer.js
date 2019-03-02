@@ -89,6 +89,7 @@ class ContentContainer extends React.Component {
 								<TeamInfo
 									currentUser={this.props.currentUser}
 									team={findTeam}
+									{...this.props}
 								/>
 
 								{/* List of content sections the user can choose to view */}

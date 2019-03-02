@@ -36,23 +36,23 @@ const Overlay = styled(DialogContent)`
 	}
 `;
 
-const SubmitButton = styled(Button)`
-	color: #fff;
-	${({ pro }) =>
-		pro &&
-		/* CSS */ `
-		margin: 0 auto;
-		width: 200px;
-		height: 40px;
-	`}
-`;
+// const SubmitButton = styled(Button)`
+// 	color: #fff;
+// 	${({ pro }) =>
+// 		pro &&
+// 		/* CSS */ `
+// 		margin: 0 auto;
+// 		width: 200px;
+// 		height: 40px;
+// 	`}
+// `;
 
-const Title = styled(DialogTitle)`
-	background-color: ${button};
-	h2 {
-		color: #fff;
-	}
-`;
+// const Title = styled(DialogTitle)`
+// 	background-color: ${button};
+// 	h2 {
+// 		color: #fff;
+// 	}
+// `;
 
 const Paywall = styled.div`
 	display: flex;
@@ -79,8 +79,6 @@ export default function Invites({
 	return (
 		<Container open={open} onClose={closeHandler}>
 			<Overlay>
-				{/* {team.users.length < 5 || team.premium ? (
-					<> */}
 				<Title id="form-dialog-title" style={{ color: '#fff' }}>
 					Invite User
 				</Title>

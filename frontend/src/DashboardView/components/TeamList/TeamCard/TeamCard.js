@@ -23,7 +23,6 @@ function TeamCard(props) {
 	const { name, premium } = props.team;
 	const { classes } = props;
 
-	console.log('teamCard props: ', props);
 	return (
 		/* components styled via JSS */
 		<style.Container>
