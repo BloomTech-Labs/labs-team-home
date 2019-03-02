@@ -4,7 +4,7 @@ import SettingsTabs from '../components/tabs/SettingsTabs';
 import FormInput from '../components/forms/FormInput';
 import FormCheckbox from '../components/forms/FormCheckbox';
 import FormButton from '../components/forms/FormButton';
-import BillingView from '../BillingView/BillingView';
+// import BillingView from '../BillingView/BillingView';
 import * as mutation from '../../constants/mutations';
 import * as query from '../../constants/queries';
 import { FilePond, registerPlugin } from 'react-filepond';
@@ -289,7 +289,7 @@ class SettingsView extends Component {
 												? this.props.currentUser.phoneNumber
 												: 'Enter your phone number'
 										}
-										handleChange={this.handleChange}
+										onChange={this.handleChange}
 									/>
 									<FormCheckbox
 										title={'Receive emails?'}
@@ -306,13 +306,14 @@ class SettingsView extends Component {
 									<FormButton type="submit" title="save" />
 								</StyledForm>
 							</div>
+							{/* <div>{` `}</div>
 							<div label="Team Billing">
 								<BillingView
 									teamId={this.state.teamId}
 									handlePickTeam={this.handlePickTeam}
 									currentUser={currentUser}
 								/>
-							</div>
+							</div> */}
 						</SettingsTabs>
 					</SettingsContainer>
 				)}
@@ -402,13 +403,13 @@ class SettingsView extends Component {
 									<FormButton title={'Save'} />
 								</form>
 							</div>
-							<div label="Team Billing">
+							{/* <div label="Team Billing">
 								<BillingView
 									teamId={this.state.teamId}
 									handlePickTeam={this.handlePickTeam}
 									currentUser={currentUser}
 								/>
-							</div>
+							</div> */}
 						</SettingsTabs>
 					</SettingsContainer>
 				)}

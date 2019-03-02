@@ -16,7 +16,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
-import { Link } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 import Logo from '../../assets/TH_favicon.png';
 import gql from 'graphql-tag';
@@ -85,11 +84,11 @@ const Paywall = styled.div`
 	align-items: center;
 `;
 
-const GoPro = styled(Link)`
-	&:hover {
-		text-decoration: none;
-	}
-`;
+// const GoPro = styled(Link)`
+// 	&:hover {
+// 		text-decoration: none;
+// 	}
+// `;
 
 class TeamDetails extends React.Component {
 	constructor(props) {
@@ -178,7 +177,12 @@ class TeamDetails extends React.Component {
 													id: team._id,
 													name: this.state.editTeamName
 												}
-											});
+											}).then(
+												this.setState({
+													editTeamName: '',
+													editingTeamName: false
+												})
+											);
 										}}
 									>
 										<StyledTextField
@@ -293,7 +297,7 @@ class TeamDetails extends React.Component {
 											e.preventDefault();
 											this.setState({
 												editingTeamName: true,
-												editTeamName: team.title
+												editTeamName: team.name
 											});
 										}}
 									>
