@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
-import * as query from '../../constants/queries';
-import Draggable from './DnD/Draggable';
-import Droppable from './DnD/Droppable';
+import * as query from '../../../constants/queries';
+import Draggable from '../DnD/Draggable';
+import Droppable from '../DnD/Droppable';
 import DocumentDetails from './DocumentDetails';
 
 const Container = styled.div`

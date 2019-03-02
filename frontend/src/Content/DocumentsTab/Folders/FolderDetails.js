@@ -6,20 +6,20 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Close } from '../MessageBoard/MessageDetail';
-import { colors, palette } from '../../colorVariables';
-import { deleteFolder, updateFolder } from '../mutations/folders';
+import { Close } from '../../MessageBoard/MessageDetail';
+import { colors, palette } from '../../../colorVariables';
+import { deleteFolder, updateFolder } from '../../mutations/folders';
 import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import * as query from '../../constants/queries';
+import * as query from '../../../constants/queries';
 import { Paper } from '@material-ui/core';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
-import { updateDocument } from '../mutations/documents';
-import DocumentDetails from './DocumentDetails';
-import mediaQueryFor from '../../_global_styles/responsive_querie';
+import { updateDocument } from '../../mutations/documents';
+import DocumentDetails from '../Documents/DocumentDetails';
+import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
 //Pretty much all of these components are defined elsewhere,
 //we really ought to have a component for modal styling
@@ -155,7 +155,7 @@ class FolderDetails extends React.Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
 							if (this.props.open === true && this.state.refreshed === false) {
-								console.log(this.props.open, this.state.refreshed);
+								// console.log(this.props.open, this.state.refreshed);
 								refetch()
 									.then(this.refreshFolderInfo())
 									.catch(err => console.error(err));

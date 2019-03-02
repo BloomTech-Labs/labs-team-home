@@ -84,12 +84,6 @@ const Paywall = styled.div`
 	align-items: center;
 `;
 
-// const GoPro = styled(Link)`
-// 	&:hover {
-// 		text-decoration: none;
-// 	}
-// `;
-
 class TeamDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -221,6 +215,7 @@ class TeamDetails extends React.Component {
 											}}
 										>
 											{(setPremium, { data }) => (
+												// this stripe component is a button and a modal
 												<StripeCheckout
 													label="Go Premium" //Component button text
 													name="TeamHome" //Modal Header
@@ -340,7 +335,6 @@ class TeamDetails extends React.Component {
 									>
 										<label htmlFor="email" />
 										<StyledTextField
-											// id="outlined-bare"
 											type="email"
 											name="email"
 											variant="outlined"

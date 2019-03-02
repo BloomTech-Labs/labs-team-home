@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import SingleTab from './SingleTab';
+import SingleTab from './SingleTab--DEPRECATED';
 
 const TabList = styled.ol`
 	display: flex;

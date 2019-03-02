@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TeamList from '../components/TeamList';
+import TeamList from '../components/TeamList/TeamList';
 
 class Dashboard extends Component {
 	constructor(props) {

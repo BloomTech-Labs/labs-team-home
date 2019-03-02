@@ -8,9 +8,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Close } from '../MessageBoard/MessageDetail';
-import { colors, palette } from '../../colorVariables';
-import { addFolder } from '../mutations/folders';
+import { Close } from '../../MessageBoard/MessageDetail';
+import { colors, palette } from '../../../colorVariables';
+import { addFolder } from '../../mutations/folders';
 
 const StyledDialog = styled(Dialog)`
 	max-width: 696px;

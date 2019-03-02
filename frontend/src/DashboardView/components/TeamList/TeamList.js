@@ -5,7 +5,7 @@ import * as style from './TeamList.styles';
 import * as query from '../../../constants/queries';
 import * as mutation from '../../../constants/mutations';
 
-import TeamCard from './TeamCard';
+import TeamCard from './TeamCard/TeamCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
@@ -108,90 +108,6 @@ class TeamList extends React.Component {
 									<style.LinkStyles to={`/${team._id}/home`}>
 										<TeamCard team={team} />
 									</style.LinkStyles>
-									{/* {team.users.find(u => u.user._id === currentUser._id)
-										.admin ? (
-										<>
-											{/* If the user is the admin on a team, give them a edit button
-											<Mutation
-												mutation={mutation.UPDATE_TEAM}
-												update={(cache, { data: { updateTeam } }) => {
-													const { findTeamsByUser } = cache.readQuery({
-														query: query.FIND_TEAMS_BY_USER
-													});
-													cache.writeQuery({
-														query: query.FIND_TEAMS_BY_USER,
-														variables: { team: team },
-														data: {
-															findTeamsByUser: findTeamsByUser.map(team => {
-																return team._id === updateTeam._id
-																	? updateTeam
-																	: team;
-															})
-														}
-													});
-												}}
-											>
-												{(
-													updateTeam //on submit
-												) => (
-													<form
-														onSubmit={e => {
-															e.preventDefault();
-															updateTeam({
-																variables: {
-																	id: team._id,
-																	name: this.state.editTeamName
-																}
-															});
-														}}
-													>
-														<style.Input
-															className={this.state.classes.input}
-															placeholder="Edit team name..."
-															name="editTeamName"
-															value={this.state.editTeamName}
-															onChange={this.changeHandler}
-														/>
-														<button type="submit">Edit</button>
-													</form>
-												)}
-											</Mutation>
-
-											{/* If the user is the admin on a team, give them a delete button 
-											<Mutation
-												mutation={mutation.DELETE_TEAM}
-												update={(cache, { data: { deleteTeam } }) => {
-													const { findTeamsByUser } = cache.readQuery({
-														query: query.FIND_TEAMS_BY_USER
-													});
-													cache.writeQuery({
-														query: query.FIND_TEAMS_BY_USER,
-														variables: { team: team },
-														data: {
-															findTeamsByUser: findTeamsByUser.filter(
-																({ _id }) => _id !== deleteTeam._id
-															)
-														}
-													});
-												}}
-											>
-												{(
-													deleteTeam // on submit
-												) => (
-													<button
-														onClick={e => {
-															e.preventDefault();
-															deleteTeam({
-																variables: { id: team._id }
-															});
-														}}
-													>
-														Delete
-													</button>
-												)}
-											</Mutation> 
-										</>
-									 ) : null} */}
 								</div>
 							));
 						}}

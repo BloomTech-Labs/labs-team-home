@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import DocsButtonMenu from './DocsButtonMenu';
-import Folders from './Folders';
-import Documents from './Documents';
+import Folders from './Folders/Folders';
+import Documents from './Documents/Documents';
 
 const MainContainer = styled.div`
 	width: 96%;

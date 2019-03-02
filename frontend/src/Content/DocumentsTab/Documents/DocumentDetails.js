@@ -6,16 +6,16 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Close } from '../MessageBoard/MessageDetail';
-import { colors, palette } from '../../colorVariables';
-import { deleteDocument, updateDocument } from '../mutations/documents';
+import { Close } from '../../MessageBoard/MessageDetail';
+import { colors, palette } from '../../../colorVariables';
+import { deleteDocument, updateDocument } from '../../mutations/documents';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
-import * as query from '../../constants/queries';
+import * as query from '../../../constants/queries';
 import CardContent from '@material-ui/core/CardContent';
 import {
 	addDocComment,
@@ -23,9 +23,9 @@ import {
 	deleteDocComment,
 	likeDocComment,
 	unLikeDocComment
-} from '../mutations/doccomments';
+} from '../../mutations/doccomments';
 import SendIcon from '@material-ui/icons/Send';
-import mediaQueryFor from '../../_global_styles/responsive_querie';
+import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
 //Pretty much all of these components are defined elsewhere,
 //we really ought to have a component for modal styling
@@ -125,7 +125,7 @@ class DocumentDetails extends React.Component {
 		} = this.props;
 
 		if (document === null) return <></>;
-		console.log(this.props);
+		// console.log(this.props);
 		return (
 			<StyledDialog
 				open={this.props.open}

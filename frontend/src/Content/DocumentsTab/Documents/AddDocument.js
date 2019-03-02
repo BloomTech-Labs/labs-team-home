@@ -8,10 +8,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Close } from '../MessageBoard/MessageDetail';
-import { colors, palette } from '../../colorVariables';
-import { addDocument, addTag } from '../mutations/documents';
-import { FIND_TAGS_BY_TEAM } from '../../constants/queries'; // this seems to be working
+import { Close } from '../../MessageBoard/MessageDetail';
+import { colors, palette } from '../../../colorVariables';
+import { addDocument, addTag } from '../../mutations/documents';
+import { FIND_TAGS_BY_TEAM } from '../../../constants/queries'; // this seems to be working
 
 const StyledDialog = styled(Dialog)`
 	max-width: 696px;
