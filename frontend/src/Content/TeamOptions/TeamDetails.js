@@ -16,6 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
+import { Link } from 'react-router-dom';
 
 const { button } = colors;
 
@@ -74,6 +75,18 @@ const StyledButton = styled(Button)`
 	*/
 `;
 
+const Paywall = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const GoPro = styled(Link)`
+	&:hover {
+		text-decoration: none;
+	}
+`;
+
 class TeamDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -119,7 +132,20 @@ class TeamDetails extends React.Component {
 				</Close>
 				<Overlay>
 					<div>
-						<h2 style={{ color: colors.text }}>Team: {team.name}</h2>
+						<h2 style={{ color: colors.text }}>{team.name}</h2>
+						{!team.premium ? (
+							<Paywall>
+								<Title>Free teams can only have up to 5 users.</Title>
+								{team.users.find(({ user }) => user._id === currentUser._id)
+									.admin ? (
+									<GoPro to="/settings">
+										<StyledButton>Go Pro</StyledButton>
+									</GoPro>
+								) : (
+									<Title>Tell your team administrators to upgrade.</Title>
+								)}
+							</Paywall>
+						) : null}
 						<Mutation mutation={mutation.INVITE_USER}>
 							{inviteUser => (
 								<div>
@@ -178,25 +204,6 @@ class TeamDetails extends React.Component {
 								</div>
 							)}
 						</Mutation>
-						{/* </>
-										) : ( */}
-						{/* <Paywall>
-											<Title>Sorry, free teams can only have up to 5 users.</Title>
-											{team.users.find(({ user }) => user._id === currentUser._id).admin ? (
-												<GoPro to="/settings">
-													<SubmitButton
-														pro
-														size="large"
-														variant="contained"
-														color="secondary"
-													>
-														Go Pro
-													</SubmitButton>
-												</GoPro>
-											) : (
-												<Title>Tell your team administrators to upgrade.</Title>
-											)}
-										</Paywall> */}
 						{team.users.map(user => (
 							<UserCard
 								key={user.user._id}
@@ -229,8 +236,7 @@ class TeamDetails extends React.Component {
 										{/* Make sure the user can be kicked before rendering the kick button, then kick */}
 										{kickUser =>
 											team.users.find(user => user.user._id === currentUser._id)
-												.admin &&
-											user.user._id !== currentUser._id && (
+												.admin && user.user._id !== currentUser._id ? (
 												<Button
 													color="secondary"
 													onClick={e => {
@@ -245,7 +251,13 @@ class TeamDetails extends React.Component {
 												>
 													Kick User
 												</Button>
-											)
+											) : team.users.find(
+													user => user.user._id === currentUser._id
+											  ).admin && user.user._id === currentUser._id ? (
+												<Button>Admin</Button>
+											) : user.user._id === currentUser._id ? (
+												<Button>You</Button>
+											) : null
 										}
 									</Mutation>
 								}
