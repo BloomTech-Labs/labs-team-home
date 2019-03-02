@@ -192,6 +192,57 @@ class TeamDetails extends React.Component {
 						) : (
 							<h2 style={{ color: colors.text }}>{team.name}</h2>
 						)}
+						{admin ? (
+							<>
+								{/* If the user is the admin on a team, give them a delete button */}
+								{!editingTeamName ? (
+									<>
+										<Mutation
+											mutation={mutation.DELETE_TEAM}
+											update={(cache, { data: { deleteTeam } }) => {
+												const { findTeamsByUser } = cache.readQuery({
+													query: query.FIND_TEAMS_BY_USER
+												});
+												cache.writeQuery({
+													query: query.FIND_TEAMS_BY_USER,
+													variables: { team: team },
+													data: {
+														findTeamsByUser: findTeamsByUser.filter(
+															({ _id }) => _id !== deleteTeam._id
+														)
+													}
+												});
+											}}
+										>
+											{deleteTeam => (
+												<StyledButton
+													color="secondary"
+													onClick={e => {
+														e.preventDefault();
+														deleteTeam({
+															variables: { id: team._id }
+														}).then(this.props.history.push('/dashboard'));
+													}}
+												>
+													Delete Team
+												</StyledButton>
+											)}
+										</Mutation>
+										<StyledButton
+											onClick={e => {
+												e.preventDefault();
+												this.setState({
+													editingTeamName: true,
+													editTeamName: team.name
+												});
+											}}
+										>
+											Edit
+										</StyledButton>
+									</>
+								) : null}
+							</>
+						) : null}
 						{/* Conditionally render info about upgrading the plan */}
 						{!team.premium ? (
 							<>
@@ -250,55 +301,6 @@ class TeamDetails extends React.Component {
 										<Title>Tell your team administrators to upgrade.</Title>
 									)}
 								</Paywall>
-							</>
-						) : null}
-						{admin ? (
-							<>
-								{/* If the user is the admin on a team, give them a delete button */}
-								<Mutation
-									mutation={mutation.DELETE_TEAM}
-									update={(cache, { data: { deleteTeam } }) => {
-										const { findTeamsByUser } = cache.readQuery({
-											query: query.FIND_TEAMS_BY_USER
-										});
-										cache.writeQuery({
-											query: query.FIND_TEAMS_BY_USER,
-											variables: { team: team },
-											data: {
-												findTeamsByUser: findTeamsByUser.filter(
-													({ _id }) => _id !== deleteTeam._id
-												)
-											}
-										});
-									}}
-								>
-									{deleteTeam => (
-										<StyledButton
-											color="secondary"
-											onClick={e => {
-												e.preventDefault();
-												deleteTeam({
-													variables: { id: team._id }
-												}).then(this.props.history.push('/dashboard'));
-											}}
-										>
-											Delete Team
-										</StyledButton>
-									)}
-								</Mutation>
-								{!editingTeamName ? (
-									<StyledButton
-										onClick={e => {
-											e.preventDefault();
-											this.setState({
-												editingTeamName: true,
-												editTeamName: team.name
-											});
-										}}
-									>
-										Edit
-									</StyledButton>
-								) : null}
 							</>
 						) : null}
 
@@ -410,7 +412,7 @@ class TeamDetails extends React.Component {
 											) : admin && user.user._id === currentUser._id ? (
 												<Button>Admin</Button>
 											) : user.user._id === currentUser._id ? (
-												<Button>You</Button>
+												<Button>You</Button> //Change this to a mutation which allows the user to leave the team.
 											) : null
 										}
 									</Mutation>

@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import * as f from './fragments';
 
+//Why does this not have a query attached?
 export const FIND_TEAMS_BY_USER = gql`
 	{
 		findTeamsByUser {

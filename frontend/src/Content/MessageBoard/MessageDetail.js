@@ -96,12 +96,15 @@ class MessageDetail extends Component {
 			edited: null,
 			title: '',
 			content: '',
-			commentContent: ''
+			commentContent: '',
+			newComment: ''
 		};
-		this.edit = React.createRef();
 	}
 
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+	handleChange = e =>
+		this.setState({
+			[e.target.name]: e.target.value
+		});
 
 	resetState = () =>
 		this.setState({
@@ -114,7 +117,6 @@ class MessageDetail extends Component {
 		});
 
 	render() {
-		let content;
 		const {
 			open,
 			hideModal,
@@ -357,7 +359,6 @@ class MessageDetail extends Component {
 											{/* check to see if the user can edit the comments */}
 											{this.state.editing && this.state.edited === comment ? (
 												<form
-													action="submit"
 													onSubmit={e => {
 														e.preventDefault();
 														updateMsgComment({
@@ -368,7 +369,6 @@ class MessageDetail extends Component {
 												>
 													<StyledEditCommentLabel htmlFor="comment-content">
 														<StyledTextField
-															inputRef={this.edit}
 															name="commentContent"
 															value={this.state.commentContent}
 															onChange={this.handleChange}
@@ -391,16 +391,14 @@ class MessageDetail extends Component {
 													{comment.user._id === currentUser._id && (
 														<>
 															<StyledButton
-																onClick={async e => {
-																	//why is this async, and does it need focus ??????
+																onClick={e => {
 																	e.preventDefault();
 																	if (!this.state.editingMessage) {
-																		await this.setState({
+																		this.setState({
 																			editing: true,
 																			edited: comment,
 																			commentContent: comment.content
 																		});
-																		await this.edit.current.focus();
 																	} else {
 																		alert(
 																			"Please finish editing your message by clicking 'SAVE' before editing a comment."
@@ -445,22 +443,17 @@ class MessageDetail extends Component {
 									))}
 									{/* Add a new comment form  */}
 									<Form
-										action="submit"
 										onSubmit={e => {
 											e.preventDefault();
 											addMsgComment({
 												message: message._id,
-												content: content.value
+												content: this.state.newComment
 											});
-											content.value = '';
 										}}
 									>
 										<CommentInputLabel htmlFor="comment-content">
 											<TextField
 												placeholder="Leave a comment..."
-												inputRef={node => {
-													content = node;
-												}}
 												inputProps={{
 													style: {
 														color: '#000',
@@ -469,6 +462,9 @@ class MessageDetail extends Component {
 														padding: '0px'
 													}
 												}}
+												value={this.state.newComment}
+												name="newComment"
+												onChange={this.handleChange}
 												fullWidth
 												multiline={true}
 											/>
