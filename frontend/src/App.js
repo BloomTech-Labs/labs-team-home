@@ -18,6 +18,9 @@ import { create } from 'jss'; // lets you write style sheets in javascript
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles'; // gets styling from material-ui
 import { CSSTransition, TransitionGroup } from 'react-transition-group'; // some transitions
 
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
+
 const generateClassName = createGenerateClassName();
 const jss = create({
 	...jssPreset(),
@@ -58,4 +61,4 @@ class App extends Component {
 	}
 }
 
-export default withRouter(App);
+export default DragDropContext(HTML5Backend)(withRouter(App));

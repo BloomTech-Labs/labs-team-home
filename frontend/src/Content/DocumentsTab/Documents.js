@@ -3,6 +3,10 @@ import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import * as query from '../../constants/queries';
 import DocumentDetails from './DocumentDetails';
+import { DropTarget } from 'react-dnd';
+import Doc from './Doc';
+import { compose } from 'react-apollo';
+import { updateDocument } from '../mutations/documents';
 
 const Container = styled.div`
 	display: flex;
@@ -53,6 +57,16 @@ const SortForm = styled.form`
 	}
 `;
 
+var folderId;
+
+function collect(connect, monitor) {
+	return {
+		connectDropTarget: connect.dropTarget(),
+		hovered: monitor.isOver(),
+		document: monitor.getItem()
+	};
+}
+
 class Documents extends Component {
 	constructor(props) {
 		super(props);
@@ -74,80 +88,104 @@ class Documents extends Component {
 		this.setState({ sortOption: e.target.value });
 	};
 
+	updateDrop = id => {
+		console.log('Staging DOC: ', id);
+		console.log('DropArea ID: ', folderId);
+
+		this.props.updateDocument({ id: id, folder: folderId });
+		console.log('Document Update');
+	};
+
 	render() {
 		// console.log('props: ', this.props);
-		return (
-			<Container>
-				<FormDiv>
-					<SortForm>
-						<label>
-							Folder Sort:
-							<select value={this.state.sortOption} onChange={this.sortChange}>
-								<option value="newest">Newest First</option>
-								<option value="oldest">Oldest First</option>
-							</select>
-						</label>
-					</SortForm>
-				</FormDiv>
-				{/* Find all the documents  */}
-				<Query
-					query={query.FIND_DOCUMENTS_BY_TEAM}
-					variables={{ team: this.props.team._id }}
-				>
-					{({ loading, error, data: { findDocumentsByTeam } }) => {
-						// if (networkStatus === 4) return "Refetching";
-						if (loading) return <p>Loading...</p>;
-						if (error) return console.error(error);
-						if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
-							switch (this.state.sortOption) {
-								case 'newest':
-									findDocumentsByTeam.sort((a, b) => {
-										if (a.createdAt < b.createdAt) return 1;
-										if (a.createdAt > b.createdAt) return -1;
-										return 0;
-									});
-									break;
-								case 'oldest':
-									findDocumentsByTeam.sort((a, b) => {
-										if (a.createdAt < b.createdAt) return -1;
-										if (a.createdAt > b.createdAt) return 1;
-										return 0;
-									});
-									break;
-								default:
-									break;
-							}
+		const { connectDropTarget, hovered } = this.props;
+		const backgroundColor = hovered ? 'lightgray' : '';
+		if (hovered) {
+			folderId = 'null';
+			console.log(folderId);
+		}
 
-							return findDocumentsByTeam
-								.filter(doc => doc.folder === null)
-								.map(doc => {
-									return (
-										<IndividualDocument
-											key={doc._id}
-											document={doc}
-											onClick={() => this.toggleDocumentDetail(doc)}
-										>
-											<p>{doc.title}</p>
-											<p>{doc.tag ? doc.tag.name : ''}</p>
-										</IndividualDocument>
-									);
-								});
-						} else {
-							return <Error>No Documents Available For This Team</Error>;
-						}
-					}}
-				</Query>
-				{/* All the Modals */}
-				<DocumentDetails
-					open={this.state.documentDetailOpen}
-					hideModal={() => this.toggleDocumentDetail(null)}
-					document={this.state.currentDocument}
-					currentUser={this.props.currentUser}
-					team={this.props.team._id}
-				/>
-			</Container>
+		return connectDropTarget(
+			<div>
+				<Container style={{ background: backgroundColor }}>
+					<FormDiv>
+						<SortForm>
+							<label>
+								Folder Sort:
+								<select
+									value={this.state.sortOption}
+									onChange={this.sortChange}
+								>
+									<option value="newest">Newest First</option>
+									<option value="oldest">Oldest First</option>
+								</select>
+							</label>
+						</SortForm>
+					</FormDiv>
+					{/* Find all the documents  */}
+					<Query
+						query={query.FIND_DOCUMENTS_BY_TEAM}
+						variables={{ team: this.props.team._id }}
+					>
+						{({ loading, error, data: { findDocumentsByTeam } }) => {
+							// if (networkStatus === 4) return "Refetching";
+							if (loading) return <p>Loading...</p>;
+							if (error) return console.error(error);
+							if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
+								switch (this.state.sortOption) {
+									case 'newest':
+										findDocumentsByTeam.sort((a, b) => {
+											if (a.createdAt < b.createdAt) return 1;
+											if (a.createdAt > b.createdAt) return -1;
+											return 0;
+										});
+										break;
+									case 'oldest':
+										findDocumentsByTeam.sort((a, b) => {
+											if (a.createdAt < b.createdAt) return -1;
+											if (a.createdAt > b.createdAt) return 1;
+											return 0;
+										});
+										break;
+									default:
+										break;
+								}
+
+								return findDocumentsByTeam
+									.filter(doc => doc.folder === null)
+									.map(doc => {
+										return (
+											<div
+												onClick={() => this.toggleDocumentDetail(doc)}
+												key={doc._id}
+											>
+												<Doc
+													document={doc}
+													handleDrop={id => this.updateDrop(id)}
+												/>
+											</div>
+										);
+									});
+							} else {
+								return <Error>No Documents Available For This Team</Error>;
+							}
+						}}
+					</Query>
+					{/* All the Modals */}
+					<DocumentDetails
+						open={this.state.documentDetailOpen}
+						hideModal={() => this.toggleDocumentDetail(null)}
+						document={this.state.currentDocument}
+						currentUser={this.props.currentUser}
+						team={this.props.team._id}
+					/>
+				</Container>
+			</div>
 		);
 	}
 }
 
-export default Documents;
+export default compose(
+	DropTarget('item', {}, collect),
+	updateDocument
+)(Documents);

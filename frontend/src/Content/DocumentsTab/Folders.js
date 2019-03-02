@@ -3,8 +3,6 @@ import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import * as query from '../../constants/queries';
 import FolderDetails from './FolderDetails';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContext } from 'react-dnd';
 import Folder from './Folder';
 import { compose } from 'react-apollo';
 import { updateDocument } from '../mutations/documents';
@@ -45,7 +43,8 @@ class Folders extends Component {
 		this.state = {
 			currentFolder: null,
 			folderDetailOpen: false,
-			sortOption: 'newest'
+			sortOption: 'newest',
+			latestFolderDropId: null
 		};
 	}
 
@@ -58,6 +57,12 @@ class Folders extends Component {
 
 	sortChange = e => {
 		this.setState({ sortOption: e.target.value });
+	};
+
+	resetComponent = id => {
+		this.setState({
+			latestFolderDropId: id
+		});
 	};
 
 	render() {
@@ -79,12 +84,21 @@ class Folders extends Component {
 				<Query
 					query={query.FIND_FOLDERS_BY_TEAM}
 					variables={{ team: this.props.team._id }}
+					notifyOnNetworkStatusChange
 				>
-					{({ loading, error, data: { findFoldersByTeam } }) => {
+					{({
+						loading,
+						error,
+						data: { findFoldersByTeam },
+						refetch,
+						networkStatus
+					}) => {
 						// console.log('returned from findFoldersByTeam', findFoldersByTeam);
+						if (networkStatus === 4) return 'Folder Loading';
 						if (loading) return <p>Loading...</p>;
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
+							const folderFetch = refetch;
 							switch (this.state.sortOption) {
 								case 'newest':
 									findFoldersByTeam.sort((a, b) => {
@@ -117,17 +131,20 @@ class Folders extends Component {
 										refetch,
 										networkStatus
 									}) => {
-										if (networkStatus === 4) return 'Updating';
+										if (networkStatus === 4) return 'Doc Loading';
 										if (loading) return <p>Loading...</p>;
 										if (error) return console.error(error);
+										const DocFetch = refetch;
 										return (
-											<div>
+											<div onClick={() => this.toggleFolderDetail(folder)}>
 												<Folder
 													folder={folder}
 													upd={this.docDropped}
 													findDocumentsByFolder={findDocumentsByFolder}
 													team={this.props.team._id}
-													fetch={refetch}
+													fetch={DocFetch}
+													folderFetch={folderFetch}
+													resetComp={this.resetComponent}
 												/>
 											</div>
 										);
@@ -153,7 +170,9 @@ class Folders extends Component {
 	}
 }
 
-export default compose(
-	DragDropContext(HTML5Backend),
-	updateDocument
-)(Folders);
+// export default compose(
+// 	DragDropContext(HTML5Backend),
+// 	updateDocument
+// )(Folders);
+
+export default Folders;
