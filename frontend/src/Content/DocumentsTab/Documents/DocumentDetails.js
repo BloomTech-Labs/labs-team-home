@@ -256,7 +256,7 @@ class DocumentDetails extends React.Component {
 									<StyledModalTitle>Comments</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
-										<StyledModalPaper>
+										<StyledModalPaper key={comment._id}>
 											<CardHeader
 												avatar={
 													<Avatar
@@ -290,8 +290,7 @@ class DocumentDetails extends React.Component {
 														name="commentContent"
 														value={this.state.commentContent}
 														onChange={this.handleChange}
-														variant="outlined"
-														multiline={true}
+														multiline
 													/>
 													<StyledModalButton type="submit">
 														Save

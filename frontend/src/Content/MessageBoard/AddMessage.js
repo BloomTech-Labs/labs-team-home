@@ -135,30 +135,24 @@ class AddMessage extends React.Component {
 									<StyledModalInput
 										name="title"
 										placeholder="title"
-										variant="outlined"
 										inputRef={node => {
 											title = node;
 										}}
-										fullWidth
 									/>
 									<StyledModalInput
 										name="contents"
 										placeholder="content"
-										variant="outlined"
 										inputRef={node => {
 											content = node;
 										}}
 										multiline
-										fullWidth
 									/>
 									<StyledModalInput
 										name="tag"
 										placeholder="tag"
-										variant="outlined"
 										inputRef={node => {
 											tag = node;
 										}}
-										fullWidth
 									/>
 									<FilePond
 										allowMultiple={true}

@@ -129,7 +129,8 @@ export const StyledModalForm = styled.form.attrs(() => ({
 
 // Input area on forms for editing items. Has a purple background
 export const StyledModalInput = styled(TextField).attrs(() => ({
-	fullWidth: true
+	fullWidth: true,
+	variant: 'outlined'
 }))`
 	background: ${palette.plum};
 	input,

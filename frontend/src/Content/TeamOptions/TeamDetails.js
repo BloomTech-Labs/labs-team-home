@@ -310,7 +310,6 @@ class TeamDetails extends React.Component {
 										<StyledModalInput
 											type="email"
 											name="email"
-											variant="outlined"
 											placeholder="email"
 											onChange={this.changeHandler}
 											value={this.email}
@@ -320,7 +319,6 @@ class TeamDetails extends React.Component {
 											placeholder="phone number"
 											type="text"
 											name="number"
-											variant="outlined"
 											onChange={this.changeHandler}
 											value={this.number}
 											fullWidth

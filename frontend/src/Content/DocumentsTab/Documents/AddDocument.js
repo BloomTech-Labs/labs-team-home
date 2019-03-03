@@ -110,30 +110,29 @@ class AddDocument extends React.Component {
 								>
 									<StyledModalInput
 										name="title"
+										value={this.state.title}
 										placeholder="title"
-										variant="outlined"
 										onChange={this.handleChange}
 									/>
 									<StyledModalInput
 										name="url"
+										value={this.state.url}
 										placeholder="url"
-										variant="outlined"
 										onChange={this.handleChange}
 									/>
 									<StyledModalInput
 										name="content"
+										value={this.state.content}
 										placeholder="content"
-										variant="outlined"
 										onChange={this.handleChange}
 										multiline
 									/>
 									<StyledModalInput
 										name="tag"
+										value={this.state.tag}
 										placeholder="tag"
-										variant="outlined"
 										onChange={this.handleChange}
 									/>
-
 									<StyledModalButton type="submit" fullWidth>
 										Add
 									</StyledModalButton>

@@ -64,9 +64,7 @@ class AddFolder extends React.Component {
 						<StyledModalInput
 							name="title"
 							placeholder="title"
-							variant="outlined"
 							onChange={this.handleChange}
-							fullWidth
 						/>
 						<StyledModalButton type="submit" fullWidth>
 							Add

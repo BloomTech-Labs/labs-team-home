@@ -279,8 +279,7 @@ class MessageDetail extends Component {
 														name="commentContent"
 														value={this.state.commentContent}
 														onChange={this.handleChange}
-														variant="outlined"
-														multiline={true}
+														multiline
 													/>
 
 													<StyledModalButton type="submit">
