@@ -54,6 +54,8 @@ class DocumentDetails extends React.Component {
 		};
 	}
 
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+
 	resetState = () =>
 		this.setState({
 			editingDocument: false,
@@ -65,8 +67,6 @@ class DocumentDetails extends React.Component {
 			editedComment: null,
 			newCommentContent: ''
 		});
-
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	render() {
 		const {

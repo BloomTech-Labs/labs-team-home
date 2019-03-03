@@ -55,10 +55,7 @@ class MessageDetail extends Component {
 		};
 	}
 
-	handleChange = e =>
-		this.setState({
-			[e.target.name]: e.target.value
-		});
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	resetState = () =>
 		this.setState({

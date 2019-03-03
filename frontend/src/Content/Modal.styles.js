@@ -16,7 +16,7 @@ import { palette, colors } from '../colorVariables';
 import { Paper } from '@material-ui/core';
 // import mediaQueryFor from '../../_global_styles/responsive_querie';
 
-// All modal basically follow this structures ... basically ... :
+// All modals basically follow this structure ... basically ... :
 //
 // <Dialog>
 // 	<Close>
@@ -158,7 +158,7 @@ export const StyledModalNewCommentForm = styled.form`
 export const StyledModalNewCommentInput = styled(TextField).attrs(() => ({
 	inputProps: {
 		style: {
-			color: '#000', //<-- why?
+			color: '#000',
 			height: '100px',
 			backgroundColor: '#fff', //<-- why?
 			padding: '0px' //<-- why?
