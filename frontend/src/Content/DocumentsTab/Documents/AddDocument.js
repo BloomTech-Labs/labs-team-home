@@ -7,16 +7,18 @@ import { FIND_TAGS_BY_TEAM } from '../../../constants/queries'; // this seems to
 
 // ------------- Style Imports ---------------------- //
 // import styled from 'styled-components';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { colors, palette } from '../../../colorVariables';
 
 // ------------- Modal styling imports ---------------------- //
-import { StyledModal, ModalOverlay, ModalClose } from '../../Modal.styles';
 import {
+	StyledModal,
+	StyledModalOverlay,
+	StyledModalClose,
 	StyledModalTitle,
 	StyledModalButton,
-	StyledModalInput
+	StyledModalForm,
+	StyledModalInput,
+	StyledModalIconButton
 } from '../../Modal.styles';
 
 class AddDocument extends React.Component {
@@ -38,30 +40,13 @@ class AddDocument extends React.Component {
 		const { addDocument, addTag } = this.props;
 
 		return (
-			<StyledModal
-				open={this.props.open}
-				onClose={this.props.closeHandler}
-				PaperProps={{
-					style: {
-						background: `transparent`,
-						boxShadow: 'none'
-					}
-				}}
-			>
-				{/*Close button*/}
-				<ModalClose>
-					<IconButton
-						aria-label="Close"
-						onClick={this.props.closeHandler}
-						style={{
-							color: colors.text,
-							background: palette.plumTransparent
-						}}
-					>
+			<StyledModal open={this.props.open} onClose={this.props.closeHandler}>
+				<StyledModalClose>
+					<StyledModalIconButton onClick={this.props.closeHandler}>
 						<CloseIcon />
-					</IconButton>
-				</ModalClose>
-				<ModalOverlay>
+					</StyledModalIconButton>
+				</StyledModalClose>
+				<StyledModalOverlay>
 					<StyledModalTitle>Add a New Document</StyledModalTitle>
 					<Query
 						query={FIND_TAGS_BY_TEAM}
@@ -71,7 +56,7 @@ class AddDocument extends React.Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
 							return (
-								<form
+								<StyledModalForm
 									onSubmit={e => {
 										e.preventDefault();
 										// create new document
@@ -90,7 +75,6 @@ class AddDocument extends React.Component {
 											);
 											if (exists) {
 												newDocument.tag = exists._id;
-												console.log(newDocument.tag);
 												addDocument(newDocument)
 													.then(() => this.props.closeHandler())
 													.catch(err => {
@@ -104,8 +88,6 @@ class AddDocument extends React.Component {
 													.then(async ({ data: { addTag: { _id } } }) => {
 														try {
 															await (newDocument.tag = _id);
-															console.log(newDocument);
-															console.log(newDocument.tag);
 															await addDocument(newDocument);
 															await this.props.closeHandler();
 														} catch (err) {
@@ -118,7 +100,7 @@ class AddDocument extends React.Component {
 										} else {
 											addDocument(newDocument)
 												.then(res => {
-													return this.props.closeHandler();
+													this.props.closeHandler();
 												})
 												.catch(err => {
 													console.error(err);
@@ -130,21 +112,18 @@ class AddDocument extends React.Component {
 										name="title"
 										placeholder="title"
 										variant="outlined"
-										fullWidth
 										onChange={this.handleChange}
 									/>
 									<StyledModalInput
 										name="url"
 										placeholder="url"
 										variant="outlined"
-										fullWidth
 										onChange={this.handleChange}
 									/>
 									<StyledModalInput
 										name="content"
 										placeholder="content"
 										variant="outlined"
-										fullWidth
 										onChange={this.handleChange}
 										multiline
 									/>
@@ -153,17 +132,16 @@ class AddDocument extends React.Component {
 										placeholder="tag"
 										variant="outlined"
 										onChange={this.handleChange}
-										fullWidth
 									/>
 
-									<StyledModalButton type="submit" size="large" fullWidth>
+									<StyledModalButton type="submit" fullWidth>
 										Add
 									</StyledModalButton>
-								</form>
+								</StyledModalForm>
 							);
 						}}
 					</Query>
-				</ModalOverlay>
+				</StyledModalOverlay>
 			</StyledModal>
 		);
 	}

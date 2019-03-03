@@ -13,47 +13,31 @@ import {
 } from '../../mutations/doccomments';
 
 // ------------- Style Imports ---------------------- //
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { colors, palette } from '../../../colorVariables';
+import { colors } from '../../../colorVariables';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import TextField from '@material-ui/core/TextField';
-import { Paper } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import SendIcon from '@material-ui/icons/Send';
-// import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
 // ------------- Modal styling imports ---------------------- //
-import { StyledModal, ModalOverlay, ModalClose } from '../../Modal.styles';
 import {
+	StyledModal,
+	StyledModalOverlay,
+	StyledModalClose,
+	StyledModalPaper,
 	StyledModalTitle,
 	StyledModalBody,
 	StyledModalButton,
-	StyledModalInput
+	StyledModalForm,
+	StyledModalInput,
+	StyledModalIconButton,
+	StyledModalNewCommentForm,
+	StyledModalNewCommentInput
 } from '../../Modal.styles';
-
-const StyledEditCommentLabel = styled.label`
-	width: 80%;
-`;
-
-const Form = styled.form`
-	display: flex;
-`;
-
-const CommentInputLabel = styled.label`
-	width: 90%;
-	background-color: #fff;
-	padding: 5px;
-	margin: 0 auto;
-`;
-
-const CommentForm = styled.form`
-	display: flex;
-	flex-direction: column;
-`;
 
 class DocumentDetails extends React.Component {
 	constructor(props) {
@@ -95,46 +79,31 @@ class DocumentDetails extends React.Component {
 			deleteDocComment,
 			addDocComment,
 			unLikeDocComment,
-			likeDocComment
+			likeDocComment,
+			open
 		} = this.props;
 
 		if (document === null) return <></>;
 		// console.log(this.props);
 		return (
 			<StyledModal
-				open={this.props.open}
+				open={open}
 				onClose={() => {
 					hideModal();
 					this.resetState();
 				}}
-				PaperProps={{
-					style: {
-						background: `transparent`,
-						boxShadow: 'none'
-					}
-				}}
-				fullScreen
-				// ={mediaQueryFor.smDevice}
 			>
-				<ModalClose>
-					<IconButton
-						aria-label="Close"
+				<StyledModalClose>
+					<StyledModalIconButton
 						onClick={() => {
 							hideModal();
 							this.resetState();
 						}}
-						style={{
-							color: colors.text,
-							background: palette.plumTransparent
-						}}
 					>
 						<CloseIcon />
-					</IconButton>
-				</ModalClose>
-				<ModalOverlay>
-					{/* All fo the folder info should go here 
-                    Not just the ability to delete 
-                    Should also include a list of all the files */}
+					</StyledModalIconButton>
+				</StyledModalClose>
+				<StyledModalOverlay>
 					<CardHeader
 						avatar={
 							<Avatar
@@ -148,136 +117,132 @@ class DocumentDetails extends React.Component {
 							style: { color: colors.text }
 						}}
 					/>
-					{this.state.editingDocument ? (
-						<form
-							onSubmit={e => {
-								e.preventDefault();
-								document.title = this.state.title;
-								document.textContent = this.state.textContent;
-								document.doc_url = this.state.doc_url;
-								updateDocument({
-									id: document._id,
-									title: this.state.title,
-									doc_url: this.state.doc_url,
-									textContent: this.state.textContent
-								}).then(() => this.resetState());
-							}}
-							style={{
-								width: '100%',
-								display: 'flex',
-								flexDirection: 'column'
-							}}
-						>
-							<label htmlFor="document title" />
-							<StyledModalInput
-								name="title"
-								value={this.state.title}
-								onChange={this.handleChange}
-							/>
-							<label htmlFor="document url" />
-							<StyledModalInput
-								name="doc_url"
-								value={this.state.doc_url}
-								onChange={this.handleChange}
-							/>
-							<label htmlFor="document content" />
-							<StyledModalInput
-								name="textContent"
-								value={this.state.textContent}
-								onChange={this.handleChange}
-								multiline
-							/>
-							<StyledModalButton type="submit">Save</StyledModalButton>
-						</form>
-					) : (
-						<>
-							<StyledModalTitle variant="h5" component="h3">
-								{document.title}
-							</StyledModalTitle>
-							<StyledModalBody paragraph component="p">
-								{document.doc_url}
-							</StyledModalBody>
-							<StyledModalBody paragraph component="p">
-								{document.textContent}
-							</StyledModalBody>
-
-							{/* Load all the images attached to the message */}
-
-							<CardActions
-								style={{
-									width: '100%',
-									display: 'flex',
-									flexFlow: 'row',
-									justifyContent: 'space-around'
-								}}
-							>
-								{document.user._id === currentUser._id && (
-									<>
-										<StyledModalButton
-											onClick={e => {
-												e.preventDefault();
-												if (!this.state.editingComment) {
-													this.setState({
-														editingDocument: true,
-														title: document.title,
-														textContent: document.textContent,
-														doc_url: document.doc_url
-													});
-												} else {
-													alert(
-														"Please finish editing your comment by clicking 'SAVE' before editing the document."
-													);
-												}
-											}}
-										>
-											Edit
-										</StyledModalButton>
-										<StyledModalButton
-											onClick={e => {
-												e.preventDefault();
-												deleteDocument({
-													id: document._id
-												}).then(() => {
-													hideModal();
-												});
-											}}
-										>
-											Delete
-										</StyledModalButton>
-									</>
-								)}
-
-								{/* Subscribe or unsubscribe button */}
-								<StyledModalButton
-									onClick={e => {
+					<StyledModalPaper>
+						{this.state.editingDocument ? (
+							<>
+								<StyledModalForm
+									onSubmit={e => {
 										e.preventDefault();
-										document.subscribedUsers.find(
-											({ _id }) => _id === currentUser._id
-										)
-											? updateDocument({
-													id: document._id,
-													subscribedUsers: document.subscribedUsers
-														.filter(({ _id }) => _id !== currentUser._id)
-														.map(({ _id }) => _id)
-											  })
-											: updateDocument({
-													id: document._id,
-													subscribedUsers: [
-														...document.subscribedUsers.map(({ _id }) => _id),
-														currentUser._id
-													]
-											  });
+										document.title = this.state.title;
+										document.textContent = this.state.textContent;
+										document.doc_url = this.state.doc_url;
+										updateDocument({
+											id: document._id,
+											title: this.state.title,
+											doc_url: this.state.doc_url,
+											textContent: this.state.textContent
+										}).then(() => this.resetState());
 									}}
 								>
-									{document.subscribedUsers.find(
-										({ _id }) => _id === currentUser._id
-									)
-										? 'Unsubscribe'
-										: 'Subscribe'}
-								</StyledModalButton>
-							</CardActions>
-						</>
-					)}
+									<StyledModalInput
+										name="title"
+										value={this.state.title}
+										onChange={this.handleChange}
+									/>
+									<StyledModalInput
+										name="doc_url"
+										value={this.state.doc_url}
+										onChange={this.handleChange}
+									/>
+									<StyledModalInput
+										name="textContent"
+										value={this.state.textContent}
+										onChange={this.handleChange}
+										multiline
+									/>
+									<StyledModalButton type="submit">Save</StyledModalButton>
+								</StyledModalForm>
+							</>
+						) : (
+							<>
+								<CardContent>
+									<StyledModalTitle variant="h5" component="h3">
+										{document.title}
+									</StyledModalTitle>
+									<StyledModalBody paragraph component="p">
+										{document.doc_url}
+									</StyledModalBody>
+									<StyledModalBody paragraph component="p">
+										{document.textContent}
+									</StyledModalBody>
+								</CardContent>
+								{/* Load all the images attached to the message */}
+								<CardActions
+									style={{
+										width: '100%',
+										display: 'flex',
+										flexFlow: 'row',
+										justifyContent: 'space-around'
+									}}
+								>
+									{document.user._id === currentUser._id && (
+										<>
+											<StyledModalButton
+												onClick={e => {
+													e.preventDefault();
+													if (!this.state.editingComment) {
+														this.setState({
+															editingDocument: true,
+															title: document.title,
+															textContent: document.textContent,
+															doc_url: document.doc_url
+														});
+													} else {
+														alert(
+															"Please finish editing your comment by clicking 'SAVE' before editing the document."
+														);
+													}
+												}}
+											>
+												Edit
+											</StyledModalButton>
+											<StyledModalButton
+												onClick={e => {
+													e.preventDefault();
+													deleteDocument({
+														id: document._id
+													}).then(() => {
+														hideModal();
+													});
+												}}
+											>
+												Delete
+											</StyledModalButton>
+										</>
+									)}
+
+									{/* Subscribe or unsubscribe button */}
+									<StyledModalButton
+										onClick={e => {
+											e.preventDefault();
+											document.subscribedUsers.find(
+												({ _id }) => _id === currentUser._id
+											)
+												? updateDocument({
+														id: document._id,
+														subscribedUsers: document.subscribedUsers
+															.filter(({ _id }) => _id !== currentUser._id)
+															.map(({ _id }) => _id)
+												  })
+												: updateDocument({
+														id: document._id,
+														subscribedUsers: [
+															...document.subscribedUsers.map(({ _id }) => _id),
+															currentUser._id
+														]
+												  });
+										}}
+									>
+										{document.subscribedUsers.find(
+											({ _id }) => _id === currentUser._id
+										)
+											? 'Unsubscribe'
+											: 'Subscribe'}
+									</StyledModalButton>
+								</CardActions>
+							</>
+						)}
+					</StyledModalPaper>
 					{/* View all the comments of the document */}
 					<Query
 						query={query.FIND_COMMENTS_BY_DOCUMENT}
@@ -297,16 +262,7 @@ class DocumentDetails extends React.Component {
 									</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
-										<Paper
-											key={comment._id}
-											style={{
-												background: palette.plum,
-												marginBottom: '10px',
-												display: 'flex',
-												flexDirection: 'column'
-											}}
-											elevation={1}
-										>
+										<StyledModalPaper>
 											<CardHeader
 												avatar={
 													<Avatar
@@ -325,7 +281,7 @@ class DocumentDetails extends React.Component {
 											{/* Check to see if the user can edit the comment */}
 											{this.state.editingComment &&
 											this.state.editedComment === comment ? (
-												<CommentForm
+												<StyledModalForm
 													action="submit"
 													onSubmit={e => {
 														e.preventDefault();
@@ -335,20 +291,18 @@ class DocumentDetails extends React.Component {
 														}).then(() => this.resetState());
 													}}
 												>
-													<StyledEditCommentLabel htmlFor="comment-content">
-														<StyledModalInput
-															inputRef={this.edit}
-															name="commentContent"
-															value={this.state.commentContent}
-															onChange={this.handleChange}
-															variant="outlined"
-															multiline={true}
-														/>
-													</StyledEditCommentLabel>
+													<StyledModalInput
+														inputRef={this.edit}
+														name="commentContent"
+														value={this.state.commentContent}
+														onChange={this.handleChange}
+														variant="outlined"
+														multiline={true}
+													/>
 													<StyledModalButton type="submit">
 														Save
 													</StyledModalButton>
-												</CommentForm>
+												</StyledModalForm>
 											) : (
 												<>
 													<CardContent>
@@ -411,10 +365,10 @@ class DocumentDetails extends React.Component {
 													</CardContent>
 												</>
 											)}
-										</Paper>
+										</StyledModalPaper>
 									))}
 									{/* Add a new comment form  */}
-									<Form
+									<StyledModalNewCommentForm
 										onSubmit={e => {
 											e.preventDefault();
 											addDocComment({
@@ -423,30 +377,21 @@ class DocumentDetails extends React.Component {
 											});
 										}}
 									>
-										<CommentInputLabel>
-											<TextField
-												placeholder="Leave a comment..."
-												style={{
-													color: '#000',
-													height: '100px',
-													backgroundColor: '#fff',
-													padding: '0px'
-												}}
-												onChange={this.handleChange}
-												name="newCommentContent"
-												value={this.state.newCommentContent}
-												multiline={true}
-											/>
-										</CommentInputLabel>
+										<StyledModalNewCommentInput
+											value={this.state.newCommentContent}
+											name="newCommentContent"
+											onChange={this.handleChange}
+											placeholder="Leave a comment..."
+										/>
 										<IconButton type="submit">
 											<SendIcon style={{ color: colors.text }} />
 										</IconButton>
-									</Form>
+									</StyledModalNewCommentForm>
 								</>
 							);
 						}}
 					</Query>
-				</ModalOverlay>
+				</StyledModalOverlay>
 			</StyledModal>
 		);
 	}

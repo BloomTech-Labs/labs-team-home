@@ -14,21 +14,25 @@ import Logo from '../../assets/TH_favicon.png';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
-import { colors, palette } from '../../colorVariables';
-// import mediaQueryFor from '../../_global_styles/responsive_querie';
+import { colors } from '../../colorVariables';
 import DialogActions from '@material-ui/core/DialogActions';
 
 // ------------- Modal styling imports ---------------------- //
-import { StyledModal, ModalOverlay, ModalClose } from '../Modal.styles';
 import {
+	StyledModal,
+	StyledModalOverlay,
+	StyledModalClose,
 	StyledModalTitle,
+	StyledModalPaper,
+	StyledModalCardAction,
 	StyledModalBody,
 	StyledModalButton,
-	StyledModalInput
+	StyledModalForm,
+	StyledModalInput,
+	StyledModalIconButton
 } from '../Modal.styles';
 
 const UserCard = styled(CardHeader)`
@@ -97,28 +101,18 @@ class TeamDetails extends React.Component {
 					hideModal();
 					this.resetState();
 				}}
-				scroll="body"
-				PaperProps={{
-					style: {
-						background: `transparent`,
-						boxShadow: 'none'
-					}
-				}}
-				// fullScreen={mediaQueryFor.smDevice}
 			>
-				<ModalClose>
-					<IconButton
-						aria-label="Close"
+				<StyledModalClose>
+					<StyledModalIconButton
 						onClick={() => {
 							hideModal();
 							this.resetState();
 						}}
-						style={{ color: colors.text, background: palette.plumTransparent }}
 					>
 						<CloseIcon />
-					</IconButton>
-				</ModalClose>
-				<ModalOverlay>
+					</StyledModalIconButton>
+				</StyledModalClose>
+				<StyledModalOverlay>
 					<div>
 						{editingTeamName ? (
 							// {/* If the user is the admin on a team, give them a edit button */}
@@ -140,7 +134,7 @@ class TeamDetails extends React.Component {
 								}}
 							>
 								{updateTeam => (
-									<form
+									<StyledModalForm
 										onSubmit={e => {
 											e.preventDefault();
 											updateTeam({
@@ -161,10 +155,9 @@ class TeamDetails extends React.Component {
 											name="editTeamName"
 											value={this.state.editTeamName}
 											onChange={this.changeHandler}
-											fullWidth
 										/>
 										<StyledModalButton type="submit">Save</StyledModalButton>
-									</form>
+									</StyledModalForm>
 								)}
 							</Mutation>
 						) : (
@@ -174,7 +167,7 @@ class TeamDetails extends React.Component {
 							<>
 								{/* If the user is the admin on a team, give them a delete button */}
 								{!editingTeamName ? (
-									<>
+									<StyledModalCardAction>
 										<Mutation
 											mutation={mutation.DELETE_TEAM}
 											update={(cache, { data: { deleteTeam } }) => {
@@ -217,7 +210,7 @@ class TeamDetails extends React.Component {
 										>
 											Edit
 										</StyledModalButton>
-									</>
+									</StyledModalCardAction>
 								) : null}
 							</>
 						) : null}
@@ -291,7 +284,7 @@ class TeamDetails extends React.Component {
 							{inviteUser => (
 								<div>
 									<StyledModalTitle>Invite User</StyledModalTitle>
-									<form
+									<StyledModalForm
 										onSubmit={e => {
 											e.preventDefault();
 											let input = { id: this.props.team._id };
@@ -313,9 +306,7 @@ class TeamDetails extends React.Component {
 													console.error(err);
 												});
 										}}
-										style={{ color: '#fff' }}
 									>
-										<label htmlFor="email" />
 										<StyledModalInput
 											type="email"
 											name="email"
@@ -325,7 +316,6 @@ class TeamDetails extends React.Component {
 											value={this.email}
 											fullWidth
 										/>
-										<label htmlFor="phone number" />
 										<StyledModalInput
 											placeholder="phone number"
 											type="text"
@@ -340,69 +330,70 @@ class TeamDetails extends React.Component {
 												Submit
 											</StyledModalButton>
 										</DialogActions>
-									</form>
+									</StyledModalForm>
 								</div>
 							)}
 						</Mutation>
 
 						{/* List all the team members */}
 						{team.users.map(user => (
-							<UserCard
-								key={user.user._id}
-								avatar={
-									<Avatar
-										src={user.user.avatar}
-										alt={`${user.user.firstName} ${user.user.lastName}`}
-									/>
-								}
-								title={`${user.user.firstName} ${user.user.lastName}`}
-								subheader={`${user.user.email}`}
-								subheaderTypographyProps={{
-									style: { color: colors.text }
-								}}
-								titleTypographyProps={{ style: { color: colors.text } }}
-								action={
-									<Mutation
-										mutation={mutation.KICK_USER}
-										update={(cache, { data: { kickUser } }) => {
-											cache.writeQuery({
-												query: query.FIND_TEAM,
-												variables: { id: team },
-												data: {
-													findTeam: kickUser
-												}
-											});
-										}}
-									>
-										{/* Make sure the user can be kicked before rendering the kick button, then kick */}
-										{kickUser =>
-											admin && user.user._id !== currentUser._id ? (
-												<Button
-													color="secondary"
-													onClick={e => {
-														e.preventDefault();
-														kickUser({
-															variables: {
-																id: team._id,
-																user: user.user._id
-															}
-														});
-													}}
-												>
-													Kick User
-												</Button>
-											) : admin && user.user._id === currentUser._id ? (
-												<Button>Admin</Button>
-											) : user.user._id === currentUser._id ? (
-												<Button>You</Button> //Change this to a mutation which allows the user to leave the team.
-											) : null
-										}
-									</Mutation>
-								}
-							/>
+							<StyledModalPaper key={user.user._id}>
+								<UserCard
+									avatar={
+										<Avatar
+											src={user.user.avatar}
+											alt={`${user.user.firstName} ${user.user.lastName}`}
+										/>
+									}
+									title={`${user.user.firstName} ${user.user.lastName}`}
+									subheader={`${user.user.email}`}
+									subheaderTypographyProps={{
+										style: { color: colors.text }
+									}}
+									titleTypographyProps={{ style: { color: colors.text } }}
+									action={
+										<Mutation
+											mutation={mutation.KICK_USER}
+											update={(cache, { data: { kickUser } }) => {
+												cache.writeQuery({
+													query: query.FIND_TEAM,
+													variables: { id: team },
+													data: {
+														findTeam: kickUser
+													}
+												});
+											}}
+										>
+											{/* Make sure the user can be kicked before rendering the kick button, then kick */}
+											{kickUser =>
+												admin && user.user._id !== currentUser._id ? (
+													<Button
+														color="secondary"
+														onClick={e => {
+															e.preventDefault();
+															kickUser({
+																variables: {
+																	id: team._id,
+																	user: user.user._id
+																}
+															});
+														}}
+													>
+														Kick User
+													</Button>
+												) : admin && user.user._id === currentUser._id ? (
+													<Button>Admin</Button>
+												) : user.user._id === currentUser._id ? (
+													<Button>You</Button> //Change this to a mutation which allows the user to leave the team.
+												) : null
+											}
+										</Mutation>
+									}
+								/>
+							</StyledModalPaper>
 						))}
 					</div>
-				</ModalOverlay>
+				</StyledModalOverlay>
 			</StyledModal>
 		);
 	}
