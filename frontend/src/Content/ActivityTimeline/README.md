@@ -1,6 +1,6 @@
-### This activity timeline needs to be refactored:
+# This activity timeline needs to be refactored:
 
-#### Why?
+## Why?
 
 1. It doesn't actually show activity.
 1. It shows the current state of the database in chronological order.
@@ -10,19 +10,18 @@
 
 **Because of all these things, the Activity Timeline fails to fulfill its own stated purpose and needs to be refactored**
 
-#### How?
+## How?
 
-##### 1. Schema
+### 1. Schema
 
 To fix this issue, we need to start at the fundamentals:
 
 We need to build a new database model in the back-end which should follow a schema similar to the following such that we can get all the right information for an event, which might look like a line of text displayed on the event timeline in place of the current activity components:
 
-" {Subject} {action} the {object} {payload} on {date} at {time} "
-
-" Stephen joined the team 'Team Home 2' on Feb 10 at 10am "
-" Nedim edited the comment 'This is a good idea' on Feb 12 at 12am "
-" Kai deleted the folder 'Styling Ideas' on Feb 20 at 7pm "
+- " {Subject} {action} the {object} {payload} on {date} at {time} "
+- " Stephen joined the team 'Team Home 2' on Feb 10 at 10am "
+- " Nedim edited the comment 'This is a good idea' on Feb 12 at 12am "
+- " Kai deleted the folder 'Styling Ideas' on Feb 20 at 7pm "
 
 Clicking on any event would open up a new modal that has all the details about the event.
 
@@ -33,7 +32,6 @@ If the event still exists, it can be viewed in its current state ("View ) by ope
 - Clicking more details on a `team event` probably wouldn't be allowed, as the modal is accessible at the top of the page as it is.
 
 ```
-javascript
     {
         event: _id, (non-nullable)
         team: _id (foreign key, non-nullable)
@@ -45,46 +43,49 @@ javascript
         payload: { //an object with details about the thing that happened, be it a...
             like, unlike, content, name, title, url,
             }
-
     }
 ```
 
-##### 2. Database CRUD Operations
+### 2. Database CRUD Operations
 
 Considering these are events, we would not need to use all crud operations as events can only happen, they can not be erased. Consequently, we would only need:
 
-Create:
+#### Create:
+
 `addEvent( event )` // Adds an event according to the object above
 
-Read:
+#### Read:
+
 `events()` // returns an `[]` of all events (lol, never call this)
 `findEvent( _id )` // returns an `{}` of all the event information given an event id
 `findEventsByTeam( _id )` // returns an `[]` of all the events
 
-Update:
+#### Update:
+
 None
 
-Delete:
+#### Delete:
+
 None
 
-##### 3. GQL Resolvers
+### 3. GQL Resolvers
 
 This is where it gets tricky. In the resolvers for every action on every other database resolver which is a mutation, a new mutation call must be added with the correct corresponding information to call `addEvent( { event object } )`
 
 At first count this means adding **28** function calls of `addEvent()` in the pre-existing resolver structure:
 
-DocComments: 5
-Documents: 5
-Folders: 3
-Messages: 5
-MsgComments: 5
-Team: 5
+- DocComments: 5
+- Documents: 5
+- Folders: 3
+- Messages: 5
+- MsgComments: 5
+- Team: 5
 
 The good news is that no one will be able to have any gql mutation calls client side. And what is more, they will only have the ability to call gql queries--this will of course keep boilerplate minimal in this regard.
 
 We will also absolutely need to look into pagination and implement it here.
 
-##### 4. Front End Components
+### 4. Front End Components
 
 There will need to be at least 3 front end components built.
 
@@ -96,11 +97,11 @@ Unfortunately, the new nature of the database will mean obsoleting all the prese
 
 What is more, the new Modal is all but entirely built and styled. The additional modal calls already exist and are functioning.
 
-##### 5. Styling
+### 5. Styling
 
 All the styling decisions are done and would only need to be imported.
 
-#### Time Estimations
+## Time Estimations
 
 Database and back-end: 2-3 days for one person. 1-2 if two people.
 Front-end: 2 days for 1 person. 1 day for two.
