@@ -86,8 +86,8 @@ function Activity(props) {
 		user,
 		updatedAt,
 		title,
-		content,
-		createdAt
+		content
+		// createdAt
 	} = props.message;
 	/* activitySwitch changes the message depending on the type of the object */
 	const activitySwitch = type => {

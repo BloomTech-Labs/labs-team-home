@@ -44,27 +44,22 @@ class Folder extends React.Component {
 		};
 	}
 	updateDrop = (id, folderid) => {
-		console.log('DOC : ', id);
-		console.log('FOLDER : ', folderid);
+		// console.log('DOC : ', id);
+		// console.log('FOLDER : ', folderid);
+		// console.log("folder team id: ", this.props.team)
 
 		if (folderid !== undefined) {
 			this.props.updateDocument({ id: id, folder: folderid._id });
 		} else {
 			this.props.updateDocument({ id: id, folder: null });
 		}
-		// this.setState({
-		// 	refresh: !this.state.refresh
-		// });
-		// this.props.folderFetch();
-		// this.props.fetch();
-		// this.props.resetComp(id);
-		// console.log(this.state.refresh)
 		console.log('Folder Update');
 	};
 
 	render() {
 		const { connectDropTarget, hovered, folder } = this.props;
 		const backgroundColor = hovered ? 'lightgray' : '';
+		// console.log("FOLDER PROPS: ", this.props)
 
 		return connectDropTarget(
 			<div>

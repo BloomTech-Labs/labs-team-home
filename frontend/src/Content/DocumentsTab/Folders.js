@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import * as query from '../../constants/queries';
 import FolderDetails from './FolderDetails';
 import Folder from './Folder';
-import { compose } from 'react-apollo';
-import { updateDocument } from '../mutations/documents';
+// import { compose } from 'react-apollo';
+// import { updateDocument } from '../mutations/documents';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -43,8 +43,7 @@ class Folders extends Component {
 		this.state = {
 			currentFolder: null,
 			folderDetailOpen: false,
-			sortOption: 'newest',
-			latestFolderDropId: null
+			sortOption: 'newest'
 		};
 	}
 
@@ -57,12 +56,6 @@ class Folders extends Component {
 
 	sortChange = e => {
 		this.setState({ sortOption: e.target.value });
-	};
-
-	resetComponent = id => {
-		this.setState({
-			latestFolderDropId: id
-		});
 	};
 
 	render() {
@@ -84,21 +77,11 @@ class Folders extends Component {
 				<Query
 					query={query.FIND_FOLDERS_BY_TEAM}
 					variables={{ team: this.props.team._id }}
-					notifyOnNetworkStatusChange
 				>
-					{({
-						loading,
-						error,
-						data: { findFoldersByTeam },
-						refetch,
-						networkStatus
-					}) => {
-						// console.log('returned from findFoldersByTeam', findFoldersByTeam);
-						if (networkStatus === 4) return 'Folder Loading';
+					{({ loading, error, data: { findFoldersByTeam } }) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
-							const folderFetch = refetch;
 							switch (this.state.sortOption) {
 								case 'newest':
 									findFoldersByTeam.sort((a, b) => {
@@ -122,19 +105,10 @@ class Folders extends Component {
 									query={query.FIND_DOCUMENTS_BY_FOLDER}
 									variables={{ folder: folder._id }}
 									key={folder._id}
-									notifyOnNetworkStatusChange
 								>
-									{({
-										loading,
-										error,
-										data: { findDocumentsByFolder },
-										refetch,
-										networkStatus
-									}) => {
-										if (networkStatus === 4) return 'Doc Loading';
+									{({ loading, error, data: { findDocumentsByFolder } }) => {
 										if (loading) return <p>Loading...</p>;
 										if (error) return console.error(error);
-										const DocFetch = refetch;
 										return (
 											<div onClick={() => this.toggleFolderDetail(folder)}>
 												<Folder
@@ -142,9 +116,6 @@ class Folders extends Component {
 													upd={this.docDropped}
 													findDocumentsByFolder={findDocumentsByFolder}
 													team={this.props.team._id}
-													fetch={DocFetch}
-													folderFetch={folderFetch}
-													resetComp={this.resetComponent}
 												/>
 											</div>
 										);

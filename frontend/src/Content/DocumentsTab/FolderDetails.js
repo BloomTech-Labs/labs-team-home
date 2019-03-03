@@ -216,7 +216,7 @@ class FolderDetails extends React.Component {
 													onClick={e => {
 														e.preventDefault();
 														findDocumentsByFolder.map(document => {
-															updateDocument({
+															return updateDocument({
 																id: document._id,
 																folder: null
 															});

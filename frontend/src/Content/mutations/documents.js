@@ -62,7 +62,7 @@ export const deleteDocument = graphql(DELETE_DOCUMENT, deleteDocumentOptions);
 const updateDocumentOptions = {
 	props: ({ ownProps: { team }, mutate }) => ({
 		updateDocument: input => {
-			// console.log('input from updateDocument: ', input, 'team: ', team);
+			console.log('input from updateDocument: ', input, 'team: ', team);
 			return mutate({
 				variables: input,
 				update: (cache, { data: { updateDocument } }) => {
