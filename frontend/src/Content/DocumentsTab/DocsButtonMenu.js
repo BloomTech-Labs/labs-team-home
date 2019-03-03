@@ -8,6 +8,22 @@ import Close from '@material-ui/icons/Close';
 import { colors } from '../../colorVariables';
 import AddFolder from './Folders/AddFolder';
 import AddDocument from './Documents/AddDocument';
+import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+	root: {
+		backgroundColor: colors.background
+	},
+	fab: {
+		margin: theme.spacing.unit
+	},
+	styledTooltip: {
+		fontSize: '12px',
+		backgroundColor: colors.button,
+		color: colors.text
+	}
+});
 
 const AddBtn = styled(Fab)`
 	background-color: ${colors.button};
@@ -67,13 +83,19 @@ class DocsButtonMenu extends Component {
 	};
 
 	render() {
+		const { classes } = this.props;
 		return (
 			<div>
-				{/* Menu Items */}
-				<AddBtn onClick={() => this.toggleButtons()}>
-					<MainFabIconAdd displaytab={this.state.displayAddBtn} />
-					<MainFabIconClose displaytab={this.state.displayButtons} />
-				</AddBtn>
+				<Tooltip
+					title="Add Folder or Document"
+					aria-label="Add Message or Document"
+					classes={{ tooltip: classes.styledTooltip }}
+				>
+					<AddBtn onClick={() => this.toggleButtons()} className={classes.fab}>
+						<MainFabIconAdd displaytab={this.state.displayAddBtn} />
+						<MainFabIconClose displaytab={this.state.displayButtons} />
+					</AddBtn>
+				</Tooltip>
 				<AddMenuFab displaytab={this.state.displayButtons}>
 					<Folder onClick={() => this.toggleNewFolderModal()} />
 				</AddMenuFab>
@@ -100,4 +122,4 @@ class DocsButtonMenu extends Component {
 	}
 }
 
-export default DocsButtonMenu;
+export default withStyles(styles)(DocsButtonMenu);

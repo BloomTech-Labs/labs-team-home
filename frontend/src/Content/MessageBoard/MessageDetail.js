@@ -291,7 +291,6 @@ class MessageDetail extends Component {
 													<StyledModalBody component="p">
 														{comment.content}
 													</StyledModalBody>
-
 													{/* Check to see if the comment is the users and thus can be edited or deleted */}
 													<StyledModalCardAction>
 														{comment.user._id === currentUser._id && (
