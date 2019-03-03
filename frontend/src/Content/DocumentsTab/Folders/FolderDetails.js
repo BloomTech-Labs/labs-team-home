@@ -186,16 +186,17 @@ class FolderDetails extends React.Component {
 											</CardActions>
 										</>
 									)}
-									<StyledModalTitle
-										variant="h6"
-										component="h5"
-										style={{ margin: '30px 0' }}
-									>
-										Documents
-									</StyledModalTitle>
-									{/* Display all the documents */}
+
+									{/* If there are any, display all the documents */}
+									{findDocumentsByFolder.length ? (
+										<StyledModalTitle>Documents</StyledModalTitle>
+									) : (
+										<StyledModalTitle>
+											No document at the moment, drag some in!
+										</StyledModalTitle>
+									)}
 									{findDocumentsByFolder.map(document => (
-										<StyledModalPaper>
+										<StyledModalPaper key={document._id}>
 											<CardHeader
 												avatar={
 													<Avatar

@@ -253,13 +253,7 @@ class DocumentDetails extends React.Component {
 							if (error) return <p>Error</p>;
 							return (
 								<>
-									<StyledModalTitle
-										variant="h6"
-										component="h5"
-										style={{ margin: '30px 0' }}
-									>
-										Comments
-									</StyledModalTitle>
+									<StyledModalTitle>Comments</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
 										<StyledModalPaper>
