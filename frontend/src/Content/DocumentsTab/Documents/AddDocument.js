@@ -40,9 +40,9 @@ class AddDocument extends React.Component {
 		const { addDocument, addTag } = this.props;
 
 		return (
-			<StyledModal open={this.props.open} onClose={this.props.closeHandler}>
+			<StyledModal open={this.props.open} onClose={this.props.hideModal}>
 				<StyledModalClose>
-					<StyledModalIconButton onClick={this.props.closeHandler}>
+					<StyledModalIconButton onClick={this.props.hideModal}>
 						<CloseIcon />
 					</StyledModalIconButton>
 				</StyledModalClose>
@@ -76,7 +76,7 @@ class AddDocument extends React.Component {
 											if (exists) {
 												newDocument.tag = exists._id;
 												addDocument(newDocument)
-													.then(() => this.props.closeHandler())
+													.then(() => this.props.hideModal())
 													.catch(err => {
 														console.error(err);
 													});
@@ -89,7 +89,7 @@ class AddDocument extends React.Component {
 														try {
 															await (newDocument.tag = _id);
 															await addDocument(newDocument);
-															await this.props.closeHandler();
+															await this.props.hideModal();
 														} catch (err) {
 															console.error(err);
 														}
@@ -99,9 +99,7 @@ class AddDocument extends React.Component {
 											// if no tag in state
 										} else {
 											addDocument(newDocument)
-												.then(res => {
-													this.props.closeHandler();
-												})
+												.then(this.props.hideModal())
 												.catch(err => {
 													console.error(err);
 												});
@@ -110,26 +108,22 @@ class AddDocument extends React.Component {
 								>
 									<StyledModalInput
 										name="title"
-										value={this.state.title}
 										placeholder="title"
 										onChange={this.handleChange}
 									/>
 									<StyledModalInput
 										name="url"
-										value={this.state.url}
 										placeholder="url"
 										onChange={this.handleChange}
 									/>
 									<StyledModalInput
 										name="content"
-										value={this.state.content}
 										placeholder="content"
 										onChange={this.handleChange}
 										multiline
 									/>
 									<StyledModalInput
 										name="tag"
-										value={this.state.tag}
 										placeholder="tag"
 										onChange={this.handleChange}
 									/>

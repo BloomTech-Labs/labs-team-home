@@ -16,7 +16,7 @@ import { palette, colors } from '../colorVariables';
 import { Paper } from '@material-ui/core';
 // import mediaQueryFor from '../../_global_styles/responsive_querie';
 
-// All modal basically follow this structures ... basically...:
+// All modal basically follow this structures ... basically ... :
 //
 // <Dialog>
 // 	<Close>
@@ -80,7 +80,7 @@ export const StyledModalOverlay = styled(DialogContent)`
 	margin-top: 0;
 `;
 
-// The Paper padding behind text sections
+// The Paper padding behind text sections, opaque
 export const StyledModalPaper = styled(Paper).attrs(() => ({
 	style: {
 		background: palette.plum,
@@ -93,7 +93,7 @@ export const StyledModalPaper = styled(Paper).attrs(() => ({
 
 //CardContent
 
-//CardActions is the container that wraps all modal buttons (but useually only the ones with yellow underline)
+//CardActions is the container that wraps all modal buttons (but usually only the ones with yellow underline)
 export const StyledModalCardAction = styled(CardActions).attrs(() => ({
 	style: {
 		width: '100%',

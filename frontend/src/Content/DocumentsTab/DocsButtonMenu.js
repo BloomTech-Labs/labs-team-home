@@ -82,14 +82,14 @@ class DocsButtonMenu extends Component {
 				</AddMenuFab>
 				{/* Modals called from menu Items */}
 				<AddFolder
-					closeHandler={this.toggleNewFolderModal}
+					hideModal={this.toggleNewFolderModal}
 					stopProp={e => e.stopPropagation()}
 					team={this.props.team._id}
 					user={this.props.currentUser._id}
 					open={this.state.showNewFolderModal}
 				/>
 				<AddDocument
-					closeHandler={this.toggleNewDocumentModal}
+					hideModal={this.toggleNewDocumentModal}
 					stopProp={e => e.stopPropagation()}
 					team={this.props.team._id}
 					user={this.props.currentUser._id}

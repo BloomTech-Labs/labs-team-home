@@ -67,7 +67,8 @@ class MessageDetail extends Component {
 			edited: null,
 			title: '',
 			content: '',
-			commentContent: ''
+			commentContent: '',
+			newComment: ''
 		});
 
 	render() {
@@ -281,7 +282,6 @@ class MessageDetail extends Component {
 														onChange={this.handleChange}
 														multiline
 													/>
-
 													<StyledModalButton type="submit">
 														Save
 													</StyledModalButton>
@@ -355,7 +355,7 @@ class MessageDetail extends Component {
 											addMsgComment({
 												message: message._id,
 												content: this.state.newComment
-											});
+											}).then(this.resetState());
 										}}
 									>
 										<StyledModalNewCommentInput

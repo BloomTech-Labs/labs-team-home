@@ -13,9 +13,9 @@ import DocumentDetails from '../Documents/DocumentDetails';
 // import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import CardContent from '@material-ui/core/CardContent';
 import { colors } from '../../../colorVariables';
 
 // ------------- Modal styling imports ---------------------- //
@@ -119,24 +119,27 @@ class FolderDetails extends React.Component {
 							return (
 								<>
 									{this.state.editingFolder ? (
-										<StyledModalForm
-											onSubmit={e => {
-												e.preventDefault();
-												folder.title = this.state.title;
-												updateFolder({
-													id: folder._id,
-													title: this.state.title
-												}).then(() => this.resetState());
-											}}
-										>
-											<label htmlFor="Folder title" />
-											<StyledModalInput
-												name="title"
-												value={this.state.title}
-												onChange={this.handleChange}
-											/>
-											<StyledModalButton type="submit">Save</StyledModalButton>
-										</StyledModalForm>
+										<CardContent>
+											<StyledModalForm
+												onSubmit={e => {
+													e.preventDefault();
+													folder.title = this.state.title;
+													updateFolder({
+														id: folder._id,
+														title: this.state.title
+													}).then(() => this.resetState());
+												}}
+											>
+												<StyledModalInput
+													name="title"
+													value={this.state.title}
+													onChange={this.handleChange}
+												/>
+												<StyledModalButton type="submit">
+													Save
+												</StyledModalButton>
+											</StyledModalForm>
+										</CardContent>
 									) : (
 										<>
 											<StyledModalTitle variant="h5" component="h3">

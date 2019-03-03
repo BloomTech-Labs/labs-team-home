@@ -24,7 +24,6 @@ class AddFolder extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showModal: false,
 			title: ''
 		};
 	}
@@ -37,9 +36,9 @@ class AddFolder extends React.Component {
 		const { addFolder } = this.props;
 
 		return (
-			<StyledModal open={this.props.open} onClose={this.props.closeHandler}>
+			<StyledModal open={this.props.open} onClose={this.props.hideModal}>
 				<StyledModalClose>
-					<StyledModalIconButton onClick={this.props.closeHandler}>
+					<StyledModalIconButton onClick={this.props.hideModal}>
 						<CloseIcon />
 					</StyledModalIconButton>
 				</StyledModalClose>
@@ -53,9 +52,7 @@ class AddFolder extends React.Component {
 								title: this.state.title,
 								team: this.props.team
 							})
-								.then(res => {
-									this.props.closeHandler();
-								})
+								.then(this.props.hideModal())
 								.catch(err => {
 									console.error(err);
 								});
