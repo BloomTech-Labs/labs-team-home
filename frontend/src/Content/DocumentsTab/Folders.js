@@ -147,7 +147,14 @@ class Folders extends Component {
 											>
 												<IndividualFolder
 													folder={folder}
-													onClick={() => this.toggleFolderDetail(folder)}
+													onClick={e => {
+														e.stopPropagation();
+														this.toggleFolderDetail(folder);
+													}}
+													mouseEnter={e => {
+														e.stopPropagation();
+														alert('you gone done goofed');
+													}}
 												>
 													{folder.title}
 													{findDocumentsByFolder.length ? (

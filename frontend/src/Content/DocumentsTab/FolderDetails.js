@@ -215,12 +215,12 @@ class FolderDetails extends React.Component {
 												<StyledButton
 													onClick={e => {
 														e.preventDefault();
-														findDocumentsByFolder.map(document => {
+														findDocumentsByFolder.map(document =>
 															updateDocument({
 																id: document._id,
 																folder: null
-															});
-														});
+															})
+														);
 														deleteFolder({
 															id: this.props.folder._id
 														}).then(() => {

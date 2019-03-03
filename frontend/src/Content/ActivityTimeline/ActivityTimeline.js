@@ -16,11 +16,11 @@ export default class ActivityTimeline extends React.Component {
 		let allTheThings = [];
 		/* These Bools make sure that everything is loaded before mapping over all items in
 		 allTheThings and returning Activity components */
-		let messagesLoaded = false;
-		let documentsLoaded = false;
-		let foldersLoaded = false;
-		let msgCommentsLoaded = false;
-		let docCommentsLoaded = false;
+		// let messagesLoaded = false;
+		// let documentsLoaded = false;
+		// let foldersLoaded = false;
+		// let msgCommentsLoaded = false;
+		// let docCommentsLoaded = false;
 
 		return (
 			<div>
@@ -39,7 +39,8 @@ export default class ActivityTimeline extends React.Component {
 								}
 							});
 						}
-						messagesLoaded = true;
+						// messagesLoaded = true;
+
 						return findMessagesByTeam.map(message => (
 							<Query
 								query={query.FIND_COMMENTS_BY_MESSAGE}
@@ -53,7 +54,7 @@ export default class ActivityTimeline extends React.Component {
 										findMsgCommentsByMessage.forEach(comment =>
 											allTheThings.push(comment)
 										);
-										msgCommentsLoaded = true;
+										// msgCommentsLoaded = true;
 									}
 									return <></>;
 								}}
@@ -77,7 +78,7 @@ export default class ActivityTimeline extends React.Component {
 								}
 							});
 						}
-						documentsLoaded = true;
+						// documentsLoaded = true;
 						return findDocumentsByTeam.map(document => (
 							<Query
 								query={query.FIND_COMMENTS_BY_DOCUMENT}
@@ -92,7 +93,7 @@ export default class ActivityTimeline extends React.Component {
 											allTheThings.push(comment)
 										);
 									}
-									docCommentsLoaded = true;
+									// docCommentsLoaded = true;
 									return <></>;
 								}}
 							</Query>
@@ -115,13 +116,14 @@ export default class ActivityTimeline extends React.Component {
 								}
 							});
 						}
-						foldersLoaded = true;
+						// foldersLoaded = true;
 
-						allTheThings.map(thing =>
-							typeof thing.updatedAt === 'string' && thing.updatedAt
-								? (thing.updatedAt = new Date(parseInt(thing.updatedAt, 10)))
-								: thing
-						);
+						allTheThings.map(thing => {
+							if (typeof thing.updatedAt === 'string' && thing.updatedAt) {
+								thing.updatedAt = new Date(parseInt(thing.updatedAt, 10));
+							}
+							return thing;
+						});
 
 						allTheThings.sort((a, b) => {
 							if (a.updatedAt < b.updatedAt) return 1;
@@ -129,17 +131,17 @@ export default class ActivityTimeline extends React.Component {
 							return 0;
 						});
 
-						// if (messagesLoaded && documentsLoaded && foldersLoaded) {
+						// console.log('everything is true', allTheThings);
+
 						if (allTheThings.length > 0) {
-							console.log('true', allTheThings);
 							return allTheThings.map((thing, index) => {
 								if (thing.user._id === this.props.currentUser._id) {
-									return <Activity message={thing} key={index} own={true} />;
+									return <Activity message={thing} key={index} own="true" />;
 								}
-								return <Activity message={thing} key={index} own={false} />;
+								return <Activity message={thing} key={index} own="false" />;
 							});
 						}
-						console.log('Nothing is true', allTheThings);
+
 						return <></>;
 					}}
 				</Query>

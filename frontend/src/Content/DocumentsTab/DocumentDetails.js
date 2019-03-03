@@ -272,7 +272,6 @@ class DocumentDetails extends React.Component {
 									</>
 								)}
 
-								{/* Subscription for the document stuff goes here */}
 								{/* Subscribe or unsubscribe button */}
 								<StyledButton
 									onClick={e => {
