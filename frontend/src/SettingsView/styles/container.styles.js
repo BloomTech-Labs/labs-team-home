@@ -150,47 +150,47 @@ const StyledCheckbox = styled.input`
 
 const StyledBillingContainer = styled.div``;
 
-const StyledTeamCardDiv = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	color: ${props => (props.selected ? colors.button : colors.text)};
-	background-color: ${props => (props.selected ? colors.text : colors.button)};
-	border-radius: 3px;
-	margin-bottom: 10px;
-	transition: background-color 250ms ease-in-out, transform 150ms ease;
+// const StyledTeamCardDiv = styled.div`
+// 	width: 100%;
+// 	display: flex;
+// 	flex-direction: row;
+// 	align-items: center;
+// 	justify-content: space-between;
+// 	color: ${props => (props.selected ? colors.button : colors.text)};
+// 	background-color: ${props => (props.selected ? colors.text : colors.button)};
+// 	border-radius: 3px;
+// 	margin-bottom: 10px;
+// 	transition: background-color 250ms ease-in-out, transform 150ms ease;
 
-	:hover {
-		background-color: rgba(107, 40, 59, 0.7);
-	}
+// 	:hover {
+// 		background-color: rgba(107, 40, 59, 0.7);
+// 	}
 
-	${mediaQueryFor.mdDevice`
-		margin-bottom: 0;
-		border-bottom: 1px solid ${colors.border};
-		border-radius: 0;
-	`}
-`;
+// 	${mediaQueryFor.mdDevice`
+// 		margin-bottom: 0;
+// 		border-bottom: 1px solid ${colors.border};
+// 		border-radius: 0;
+// 	`}
+// `;
 
-const StyledTeamCardH3 = styled.h3`
-	font-family: inherit;
-	font-size: 1rem;
-	text-decoration: none;
-	/* position: relative;
-	float: left; */
-	padding-left: 20px;
-	margin: 1rem 0;
-`;
+// const StyledTeamCardH3 = styled.h3`
+// 	font-family: inherit;
+// 	font-size: 1rem;
+// 	text-decoration: none;
+// 	/* position: relative;
+// 	float: left; */
+// 	padding-left: 20px;
+// 	margin: 1rem 0;
+// `;
 
-const StyledTeamCardP = styled.p`
-	font-family: inherit;
-	font-size: 1rem;
-	position: relative;
-	text-align: right;
-	padding-right: 20px;
-	margin: 1rem 0;
-`;
+// const StyledTeamCardP = styled.p`
+// 	font-family: inherit;
+// 	font-size: 1rem;
+// 	position: relative;
+// 	text-align: right;
+// 	padding-right: 20px;
+// 	margin: 1rem 0;
+// `;
 
 export default withStyles(styles)(SettingsContainer);
 export {
@@ -204,8 +204,8 @@ export {
 	StyledCheckbox,
 	StyledBillingContainer,
 	// StyledTeamCard,
-	StyledTeamCardDiv,
-	StyledTeamCardH3,
-	StyledTeamCardP,
+	// StyledTeamCardDiv,
+	// StyledTeamCardH3,
+	// StyledTeamCardP,
 	StyledForm
 };

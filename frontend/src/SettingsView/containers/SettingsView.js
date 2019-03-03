@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import SettingsTabs from '../components/tabs/SettingsTabs';
+// import SettingsTabs from '../components/tabs/SettingsTabs--DEPRECATED';
 import FormInput from '../components/forms/FormInput';
 import FormCheckbox from '../components/forms/FormCheckbox';
 import FormButton from '../components/forms/FormButton';
-import BillingView from '../BillingView/BillingView';
+// import BillingView from '../BillingView/BillingView';
 import * as mutation from '../../constants/mutations';
 import * as query from '../../constants/queries';
 import { FilePond, registerPlugin } from 'react-filepond';
@@ -131,189 +131,190 @@ class SettingsView extends Component {
 				{(updateUser, { data }) => (
 					<SettingsContainer>
 						<h1>User Settings</h1>
-						<SettingsTabs>
-							<div label="Account Settings">
-								<StyledForm
-									onSubmit={e => {
-										console.log('submitted');
-										e.preventDefault();
-										updateUser({
-											variables: {
-												firstName: this.state.firstName,
-												lastName: this.state.lastName,
-												email: this.state.email,
-												phoneNumber: this.state.phoneNumber,
-												toggles: this.state.toggles,
-												avatar: this.state.avatar
-											}
+						{/* <SettingsTabs>
+							<div label="Account Settings"> */}
+						<StyledForm
+							onSubmit={e => {
+								console.log('submitted');
+								e.preventDefault();
+								updateUser({
+									variables: {
+										firstName: this.state.firstName,
+										lastName: this.state.lastName,
+										email: this.state.email,
+										phoneNumber: this.state.phoneNumber,
+										toggles: this.state.toggles,
+										avatar: this.state.avatar
+									}
+								});
+								this.pond.removeFile();
+							}}
+						>
+							<AvatarUploadContainer>
+								<ImageFigure>
+									<StyledAvatar
+										src={this.props.currentUser.avatar}
+										alt="User avatar"
+									/>
+									<figcaption>User avatar</figcaption>
+								</ImageFigure>
+								<FilePond
+									ref={ref => (this.pond = ref)}
+									//files={this.state.image}
+									allowMultiple={false}
+									acceptedFileTypes="image/jpeg, image/png, image/gif"
+									imageResizeTargetWidth={1280}
+									imageResizeTargetHeight={800}
+									imageResizeMode="contain"
+									imageResizeUpscale={false}
+									onupdatefiles={fileItems => {
+										fileItems.map(fileItem =>
+											console.log('FILE ITEM', fileItem)
+										);
+										// Set current file objects to this.state
+										this.setState({
+											files: fileItems.map(fileItem => fileItem.file)
 										});
-										this.pond.removeFile();
 									}}
-								>
-									<AvatarUploadContainer>
-										<ImageFigure>
-											<StyledAvatar
-												src={this.props.currentUser.avatar}
-												alt="User avatar"
-											/>
-											<figcaption>User avatar</figcaption>
-										</ImageFigure>
-										<FilePond
-											ref={ref => (this.pond = ref)}
-											//files={this.state.image}
-											allowMultiple={false}
-											acceptedFileTypes="image/jpeg, image/png, image/gif"
-											imageResizeTargetWidth={1280}
-											imageResizeTargetHeight={800}
-											imageResizeMode="contain"
-											imageResizeUpscale={false}
-											onupdatefiles={fileItems => {
-												fileItems.map(fileItem =>
-													console.log('FILE ITEM', fileItem)
-												);
-												// Set current file objects to this.state
-												this.setState({
-													files: fileItems.map(fileItem => fileItem.file)
-												});
-											}}
-											server={{
-												url: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-												process: (
-													fieldName,
-													file,
-													metadata,
-													load,
-													error,
-													progress,
-													abort
-												) => {
-													// fieldName is the name of the input field
-													// file is the actual file object to send
-													const formData = new FormData();
-													formData.append(fieldName, file, file.name);
-													formData.append('file', file);
-													formData.append('upload_preset', uploadPreset);
-													formData.append('api_key', apiKey);
+									server={{
+										url: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+										process: (
+											fieldName,
+											file,
+											metadata,
+											load,
+											error,
+											progress,
+											abort
+										) => {
+											// fieldName is the name of the input field
+											// file is the actual file object to send
+											const formData = new FormData();
+											formData.append(fieldName, file, file.name);
+											formData.append('file', file);
+											formData.append('upload_preset', uploadPreset);
+											formData.append('api_key', apiKey);
 
-													const request = new XMLHttpRequest();
-													request.open(
-														'POST',
-														`https://${apiKey}:${apiSecret}@api.cloudinary.com/v1_1/${cloudName}/image/upload`
-													);
+											const request = new XMLHttpRequest();
+											request.open(
+												'POST',
+												`https://${apiKey}:${apiSecret}@api.cloudinary.com/v1_1/${cloudName}/image/upload`
+											);
 
-													// Should call the progress method to update the progress to 100% before calling load
-													// Setting computable to false switches the loading indicator to infinite mode
-													request.upload.onprogress = e => {
-														progress(e.lengthComputable, e.loaded, e.total);
-													};
+											// Should call the progress method to update the progress to 100% before calling load
+											// Setting computable to false switches the loading indicator to infinite mode
+											request.upload.onprogress = e => {
+												progress(e.lengthComputable, e.loaded, e.total);
+											};
 
-													// Should call the load method when done and pass the returned server file id
-													// this server file id is then used later on when reverting or restoring a file
-													// so your server knows which file to return without exposing that info to the client
-													request.onload = () => {
-														if (request.status >= 200 && request.status < 300) {
-															// the load method accepts either a string (id) or an object
-															const response = JSON.parse(request.response);
-															this.setState({ avatar: response.secure_url });
-															//add new url to the images array in preparation of creating new message
-															load(request.responseText);
-														} else {
-															// Can call the error method if something is wrong, should exit after
-															error('oh no');
-														}
-													};
-
-													request.send(formData);
-
-													// Should expose an abort method so the request can be cancelled
-													return {
-														abort: () => {
-															// This function is entered if the user has tapped the cancel button
-															request.abort();
-
-															// Let FilePond know the request has been cancelled
-															abort();
-														}
-													};
+											// Should call the load method when done and pass the returned server file id
+											// this server file id is then used later on when reverting or restoring a file
+											// so your server knows which file to return without exposing that info to the client
+											request.onload = () => {
+												if (request.status >= 200 && request.status < 300) {
+													// the load method accepts either a string (id) or an object
+													const response = JSON.parse(request.response);
+													this.setState({ avatar: response.secure_url });
+													//add new url to the images array in preparation of creating new message
+													load(request.responseText);
+												} else {
+													// Can call the error method if something is wrong, should exit after
+													error('oh no');
 												}
-											}}
-										/>
-									</AvatarUploadContainer>
-									<FormInput
-										inputtype="text"
-										name={'firstName'}
-										title={'First Name'}
-										value={this.state.firstName}
-										autoComplete="off"
-										placeholder={
-											this.props.currentUser.firstName
-												? this.props.currentUser.firstName
-												: 'Enter your first name'
+											};
+
+											request.send(formData);
+
+											// Should expose an abort method so the request can be cancelled
+											return {
+												abort: () => {
+													// This function is entered if the user has tapped the cancel button
+													request.abort();
+
+													// Let FilePond know the request has been cancelled
+													abort();
+												}
+											};
 										}
-										onChange={this.handleChange}
-									/>
-									<FormInput
-										inputtype="text"
-										name={'lastName'}
-										title={'Last Name'}
-										value={this.state.lastName}
-										autoComplete="off"
-										placeholder={
-											this.props.currentUser.lastName
-												? this.props.currentUser.lastName
-												: 'Enter your last name'
-										}
-										onChange={this.handleChange}
-									/>
-									<FormInput
-										inputtype={'text'}
-										title={'Email'}
-										name={'email'}
-										value={this.state.email}
-										autoComplete="off"
-										placeholder={
-											this.props.currentUser.email
-												? this.props.currentUser.email
-												: 'Enter your email'
-										}
-										onChange={this.handleChange}
-									/>
-									<FormInput
-										inputtype="text"
-										title={'Phone Number'}
-										name={'phoneNumber'}
-										value={this.state.phoneNumber}
-										autoComplete="off"
-										placeholder={
-											this.props.currentUser.phoneNumber
-												? this.props.currentUser.phoneNumber
-												: 'Enter your phone number'
-										}
-										handleChange={this.handleChange}
-									/>
-									<FormCheckbox
-										title={'Receive emails?'}
-										name="receiveEmails"
-										handleSelect={this.handleSelect}
-										checked={this.state.toggles.receiveEmails}
-									/>
-									<FormCheckbox
-										title={'Receive texts?'}
-										name="receiveTexts"
-										handleSelect={this.handleSelect}
-										checked={this.state.toggles.receiveTexts}
-									/>
-									<FormButton type="submit" title="save" />
-								</StyledForm>
-							</div>
+									}}
+								/>
+							</AvatarUploadContainer>
+							<FormInput
+								inputtype="text"
+								name={'firstName'}
+								title={'First Name'}
+								value={this.state.firstName}
+								autoComplete="off"
+								placeholder={
+									this.props.currentUser.firstName
+										? this.props.currentUser.firstName
+										: 'Enter your first name'
+								}
+								onChange={this.handleChange}
+							/>
+							<FormInput
+								inputtype="text"
+								name={'lastName'}
+								title={'Last Name'}
+								value={this.state.lastName}
+								autoComplete="off"
+								placeholder={
+									this.props.currentUser.lastName
+										? this.props.currentUser.lastName
+										: 'Enter your last name'
+								}
+								onChange={this.handleChange}
+							/>
+							<FormInput
+								inputtype={'text'}
+								title={'Email'}
+								name={'email'}
+								value={this.state.email}
+								autoComplete="off"
+								placeholder={
+									this.props.currentUser.email
+										? this.props.currentUser.email
+										: 'Enter your email'
+								}
+								onChange={this.handleChange}
+							/>
+							<FormInput
+								inputtype="text"
+								title={'Phone Number'}
+								name={'phoneNumber'}
+								value={this.state.phoneNumber}
+								autoComplete="off"
+								placeholder={
+									this.props.currentUser.phoneNumber
+										? this.props.currentUser.phoneNumber
+										: 'Enter your phone number'
+								}
+								onChange={this.handleChange}
+							/>
+							<FormCheckbox
+								title={'Receive emails?'}
+								name="receiveEmails"
+								handleSelect={this.handleSelect}
+								checked={this.state.toggles.receiveEmails}
+							/>
+							<FormCheckbox
+								title={'Receive texts?'}
+								name="receiveTexts"
+								handleSelect={this.handleSelect}
+								checked={this.state.toggles.receiveTexts}
+							/>
+							<FormButton type="submit" title="save" />
+						</StyledForm>
+						{/* </div>
+							{/* <div>{` `}</div>
 							<div label="Team Billing">
 								<BillingView
 									teamId={this.state.teamId}
 									handlePickTeam={this.handlePickTeam}
 									currentUser={currentUser}
 								/>
-							</div>
-						</SettingsTabs>
+							</div> 
+						</SettingsTabs> */}
 					</SettingsContainer>
 				)}
 			</Mutation>
@@ -326,90 +327,90 @@ class SettingsView extends Component {
 				{addUser => (
 					<SettingsContainer>
 						<h1>Create Account</h1>
-						<SettingsTabs>
-							<div label="Account Settings">
-								<form
-									onSubmit={e => {
-										e.preventDefault();
-										if (
-											!this.state.firstName.length ||
-											!this.state.lastName.length ||
-											!this.state.email.length
-										) {
-											return alert(
-												'First name, last name, and email are required.'
-											);
-										}
-										let addedUser = {
-											firstName: this.state.firstName,
-											lastName: this.state.lastName,
-											email: this.state.email
-										};
-										if (this.state.avatar.length)
-											addedUser.avatar = this.state.avatar;
-										if (this.state.phoneNumber.length)
-											addUser.phoneNumber = this.state.phoneNumber;
-										return addUser({
-											variables: addedUser
-										}).then(() => history.push('/dashboard'));
-									}}
-								>
-									<FormInput
-										inputtype="text"
-										title={'First Name'}
-										name={'firstName'}
-										value={this.state.firstName}
-										autoComplete="off"
-										placeholder={'Enter your first name'}
-										onChange={this.handleChange}
-									/>
-									<FormInput
-										inputtype="text"
-										title={'Phone Number'}
-										name={'lastName'}
-										value={this.state.lastName}
-										autoComplete="off"
-										placeholder={'Enter your last name'}
-										onChange={this.handleChange}
-									/>
-									<FormInput
-										inputtype={'text'}
-										title={'Email'}
-										name={'email'}
-										value={this.state.email}
-										autoComplete="off"
-										placeholder={'Enter your email'}
-										onChange={this.handleChange}
-									/>
-									<FormInput
-										inputtype={'text'}
-										title={'Avatar'}
-										name={'avatar'}
-										value={this.state.avatar}
-										autoComplete="off"
-										placeholder={'Enter an image URL'}
-										onChange={this.handleChange}
-									/>
-									<FormInput
-										inputtype="text"
-										title={'Phone Number'}
-										name={'phoneNumber'}
-										value={this.state.phoneNumber}
-										autoComplete="off"
-										placeholder={'Enter your phone number (US numbers only)'}
-										onChange={this.handleChange}
-									/>
-									<FormButton title={'Save'} />
-								</form>
-							</div>
-							<div label="Team Billing">
+						{/* <SettingsTabs>
+							<div label="Account Settings"> */}
+						<form
+							onSubmit={e => {
+								e.preventDefault();
+								if (
+									!this.state.firstName.length ||
+									!this.state.lastName.length ||
+									!this.state.email.length
+								) {
+									return alert(
+										'First name, last name, and email are required.'
+									);
+								}
+								let addedUser = {
+									firstName: this.state.firstName,
+									lastName: this.state.lastName,
+									email: this.state.email
+								};
+								if (this.state.avatar.length)
+									addedUser.avatar = this.state.avatar;
+								if (this.state.phoneNumber.length)
+									addUser.phoneNumber = this.state.phoneNumber;
+								return addUser({
+									variables: addedUser
+								}).then(() => history.push('/dashboard'));
+							}}
+						>
+							<FormInput
+								inputtype="text"
+								title={'First Name'}
+								name={'firstName'}
+								value={this.state.firstName}
+								autoComplete="off"
+								placeholder={'Enter your first name'}
+								onChange={this.handleChange}
+							/>
+							<FormInput
+								inputtype="text"
+								title={'Phone Number'}
+								name={'lastName'}
+								value={this.state.lastName}
+								autoComplete="off"
+								placeholder={'Enter your last name'}
+								onChange={this.handleChange}
+							/>
+							<FormInput
+								inputtype={'text'}
+								title={'Email'}
+								name={'email'}
+								value={this.state.email}
+								autoComplete="off"
+								placeholder={'Enter your email'}
+								onChange={this.handleChange}
+							/>
+							<FormInput
+								inputtype={'text'}
+								title={'Avatar'}
+								name={'avatar'}
+								value={this.state.avatar}
+								autoComplete="off"
+								placeholder={'Enter an image URL'}
+								onChange={this.handleChange}
+							/>
+							<FormInput
+								inputtype="text"
+								title={'Phone Number'}
+								name={'phoneNumber'}
+								value={this.state.phoneNumber}
+								autoComplete="off"
+								placeholder={'Enter your phone number (US numbers only)'}
+								onChange={this.handleChange}
+							/>
+							<FormButton title={'Save'} />
+						</form>
+						{/* </div>
+							{/* <div label="Team Billing">
 								<BillingView
 									teamId={this.state.teamId}
 									handlePickTeam={this.handlePickTeam}
 									currentUser={currentUser}
 								/>
-							</div>
-						</SettingsTabs>
+							</div> 
+						</SettingsTabs> */}
 					</SettingsContainer>
 				)}
 			</Mutation>

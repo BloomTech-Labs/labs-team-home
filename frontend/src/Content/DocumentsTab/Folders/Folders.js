@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
-import * as query from '../../constants/queries';
+import * as query from '../../../constants/queries';
 import FolderDetails from './FolderDetails';
-import Droppable from './DnD/Droppable';
-import Draggable from './DnD/Draggable';
+import Droppable from '../DnD/Droppable';
+import Draggable from '../DnD/Draggable';
 
 const FolderContainer = styled.div`
 	display: flex;

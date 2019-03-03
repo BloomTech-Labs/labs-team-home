@@ -6,8 +6,8 @@ import Folder from '@material-ui/icons/Folder';
 import NoteAdd from '@material-ui/icons/NoteAdd';
 import Close from '@material-ui/icons/Close';
 import { colors } from '../../colorVariables';
-import AddFolder from './AddFolder';
-import AddDocument from './AddDocument';
+import AddFolder from './Folders/AddFolder';
+import AddDocument from './Documents/AddDocument';
 
 const AddBtn = styled(Fab)`
 	background-color: ${colors.button};

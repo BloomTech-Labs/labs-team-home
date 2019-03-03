@@ -10,8 +10,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Query } from 'react-apollo';
 import * as queries from '../constants/queries';
-import TeamInfo from './components/TeamInfo';
-import DocumentsTab from './DocumentsTab/TabContainer'; // renamed from TabContainer
+import TeamInfo from './TeamOptions/TeamInfo';
+import DocumentsTab from './DocumentsTab/TabContainer';
 
 const styles = {
 	root: {
@@ -89,6 +89,7 @@ class ContentContainer extends React.Component {
 								<TeamInfo
 									currentUser={this.props.currentUser}
 									team={findTeam}
+									{...this.props}
 								/>
 
 								{/* List of content sections the user can choose to view */}

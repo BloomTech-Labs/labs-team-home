@@ -31,12 +31,6 @@ const styles = {
 	}
 };
 
-//
-//	For all styles that have "${props => (props.own ? ... " it indicates
-//  that the creator of that activity is the current user who is logged in
-//  If false, it is another users activity.
-//
-
 const Container = styled(Card)`
 	width: 70%;
 	color: white;

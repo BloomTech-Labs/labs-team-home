@@ -29,7 +29,7 @@ function TeamCard(props) {
 			<CardActionArea>
 				<style.Info>
 					{/* Grid component comes from materia ul. Allows for responsive layout. */}
-					<Grid container spacing={8}> 
+					<Grid container spacing={8}>
 						<Grid item xs={6} className={classes.gridStyle}>
 							<style.StyledTypography noWrap variant="title" component="h3">
 								{name}
@@ -39,7 +39,9 @@ function TeamCard(props) {
 							item
 							xs={6}
 							className={(classes.alignRight, classes.gridStyle)}
-						> {/* emoji were used here */}
+						>
+							{' '}
+							{/* emoji were used here */}
 							<style.Prem component="p" noWrap>
 								Premium? {premium ? '✔️' : '❌'}
 							</style.Prem>

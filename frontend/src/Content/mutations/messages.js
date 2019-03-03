@@ -44,8 +44,8 @@ const updateMessageOptions = {
 						variables: { team: team },
 						data: {
 							findMessagesByTeam: findMessagesByTeam.map(message => {
-								console.log('message from mutator: ', message);
-								console.log('updateMessage from mutator: ', updateMessage);
+								// console.log('message from mutator: ', message);
+								// console.log('updateMessage from mutator: ', updateMessage);
 
 								return message._id === updateMessage._id
 									? updateMessage

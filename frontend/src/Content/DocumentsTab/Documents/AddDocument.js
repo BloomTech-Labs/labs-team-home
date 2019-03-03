@@ -1,61 +1,25 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { compose, Query } from 'react-apollo';
-import styled from 'styled-components';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
+import { addDocument, addTag } from '../../mutations/documents';
+import { FIND_TAGS_BY_TEAM } from '../../../constants/queries'; // this seems to be working
+
+// ------------- Style Imports ---------------------- //
+// import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-import { Close } from '../MessageBoard/MessageDetail';
-import { colors, palette } from '../../colorVariables';
-import { addDocument, addTag } from '../mutations/documents';
-import { FIND_TAGS_BY_TEAM } from '../../constants/queries'; // this seems to be working
 
-const StyledDialog = styled(Dialog)`
-	max-width: 696px;
-	margin: 0 auto;
-
-	/* should add a media query here to make the modal go full screen if less than max width */
-`;
-
-const Overlay = styled(DialogContent)`
-	background-color: ${colors.button};
-	.filepond--wrapper {
-		width: 100%;
-	}
-`;
-
-const SubmitButton = styled(Button)`
-	color: ${colors.text};
-	margin: 0 auto;
-`;
-
-const Title = styled(DialogTitle)`
-	padding-left: 0;
-	background-color: ${colors.button};
-	h2 {
-		color: ${colors.text};
-	}
-`;
-
-const Input = styled(TextField)`
-	input,
-	textarea,
-	label {
-		color: ${colors.text};
-	}
-	&:nth-child(2) {
-		margin: 10px 0;
-		textarea {
-			min-height: 200px;
-		}
-	}
-	&:nth-child(3) {
-		margin-bottom: 10px;
-	}
-`;
+// ------------- Modal styling imports ---------------------- //
+import {
+	StyledModal,
+	StyledModalOverlay,
+	StyledModalClose,
+	StyledModalTitle,
+	StyledModalButton,
+	StyledModalForm,
+	StyledModalInput,
+	StyledModalIconButton
+} from '../../Modal.styles';
 
 class AddDocument extends React.Component {
 	constructor(props) {
@@ -76,31 +40,14 @@ class AddDocument extends React.Component {
 		const { addDocument, addTag } = this.props;
 
 		return (
-			<StyledDialog
-				open={this.props.open}
-				onClose={this.props.closeHandler}
-				PaperProps={{
-					style: {
-						background: `transparent`,
-						boxShadow: 'none'
-					}
-				}}
-			>
-				{/*Close button*/}
-				<Close>
-					<IconButton
-						aria-label="Close"
-						onClick={this.props.closeHandler}
-						style={{
-							color: colors.text,
-							background: palette.plumTransparent
-						}}
-					>
+			<StyledModal open={this.props.open} onClose={this.props.closeHandler}>
+				<StyledModalClose>
+					<StyledModalIconButton onClick={this.props.closeHandler}>
 						<CloseIcon />
-					</IconButton>
-				</Close>
-				<Overlay>
-					<Title>Add a New Document</Title>
+					</StyledModalIconButton>
+				</StyledModalClose>
+				<StyledModalOverlay>
+					<StyledModalTitle>Add a New Document</StyledModalTitle>
 					<Query
 						query={FIND_TAGS_BY_TEAM}
 						variables={{ team: this.props.team }}
@@ -109,7 +56,7 @@ class AddDocument extends React.Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
 							return (
-								<form
+								<StyledModalForm
 									onSubmit={e => {
 										e.preventDefault();
 										// create new document
@@ -128,7 +75,6 @@ class AddDocument extends React.Component {
 											);
 											if (exists) {
 												newDocument.tag = exists._id;
-												console.log(newDocument.tag);
 												addDocument(newDocument)
 													.then(() => this.props.closeHandler())
 													.catch(err => {
@@ -142,8 +88,6 @@ class AddDocument extends React.Component {
 													.then(async ({ data: { addTag: { _id } } }) => {
 														try {
 															await (newDocument.tag = _id);
-															console.log(newDocument);
-															console.log(newDocument.tag);
 															await addDocument(newDocument);
 															await this.props.closeHandler();
 														} catch (err) {
@@ -156,7 +100,7 @@ class AddDocument extends React.Component {
 										} else {
 											addDocument(newDocument)
 												.then(res => {
-													return this.props.closeHandler();
+													this.props.closeHandler();
 												})
 												.catch(err => {
 													console.error(err);
@@ -164,45 +108,40 @@ class AddDocument extends React.Component {
 										}
 									}}
 								>
-									<Input
+									<StyledModalInput
 										name="title"
+										value={this.state.title}
 										placeholder="title"
-										variant="outlined"
-										fullWidth
 										onChange={this.handleChange}
 									/>
-									<Input
+									<StyledModalInput
 										name="url"
+										value={this.state.url}
 										placeholder="url"
-										variant="outlined"
-										fullWidth
 										onChange={this.handleChange}
 									/>
-									<Input
+									<StyledModalInput
 										name="content"
+										value={this.state.content}
 										placeholder="content"
-										variant="outlined"
-										fullWidth
 										onChange={this.handleChange}
 										multiline
 									/>
-									<Input
+									<StyledModalInput
 										name="tag"
+										value={this.state.tag}
 										placeholder="tag"
-										variant="outlined"
 										onChange={this.handleChange}
-										fullWidth
 									/>
-
-									<SubmitButton type="submit" size="large" fullWidth>
+									<StyledModalButton type="submit" fullWidth>
 										Add
-									</SubmitButton>
-								</form>
+									</StyledModalButton>
+								</StyledModalForm>
 							);
 						}}
 					</Query>
-				</Overlay>
-			</StyledDialog>
+				</StyledModalOverlay>
+			</StyledModal>
 		);
 	}
 }

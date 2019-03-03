@@ -5,7 +5,7 @@ import * as style from './TeamList.styles';
 import * as query from '../../../constants/queries';
 import * as mutation from '../../../constants/mutations';
 
-import TeamCard from './TeamCard';
+import TeamCard from './TeamCard/TeamCard';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
@@ -37,18 +37,16 @@ class TeamList extends React.Component {
 
 		this.state = {
 			input: '',
+			editTeamName: '',
 			classes: props.classes
 		};
-
-		this.changeHandler = this.changeHandler.bind(this);
 	}
 
-	changeHandler(e) {
+	changeHandler = e => {
 		this.setState({
 			[e.target.name]: e.target.value
 		});
-	}
-
+	};
 	render() {
 		return (
 			/* NOTE: anything with <style.name> is essentially a styled component */
@@ -86,16 +84,10 @@ class TeamList extends React.Component {
 									value={this.state.input}
 									onChange={this.changeHandler}
 								/>
-								{/* The button does not submit unless the onClick is present */}
 								<style.Button
+									type="submit"
 									className={this.state.classes.iconButton}
 									aria-label="Directions"
-									onClick={e => {
-										e.preventDefault();
-										this.state.input.length &&
-											addTeam({ variables: { name: this.state.input } });
-										this.setState({ input: '' });
-									}}
 								>
 									<AddIcon />
 								</style.Button>
@@ -106,14 +98,17 @@ class TeamList extends React.Component {
 				<h1>My Teams</h1>
 				<style.TeamsList>
 					<Query query={query.FIND_TEAMS_BY_USER}>
-						{/* data is the result of the query. Query component can also return loading bool and error bool. */}
 						{({ loading, error, data: { findTeamsByUser } }) => {
 							if (loading) return <p>Loading...</p>;
-							if (error) return <p>Error :(</p>;
+							if (error) return <p>Error.</p>;
+
+							// Map over the teams
 							return findTeamsByUser.map(team => (
-								<style.LinkStyles to={`/${team._id}/home`} key={team._id}>
-									<TeamCard team={team} />
-								</style.LinkStyles>
+								<div key={team._id}>
+									<style.LinkStyles to={`/${team._id}/home`}>
+										<TeamCard team={team} />
+									</style.LinkStyles>
+								</div>
 							));
 						}}
 					</Query>
