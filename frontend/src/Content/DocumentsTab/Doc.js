@@ -17,7 +17,9 @@ const docSource = {
 		if (!monitor.didDrop()) {
 			return;
 		}
-		return props.handleDrop(props.document._id);
+		const dropResult = monitor.getDropResult();
+		console.log('dropResult: ', dropResult);
+		return props.handleDrop(props.document._id, dropResult.folder);
 	}
 };
 

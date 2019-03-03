@@ -36,8 +36,6 @@ function collect(connect, monitor) {
 	};
 }
 
-var folderId;
-
 class Folder extends React.Component {
 	constructor() {
 		super();
@@ -45,17 +43,21 @@ class Folder extends React.Component {
 			refresh: false
 		};
 	}
-	updateDrop = id => {
+	updateDrop = (id, folderid) => {
 		console.log('DOC : ', id);
-		console.log('FOLDER : ', folderId);
+		console.log('FOLDER : ', folderid);
 
-		this.props.updateDocument({ id: id, folder: folderId });
-		this.setState({
-			refresh: !this.state.refresh
-		});
-		this.props.folderFetch();
-		this.props.fetch();
-		this.props.resetComp(id);
+		if (folderid !== undefined) {
+			this.props.updateDocument({ id: id, folder: folderid._id });
+		} else {
+			this.props.updateDocument({ id: id, folder: null });
+		}
+		// this.setState({
+		// 	refresh: !this.state.refresh
+		// });
+		// this.props.folderFetch();
+		// this.props.fetch();
+		// this.props.resetComp(id);
 		// console.log(this.state.refresh)
 		console.log('Folder Update');
 	};
@@ -63,10 +65,7 @@ class Folder extends React.Component {
 	render() {
 		const { connectDropTarget, hovered, folder } = this.props;
 		const backgroundColor = hovered ? 'lightgray' : '';
-		if (hovered) {
-			folderId = folder._id;
-			console.log(folderId);
-		}
+
 		return connectDropTarget(
 			<div>
 				<IndividualFolder style={{ background: backgroundColor }}>
@@ -77,7 +76,7 @@ class Folder extends React.Component {
 								<Doc
 									key={doc._id}
 									document={doc}
-									handleDrop={id => this.updateDrop(id)}
+									handleDrop={(id, folderId) => this.updateDrop(id, folderId)}
 								/>
 							);
 						})
@@ -90,7 +89,14 @@ class Folder extends React.Component {
 	}
 }
 
+const target = {
+	drop(props) {
+		const { folder } = props;
+		return { folder };
+	}
+};
+
 export default compose(
-	DropTarget('item', {}, collect),
+	DropTarget('item', target, collect),
 	updateDocument
 )(Folder);

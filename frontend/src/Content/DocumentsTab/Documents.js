@@ -57,8 +57,6 @@ const SortForm = styled.form`
 	}
 `;
 
-var folderId;
-
 function collect(connect, monitor) {
 	return {
 		connectDropTarget: connect.dropTarget(),
@@ -88,11 +86,15 @@ class Documents extends Component {
 		this.setState({ sortOption: e.target.value });
 	};
 
-	updateDrop = id => {
+	updateDrop = (id, folderid) => {
 		console.log('Staging DOC: ', id);
-		console.log('DropArea ID: ', folderId);
+		console.log('DropArea ID: ', folderid);
 
-		this.props.updateDocument({ id: id, folder: folderId });
+		if (folderid === undefined) {
+			this.props.updateDocument({ id: id, folder: null });
+		} else {
+			this.props.updateDocument({ id: id, folder: folderid._id });
+		}
 		console.log('Document Update');
 	};
 
@@ -100,10 +102,6 @@ class Documents extends Component {
 		// console.log('props: ', this.props);
 		const { connectDropTarget, hovered } = this.props;
 		const backgroundColor = hovered ? 'lightgray' : '';
-		if (hovered) {
-			folderId = 'null';
-			console.log(folderId);
-		}
 
 		return connectDropTarget(
 			<div>
@@ -161,7 +159,9 @@ class Documents extends Component {
 											>
 												<Doc
 													document={doc}
-													handleDrop={id => this.updateDrop(id)}
+													handleDrop={(id, folderId) =>
+														this.updateDrop(id, folderId)
+													}
 												/>
 											</div>
 										);
@@ -185,7 +185,14 @@ class Documents extends Component {
 	}
 }
 
+const target = {
+	drop(props) {
+		const { folder } = props;
+		return { folder };
+	}
+};
+
 export default compose(
-	DropTarget('item', {}, collect),
+	DropTarget('item', target, collect),
 	updateDocument
 )(Documents);
