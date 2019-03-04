@@ -76,6 +76,7 @@
 		F8BEA7F5222D035D0003C352 /* FolderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */; };
 		F8BEA7F7222D03860003C352 /* FoldersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */; };
 		F8E77CDA2214DB3B00E12C8B /* DocumentTabHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */; };
+		F8FDF226222DDE9B00ABAA86 /* FolderManagementViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = F8FDF225222DDE9B00ABAA86 /* FolderManagementViewController.graphql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +153,7 @@
 		F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderDetailViewController.swift; sourceTree = "<group>"; };
 		F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersTableViewController.swift; sourceTree = "<group>"; };
 		F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DocumentTabHome.storyboard; sourceTree = "<group>"; };
+		F8FDF225222DDE9B00ABAA86 /* FolderManagementViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = FolderManagementViewController.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +282,7 @@
 				10295B6822274F92002C8940 /* DocumentDetailViewController.swift */,
 				103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */,
 				F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */,
+				F8FDF225222DDE9B00ABAA86 /* FolderManagementViewController.graphql */,
 				F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */,
 				F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */,
 			);
@@ -534,6 +537,7 @@
 				7BA77E8A21E7F3E200C862C1 /* Message.swift in Sources */,
 				7BA77EB221E93B2200C862C1 /* CommentsCollectionViewController.swift in Sources */,
 				7BA77E8121E797C200C862C1 /* LandingPageViewController.swift in Sources */,
+				F8FDF226222DDE9B00ABAA86 /* FolderManagementViewController.graphql in Sources */,
 				7BA77EB021E93B1300C862C1 /* MessageDetailViewController.swift in Sources */,
 				1092D5B3221E8B7D00579B34 /* DocumentsTableViewController.graphql in Sources */,
 				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,

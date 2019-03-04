@@ -2666,6 +2666,97 @@ public final class FindTagsByTeamQuery: GraphQLQuery {
   }
 }
 
+public final class MoveToFolderMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation MoveToFolder($id: ID!, $title: String!) {\n  updateFolder(input: {id: $id, title: $title}) {\n    __typename\n    _id\n    title\n  }\n}"
+
+  public var id: GraphQLID
+  public var title: String
+
+  public init(id: GraphQLID, title: String) {
+    self.id = id
+    self.title = title
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id, "title": title]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("updateFolder", arguments: ["input": ["id": GraphQLVariable("id"), "title": GraphQLVariable("title")]], type: .object(UpdateFolder.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(updateFolder: UpdateFolder? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "updateFolder": updateFolder.flatMap { (value: UpdateFolder) -> ResultMap in value.resultMap }])
+    }
+
+    public var updateFolder: UpdateFolder? {
+      get {
+        return (resultMap["updateFolder"] as? ResultMap).flatMap { UpdateFolder(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "updateFolder")
+      }
+    }
+
+    public struct UpdateFolder: GraphQLSelectionSet {
+      public static let possibleTypes = ["Folder"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+        GraphQLField("title", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil, title: String) {
+        self.init(unsafeResultMap: ["__typename": "Folder", "_id": id, "title": title])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+
+      public var title: String {
+        get {
+          return resultMap["title"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "title")
+        }
+      }
+    }
+  }
+}
+
 public final class InviteUserToTeamWithEmailMutation: GraphQLMutation {
   public let operationDefinition =
     "mutation InviteUserToTeamWithEmail($id: ID!, $email: String) {\n  inviteUser(input: {id: $id, email: $email}) {\n    __typename\n    _id\n  }\n}"
