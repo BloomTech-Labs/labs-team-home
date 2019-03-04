@@ -36,3 +36,13 @@ mutation DeleteDocument($docID: ID!){
         title
     }
 }
+
+mutation AddFolder($title: String!, $team: String!){
+    addFolder(input: {
+              title: $title
+              team: $team
+              }){
+        _id
+        title
+    }
+}
