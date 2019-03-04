@@ -1,10 +1,10 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import * as query from '../../constants/queries';
+import * as query from '../../../constants/queries';
 import { DropTarget } from 'react-dnd';
-import Doc from './Doc';
+import Doc from '../Doc';
 import { compose } from 'react-apollo';
-import { updateDocument } from '../mutations/documents';
+import { updateDocument } from '../../mutations/documents';
 import styled from 'styled-components';
 
 const Container = styled.div`

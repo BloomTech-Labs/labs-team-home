@@ -2,6 +2,9 @@ const Team = require('../../models/Team');
 const Message = require('../../models/Message');
 const MsgComment = require('../../models/MsgComment');
 const User = require('../../models/User');
+const Document = require('../../models/Document');
+const DocComment = require('../../models/DocComment');
+const Folder = require('../../models/Folder');
 const {
 	ForbiddenError,
 	ValidationError,
@@ -45,14 +48,34 @@ const teamResolvers = {
 						item => item.user.toString() === user._id.toString()
 					); // checks if current user is on the team and admin
 					if (foundUser && foundUser.admin) {
+						//Find all the appropriate team items
 						const team = await Team.findOneAndDelete({ _id: id });
-						const messages = await Message.find({ team: team._id }); // finds all messages on the team
+						const messages = await Message.find({ team: team._id });
+						const documents = await Document.find({ team: team._id });
+
+						// deletes all comments associated with the team messages
 						await Promise.all(
 							messages.map(message =>
 								MsgComment.deleteMany({ message: message._id })
-							) // deletes all comments associated with the messages
+							)
 						);
-						await Message.deleteMany({ team: team._id }); // deletes all messages
+
+						// deletes all team messages
+						await Message.deleteMany({ team: team._id });
+
+						// deletes all comments associated with the team documents
+						await Promise.all(
+							documents.map(document =>
+								DocComment.deleteMany({ document: document._id })
+							)
+						);
+
+						//delete all team documents
+						await Document.deleteMany({ team: team._id });
+
+						//delete folders
+						await Folder.deleteMany({ team: team._id });
+
 						return team;
 					} else {
 						throw new ForbiddenError('You do not have permission to do that.');

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
-import * as query from '../../constants/queries';
+import * as query from '../../../constants/queries';
 import FolderDetails from './FolderDetails';
 import Folder from './Folder';
 // import { compose } from 'react-apollo';
@@ -45,12 +45,6 @@ class Folders extends Component {
 			folderDetailOpen: false,
 			sortOption: 'newest'
 		};
-	}
-
-	componentDidUpdate(prevstate) {
-		if (this.props !== prevstate.props) {
-			console.log('CDU running');
-		}
 	}
 
 	toggleFolderDetail = dir => {
@@ -119,7 +113,6 @@ class Folders extends Component {
 											<div onClick={() => this.toggleFolderDetail(folder)}>
 												<Folder
 													folder={folder}
-													upd={this.docDropped}
 													findDocumentsByFolder={findDocumentsByFolder}
 													team={this.props.team._id}
 												/>

@@ -31,19 +31,13 @@ const styles = {
 	}
 };
 
-//
-//	For all styles that have "${props => (props.own ? ... " it indicates
-//  that the creator of that activity is the current user who is logged in
-//  If false, it is another users activity.
-//
-
 const Container = styled(Card)`
 	width: 70%;
 	color: white;
 	margin: 5px 3%;
 	background-color: #3e3145;
-	${props => (props.own ? 'position: relative' : null)};
-	${props => (props.own ? 'float: right' : null)};
+	${props => (props.own === 'true' ? 'position: relative' : null)};
+	${props => (props.own === 'true' ? 'float: right' : null)};
 
 	${mediaQueryFor.mdDevice`
 		width: 100%;
@@ -57,9 +51,11 @@ const Info = styled(CardContent)`
 	flex-direction: column;
 	max-width: 740px;
 	margin: 5px 10px;
-	justify-content: ${props => (props.own ? 'flex-start' : 'flex-end')};
-	width: ${props => (props.own ? '90%' : '85%')};
-	${props => (props.own ? 'text-align: right' : 'padding-right: 85px')};
+	justify-content: ${props =>
+		props.own === 'true' ? 'flex-start' : 'flex-end'};
+	width: ${props => (props.own === 'true' ? '90%' : '85%')};
+	${props =>
+		props.own === 'true' ? 'text-align: right' : 'padding-right: 85px'};
 
 	${mediaQueryFor.smDevice`
 		max-width: 80%;
@@ -98,19 +94,17 @@ function Activity(props) {
 				return 'Comment';
 			case 'Document':
 				return 'Document';
-			case 'DocComment':
-				return 'Comment on a Document';
 			case 'Folder':
 				return 'Folder';
 			default:
-				return 'Item';
+				return 'Comment';
 		}
 	};
 
 	return (
 		<Container own={own}>
 			<CardActionArea className={classes.cardButton}>
-				{!own ? ( //if the user is not the user who is logged in
+				{own === 'false' ? ( //if the user is not the user who is logged in
 					<Avatar
 						src={user.avatar}
 						alt="User avatar"
@@ -138,7 +132,7 @@ function Activity(props) {
 					</Title>
 				</Info>
 
-				{own ? ( //if the user is the user who is logged in
+				{own === 'true' ? ( //if the user is the user who is logged in
 					<Avatar
 						src={user.avatar}
 						alt="User avatar"

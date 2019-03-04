@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { DropTarget } from 'react-dnd';
-import Doc from './Doc';
+import Doc from '../Doc';
 import { compose } from 'react-apollo';
-import { updateDocument } from '../mutations/documents';
+import { updateDocument } from '../../mutations/documents';
 
 const IndividualFolder = styled.div`
 	min-height: 200px;

@@ -28,10 +28,37 @@ query FindDocumentsByTeam($teamID: ID!){
     }
 }
 
+query FindFoldersByTeam($teamID: ID!){
+    findFoldersByTeam(input: {
+                        team: $teamID
+                        }){
+        _id
+        user{
+            firstName
+            lastName
+            avatar
+            _id
+        }
+        title
+        createdAt
+        updatedAt
+    }
+}
+
 mutation DeleteDocument($docID: ID!){
     deleteDocument(input: {
                    id: $docID
                    }){
+        _id
+        title
+    }
+}
+
+mutation AddNewFolder($title: String!, $team: String!){
+    addFolder(input: {
+              title: $title
+              team: $team
+              }){
         _id
         title
     }
