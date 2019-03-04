@@ -111,4 +111,9 @@ class DocumentsTableViewController: UITableViewController {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var deleteIndexPath: IndexPath?
+    var displayDocsOrFolders: DisplayDocsOrFolders?
+}
+
+enum DisplayDocsOrFolders {
+    case documents, folders
 }
