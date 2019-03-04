@@ -13,10 +13,6 @@ const folderResolver = {
 				.then(folder => folder),
 		findFoldersByTeam: async (_, { input: { team } }) => {
 			const folders = await Folder.find({ team: team }).populate('user team');
-			// return folders.map(x => {
-			// 	x._id = x._id.toString();
-			// 	return x;
-			// });
 			return folders;
 		}
 	},
