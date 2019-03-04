@@ -1,6 +1,10 @@
 import { graphql } from 'react-apollo';
 import * as query from '../../constants/queries';
 import {
+	FIND_DOCUMENTS_BY_TEAM,
+	FIND_FOLDERS_BY_TEAM
+} from '../../constants/queries';
+import {
 	ADD_DOCUMENT,
 	DELETE_DOCUMENT,
 	UPDATE_DOCUMENT,
@@ -85,7 +89,15 @@ const updateDocumentOptions = {
 							})
 						}
 					});
-				}
+				},
+
+				// refetchQueries: [{query: FIND_DOCUMENTS_BY_TEAM, variables: {team: team}}]
+				refetchQueries: [
+					{ query: FIND_DOCUMENTS_BY_TEAM, variables: { team: team } }
+				],
+				refetchQueries: [
+					{ query: FIND_FOLDERS_BY_TEAM, variables: { team: team } }
+				]
 			});
 		}
 	})

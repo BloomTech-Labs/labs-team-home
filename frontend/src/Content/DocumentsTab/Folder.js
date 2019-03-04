@@ -43,6 +43,7 @@ class Folder extends React.Component {
 			refresh: false
 		};
 	}
+
 	updateDrop = (id, folderid) => {
 		// console.log('DOC : ', id);
 		// console.log('FOLDER : ', folderid);

@@ -47,6 +47,12 @@ class Folders extends Component {
 		};
 	}
 
+	componentDidUpdate(prevstate) {
+		if (this.props !== prevstate.props) {
+			console.log('CDU running');
+		}
+	}
+
 	toggleFolderDetail = dir => {
 		this.setState(prevState => ({
 			folderDetailOpen: !prevState.folderDetailOpen,
