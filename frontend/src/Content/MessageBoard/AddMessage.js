@@ -47,26 +47,33 @@ class AddMessage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			jesusRefactoringThisIsGunnaBeAPain: true
+			title: '',
+			content: '',
+			tag: ''
 		};
 	}
+
+	resetState = () => {
+		this.setState({
+			title: '',
+			content: '',
+			tag: ''
+		});
+	};
 
 	handleChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	render() {
-		//this is their state... but why?
-		let team, user, title, content, tag, images;
-		team = this.props.team;
-		user = this.props.user;
-		images = [];
-		const { addMessage, addTag } = this.props;
+		let { team, user, addMessage, addTag } = this.props;
+		let images = [];
+
 		return (
-			<StyledModal open={this.props.open} onClose={this.props.closeHandler}>
+			<StyledModal open={this.props.open} onClose={this.props.hideModal}>
 				{/*Close button*/}
 				<StyledModalClose>
-					<StyledModalIconButton onClick={this.props.closeHandler}>
+					<StyledModalIconButton onClick={this.props.hideModal}>
 						<CloseIcon />
 					</StyledModalIconButton>
 				</StyledModalClose>
@@ -85,30 +92,30 @@ class AddMessage extends React.Component {
 										//create newMessage object using the variables created in advance
 										let newMessage = {
 											user: user,
-											title: title.value,
-											content: content.value,
+											title: this.state.title,
+											content: this.state.content,
 											team: team,
 											images: images
 										};
 										//check if the tag length is not 0 to do stuff with tags
-										if (tag.value.length) {
+										if (this.state.tag.length) {
 											const exists = findTagsByTeam.find(
-												({ name }) => name === tag.value
+												({ name }) => name === this.state.tag
 											);
 											if (exists) {
 												newMessage.tag = exists._id;
 												addMessage(newMessage)
-													.then(() => this.props.closeHandler())
+													.then(() => this.props.hideModal())
 													.catch(err => {
 														console.error(err);
 													});
 											} else {
-												return addTag({ name: tag.value, team })
+												return addTag({ name: this.state.tag, team })
 													.then(async ({ data: { addTag: { _id } } }) => {
 														try {
 															await (newMessage.tag = _id);
 															await addMessage(newMessage);
-															await this.props.closeHandler();
+															await this.props.hideModal();
 														} catch (err) {
 															console.error(err);
 														}
@@ -119,40 +126,35 @@ class AddMessage extends React.Component {
 										//pass newMessage object as a variable to addMessage mutation
 										else {
 											addMessage(newMessage)
-												.then(res => {
-													return this.props.closeHandler();
+												.then(() => {
+													this.props.hideModal();
+													this.resetState();
+													images = [];
 												})
 												.catch(err => {
 													console.error(err);
 												});
 										}
-										//reset title, content, tag, and images
-										title.value = '';
-										content.value = '';
-										tag.value = '';
 									}}
 								>
 									<StyledModalInput
 										name="title"
+										value={this.state.title}
 										placeholder="title"
-										inputRef={node => {
-											title = node;
-										}}
+										onChange={this.handleChange}
 									/>
 									<StyledModalInput
-										name="contents"
+										name="content"
+										value={this.state.content}
 										placeholder="content"
-										inputRef={node => {
-											content = node;
-										}}
+										onChange={this.handleChange}
 										multiline
 									/>
 									<StyledModalInput
 										name="tag"
+										value={this.state.tag}
 										placeholder="tag"
-										inputRef={node => {
-											tag = node;
-										}}
+										onChange={this.handleChange}
 									/>
 									<FilePond
 										allowMultiple={true}
@@ -208,7 +210,6 @@ class AddMessage extends React.Component {
 														error('oh no');
 													}
 												};
-
 												request.send(formData);
 
 												// Should expose an abort method so the request can be cancelled

@@ -17,7 +17,6 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { colors } from '../../../colorVariables';
-import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
@@ -29,6 +28,7 @@ import {
 	StyledModalOverlay,
 	StyledModalClose,
 	StyledModalPaper,
+	StyledModalCardAction,
 	StyledModalTitle,
 	StyledModalBody,
 	StyledModalButton,
@@ -54,6 +54,8 @@ class DocumentDetails extends React.Component {
 		};
 	}
 
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+
 	resetState = () =>
 		this.setState({
 			editingDocument: false,
@@ -65,8 +67,6 @@ class DocumentDetails extends React.Component {
 			editedComment: null,
 			newCommentContent: ''
 		});
-
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	render() {
 		const {
@@ -84,7 +84,6 @@ class DocumentDetails extends React.Component {
 		} = this.props;
 
 		if (document === null) return <></>;
-		// console.log(this.props);
 		return (
 			<StyledModal
 				open={open}
@@ -119,7 +118,7 @@ class DocumentDetails extends React.Component {
 					/>
 					<StyledModalPaper>
 						{this.state.editingDocument ? (
-							<>
+							<CardContent>
 								<StyledModalForm
 									onSubmit={e => {
 										e.preventDefault();
@@ -152,29 +151,20 @@ class DocumentDetails extends React.Component {
 									/>
 									<StyledModalButton type="submit">Save</StyledModalButton>
 								</StyledModalForm>
-							</>
+							</CardContent>
 						) : (
-							<>
-								<CardContent>
-									<StyledModalTitle variant="h5" component="h3">
-										{document.title}
-									</StyledModalTitle>
-									<StyledModalBody paragraph component="p">
-										{document.doc_url}
-									</StyledModalBody>
-									<StyledModalBody paragraph component="p">
-										{document.textContent}
-									</StyledModalBody>
-								</CardContent>
-								{/* Load all the images attached to the message */}
-								<CardActions
-									style={{
-										width: '100%',
-										display: 'flex',
-										flexFlow: 'row',
-										justifyContent: 'space-around'
-									}}
-								>
+							<CardContent>
+								<StyledModalTitle variant="h5" component="h3">
+									{document.title}
+								</StyledModalTitle>
+								<StyledModalBody paragraph component="p">
+									{document.doc_url}
+								</StyledModalBody>
+								<StyledModalBody paragraph component="p">
+									{document.textContent}
+								</StyledModalBody>
+
+								<StyledModalCardAction>
 									{document.user._id === currentUser._id && (
 										<>
 											<StyledModalButton
@@ -239,8 +229,8 @@ class DocumentDetails extends React.Component {
 											? 'Unsubscribe'
 											: 'Subscribe'}
 									</StyledModalButton>
-								</CardActions>
-							</>
+								</StyledModalCardAction>
+							</CardContent>
 						)}
 					</StyledModalPaper>
 					{/* View all the comments of the document */}
@@ -297,66 +287,62 @@ class DocumentDetails extends React.Component {
 													</StyledModalButton>
 												</StyledModalForm>
 											) : (
-												<>
-													<CardContent>
-														<StyledModalBody component="p">
-															{comment.content}
-														</StyledModalBody>
-													</CardContent>
+												<CardContent>
+													<StyledModalBody component="p">
+														{comment.content}
+													</StyledModalBody>
 
 													{/* Check to see if the comment is the users and thus can be edited or deleted */}
-													<CardContent>
-														{comment.user._id === currentUser._id && (
-															<>
-																<StyledModalButton
-																	onClick={e => {
-																		e.preventDefault();
-																		if (!this.state.editingDocument) {
-																			this.setState({
-																				editingComment: true,
-																				commentContent: comment.content,
-																				editedComment: comment
-																			});
-																		} else {
-																			alert(
-																				"Please finish editing your document by clicking 'SAVE' before editing a comment."
-																			);
-																		}
-																	}}
-																>
-																	Edit
-																</StyledModalButton>
-																<StyledModalButton
-																	onClick={e => {
-																		e.preventDefault();
-																		deleteDocComment({
-																			id: comment._id
+													{comment.user._id === currentUser._id && (
+														<>
+															<StyledModalButton
+																onClick={e => {
+																	e.preventDefault();
+																	if (!this.state.editingDocument) {
+																		this.setState({
+																			editingComment: true,
+																			commentContent: comment.content,
+																			editedComment: comment
 																		});
-																	}}
-																>
-																	Delete
-																</StyledModalButton>
-															</>
-														)}
-														{/* Like button */}
-														<StyledModalButton
-															onClick={e => {
-																e.preventDefault();
-																comment.likes.find(
-																	({ _id }) => _id === currentUser._id
-																)
-																	? unLikeDocComment({
-																			id: comment._id
-																	  })
-																	: likeDocComment({
-																			id: comment._id
-																	  });
-															}}
-														>
-															{`${comment.likes.length} likes`}
-														</StyledModalButton>
-													</CardContent>
-												</>
+																	} else {
+																		alert(
+																			"Please finish editing your document by clicking 'SAVE' before editing a comment."
+																		);
+																	}
+																}}
+															>
+																Edit
+															</StyledModalButton>
+															<StyledModalButton
+																onClick={e => {
+																	e.preventDefault();
+																	deleteDocComment({
+																		id: comment._id
+																	});
+																}}
+															>
+																Delete
+															</StyledModalButton>
+														</>
+													)}
+													{/* Like button */}
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															comment.likes.find(
+																({ _id }) => _id === currentUser._id
+															)
+																? unLikeDocComment({
+																		id: comment._id
+																  })
+																: likeDocComment({
+																		id: comment._id
+																  });
+														}}
+													>
+														{`${comment.likes.length} likes`}
+													</StyledModalButton>
+												</CardContent>
 											)}
 										</StyledModalPaper>
 									))}
@@ -367,7 +353,7 @@ class DocumentDetails extends React.Component {
 											addDocComment({
 												document: document._id,
 												content: this.state.newCommentContent
-											});
+											}).then(this.resetState());
 										}}
 									>
 										<StyledModalNewCommentInput

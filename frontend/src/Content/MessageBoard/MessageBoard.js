@@ -118,93 +118,87 @@ class MessageBoard extends React.Component {
 	render() {
 		const { classes } = this.props;
 		return (
-			<>
-				<Messageboard>
-					{/* All modals */}
-					{/* Add a message modal*/}
-					<AddMessage
-						closeHandler={this.toggleModalHandler}
-						stopProp={e => e.stopPropagation()}
-						team={this.props.team._id}
-						user={this.props.currentUser._id}
-						open={this.state.showModal}
-					/>
-
-					{/* Click on a message and view its contents modal */}
-					<MessageDetail
-						open={this.state.messageDetailOpen}
-						hideModal={() => this.toggleMessageDetail(null)}
-						message={this.state.currentMessage}
-						currentUser={this.props.currentUser}
-						team={this.props.team._id}
-					/>
-
-					{/* List of all the messages */}
-					<MessagesContainer>
-						<Tooltip
-							title="Add Message"
-							aria-label="Add Message"
-							classes={{ tooltip: classes.styledTooltip }}
+			<Messageboard>
+				{/* List of all the messages */}
+				<MessagesContainer>
+					<Tooltip
+						title="Add Message"
+						aria-label="Add Message"
+						classes={{ tooltip: classes.styledTooltip }}
+					>
+						<AddMsgBtn
+							onClick={this.toggleModalHandler}
+							className={classes.fab}
 						>
-							<AddMsgBtn
-								onClick={this.toggleModalHandler}
-								className={classes.fab}
-							>
-								<AddIcon />
-							</AddMsgBtn>
-						</Tooltip>
+							<AddIcon />
+						</AddMsgBtn>
+					</Tooltip>
 
-						{/* Sorting options */}
-						<form>
-							<label>
-								Sort:
-								<select
-									value={this.state.sortOption}
-									onChange={this.sortChange}
-								>
-									<option value="newest">Newest First</option>
-									<option value="oldest">Oldest First</option>
-								</select>
-							</label>
-						</form>
-						<Query
-							query={query.FIND_MESSAGES_BY_TEAM}
-							variables={{ team: this.props.team._id }}
-						>
-							{({ loading, error, data: { findMessagesByTeam } }) => {
-								if (loading) return <p>Loading...</p>;
-								if (error) return console.error(error);
-								switch (this.state.sortOption) {
-									case 'newest':
-										findMessagesByTeam.sort((a, b) => {
-											if (a.createdAt < b.createdAt) return 1;
-											if (a.createdAt > b.createdAt) return -1;
-											return 0;
-										});
-										break;
-									case 'oldest':
-										findMessagesByTeam.sort((a, b) => {
-											if (a.createdAt < b.createdAt) return -1;
-											if (a.createdAt > b.createdAt) return 1;
-											return 0;
-										});
-										break;
-									default:
-										break;
-								}
-								return findMessagesByTeam.map(message => (
-									<Message
-										message={message}
-										userInfo={message.user}
-										key={message._id}
-										openMessage={() => this.toggleMessageDetail(message)}
-									/>
-								));
-							}}
-						</Query>
-					</MessagesContainer>
-				</Messageboard>
-			</>
+					{/* Sorting options */}
+					<form>
+						<label>
+							Sort:
+							<select value={this.state.sortOption} onChange={this.sortChange}>
+								<option value="newest">Newest First</option>
+								<option value="oldest">Oldest First</option>
+							</select>
+						</label>
+					</form>
+					<Query
+						query={query.FIND_MESSAGES_BY_TEAM}
+						variables={{ team: this.props.team._id }}
+					>
+						{({ loading, error, data: { findMessagesByTeam } }) => {
+							if (loading) return <p>Loading...</p>;
+							if (error) return console.error(error);
+							switch (this.state.sortOption) {
+								case 'newest':
+									findMessagesByTeam.sort((a, b) => {
+										if (a.createdAt < b.createdAt) return 1;
+										if (a.createdAt > b.createdAt) return -1;
+										return 0;
+									});
+									break;
+								case 'oldest':
+									findMessagesByTeam.sort((a, b) => {
+										if (a.createdAt < b.createdAt) return -1;
+										if (a.createdAt > b.createdAt) return 1;
+										return 0;
+									});
+									break;
+								default:
+									break;
+							}
+							return findMessagesByTeam.map(message => (
+								<Message
+									message={message}
+									userInfo={message.user}
+									key={message._id}
+									openMessage={() => this.toggleMessageDetail(message)}
+								/>
+							));
+						}}
+					</Query>
+				</MessagesContainer>
+				{/* All modals */}
+				{/* Add a message modal*/}
+				<AddMessage
+					open={this.state.showModal}
+					hideModal={this.toggleModalHandler}
+					stopProp={e => e.stopPropagation()}
+					team={this.props.team._id}
+					user={this.props.currentUser._id}
+				/>
+
+				{/* Click on a message and view its contents modal */}
+				<MessageDetail
+					open={this.state.messageDetailOpen}
+					hideModal={() => this.toggleMessageDetail(null)}
+					message={this.state.currentMessage}
+					currentUser={this.props.currentUser}
+					team={this.props.team._id}
+				/>
+			</Messageboard>
 		);
 	}
 }

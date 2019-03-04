@@ -16,6 +16,7 @@ import Logo from '../../assets/TH_favicon.png';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import { colors } from '../../colorVariables';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -64,7 +65,7 @@ class TeamDetails extends React.Component {
 		};
 	}
 
-	//set admin to true, if the user is the admin
+	//set admin to true, if the currentUser is the admin
 	componentDidMount = () => {
 		this.props.team.users.map(user => {
 			if (user.user._id === this.props.currentUser._id) {
@@ -116,50 +117,54 @@ class TeamDetails extends React.Component {
 					<div>
 						{editingTeamName ? (
 							// {/* If the user is the admin on a team, give them a edit button */}
-							<Mutation
-								mutation={mutation.UPDATE_TEAM}
-								update={(cache, { data: { updateTeam } }) => {
-									const { findTeamsByUser } = cache.readQuery({
-										query: query.FIND_TEAMS_BY_USER
-									});
-									cache.writeQuery({
-										query: query.FIND_TEAMS_BY_USER,
-										variables: { team: team },
-										data: {
-											findTeamsByUser: findTeamsByUser.map(team => {
-												return team._id === updateTeam._id ? updateTeam : team;
-											})
-										}
-									});
-								}}
-							>
-								{updateTeam => (
-									<StyledModalForm
-										onSubmit={e => {
-											e.preventDefault();
-											updateTeam({
-												variables: {
-													id: team._id,
-													name: this.state.editTeamName
-												}
-											}).then(
-												this.setState({
-													editTeamName: '',
-													editingTeamName: false
+							<CardContent>
+								<Mutation
+									mutation={mutation.UPDATE_TEAM}
+									update={(cache, { data: { updateTeam } }) => {
+										const { findTeamsByUser } = cache.readQuery({
+											query: query.FIND_TEAMS_BY_USER
+										});
+										cache.writeQuery({
+											query: query.FIND_TEAMS_BY_USER,
+											variables: { team: team },
+											data: {
+												findTeamsByUser: findTeamsByUser.map(team => {
+													return team._id === updateTeam._id
+														? updateTeam
+														: team;
 												})
-											);
-										}}
-									>
-										<StyledModalInput
-											placeholder="Edit team name..."
-											name="editTeamName"
-											value={this.state.editTeamName}
-											onChange={this.changeHandler}
-										/>
-										<StyledModalButton type="submit">Save</StyledModalButton>
-									</StyledModalForm>
-								)}
-							</Mutation>
+											}
+										});
+									}}
+								>
+									{updateTeam => (
+										<StyledModalForm
+											onSubmit={e => {
+												e.preventDefault();
+												updateTeam({
+													variables: {
+														id: team._id,
+														name: this.state.editTeamName
+													}
+												}).then(
+													this.setState({
+														editTeamName: '',
+														editingTeamName: false
+													})
+												);
+											}}
+										>
+											<StyledModalInput
+												placeholder="Edit team name..."
+												name="editTeamName"
+												value={this.state.editTeamName}
+												onChange={this.changeHandler}
+											/>
+											<StyledModalButton type="submit">Save</StyledModalButton>
+										</StyledModalForm>
+									)}
+								</Mutation>
+							</CardContent>
 						) : (
 							<StyledModalTitle>{team.name}</StyledModalTitle>
 						)}
@@ -280,56 +285,44 @@ class TeamDetails extends React.Component {
 						) : null}
 
 						{/* Invite users */}
+						<StyledModalTitle>Invite User</StyledModalTitle>
 						<Mutation mutation={mutation.INVITE_USER}>
 							{inviteUser => (
-								<div>
-									<StyledModalTitle>Invite User</StyledModalTitle>
-									<StyledModalForm
-										onSubmit={e => {
-											e.preventDefault();
-											let input = { id: this.props.team._id };
-											if (this.state.email.length)
-												input.email = this.state.email;
-											if (this.state.number.length)
-												input.phoneNumber = this.state.number;
-											inviteUser({ variables: input })
-												.then(res => {
-													this.setState({
-														email: '',
-														number: ''
-													});
-												})
-												.then(() => {
-													alert('Invitation sent');
-												})
-												.catch(err => {
-													console.error(err);
-												});
-										}}
-									>
-										<StyledModalInput
-											type="email"
-											name="email"
-											placeholder="email"
-											onChange={this.changeHandler}
-											value={this.email}
-											fullWidth
-										/>
-										<StyledModalInput
-											placeholder="phone number"
-											type="text"
-											name="number"
-											onChange={this.changeHandler}
-											value={this.number}
-											fullWidth
-										/>
-										<DialogActions>
-											<StyledModalButton type="submit">
-												Submit
-											</StyledModalButton>
-										</DialogActions>
-									</StyledModalForm>
-								</div>
+								<StyledModalForm
+									onSubmit={e => {
+										e.preventDefault();
+										let input = { id: this.props.team._id };
+										if (this.state.email.length) input.email = this.state.email;
+										if (this.state.number.length)
+											input.phoneNumber = this.state.number;
+										inviteUser({ variables: input })
+											.then(() => {
+												this.resetState();
+												alert('Invitation sent');
+											})
+											.catch(err => {
+												console.error(err);
+											});
+									}}
+								>
+									<StyledModalInput
+										type="email"
+										name="email"
+										placeholder="email"
+										onChange={this.changeHandler}
+										value={this.state.email}
+									/>
+									<StyledModalInput
+										placeholder="phone number"
+										type="text"
+										name="number"
+										onChange={this.changeHandler}
+										value={this.state.number}
+									/>
+									<DialogActions>
+										<StyledModalButton type="submit">Submit</StyledModalButton>
+									</DialogActions>
+								</StyledModalForm>
 							)}
 						</Mutation>
 

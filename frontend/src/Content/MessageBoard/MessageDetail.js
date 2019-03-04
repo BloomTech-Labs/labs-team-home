@@ -55,10 +55,7 @@ class MessageDetail extends Component {
 		};
 	}
 
-	handleChange = e =>
-		this.setState({
-			[e.target.name]: e.target.value
-		});
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	resetState = () =>
 		this.setState({
@@ -67,7 +64,8 @@ class MessageDetail extends Component {
 			edited: null,
 			title: '',
 			content: '',
-			commentContent: ''
+			commentContent: '',
+			newComment: ''
 		});
 
 	render() {
@@ -281,7 +279,6 @@ class MessageDetail extends Component {
 														onChange={this.handleChange}
 														multiline
 													/>
-
 													<StyledModalButton type="submit">
 														Save
 													</StyledModalButton>
@@ -291,7 +288,6 @@ class MessageDetail extends Component {
 													<StyledModalBody component="p">
 														{comment.content}
 													</StyledModalBody>
-
 													{/* Check to see if the comment is the users and thus can be edited or deleted */}
 													<StyledModalCardAction>
 														{comment.user._id === currentUser._id && (
@@ -355,7 +351,7 @@ class MessageDetail extends Component {
 											addMsgComment({
 												message: message._id,
 												content: this.state.newComment
-											});
+											}).then(this.resetState());
 										}}
 									>
 										<StyledModalNewCommentInput

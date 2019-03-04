@@ -15,16 +15,6 @@ const Container = styled.div`
 	min-height: 50px;
 `;
 
-// const Container2 = styled.div`
-// 	display: flex;
-// 	flex-wrap: wrap;
-// 	justify-content: center;
-// 	background-color: blue;
-// 	min-width: 300px;
-// 	min-height: 50px;
-// 	width: 696px;
-// `;
-
 const IndividualDocument = styled.div`
 	color: white;
 	margin: 10px;
