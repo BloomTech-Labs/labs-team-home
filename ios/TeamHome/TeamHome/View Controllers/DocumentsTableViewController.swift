@@ -18,6 +18,7 @@ class DocumentsTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
+        loadFolders(with: apollo!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,19 +36,34 @@ class DocumentsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return documents?.count ?? 0
+        return (displayDocsOrFolders == .documents ? documents?.count : folders?.count) ?? 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentCell"),
-            let document = documents?[indexPath.row] else {return UITableViewCell()}
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentCell") else {return UITableViewCell()}
         cell.backgroundColor = .clear
-        cell.textLabel?.text = document.title
-        cell.detailTextLabel?.text = document.docUrl
-        return cell
+        
+        switch displayDocsOrFolders {
+        case .documents?:
+            guard let document = documents?[indexPath.row] else { return cell }
+            cell.textLabel?.text = document.title
+            cell.detailTextLabel?.text = document.docUrl
+            return cell
+        case .folders?:
+            guard let folder = folders?[indexPath.row] else { return cell }
+            cell.textLabel?.text = folder.title
+            // cell.detailTextLabel?.text = document.docUrl // --> this could list folder contents, e.g.
+            return cell
+        default:
+            return cell
+        }
         
     }
     override func tableView(_ tableView: UITableView, commit editingStyle:
         UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        // needs handling for folder deleting
+        
         guard let document = documents?[indexPath.row],
             let id = document.id else {return}
         if editingStyle == .delete{
