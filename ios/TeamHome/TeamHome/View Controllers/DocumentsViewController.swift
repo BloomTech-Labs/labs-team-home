@@ -33,11 +33,35 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     
     // I don't remember if an IBAction is necessary, but here's the connection in case
     @IBAction func documentsFoldersSegmentedControl(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "Add New Folder", message: "Enter the title of your new folder.", preferredStyle: .alert)
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = "Name of folder:"
+        }
+        
+        alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (alertAction) in
+            guard let apollo = self.apollo, let team = self.team, let textField = alert.textFields?.first, let folderTitle = textField.text else { return }
+            
+            
+            apollo.perform(mutation: AddNewFolderMutation(title: folderTitle, team: team.id!)) { (result, error) in
+                if let error = error{
+                    NSLog("Error creating new folder: \(error)")
+                    return
+                }
+                print("Add Folder Successful: \(result?.data?.addFolder?.title ?? "No Title")")
+            }
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func createNewFolder(_ sender: Any) {
+        
     }
-    
 
     // MARK: - Private Functions
     // Create gradient layer for view background.

@@ -1366,6 +1366,97 @@ public final class DeleteDocumentMutation: GraphQLMutation {
   }
 }
 
+public final class AddNewFolderMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation AddNewFolder($title: String!, $team: String!) {\n  addFolder(input: {title: $title, team: $team}) {\n    __typename\n    _id\n    title\n  }\n}"
+
+  public var title: String
+  public var team: String
+
+  public init(title: String, team: String) {
+    self.title = title
+    self.team = team
+  }
+
+  public var variables: GraphQLMap? {
+    return ["title": title, "team": team]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("addFolder", arguments: ["input": ["title": GraphQLVariable("title"), "team": GraphQLVariable("team")]], type: .object(AddFolder.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(addFolder: AddFolder? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "addFolder": addFolder.flatMap { (value: AddFolder) -> ResultMap in value.resultMap }])
+    }
+
+    public var addFolder: AddFolder? {
+      get {
+        return (resultMap["addFolder"] as? ResultMap).flatMap { AddFolder(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "addFolder")
+      }
+    }
+
+    public struct AddFolder: GraphQLSelectionSet {
+      public static let possibleTypes = ["Folder"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+        GraphQLField("title", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID? = nil, title: String) {
+        self.init(unsafeResultMap: ["__typename": "Folder", "_id": id, "title": title])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+
+      public var title: String {
+        get {
+          return resultMap["title"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "title")
+        }
+      }
+    }
+  }
+}
+
 public final class FindTeamByIdQuery: GraphQLQuery {
   public let operationDefinition =
     "query FindTeamById($id: ID!) {\n  findTeam(input: {id: $id}) {\n    __typename\n    _id\n    name\n    users {\n      __typename\n      user {\n        __typename\n        _id\n        firstName\n        lastName\n        email\n        phoneNumber\n        avatar\n      }\n      admin\n    }\n  }\n}"
