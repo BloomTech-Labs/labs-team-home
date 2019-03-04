@@ -73,6 +73,8 @@
 		C4D48ED210903108208DB396 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */; };
 		F877E0B8221F859A00A78D08 /* FolderConcept.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */; };
 		F877E0BA221F873A00A78D08 /* FolderManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */; };
+		F8BEA7F5222D035D0003C352 /* FolderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */; };
+		F8BEA7F7222D03860003C352 /* FoldersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */; };
 		F8E77CDA2214DB3B00E12C8B /* DocumentTabHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -147,6 +149,8 @@
 		DE4B1FF0DF331C25C53901F0 /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 		F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FolderConcept.storyboard; sourceTree = "<group>"; };
 		F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManagementViewController.swift; sourceTree = "<group>"; };
+		F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderDetailViewController.swift; sourceTree = "<group>"; };
+		F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersTableViewController.swift; sourceTree = "<group>"; };
 		F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DocumentTabHome.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -273,9 +277,11 @@
 				1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */,
 				1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */,
 				1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */,
-				F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */,
 				10295B6822274F92002C8940 /* DocumentDetailViewController.swift */,
 				103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */,
+				F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */,
+				F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */,
+				F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -532,12 +538,14 @@
 				1092D5B3221E8B7D00579B34 /* DocumentsTableViewController.graphql in Sources */,
 				7BA77E9E21E807D200C862C1 /* MessageBoardViewController.swift in Sources */,
 				7BD6589121EF8E8B004FF34A /* DashboardCollectionViewController.swift in Sources */,
+				F8BEA7F7222D03860003C352 /* FoldersTableViewController.swift in Sources */,
 				7BD6589321EF8E99004FF34A /* DashboardTeamCollectionViewCell.swift in Sources */,
 				7BE481C92206A89800F518F9 /* CreateNewUserViewController.swift in Sources */,
 				7BA77EB821E93CBA00C862C1 /* ActivityTimelineViewController.swift in Sources */,
 				7B734E032200F21600F56C5F /* DateFormatter.swift in Sources */,
 				7BD6589E21F00A55004FF34A /* API.swift in Sources */,
 				F877E0BA221F873A00A78D08 /* FolderManagementViewController.swift in Sources */,
+				F8BEA7F5222D035D0003C352 /* FolderDetailViewController.swift in Sources */,
 				7B2C51EC220B2CF7004990BB /* TagCollectionViewCell.swift in Sources */,
 				7BF8736221FA6B4B00737729 /* Activity.swift in Sources */,
 				7B2C51F2220CB563004990BB /* CommentsCollectionReusableView.swift in Sources */,
