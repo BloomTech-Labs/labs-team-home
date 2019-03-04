@@ -26,13 +26,21 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         
         // Set this view controller as delegate for all cells.
         
+        // Segmented Control action pattern
+        documentsFoldersSegmentedIndex.addTarget(self, action: #selector(DocumentsViewController.changeDisplay), for: .valueChanged)
+        
     }
     
 
     // MARK: - IBActions
     
     // I don't remember if an IBAction is necessary, but here's the connection in case
-    @IBAction func documentsFoldersSegmentedControl(_ sender: Any) {
+//    @IBAction func documentsFoldersSegmentedControl(_ sender: Any) {
+//
+//
+//    }
+    
+    @IBAction func createNewFolder(_ sender: Any) {
         
         let alert = UIAlertController(title: "Add New Folder", message: "Enter the title of your new folder.", preferredStyle: .alert)
         
@@ -58,10 +66,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    @IBAction func createNewFolder(_ sender: Any) {
-        
-    }
 
     // MARK: - Private Functions
     // Create gradient layer for view background.
@@ -85,6 +89,17 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         teamNameLabel.text = team.name
     }
     
+    @objc private func changeDisplay() {
+        switch documentsFoldersSegmentedIndex.selectedSegmentIndex {
+        case 0:
+            displayDocsOrFolders = .documents
+        case 1:
+            displayDocsOrFolders = .folders
+        default:
+            displayDocsOrFolders = .documents
+        }
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -99,6 +114,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             let destinationVC = segue.destination as! DocumentsTableViewController
             destinationVC.apollo = apollo
             destinationVC.team = team
+            destinationVC.displayDocsOrFolders = displayDocsOrFolders
         }
     }
     
@@ -111,7 +127,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     
-
+    var displayDocsOrFolders: DisplayDocsOrFolders?
     @IBOutlet weak var newFolderButton: UIButton!
     @IBOutlet weak var documentsFoldersSegmentedIndex: UISegmentedControl!
 
