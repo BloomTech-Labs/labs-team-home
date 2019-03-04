@@ -10,6 +10,7 @@ import UIKit
 import Apollo
 
 var watcher: GraphQLQueryWatcher<FindDocumentsByTeamQuery>?
+var watcherFolder: GraphQLQueryWatcher<FindFoldersByTeamQuery>?
 
 class DocumentsTableViewController: UITableViewController {
     
@@ -23,6 +24,9 @@ class DocumentsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         if let watcher = watcher{
             watcher.refetch()
+        }
+        if let watcherFolder = watcherFolder {
+            watcherFolder.refetch()
         }
         
     }
@@ -91,6 +95,23 @@ class DocumentsTableViewController: UITableViewController {
         }
     }
     
+    private func loadFolders(with apollo: ApolloClient) {
+        
+        guard let team = team,
+            let teamID = team.id else { return }
+        
+        watcherFolder = apollo.watch(query: FindFoldersByTeamQuery(teamID: teamID)) { (result, error) in
+            if let error = error {
+                NSLog("Error loading Folders: \(error)")
+            }
+            
+            guard let result = result,
+                let folders = result.data?.findFoldersByTeam else { return }
+            
+            self.folders = folders
+        }
+    }
+    
     //MARK: - Properties
     var documents: [FindDocumentsByTeamQuery.Data.FindDocumentsByTeam?]?{
         didSet{
@@ -102,6 +123,16 @@ class DocumentsTableViewController: UITableViewController {
                     } else {
                         self.tableView.reloadData()
                     }
+                }
+            }
+        }
+    }
+    
+    var folders: [FindFoldersByTeamQuery.Data.FindFoldersByTeam?]? {
+        didSet {
+            if isViewLoaded {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
             }
         }
