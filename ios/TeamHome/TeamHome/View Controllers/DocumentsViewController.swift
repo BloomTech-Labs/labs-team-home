@@ -36,6 +36,23 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     }
     
     @IBAction func createNewFolder(_ sender: Any) {
+        
+        // configure alert
+        
+        // send alert
+        
+        
+        guard let title = alertFolderTextField.text else { return }
+        
+        apollo.perform(mutation: AddNewFolderMutation(title: title, team: team.id!)) { (result, error) in
+            if let error = error{
+                NSLog("Error creating new folder: \(error)")
+                return
+            }
+            print("Add Folder Successful: \(result?.data?.addFolder?.title ?? "No Title")")
+        }
+        watcher?.refetch() // curious about this line
+        
     }
     
 

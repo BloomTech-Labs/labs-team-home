@@ -37,7 +37,7 @@ mutation DeleteDocument($docID: ID!){
     }
 }
 
-mutation AddFolder($title: String!, $team: String!){
+mutation AddNewFolder($title: String!, $team: String!){
     addFolder(input: {
               title: $title
               team: $team
