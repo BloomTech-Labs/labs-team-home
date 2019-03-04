@@ -322,7 +322,7 @@ class DocumentDetails extends React.Component {
 							if (error) return <p>Error</p>;
 							return (
 								<>
-									<StyledModalTitle>Comments</StyledModalTitle>
+									<StyledModalTitle>Discussion</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
 										<StyledModalPaper key={comment._id}>
