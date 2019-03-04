@@ -2,7 +2,8 @@ import { graphql } from 'react-apollo';
 import * as query from '../../constants/queries';
 import {
 	FIND_DOCUMENTS_BY_TEAM,
-	FIND_FOLDERS_BY_TEAM
+	FIND_FOLDERS_BY_TEAM,
+	FIND_DOCUMENTS_BY_FOLDER
 } from '../../constants/queries';
 import {
 	ADD_DOCUMENT,
@@ -91,13 +92,25 @@ const updateDocumentOptions = {
 					});
 				},
 
-				// refetchQueries: [{query: FIND_DOCUMENTS_BY_TEAM, variables: {team: team}}]
+				// refetchQueries: [
+				// 	{ query: FIND_DOCUMENTS_BY_TEAM, variables: { team: team } }
+				// ],
+				// refetchQueries: [
+				// 	{ query: FIND_FOLDERS_BY_TEAM, variables: { team: team } }
+				// ],
 				refetchQueries: [
-					{ query: FIND_DOCUMENTS_BY_TEAM, variables: { team: team } }
-				],
-				refetchQueries: [
-					{ query: FIND_FOLDERS_BY_TEAM, variables: { team: team } }
+					{
+						query: FIND_DOCUMENTS_BY_FOLDER,
+						variables: { folder: input.previousFolder }
+					},
+					{
+						query: FIND_DOCUMENTS_BY_FOLDER,
+						variables: { folder: input.folder }
+					}
 				]
+				// refetchQueries: [
+				// 	{ query: FIND_DOCUMENTS_BY_FOLDER, variables: { folder: input.folder === null ? "" : input.folder } }
+				// ],
 			});
 		}
 	})
