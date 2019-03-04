@@ -1,0 +1,11 @@
+mutation MoveToFolder($id: ID!, $title: String!){
+    updateFolder(input: {
+                  id: $id
+                  title: $title
+                  
+                  }) {
+        _id
+        title
+    }
+}
+
