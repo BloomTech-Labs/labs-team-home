@@ -44,7 +44,8 @@ const folderResolver = {
 			Folder.findById(id).then(async folder => {
 				if (folder) {
 					await Folder.findByIdAndDelete({ _id: id });
-					await Document.deleteMany({ folder: folder._id });
+					//currently, below code is not necessary, as frontend nullifies it.
+					//await Document.deleteMany({ folder: folder._id });
 					return folder;
 				} else {
 					throw new ValidationError("Folder doesn't exist.");
