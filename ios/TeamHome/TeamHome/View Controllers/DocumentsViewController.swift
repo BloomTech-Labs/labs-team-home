@@ -34,6 +34,11 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     // I don't remember if an IBAction is necessary, but here's the connection in case
     @IBAction func documentsFoldersSegmentedControl(_ sender: Any) {
         
+        
+    }
+    
+    @IBAction func createNewFolder(_ sender: Any) {
+        
         let alert = UIAlertController(title: "Add New Folder", message: "Enter the title of your new folder.", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
@@ -57,10 +62,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func createNewFolder(_ sender: Any) {
-        
     }
 
     // MARK: - Private Functions
@@ -99,6 +100,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             let destinationVC = segue.destination as! DocumentsTableViewController
             destinationVC.apollo = apollo
             destinationVC.team = team
+            destinationVC.displayDocsOrFolders = displayDocsOrFolders
         }
     }
     
@@ -111,7 +113,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     
-
+    var displayDocsOrFolders: DisplayDocsOrFolders?
     @IBOutlet weak var newFolderButton: UIButton!
     @IBOutlet weak var documentsFoldersSegmentedIndex: UISegmentedControl!
 
