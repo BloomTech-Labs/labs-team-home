@@ -32,8 +32,9 @@ If the event still exists, it can be viewed in its current state by opening an a
 A potential schema might look like this:
 
 ```
+Event
     {
-        event: _id, (non-nullable)
+        _id: _id, (non-nullable)
         team: _id (foreign key, non-nullable)
         time: dateTime (non-nullable)
         subject: user._id (foreign key, non-nullable)
