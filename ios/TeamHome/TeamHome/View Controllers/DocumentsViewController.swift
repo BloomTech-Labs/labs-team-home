@@ -26,16 +26,19 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         
         // Set this view controller as delegate for all cells.
         
+        // Segmented Control action pattern
+        documentsFoldersSegmentedIndex.addTarget(self, action: #selector(DocumentsViewController.changeDisplay), for: .valueChanged)
+        
     }
     
 
     // MARK: - IBActions
     
     // I don't remember if an IBAction is necessary, but here's the connection in case
-    @IBAction func documentsFoldersSegmentedControl(_ sender: Any) {
-        
-        
-    }
+//    @IBAction func documentsFoldersSegmentedControl(_ sender: Any) {
+//
+//
+//    }
     
     @IBAction func createNewFolder(_ sender: Any) {
         
@@ -84,6 +87,17 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         guard let team = team else { return }
         
         teamNameLabel.text = team.name
+    }
+    
+    @objc private func changeDisplay() {
+        switch documentsFoldersSegmentedIndex.selectedSegmentIndex {
+        case 0:
+            displayDocsOrFolders = .documents
+        case 1:
+            displayDocsOrFolders = .folders
+        default:
+            displayDocsOrFolders = .documents
+        }
     }
     
     // MARK: - Navigation
