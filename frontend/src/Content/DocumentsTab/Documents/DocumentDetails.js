@@ -2,7 +2,12 @@ import React from 'react';
 
 // ------------- gql Imports ---------------------- //
 import { Query, compose } from 'react-apollo';
-import { deleteDocument, updateDocument } from '../../mutations/documents';
+import {
+	deleteDocument,
+	updateDocument,
+	unsubscribeDoc,
+	subscribeDoc
+} from '../../mutations/documents';
 import * as query from '../../../constants/queries';
 import {
 	addDocComment,
@@ -118,9 +123,22 @@ class DocumentDetails extends React.Component {
 			editingComment: false,
 			commentContent: '',
 			editedComment: null,
-			newCommentContent: ''
+			newCommentContent: '',
+			subscribed: null
 		};
 	}
+
+	//set subscribed to true, if the currentUser is subscribed
+	componentDidUpdate = prevProps =>
+		this.props.document !== prevProps.document
+			? this.props.document !== null
+				? this.props.document.subscribedUsers.find(user =>
+						user._id === this.props.currentUser._id
+							? this.setState({ subscribed: true })
+							: this.setState({ subscribed: false })
+				  )
+				: null
+			: null;
 
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -148,6 +166,8 @@ class DocumentDetails extends React.Component {
 			addDocComment,
 			unLikeDocComment,
 			likeDocComment,
+			subscribeDoc,
+			unsubscribeDoc,
 			open
 		} = this.props;
 
@@ -284,29 +304,21 @@ class DocumentDetails extends React.Component {
 									<StyledModalButton
 										onClick={e => {
 											e.preventDefault();
-											document.subscribedUsers.find(
-												({ _id }) => _id === currentUser._id
-											)
-												? updateDocument({
+											this.setState(prevState => ({
+												subscribed: !prevState.subscribed
+											}));
+											this.state.subscribed
+												? unsubscribeDoc({
 														id: document._id,
-														subscribedUsers: document.subscribedUsers
-															.filter(({ _id }) => _id !== currentUser._id)
-															.map(({ _id }) => _id)
+														user: currentUser._id
 												  })
-												: updateDocument({
+												: subscribeDoc({
 														id: document._id,
-														subscribedUsers: [
-															...document.subscribedUsers.map(({ _id }) => _id),
-															currentUser._id
-														]
+														user: currentUser._id
 												  });
 										}}
 									>
-										{document.subscribedUsers.find(
-											({ _id }) => _id === currentUser._id
-										)
-											? 'Unsubscribe'
-											: 'Subscribe'}
+										{this.state.subscribed ? 'Unsubscribe' : 'Subscribe'}
 									</StyledModalButton>
 								</StyledModalCardAction>
 							</CardContent>
@@ -412,10 +424,12 @@ class DocumentDetails extends React.Component {
 																({ _id }) => _id === currentUser._id
 															)
 																? unLikeDocComment({
-																		id: comment._id
+																		id: comment._id,
+																		document: document
 																  })
 																: likeDocComment({
-																		id: comment._id
+																		id: comment._id,
+																		document: document
 																  });
 														}}
 													>
@@ -462,5 +476,7 @@ export default compose(
 	updateDocComment,
 	deleteDocComment,
 	likeDocComment,
-	unLikeDocComment
+	unLikeDocComment,
+	subscribeDoc,
+	unsubscribeDoc
 )(DocumentDetails);

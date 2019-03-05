@@ -76,11 +76,37 @@ In the resolvers for every action on every other database resolver which is a mu
 At first count this means adding **28** function calls of `addEvent()` in the pre-existing resolver structure:
 
 - DocComments: 5
+  Liked DONE
+  Unlinked DONE
+  Deleted DONE
+  Added
+  Updated
 - Documents: 5
+  deleted DONE
+  added
+  subscribed DONE
+  unsubscribed DONE
+  updated
 - Folders: 3
+  Deleted
+  Added
+  Updated
 - Messages: 5
+  deleted DONE
+  added
+  subscribed DONE
+  unsubscribed DONE
+  updated
 - MsgComments: 5
+  Liked DONE
+  Unlinked DONE
+  Deleted
+  Added
+  Updated
 - Team: 5
+  Joined
+  Left
+  Updated
 
 The good news is that no one will be able to have any gql mutation calls client side. And what is more, they will only have the ability to call gql queries--this will of course keep boilerplate minimal in this regard.
 

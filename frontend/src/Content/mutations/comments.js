@@ -91,7 +91,7 @@ export const deleteComment = graphql(DELETE_COMMENT, deleteCommentOptions);
 
 const likeOptions = {
 	props: ({ ownProps: { message }, mutate }) => ({
-		like: input =>
+		likeMsgComment: input =>
 			mutate({
 				variables: input,
 				update: (cache, { data: { likeMsgComment } }) => {
@@ -117,7 +117,7 @@ export const like = graphql(LIKE, likeOptions);
 
 const unLikeOptions = {
 	props: ({ ownProps: { message }, mutate }) => ({
-		unLike: input =>
+		unLikeMsgComment: input =>
 			mutate({
 				variables: input,
 				update: (cache, { data: { unLikeMsgComment } }) => {
