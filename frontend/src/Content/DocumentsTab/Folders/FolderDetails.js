@@ -112,9 +112,8 @@ class FolderDetails extends React.Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
 							if (this.props.open === true && this.state.refreshed === false) {
-								refetch()
-									.then(this.refreshFolderInfo())
-									.catch(err => console.error(err));
+								refetch().then(this.refreshFolderInfo());
+								// .catch(err => console.error(err));
 							}
 							return (
 								<>
