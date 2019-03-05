@@ -19,6 +19,7 @@ import { createGenerateClassName, jssPreset } from '@material-ui/core/styles'; /
 import { CSSTransition, TransitionGroup } from 'react-transition-group'; // some transitions
 
 import HTML5Backend from 'react-dnd-html5-backend';
+import HTML5Touch from 'react-dnd-html5-touch-backend';
 import { DragDropContext } from 'react-dnd';
 
 const generateClassName = createGenerateClassName();
@@ -61,4 +62,4 @@ class App extends Component {
 	}
 }
 
-export default DragDropContext(HTML5Backend)(withRouter(App));
+export default DragDropContext(HTML5Touch)(withRouter(App));
