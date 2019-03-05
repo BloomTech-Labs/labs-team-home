@@ -18,7 +18,7 @@ class DocumentsTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
-        loadFolders(with: apollo!)
+//        loadFolders(with: apollo!)
         displayDocsOrFolders = .documents
     }
     
@@ -27,9 +27,9 @@ class DocumentsTableViewController: UITableViewController {
         if let watcher = watcher{
             watcher.refetch()
         }
-        if let watcherFolder = watcherFolder {
-            watcherFolder.refetch()
-        }
+//        if let watcherFolder = watcherFolder {
+//            watcherFolder.refetch()
+//        }
         
     }
     
