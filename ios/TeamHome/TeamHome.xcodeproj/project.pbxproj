@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		10295B6922274F92002C8940 /* DocumentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295B6822274F92002C8940 /* DocumentDetailViewController.swift */; };
 		103E72F72227A81000F54B0F /* DocumentDetailViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */; };
+		103E72FD222DEE4100F54B0F /* DocumentsDetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103E72FC222DEE4000F54B0F /* DocumentsDetailCollectionViewController.swift */; };
+		103E72FF222DEE5F00F54B0F /* DocumentCommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103E72FE222DEE5E00F54B0F /* DocumentCommentCollectionViewCell.swift */; };
+		103E7301222DEEA200F54B0F /* DocumentsDetailCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 103E7300222DEEA100F54B0F /* DocumentsDetailCollectionViewController.graphql */; };
 		10409404221E265F00EC4389 /* AddDocumentViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 10409403221E265F00EC4389 /* AddDocumentViewController.graphql */; };
 		1060AA0C221E6416008A72A2 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */; };
 		1092D5B1221E8A5300579B34 /* DocumentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */; };
@@ -79,6 +82,9 @@
 /* Begin PBXFileReference section */
 		10295B6822274F92002C8940 /* DocumentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailViewController.swift; sourceTree = "<group>"; };
 		103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DocumentDetailViewController.graphql; sourceTree = "<group>"; };
+		103E72FC222DEE4000F54B0F /* DocumentsDetailCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsDetailCollectionViewController.swift; sourceTree = "<group>"; };
+		103E72FE222DEE5E00F54B0F /* DocumentCommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCommentCollectionViewCell.swift; sourceTree = "<group>"; };
+		103E7300222DEEA100F54B0F /* DocumentsDetailCollectionViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DocumentsDetailCollectionViewController.graphql; sourceTree = "<group>"; };
 		10409403221E265F00EC4389 /* AddDocumentViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AddDocumentViewController.graphql; sourceTree = "<group>"; };
 		1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
 		1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewController.swift; sourceTree = "<group>"; };
@@ -276,6 +282,9 @@
 				F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */,
 				10295B6822274F92002C8940 /* DocumentDetailViewController.swift */,
 				103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */,
+				103E72FC222DEE4000F54B0F /* DocumentsDetailCollectionViewController.swift */,
+				103E7300222DEEA100F54B0F /* DocumentsDetailCollectionViewController.graphql */,
+				103E72FE222DEE5E00F54B0F /* DocumentCommentCollectionViewCell.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -382,6 +391,7 @@
 			files = (
 				7BF8735421F6D46C00737729 /* ActivityTimelineViewController.graphql in Resources */,
 				7B734DFF22000EFF00F56C5F /* Montserrat-Regular.ttf in Resources */,
+				103E7301222DEEA200F54B0F /* DocumentsDetailCollectionViewController.graphql in Resources */,
 				7BA77ED021ED50BB00C862C1 /* MessagesCollectionViewController.graphql in Resources */,
 				F877E0B8221F859A00A78D08 /* FolderConcept.storyboard in Resources */,
 				7BE481C7220401DC00F518F9 /* Comfortaa-Regular.ttf in Resources */,
@@ -506,10 +516,12 @@
 			files = (
 				7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */,
 				10E2A19C2216153F007EC662 /* AddDocumentViewController.swift in Sources */,
+				103E72FD222DEE4100F54B0F /* DocumentsDetailCollectionViewController.swift in Sources */,
 				7B734DF721FF6E3900F56C5F /* Appearance.swift in Sources */,
 				1060AA0C221E6416008A72A2 /* DocumentsViewController.swift in Sources */,
 				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
 				7BA77EAC21E9376E00C862C1 /* AddEditMessageViewController.swift in Sources */,
+				103E72FF222DEE5F00F54B0F /* DocumentCommentCollectionViewCell.swift in Sources */,
 				7BA77E8521E7B2B500C862C1 /* User.swift in Sources */,
 				7BA77EBE21E93D5600C862C1 /* SettingsViewController.swift in Sources */,
 				7BA77EA021E80D6C00C862C1 /* MessagesCollectionViewController.swift in Sources */,
