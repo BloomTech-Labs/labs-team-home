@@ -1,6 +1,6 @@
 {
-	"name": "TeamHome",
-	"version": "0.1.0",
+	"name": "TeamHome2",
+	"version": "0.2.0",
 	"private": true,
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.14",
@@ -27,6 +27,7 @@
 		"react-burgers": "^1.2.0",
 		"react-dnd": "^7.0.2",
 		"react-dnd-html5-backend": "^7.0.2",
+		"react-dnd-html5-touch-backend": "^1.5.0",
 		"react-dom": "^16.7.0",
 		"react-filepond": "^5.0.0",
 		"react-jss": "^8.6.1",
