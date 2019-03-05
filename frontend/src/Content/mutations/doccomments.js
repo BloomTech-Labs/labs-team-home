@@ -33,7 +33,7 @@ const addDocCommentOptions = {
 	})
 };
 
-export const addDocComment = graphql(ADD_DOCCOMMENT, addDocCommentOptions);
+export const add_DocComment = graphql(ADD_DOCCOMMENT, addDocCommentOptions);
 
 const updateDocCommentOptions = {
 	props: ({ ownProps: { document }, mutate }) => ({

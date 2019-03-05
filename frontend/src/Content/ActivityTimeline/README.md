@@ -104,9 +104,11 @@ At first count this means adding **28** function calls of `addEvent()` in the pr
   Added
   Updated
 - Team: 5
-  Joined
-  Left
+  Joined/Invited DONE
+  KickUser DONE
+  Left DONE
   Updated
+  Delete DONE
 
 The good news is that no one will be able to have any gql mutation calls client side. And what is more, they will only have the ability to call gql queries--this will of course keep boilerplate minimal in this regard.
 

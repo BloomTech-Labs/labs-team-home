@@ -385,14 +385,12 @@ class TeamDetails extends React.Component {
 																	findTeam: leaveTeam
 																}
 															});
-															// const { findTeamsByUser } = cache.readQuery({
-															// 	query: query.FIND_TEAMS_BY_USER
-															// });
+															//Cache is BROKE not WOKE
 															cache.writeQuery({
 																query: query.FIND_TEAMS_BY_USER,
 																variables: { id: team },
 																data: {
-																	findTeamsByUser: [leaveTeam]
+																	findTeamsByUser: leaveTeam
 																}
 															});
 														}}

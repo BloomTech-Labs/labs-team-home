@@ -13,7 +13,7 @@ const {
 } = require('apollo-server-express');
 const Event = require('../../models/Event');
 
-const { object_str, action_str } = require('./Event');
+const { object_str, action_str } = require('./ResolverHelpers');
 
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -81,6 +81,7 @@ const teamResolvers = {
 						await Folder.deleteMany({ team: team._id });
 
 						//Delete the Events in the event stack
+						await Event.deleteMany({ team: team._id });
 
 						return team;
 					} else {
@@ -172,7 +173,30 @@ const teamResolvers = {
 										{ _id: id },
 										{ $set: { users: [...team.users, ...addedUsers] } },
 										{ new: true }
-									).populate('users.user');
+									)
+										.populate('users.user')
+										.then(async item => {
+											// console.log('\n\n The item to be passed: \n\n', item);
+											if (item) {
+												try {
+													await new Event({
+														team: item._id,
+														user: item.users.find(u => u.admin)._id,
+														action_string: action_str.invited,
+														object_string: object_str.user,
+														event_target_id: item._id
+													})
+														.save()
+														.then(event => {
+															// console.log('Event added', event);
+														});
+												} catch (error) {
+													console.error('Could not add event', error);
+												}
+											} else {
+												throw new ValidationError("Message doesn't exist");
+											}
+										});
 								} else
 									throw new UserInputError('The user is already on the team.');
 							} else
@@ -193,7 +217,31 @@ const teamResolvers = {
 				{ _id: id },
 				{ $pull: { users: { user } } },
 				{ new: true }
-			).populate('users.user'),
+			)
+				.populate('users.user')
+				.then(async item => {
+					// console.log('\n\n The item to be passed: \n\n', item);
+					if (item) {
+						try {
+							await new Event({
+								team: item._id,
+								user: item.users.find(u => u.admin)._id,
+								action_string: action_str.removed,
+								object_string: object_str.user,
+								event_target_id: item._id
+							})
+								.save()
+								.then(event => {
+									// console.log('Event added', event);
+								});
+						} catch (error) {
+							console.error('Could not add event', error);
+						}
+					} else {
+						throw new ValidationError("Message doesn't exist");
+					}
+				}),
+
 		leaveTeam: (_, { input: { id } }, { user: { _id } }) =>
 			Team.findOneAndUpdate(
 				{ _id: id },
@@ -202,7 +250,7 @@ const teamResolvers = {
 			)
 				.populate('users.user')
 				.then(async item => {
-					console.log('\n\n The item to be passed: \n\n', item);
+					// console.log('\n\n The item to be passed: \n\n', item);
 					if (item) {
 						try {
 							await new Event({
@@ -214,7 +262,7 @@ const teamResolvers = {
 							})
 								.save()
 								.then(event => {
-									console.log('Event added', event);
+									// console.log('Event added', event);
 								});
 						} catch (error) {
 							console.error('Could not add event', error);
