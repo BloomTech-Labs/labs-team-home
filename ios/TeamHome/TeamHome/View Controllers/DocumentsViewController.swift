@@ -117,12 +117,14 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             let destinationVC = segue.destination as! AddDocumentViewController
             destinationVC.apollo = apollo
             destinationVC.team = team
+
             
         }
         if segue.identifier == "EmbeddedTable"{
             let destinationVC = segue.destination as! DocumentsTableViewController
             destinationVC.apollo = apollo
             destinationVC.team = team
+            destinationVC.currentUser = currentUser
         }
         if segue.identifier == "EmbeddedFolders"{
             let destinationVC = segue.destination as! FoldersTableViewController

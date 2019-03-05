@@ -1,0 +1,46 @@
+query FindCommentsByDocument($documentID: ID!) {
+    findDocCommentsByDocument(input:  {
+                             document: $documentID
+                             }) {
+        _id
+        user {
+            firstName
+            lastName
+            avatar
+            _id
+        }
+        content
+        image
+        likes {
+            _id
+            firstName
+        }
+        createdAt
+        updatedAt
+    }
+}
+
+mutation likeDocumentComment($id: ID!) {
+    likeDocComment(input: {
+                   id: $id
+                   }) {
+        _id
+    }
+}
+
+mutation unlikeDocumentComment($id: ID!) {
+    unLikeDocComment(input: {
+                     id: $id
+                     }) {
+        _id
+    }
+}
+
+mutation deleteDocumentComment($id: ID!) {
+    deleteDocComment(input: {
+                     id: $id
+                     }) {
+        _id
+    }
+}
+
