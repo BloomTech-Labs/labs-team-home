@@ -9,6 +9,8 @@
 import UIKit
 import Apollo
 
+var watcherFolder: GraphQLQueryWatcher<FindFoldersByTeamQuery>?
+
 class FoldersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -58,7 +60,6 @@ class FoldersTableViewController: UITableViewController {
         guard let team = team,
             let teamID = team.id else { return }
         
-        // note: watcherFolder is declared in DocumentsTableViewController.swift
         watcherFolder = apollo.watch(query: FindFoldersByTeamQuery(teamID: teamID)) { (result, error) in
             if let error = error {
                 NSLog("Error loading Folders: \(error)")

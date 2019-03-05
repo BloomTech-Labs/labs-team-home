@@ -27,22 +27,13 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         // Set this view controller as delegate for all cells.
         
         // Segmented Control action pattern
-//        DispatchQueue.main.async {
         setupEmbeddedViews()
-//        documentsFoldersSegmentedIndex.selectedSegmentIndex = 0
-        self.documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
-//        }
+        documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
         
     }
     
 
     // MARK: - IBActions
-    
-    // I don't remember if an IBAction is necessary, but here's the connection in case
-//    @IBAction func documentsFoldersSegmentedControl(_ sender: Any) {
-//
-//
-//    }
     
     @IBAction func createNewFolder(_ sender: Any) {
         
@@ -104,20 +95,17 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
                 self.documentsContainerView.isHidden = false
                 self.foldersContainerView.isHidden = true
             }
-//            displayDocsOrFolders = .documents
         case 1:
             DispatchQueue.main.async {
                 self.documentsContainerView.isHidden = true
                 self.foldersContainerView.isHidden = false
-                
+
             }
-//            displayDocsOrFolders = .folders
         default:
             DispatchQueue.main.async {
                 self.documentsContainerView.isHidden = false
                 self.foldersContainerView.isHidden = true
             }
-//            displayDocsOrFolders = .documents
         }
     }
     
@@ -135,7 +123,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             let destinationVC = segue.destination as! DocumentsTableViewController
             destinationVC.apollo = apollo
             destinationVC.team = team
-            destinationVC.displayDocsOrFolders = displayDocsOrFolders
         }
         if segue.identifier == "EmbeddedFolders"{
             let destinationVC = segue.destination as! FoldersTableViewController
@@ -153,7 +140,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     
-    var displayDocsOrFolders: DisplayDocsOrFolders?
     @IBOutlet weak var newFolderButton: UIButton!
     @IBOutlet weak var documentsFoldersSegmentedIndex: UISegmentedControl!
 
