@@ -279,12 +279,12 @@
 				1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */,
 				1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */,
 				1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */,
+				F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */,
 				10295B6822274F92002C8940 /* DocumentDetailViewController.swift */,
 				103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */,
 				F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */,
 				F8FDF225222DDE9B00ABAA86 /* FolderManagementViewController.graphql */,
 				F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */,
-				F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
