@@ -11,6 +11,10 @@ const {
 	UserInputError,
 	ApolloError
 } = require('apollo-server-express');
+const Event = require('../../models/Event');
+
+const { object_str, action_str } = require('./Event');
+
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -75,6 +79,8 @@ const teamResolvers = {
 
 						//delete folders
 						await Folder.deleteMany({ team: team._id });
+
+						//Delete the Events in the event stack
 
 						return team;
 					} else {
@@ -193,7 +199,30 @@ const teamResolvers = {
 				{ _id: id },
 				{ $pull: { users: { user: _id } } },
 				{ new: true }
-			).populate('users.user')
+			)
+				.populate('users.user')
+				.then(async item => {
+					console.log('\n\n The item to be passed: \n\n', item);
+					if (item) {
+						try {
+							await new Event({
+								team: item._id,
+								user: _id,
+								action_string: action_str.left,
+								object_string: object_str.team,
+								event_target_id: item._id
+							})
+								.save()
+								.then(event => {
+									console.log('Event added', event);
+								});
+						} catch (error) {
+							console.error('Could not add event', error);
+						}
+					} else {
+						throw new ValidationError("Message doesn't exist");
+					}
+				})
 	}
 };
 

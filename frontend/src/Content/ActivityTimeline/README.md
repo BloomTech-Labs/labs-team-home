@@ -88,8 +88,8 @@ At first count this means adding **28** function calls of `addEvent()` in the pr
   unsubscribed DONE
   updated
 - Folders: 3
-  Deleted
-  Added
+  Deleted DONE
+  Added DONE
   Updated
 - Messages: 5
   deleted DONE
@@ -100,7 +100,7 @@ At first count this means adding **28** function calls of `addEvent()` in the pr
 - MsgComments: 5
   Liked DONE
   Unlinked DONE
-  Deleted
+  Deleted DONE
   Added
   Updated
 - Team: 5

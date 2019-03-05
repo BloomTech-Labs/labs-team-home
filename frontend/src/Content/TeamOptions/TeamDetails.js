@@ -375,7 +375,46 @@ class TeamDetails extends React.Component {
 												) : admin && user.user._id === currentUser._id ? (
 													<Button>Admin</Button>
 												) : user.user._id === currentUser._id ? (
-													<Button>You</Button> //Change this to a mutation which allows the user to leave the team.
+													<Mutation
+														mutation={mutation.LEAVE_TEAM}
+														update={(cache, { data: { leaveTeam } }) => {
+															cache.writeQuery({
+																query: query.FIND_TEAM,
+																variables: { id: team },
+																data: {
+																	findTeam: leaveTeam
+																}
+															});
+															// const { findTeamsByUser } = cache.readQuery({
+															// 	query: query.FIND_TEAMS_BY_USER
+															// });
+															cache.writeQuery({
+																query: query.FIND_TEAMS_BY_USER,
+																variables: { id: team },
+																data: {
+																	findTeamsByUser: [leaveTeam]
+																}
+															});
+														}}
+													>
+														{leaveTeam => (
+															<Button
+																color="secondary"
+																onClick={e => {
+																	e.preventDefault();
+																	leaveTeam({
+																		variables: {
+																			id: team._id,
+																			user: currentUser
+																		}
+																	});
+																	this.props.history.push('/dashboard');
+																}}
+															>
+																Leave Team
+															</Button>
+														)}
+													</Mutation>
 												) : null
 											}
 										</Mutation>
