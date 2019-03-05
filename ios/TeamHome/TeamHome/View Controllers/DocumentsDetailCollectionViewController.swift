@@ -11,7 +11,7 @@ import Apollo
 
 var documentCommentWatcher: GraphQLQueryWatcher<FindCommentsByDocumentQuery>?
 
-class DocumentsDetailCollectionViewController: UICollectionViewController, AddNewCommentDelegate, CommentCollectionCellDelegate {
+class DocumentsDetailCollectionViewController: UICollectionViewController, AddNewCommentDelegate, DocumentCommentCollectionCellDelegate {
     
     func didAddNewComment() {
         if label != nil {

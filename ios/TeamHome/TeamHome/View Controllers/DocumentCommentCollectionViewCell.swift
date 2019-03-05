@@ -2,7 +2,7 @@
 //  CommentCollectionViewCell.swift
 //  TeamHome
 //
-//  Created by Daniela Parra on 1/11/19.
+//  Created by Andrew Dhan on 3/4/19.
 //  Copyright © 2019 Lambda School under the MIT license. All rights reserved.
 //
 
@@ -11,10 +11,12 @@ import Cloudinary
 import Material
 import Toucan
 
+typealias DocComment = FindCommentsByDocumentQuery.Data.FindDocCommentsByDocument
+
 protocol DocumentCommentCollectionCellDelegate: class {
-    func likeComment(cell: CommentCollectionViewCell)
-    func unlikeComment(cell: CommentCollectionViewCell)
-    func deleteComment(cell: CommentCollectionViewCell)
+    func likeComment(cell: DocumentCommentCollectionViewCell)
+    func unlikeComment(cell: DocumentCommentCollectionViewCell)
+    func deleteComment(cell: DocumentCommentCollectionViewCell)
 }
 
 class DocumentCommentCollectionViewCell: UICollectionViewCell {
@@ -64,7 +66,7 @@ class DocumentCommentCollectionViewCell: UICollectionViewCell {
     }
     
     private func prepareLikes(for comment:
-        FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+        DocComment) {
         
         guard let likes = comment.likes else { return }
         
@@ -97,7 +99,7 @@ class DocumentCommentCollectionViewCell: UICollectionViewCell {
         
     }
     
-    private func prepareToolbar(comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+    private func prepareToolbar(comment: DocComment) {
         toolbar = Toolbar(leftViews: [avatarImageView])
         
         toolbar.title = "\(comment.user.firstName) \(comment.user.lastName)"
@@ -114,7 +116,7 @@ class DocumentCommentCollectionViewCell: UICollectionViewCell {
         delegate?.deleteComment(cell: self)
     }
     
-    private func prepareContentView(with comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+    private func prepareContentView(with comment: DocComment) {
         
         contentLabel = UILabel()
         contentLabel.numberOfLines = 0
@@ -177,7 +179,7 @@ class DocumentCommentCollectionViewCell: UICollectionViewCell {
         card.backgroundColor = .white
     }
     
-    private func prepareAvatarImage(for comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage) {
+    private func prepareAvatarImage(for comment: DocComment) {
         
         setImage(for: comment) { (image) in
             DispatchQueue.main.async {
@@ -193,7 +195,7 @@ class DocumentCommentCollectionViewCell: UICollectionViewCell {
     }
     
     // Set image for a given message.
-    private func setImage(for comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage, completion: @escaping (UIImage) -> Void) {
+    private func setImage(for comment: DocComment, completion: @escaping (UIImage) -> Void) {
         // Download image and display as user avatar string of image url
         guard let avatar = comment.user.avatar else {
             let image = UIImage(named: "User Avatar Image")!
@@ -225,9 +227,9 @@ class DocumentCommentCollectionViewCell: UICollectionViewCell {
     
     private var hasLiked: Bool?
     
-    weak var delegate: CommentCollectionCellDelegate?
+    weak var delegate: DocumentCommentCollectionCellDelegate?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
-    var comment: FindCommentsByMessageQuery.Data.FindMsgCommentsByMessage? {
+    var comment: DocComment? {
         didSet {
             self.updateViews()
         }

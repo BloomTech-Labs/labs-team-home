@@ -522,10 +522,10 @@
             </objects>
             <point key="canvasLocation" x="2558" y="-147"/>
         </scene>
-        <!--Comments Collection View Controller-->
+        <!--Documents Detail Collection View Controller-->
         <scene sceneID="rBZ-Nd-ATY">
             <objects>
-                <collectionViewController id="cNA-SP-I5F" customClass="CommentsCollectionViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="cNA-SP-I5F" customClass="DocumentsDetailCollectionViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="elr-py-tQo">
                         <rect key="frame" x="0.0" y="0.0" width="343" height="301"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -537,7 +537,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="DocumentCommentCell" id="QTg-Bb-86v" customClass="CommentCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="DocumentCommentCell" id="QTg-Bb-86v" customClass="DocumentCommentCollectionViewCell" customModule="TeamHome" customModuleProvider="target">
                                 <rect key="frame" x="-13.5" y="0.0" width="370" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -557,7 +557,7 @@
                                     <constraint firstItem="EDz-5y-Iar" firstAttribute="top" secondItem="QTg-Bb-86v" secondAttribute="top" id="hg9-oJ-H9d"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="card" destination="EDz-5y-Iar" id="D9a-W8-oZD"/>
+                                    <outlet property="card" destination="EDz-5y-Iar" id="Ilp-R3-T0O"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
