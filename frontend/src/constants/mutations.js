@@ -413,3 +413,21 @@ export const UNLIKE_DOCCOMMENT = gql`
 	}
 	${FULL_DOCCOMMENT}
 `;
+
+export const SUBSCRIBE_DOC = gql`
+	mutation subscribeDoc($id: ID!) {
+		subscribeDoc(input: { id: $id }) {
+			...FullDocument
+		}
+	}
+	${FULL_DOCUMENT}
+`;
+
+export const UNSUBSCRIBE_DOC = gql`
+	mutation unsubscribeDoc($id: ID!) {
+		unsubscribeDoc(input: { id: $id }) {
+			...FullDocument
+		}
+	}
+	${FULL_DOCUMENT}
+`;

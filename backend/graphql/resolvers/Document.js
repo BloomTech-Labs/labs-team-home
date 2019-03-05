@@ -1,7 +1,7 @@
 require('dotenv').config();
 const Document = require('../../models/Document');
 const DocComment = require('../../models/DocComment');
-const Folder = require('../../models/Folder');
+const Event = require('../../models/Event');
 const { ValidationError } = require('apollo-server-express');
 
 const documentResolver = {
@@ -52,45 +52,26 @@ const documentResolver = {
 				}
 			});
 		},
-
-		// updateDocument: (_, { input }) => {
-		// 	const { id } = input;
-		// 	return Document.findById(id).then(async document => {
-		// 		if (document) {
-		// 			if (document.folder !== undefined) {
-		// 				const folderDeleteUpdate = await Folder.findOneAndUpdate(
-		// 					{ _id: document.folder },
-		// 					{ $pull: { documents: document._id } }
-		// 				);
-		// 			}
-
-		// 			const updateDoc = await Document.findOneAndUpdate(
-		// 				{ _id: id },
-		// 				{ $set: input },
-		// 				{ new: true }
-		// 			).populate('user team folder tag subscribedUsers');
-
-		// 			if (document.folder !== null) {
-		// 				const folderAddDoc = await Folder.findOneAndUpdate(
-		// 					{ _id: input.folder },
-		// 					{ $push: { documents: [document._id] } },
-		// 					{ new: true }
-		// 				).populate('user team tag subscribedUsers folder');
-		// 			}
-		// 			// console.log('document from resolver: ', document);
-		// 			return updateDoc;
-		// 		} else {
-		// 			throw new ValidationError("Document doesn't exist.");
-		// 		}
-		// 	});
-		// },
 		deleteDocument: (_, { input: { id } }) =>
 			Document.findById(id).then(async document => {
-				console.log(document);
 				if (document) {
 					await Document.findByIdAndDelete({ _id: id });
 					await DocComment.deleteMany({ document: document._id });
-
+					try {
+						await new Event({
+							team: document.team,
+							user: document.user,
+							action_string: 'deleted',
+							object_string: 'document',
+							event_target_id: null
+						})
+							.save()
+							.then(event => {
+								console.log('should be a success', event);
+							});
+					} catch (error) {
+						console.error('Could not add event', error);
+					}
 					return document;
 				} else {
 					throw new ValidationError("Document doesn't exist");
@@ -101,13 +82,59 @@ const documentResolver = {
 				{ _id: id },
 				{ $addToSet: { subscribedUsers: _id } },
 				{ new: true }
-			).populate('user team folder tag subscribedUsers'),
+			)
+				.populate('user team folder tag subscribedUsers')
+				.then(async item => {
+					// console.log(item);
+					if (item) {
+						try {
+							await new Event({
+								team: item.team._id,
+								user: item.user._id,
+								action_string: 'subscribed',
+								object_string: 'document',
+								event_target_id: null
+							})
+								.save()
+								.then(event => {
+									// console.log('Event added', event);
+								});
+						} catch (error) {
+							console.error('Could not add event', error);
+						}
+					} else {
+						throw new ValidationError("Document doesn't exist");
+					}
+				}),
 		unsubscribeDoc: (_, { input: { id } }, { user: { _id } }) =>
 			Document.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { subscribedUsers: _id } },
 				{ new: true }
-			).populate('user team folder tag subscribedUsers')
+			)
+				.populate('user team folder tag subscribedUsers')
+				.then(async item => {
+					// console.log(item);
+					if (item) {
+						try {
+							await new Event({
+								team: item.team._id,
+								user: item.user._id,
+								action_string: 'unsubscribed',
+								object_string: 'document',
+								event_target_id: null
+							})
+								.save()
+								.then(event => {
+									// console.log('Event added', event);
+								});
+						} catch (error) {
+							console.error('Could not add event', error);
+						}
+					} else {
+						throw new ValidationError("Document doesn't exist");
+					}
+				})
 	}
 };
 
