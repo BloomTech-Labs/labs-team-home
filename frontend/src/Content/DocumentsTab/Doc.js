@@ -1,12 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import { DragSource } from 'react-dnd';
+import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 
-const IndividualDocument = styled.p`
+const IndividualDocument = styled.div`
 	color: white;
 	margin: 10px;
 	padding: 10px;
+	height: ${props => (props.noFolder ? 'auto' : '50px')};
+	width: ${props => (props.noFolder ? 'auto' : '130px')};
 	border: 2px solid white;
+	border-radius: 5px;
+	display: ${props => (props.noFolder ? 'block' : 'flex')};
+	align-items: ${props => (props.noFolder ? 'center' : 'start')};
+	cursor: pointer;
+`;
+
+const Arrow = styled(KeyboardArrowRight)`
+	height: 25px;
+	margin-left: 10px;
 `;
 
 const docSource = {
@@ -38,8 +50,11 @@ class Doc extends React.Component {
 
 		return connectDragSource(
 			<div>
-				<IndividualDocument style={{ opacity }}>
-					{document.title}
+				<IndividualDocument noFolder={this.props.noFolder} style={{ opacity }}>
+					{document.title.length > 11 && !this.props.noFolder
+						? `${document.title.substring(0, 11)}...`
+						: document.title}
+					{this.props.noFolder ? <Arrow /> : <></>}
 				</IndividualDocument>
 			</div>
 		);

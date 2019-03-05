@@ -14,13 +14,13 @@ import {
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { colors } from '../../../colorVariables';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
-import SendIcon from '@material-ui/icons/Send';
+// import SendIcon from '@material-ui/icons/Send';
 
 // ------------- Icon imports ------------------------------- //
 
@@ -29,6 +29,7 @@ import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
 // import { FileExcel } from 'styled-icons/fa-solid/FileExcel';
 // import { FilePlay } from 'styled-icons/icomoon/FilePlay';
 // import { FilePdf } from 'styled-icons/icomoon/FilePdf';
+import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -105,6 +106,21 @@ const DocumentIconDiv = styled.div`
 
 const DocumentIcon = styled(FileAlt)`
 	height: 100px;
+`;
+
+const ArrowDiv = styled.div`
+	height: 150px;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		background-color: #392d40;
+		transition: 0.3s all ease-in-out;
+	}
+`;
+
+const Arrow = styled(KeyboardArrowRight)`
+	height: 25px;
 `;
 
 class DocumentDetails extends React.Component {
@@ -226,6 +242,8 @@ class DocumentDetails extends React.Component {
 											? document.doc_url
 											: `http://www.${document.doc_url}`
 									}
+									target="_blank"
+									rel="noopener noreferrer"
 								>
 									<DocUrl paragraph component="p">
 										VIEW
@@ -441,9 +459,12 @@ class DocumentDetails extends React.Component {
 											onChange={this.handleChange}
 											placeholder="Leave a comment..."
 										/>
-										<IconButton type="submit">
+										{/* <IconButton type="submit">
 											<SendIcon style={{ color: colors.text }} />
-										</IconButton>
+										</IconButton> */}
+										<ArrowDiv>
+											<Arrow />
+										</ArrowDiv>
 									</StyledModalNewCommentForm>
 								</>
 							);
