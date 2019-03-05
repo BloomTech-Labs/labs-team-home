@@ -1,7 +1,8 @@
 require('dotenv').config();
 const DocComment = require('../../models/DocComment');
 const Document = require('../../models/Document');
-
+const Event = require('../../models/Event');
+const { object_str, action_str } = require('./Event');
 const { ValidationError } = require('apollo-server-express');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -85,7 +86,27 @@ const docCommentResolver = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user document likes');
+					)
+						.populate('user document likes')
+						.then(async DocComment => {
+							console.log('the item in question:', DocComment);
+
+							try {
+								await new Event({
+									team: DocComment.team._id,
+									user: DocComment.user._id,
+									action_string: action_str.edited,
+									object_string: object_str.docComment,
+									event_target_id: DocComment._id
+								})
+									.save()
+									.then(event => {
+										console.log('this should work ->', event);
+									});
+							} catch (error) {
+								console.error('Could not add event', error);
+							}
+						});
 				} else {
 					throw new ValidationError("Comment doesn't exist.");
 				}

@@ -3,7 +3,7 @@ const Folder = require('../../models/Folder');
 const Document = require('../../models/Document');
 const Event = require('../../models/Event');
 
-const { object_str, action_str } = require('./Event'); //deconstruction at its coolest
+const { object_str, action_str } = require('./Event');
 const { ValidationError } = require('apollo-server-express');
 
 const folderResolver = {
