@@ -27,7 +27,11 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         // Set this view controller as delegate for all cells.
         
         // Segmented Control action pattern
-        documentsFoldersSegmentedIndex.addTarget(self, action: #selector(DocumentsViewController.changeDisplay), for: .valueChanged)
+//        DispatchQueue.main.async {
+        setupEmbeddedViews()
+//        documentsFoldersSegmentedIndex.selectedSegmentIndex = 0
+        self.documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
+//        }
         
     }
     
@@ -89,14 +93,31 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         teamNameLabel.text = team.name
     }
     
-    @objc private func changeDisplay() {
+    @objc func changeDisplay(_ sender: UISegmentedControl) {
+        setupEmbeddedViews()
+    }
+    
+    private func setupEmbeddedViews() {
         switch documentsFoldersSegmentedIndex.selectedSegmentIndex {
         case 0:
-            displayDocsOrFolders = .documents
+            DispatchQueue.main.async {
+                self.documentsContainerView.isHidden = false
+                self.foldersContainerView.isHidden = true
+            }
+//            displayDocsOrFolders = .documents
         case 1:
-            displayDocsOrFolders = .folders
+            DispatchQueue.main.async {
+                self.documentsContainerView.isHidden = true
+                self.foldersContainerView.isHidden = false
+                
+            }
+//            displayDocsOrFolders = .folders
         default:
-            displayDocsOrFolders = .documents
+            DispatchQueue.main.async {
+                self.documentsContainerView.isHidden = false
+                self.foldersContainerView.isHidden = true
+            }
+//            displayDocsOrFolders = .documents
         }
     }
     
@@ -116,6 +137,11 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             destinationVC.team = team
             destinationVC.displayDocsOrFolders = displayDocsOrFolders
         }
+        if segue.identifier == "EmbeddedFolders"{
+            let destinationVC = segue.destination as! FoldersTableViewController
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+        }
     }
     
 
@@ -131,6 +157,9 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     @IBOutlet weak var newFolderButton: UIButton!
     @IBOutlet weak var documentsFoldersSegmentedIndex: UISegmentedControl!
 
+    @IBOutlet weak var documentsContainerView: UIView!
+    @IBOutlet weak var foldersContainerView: UIView!
+    
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var containerView: UIView!

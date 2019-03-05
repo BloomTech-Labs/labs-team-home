@@ -87,7 +87,12 @@ class FoldersTableViewController: UITableViewController {
         didSet {
             if isViewLoaded {
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    if let indexPath = self.deleteIndexPath {
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        self.deleteIndexPath = nil
+                    } else {
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }

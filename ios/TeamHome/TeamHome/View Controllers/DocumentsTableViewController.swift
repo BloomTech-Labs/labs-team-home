@@ -19,6 +19,7 @@ class DocumentsTableViewController: UITableViewController {
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
         loadFolders(with: apollo!)
+        displayDocsOrFolders = .documents
     }
     
     override func viewWillAppear(_ animated: Bool) {
