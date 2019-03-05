@@ -1,10 +1,16 @@
 import { graphql } from 'react-apollo';
 import * as query from '../../constants/queries';
 import {
+	FIND_DOCUMENTS_BY_TEAM,
+	FIND_DOCUMENTS_BY_FOLDER
+} from '../../constants/queries';
+import {
 	ADD_DOCUMENT,
 	DELETE_DOCUMENT,
 	UPDATE_DOCUMENT,
-	ADD_TAG
+	ADD_TAG,
+	SUBSCRIBE_DOC,
+	UNSUBSCRIBE_DOC
 } from '../../constants/mutations';
 
 const addDocumentOptions = {
@@ -63,30 +69,115 @@ const updateDocumentOptions = {
 	props: ({ ownProps: { team }, mutate }) => ({
 		updateDocument: input => {
 			// console.log('input from updateDocument: ', input, 'team: ', team);
-			return mutate({
-				variables: input,
-				update: (cache, { data: { updateDocument } }) => {
-					const { findDocumentsByTeam } = cache.readQuery({
-						query: query.FIND_DOCUMENTS_BY_TEAM,
-						variables: { team: team }
-					});
-					// console.log('Cache after query: ', cache);
-					cache.writeQuery({
-						query: query.FIND_DOCUMENTS_BY_TEAM,
-						variables: { team: team },
-						data: {
-							findDocumentsByTeam: findDocumentsByTeam.map(document => {
-								// console.log('document from mutator: ', document);
-								// console.log('updateDocument from mutator: ', updateDocument);
+			if (input.folder !== null && input.previous !== undefined) {
+				mutate({
+					variables: input,
+					update: (cache, { data: { updateDocument } }) => {
+						const { findDocumentsByTeam } = cache.readQuery({
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: team }
+						});
+						// console.log("Updated document: ", updateDocument)
+						// console.log("before update all team documents: ", findDocumentsByTeam)
+						cache.writeQuery({
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: team },
+							data: {
+								findDocumentsByTeam: findDocumentsByTeam.map(document => {
+									// console.log('document from mutator: ', document);
+									// console.log('updateDocument from mutator: ', updateDocument);
 
-								return document._id === updateDocument._id
-									? updateDocument
-									: document;
-							})
+									return document._id === updateDocument._id
+										? updateDocument
+										: document;
+								})
+							}
+						});
+					},
+
+					refetchQueries: [
+						{
+							query: FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: input.folder }
+						},
+						{
+							query: FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: input.previous }
 						}
-					});
-				}
-			});
+						// {query: FIND_DOCUMENTS_BY_TEAM, variables: {team: team}},
+					]
+				});
+			} else if (input.previous !== undefined) {
+				mutate({
+					variables: input,
+					update: (cache, { data: { updateDocument } }) => {
+						const { findDocumentsByTeam } = cache.readQuery({
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: team }
+						});
+						// console.log("Updated document: ", updateDocument)
+						// console.log("before update all team documents: ", findDocumentsByTeam)
+						cache.writeQuery({
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: team },
+							data: {
+								findDocumentsByTeam: findDocumentsByTeam.map(document => {
+									// console.log('document from mutator: ', document);
+									// console.log('updateDocument from mutator: ', updateDocument);
+
+									return document._id === updateDocument._id
+										? updateDocument
+										: document;
+								})
+							}
+						});
+						// console.log("Query -> documents in folder: ", findDocumentsByTeam)
+						// console.log("in the updateDoc previous folderID: ", input.previous)
+					},
+					refetchQueries: [
+						// {query: FIND_DOCUMENTS_BY_FOLDER, variables: {folder: input.folder}},
+						{
+							query: FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: input.previous }
+						},
+						{ query: FIND_DOCUMENTS_BY_TEAM, variables: { team: team } }
+					]
+				});
+			} else {
+				mutate({
+					variables: input,
+					update: (cache, { data: { updateDocument } }) => {
+						const { findDocumentsByTeam } = cache.readQuery({
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: team }
+						});
+						// console.log("Updated document: ", updateDocument)
+						// console.log("before update all team documents: ", findDocumentsByTeam)
+						cache.writeQuery({
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: team },
+							data: {
+								findDocumentsByTeam: findDocumentsByTeam.map(document => {
+									// console.log('document from mutator: ', document);
+									// console.log('updateDocument from mutator: ', updateDocument);
+
+									return document._id === updateDocument._id
+										? updateDocument
+										: document;
+								})
+							}
+						});
+					},
+					refetchQueries: [
+						// {query: FIND_DOCUMENTS_BY_FOLDER, variables: {folder: input.folder}},
+						{
+							query: FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: input.folder }
+						},
+						{ query: FIND_DOCUMENTS_BY_TEAM, variables: { team: team } }
+					]
+				});
+			}
 		}
 	})
 };
@@ -116,3 +207,58 @@ const addTagOptions = {
 };
 
 export const addTag = graphql(ADD_TAG, addTagOptions);
+
+//////////////
+const subscribeDocOptions = {
+	props: ({ ownProps: { team }, mutate }) => ({
+		subscribeDoc: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { subscribeDoc } }) => {
+					const { findDocumentsByTeam } = cache.readQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team }
+					});
+					cache.writeQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team },
+						data: {
+							findDocumentsByTeam: findDocumentsByTeam.map(document =>
+								document._id === subscribeDoc._id ? subscribeDoc : document
+							)
+						}
+					});
+				}
+			})
+	})
+};
+
+export const subscribeDoc = graphql(SUBSCRIBE_DOC, subscribeDocOptions);
+
+////////////
+
+const unsubscribeDocOptions = {
+	props: ({ ownProps: { team }, mutate }) => ({
+		unsubscribeDoc: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { unsubscribeDoc } }) => {
+					const { findDocumentsByTeam } = cache.readQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team }
+					});
+					cache.writeQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team },
+						data: {
+							findDocumentsByTeam: findDocumentsByTeam.map(document =>
+								document._id === unsubscribeDoc._id ? unsubscribeDoc : document
+							)
+						}
+					});
+				}
+			})
+	})
+};
+
+export const unsubscribeDoc = graphql(UNSUBSCRIBE_DOC, unsubscribeDocOptions);

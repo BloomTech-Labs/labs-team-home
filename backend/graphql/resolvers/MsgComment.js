@@ -2,6 +2,10 @@ const Message = require('../../models/Message');
 const MsgComment = require('../../models/MsgComment');
 const { ValidationError } = require('apollo-server-express');
 const sgMail = require('@sendgrid/mail');
+const Event = require('../../models/Event');
+
+const { object_str, action_str } = require('./Event');
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const msgCommentResolvers = {
@@ -75,11 +79,29 @@ const msgCommentResolvers = {
 		deleteMsgComment: (_, { input: { id } }) =>
 			MsgComment.findById(id).then(async comment => {
 				if (comment) {
-					const deleted = await MsgComment.findOneAndDelete({ _id: id });
+					const deleted = await MsgComment.findOneAndDelete({
+						_id: id
+					}).populate('message');
 					await Message.findOneAndUpdate(
 						{ _id: deleted.message },
 						{ $pull: { comments: deleted._id } }
 					); // removes comment from parent Message
+					// console.log('the item in question: ', deleted);
+					try {
+						await new Event({
+							team: deleted.message.team,
+							user: deleted.user,
+							action_string: action_str.deleted,
+							object_string: object_str.msgComment,
+							event_target_id: deleted.message
+						})
+							.save()
+							.then(event => {
+								// console.log('should be a success', event);
+							});
+					} catch (error) {
+						console.error('Could not add event', error);
+					}
 					return deleted;
 				} else {
 					throw new ValidationError('Comment does not exist');
@@ -90,13 +112,59 @@ const msgCommentResolvers = {
 				{ _id: id },
 				{ $addToSet: { likes: _id } },
 				{ new: true }
-			).populate('user message likes'),
+			)
+				.populate('user message likes')
+				.then(async item => {
+					// console.log('\n\n the item before it hits EVENTS: \n\n', item);
+					if (item) {
+						try {
+							await new Event({
+								team: item.message.team,
+								user: item.user._id,
+								action_string: action_str.liked,
+								object_string: object_str.msgComment,
+								event_target_id: item.message._id
+							})
+								.save()
+								.then(event => {
+									// console.log('\n\nEvent added\n\n', event);
+								});
+						} catch (error) {
+							console.error('\n\nCould not add event\n\n', error);
+						}
+					} else {
+						throw new ValidationError("DocDocument doesn't exist");
+					}
+				}),
 		unLikeMsgComment: (_, { input: { id } }, { user: { _id } }) =>
 			MsgComment.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { likes: _id } },
 				{ new: true }
-			).populate('user message likes')
+			)
+				.populate('user message likes')
+				.then(async item => {
+					// console.log('\n\n the item before it hits EVENTS: \n\n', item);
+					if (item) {
+						try {
+							await new Event({
+								team: item.message.team,
+								user: item.user._id,
+								action_string: action_str.unliked,
+								object_string: object_str.msgComment,
+								event_target_id: item.message._id
+							})
+								.save()
+								.then(event => {
+									// console.log('\n\nEvent added\n\n', event);
+								});
+						} catch (error) {
+							console.error('\n\nCould not add event\n\n', error);
+						}
+					} else {
+						throw new ValidationError("DocDocument doesn't exist");
+					}
+				})
 	}
 };
 

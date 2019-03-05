@@ -4,7 +4,9 @@ import {
 	ADD_MESSAGE,
 	UPDATE_MESSAGE,
 	DELETE_MESSAGE,
-	ADD_TAG
+	ADD_TAG,
+	SUBSCRIBE,
+	UNSUBSCRIBE
 } from '../../constants/mutations';
 
 const addMessageOptions = {
@@ -44,9 +46,6 @@ const updateMessageOptions = {
 						variables: { team: team },
 						data: {
 							findMessagesByTeam: findMessagesByTeam.map(message => {
-								// console.log('message from mutator: ', message);
-								// console.log('updateMessage from mutator: ', updateMessage);
-
 								return message._id === updateMessage._id
 									? updateMessage
 									: message;
@@ -109,3 +108,58 @@ const addTagOptions = {
 };
 
 export const addTag = graphql(ADD_TAG, addTagOptions);
+
+//////////////
+const subscribeOptions = {
+	props: ({ ownProps: { team }, mutate }) => ({
+		subscribe: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { subscribe } }) => {
+					const { findMessagesByTeam } = cache.readQuery({
+						query: query.FIND_MESSAGES_BY_TEAM,
+						variables: { team: team }
+					});
+					cache.writeQuery({
+						query: query.FIND_MESSAGES_BY_TEAM,
+						variables: { team: team },
+						data: {
+							findMessagesByTeam: findMessagesByTeam.map(message =>
+								message._id === subscribe._id ? subscribe : message
+							)
+						}
+					});
+				}
+			})
+	})
+};
+
+export const subscribe = graphql(SUBSCRIBE, subscribeOptions);
+
+////////////
+
+const unsubscribeOptions = {
+	props: ({ ownProps: { team }, mutate }) => ({
+		unsubscribe: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { unsubscribe } }) => {
+					const { findMessagesByTeam } = cache.readQuery({
+						query: query.FIND_MESSAGES_BY_TEAM,
+						variables: { team: team }
+					});
+					cache.writeQuery({
+						query: query.FIND_MESSAGES_BY_TEAM,
+						variables: { team: team },
+						data: {
+							findMessagesByTeam: findMessagesByTeam.map(message =>
+								message._id === unsubscribe._id ? unsubscribe : message
+							)
+						}
+					});
+				}
+			})
+	})
+};
+
+export const unsubscribe = graphql(UNSUBSCRIBE, unsubscribeOptions);
