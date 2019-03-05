@@ -13,7 +13,7 @@ import {
 } from '../../mutations/doccomments';
 
 // ------------- Style Imports ---------------------- //
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { colors } from '../../../colorVariables';
@@ -21,6 +21,14 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
 import SendIcon from '@material-ui/icons/Send';
+
+// ------------- Icon imports ------------------------------- //
+
+import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
+// import { FileWord } from 'styled-icons/icomoon/FileWord';
+// import { FileExcel } from 'styled-icons/fa-solid/FileExcel';
+// import { FilePlay } from 'styled-icons/icomoon/FilePlay';
+// import { FilePdf } from 'styled-icons/icomoon/FilePdf';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -38,6 +46,66 @@ import {
 	StyledModalNewCommentForm,
 	StyledModalNewCommentInput
 } from '../../Modal.styles';
+
+// ---------------- Styled Components ---------------------- //
+
+const ModalTitle = styled(StyledModalTitle)`
+	h2 {
+		font-size: 30px;
+		text-align: center;
+		margin-left: 30px;
+	}
+`;
+
+const ModalBody = styled(StyledModalBody)`
+	text-align: center;
+	margin: 10px 0;
+`;
+
+const DocumentContent = styled(StyledModalBody)`
+	text-align: center;
+	width: 80%;
+	margin: 20px auto;
+	padding-top: 20px;
+	border-top: 1px solid white;
+
+	span {
+		display: block;
+		font-weight: bold;
+		margin-bottom: 5px;
+		font-size: 18px;
+	}
+`;
+
+const DocUrl = styled(StyledModalBody)`
+	margin: 10px auto;
+	margin-top: 25px;
+	text-align: center;
+	padding: 5px;
+	border-bottom: 1px solid #ecff26;
+	width: 65px;
+	cursor: pointer;
+
+	a,
+	a:hover {
+		color: white;
+		text-decoration: none;
+	}
+
+	&:hover {
+		background-color: #392d40;
+		transition: 0.3s all ease-in-out;
+	}
+`;
+const DocumentIconDiv = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+`;
+
+const DocumentIcon = styled(FileAlt)`
+	height: 100px;
+`;
 
 class DocumentDetails extends React.Component {
 	constructor(props) {
@@ -83,6 +151,12 @@ class DocumentDetails extends React.Component {
 			open
 		} = this.props;
 
+		// const documentSwitch = url => {
+		// 	switch (url) {
+		// 		case ''
+		// 	}
+		// }
+
 		if (document === null) return <></>;
 		return (
 			<StyledModal
@@ -103,19 +177,6 @@ class DocumentDetails extends React.Component {
 					</StyledModalIconButton>
 				</StyledModalClose>
 				<StyledModalOverlay>
-					<CardHeader
-						avatar={
-							<Avatar
-								src={document.user.avatar}
-								alt="avatar"
-								style={{ height: '64px', width: '64px' }}
-							/>
-						}
-						title={`${document.user.firstName} ${document.user.lastName}`}
-						titleTypographyProps={{
-							style: { color: colors.text }
-						}}
-					/>
 					<StyledModalPaper>
 						{this.state.editingDocument ? (
 							<CardContent>
@@ -154,15 +215,33 @@ class DocumentDetails extends React.Component {
 							</CardContent>
 						) : (
 							<CardContent>
-								<StyledModalTitle variant="h5" component="h3">
-									{document.title}
-								</StyledModalTitle>
-								<StyledModalBody paragraph component="p">
-									{document.doc_url}
-								</StyledModalBody>
-								<StyledModalBody paragraph component="p">
+								<ModalTitle>{document.title}</ModalTitle>
+								<DocumentIconDiv>
+									<DocumentIcon />
+								</DocumentIconDiv>
+								<a
+									href={
+										document.doc_url.includes('http://') ||
+										document.doc_url.includes('https://')
+											? document.doc_url
+											: `http://www.${document.doc_url}`
+									}
+								>
+									<DocUrl paragraph component="p">
+										VIEW
+									</DocUrl>
+								</a>
+								<ModalBody>
+									{console.log(document)}
+									Posted by{' '}
+									{`${document.user.firstName} ${document.user.lastName}`} •
+									Tag:
+									{` ${document.tag ? document.tag.name : 'none'}`}
+								</ModalBody>
+								<DocumentContent paragraph component="p">
+									<span>Notes:</span>
 									{document.textContent}
-								</StyledModalBody>
+								</DocumentContent>
 
 								<StyledModalCardAction>
 									{document.user._id === currentUser._id && (
@@ -243,7 +322,7 @@ class DocumentDetails extends React.Component {
 							if (error) return <p>Error</p>;
 							return (
 								<>
-									<StyledModalTitle>Comments</StyledModalTitle>
+									<StyledModalTitle>Discussion</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
 										<StyledModalPaper key={comment._id}>
