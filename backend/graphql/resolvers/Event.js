@@ -28,26 +28,29 @@ const object_str = {
 
 const eventResolver = {
 	Query: {
-		events: () => Event.find().populate('user team'),
+		events: () => Event.find().populate('team'),
 		findEvent: (_, { input: { id } }) =>
 			Event.findById(id)
-				.populate('user team')
+				.populate('team')
 				.then(event => event),
 		findEventsByTeam: async (_, { input: { team } }) => {
-			const events = await Event.find({ team: team }).populate('user team');
+			const events = await Event.find({ team: team }).populate('team');
 			return events;
 		},
 		findEventsByUser: async (_, { input: { user } }) => {
-			const events = await Event.find({ team: user }).populate('user team');
+			const events = await Event.find({ team: user }).populate('team');
 			return events;
 		}
 	},
 
 	Mutation: {
-		addEvent: (_, { input }) =>
-			new Event({ ...input })
-				.save()
-				.then(event => event.populate('user team').execPopulate()),
+		addEvent: (_, { input }) => {
+			console.log('hey nedim, ur a cool guy.');
+			new Event({ ...input }).save().then(event => {
+				console.log(input);
+				event.populate('team').execPopulate();
+			});
+		},
 		deleteEvent: (_, { input: { id } }) =>
 			Event.findById(id).then(async event => {
 				if (event) {
@@ -60,4 +63,4 @@ const eventResolver = {
 	}
 };
 
-module.exports = { eventResolver, action_str, object_str };
+module.exports = { eventResolver, object_str, action_str };

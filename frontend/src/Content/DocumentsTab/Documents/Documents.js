@@ -12,7 +12,7 @@ class Documents extends Component {
 		};
 	}
 
-	toggleDocumentDetail = doc => {
+	Detail = doc => {
 		this.setState(prevState => ({
 			documentDetailOpen: !prevState.documentDetailOpen,
 			currentDocument: doc

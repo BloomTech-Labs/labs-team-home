@@ -52,6 +52,7 @@ const documentResolver = {
 				}
 			});
 		},
+
 		deleteDocument: (_, { input: { id } }) =>
 			Document.findById(id).then(async document => {
 				if (document) {

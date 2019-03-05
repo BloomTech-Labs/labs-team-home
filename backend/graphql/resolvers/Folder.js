@@ -1,9 +1,7 @@
 require('dotenv').config();
 const Folder = require('../../models/Folder');
 const Event = require('../../models/Event');
-
 const { object_str, action_str } = require('./Event');
-
 const { ValidationError } = require('apollo-server-express');
 
 const folderResolver = {
@@ -50,7 +48,27 @@ const folderResolver = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user team');
+					)
+						.populate('user team')
+						.then(async folder => {
+							console.log('the item in question:', folder);
+
+							try {
+								await new Event({
+									team: folder.team._id,
+									user: folder.user._id,
+									action_string: action_str.edited,
+									object_string: object_str.folder,
+									event_target_id: folder._id
+								})
+									.save()
+									.then(event => {
+										console.log('this should work yooo ->', event);
+									});
+							} catch (error) {
+								console.error('Could not add event', error);
+							}
+						});
 				} else {
 					throw new ValidationError("Folder doesn't exist");
 				}

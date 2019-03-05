@@ -27,7 +27,27 @@ const docCommentResolver = {
 						{ _id: input.document },
 						{ $push: { comments: [comment._id] } },
 						{ new: true }
-					).populate('team subscribedUsers');
+					)
+						.populate('team subscribedUsers')
+						.then(async DocComment => {
+							console.log('the item in question:', DocComment);
+
+							try {
+								await new Event({
+									team: DocComment.team._id,
+									user: DocComment.user._id,
+									action_string: action_str.created,
+									object_string: object_str.docComment,
+									event_target_id: DocComment._id
+								})
+									.save()
+									.then(event => {
+										console.log('this should work yooo ->', event);
+									});
+							} catch (error) {
+								console.error('Could not add event', error);
+							}
+						});
 					const emails = document.subscribedUsers
 						.filter(
 							user =>
@@ -68,7 +88,27 @@ const docCommentResolver = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user document likes');
+					)
+						.populate('user document likes')
+						.then(async DocComment => {
+							console.log('the item in question:', DocComment);
+
+							try {
+								await new Event({
+									team: DocComment.team._id,
+									user: DocComment.user._id,
+									action_string: action_str.edited,
+									object_string: object_str.docComment,
+									event_target_id: DocComment._id
+								})
+									.save()
+									.then(event => {
+										console.log('this should work ->', event);
+									});
+							} catch (error) {
+								console.error('Could not add event', error);
+							}
+						});
 				} else {
 					throw new ValidationError("Comment doesn't exist.");
 				}
