@@ -1,8 +1,6 @@
 require('dotenv').config();
 const Folder = require('../../models/Folder');
-const Document = require('../../models/Document');
 const Event = require('../../models/Event');
-
 const { object_str, action_str } = require('./Event');
 const { ValidationError } = require('apollo-server-express');
 
@@ -25,7 +23,7 @@ const folderResolver = {
 				.save()
 				.then(folder => folder.populate('user team').execPopulate())
 				.then(async folder => {
-					console.log('the item in question: ', folder);
+					// console.log('the item in question: ', folder);
 					try {
 						await new Event({
 							team: folder.team._id,
@@ -36,7 +34,7 @@ const folderResolver = {
 						})
 							.save()
 							.then(event => {
-								console.log('should be a success yooo ->', event);
+								// console.log('should be a success', event);
 							});
 					} catch (error) {
 						console.error('Could not add event', error);
@@ -80,8 +78,23 @@ const folderResolver = {
 			Folder.findById(id).then(async folder => {
 				if (folder) {
 					await Folder.findByIdAndDelete({ _id: id });
-					//currently, below code is not necessary, as frontend nullifies it.
-					//await Document.deleteMany({ folder: folder._id });
+					// console.log('the item in question: ', folder);
+					try {
+						await new Event({
+							team: folder.team,
+							user: folder.user,
+							action_string: action_str.deleted,
+							object_string: object_str.folder,
+							event_target_id: null
+						})
+							.save()
+							.then(event => {
+								// console.log('should be a success', event);
+							});
+					} catch (error) {
+						console.error('Could not add event', error);
+					}
+
 					return folder;
 				} else {
 					throw new ValidationError("Folder doesn't exist.");

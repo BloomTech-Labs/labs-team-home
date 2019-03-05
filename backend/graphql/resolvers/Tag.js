@@ -37,14 +37,3 @@ const tagResolvers = {
 };
 
 module.exports = tagResolvers;
-
-// Post.findOneAndUpdate(
-// 	{ _id: req.params.id },
-// 	{ $set: req.body },
-// 	{ new: true }
-//   )
-
-// create: new Model(object).save()
-// read: find, findById()
-// update: findOneAndUpdate()
-// delete: findOneAndDelete()
