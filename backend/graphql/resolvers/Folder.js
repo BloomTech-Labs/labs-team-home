@@ -59,7 +59,7 @@ const folderResolver = {
 								await new Event({
 									team: folder.team._id,
 									user: folder.user._id,
-									action_string: action_str.created,
+									action_string: action_str.edited,
 									object_string: object_str.folder,
 									event_target_id: folder._id
 								})
