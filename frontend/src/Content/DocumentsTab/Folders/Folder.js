@@ -51,15 +51,21 @@ class Folder extends React.Component {
 		// console.log('previous folder: ', this.props.folder._id)
 
 		if (folderid !== undefined) {
+			// console.log('UpdateDrop-Folder, folderID not available: ', folderid)
 			this.props.updateDocument({
-				id: id,
+				id: id._id,
 				folder: folderid._id,
-				previousFolder: this.props.folder._id
+				previous: this.props.folder._id
 			});
 		} else {
-			this.props.updateDocument({ id: id, folder: null });
+			// console.log('UpdateDrop-Folder, folderID available: ', folderid)
+			this.props.updateDocument({
+				id: id._id,
+				folder: null,
+				previous: this.props.folder._id
+			});
 		}
-		console.log('Folder Update');
+		// console.log('Folder Update');
 	};
 
 	render() {

@@ -54,11 +54,16 @@ class DocumentContainer extends React.Component {
 		// console.log('DropArea ID: ', folderid);
 
 		if (folderid === undefined) {
-			this.props.updateDocument({ id: id, folder: null });
+			console.log(
+				'dropped in staging area from staging area; Nothing will happen'
+			);
+			// console.log('UpdateDrop-DocConatiner, folderID not available: ', folderid)
+			// this.props.updateDocument({ id: id._id, folder: null });
 		} else {
-			this.props.updateDocument({ id: id, folder: folderid._id });
+			// console.log("UpdateDrop-DocConatiner, folderID available: ", folderid._id)
+			this.props.updateDocument({ id: id._id, folder: folderid._id });
 		}
-		console.log('Document Update');
+		// console.log('Document Update');
 	};
 
 	render() {
@@ -115,7 +120,7 @@ class DocumentContainer extends React.Component {
 									.map(doc => {
 										return (
 											<div
-												onClick={() => this.toggleDocumentDetail(doc)}
+												onClick={() => this.props.toggleDocumentDetail(doc)}
 												key={doc._id}
 											>
 												<Doc

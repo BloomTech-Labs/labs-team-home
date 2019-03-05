@@ -18,8 +18,8 @@ const docSource = {
 			return;
 		}
 		const dropResult = monitor.getDropResult();
-		console.log('dropResult: ', dropResult);
-		return props.handleDrop(props.document._id, dropResult.folder);
+		// console.log('dropResult: ', dropResult);
+		return props.handleDrop(props.document, dropResult.folder);
 	}
 };
 
