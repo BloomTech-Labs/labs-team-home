@@ -97,12 +97,23 @@ class TeamList extends React.Component {
 				</Mutation>
 				<h1>My Teams</h1>
 				<style.TeamsList>
-					<Query query={query.FIND_TEAMS_BY_USER}>
-						{({ loading, error, data: { findTeamsByUser } }) => {
+					<Query query={query.FIND_TEAMS_BY_USER} notifyOnNetworkStatusChange>
+						{({
+							loading,
+							error,
+							data: { findTeamsByUser },
+							refetch,
+							networkStatus
+						}) => {
+							if (networkStatus === 4) return <p> Refetching...</p>;
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error.</p>;
 
 							// Map over the teams
+							if (findTeamsByUser === undefined || findTeamsByUser === null) {
+								refetch();
+								return <> Refetching... </>;
+							}
 							return findTeamsByUser.map(team => (
 								<div key={team._id}>
 									<style.LinkStyles to={`/${team._id}/home`}>
