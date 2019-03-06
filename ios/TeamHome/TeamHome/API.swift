@@ -927,6 +927,103 @@ public final class AddNewDocumentMutation: GraphQLMutation {
   }
 }
 
+public final class UpdateDocumentMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation UpdateDocument($id: ID!, $title: String, $doc_url: String, $folder: String, $textContent: String) {\n  updateDocument(input: {id: $id, title: $title, doc_url: $doc_url, folder: $folder, textContent: $textContent}) {\n    __typename\n    title\n    _id\n  }\n}"
+
+  public var id: GraphQLID
+  public var title: String?
+  public var doc_url: String?
+  public var folder: String?
+  public var textContent: String?
+
+  public init(id: GraphQLID, title: String? = nil, doc_url: String? = nil, folder: String? = nil, textContent: String? = nil) {
+    self.id = id
+    self.title = title
+    self.doc_url = doc_url
+    self.folder = folder
+    self.textContent = textContent
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id, "title": title, "doc_url": doc_url, "folder": folder, "textContent": textContent]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("updateDocument", arguments: ["input": ["id": GraphQLVariable("id"), "title": GraphQLVariable("title"), "doc_url": GraphQLVariable("doc_url"), "folder": GraphQLVariable("folder"), "textContent": GraphQLVariable("textContent")]], type: .object(UpdateDocument.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(updateDocument: UpdateDocument? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "updateDocument": updateDocument.flatMap { (value: UpdateDocument) -> ResultMap in value.resultMap }])
+    }
+
+    public var updateDocument: UpdateDocument? {
+      get {
+        return (resultMap["updateDocument"] as? ResultMap).flatMap { UpdateDocument(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "updateDocument")
+      }
+    }
+
+    public struct UpdateDocument: GraphQLSelectionSet {
+      public static let possibleTypes = ["Document"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("title", type: .nonNull(.scalar(String.self))),
+        GraphQLField("_id", type: .scalar(GraphQLID.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(title: String, id: GraphQLID? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Document", "title": title, "_id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var title: String {
+        get {
+          return resultMap["title"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "title")
+        }
+      }
+
+      public var id: GraphQLID? {
+        get {
+          return resultMap["_id"] as? GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "_id")
+        }
+      }
+    }
+  }
+}
+
 public final class FindDocumentsByTeamQuery: GraphQLQuery {
   public let operationDefinition =
     "query FindDocumentsByTeam($teamID: ID!) {\n  findDocumentsByTeam(input: {team: $teamID}) {\n    __typename\n    _id\n    doc_url\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n      _id\n    }\n    folder {\n      __typename\n      _id\n      title\n    }\n    title\n    textContent\n    images\n    comments\n    subscribedUsers {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    createdAt\n    updatedAt\n  }\n}"

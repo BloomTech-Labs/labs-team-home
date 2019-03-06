@@ -57,13 +57,12 @@ class AddDocumentViewController: UIViewController {
             let link = documentLinkTextField.text else { return}
         let note = documentNotesTextView.text ?? ""
         
-        apollo.perform(mutation: AddNewDocumentMutation(title: title, doc_url: link, team: team.id!, textContent: note)) { (result, error) in
-            if let error = error{
-                NSLog("Error adding document: \(error)")
-                return
-            }
-            print("Add Document Successful: \(result?.data?.addDocument?.title ?? "No Title")")
+        if let document = document {
+            performEditMutation(document: document, title: title, doc_url: link, textContent: note)
+        } else {
+            performAddMutation(title: title, doc_url: link, team: team.id!, textContent: note)
         }
+        
         watcher?.refetch()
         navigationController?.popViewController(animated: true)
         
@@ -87,6 +86,25 @@ class AddDocumentViewController: UIViewController {
         documentTitleTextField.text = ""
         documentLinkTextField.text = ""
         documentNotesTextView.text = ""
+    }
+    
+    private func performEditMutation(document: Document, title: String, doc_url: String, textContent: String){
+        apollo.perform(mutation: UpdateDocumentMutation(id: document.id!, title: title, doc_url: doc_url, textContent: textContent)) { (result, error) in
+            if let error = error {
+                NSLog("Error updating document: \(error)")
+            }
+            print("Edit Document Successful: \(result?.data?.updateDocument?.title ?? "No Title")")
+        }
+    }
+    
+    private func performAddMutation(title: String, doc_url: String, team: String, textContent: String){
+        apollo.perform(mutation: AddNewDocumentMutation(title: title, doc_url: doc_url, team: team, textContent: textContent)) { (result, error) in
+            if let error = error{
+                NSLog("Error adding document: \(error)")
+                return
+            }
+            print("Add Document Successful: \(result?.data?.addDocument?.title ?? "No Title")")
+        }
     }
     
     
