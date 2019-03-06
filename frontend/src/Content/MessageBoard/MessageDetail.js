@@ -18,7 +18,7 @@ import {
 import * as query from '../../constants/queries';
 
 // ------------- styling libraries ---------------------- //
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
@@ -45,6 +45,31 @@ import {
 	StyledModalNewCommentInput,
 	StyledModalNewCommentForm
 } from '../Modal.styles';
+
+// ------------- Styled Components --------------------------- //
+
+const MessageTitle = styled(StyledModalTitle)`
+	padding-bottom: 20px;
+	border-bottom: 1px solid white;
+	margin-bottom: 20px;
+
+	h2 {
+		font-size: 25px;
+	}
+`;
+
+const Tags = styled(StyledModalBody)`
+	margin-top: 30px;
+`;
+
+const MessageContent = styled(CardContent)`
+	text-align: center;
+	width: 80%;
+	margin: 0 auto;
+`;
+const Image = styled.img`
+	margin-top: 10px;
+`;
 
 class MessageDetail extends Component {
 	constructor(props) {
@@ -128,7 +153,7 @@ class MessageDetail extends Component {
 							<Avatar
 								src={message.user.avatar}
 								alt="avatar"
-								style={{ height: '64px', width: '64px' }}
+								style={{ height: '50px', width: '50px' }}
 							/>
 						}
 						title={`${message.user.firstName} ${message.user.lastName}`}
@@ -166,23 +191,30 @@ class MessageDetail extends Component {
 								<StyledModalButton type="submit">Save</StyledModalButton>
 							</StyledModalForm>
 						) : (
-							<CardContent>
-								<StyledModalTitle variant="h5" component="h3">
-									{message.title}
-								</StyledModalTitle>
+							<MessageContent>
+								<MessageTitle>{message.title}</MessageTitle>
 								<StyledModalBody paragraph component="p">
 									{message.content}
 								</StyledModalBody>
-
 								{/* Load all the images attached to the message */}
 								{message.images.map((image, index) => (
-									<img
+									<Image
 										key={index}
 										src={image}
 										alt="message-img"
 										style={{ maxWidth: '50%', height: 'auto' }}
 									/>
 								))}
+								{/* Displays the tag associated with message. Includes a hashtag if not already present. */}
+								{message.tag ? (
+									message.tag.name.charAt(0).includes('#') ? (
+										<Tags>Tag: {message.tag.name}</Tags>
+									) : (
+										<Tags>Tag: #{message.tag.name}</Tags>
+									)
+								) : (
+									<></>
+								)}
 
 								{/* Display all the button actions (edit, delete, subscribe) */}
 								<StyledModalCardAction>
@@ -242,7 +274,7 @@ class MessageDetail extends Component {
 										{this.state.subscribed ? 'Unsubscribe' : 'Subscribe'}
 									</StyledModalButton>
 								</StyledModalCardAction>
-							</CardContent>
+							</MessageContent>
 						)}
 					</StyledModalPaper>
 					{/* Get the comments for the message */}
