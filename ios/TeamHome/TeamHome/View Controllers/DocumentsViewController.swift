@@ -31,7 +31,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
         
     }
-    
 
     // MARK: - IBActions
     

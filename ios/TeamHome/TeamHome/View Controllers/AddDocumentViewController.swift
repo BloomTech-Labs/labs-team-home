@@ -64,7 +64,8 @@ class AddDocumentViewController: UIViewController {
         }
         
         watcher?.refetch()
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
+//        navigationController?.popViewController(animated: true)
         
     }
     
