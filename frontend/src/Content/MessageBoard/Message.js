@@ -36,6 +36,8 @@ const styles = {
 	}
 };
 
+// ---------------- Styled Components ---------------------- //
+
 const Container = styled(Card)`
 	margin: 10px auto;
 	background-color: ${colors.button};
@@ -67,10 +69,6 @@ const CommentInfo = styled(CardContent)`
 	text-align: center;
 	margin: 5px 10px;
 	width: 100%;
-
-	${mediaQueryFor.mdDevice`
-		display: none;
-	`}
 `;
 
 const TagInfo = styled(CardContent)`
@@ -88,6 +86,7 @@ const TagInfo = styled(CardContent)`
 const Title = styled(Typography)`
 	font-weight: bold;
 	color: ${colors.text};
+	font-size: 25px;
 
 	${mediaQueryFor.xsDevice`
 		font-size: 1rem;
@@ -103,7 +102,7 @@ const StyledTypography = styled(Typography)`
 `;
 
 const StyledAvatar = styled(Avatar)`
-	margin: 10px;
+	margin: 5px 10px 10px 10px;
 	width: 60px;
 	height: 60px;
 
@@ -120,10 +119,27 @@ const ImgGrid = styled(Grid)`
 	`}
 `;
 
-const CommentGrid = styled(Grid)`
+const CommentGrid = styled(Grid)``;
+
+const TagGrid = styled(Grid)`
+	margin-top: 20px;
+
 	${mediaQueryFor.mdDevice`
 		display: none;
 	`}
+`;
+
+const ReplySubtext = styled(StyledTypography)`
+	font-size: 14px;
+`;
+
+const TagDiv = styled.div`
+	p {
+		padding: 5px;
+		font-size: 16px;
+		border: 2px solid white;
+		border-radius: 5px;
+	}
 `;
 
 function Message(props) {
@@ -151,7 +167,7 @@ function Message(props) {
 								gutterBottom
 								noWrap
 								variant="title"
-								component="h4"
+								component="h3"
 								className={classes.cardText}
 							>
 								{message.title}
@@ -161,35 +177,37 @@ function Message(props) {
 								noWrap
 								className={classes.cardText}
 							>
-								{`${userInfo.firstName} ${
+								{`by ${userInfo.firstName} ${
 									userInfo.lastName
-								} - ${message.createdAt.toDateString()}`}
-							</StyledTypography>
-							<StyledTypography component="p" noWrap>
-								{message.content}
+								} • ${message.createdAt.toDateString()}`}
 							</StyledTypography>
 						</Info>
 					</Grid>
-					<CommentGrid item xs={2}>
+					<TagGrid item xs={2}>
+						<TagInfo>
+							<TagDiv>
+								{message.tag ? (
+									message.tag.name.charAt(0).includes('#') ? (
+										<p>{message.tag.name}</p>
+									) : (
+										<p>{`#${message.tag.name}`}</p>
+									)
+								) : (
+									''
+								)}
+							</TagDiv>
+						</TagInfo>
+					</TagGrid>
+					<CommentGrid item xs={3}>
 						<CommentInfo>
-							<StyledTypography variant="h5" component="h5">
-								Comments
-							</StyledTypography>
 							<StyledTypography variant="h5" component="h5">
 								{message.comments.length}
 							</StyledTypography>
+							<ReplySubtext>
+								{`Repl${message.comments.length === 1 ? 'y' : 'ies'}`}
+							</ReplySubtext>
 						</CommentInfo>
 					</CommentGrid>
-					<Grid item xs={3}>
-						<TagInfo>
-							<StyledTypography variant="h5" component="h5">
-								Tag
-							</StyledTypography>
-							<StyledTypography variant="h5" component="h5">
-								{message.tag ? message.tag.name : 'None'}
-							</StyledTypography>
-						</TagInfo>
-					</Grid>
 				</Grid>
 			</CardActionArea>
 		</Container>

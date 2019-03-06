@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
     background-size:100vw;
     margin:0 auto;
-    ${`
+    /* ${`
       background: linear-gradient(
       to bottom,
       rgba(83, 51, 126, 0.2) 0%,
@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     `}
     ${mediaQueryFor.xsDevice`
       width:100vw;
-    `}
+    `} */
   }
 `;
 
