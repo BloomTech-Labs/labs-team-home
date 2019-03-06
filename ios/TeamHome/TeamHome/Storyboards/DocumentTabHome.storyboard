@@ -14,7 +14,7 @@
         <!--Title-->
         <scene sceneID="9u2-Io-UhV">
             <objects>
-                <viewController id="Gjh-D1-vhX" customClass="AddDocumentViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Gjh-D1-vhX" customClass="AddEditDocumentViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WHs-eC-9fZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,7 +132,7 @@
                                                         <rect key="frame" x="153" y="0.0" width="147" height="30"/>
                                                         <state key="normal" title="Submit"/>
                                                         <connections>
-                                                            <action selector="addDocument:" destination="Gjh-D1-vhX" eventType="touchUpInside" id="SIX-lt-qfz"/>
+                                                            <action selector="submitDocument:" destination="Gjh-D1-vhX" eventType="touchUpInside" id="SIX-lt-qfz"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -184,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cUf-ob-Rhj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="601" y="575"/>
+            <point key="canvasLocation" x="1655" y="613"/>
         </scene>
         <!--Documents-->
         <scene sceneID="Lvc-1L-8j7">
@@ -356,14 +356,14 @@
             <objects>
                 <viewController id="PI0-00-t65" customClass="DocumentDetailViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6fj-NF-GcE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="486"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="xxl-hv-RrG">
-                                <rect key="frame" x="16" y="32" width="343" height="502"/>
+                                <rect key="frame" x="16" y="32" width="343" height="438"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="260" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="X2e-ia-pQw">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="144"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="106.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="LvL-rh-KOa">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -432,26 +432,26 @@
                                                 </constraints>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" verticalCompressionResistancePriority="753" text="Document URL" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flS-gj-8q0">
-                                                <rect key="frame" x="0.0" y="88.5" width="343" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="88.5" width="343" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" verticalCompressionResistancePriority="753" text="Documment Notes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIe-sG-jz5">
-                                                <rect key="frame" x="0.0" y="118" width="343" height="17"/>
+                                                <rect key="frame" x="0.0" y="97.5" width="343" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ft3-st-D2k">
-                                                <rect key="frame" x="0.0" y="139.5" width="343" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="102" width="343" height="0.0"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="200" id="RPV-8h-EBC"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="243" translatesAutoresizingMaskIntoConstraints="NO" id="lkg-va-098">
-                                                <rect key="frame" x="0.0" y="144" width="343" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="106.5" width="343" height="0.0"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhA-WU-uow">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
@@ -464,13 +464,13 @@
                                         </subviews>
                                     </stackView>
                                     <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" verticalCompressionResistancePriority="754" translatesAutoresizingMaskIntoConstraints="NO" id="CqT-Pa-d28">
-                                        <rect key="frame" x="0.0" y="156" width="343" height="301"/>
+                                        <rect key="frame" x="0.0" y="118.5" width="343" height="274.5"/>
                                         <connections>
                                             <segue destination="cNA-SP-I5F" kind="embed" identifier="EmbeddedComments" id="eUz-eI-eEZ"/>
                                         </connections>
                                     </containerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="260" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QiS-gJ-wEv">
-                                        <rect key="frame" x="0.0" y="469" width="343" height="33"/>
+                                        <rect key="frame" x="0.0" y="405" width="343" height="33"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="258" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOo-SR-xAN">
                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="33"/>
@@ -514,10 +514,16 @@
                                 <action selector="backButton:" destination="PI0-00-t65" id="myG-LV-6ti"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Yfg-x0-zyi">
+                            <connections>
+                                <segue destination="Gjh-D1-vhX" kind="show" identifier="EditDocument" id="q4k-aO-cWI"/>
+                            </connections>
+                        </barButtonItem>
                         <connections>
                             <outlet property="backBarButtonItem" destination="Wye-1p-dqc" id="eEI-mM-ogY"/>
                         </connections>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="commentContainerView" destination="CqT-Pa-d28" id="jXm-pn-rUF"/>
                         <outlet property="commentTextView" destination="6EX-IN-IJM" id="OW9-Kc-PvK"/>
@@ -542,7 +548,7 @@
             <objects>
                 <collectionViewController id="cNA-SP-I5F" customClass="DocumentsDetailCollectionViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="elr-py-tQo">
-                        <rect key="frame" x="0.0" y="0.0" width="343" height="301"/>
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="274.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Prg-uW-UJX">
@@ -621,7 +627,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v7p-9l-ZbQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1609" y="574"/>
+            <point key="canvasLocation" x="529" y="665"/>
         </scene>
     </scenes>
     <resources>
@@ -629,4 +635,7 @@
         <image name="Change Team" width="33.882354736328125" height="33.882354736328125"/>
         <image name="User Avatar Image" width="32.810127258300781" height="32.810127258300781"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="2HZ-Sp-MoN"/>
+    </inferredMetricsTieBreakers>
 </document>

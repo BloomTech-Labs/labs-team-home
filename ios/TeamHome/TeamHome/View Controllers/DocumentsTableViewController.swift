@@ -89,6 +89,10 @@ class DocumentsTableViewController: UITableViewController {
                 let documents = result.data?.findDocumentsByTeam else { return }
             
             self.documents = documents
+            
+            //prevents extra call to reload data if deleting is called
+            guard self.deleteIndexPath == nil else {return}
+            self.tableView.reloadData()
         }
     }
     
