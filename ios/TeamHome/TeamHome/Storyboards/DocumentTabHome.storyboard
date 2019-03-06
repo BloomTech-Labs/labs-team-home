@@ -14,7 +14,7 @@
         <!--Title-->
         <scene sceneID="9u2-Io-UhV">
             <objects>
-                <viewController id="Gjh-D1-vhX" customClass="AddDocumentViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Gjh-D1-vhX" customClass="AddEditDocumentViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WHs-eC-9fZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -69,7 +69,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
             destinationVC.currentUser = currentUser
         }
         if segue.identifier == "EditDocument"{
-             guard let destinationVC = segue.destination as? AddDocumentViewController,
+             guard let destinationVC = segue.destination as? AddEditDocumentViewController,
                 let document = document,
             let team = team else {return}
             destinationVC.apollo = apollo
