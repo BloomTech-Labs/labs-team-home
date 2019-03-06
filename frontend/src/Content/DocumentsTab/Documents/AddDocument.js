@@ -64,7 +64,7 @@ class AddDocument extends React.Component {
 							return (
 								<Mutation
 									mutation={ADD_DOCUMENT}
-									variables={{ ...this.state.fullDocument }}
+									variables={this.state.fullDocument}
 								>
 									{addDocument => (
 										<StyledModalForm
@@ -86,9 +86,11 @@ class AddDocument extends React.Component {
 													);
 													if (exists) {
 														newDocument.tag = exists._id;
-														this.addStateDoc(newDocument);
-														addDocument();
-														this.props.hideModal();
+														this.addStateDoc(newDocument).then(
+															addDocument().then(this.props.hideModal())
+														);
+														// addDocument();
+														// this.props.hideModal();
 													} else {
 														return addTag({
 															name: this.state.tag,
@@ -108,9 +110,11 @@ class AddDocument extends React.Component {
 													}
 													// if no tag in state
 												} else {
-													this.addStateDoc(newDocument);
-													addDocument();
-													this.props.hideModal();
+													this.addStateDoc(newDocument).then(
+														addDocument().then(this.props.hideModal())
+													);
+													// addDocument();
+													// this.props.hideModal();
 												}
 											}}
 										>

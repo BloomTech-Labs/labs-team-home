@@ -76,30 +76,32 @@ const StyledTypography = styled(Typography)`
 `;
 
 function Activity(props) {
+	console.log('this is the props on the event: ', props);
 	const { classes, own } = props;
 	const {
-		__typename,
 		user,
-		updatedAt,
-		title,
-		content
+		createdAt,
+		// title,
+		// content,
+		action_string,
+		object_string
 		// createdAt
-	} = props.message;
+	} = props.event;
 	/* activitySwitch changes the message depending on the type of the object */
-	const activitySwitch = type => {
-		switch (type) {
-			case 'Message':
-				return 'Message';
-			case 'Comment':
-				return 'Comment';
-			case 'Document':
-				return 'Document';
-			case 'Folder':
-				return 'Folder';
-			default:
-				return 'Comment';
-		}
-	};
+	// const objectSwitch = type => {
+	// 	switch (type) {
+	// 		case 'Message':
+	// 			return 'Message';
+	// 		case 'Comment':
+	// 			return 'Comment';
+	// 		case 'Document':
+	// 			return 'Document';
+	// 		case 'Folder':
+	// 			return 'Folder';
+	// 		default:
+	// 			return 'Comment';
+	// 	}
+	// };
 
 	return (
 		<Container own={own}>
@@ -116,19 +118,19 @@ function Activity(props) {
 					<StyledTypography
 						gutterBottom
 						noWrap
-						variant={__typename === 'Message' ? 'title' : 'h5'}
+						variant={'title'}
 						component="h4"
 						className={classes.cardText}
 					>
 						{user.firstName} {user.lastName.slice(0, 1)}
 						{'. '}
-						posted a new {activitySwitch(__typename)}
+						{action_string} a {object_string}
 					</StyledTypography>
 					<StyledTypography component="p" noWrap className={classes.cardText}>
-						{updatedAt.toDateString()}
+						{createdAt.toDateString()}
 					</StyledTypography>
 					<Title component="p" noWrap>
-						{__typename === 'Message' ? title : content}
+						{/* {__typename === 'Message' ? title : content} */}
 					</Title>
 				</Info>
 

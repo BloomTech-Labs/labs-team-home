@@ -128,3 +128,12 @@ export const FIND_DOCUMENTS_BY_FOLDER = gql`
 	}
 	${f.FULL_DOCUMENT}
 `;
+
+export const FIND_EVENTS_BY_TEAM = gql`
+	query findEventsByTeam($team: ID!) {
+		findEventsByTeam(input: { team: $team }) {
+			...FullEvent
+		}
+	}
+	${f.FULL_EVENT}
+`;
