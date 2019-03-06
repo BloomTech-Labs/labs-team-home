@@ -192,20 +192,47 @@ class DocumentDetails extends React.Component {
 			folderOption: 'Move to Folder'
 		});
 
-	folderChange = e => {
+	folderChange = (e, updateDocument) => {
 		if (e.target.value !== '') {
+			//Moving a doc from the Documents container to a folder by using the drop down menu
 			if (this.props.document.folder === null) {
-				console.log('moving into folder', e.target.value);
-				this.props.updateDocument({
-					id: this.props.document._id,
-					folder: e.target.value
+				// console.log('moving into folder', e.target.value);
+				updateDocument({
+					variables: { id: this.props.document._id, folder: e.target.value },
+					refetchQueries: [
+						{
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: this.props.team }
+						},
+						{
+							query: query.FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: e.target.value }
+						}
+					]
 				});
 			} else if (this.props.document.folder !== null) {
-				console.log('moving folder to folder:', e.target.value);
-				this.props.updateDocument({
-					id: this.props.document._id,
-					folder: e.target.value,
-					previous: this.props.document.folder._id
+				//Moving a doc from a folder container to a another folder by using the drop down menu
+				// console.log('moving folder to folder:', e.target.value);
+				updateDocument({
+					variables: {
+						id: this.props.document._id,
+						folder: e.target.value,
+						previous: this.props.document.folder._id
+					},
+					refetchQueries: [
+						{
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: this.props.team }
+						},
+						{
+							query: query.FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: e.target.value }
+						},
+						{
+							query: query.FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: this.props.document.folder._id }
+						}
+					]
 				});
 			} else {
 				console.log('did we run an update?');
@@ -220,7 +247,6 @@ class DocumentDetails extends React.Component {
 		const {
 			deleteDocument,
 			document,
-
 			currentUser,
 			hideModal,
 			addDocComment,
@@ -315,39 +341,41 @@ class DocumentDetails extends React.Component {
 								</a>
 								<FormDiv>
 									<SortForm>
-										<label>
-											<select
-												value={this.state.folderOption}
-												onChange={this.folderChange}
-											>
-												<option value="">Move to ...</option>
-
-												<Query
-													query={query.FIND_FOLDERS_BY_TEAM}
-													variables={{ team: this.props.team }}
+										<Mutation mutation={UPDATE_DOCUMENT}>
+											{updateDocument => (
+												<select
+													value={this.state.folderOption}
+													onChange={e => this.folderChange(e, updateDocument)}
 												>
-													{({
-														loading,
-														error,
-														data: { findFoldersByTeam }
-													}) => {
-														if (loading) return 'Loading...';
-														if (error) return console.error(error);
-														if (
-															findFoldersByTeam &&
-															findFoldersByTeam.length > 0
-														) {
-															return findFoldersByTeam.map(folder => (
-																<option
-																	key={folder._id}
-																	value={`${folder._id}`}
-																>{`${folder.title}`}</option>
-															));
-														}
-													}}
-												</Query>
-											</select>
-										</label>
+													<option value="">Move to ...</option>
+
+													<Query
+														query={query.FIND_FOLDERS_BY_TEAM}
+														variables={{ team: this.props.team }}
+													>
+														{({
+															loading,
+															error,
+															data: { findFoldersByTeam }
+														}) => {
+															if (loading) return 'Loading...';
+															if (error) return console.error(error);
+															if (
+																findFoldersByTeam &&
+																findFoldersByTeam.length > 0
+															) {
+																return findFoldersByTeam.map(folder => (
+																	<option
+																		key={folder._id}
+																		value={`${folder._id}`}
+																	>{`${folder.title}`}</option>
+																));
+															}
+														}}
+													</Query>
+												</select>
+											)}
+										</Mutation>
 									</SortForm>
 								</FormDiv>
 								<ModalBody>
