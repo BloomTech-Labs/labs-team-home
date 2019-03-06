@@ -22,16 +22,6 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         
         setUpViewAppearance()
         Appearance.styleOrange(button: sendCommentButton)
-        
-        //        let editMessageBarButtonView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        //        let editImage = UIImage(named: "New Message")!
-        //        let imageView = UIImageView(image: editImage)
-        //        imageView.frame = CGRect(x: 8, y: 8, width: 20, height: 20)
-        //        editMessageBarButtonView.addSubview(imageView)
-        
-        let barButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(clickedEditButton))
-        navigationItem.rightBarButtonItem = barButton
-        
         documentTitleLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
         
         dateLabel.font = RobotoFont.regular(with: 12)
@@ -60,7 +50,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
                 NSLog("Error adding comment: \(error)")
                 return
             }
-            print(result?.data?.addDocComment?.content)
+//            print(result?.data?.addDocComment?.content)
         }
         commentTextView.text = ""
     }
@@ -72,11 +62,19 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         if segue.identifier == "EmbeddedComments" {
             guard let destinationVC = segue.destination as? DocumentsDetailCollectionViewController,
                 let documentID = document?.id,
-                let currentUser = currentUser else { return }
+                let currentUser = currentUser else {return}
             
             destinationVC.apollo = apollo
             destinationVC.documentID = documentID
             destinationVC.currentUser = currentUser
+        }
+        if segue.identifier == "EditDocument"{
+             guard let destinationVC = segue.destination as? AddDocumentViewController,
+                let document = document,
+            let team = team else {return}
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+            destinationVC.document = document
         }
     }
     
@@ -175,13 +173,9 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         NSLayoutConstraint.activate([heightConstraint])
     }
     
-    @objc func clickedEditButton() {
-        //        performSegue(withIdentifier: "EditMessage", sender: self)
-    }
-    
     //MARK: - Properties
     
-    //    private var isSubscribed: Bool = false
+    private var isSubscribed: Bool = false
     var document: FindDocumentsByTeamQuery.Data.FindDocumentsByTeam? {
         didSet {
             DispatchQueue.main.async {

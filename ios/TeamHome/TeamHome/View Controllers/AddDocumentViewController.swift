@@ -13,6 +13,7 @@ import Photos
 import Material
 import Motion
 
+typealias Document = FindDocumentsByTeamQuery.Data.FindDocumentsByTeam
 
 class AddDocumentViewController: UIViewController {
     
@@ -41,8 +42,17 @@ class AddDocumentViewController: UIViewController {
         collectionView.backgroundColor = .clear
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let document = document {
+            updateViewsForEdit(document: document)
+        } else {
+            updateViewsForAdd()
+        }
+    }
+    
     //MARK: - IBActions
-    @IBAction func addDocument(_ sender: Any) {
+    @IBAction func submitDocument(_ sender: Any) {
         guard let title = documentTitleTextField.text,
             let link = documentLinkTextField.text else { return}
         let note = documentNotesTextView.text ?? ""
@@ -64,13 +74,29 @@ class AddDocumentViewController: UIViewController {
         
     }
     
+    //MARK: - Private Properties
+    private func updateViewsForEdit(document: Document){
+        titleLabel.text = "Edit Document"
+        documentTitleTextField.text = document.title
+        documentLinkTextField.text = document.docUrl
+        documentNotesTextView.text = document.textContent
+        
+    }
+    private func updateViewsForAdd(){
+        titleLabel.text = "Add Document"
+        documentTitleTextField.text = ""
+        documentLinkTextField.text = ""
+        documentNotesTextView.text = ""
+    }
+    
+    
     //MARK: - Properties
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     
-    @IBOutlet weak var folderButton: UIBarButtonItem!
-
+    var document: Document?
     
+    @IBOutlet weak var folderButton: UIBarButtonItem!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: FlatButton!
     @IBOutlet weak var submitButton: RaisedButton!
