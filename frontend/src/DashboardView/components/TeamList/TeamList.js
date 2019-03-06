@@ -105,14 +105,14 @@ class TeamList extends React.Component {
 							refetch,
 							networkStatus
 						}) => {
-							if (networkStatus === 4) return <p> Refecting...</p>;
+							if (networkStatus === 4) return <p> Refetching...</p>;
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error.</p>;
 
 							// Map over the teams
 							if (findTeamsByUser === undefined || findTeamsByUser === null) {
 								refetch();
-								return <> refecting... </>;
+								return <> Refetching... </>;
 							}
 							return findTeamsByUser.map(team => (
 								<div key={team._id}>
