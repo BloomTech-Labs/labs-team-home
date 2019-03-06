@@ -29,14 +29,16 @@ const documentResolver = {
 		}
 	},
 	Mutation: {
-		addDocument: (_, { input }, { user: { _id } }) =>
+		addDocument: (_, { input }, { user: { _id } }) => {
+			console.log('hey whatsup everyone!');
 			new Document({ ...input, user: _id })
 				.save()
 				.then(document =>
 					document
 						.populate('user team tag subscribedUsers folder')
 						.execPopulate()
-				),
+				);
+		},
 		updateDocument: (_, { input }) => {
 			const { id } = input;
 			return Document.findById(id).then(document => {
