@@ -480,7 +480,6 @@ class DocumentDetails extends React.Component {
 export default compose(
 	addDocComment,
 	deleteDocument,
-
 	subscribeDoc,
 	unsubscribeDoc
 )(DocumentDetails);

@@ -13,15 +13,6 @@ export default class ActivityTimeline extends React.Component {
 	}
 
 	render() {
-		// let allTheThings = [];
-		/* These Bools make sure that everything is loaded before mapping over all items in
-		 allTheThings and returning Activity components */
-		// let messagesLoaded = false;
-		// let documentsLoaded = false;
-		// let foldersLoaded = false;
-		// let msgCommentsLoaded = false;
-		// let docCommentsLoaded = false;
-
 		return (
 			<div>
 				{/* Queries for all Events*/}

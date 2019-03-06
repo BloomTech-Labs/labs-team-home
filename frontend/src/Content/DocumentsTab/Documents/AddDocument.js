@@ -3,7 +3,10 @@ import React from 'react';
 // ------------- gql Imports ---------------------- //
 import { compose, Query, Mutation } from 'react-apollo';
 import { addTag } from '../../mutations/documents';
-import { FIND_TAGS_BY_TEAM } from '../../../constants/queries'; // this seems to be working
+import {
+	FIND_TAGS_BY_TEAM,
+	FIND_DOCUMENTS_BY_TEAM
+} from '../../../constants/queries'; // this seems to be working
 import { ADD_DOCUMENT } from '../../../constants/mutations';
 
 // ------------- Style Imports ---------------------- //
@@ -29,17 +32,12 @@ class AddDocument extends React.Component {
 			title: '',
 			url: '',
 			content: '',
-			tag: '',
-			fullDocument: null
+			tag: ''
 		};
 	}
 
 	handleChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
-	};
-
-	addStateDoc = document => {
-		this.setState({ fullDocument: document });
 	};
 
 	render() {
@@ -62,10 +60,7 @@ class AddDocument extends React.Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
 							return (
-								<Mutation
-									mutation={ADD_DOCUMENT}
-									variables={this.state.fullDocument}
-								>
+								<Mutation mutation={ADD_DOCUMENT}>
 									{addDocument => (
 										<StyledModalForm
 											onSubmit={e => {
@@ -86,11 +81,17 @@ class AddDocument extends React.Component {
 													);
 													if (exists) {
 														newDocument.tag = exists._id;
-														this.addStateDoc(newDocument).then(
-															addDocument().then(this.props.hideModal())
-														);
-														// addDocument();
-														// this.props.hideModal();
+
+														addDocument({
+															variables: newDocument,
+															refetchQueries: [
+																{
+																	query: FIND_DOCUMENTS_BY_TEAM,
+																	variables: { team: this.props.team }
+																}
+															]
+														});
+														this.props.hideModal();
 													} else {
 														return addTag({
 															name: this.state.tag,
@@ -99,8 +100,15 @@ class AddDocument extends React.Component {
 															.then(async ({ data: { addTag: { _id } } }) => {
 																try {
 																	await (newDocument.tag = _id);
-																	await this.addStateDoc(newDocument);
-																	await addDocument();
+																	await addDocument({
+																		variables: newDocument,
+																		refetchQueries: [
+																			{
+																				query: FIND_DOCUMENTS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			}
+																		]
+																	});
 																	await this.props.hideModal();
 																} catch (err) {
 																	console.error(err);
@@ -110,11 +118,16 @@ class AddDocument extends React.Component {
 													}
 													// if no tag in state
 												} else {
-													this.addStateDoc(newDocument).then(
-														addDocument().then(this.props.hideModal())
-													);
-													// addDocument();
-													// this.props.hideModal();
+													addDocument({
+														variables: newDocument,
+														refetchQueries: [
+															{
+																query: FIND_DOCUMENTS_BY_TEAM,
+																variables: { team: this.props.team }
+															}
+														]
+													});
+													this.props.hideModal();
 												}
 											}}
 										>
