@@ -17,6 +17,7 @@ class FoldersTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
         loadFolders(with: apollo!)
+//        hideNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -24,12 +25,12 @@ class FoldersTableViewController: UITableViewController {
         if let watcherFolder = watcherFolder {
             watcherFolder.refetch()
         }
+        hideNavigationBar()
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return folders?.count ?? 0
     }
 
@@ -72,15 +73,23 @@ class FoldersTableViewController: UITableViewController {
         }
     }
 
-    /*
+    private func hideNavigationBar() {
+        let nc = self.navigationController
+        nc?.isNavigationBarHidden = true
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "PresentFolderContents" {
+            let destinationVC = segue.destination as! FolderContentsTableViewController
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+            destinationVC.currentUser = currentUser
+        }
     }
-    */
+    
     
     // MARK: - Properties
     

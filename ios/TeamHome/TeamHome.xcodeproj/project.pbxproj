@@ -76,6 +76,7 @@
 		C4D48ED210903108208DB396 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */; };
 		F877E0B8221F859A00A78D08 /* FolderConcept.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */; };
 		F877E0BA221F873A00A78D08 /* FolderManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */; };
+		F8A527812230861900E715E8 /* FolderContentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */; };
 		F8BEA7F5222D035D0003C352 /* FolderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */; };
 		F8BEA7F7222D03860003C352 /* FoldersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */; };
 		F8E77CDA2214DB3B00E12C8B /* DocumentTabHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */; };
@@ -156,6 +157,7 @@
 		DE4B1FF0DF331C25C53901F0 /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
 		F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FolderConcept.storyboard; sourceTree = "<group>"; };
 		F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManagementViewController.swift; sourceTree = "<group>"; };
+		F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentsTableViewController.swift; sourceTree = "<group>"; };
 		F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderDetailViewController.swift; sourceTree = "<group>"; };
 		F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersTableViewController.swift; sourceTree = "<group>"; };
 		F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DocumentTabHome.storyboard; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */,
 				1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */,
 				F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */,
+				F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */,
 				10295B6822274F92002C8940 /* DocumentDetailViewController.swift */,
 				103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */,
 				103E72FC222DEE4000F54B0F /* DocumentsDetailCollectionViewController.swift */,
@@ -533,6 +536,7 @@
 				103E72FF222DEE5F00F54B0F /* DocumentCommentCollectionViewCell.swift in Sources */,
 				7BA77E8521E7B2B500C862C1 /* User.swift in Sources */,
 				7BA77EBE21E93D5600C862C1 /* SettingsViewController.swift in Sources */,
+				F8A527812230861900E715E8 /* FolderContentsTableViewController.swift in Sources */,
 				7BA77EA021E80D6C00C862C1 /* MessagesCollectionViewController.swift in Sources */,
 				7BA77EBC21E93D1300C862C1 /* TeamDetailTableViewController.swift in Sources */,
 				7BA77EB421E93B3400C862C1 /* CommentCollectionViewCell.swift in Sources */,
