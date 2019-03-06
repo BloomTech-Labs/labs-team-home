@@ -27,6 +27,8 @@ const styles = theme => ({
 	}
 });
 
+// ---------------- Styled Components ---------------------- //
+
 const Messageboard = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	box-sizing: border-box;
@@ -67,6 +69,27 @@ const AddMsgBtn = styled(Fab)`
 	color: ${colors.text};
 	height: 75px;
 	width: 75px;
+`;
+
+const FormDiv = styled.div`
+	width: 95%;
+	display: flex;
+	flex-direction: row-reverse;
+`;
+
+const SortForm = styled.form`
+	height: 50px;
+	margin-top: 20px;
+	font-size: 16px;
+	label {
+		color: white;
+	}
+	select {
+		margin-left: 10px;
+	}
+	option {
+		height: 30px;
+	}
 `;
 
 class MessageBoard extends React.Component {
@@ -135,15 +158,20 @@ class MessageBoard extends React.Component {
 					</Tooltip>
 
 					{/* Sorting options */}
-					<form>
-						<label>
-							Sort:
-							<select value={this.state.sortOption} onChange={this.sortChange}>
-								<option value="newest">Newest First</option>
-								<option value="oldest">Oldest First</option>
-							</select>
-						</label>
-					</form>
+					<FormDiv>
+						<SortForm>
+							<label>
+								Sort:
+								<select
+									value={this.state.sortOption}
+									onChange={this.sortChange}
+								>
+									<option value="newest">Newest First</option>
+									<option value="oldest">Oldest First</option>
+								</select>
+							</label>
+						</SortForm>
+					</FormDiv>
 					<Query
 						query={query.FIND_MESSAGES_BY_TEAM}
 						variables={{ team: this.props.team._id }}
