@@ -6,7 +6,8 @@ import { compose } from 'react-apollo';
 import { updateDocument } from '../../mutations/documents';
 
 const IndividualFolder = styled.div`
-	min-height: 200px;
+	height: 200px;
+	width: 175px;
 	color: black;
 	background-color: #a9a4b0;
 	text-align: center;
@@ -24,8 +25,21 @@ const IndividualFolder = styled.div`
 		100% 100%,
 		0% 100%
 	);
-
 	cursor: pointer;
+`;
+
+const DocumentDiv = styled.div`
+	height: 90%;
+	width: 159px;
+	overflow-y: auto;
+
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: white;
+	}
 `;
 
 function collect(connect, monitor) {
@@ -51,7 +65,7 @@ class Folder extends React.Component {
 		// console.log('previous folder: ', this.props.folder._id)
 
 		if (folderid !== undefined) {
-			// console.log('UpdateDrop-Folder, folderID not available: ', folderid)
+			console.log('UpdateDrop-Folder, folderID not available: ', folderid);
 			this.props.updateDocument({
 				id: id._id,
 				folder: folderid._id,
@@ -76,20 +90,24 @@ class Folder extends React.Component {
 		return connectDropTarget(
 			<div>
 				<IndividualFolder style={{ background: backgroundColor }}>
-					{folder.title}
-					{this.props.findDocumentsByFolder.length ? (
-						this.props.findDocumentsByFolder.map(doc => {
-							return (
-								<Doc
-									key={doc._id}
-									document={doc}
-									handleDrop={(id, folderId) => this.updateDrop(id, folderId)}
-								/>
-							);
-						})
-					) : (
-						<></>
-					)}
+					{folder.title.length > 18
+						? `${folder.title.substring(0, 18)}...`
+						: folder.title}
+					<DocumentDiv>
+						{this.props.findDocumentsByFolder.length ? (
+							this.props.findDocumentsByFolder.map(doc => {
+								return (
+									<Doc
+										key={doc._id}
+										document={doc}
+										handleDrop={(id, folderId) => this.updateDrop(id, folderId)}
+									/>
+								);
+							})
+						) : (
+							<></>
+						)}
+					</DocumentDiv>
 				</IndividualFolder>
 			</div>
 		);

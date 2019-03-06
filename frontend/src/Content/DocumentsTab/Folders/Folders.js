@@ -11,6 +11,25 @@ const FolderContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	padding: 10px;
+	padding-bottom: 20px;
+	border: 2px solid #4a4550;
+	position: relative;
+`;
+
+const ContainerTitle = styled.div`
+	position: absolute;
+	width: 150px;
+	text-align: center;
+	top: -20px;
+	left: 20px;
+	background-color: #5a5560;
+
+	p {
+		color: white;
+		font-size: 25px;
+		letter-spacing: 1px;
+	}
 `;
 
 const Error = styled.p`
@@ -18,22 +37,22 @@ const Error = styled.p`
 `;
 
 const FormDiv = styled.div`
-	width: 92%;
+	width: 95%;
 	display: flex;
 	flex-direction: row-reverse;
 `;
 
 const SortForm = styled.form`
 	height: 50px;
+	margin-top: 15px;
 	label {
 		color: white;
-		font-size: 20px;
 	}
 	select {
 		margin-left: 10px;
 	}
 	option {
-		height: 50px;
+		height: 25px;
 	}
 `;
 
@@ -62,10 +81,13 @@ class Folders extends Component {
 		// console.log('props from folder: ', this.props);
 		return (
 			<FolderContainer>
+				<ContainerTitle>
+					<p>FOLDERS</p>
+				</ContainerTitle>
 				<FormDiv>
 					<SortForm>
 						<label>
-							Folder Sort:
+							Sort:
 							<select value={this.state.sortOption} onChange={this.sortChange}>
 								<option value="newest">Newest First</option>
 								<option value="oldest">Oldest First</option>

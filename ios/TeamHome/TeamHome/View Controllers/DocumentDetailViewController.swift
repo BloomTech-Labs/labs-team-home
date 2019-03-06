@@ -70,9 +70,13 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         guard let apollo = apollo else { return }
         
         if segue.identifier == "EmbeddedComments" {
-            guard let destinationVC = segue.destination as? CommentsCollectionViewController,
+            guard let destinationVC = segue.destination as? DocumentsDetailCollectionViewController,
                 let documentID = document?.id,
                 let currentUser = currentUser else { return }
+            
+            destinationVC.apollo = apollo
+            destinationVC.documentID = documentID
+            destinationVC.currentUser = currentUser
         }
     }
     
