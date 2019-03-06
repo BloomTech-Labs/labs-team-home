@@ -3,8 +3,7 @@ const MsgComment = require('../../models/MsgComment');
 const { ValidationError } = require('apollo-server-express');
 const sgMail = require('@sendgrid/mail');
 const Event = require('../../models/Event');
-
-const { object_str, action_str } = require('./Event');
+const { object_str, action_str } = require('./ResolverHelpers');
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 

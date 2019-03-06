@@ -79,18 +79,18 @@ At first count this means adding **28** function calls of `addEvent()` in the pr
   Liked DONE
   Unlinked DONE
   Deleted DONE
-  Added
-  Updated
+  Added DONE
+  Updated DONE
 - Documents: 5
   deleted DONE
-  added
   subscribed DONE
   unsubscribed DONE
+  added
   updated
 - Folders: 3
-  Deleted
-  Added
-  Updated
+  Deleted DONE
+  Added DONE
+  Updated DONE
 - Messages: 5
   deleted DONE
   added
@@ -100,13 +100,15 @@ At first count this means adding **28** function calls of `addEvent()` in the pr
 - MsgComments: 5
   Liked DONE
   Unlinked DONE
-  Deleted
+  Deleted DONE
   Added
   Updated
 - Team: 5
-  Joined
-  Left
+  Joined/Invited DONE
+  KickUser DONE
+  Left DONE
   Updated
+  Delete DONE
 
 The good news is that no one will be able to have any gql mutation calls client side. And what is more, they will only have the ability to call gql queries--this will of course keep boilerplate minimal in this regard.
 

@@ -3,29 +3,6 @@ const Event = require('../../models/Event');
 
 const { ValidationError } = require('apollo-server-express');
 
-const action_str = {
-	created: 'created',
-	edited: 'edited',
-	deleted: 'deleted',
-	liked: 'liked',
-	unliked: 'unliked',
-	joined: 'joined',
-	left: 'left',
-	moved: 'moved',
-	subscribed: 'subscribed',
-	unsubscribed: 'unsubscribed',
-	invited: 'invited'
-};
-const object_str = {
-	message: 'message',
-	msgComment: 'message comment',
-	folder: 'folder',
-	document: 'document',
-	docComment: 'document comment',
-	team: 'team',
-	user: 'user'
-};
-
 const eventResolver = {
 	Query: {
 		events: () => Event.find().populate('team'),
@@ -45,9 +22,9 @@ const eventResolver = {
 
 	Mutation: {
 		addEvent: (_, { input }) => {
-			console.log('hey nedim, ur a cool guy.');
+			// console.log('hey nedim, ur a cool guy.');
 			new Event({ ...input }).save().then(event => {
-				console.log(input);
+				// console.log(input);
 				event.populate('team').execPopulate();
 			});
 		},
@@ -63,4 +40,4 @@ const eventResolver = {
 	}
 };
 
-module.exports = { eventResolver, object_str, action_str };
+module.exports = eventResolver;

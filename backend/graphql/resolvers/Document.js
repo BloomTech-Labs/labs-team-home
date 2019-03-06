@@ -4,6 +4,8 @@ const DocComment = require('../../models/DocComment');
 const Event = require('../../models/Event');
 const { ValidationError } = require('apollo-server-express');
 
+const { object_str, action_str } = require('./ResolverHelpers');
+
 const documentResolver = {
 	Query: {
 		documents: () =>
@@ -62,8 +64,8 @@ const documentResolver = {
 						await new Event({
 							team: document.team,
 							user: document.user,
-							action_string: 'deleted',
-							object_string: 'document',
+							action_string: action_str.deleted,
+							object_string: object_str.document,
 							event_target_id: null
 						})
 							.save()
@@ -92,8 +94,8 @@ const documentResolver = {
 							await new Event({
 								team: item.team._id,
 								user: item.user._id,
-								action_string: 'subscribed',
-								object_string: 'document',
+								action_string: action_str.subscribed,
+								object_string: object_str.document,
 								event_target_id: null
 							})
 								.save()
@@ -121,8 +123,8 @@ const documentResolver = {
 							await new Event({
 								team: item.team._id,
 								user: item.user._id,
-								action_string: 'unsubscribed',
-								object_string: 'document',
+								action_string: action_str.unsubscribed,
+								object_string: object_str.document,
 								event_target_id: null
 							})
 								.save()
