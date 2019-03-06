@@ -79,24 +79,24 @@ At first count this means adding **28** function calls of `addEvent()` in the pr
   Liked DONE
   Unlinked DONE
   Deleted DONE
-  Added
-  Updated
+  Added DONE
+  Updated DONE
 - Documents: 5
   deleted DONE
-  added
+  added DONE
   subscribed DONE
   unsubscribed DONE
-  updated
+  updated DONE
 - Folders: 3
-  Deleted
-  Added
-  Updated
+  Deleted DONE
+  Added DONE
+  Updated DONE
 - Messages: 5
   deleted DONE
   added
+  updated
   subscribed DONE
   unsubscribed DONE
-  updated
 - MsgComments: 5
   Liked DONE
   Unlinked DONE

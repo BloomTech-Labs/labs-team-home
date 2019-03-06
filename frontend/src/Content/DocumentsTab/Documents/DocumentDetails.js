@@ -4,19 +4,15 @@ import React from 'react';
 import DocumentCommentDetail from './DocumentCommentDetails';
 
 // ------------- gql Imports ---------------------- //
-import { Query, compose } from 'react-apollo';
+import { Query, compose, Mutation } from 'react-apollo';
 import {
 	deleteDocument,
-	updateDocument,
 	unsubscribeDoc,
 	subscribeDoc
 } from '../../mutations/documents';
 import * as query from '../../../constants/queries';
-import {
-	addDocComment,
-	updateDocComment,
-	deleteDocComment
-} from '../../mutations/doccomments';
+import { addDocComment } from '../../mutations/doccomments';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
@@ -224,7 +220,7 @@ class DocumentDetails extends React.Component {
 		const {
 			deleteDocument,
 			document,
-			updateDocument,
+
 			currentUser,
 			hideModal,
 			addDocComment,
@@ -256,38 +252,46 @@ class DocumentDetails extends React.Component {
 					<StyledModalPaper>
 						{this.state.editingDocument ? (
 							<CardContent>
-								<StyledModalForm
-									onSubmit={e => {
-										e.preventDefault();
-										document.title = this.state.title;
-										document.textContent = this.state.textContent;
-										document.doc_url = this.state.doc_url;
-										updateDocument({
-											id: document._id,
-											title: this.state.title,
-											doc_url: this.state.doc_url,
-											textContent: this.state.textContent
-										}).then(() => this.resetState());
+								<Mutation
+									mutation={UPDATE_DOCUMENT}
+									variables={{
+										id: document._id,
+										title: this.state.title,
+										doc_url: this.state.doc_url,
+										textContent: this.state.textContent
 									}}
 								>
-									<StyledModalInput
-										name="title"
-										value={this.state.title}
-										onChange={this.handleChange}
-									/>
-									<StyledModalInput
-										name="doc_url"
-										value={this.state.doc_url}
-										onChange={this.handleChange}
-									/>
-									<StyledModalInput
-										name="textContent"
-										value={this.state.textContent}
-										onChange={this.handleChange}
-										multiline
-									/>
-									<StyledModalButton type="submit">Save</StyledModalButton>
-								</StyledModalForm>
+									{updateDocument => (
+										<StyledModalForm
+											onSubmit={e => {
+												e.preventDefault();
+												document.title = this.state.title;
+												document.textContent = this.state.textContent;
+												document.doc_url = this.state.doc_url;
+												updateDocument();
+												this.resetState();
+											}}
+										>
+											<StyledModalInput
+												name="title"
+												value={this.state.title}
+												onChange={this.handleChange}
+											/>
+											<StyledModalInput
+												name="doc_url"
+												value={this.state.doc_url}
+												onChange={this.handleChange}
+											/>
+											<StyledModalInput
+												name="textContent"
+												value={this.state.textContent}
+												onChange={this.handleChange}
+												multiline
+											/>
+											<StyledModalButton type="submit">Save</StyledModalButton>
+										</StyledModalForm>
+									)}
+								</Mutation>
 							</CardContent>
 						) : (
 							<CardContent>
@@ -476,9 +480,7 @@ class DocumentDetails extends React.Component {
 export default compose(
 	addDocComment,
 	deleteDocument,
-	updateDocument,
-	updateDocComment,
-	deleteDocComment,
+
 	subscribeDoc,
 	unsubscribeDoc
 )(DocumentDetails);
