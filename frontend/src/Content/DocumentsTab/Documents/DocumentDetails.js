@@ -1,5 +1,8 @@
 import React from 'react';
 
+// ------------- Component Imports ---------------------- //
+import DocumentCommentDetail from './DocumentCommentDetails';
+
 // ------------- gql Imports ---------------------- //
 import { Query, compose } from 'react-apollo';
 import {
@@ -12,18 +15,16 @@ import * as query from '../../../constants/queries';
 import {
 	addDocComment,
 	updateDocComment,
-	deleteDocComment,
-	likeDocComment,
-	unLikeDocComment
+	deleteDocComment
 } from '../../mutations/doccomments';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
 // import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { colors } from '../../../colorVariables';
-import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
+// import { colors } from '../../../colorVariables';
+// import CardHeader from '@material-ui/core/CardHeader';
+// import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
 // import SendIcon from '@material-ui/icons/Send';
 
@@ -113,7 +114,8 @@ const DocumentIcon = styled(FileAlt)`
 	height: 100px;
 `;
 
-const ArrowDiv = styled.div`
+// this needs to be a button for functionality purposes
+const ArrowDiv = styled.button`
 	height: 150px;
 	display: flex;
 	align-items: center;
@@ -165,17 +167,19 @@ class DocumentDetails extends React.Component {
 		};
 	}
 
-	//set subscribed to true, if the currentUser is subscribed
-	componentDidUpdate = prevProps =>
-		this.props.document !== prevProps.document
-			? this.props.document !== null
-				? this.props.document.subscribedUsers.find(user =>
-						user._id === this.props.currentUser._id
-							? this.setState({ subscribed: true })
-							: this.setState({ subscribed: false })
-				  )
-				: null
-			: null;
+	componentDidUpdate(prevProps) {
+		if (this.props.document !== prevProps.document) {
+			if (this.props.document !== null && this.props.document !== undefined) {
+				if (
+					this.props.document.subscribedUsers.find(
+						user => user._id === this.props.currentUser._id
+					) !== null
+				) {
+					this.setState({ subscribed: true });
+				} else this.setState({ subscribed: false });
+			}
+		}
+	}
 
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -223,21 +227,11 @@ class DocumentDetails extends React.Component {
 			updateDocument,
 			currentUser,
 			hideModal,
-			updateDocComment,
-			deleteDocComment,
 			addDocComment,
-			unLikeDocComment,
-			likeDocComment,
 			subscribeDoc,
 			unsubscribeDoc,
 			open
 		} = this.props;
-
-		// const documentSwitch = url => {
-		// 	switch (url) {
-		// 		case ''
-		// 	}
-		// }
 
 		if (document === null) return <></>;
 		return (
@@ -429,6 +423,7 @@ class DocumentDetails extends React.Component {
 					<Query
 						query={query.FIND_COMMENTS_BY_DOCUMENT}
 						variables={{ document: document._id }}
+						//this needs a refetch
 					>
 						{({ loading, error, data: { findDocCommentsByDocument } }) => {
 							if (loading) return <p>Loading...</p>;
@@ -438,107 +433,14 @@ class DocumentDetails extends React.Component {
 									<StyledModalTitle>Discussion</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
-										<StyledModalPaper key={comment._id}>
-											<CardHeader
-												avatar={
-													<Avatar
-														src={comment.user.avatar}
-														alt="test"
-														style={{ height: '32px', width: '32px' }}
-													/>
-												}
-												title={`${comment.user.firstName} ${
-													comment.user.lastName
-												}`}
-												titleTypographyProps={{
-													style: { color: colors.text }
-												}}
-											/>
-											{/* Check to see if the user can edit the comment */}
-											{this.state.editingComment &&
-											this.state.editedComment === comment ? (
-												<StyledModalForm
-													action="submit"
-													onSubmit={e => {
-														e.preventDefault();
-														updateDocComment({
-															id: comment._id,
-															content: this.state.commentContent
-														}).then(() => this.resetState());
-													}}
-												>
-													<StyledModalInput
-														inputRef={this.edit}
-														name="commentContent"
-														value={this.state.commentContent}
-														onChange={this.handleChange}
-														multiline
-													/>
-													<StyledModalButton type="submit">
-														Save
-													</StyledModalButton>
-												</StyledModalForm>
-											) : (
-												<CardContent>
-													<StyledModalBody component="p">
-														{comment.content}
-													</StyledModalBody>
-
-													{/* Check to see if the comment is the users and thus can be edited or deleted */}
-													{comment.user._id === currentUser._id && (
-														<>
-															<StyledModalButton
-																onClick={e => {
-																	e.preventDefault();
-																	if (!this.state.editingDocument) {
-																		this.setState({
-																			editingComment: true,
-																			commentContent: comment.content,
-																			editedComment: comment
-																		});
-																	} else {
-																		alert(
-																			"Please finish editing your document by clicking 'SAVE' before editing a comment."
-																		);
-																	}
-																}}
-															>
-																Edit
-															</StyledModalButton>
-															<StyledModalButton
-																onClick={e => {
-																	e.preventDefault();
-																	deleteDocComment({
-																		id: comment._id
-																	});
-																}}
-															>
-																Delete
-															</StyledModalButton>
-														</>
-													)}
-													{/* Like button */}
-													<StyledModalButton
-														onClick={e => {
-															e.preventDefault();
-															comment.likes.find(
-																({ _id }) => _id === currentUser._id
-															)
-																? unLikeDocComment({
-																		id: comment._id,
-																		document: document
-																  })
-																: likeDocComment({
-																		id: comment._id,
-																		document: document
-																  });
-														}}
-													>
-														{`${comment.likes.length} likes`}
-													</StyledModalButton>
-												</CardContent>
-											)}
-										</StyledModalPaper>
+										<DocumentCommentDetail
+											key={comment._id}
+											comment={comment}
+											currentUser={currentUser}
+											editingDocument={this.state.editingDocument}
+											//this needs to be passed a function which triggers a refetch on all comments, when a comment is deleted
+											{...this.props}
+										/>
 									))}
 									{/* Add a new comment form  */}
 									<StyledModalNewCommentForm
@@ -556,10 +458,8 @@ class DocumentDetails extends React.Component {
 											onChange={this.handleChange}
 											placeholder="Leave a comment..."
 										/>
-										{/* <IconButton type="submit">
-											<SendIcon style={{ color: colors.text }} />
-										</IconButton> */}
-										<ArrowDiv>
+
+										<ArrowDiv type="submit">
 											<Arrow />
 										</ArrowDiv>
 									</StyledModalNewCommentForm>
@@ -579,8 +479,6 @@ export default compose(
 	updateDocument,
 	updateDocComment,
 	deleteDocComment,
-	likeDocComment,
-	unLikeDocComment,
 	subscribeDoc,
 	unsubscribeDoc
 )(DocumentDetails);
