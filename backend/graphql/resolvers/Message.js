@@ -31,11 +31,11 @@ const messageResolvers = {
 				.then(async message => {
 					try {
 						await new Event({
-							team: message.team,
-							user: message.user,
+							team: message.team._id,
+							user: message.user._id,
 							action_string: action_str.add,
-							object_string: object_str.docComment,
-							event_target_id: null
+							object_string: object_str.message,
+							event_target_id: message._id
 						})
 							.save()
 							.then(event => {
@@ -59,11 +59,11 @@ const messageResolvers = {
 						.then(async message => {
 							try {
 								await new Event({
-									team: message.team,
-									user: message.user,
-									action_string: action_str.update,
-									object_string: object_str.docComment,
-									event_target_id: null
+									team: message.team._id,
+									user: message.user._id,
+									action_string: action_str.edited,
+									object_string: object_str.message,
+									event_target_id: message_id
 								})
 									.save()
 									.then(event => {
@@ -86,10 +86,10 @@ const messageResolvers = {
 					// console.log('the item in question: ', message);
 					try {
 						await new Event({
-							team: message.team,
-							user: message.user,
+							team: message.team._id,
+							user: message.user._id,
 							action_string: action_str.deleted,
-							object_string: object_str.docComment,
+							object_string: object_str.message,
 							event_target_id: null
 						})
 							.save()
@@ -119,7 +119,7 @@ const messageResolvers = {
 								team: item.team._id,
 								user: item.user._id,
 								action_string: action_str.subscribed,
-								object_string: object_str.docComment,
+								object_string: object_str.message,
 								event_target_id: item._id
 							})
 								.save()
@@ -148,7 +148,7 @@ const messageResolvers = {
 								team: item.team._id,
 								user: item.user._id,
 								action_string: action_str.unsubscribed,
-								object_string: object_str.docComment,
+								object_string: object_str.message,
 								event_target_id: item._id
 							})
 								.save()

@@ -41,11 +41,11 @@ const documentResolver = {
 						if (item) {
 							try {
 								await new Event({
-									team: item.team._id,
-									user: item.user._id,
+									team: document.team,
+									user: document.user,
 									action_string: action_str.created,
 									object_string: object_str.document,
-									event_target_id: item._id
+									event_target_id: document._id
 								})
 									.save()
 									.then(event => {
@@ -72,11 +72,11 @@ const documentResolver = {
 							if (item) {
 								try {
 									await new Event({
-										team: item.team._id,
-										user: item.user._id,
+										team: document.team._id,
+										user: document.user._id,
 										action_string: action_str.edited,
 										object_string: object_str.document,
-										event_target_id: item._id
+										event_target_id: document._id
 									})
 										.save()
 										.then(event => {
@@ -100,8 +100,8 @@ const documentResolver = {
 					await DocComment.deleteMany({ document: document._id });
 					try {
 						await new Event({
-							team: document.team,
-							user: document.user,
+							team: document.team._id,
+							user: document.user._id,
 							action_string: action_str.deleted,
 							object_string: object_str.document,
 							event_target_id: null
@@ -134,7 +134,7 @@ const documentResolver = {
 								user: item.user._id,
 								action_string: action_str.subscribed,
 								object_string: object_str.document,
-								event_target_id: null
+								event_target_id: item._id
 							})
 								.save()
 								.then(event => {
@@ -163,7 +163,7 @@ const documentResolver = {
 								user: item.user._id,
 								action_string: action_str.unsubscribed,
 								object_string: object_str.document,
-								event_target_id: null
+								event_target_id: item._id
 							})
 								.save()
 								.then(event => {

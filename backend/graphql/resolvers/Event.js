@@ -5,17 +5,17 @@ const { ValidationError } = require('apollo-server-express');
 
 const eventResolver = {
 	Query: {
-		events: () => Event.find().populate('team'),
+		events: () => Event.find().populate('team user'),
 		findEvent: (_, { input: { id } }) =>
 			Event.findById(id)
-				.populate('team')
+				.populate('team user')
 				.then(event => event),
 		findEventsByTeam: async (_, { input: { team } }) => {
 			const events = await Event.find({ team: team }).populate('team user');
 			return events;
 		},
 		findEventsByUser: async (_, { input: { user } }) => {
-			const events = await Event.find({ user: user }).populate('team');
+			const events = await Event.find({ user: user }).populate('team user');
 			return events;
 		}
 	},
