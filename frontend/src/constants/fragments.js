@@ -147,3 +147,21 @@ export const FULL_DOCCOMMENT = gql`
 	}
 	${FULL_USER}
 `;
+
+export const FULL_EVENT = gql`
+	fragment FullEvent on Event {
+		_id
+		team {
+			...FullTeam
+		}
+		user {
+			...FullUser
+		}
+		action_string
+		object_string
+		event_target_id
+		createdAt
+	}
+	${FULL_TEAM}
+	${FULL_USER}
+`;

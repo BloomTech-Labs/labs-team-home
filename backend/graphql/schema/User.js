@@ -5,10 +5,10 @@ const User = /* GraphQL */ `
 	}
 	type User {
 		_id: ID!
-		authId: String!
-		firstName: String!
-		lastName: String!
-		email: String!
+		authId: String
+		firstName: String
+		lastName: String
+		email: String
 		phoneNumber: String
 		avatar: String
 		toggles: Toggles

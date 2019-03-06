@@ -117,24 +117,24 @@ class DocumentContainer extends React.Component {
 							if (loading) return <p>Loading...</p>;
 							if (error) return console.error(error);
 							if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
-								switch (this.props.sortOption) {
-									case 'newest':
-										findDocumentsByTeam.sort((a, b) => {
-											if (a.createdAt < b.createdAt) return 1;
-											if (a.createdAt > b.createdAt) return -1;
-											return 0;
-										});
-										break;
-									case 'oldest':
-										findDocumentsByTeam.sort((a, b) => {
-											if (a.createdAt < b.createdAt) return -1;
-											if (a.createdAt > b.createdAt) return 1;
-											return 0;
-										});
-										break;
-									default:
-										break;
-								}
+								// switch (this.props.sortOption) {
+								// 	case 'newest':
+								// 		findDocumentsByTeam.sort((a, b) => {
+								// 			if (a.createdAt < b.createdAt) return 1;
+								// 			if (a.createdAt > b.createdAt) return -1;
+								// 			return 0;
+								// 		});
+								// 		break;
+								// 	case 'oldest':
+								// 		findDocumentsByTeam.sort((a, b) => {
+								// 			if (a.createdAt < b.createdAt) return -1;
+								// 			if (a.createdAt > b.createdAt) return 1;
+								// 			return 0;
+								// 		});
+								// 		break;
+								// 	default:
+								// 		break;
+								// }
 
 								return findDocumentsByTeam
 									.filter(doc => doc.folder === null)

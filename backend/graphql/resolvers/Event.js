@@ -34,7 +34,7 @@ const eventResolver = {
 				.populate('team')
 				.then(event => event),
 		findEventsByTeam: async (_, { input: { team } }) => {
-			const events = await Event.find({ team: team }).populate('team');
+			const events = await Event.find({ team: team }).populate('team user');
 			return events;
 		},
 		findEventsByUser: async (_, { input: { user } }) => {
@@ -47,8 +47,8 @@ const eventResolver = {
 		addEvent: (_, { input }) => {
 			console.log('hey nedim, ur a cool guy.');
 			new Event({ ...input }).save().then(event => {
-				console.log(input);
-				event.populate('team').execPopulate();
+				// console.log(input);
+				event.populate('team user').execPopulate();
 			});
 		},
 		deleteEvent: (_, { input: { id } }) =>
