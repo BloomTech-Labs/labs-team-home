@@ -128,6 +128,26 @@ const Arrow = styled(KeyboardArrowRight)`
 	height: 25px;
 `;
 
+const FormDiv = styled.div`
+	width: 95%;
+	display: flex;
+	flex-direction: row-reverse;
+`;
+
+const SortForm = styled.form`
+	height: 50px;
+	margin-top: 15px;
+	label {
+		color: white;
+	}
+	select {
+		margin-left: 10px;
+	}
+	option {
+		height: 25px;
+	}
+`;
+
 class DocumentDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -140,7 +160,8 @@ class DocumentDetails extends React.Component {
 			commentContent: '',
 			editedComment: null,
 			newCommentContent: '',
-			subscribed: null
+			subscribed: null,
+			folderOption: 'Move to Folder'
 		};
 	}
 
@@ -167,8 +188,33 @@ class DocumentDetails extends React.Component {
 			editingComment: false,
 			commentContent: '',
 			editedComment: null,
-			newCommentContent: ''
+			newCommentContent: '',
+			folderOption: 'Move to Folder'
 		});
+
+	folderChange = e => {
+		if (e.target.value !== '') {
+			if (this.props.document.folder === null) {
+				console.log('moving into folder', e.target.value);
+				this.props.updateDocument({
+					id: this.props.document._id,
+					folder: e.target.value
+				});
+			} else if (this.props.document.folder !== null) {
+				console.log('moving folder to folder:', e.target.value);
+				this.props.updateDocument({
+					id: this.props.document._id,
+					folder: e.target.value,
+					previous: this.props.document.folder._id
+				});
+			} else {
+				console.log('did we run an update?');
+			}
+		} else {
+			console.log('pick a folder');
+		}
+		this.props.hideModal();
+	};
 
 	render() {
 		const {
@@ -269,6 +315,43 @@ class DocumentDetails extends React.Component {
 										VIEW
 									</DocUrl>
 								</a>
+								<FormDiv>
+									<SortForm>
+										<label>
+											<select
+												value={this.state.folderOption}
+												onChange={this.folderChange}
+											>
+												<option value="">Move to ...</option>
+
+												<Query
+													query={query.FIND_FOLDERS_BY_TEAM}
+													variables={{ team: this.props.team }}
+												>
+													{({
+														loading,
+														error,
+														data: { findFoldersByTeam }
+													}) => {
+														if (loading) return 'Loading...';
+														if (error) return console.error(error);
+														if (
+															findFoldersByTeam &&
+															findFoldersByTeam.length > 0
+														) {
+															return findFoldersByTeam.map(folder => (
+																<option
+																	key={folder._id}
+																	value={`${folder._id}`}
+																>{`${folder.title}`}</option>
+															));
+														}
+													}}
+												</Query>
+											</select>
+										</label>
+									</SortForm>
+								</FormDiv>
 								<ModalBody>
 									{console.log(document)}
 									Posted by{' '}
