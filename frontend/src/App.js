@@ -62,4 +62,4 @@ class App extends Component {
 	}
 }
 
-export default DragDropContext(HTML5Touch)(withRouter(App));
+export default DragDropContext(HTML5Backend)(withRouter(App));
