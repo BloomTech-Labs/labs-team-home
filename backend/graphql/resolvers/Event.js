@@ -15,7 +15,7 @@ const eventResolver = {
 			return events;
 		},
 		findEventsByUser: async (_, { input: { user } }) => {
-			const events = await Event.find({ team: user }).populate('team');
+			const events = await Event.find({ user: user }).populate('team');
 			return events;
 		}
 	},
