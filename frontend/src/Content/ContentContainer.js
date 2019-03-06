@@ -12,6 +12,9 @@ import { Query } from 'react-apollo';
 import * as queries from '../constants/queries';
 import TeamInfo from './TeamOptions/TeamInfo';
 import DocumentsTab from './DocumentsTab/TabContainer';
+import SwipeableViews from 'react-swipeable-views';
+import FABComponent from './FloatingActionButtons';
+import { colors } from '../colorVariables';
 
 const styles = {
 	root: {
@@ -25,8 +28,15 @@ const styles = {
 	},
 	tabsIndicator: {
 		backgroundColor: '#FAED26'
+	},
+	styledTooltip: {
+		fontSize: '12px',
+		backgroundColor: colors.text,
+		color: colors.button
 	}
 };
+
+// ---------------- Styled Components ---------------------- //
 
 const MsgContainer = styled.div`
 	margin: 90px auto;
@@ -70,8 +80,16 @@ class ContentContainer extends React.Component {
 		this.setState({ value });
 	};
 
+	handleChangeIndex = index => {
+		this.setState({ value: index });
+	};
+
 	render() {
-		const { classes } = this.props;
+		const { classes, theme } = this.props;
+		const transitionDuration = {
+			enter: theme.transitions.duration.enteringScreen,
+			exit: theme.transitions.duration.leavingScreen
+		};
 
 		return (
 			<MsgContainer>
@@ -117,19 +135,34 @@ class ContentContainer extends React.Component {
 										/>
 									</Tabs>
 								</StyledPaper>
-								{/* Within the tabs bar, clicking on any of the components sets 
-								the value to 0, 1, or 2 respectively this decides which component 
-								to render based on the value */}
-								{this.state.value === 0 ? (
-									<MessageBoard
-										currentUser={this.props.currentUser}
-										team={findTeam}
-									/>
-								) : this.state.value === 1 ? (
-									<ActivityTimeline {...this.props} team={findTeam} />
-								) : (
-									<DocumentsTab {...this.props} team={findTeam} />
-								)}
+								{/* The content that each tab corresponds to. 
+									SwipableViews gives each component the sliding in/out animation */}
+								<SwipeableViews
+									axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+									index={this.state.value}
+									onChangeIndex={this.handleChangeIndex}
+								>
+									<div dir={theme.direction}>
+										<MessageBoard
+											currentUser={this.props.currentUser}
+											team={findTeam}
+										/>
+									</div>
+									<div dir={theme.direction}>
+										<ActivityTimeline {...this.props} team={findTeam} />
+									</div>
+									<div dir={theme.direction}>
+										<DocumentsTab {...this.props} team={findTeam} currentTab />
+									</div>
+								</SwipeableViews>
+								{/* All the FAB buttons are located below */}
+								<FABComponent
+									team={findTeam}
+									currentUser={this.props.currentUser}
+									value={this.state.value}
+									transitionDuration={transitionDuration}
+									classes={classes}
+								/>
 							</>
 						);
 					}}
@@ -143,4 +176,4 @@ ContentContainer.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ContentContainer);
+export default withStyles(styles, { withTheme: true })(ContentContainer);
