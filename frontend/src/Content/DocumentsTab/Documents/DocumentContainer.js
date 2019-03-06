@@ -116,6 +116,7 @@ class DocumentContainer extends React.Component {
 						{({ loading, error, data: { findDocumentsByTeam } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return console.error(error);
+
 							if (findDocumentsByTeam && findDocumentsByTeam.length > 0) {
 								switch (this.props.sortOption) {
 									case 'newest':

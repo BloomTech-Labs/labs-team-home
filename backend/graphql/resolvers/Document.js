@@ -4,6 +4,8 @@ const DocComment = require('../../models/DocComment');
 const Event = require('../../models/Event');
 const { ValidationError } = require('apollo-server-express');
 
+const { object_str, action_str } = require('./Event');
+
 const documentResolver = {
 	Query: {
 		documents: () =>
@@ -29,26 +31,62 @@ const documentResolver = {
 		}
 	},
 	Mutation: {
-		addDocument: (_, { input }, { user: { _id } }) => {
-			console.log('hey whatsup everyone!');
-			new Document({ ...input, user: _id })
-				.save()
-				.then(document =>
-					document
-						.populate('user team tag subscribedUsers folder')
-						.execPopulate()
-				);
-		},
+		addDocument: (_, { input }, { user: { _id } }) =>
+			new Document({ ...input, user: _id }).save().then(document =>
+				document
+					.populate('user team tag subscribedUsers folder')
+					.execPopulate()
+					.then(async item => {
+						console.log('item before event is called: ', item);
+						if (item) {
+							try {
+								await new Event({
+									team: item.team._id,
+									user: item.user._id,
+									action_string: action_str.created,
+									object_string: object_str.document,
+									event_target_id: item._id
+								})
+									.save()
+									.then(event => {
+										console.log('Event added', event);
+									});
+							} catch (error) {
+								console.error('Could not add event', error);
+							}
+						}
+					})
+			),
 		updateDocument: (_, { input }) => {
 			const { id } = input;
 			return Document.findById(id).then(document => {
-				// console.log(document.title)
 				if (document) {
 					return Document.findOneAndUpdate(
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user team folder tag subscribedUsers');
+					)
+						.populate('user team folder tag subscribedUsers')
+						.then(async item => {
+							// console.log('item before event is called: ', item);
+							if (item) {
+								try {
+									await new Event({
+										team: item.team._id,
+										user: item.user._id,
+										action_string: action_str.edited,
+										object_string: object_str.document,
+										event_target_id: item._id
+									})
+										.save()
+										.then(event => {
+											// console.log('Event added', event);
+										});
+								} catch (error) {
+									console.error('Could not add event', error);
+								}
+							}
+						});
 				} else {
 					throw new ValidationError("Document doesn't exist");
 				}
@@ -64,8 +102,8 @@ const documentResolver = {
 						await new Event({
 							team: document.team,
 							user: document.user,
-							action_string: 'deleted',
-							object_string: 'document',
+							action_string: action_str.deleted,
+							object_string: object_str.document,
 							event_target_id: null
 						})
 							.save()
@@ -94,8 +132,8 @@ const documentResolver = {
 							await new Event({
 								team: item.team._id,
 								user: item.user._id,
-								action_string: 'subscribed',
-								object_string: 'document',
+								action_string: action_str.subscribed,
+								object_string: object_str.document,
 								event_target_id: null
 							})
 								.save()
@@ -123,8 +161,8 @@ const documentResolver = {
 							await new Event({
 								team: item.team._id,
 								user: item.user._id,
-								action_string: 'unsubscribed',
-								object_string: 'document',
+								action_string: action_str.unsubscribed,
+								object_string: object_str.document,
 								event_target_id: null
 							})
 								.save()

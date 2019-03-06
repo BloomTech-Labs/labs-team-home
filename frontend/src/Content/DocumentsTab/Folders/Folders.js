@@ -162,9 +162,4 @@ class Folders extends Component {
 	}
 }
 
-// export default compose(
-// 	DragDropContext(HTML5Backend),
-// 	updateDocument
-// )(Folders);
-
 export default Folders;

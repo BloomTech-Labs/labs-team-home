@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import * as query from '../../constants/queries';
+import { FIND_EVENTS_BY_TEAM } from '../../constants/queries';
 import Activity from './Activity';
 
 export default class ActivityTimeline extends React.Component {
@@ -13,136 +13,43 @@ export default class ActivityTimeline extends React.Component {
 	}
 
 	render() {
-		let allTheThings = [];
-		/* These Bools make sure that everything is loaded before mapping over all items in
-		 allTheThings and returning Activity components */
-		// let messagesLoaded = false;
-		// let documentsLoaded = false;
-		// let foldersLoaded = false;
-		// let msgCommentsLoaded = false;
-		// let docCommentsLoaded = false;
-
 		return (
 			<div>
-				{/* Queries for Messages and Messages' Comments */}
+				{/* Queries for all Events*/}
 				<Query
-					query={query.FIND_MESSAGES_BY_TEAM}
+					query={FIND_EVENTS_BY_TEAM}
 					variables={{ team: this.state.team._id }}
 				>
-					{({ loading, error, data: { findMessagesByTeam } }) => {
+					{({ loading, error, data: { findEventsByTeam } }) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error!</p>;
-						if (findMessagesByTeam.length > 0) {
-							findMessagesByTeam.forEach(message => {
-								if (!allTheThings.includes(message)) {
-									allTheThings.push(message);
+						console.log('all the events: ', findEventsByTeam);
+						if (findEventsByTeam && findEventsByTeam.length > 0) {
+							findEventsByTeam.map(event => {
+								if (typeof event.createdAt === 'string' && event.createdAt) {
+									event.createdAt = new Date(parseInt(event.createdAt, 10));
 								}
+								return event;
 							});
-						}
-						// messagesLoaded = true;
 
-						return findMessagesByTeam.map(message => (
-							<Query
-								query={query.FIND_COMMENTS_BY_MESSAGE}
-								variables={{ message: message._id }}
-								key={message._id}
-							>
-								{({ loading, error, data: { findMsgCommentsByMessage } }) => {
-									if (loading) return <p>Loading...</p>;
-									if (error) return <p>Error!</p>;
-									if (findMsgCommentsByMessage) {
-										findMsgCommentsByMessage.forEach(comment =>
-											allTheThings.push(comment)
-										);
-										// msgCommentsLoaded = true;
+							findEventsByTeam.sort((a, b) => {
+								if (a.createdAt < b.createdAt) return 1;
+								if (a.createdAt > b.createdAt) return -1;
+								return 0;
+							});
+
+							return findEventsByTeam.map((event, index) => {
+								if (event.user !== null) {
+									if (event.user._id === this.props.currentUser._id) {
+										return <Activity event={event} key={index} own="true" />;
 									}
-									return <></>;
-								}}
-							</Query>
-						));
-						//return <></>;
-					}}
-				</Query>
-				{/* Queries for Documents and Documents' Comments */}
-				<Query
-					query={query.FIND_DOCUMENTS_BY_TEAM}
-					variables={{ team: this.state.team._id }}
-				>
-					{({ loading, error, data: { findDocumentsByTeam } }) => {
-						if (loading) return <p>Loading...</p>;
-						if (error) return <p>Error!</p>;
-						if (findDocumentsByTeam.length > 0) {
-							findDocumentsByTeam.forEach(document => {
-								if (!allTheThings.includes(document)) {
-									allTheThings.push(document);
+									return <Activity event={event} key={index} own="false" />;
 								}
+								return <div key={index}> nO uSeR</div>;
 							});
+						} else {
+							return <div> No events </div>;
 						}
-						// documentsLoaded = true;
-						return findDocumentsByTeam.map(document => (
-							<Query
-								query={query.FIND_COMMENTS_BY_DOCUMENT}
-								variables={{ document: document._id }}
-								key={document._id}
-							>
-								{({ loading, error, data: { findDocCommentsByDocument } }) => {
-									if (loading) return <p>Loading...</p>;
-									if (error) return <p>Error!</p>;
-									if (findDocCommentsByDocument) {
-										findDocCommentsByDocument.forEach(comment =>
-											allTheThings.push(comment)
-										);
-									}
-									// docCommentsLoaded = true;
-									return <></>;
-								}}
-							</Query>
-						));
-						//return <></>;
-					}}
-				</Query>
-				{/* Queries for Folder and the rendering of all components */}
-				<Query
-					query={query.FIND_FOLDERS_BY_TEAM}
-					variables={{ team: this.state.team._id }}
-				>
-					{({ loading, error, data: { findFoldersByTeam } }) => {
-						if (loading) return <p>Loading...</p>;
-						if (error) return <p>Error!</p>;
-						if (findFoldersByTeam.length > 0) {
-							findFoldersByTeam.forEach(folder => {
-								if (!allTheThings.includes(folder)) {
-									allTheThings.push(folder);
-								}
-							});
-						}
-						// foldersLoaded = true;
-
-						allTheThings.map(thing => {
-							if (typeof thing.updatedAt === 'string' && thing.updatedAt) {
-								thing.updatedAt = new Date(parseInt(thing.updatedAt, 10));
-							}
-							return thing;
-						});
-
-						allTheThings.sort((a, b) => {
-							if (a.updatedAt < b.updatedAt) return 1;
-							if (a.updatedAt > b.updatedAt) return -1;
-							return 0;
-						});
-
-						// console.log('everything is true', allTheThings);
-
-						if (allTheThings.length > 0) {
-							return allTheThings.map((thing, index) => {
-								if (thing.user._id === this.props.currentUser._id) {
-									return <Activity message={thing} key={index} own="true" />;
-								}
-								return <Activity message={thing} key={index} own="false" />;
-							});
-						}
-
-						return <></>;
 					}}
 				</Query>
 			</div>

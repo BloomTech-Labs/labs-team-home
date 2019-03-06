@@ -31,7 +31,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
         
     }
-    
 
     // MARK: - IBActions
     
@@ -114,7 +113,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddDocument"{
-            let destinationVC = segue.destination as! AddDocumentViewController
+            let destinationVC = segue.destination as! AddEditDocumentViewController
             destinationVC.apollo = apollo
             destinationVC.team = team
 

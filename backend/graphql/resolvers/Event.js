@@ -11,7 +11,7 @@ const eventResolver = {
 				.populate('team')
 				.then(event => event),
 		findEventsByTeam: async (_, { input: { team } }) => {
-			const events = await Event.find({ team: team }).populate('team');
+			const events = await Event.find({ team: team }).populate('team user');
 			return events;
 		},
 		findEventsByUser: async (_, { input: { user } }) => {
@@ -22,15 +22,10 @@ const eventResolver = {
 
 	Mutation: {
 		addEvent: (_, { input }) => {
-			console.log('hey nedim, ur an ice cube kind of guy.');
-			new Event(input).save().then(event => {
-				// console.log(event);
-				// let {_id} = event;
-				// console.log(_id);
-				// _id = _id.toString()
-
-				//event.populate('team').execPopulate();
-				return event;
+			console.log('hey nedim, ur a cool guy.');
+			new Event({ ...input }).save().then(event => {
+				// console.log(input);
+				event.populate('team user').execPopulate();
 			});
 		},
 		deleteEvent: (_, { input: { id } }) =>
