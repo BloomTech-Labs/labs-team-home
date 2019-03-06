@@ -36,6 +36,8 @@ import {
 	StyledModalIconButton
 } from '../Modal.styles';
 
+// ---------------- Styled Components ---------------------- //
+
 const UserCard = styled(CardHeader)`
 	@media (max-width: 400px) {
 		display: flex;
@@ -50,6 +52,23 @@ const Paywall = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+`;
+
+const TeamTitle = styled(StyledModalTitle)`
+	h2 {
+		font-size: 25px;
+		text-align: center;
+		margin-left: 30px;
+	}
+`;
+
+const UserButton = styled(Button)`
+	margin-top: 15%;
+`;
+
+const AdminUserButton = styled(UserButton)`
+	margin-top: 20%;
+	color: white;
 `;
 
 class TeamDetails extends React.Component {
@@ -166,7 +185,7 @@ class TeamDetails extends React.Component {
 								</Mutation>
 							</CardContent>
 						) : (
-							<StyledModalTitle>{team.name}</StyledModalTitle>
+							<TeamTitle>{team.name}</TeamTitle>
 						)}
 						{admin ? (
 							<>
@@ -358,7 +377,7 @@ class TeamDetails extends React.Component {
 											{/* Make sure the user can be kicked before rendering the kick button, then kick */}
 											{kickUser =>
 												admin && user.user._id !== currentUser._id ? (
-													<Button
+													<UserButton
 														color="secondary"
 														onClick={e => {
 															e.preventDefault();
@@ -371,11 +390,11 @@ class TeamDetails extends React.Component {
 														}}
 													>
 														Kick User
-													</Button>
+													</UserButton>
 												) : admin && user.user._id === currentUser._id ? (
-													<Button>Admin</Button>
+													<AdminUserButton>Admin</AdminUserButton>
 												) : user.user._id === currentUser._id ? (
-													<Button>You</Button> //Change this to a mutation which allows the user to leave the team.
+													<UserButton>You</UserButton> //Change this to a mutation which allows the user to leave the team.
 												) : null
 											}
 										</Mutation>
