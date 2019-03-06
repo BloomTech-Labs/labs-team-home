@@ -16,15 +16,14 @@ const eventResolver = {
 		},
 		findEventsByUser: async (_, { input: { user } }) => {
 			const events = await Event.find({ user: user }).populate('team user');
+
 			return events;
 		}
 	},
 
 	Mutation: {
 		addEvent: (_, { input }) => {
-			console.log('hey nedim, ur a cool guy.');
 			new Event({ ...input }).save().then(event => {
-				// console.log(input);
 				event.populate('team user').execPopulate();
 			});
 		},

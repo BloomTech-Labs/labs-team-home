@@ -3,7 +3,7 @@ const DocComment = require('../../models/DocComment');
 const Document = require('../../models/Document');
 const Event = require('../../models/Event');
 
-const { object_str, action_str } = require('./Event');
+const { object_str, action_str } = require('./ResolverHelpers');
 
 const { ValidationError } = require('apollo-server-express');
 const sgMail = require('@sendgrid/mail');

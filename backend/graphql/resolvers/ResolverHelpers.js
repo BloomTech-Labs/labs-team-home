@@ -22,4 +22,4 @@ const object_str = {
 	user: 'user'
 };
 
-module.export = { action_str, object_str };
+module.exports = { action_str, object_str };

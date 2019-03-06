@@ -4,7 +4,7 @@ const DocComment = require('../../models/DocComment');
 const Event = require('../../models/Event');
 const { ValidationError } = require('apollo-server-express');
 
-const { object_str, action_str } = require('./Event');
+const { object_str, action_str } = require('./ResolverHelpers');
 
 const documentResolver = {
 	Query: {

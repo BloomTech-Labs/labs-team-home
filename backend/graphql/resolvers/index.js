@@ -8,6 +8,7 @@ const Document = require('./Document');
 const DocComment = require('./DocComment');
 const Event = require('./Event');
 const { merge } = require('lodash');
+const Event = require('./Event');
 
 module.exports = merge(
 	{},
