@@ -832,7 +832,7 @@ public final class CreateNewUserMutation: GraphQLMutation {
 
 public final class FindDocumentsByTeamQuery: GraphQLQuery {
   public let operationDefinition =
-    "query FindDocumentsByTeam($teamID: ID!) {\n  findDocumentsByTeam(input: {team: $teamID}) {\n    __typename\n    _id\n    doc_url\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n      _id\n    }\n    folder {\n      __typename\n      _id\n      title\n    }\n    title\n    textContent\n    images\n    comments\n    subscribedUsers {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    createdAt\n    updatedAt\n  }\n}"
+    "query FindDocumentsByTeam($teamID: ID!) {\n  findDocumentsByTeam(input: {team: $teamID}) {\n    __typename\n    _id\n    doc_url\n    user {\n      __typename\n      firstName\n      lastName\n      avatar\n      _id\n    }\n    folder {\n      __typename\n      _id\n      title\n    }\n    title\n    textContent\n    tag {\n      __typename\n      _id\n      name\n      team {\n        __typename\n        _id\n      }\n    }\n    images\n    comments\n    subscribedUsers {\n      __typename\n      firstName\n      lastName\n      avatar\n    }\n    createdAt\n    updatedAt\n  }\n}"
 
   public var teamID: GraphQLID
 
@@ -881,6 +881,7 @@ public final class FindDocumentsByTeamQuery: GraphQLQuery {
         GraphQLField("folder", type: .object(Folder.selections)),
         GraphQLField("title", type: .nonNull(.scalar(String.self))),
         GraphQLField("textContent", type: .nonNull(.scalar(String.self))),
+        GraphQLField("tag", type: .object(Tag.selections)),
         GraphQLField("images", type: .list(.scalar(String.self))),
         GraphQLField("comments", type: .list(.scalar(GraphQLID.self))),
         GraphQLField("subscribedUsers", type: .list(.object(SubscribedUser.selections))),
@@ -894,8 +895,8 @@ public final class FindDocumentsByTeamQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID? = nil, docUrl: String, user: User, folder: Folder? = nil, title: String, textContent: String, images: [String?]? = nil, comments: [GraphQLID?]? = nil, subscribedUsers: [SubscribedUser?]? = nil, createdAt: String? = nil, updatedAt: String? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Document", "_id": id, "doc_url": docUrl, "user": user.resultMap, "folder": folder.flatMap { (value: Folder) -> ResultMap in value.resultMap }, "title": title, "textContent": textContent, "images": images, "comments": comments, "subscribedUsers": subscribedUsers.flatMap { (value: [SubscribedUser?]) -> [ResultMap?] in value.map { (value: SubscribedUser?) -> ResultMap? in value.flatMap { (value: SubscribedUser) -> ResultMap in value.resultMap } } }, "createdAt": createdAt, "updatedAt": updatedAt])
+      public init(id: GraphQLID? = nil, docUrl: String, user: User, folder: Folder? = nil, title: String, textContent: String, tag: Tag? = nil, images: [String?]? = nil, comments: [GraphQLID?]? = nil, subscribedUsers: [SubscribedUser?]? = nil, createdAt: String? = nil, updatedAt: String? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Document", "_id": id, "doc_url": docUrl, "user": user.resultMap, "folder": folder.flatMap { (value: Folder) -> ResultMap in value.resultMap }, "title": title, "textContent": textContent, "tag": tag.flatMap { (value: Tag) -> ResultMap in value.resultMap }, "images": images, "comments": comments, "subscribedUsers": subscribedUsers.flatMap { (value: [SubscribedUser?]) -> [ResultMap?] in value.map { (value: SubscribedUser?) -> ResultMap? in value.flatMap { (value: SubscribedUser) -> ResultMap in value.resultMap } } }, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -958,6 +959,15 @@ public final class FindDocumentsByTeamQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "textContent")
+        }
+      }
+
+      public var tag: Tag? {
+        get {
+          return (resultMap["tag"] as? ResultMap).flatMap { Tag(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "tag")
         }
       }
 
@@ -1116,6 +1126,100 @@ public final class FindDocumentsByTeamQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "title")
+          }
+        }
+      }
+
+      public struct Tag: GraphQLSelectionSet {
+        public static let possibleTypes = ["Tag"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("_id", type: .scalar(GraphQLID.self)),
+          GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          GraphQLField("team", type: .object(Team.selections)),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: GraphQLID? = nil, name: String, team: Team? = nil) {
+          self.init(unsafeResultMap: ["__typename": "Tag", "_id": id, "name": name, "team": team.flatMap { (value: Team) -> ResultMap in value.resultMap }])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: GraphQLID? {
+          get {
+            return resultMap["_id"] as? GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "_id")
+          }
+        }
+
+        public var name: String {
+          get {
+            return resultMap["name"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var team: Team? {
+          get {
+            return (resultMap["team"] as? ResultMap).flatMap { Team(unsafeResultMap: $0) }
+          }
+          set {
+            resultMap.updateValue(newValue?.resultMap, forKey: "team")
+          }
+        }
+
+        public struct Team: GraphQLSelectionSet {
+          public static let possibleTypes = ["Team"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("_id", type: .scalar(GraphQLID.self)),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(id: GraphQLID? = nil) {
+            self.init(unsafeResultMap: ["__typename": "Team", "_id": id])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var id: GraphQLID? {
+            get {
+              return resultMap["_id"] as? GraphQLID
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "_id")
+            }
           }
         }
       }

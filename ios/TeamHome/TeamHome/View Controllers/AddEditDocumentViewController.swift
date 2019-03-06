@@ -1,5 +1,5 @@
 //
-//  AddDocumentViewController.swift
+//  AddEditDocumentViewController.swift
 //  TeamHome
 //
 //  Created by Andrew Dhan on 2/14/19.
@@ -15,31 +15,11 @@ import Motion
 
 typealias Document = FindDocumentsByTeamQuery.Data.FindDocumentsByTeam
 
-class AddEditDocumentViewController: UIViewController {
+class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setUpViewAppearance()
-        newDocumentView.backgroundColor = Appearance.plumColor
-        cancelButton.tintColor = Appearance.yellowColor
-        submitButton.backgroundColor = Appearance.darkMauveColor
-        
-        documentLinkTextField.textColor = .white
-        documentLinkTextField.placeholder = "Add a link"
-        documentNotesTextView.textColor = .white
-        documentNotesTextView.placeholder = "Add a note"
-        
-        documentNotesTextView.dividerColor = Appearance.yellowColor
-        documentTitleTextField.textColor = .white
-    
-        tagsTextField.textColor = .white
-        documentTitleTextField.placeholderAnimation = .hidden
-        documentLinkTextField.placeholderAnimation = .hidden
-        tagsTextField.placeholderAnimation = .hidden
-    
-        titleLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
-        collectionView.backgroundColor = .clear
+        setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +29,12 @@ class AddEditDocumentViewController: UIViewController {
         } else {
             updateViewsForAdd()
         }
+        
+        guard let apollo = apollo,
+            let team = team,
+            let teamId = team.id else { return }
+        
+        fetchAllTags(with: apollo, for: teamId)
     }
     
     //MARK: - IBActions
@@ -73,8 +59,66 @@ class AddEditDocumentViewController: UIViewController {
     @IBAction func addToFolder(_ sender: Any) {
         
     }
+    // MARK: - UICollectionViewDataSource for tags
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tags?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCollectionViewCell
+        
+        guard let tag = tags?[indexPath.row] else { return UICollectionViewCell() }
+        cell.tagLabel.text = tag.name
+        cell.backgroundColor = Appearance.darkMauveColor
+        cell.layer.cornerRadius = cell.frame.height / 2
+        
+        if let document = self.document {
+            
+            if let documentTag = document.tag {
+                let this = documentTag.name
+                
+                if tag.name == this {
+                    self.tagSelected = documentTag.name
+                    cell.backgroundColor = Appearance.mauveColor
+                }
+            }
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let tag = tags?[indexPath.row] else { return }
+        self.tagSelected = tag.name
+        let cell = collectionView.cellForItem(at: indexPath)
+        
+        cell?.backgroundColor = Appearance.mauveColor
+    }
+
     //MARK: - Private Properties
+    private func setupViews(){
+        setUpViewAppearance()
+        newDocumentView.backgroundColor = Appearance.plumColor
+        cancelButton.tintColor = Appearance.yellowColor
+        submitButton.backgroundColor = Appearance.darkMauveColor
+        
+        documentLinkTextField.textColor = .white
+        documentLinkTextField.placeholder = "Add a link"
+        documentNotesTextView.textColor = .white
+        documentNotesTextView.placeholder = "Add a note"
+        
+        documentNotesTextView.dividerColor = Appearance.yellowColor
+        documentTitleTextField.textColor = .white
+        
+        tagsTextField.textColor = .white
+        documentTitleTextField.placeholderAnimation = .hidden
+        documentLinkTextField.placeholderAnimation = .hidden
+        tagsTextField.placeholderAnimation = .hidden
+        
+        titleLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
+        collectionView.backgroundColor = .clear
+    }
     private func updateViewsForEdit(document: Document){
         titleLabel.text = "Edit Document"
         documentTitleTextField.text = document.title
@@ -108,12 +152,69 @@ class AddEditDocumentViewController: UIViewController {
         }
     }
     
-    
+    private func fetchAllTags(with apollo: ApolloClient, for teamId: GraphQLID) {
+        // Find all tags by current team
+        tagsWatcher = apollo.watch(query: FindTagsByTeamQuery(teamId: teamId)) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+                return
+            }
+            
+            guard let result = result,
+                let data = result.data,
+                let tags = data.findTagsByTeam else { return }
+            
+            // Save tags and populate collection view
+            print(tags)
+            
+            self.tags = tags
+            self.collectionView.reloadData()
+        }
+    }
+    private func createNewTag(with apollo: ApolloClient,under teamId: GraphQLID, for string: String) {
+        apollo.perform(mutation: CreateNewTagMutation(name: string, teamId: teamId), queue: DispatchQueue.global(), resultHandler: { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            }
+            
+            guard let result = result,
+                let newTagId = result.data?.addTag?.id else { return }
+            
+            print(newTagId)
+            
+        })
+    }
+    private func findSelectedTag() -> GraphQLID? {
+        
+        // Unwrap tag selection or recently created tag.
+        guard let selectedTag = self.tagSelected,
+            let tags = tags else {
+                if let tagId = tagSelectedId {
+                    return tagId
+                }
+                return nil
+        }
+        
+        for tag in tags {
+            if let tag = tag {
+                if tag.name == selectedTag {
+                    return tag.id
+                }
+            }
+        }
+        
+        return nil
+    }
     //MARK: - Properties
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     
     var document: Document?
+    
+    private var tagSelected: String?
+    private var tagSelectedId: GraphQLID?
+    private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
+    private var tagsWatcher: GraphQLQueryWatcher<FindTagsByTeamQuery>?
     
     @IBOutlet weak var folderButton: UIBarButtonItem!
     @IBOutlet weak var titleLabel: UILabel!
