@@ -27,7 +27,25 @@ const messageResolvers = {
 				.save()
 				.then(message =>
 					message.populate('user team tag subscribedUsers').execPopulate()
-				),
+				)
+				.then(async message => {
+					try {
+						await new Event({
+							team: message.team,
+							user: message.user,
+							action_string: action_str.add,
+							object_string: object_str.docComment,
+							event_target_id: null
+						})
+							.save()
+							.then(event => {
+								console.log('should be a success', event);
+							});
+					} catch (error) {
+						console.error('Could not add event', error);
+					}
+				}),
+
 		updateMessage: (_, { input }) => {
 			const { id } = input;
 			return Message.findById(id).then(message => {
@@ -36,7 +54,25 @@ const messageResolvers = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user team tag subscribedUsers');
+					)
+						.populate('user team tag subscribedUsers')
+						.then(async message => {
+							try {
+								await new Event({
+									team: message.team,
+									user: message.user,
+									action_string: action_str.update,
+									object_string: object_str.docComment,
+									event_target_id: null
+								})
+									.save()
+									.then(event => {
+										console.log('should be a success', event);
+									});
+							} catch (error) {
+								console.error('Could not add event', error);
+							}
+						});
 				} else {
 					throw new ValidationError("Message doesn't exist");
 				}
