@@ -16,10 +16,10 @@
 
 We need to build a new database model in the back-end which should follow a schema similar to the following such that we can get all the right information for an event, which might look like a line of text displayed on the event timeline in place of the current activity components:
 
-- " {Subject} {actioned} the {object} {payload.name} on {date} at {time} "
+- " {Subject} {actioned} the {object} {team.name} on {date} at {time} "
 - " Stephen joined the team 'Team Home 2' on Feb 10 at 10am "
-- " Nedim edited the message comment 'This is a good idea' on Feb 12 at 12am "
-- " Kai deleted the folder 'Styling Ideas' on Feb 20 at 7pm "
+- " Nedim edited a message comment on Feb 12 at 12am "
+- " Kai deleted a folder on Feb 20 at 7pm "
 
 Clicking on any event would open up a new modal that has all the details about the event.
 
@@ -37,13 +37,11 @@ Event
         _id: _id, (non-nullable)
         team: _id (foreign key, non-nullable)
         time: dateTime (non-nullable)
-        subject: user._id (foreign key, non-nullable)
-        action: type{"created", "edited", "deleted", "liked", "unliked", "joined", "left", "moved", "subscribed", "unsubscribed", "invited"}, (non-nullable)
-        object: type{message, msgComment, folder, document, docComment, team, user}, (non-nullable)
-        event_target_id: _id (foreign key, nullable)
-        payload: { //an object with details about the thing that happened, be it a...
-            like, unlike, content, name, title, url,
-            }
+        user: user._id (foreign key, nullable)
+        action_string: type{"created", "edited", "deleted", "liked", "unliked", "joined", "left", "moved", "subscribed", "unsubscribed", "invited"}, (non-nullable)
+        object_string: type{"message", "msgComment", "folder", "document", "docComment", "team", "user"}, (non-nullable)
+
+        event_target_id: _id (nullable)
     }
 ```
 
@@ -69,7 +67,7 @@ None
 
 #### Delete:
 
-None
+`deleteEventsByTeam( _id )`
 
 ### 3. GQL Resolvers
 
@@ -78,11 +76,37 @@ In the resolvers for every action on every other database resolver which is a mu
 At first count this means adding **28** function calls of `addEvent()` in the pre-existing resolver structure:
 
 - DocComments: 5
+  Liked DONE
+  Unlinked DONE
+  Deleted DONE
+  Added
+  Updated
 - Documents: 5
+  deleted DONE
+  added
+  subscribed DONE
+  unsubscribed DONE
+  updated
 - Folders: 3
+  Deleted
+  Added
+  Updated
 - Messages: 5
+  deleted DONE
+  added
+  subscribed DONE
+  unsubscribed DONE
+  updated
 - MsgComments: 5
+  Liked DONE
+  Unlinked DONE
+  Deleted
+  Added
+  Updated
 - Team: 5
+  Joined
+  Left
+  Updated
 
 The good news is that no one will be able to have any gql mutation calls client side. And what is more, they will only have the ability to call gql queries--this will of course keep boilerplate minimal in this regard.
 

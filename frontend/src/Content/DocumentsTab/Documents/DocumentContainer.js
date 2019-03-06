@@ -14,6 +14,24 @@ const Container = styled.div`
 	background-color: #4a4550;
 	min-width: 300px;
 	min-height: 50px;
+	position: relative;
+`;
+
+const ContainerTitle = styled.div`
+	position: absolute;
+	text-align: center;
+	height: 40px;
+	width: 180px;
+	top: -20px;
+	left: 20px;
+	background-color: #4a4550;
+	/* background-color: #5a5560; */
+
+	p {
+		color: white;
+		font-size: 25px;
+		letter-spacing: 1px;
+	}
 `;
 
 const Error = styled.p`
@@ -28,15 +46,15 @@ const FormDiv = styled.div`
 
 const SortForm = styled.form`
 	height: 50px;
+	margin-top: 15px;
 	label {
 		color: white;
-		font-size: 20px;
 	}
 	select {
 		margin-left: 10px;
 	}
 	option {
-		height: 50px;
+		height: 25px;
 	}
 `;
 
@@ -73,10 +91,13 @@ class DocumentContainer extends React.Component {
 		return connectDropTarget(
 			<div>
 				<Container style={{ background: backgroundColor }}>
+					<ContainerTitle>
+						<p>DOCUMENTS</p>
+					</ContainerTitle>
 					<FormDiv>
 						<SortForm>
 							<label>
-								Folder Sort:
+								Sort:
 								<select
 									value={this.props.sortOption}
 									onChange={this.props.sortChange}
@@ -125,6 +146,7 @@ class DocumentContainer extends React.Component {
 											>
 												<Doc
 													document={doc}
+													noFolder
 													handleDrop={(id, folderId) =>
 														this.updateDrop(id, folderId)
 													}

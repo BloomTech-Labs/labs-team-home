@@ -2,7 +2,12 @@ import React from 'react';
 
 // ------------- gql Imports ---------------------- //
 import { Query, compose } from 'react-apollo';
-import { deleteDocument, updateDocument } from '../../mutations/documents';
+import {
+	deleteDocument,
+	updateDocument,
+	unsubscribeDoc,
+	subscribeDoc
+} from '../../mutations/documents';
 import * as query from '../../../constants/queries';
 import {
 	addDocComment,
@@ -13,14 +18,23 @@ import {
 } from '../../mutations/doccomments';
 
 // ------------- Style Imports ---------------------- //
-// import styled from 'styled-components';
-import IconButton from '@material-ui/core/IconButton';
+import styled from 'styled-components';
+// import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { colors } from '../../../colorVariables';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
-import SendIcon from '@material-ui/icons/Send';
+// import SendIcon from '@material-ui/icons/Send';
+
+// ------------- Icon imports ------------------------------- //
+
+import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
+// import { FileWord } from 'styled-icons/icomoon/FileWord';
+// import { FileExcel } from 'styled-icons/fa-solid/FileExcel';
+// import { FilePlay } from 'styled-icons/icomoon/FilePlay';
+// import { FilePdf } from 'styled-icons/icomoon/FilePdf';
+import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -39,6 +53,81 @@ import {
 	StyledModalNewCommentInput
 } from '../../Modal.styles';
 
+// ---------------- Styled Components ---------------------- //
+
+const ModalTitle = styled(StyledModalTitle)`
+	h2 {
+		font-size: 30px;
+		text-align: center;
+		margin-left: 30px;
+	}
+`;
+
+const ModalBody = styled(StyledModalBody)`
+	text-align: center;
+	margin: 10px 0;
+`;
+
+const DocumentContent = styled(StyledModalBody)`
+	text-align: center;
+	width: 80%;
+	margin: 20px auto;
+	padding-top: 20px;
+	border-top: 1px solid white;
+
+	span {
+		display: block;
+		font-weight: bold;
+		margin-bottom: 5px;
+		font-size: 18px;
+	}
+`;
+
+const DocUrl = styled(StyledModalBody)`
+	margin: 10px auto;
+	margin-top: 25px;
+	text-align: center;
+	padding: 5px;
+	border-bottom: 1px solid #ecff26;
+	width: 65px;
+	cursor: pointer;
+
+	a,
+	a:hover {
+		color: white;
+		text-decoration: none;
+	}
+
+	&:hover {
+		background-color: #392d40;
+		transition: 0.3s all ease-in-out;
+	}
+`;
+const DocumentIconDiv = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+`;
+
+const DocumentIcon = styled(FileAlt)`
+	height: 100px;
+`;
+
+const ArrowDiv = styled.div`
+	height: 150px;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		background-color: #392d40;
+		transition: 0.3s all ease-in-out;
+	}
+`;
+
+const Arrow = styled(KeyboardArrowRight)`
+	height: 25px;
+`;
+
 class DocumentDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -50,9 +139,22 @@ class DocumentDetails extends React.Component {
 			editingComment: false,
 			commentContent: '',
 			editedComment: null,
-			newCommentContent: ''
+			newCommentContent: '',
+			subscribed: null
 		};
 	}
+
+	//set subscribed to true, if the currentUser is subscribed
+	componentDidUpdate = prevProps =>
+		this.props.document !== prevProps.document
+			? this.props.document !== null
+				? this.props.document.subscribedUsers.find(user =>
+						user._id === this.props.currentUser._id
+							? this.setState({ subscribed: true })
+							: this.setState({ subscribed: false })
+				  )
+				: null
+			: null;
 
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -80,8 +182,16 @@ class DocumentDetails extends React.Component {
 			addDocComment,
 			unLikeDocComment,
 			likeDocComment,
+			subscribeDoc,
+			unsubscribeDoc,
 			open
 		} = this.props;
+
+		// const documentSwitch = url => {
+		// 	switch (url) {
+		// 		case ''
+		// 	}
+		// }
 
 		if (document === null) return <></>;
 		return (
@@ -103,19 +213,6 @@ class DocumentDetails extends React.Component {
 					</StyledModalIconButton>
 				</StyledModalClose>
 				<StyledModalOverlay>
-					<CardHeader
-						avatar={
-							<Avatar
-								src={document.user.avatar}
-								alt="avatar"
-								style={{ height: '64px', width: '64px' }}
-							/>
-						}
-						title={`${document.user.firstName} ${document.user.lastName}`}
-						titleTypographyProps={{
-							style: { color: colors.text }
-						}}
-					/>
 					<StyledModalPaper>
 						{this.state.editingDocument ? (
 							<CardContent>
@@ -154,15 +251,35 @@ class DocumentDetails extends React.Component {
 							</CardContent>
 						) : (
 							<CardContent>
-								<StyledModalTitle variant="h5" component="h3">
-									{document.title}
-								</StyledModalTitle>
-								<StyledModalBody paragraph component="p">
-									{document.doc_url}
-								</StyledModalBody>
-								<StyledModalBody paragraph component="p">
+								<ModalTitle>{document.title}</ModalTitle>
+								<DocumentIconDiv>
+									<DocumentIcon />
+								</DocumentIconDiv>
+								<a
+									href={
+										document.doc_url.includes('http://') ||
+										document.doc_url.includes('https://')
+											? document.doc_url
+											: `http://www.${document.doc_url}`
+									}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<DocUrl paragraph component="p">
+										VIEW
+									</DocUrl>
+								</a>
+								<ModalBody>
+									{console.log(document)}
+									Posted by{' '}
+									{`${document.user.firstName} ${document.user.lastName}`} •
+									Tag:
+									{` ${document.tag ? document.tag.name : 'none'}`}
+								</ModalBody>
+								<DocumentContent paragraph component="p">
+									<span>Notes:</span>
 									{document.textContent}
-								</StyledModalBody>
+								</DocumentContent>
 
 								<StyledModalCardAction>
 									{document.user._id === currentUser._id && (
@@ -205,29 +322,21 @@ class DocumentDetails extends React.Component {
 									<StyledModalButton
 										onClick={e => {
 											e.preventDefault();
-											document.subscribedUsers.find(
-												({ _id }) => _id === currentUser._id
-											)
-												? updateDocument({
+											this.setState(prevState => ({
+												subscribed: !prevState.subscribed
+											}));
+											this.state.subscribed
+												? unsubscribeDoc({
 														id: document._id,
-														subscribedUsers: document.subscribedUsers
-															.filter(({ _id }) => _id !== currentUser._id)
-															.map(({ _id }) => _id)
+														user: currentUser._id
 												  })
-												: updateDocument({
+												: subscribeDoc({
 														id: document._id,
-														subscribedUsers: [
-															...document.subscribedUsers.map(({ _id }) => _id),
-															currentUser._id
-														]
+														user: currentUser._id
 												  });
 										}}
 									>
-										{document.subscribedUsers.find(
-											({ _id }) => _id === currentUser._id
-										)
-											? 'Unsubscribe'
-											: 'Subscribe'}
+										{this.state.subscribed ? 'Unsubscribe' : 'Subscribe'}
 									</StyledModalButton>
 								</StyledModalCardAction>
 							</CardContent>
@@ -243,7 +352,7 @@ class DocumentDetails extends React.Component {
 							if (error) return <p>Error</p>;
 							return (
 								<>
-									<StyledModalTitle>Comments</StyledModalTitle>
+									<StyledModalTitle>Discussion</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
 										<StyledModalPaper key={comment._id}>
@@ -333,10 +442,12 @@ class DocumentDetails extends React.Component {
 																({ _id }) => _id === currentUser._id
 															)
 																? unLikeDocComment({
-																		id: comment._id
+																		id: comment._id,
+																		document: document
 																  })
 																: likeDocComment({
-																		id: comment._id
+																		id: comment._id,
+																		document: document
 																  });
 														}}
 													>
@@ -362,9 +473,12 @@ class DocumentDetails extends React.Component {
 											onChange={this.handleChange}
 											placeholder="Leave a comment..."
 										/>
-										<IconButton type="submit">
+										{/* <IconButton type="submit">
 											<SendIcon style={{ color: colors.text }} />
-										</IconButton>
+										</IconButton> */}
+										<ArrowDiv>
+											<Arrow />
+										</ArrowDiv>
 									</StyledModalNewCommentForm>
 								</>
 							);
@@ -383,5 +497,7 @@ export default compose(
 	updateDocComment,
 	deleteDocComment,
 	likeDocComment,
-	unLikeDocComment
+	unLikeDocComment,
+	subscribeDoc,
+	unsubscribeDoc
 )(DocumentDetails);

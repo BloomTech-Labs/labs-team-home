@@ -8,7 +8,9 @@ import {
 	ADD_DOCUMENT,
 	DELETE_DOCUMENT,
 	UPDATE_DOCUMENT,
-	ADD_TAG
+	ADD_TAG,
+	SUBSCRIBE_DOC,
+	UNSUBSCRIBE_DOC
 } from '../../constants/mutations';
 
 const addDocumentOptions = {
@@ -205,3 +207,58 @@ const addTagOptions = {
 };
 
 export const addTag = graphql(ADD_TAG, addTagOptions);
+
+//////////////
+const subscribeDocOptions = {
+	props: ({ ownProps: { team }, mutate }) => ({
+		subscribeDoc: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { subscribeDoc } }) => {
+					const { findDocumentsByTeam } = cache.readQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team }
+					});
+					cache.writeQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team },
+						data: {
+							findDocumentsByTeam: findDocumentsByTeam.map(document =>
+								document._id === subscribeDoc._id ? subscribeDoc : document
+							)
+						}
+					});
+				}
+			})
+	})
+};
+
+export const subscribeDoc = graphql(SUBSCRIBE_DOC, subscribeDocOptions);
+
+////////////
+
+const unsubscribeDocOptions = {
+	props: ({ ownProps: { team }, mutate }) => ({
+		unsubscribeDoc: input =>
+			mutate({
+				variables: input,
+				update: (cache, { data: { unsubscribeDoc } }) => {
+					const { findDocumentsByTeam } = cache.readQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team }
+					});
+					cache.writeQuery({
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: team },
+						data: {
+							findDocumentsByTeam: findDocumentsByTeam.map(document =>
+								document._id === unsubscribeDoc._id ? unsubscribeDoc : document
+							)
+						}
+					});
+				}
+			})
+	})
+};
+
+export const unsubscribeDoc = graphql(UNSUBSCRIBE_DOC, unsubscribeDocOptions);

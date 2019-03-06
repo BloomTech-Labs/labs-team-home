@@ -10,7 +10,7 @@ import { updateDocument } from '../../mutations/documents';
 import DocumentDetails from '../Documents/DocumentDetails';
 
 // ------------- Style Imports ---------------------- //
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -25,12 +25,34 @@ import {
 	StyledModalClose,
 	StyledModalPaper,
 	StyledModalTitle,
-	StyledModalBody,
 	StyledModalButton,
 	StyledModalForm,
 	StyledModalInput,
 	StyledModalIconButton
 } from '../../Modal.styles';
+
+// ---------------- Styled Components ---------------------- //
+
+const ModalTitle = styled(StyledModalTitle)`
+	h2 {
+		font-size: 30px;
+		text-align: center;
+		margin-left: 30px;
+	}
+`;
+
+const SmallerTitle = styled(ModalTitle)`
+	h2 {
+		font-size: 18px;
+	}
+`;
+
+const DocumentTitle = styled(StyledModalTitle)`
+	h2 {
+		font-size: 18px;
+		margin-left: 15px;
+	}
+`;
 
 class FolderDetails extends React.Component {
 	constructor(props) {
@@ -141,9 +163,7 @@ class FolderDetails extends React.Component {
 										</CardContent>
 									) : (
 										<>
-											<StyledModalTitle variant="h5" component="h3">
-												{folder.title}
-											</StyledModalTitle>
+											<ModalTitle>{folder.title}</ModalTitle>
 
 											{/* Load all the images attached to the message */}
 											<CardActions
@@ -193,9 +213,9 @@ class FolderDetails extends React.Component {
 									{findDocumentsByFolder.length ? (
 										<StyledModalTitle>Documents</StyledModalTitle>
 									) : (
-										<StyledModalTitle>
+										<SmallerTitle>
 											No document at the moment, drag some in!
-										</StyledModalTitle>
+										</SmallerTitle>
 									)}
 									{findDocumentsByFolder.map(document => (
 										<StyledModalPaper key={document._id}>
@@ -215,12 +235,7 @@ class FolderDetails extends React.Component {
 												}}
 											/>
 											<CardContent>
-												<StyledModalTitle component="p">
-													{document.title}
-												</StyledModalTitle>
-												<StyledModalBody paragraph component="p">
-													{document.doc_url}
-												</StyledModalBody>
+												<DocumentTitle>{document.title}</DocumentTitle>
 											</CardContent>
 
 											{/* Check to see if the comment is the users and thus can be edited or deleted */}
@@ -246,8 +261,20 @@ class FolderDetails extends React.Component {
 														this.toggleDocumentDetail(document);
 													}}
 												>
-													View
+													Details
 												</StyledModalButton>
+												<a
+													href={
+														document.doc_url.includes('http://') ||
+														document.doc_url.includes('https://')
+															? document.doc_url
+															: `http://www.${document.doc_url}`
+													}
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<StyledModalButton>View</StyledModalButton>
+												</a>
 											</CardContent>
 										</StyledModalPaper>
 									))}

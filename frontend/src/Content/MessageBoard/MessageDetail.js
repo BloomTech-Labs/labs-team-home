@@ -9,7 +9,12 @@ import {
 	like,
 	unLike
 } from '../mutations/comments';
-import { updateMessage, deleteMessage } from '../mutations/messages';
+import {
+	updateMessage,
+	deleteMessage,
+	subscribe,
+	unsubscribe
+} from '../mutations/messages';
 import * as query from '../../constants/queries';
 
 // ------------- styling libraries ---------------------- //
@@ -65,8 +70,21 @@ class MessageDetail extends Component {
 			title: '',
 			content: '',
 			commentContent: '',
-			newComment: ''
+			newComment: '',
+			subscribed: null
 		});
+
+	//set subscribed to true, if the currentUser is subscribed
+	componentDidUpdate = prevProps =>
+		this.props.message !== prevProps.message
+			? this.props.message !== null
+				? this.props.message.subscribedUsers.find(user =>
+						user._id === this.props.currentUser._id
+							? this.setState({ subscribed: true })
+							: this.setState({ subscribed: false })
+				  )
+				: null
+			: null;
 
 	render() {
 		const {
@@ -78,7 +96,9 @@ class MessageDetail extends Component {
 			updateMessage,
 			deleteMessage,
 			like,
-			unLike
+			unLike,
+			subscribe,
+			unsubscribe
 		} = this.props;
 
 		if (message === null) return <> </>;
@@ -205,29 +225,21 @@ class MessageDetail extends Component {
 									<StyledModalButton
 										onClick={e => {
 											e.preventDefault();
-											message.subscribedUsers.find(
-												({ _id }) => _id === currentUser._id
-											)
-												? updateMessage({
+											this.setState(prevState => ({
+												subscribed: !prevState.subscribed
+											}));
+											this.state.subscribed
+												? unsubscribe({
 														id: message._id,
-														subscribedUsers: message.subscribedUsers
-															.filter(({ _id }) => _id !== currentUser._id)
-															.map(({ _id }) => _id)
+														user: currentUser._id
 												  })
-												: updateMessage({
+												: subscribe({
 														id: message._id,
-														subscribedUsers: [
-															...message.subscribedUsers.map(({ _id }) => _id),
-															currentUser._id
-														]
+														user: currentUser._id
 												  });
 										}}
 									>
-										{message.subscribedUsers.find(
-											({ _id }) => _id === currentUser._id
-										)
-											? 'Unsubscribe'
-											: 'Subscribe'}
+										{this.state.subscribed ? 'Unsubscribe' : 'Subscribe'}
 									</StyledModalButton>
 								</StyledModalCardAction>
 							</CardContent>
@@ -381,5 +393,7 @@ export default compose(
 	updateMessage,
 	deleteMessage,
 	like,
-	unLike
+	unLike,
+	subscribe,
+	unsubscribe
 )(MessageDetail);
