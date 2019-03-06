@@ -1,10 +1,11 @@
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
-import { compose, Query } from 'react-apollo';
+import { compose, Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
 import { deleteFolder, updateFolder } from '../../mutations/folders';
 import { updateDocument } from '../../mutations/documents';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
 // ------------- Component Imports ---------------------- //
 import DocumentDetails from '../Documents/DocumentDetails';
@@ -222,17 +223,34 @@ class FolderDetails extends React.Component {
 
 											{/* Check to see if the comment is the users and thus can be edited or deleted */}
 											<CardContent>
-												<StyledModalButton
-													onClick={e => {
-														e.preventDefault();
-														updateDocument({
-															id: document._id,
-															folder: null
-														});
-													}}
+												<Mutation
+													mutation={UPDATE_DOCUMENT}
+													variables={{ id: document._id, folder: null }}
 												>
-													Remove from Folder
-												</StyledModalButton>
+													{updateDocument => (
+														<StyledModalButton
+															onClick={e => {
+																e.preventDefault();
+																updateDocument({
+																	refetchQueries: [
+																		{
+																			query: query.FIND_DOCUMENTS_BY_FOLDER,
+																			variables: {
+																				folder: this.props.folder._id
+																			}
+																		},
+																		{
+																			query: query.FIND_DOCUMENTS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		}
+																	]
+																});
+															}}
+														>
+															Remove from Folder
+														</StyledModalButton>
+													)}
+												</Mutation>
 												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
