@@ -31,7 +31,7 @@ const docSource = {
 		}
 		const dropResult = monitor.getDropResult();
 		// console.log('dropResult: ', dropResult);
-		return props.handleDrop(props.document, dropResult.folder);
+		return props.handleDrop(props.document, dropResult.folder, props.update);
 	}
 };
 
@@ -45,7 +45,7 @@ function collect(connect, monitor) {
 
 class Doc extends React.Component {
 	render() {
-		const { isDragging, connectDragSource, document } = this.props;
+		const { isDragging, connectDragSource, document, update } = this.props;
 		const opacity = isDragging ? 0 : 1;
 
 		return connectDragSource(

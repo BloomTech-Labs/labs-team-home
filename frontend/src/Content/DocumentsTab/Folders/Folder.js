@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
-import { compose } from 'react-apollo';
+import { compose, Mutation } from 'react-apollo';
 import { updateDocument } from '../../mutations/documents';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
 const IndividualFolder = styled.div`
 	height: 200px;
@@ -58,7 +59,7 @@ class Folder extends React.Component {
 		};
 	}
 
-	updateDrop = (id, folderid) => {
+	updateDrop = (id, folderid, updateDocument) => {
 		// console.log('DOC : ', id);
 		// console.log('FOLDER : ', folderid._id);
 		// console.log("folder team id: ", this.props.team)
@@ -66,14 +67,14 @@ class Folder extends React.Component {
 
 		if (folderid !== undefined) {
 			console.log('UpdateDrop-Folder, folderID not available: ', folderid);
-			this.props.updateDocument({
+			updateDocument({
 				id: id._id,
 				folder: folderid._id,
 				previous: this.props.folder._id
 			});
 		} else {
 			// console.log('UpdateDrop-Folder, folderID available: ', folderid)
-			this.props.updateDocument({
+			updateDocument({
 				id: id._id,
 				folder: null,
 				previous: this.props.folder._id
@@ -97,11 +98,19 @@ class Folder extends React.Component {
 						{this.props.findDocumentsByFolder.length ? (
 							this.props.findDocumentsByFolder.map(doc => {
 								return (
-									<Doc
-										key={doc._id}
-										document={doc}
-										handleDrop={(id, folderId) => this.updateDrop(id, folderId)}
-									/>
+									<div key={doc._id}>
+										<Mutation mutation={UPDATE_DOCUMENT}>
+											{updateDocument => (
+												<Doc
+													document={doc}
+													handleDrop={(id, folderId, update) =>
+														this.updateDrop(id, folderId, update)
+													}
+													update={updateDocument}
+												/>
+											)}
+										</Mutation>
+									</div>
 								);
 							})
 						) : (

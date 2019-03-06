@@ -63,4 +63,4 @@ const eventResolver = {
 	}
 };
 
-module.exports = { eventResolver, object_str, action_str };
+module.exports = eventResolver;

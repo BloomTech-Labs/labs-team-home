@@ -1,11 +1,12 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
 import { compose } from 'react-apollo';
-import { updateDocument } from '../../mutations/documents';
+// import { updateDocument } from '../../mutations/documents';
 import styled from 'styled-components';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
 const Container = styled.div`
 	display: flex;
@@ -67,19 +68,16 @@ function collect(connect, monitor) {
 }
 
 class DocumentContainer extends React.Component {
-	updateDrop = (id, folderid) => {
-		// console.log('Staging DOC: ', id);
-		// console.log('DropArea ID: ', folderid);
-
+	updateDrop = (id, folderid, updateDocument) => {
 		if (folderid === undefined) {
 			console.log(
 				'dropped in staging area from staging area; Nothing will happen'
 			);
-			// console.log('UpdateDrop-DocConatiner, folderID not available: ', folderid)
-			// this.props.updateDocument({ id: id._id, folder: null });
 		} else {
-			// console.log("UpdateDrop-DocConatiner, folderID available: ", folderid._id)
-			this.props.updateDocument({ id: id._id, folder: folderid._id });
+			console.log('DocContainer update');
+			console.log('ID: ', id);
+			console.log('folderID: ', folderid);
+			updateDocument({ id: id._id, folder: folderid._id });
 		}
 		// console.log('Document Update');
 	};
@@ -141,18 +139,22 @@ class DocumentContainer extends React.Component {
 									.filter(doc => doc.folder === null)
 									.map(doc => {
 										return (
-											<div
-												onClick={() => this.props.toggleDocumentDetail(doc)}
-												key={doc._id}
-											>
-												<Doc
-													document={doc}
-													noFolder
-													handleDrop={(id, folderId) =>
-														this.updateDrop(id, folderId)
-													}
-												/>
-											</div>
+											<Mutation mutation={UPDATE_DOCUMENT} key={doc._id}>
+												{updateDocument => (
+													<div
+														onClick={() => this.props.toggleDocumentDetail(doc)}
+													>
+														<Doc
+															document={doc}
+															noFolder
+															handleDrop={(id, folderId, update) =>
+																this.updateDrop(id, folderId, update)
+															}
+															update={updateDocument}
+														/>
+													</div>
+												)}
+											</Mutation>
 										);
 									});
 							} else {
@@ -173,7 +175,4 @@ const target = {
 	}
 };
 
-export default compose(
-	DropTarget('item', target, collect),
-	updateDocument
-)(DocumentContainer);
+export default DropTarget('item', target, collect)(DocumentContainer);
