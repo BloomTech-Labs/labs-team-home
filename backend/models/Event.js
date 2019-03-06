@@ -20,7 +20,7 @@ const Event = new Schema(
 			required: true
 		},
 		event_target_id: {
-			type: String
+			type: Schema.Types.ObjectId
 		}
 	},
 	{ timestamps: true }

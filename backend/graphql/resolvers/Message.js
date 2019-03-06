@@ -3,7 +3,7 @@ const Message = require('../../models/Message');
 const MsgComment = require('../../models/MsgComment');
 const Event = require('../../models/Event');
 
-const { object_str, action_str } = require('./ResolverHelpers');
+const { object_str, action_str } = require('./Event');
 
 const { ValidationError } = require('apollo-server-express');
 

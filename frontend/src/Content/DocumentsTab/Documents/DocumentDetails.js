@@ -10,7 +10,7 @@ import {
 } from '../../mutations/documents';
 import * as query from '../../../constants/queries';
 import {
-	add_DocComment,
+	addDocComment,
 	updateDocComment,
 	deleteDocComment,
 	likeDocComment,
@@ -113,7 +113,7 @@ const DocumentIcon = styled(FileAlt)`
 	height: 100px;
 `;
 
-const ArrowDiv = styled.button`
+const ArrowDiv = styled.div`
 	height: 150px;
 	display: flex;
 	align-items: center;
@@ -147,7 +147,7 @@ class DocumentDetails extends React.Component {
 	//set subscribed to true, if the currentUser is subscribed
 	componentDidUpdate = prevProps =>
 		this.props.document !== prevProps.document
-			? this.props.document !== null && this.props.document !== undefined
+			? this.props.document !== null
 				? this.props.document.subscribedUsers.find(user =>
 						user._id === this.props.currentUser._id
 							? this.setState({ subscribed: true })
@@ -179,7 +179,7 @@ class DocumentDetails extends React.Component {
 			hideModal,
 			updateDocComment,
 			deleteDocComment,
-			add_DocComment,
+			addDocComment,
 			unLikeDocComment,
 			likeDocComment,
 			subscribeDoc,
@@ -270,7 +270,7 @@ class DocumentDetails extends React.Component {
 									</DocUrl>
 								</a>
 								<ModalBody>
-									{/* {console.log(document)} */}
+									{console.log(document)}
 									Posted by{' '}
 									{`${document.user.firstName} ${document.user.lastName}`} •
 									Tag:
@@ -461,7 +461,7 @@ class DocumentDetails extends React.Component {
 									<StyledModalNewCommentForm
 										onSubmit={e => {
 											e.preventDefault();
-											add_DocComment({
+											addDocComment({
 												document: document._id,
 												content: this.state.newCommentContent
 											}).then(this.resetState());
@@ -476,7 +476,7 @@ class DocumentDetails extends React.Component {
 										{/* <IconButton type="submit">
 											<SendIcon style={{ color: colors.text }} />
 										</IconButton> */}
-										<ArrowDiv type="submit">
+										<ArrowDiv>
 											<Arrow />
 										</ArrowDiv>
 									</StyledModalNewCommentForm>
@@ -491,7 +491,7 @@ class DocumentDetails extends React.Component {
 }
 
 export default compose(
-	add_DocComment,
+	addDocComment,
 	deleteDocument,
 	updateDocument,
 	updateDocComment,
