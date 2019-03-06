@@ -61,8 +61,7 @@ class FolderDetails extends React.Component {
 			title: '',
 			editingFolder: false,
 			documentDetailOpen: false,
-			currentDocument: null,
-			refreshed: false
+			currentDocument: null
 		};
 	}
 
@@ -80,12 +79,6 @@ class FolderDetails extends React.Component {
 	};
 
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
-
-	refreshFolderInfo = e => {
-		this.setState({
-			refreshed: !this.state.refreshed
-		});
-	};
 
 	render() {
 		const {
@@ -121,22 +114,11 @@ class FolderDetails extends React.Component {
 					<Query
 						query={query.FIND_DOCUMENTS_BY_FOLDER}
 						variables={{ folder: folder._id }}
-						notifyOnNetworkStatusChange
 					>
-						{({
-							loading,
-							error,
-							data: { findDocumentsByFolder },
-							refetch,
-							networkStatus
-						}) => {
-							if (networkStatus === 4) return 'Refetching';
+						{({ loading, error, data: { findDocumentsByFolder } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
-							if (this.props.open === true && this.state.refreshed === false) {
-								refetch().then(this.refreshFolderInfo());
-								// .catch(err => console.error(err));
-							}
+
 							return (
 								<>
 									{this.state.editingFolder ? (
@@ -247,9 +229,6 @@ class FolderDetails extends React.Component {
 															id: document._id,
 															folder: null
 														});
-														refetch()
-															.then(this.refreshFolderInfo())
-															.catch(err => console.error(err));
 													}}
 												>
 													Remove from Folder
