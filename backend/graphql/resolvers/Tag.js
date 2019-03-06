@@ -1,6 +1,5 @@
 const Tag = require('../../models/Tag');
 const { ValidationError } = require('apollo-server-express');
-const { object_str, action_str } = require('./ResolverHelpers');
 
 const tagResolvers = {
 	Query: {
