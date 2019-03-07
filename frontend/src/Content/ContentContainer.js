@@ -33,6 +33,9 @@ const styles = {
 		fontSize: '12px',
 		backgroundColor: colors.text,
 		color: colors.button
+	},
+	slideContainer: {
+		WebkitOverflowScrolling: 'touch' // iOS momentum scrolling
 	}
 };
 
@@ -40,6 +43,7 @@ const styles = {
 
 const MsgContainer = styled.div`
 	margin: 90px auto;
+	margin-bottom: 0;
 
 	${mediaQueryFor.xsDevice`
 		width: 100%;
@@ -72,7 +76,8 @@ class ContentContainer extends React.Component {
 
 		this.state = {
 			value: 0,
-			isAdmin: false
+			isAdmin: false,
+			showFABMenu: false
 		};
 	}
 
@@ -82,6 +87,16 @@ class ContentContainer extends React.Component {
 
 	handleChangeIndex = index => {
 		this.setState({ value: index });
+	};
+
+	toggleShowFABMenu = () => {
+		this.setState(prevState => ({
+			showFABMenu: !prevState.showFABMenu
+		}));
+	};
+
+	resetShowFABMenu = () => {
+		this.setState({ showFABMenu: false });
 	};
 
 	render() {
@@ -118,6 +133,7 @@ class ContentContainer extends React.Component {
 										textColor="primary"
 										classes={{ indicator: classes.tabsIndicator }}
 										centered
+										onClick={this.resetShowFABMenu}
 									>
 										<StyledTab
 											classes={{ label: classes.label }}
@@ -138,6 +154,7 @@ class ContentContainer extends React.Component {
 								{/* The content that each tab corresponds to. 
 									SwipableViews gives each component the sliding in/out animation */}
 								<SwipeableViews
+									style={styles.slideContainer}
 									axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
 									index={this.state.value}
 									onChangeIndex={this.handleChangeIndex}
@@ -162,6 +179,8 @@ class ContentContainer extends React.Component {
 									value={this.state.value}
 									transitionDuration={transitionDuration}
 									classes={classes}
+									toggleShowFABMenu={this.toggleShowFABMenu}
+									showFABMenu={this.state.showFABMenu}
 								/>
 							</>
 						);
