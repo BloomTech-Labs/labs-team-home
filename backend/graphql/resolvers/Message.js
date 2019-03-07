@@ -117,7 +117,7 @@ const messageResolvers = {
 						try {
 							await new Event({
 								team: item.team._id,
-								user: _id,
+								user: item.user._id,
 								action_string: action_str.subscribed,
 								object_string: object_str.message,
 								event_target_id: item._id
@@ -146,7 +146,7 @@ const messageResolvers = {
 						try {
 							await new Event({
 								team: item.team._id,
-								user: _id,
+								user: item.user._id,
 								action_string: action_str.unsubscribed,
 								object_string: object_str.message,
 								event_target_id: item._id
