@@ -64,13 +64,28 @@ const msgCommentResolvers = {
 		},
 		updateMsgComment: (_, { input }) => {
 			const { id } = input;
-			return MsgComment.findById(id).then(comment => {
+			return MsgComment.findById(id).then(async comment => {
 				if (comment) {
 					return MsgComment.findOneAndUpdate(
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
 					).populate('user message likes');
+					try {
+						await new Event({
+							team: item.message.team._id,
+							user: item.user._id,
+							action_string: action_str.edited,
+							object_string: object_str.msgComment,
+							event_target_id: item.message._id
+						})
+							.save()
+							.then(event => {
+								// console.log('should be a success', event);
+							});
+					} catch (error) {
+						console.error('Could not add event', error);
+					}
 				} else {
 					throw new ValidationError('Comment does not exist');
 				}
@@ -89,11 +104,11 @@ const msgCommentResolvers = {
 					// console.log('the item in question: ', deleted);
 					try {
 						await new Event({
-							team: deleted.message.team,
-							user: deleted.user,
+							team: deleted.message.team._id,
+							user: deleted.user._id,
 							action_string: action_str.deleted,
 							object_string: object_str.msgComment,
-							event_target_id: deleted.message
+							event_target_id: deleted.message._id
 						})
 							.save()
 							.then(event => {
@@ -119,7 +134,7 @@ const msgCommentResolvers = {
 					if (item) {
 						try {
 							await new Event({
-								team: item.message.team,
+								team: item.message.team._id,
 								user: item.user._id,
 								action_string: action_str.liked,
 								object_string: object_str.msgComment,
@@ -148,7 +163,7 @@ const msgCommentResolvers = {
 					if (item) {
 						try {
 							await new Event({
-								team: item.message.team,
+								team: item.message.team._id,
 								user: item.user._id,
 								action_string: action_str.unliked,
 								object_string: object_str.msgComment,

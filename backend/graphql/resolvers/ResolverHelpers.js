@@ -1,4 +1,5 @@
 const action_str = {
+	added: 'added',
 	created: 'created',
 	edited: 'edited',
 	deleted: 'deleted',
@@ -9,7 +10,8 @@ const action_str = {
 	moved: 'moved',
 	subscribed: 'subscribed',
 	unsubscribed: 'unsubscribed',
-	invited: 'invited'
+	invited: 'invited',
+	updated: 'updated'
 };
 const object_str = {
 	message: 'message',

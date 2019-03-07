@@ -30,9 +30,9 @@ const Event = /* GraphQL */ `
 	}
 	extend type Query {
 		events: [Event]
-		findEvent(input: FindEventInput): Event
-		findEventsByTeam(input: FindEventsByTeamInput): [Event]
-		findEventsByUser(input: FindEventsByUserInput): [Event]
+		findEvent(input: FindEventInput!): Event
+		findEventsByTeam(input: FindEventsByTeamInput!): [Event]
+		findEventsByUser(input: FindEventsByUserInput!): [Event]
 	}
 	extend type Mutation {
 		addEvent(input: AddEventInput!): Event

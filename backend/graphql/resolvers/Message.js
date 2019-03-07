@@ -27,7 +27,25 @@ const messageResolvers = {
 				.save()
 				.then(message =>
 					message.populate('user team tag subscribedUsers').execPopulate()
-				),
+				)
+				.then(async message => {
+					try {
+						await new Event({
+							team: message.team._id,
+							user: message.user._id,
+							action_string: action_str.added,
+							object_string: object_str.message,
+							event_target_id: message._id
+						})
+							.save()
+							.then(event => {
+								console.log('should be a success', event);
+							});
+					} catch (error) {
+						console.error('Could not add event', error);
+					}
+				}),
+
 		updateMessage: (_, { input }) => {
 			const { id } = input;
 			return Message.findById(id).then(message => {
@@ -36,7 +54,25 @@ const messageResolvers = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user team tag subscribedUsers');
+					)
+						.populate('user team tag subscribedUsers')
+						.then(async message => {
+							try {
+								await new Event({
+									team: message.team._id,
+									user: message.user._id,
+									action_string: action_str.edited,
+									object_string: object_str.message,
+									event_target_id: message_id
+								})
+									.save()
+									.then(event => {
+										console.log('should be a success', event);
+									});
+							} catch (error) {
+								console.error('Could not add event', error);
+							}
+						});
 				} else {
 					throw new ValidationError("Message doesn't exist");
 				}
@@ -50,10 +86,10 @@ const messageResolvers = {
 					// console.log('the item in question: ', message);
 					try {
 						await new Event({
-							team: message.team,
-							user: message.user,
+							team: message.team._id,
+							user: message.user._id,
 							action_string: action_str.deleted,
-							object_string: object_str.docComment,
+							object_string: object_str.message,
 							event_target_id: null
 						})
 							.save()
@@ -83,7 +119,7 @@ const messageResolvers = {
 								team: item.team._id,
 								user: item.user._id,
 								action_string: action_str.subscribed,
-								object_string: object_str.docComment,
+								object_string: object_str.message,
 								event_target_id: item._id
 							})
 								.save()
@@ -112,7 +148,7 @@ const messageResolvers = {
 								team: item.team._id,
 								user: item.user._id,
 								action_string: action_str.unsubscribed,
-								object_string: object_str.docComment,
+								object_string: object_str.message,
 								event_target_id: item._id
 							})
 								.save()

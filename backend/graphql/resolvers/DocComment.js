@@ -23,60 +23,66 @@ const docCommentResolver = {
 			return new DocComment({ ...input, user: _id })
 				.save()
 				.then(async comment => {
-					const document = await Document.findOneAndUpdate(
+					await Document.findOneAndUpdate(
 						{ _id: input.document },
 						{ $push: { comments: [comment._id] } },
 						{ new: true }
 					)
 						.populate('team subscribedUsers')
-						.then(async DocComment => {
-							// console.log('the item in question:', DocComment);
+						.then(async document => {
+							// console.log('the item in question:', document);
 							try {
 								await new Event({
-									team: DocComment.team._id,
-									user: DocComment.user._id,
+									team: document.team._id,
+									user: document.user._id,
 									action_string: action_str.created,
 									object_string: object_str.docComment,
-									event_target_id: DocComment._id
+									event_target_id: document._id
 								})
 									.save()
 									.then(event => {
-										// console.log('this should work yooo ->', event);
+										// console.log('this is the populated event: ', event);
 									});
 							} catch (error) {
 								console.error('Could not add event', error);
 							}
+
+							return document;
+						})
+						.then(async document => {
+							const emails = document.subscribedUsers
+								.filter(
+									user =>
+										user.toggles.receiveEmails && user.email && user._id !== _id
+								)
+								.map(user => user.email);
+
+							emails.length &&
+								(await sgMail.send({
+									to: emails,
+									from: `${document.team.name.split(' ').join('')}@team.home`,
+									subject: `The message ${
+										document.title
+									} has a new comment from ${firstName} ${lastName} on your team ${
+										document.team.name
+									}`,
+									text: `${content}`,
+									html: /* HTML */ `
+										<h1>${document.team.name}</h1>
+										<div>
+											<h2>Message:</h2>
+											<h3>${document.title}</h3>
+											<p>${document.textContent}</p>
+										</div>
+										<div>
+											<h2>New comment:</h2>
+											<p>${content}</p>
+										</div>
+									`
+								}));
+
+							return comment.populate('user document likes').execPopulate();
 						});
-					const emails = document.subscribedUsers
-						.filter(
-							user =>
-								user.toggles.receiveEmails && user.email && user._id !== _id
-						)
-						.map(user => user.email);
-					emails.length &&
-						(await sgMail.send({
-							to: emails,
-							from: `${document.team.name.split(' ').join('')}@team.home`,
-							subject: `The message ${
-								document.title
-							} has a new comment from ${firstName} ${lastName} on your team ${
-								document.team.name
-							}`,
-							text: `${content}`,
-							html: /* HTML */ `
-								<h1>${document.team.name}</h1>
-								<div>
-									<h2>Message:</h2>
-									<h3>${document.title}</h3>
-									<p>${document.textContent}</p>
-								</div>
-								<div>
-									<h2>New comment:</h2>
-									<p>${content}</p>
-								</div>
-							`
-						}));
-					return comment.populate('user document likes').execPopulate();
 				});
 		},
 		updateDocComment: (_, { input }) => {
@@ -122,8 +128,8 @@ const docCommentResolver = {
 					// console.log(deleted);
 					try {
 						await new Event({
-							team: deleted.document.team,
-							user: deleted.user,
+							team: deleted.document.team._id,
+							user: deleted.user._id,
 							action_string: action_str.deleted,
 							object_string: object_str.docComment,
 							event_target_id: null
@@ -156,7 +162,7 @@ const docCommentResolver = {
 					if (item) {
 						try {
 							await new Event({
-								team: item.document.team,
+								team: item.document.team._id,
 								user: item.user._id,
 								action_string: action_str.liked,
 								object_string: object_str.docComment,
@@ -185,7 +191,7 @@ const docCommentResolver = {
 					if (item) {
 						try {
 							await new Event({
-								team: item.document.team,
+								team: item.document.team._id,
 								user: item.user._id,
 								action_string: action_str.unliked,
 								object_string: object_str.docComment,

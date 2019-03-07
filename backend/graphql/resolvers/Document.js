@@ -37,7 +37,7 @@ const documentResolver = {
 					.populate('user team tag subscribedUsers folder')
 					.execPopulate()
 					.then(async item => {
-						console.log('item before event is called: ', item);
+						// console.log('item before event is called: ', item);
 						if (item) {
 							try {
 								await new Event({
@@ -49,7 +49,7 @@ const documentResolver = {
 								})
 									.save()
 									.then(event => {
-										console.log('Event added', event);
+										// console.log('Event added', event);
 									});
 							} catch (error) {
 								console.error('Could not add event', error);
@@ -101,8 +101,8 @@ const documentResolver = {
 					await DocComment.deleteMany({ document: document._id });
 					try {
 						await new Event({
-							team: document.team,
-							user: document.user,
+							team: document.team._id,
+							user: document.user._id,
 							action_string: action_str.deleted,
 							object_string: object_str.document,
 							event_target_id: null
@@ -135,7 +135,7 @@ const documentResolver = {
 								user: item.user._id,
 								action_string: action_str.subscribed,
 								object_string: object_str.document,
-								event_target_id: null
+								event_target_id: item._id
 							})
 								.save()
 								.then(event => {
@@ -164,7 +164,7 @@ const documentResolver = {
 								user: item.user._id,
 								action_string: action_str.unsubscribed,
 								object_string: object_str.document,
-								event_target_id: null
+								event_target_id: item._id
 							})
 								.save()
 								.then(event => {
