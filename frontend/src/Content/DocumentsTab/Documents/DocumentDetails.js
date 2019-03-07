@@ -6,12 +6,16 @@ import DocumentCommentDetail from './DocumentCommentDetails';
 // ------------- gql Imports ---------------------- //
 import { Query, compose, Mutation } from 'react-apollo';
 import {
-	deleteDocument,
+	// deleteDocument,
 	unsubscribeDoc,
 	subscribeDoc
 } from '../../mutations/documents';
 import * as query from '../../../constants/queries';
-import { UPDATE_DOCUMENT, ADD_DOCCOMMENT } from '../../../constants/mutations';
+import {
+	UPDATE_DOCUMENT,
+	ADD_DOCCOMMENT,
+	DELETE_DOCUMENT
+} from '../../../constants/mutations';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
@@ -363,6 +367,7 @@ class DocumentDetails extends React.Component {
 																	>{`${folder.title}`}</option>
 																));
 															}
+															return <>no folders here</>;
 														}}
 													</Query>
 												</select>
@@ -404,18 +409,50 @@ class DocumentDetails extends React.Component {
 											>
 												Edit
 											</StyledModalButton>
-											<StyledModalButton
-												onClick={e => {
-													e.preventDefault();
-													deleteDocument({
-														id: document._id
-													}).then(() => {
-														hideModal();
-													});
-												}}
-											>
-												Delete
-											</StyledModalButton>
+											<Mutation mutation={DELETE_DOCUMENT}>
+												{deleteDocument => (
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															console.log('FOLDER ID: ', this.props.folder);
+															console.log('TEAM ID:', this.props.team);
+															if (this.props.folder !== undefined) {
+																deleteDocument({
+																	variables: { id: document._id },
+																	refetchQueries: [
+																		{
+																			query: query.FIND_DOCUMENTS_BY_FOLDER,
+																			variables: {
+																				folder: this.props.folder._id
+																			}
+																		},
+																		{
+																			query: query.FIND_DOCUMENTS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		}
+																	]
+																}).then(() => {
+																	hideModal();
+																});
+															} else {
+																deleteDocument({
+																	variables: { id: document._id },
+																	refetchQueries: [
+																		{
+																			query: query.FIND_DOCUMENTS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		}
+																	]
+																}).then(() => {
+																	hideModal();
+																});
+															}
+														}}
+													>
+														Delete
+													</StyledModalButton>
+												)}
+											</Mutation>
 										</>
 									)}
 
@@ -510,7 +547,7 @@ class DocumentDetails extends React.Component {
 }
 
 export default compose(
-	deleteDocument,
+	// deleteDocument,
 	subscribeDoc,
 	unsubscribeDoc
 )(DocumentDetails);
