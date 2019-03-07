@@ -83,7 +83,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
             let team = team else {return}
             destinationVC.apollo = apollo
             destinationVC.team = team
-//            destinationVC.document = document
+            destinationVC.document = document
         }
     }
     
