@@ -22,6 +22,7 @@ import * as query from '../../constants/queries';
 
 // // ------------- Component Imports ---------------------- //
 // import DocumentDetails from '../Documents/DocumentDetails';
+//Needed modals: folderDetails, messageDetails, teamDetails, documentDetails,
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
@@ -39,8 +40,6 @@ import {
 	StyledModalPaper,
 	StyledModalTitle,
 	StyledModalButton,
-	StyledModalForm,
-	StyledModalInput,
 	StyledModalCardAction,
 	StyledModalBody,
 	StyledModalIconButton
@@ -125,7 +124,7 @@ class EventDetails extends React.Component {
 								{event.user.firstName} {event.action_string} a{' '}
 								{event.object_string} on {event.createdAt.toDateString()}
 							</StyledModalBody>
-							<StyledModalCardAction>
+							{/* <StyledModalCardAction>
 								{event.action_string === 'deleted' ? (
 									<StyledModalTitle>
 										{`This ${event.object_string} no longer exists.`}
@@ -135,7 +134,7 @@ class EventDetails extends React.Component {
 										{`View ${event.object_string}`}
 									</StyledModalButton>
 								)}
-							</StyledModalCardAction>
+							</StyledModalCardAction> */}
 						</CardContent>
 					</StyledModalPaper>
 				</StyledModalOverlay>

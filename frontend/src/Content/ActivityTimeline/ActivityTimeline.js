@@ -23,7 +23,7 @@ export default class ActivityTimeline extends React.Component {
 	};
 
 	render() {
-		console.log('currenct props from activity timeline: ', this.props);
+		// console.log('currenct props from activity timeline: ', this.props);
 		return (
 			<div>
 				{/* Queries for all Events, refected every 5000ms (5 seconds)*/}
