@@ -24,7 +24,7 @@ class FoldersTableViewController: UITableViewController {
         if let watcherFolder = watcherFolder {
             watcherFolder.refetch()
         }
-        hideNavigationBar()
+//        hideNavigationBar()
     }
 
     // MARK: - Table view data source
