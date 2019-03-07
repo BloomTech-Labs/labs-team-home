@@ -24,18 +24,21 @@
 
 - [Team Home](#team-home)
   - [Team](#team)
+  - [Team 2](#team-2)
 - [Tech-Stack](#tech-stack)
   - [Front-End Production Dependencies](#front-end-production-dependencies)
     - [React](#react)
     - [Apollo Client](#apollo-client)
     - [Styled Components](#styled-components)
-    - [Material UI](#material-ui)
+    - [Styled Icons](#styled-icons)
+    - [Material-UI](#material-ui)
     - [Stripe](#stripe)
+    - [React Swipeable Views](#react-swipeable-views)
   - [Front-End Development Dependencies](#front-end-development-dependencies)
     - [Husky](#husky)
     - [Prettier](#prettier)
     - [Pretty-Quick](#pretty-quick)
-    - [Stripe](#stripe)
+    - [Stripe](#stripe-1)
   - [Back-End Production Dependencies](#back-end-production-dependencies)
     - [Apollo Server](#apollo-server)
     - [Cors](#cors)
@@ -47,13 +50,14 @@
     - [Lodash](#lodash)
     - [MongoDB](#mongodb)
     - [Mongoose](#mongoose)
-    - [Stripe](#stripe)
     - [Yup](#yup)
+    - [Stripe](#stripe-2)
   - [Back-End Development Dependencies](#back-end-development-dependencies)
     - [Husky](#husky-1)
     - [Prettier](#prettier-1)
     - [Pretty-Quick](#pretty-quick-1)
     - [Nodemon](#nodemon)
+  - [Note on .env files](#note-on-env-files)
 
 # Tech-Stack
 
@@ -72,6 +76,10 @@ Apollo Client is designed to quickly build a UI that works with GraphQL and inte
 
 Styled Components is a popular CSS-in-JS library that provides flexibility and seamless integration with React allowing for customizable themes and styling that responds to props and JS logic.<br/>[Styled Components info](https://www.styled-components.com/docs/)
 
+### Styled Icons
+
+Styled Icons provides icons from various popular free icon packs as easy-to-use Styled Components.<br/>>[Styled Icons info](https://styled-icons.js.org/)
+
 ### Material-UI
 
 Material-UI is an open source library that uses React components which implement Google's Material Design. It makes using and designing components easier for anyone that uses it.<br/>[Material-UI info](https://material-ui.com/)
@@ -79,6 +87,10 @@ Material-UI is an open source library that uses React components which implement
 ### Stripe
 
 The Stripe API is used for payments. It is predictable, resource oriented, and organized around REST.<br/>[Stripe info](https://stripe.com/docs/api)
+
+### React Swipeable Views
+
+Provides Swipeable Views along with animation support.<br/>[React Swipeable Views info](https://react-swipeable-views.com/)
 
 ## Front-End Development Dependencies
 
