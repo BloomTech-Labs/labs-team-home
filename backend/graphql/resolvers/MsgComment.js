@@ -70,22 +70,26 @@ const msgCommentResolvers = {
 						{ _id: id },
 						{ $set: input },
 						{ new: true }
-					).populate('user message likes');
-					try {
-						await new Event({
-							team: item.message.team._id,
-							user: item.user._id,
-							action_string: action_str.edited,
-							object_string: object_str.msgComment,
-							event_target_id: item.message._id
-						})
-							.save()
-							.then(event => {
-								// console.log('should be a success', event);
-							});
-					} catch (error) {
-						console.error('Could not add event', error);
-					}
+					)
+						.populate('user message likes')
+						.then(async item => {
+							// console.log('\n\nItem to be passed: \n\n', item);
+							try {
+								await new Event({
+									team: item.message.team._id,
+									user: item.user._id,
+									action_string: action_str.edited,
+									object_string: object_str.msgComment,
+									event_target_id: item.message._id
+								})
+									.save()
+									.then(event => {
+										// console.log('\n\nshould be a success: \n\n', event);
+									});
+							} catch (error) {
+								console.error('Could not add event', error);
+							}
+						});
 				} else {
 					throw new ValidationError('Comment does not exist');
 				}

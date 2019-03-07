@@ -47,7 +47,6 @@ import {
 	StyledModalNewCommentInput,
 	StyledModalNewCommentForm
 } from '../Modal.styles';
-import { UPDATE_MESSAGE } from '../../constants/mutations';
 
 // ------------- Styled Components --------------------------- //
 
@@ -130,7 +129,7 @@ class MessageDetail extends Component {
 		} = this.props;
 
 		if (message === null) return <> </>;
-		console.log('MessageID: ', message._id);
+		// console.log('MessageID: ', message._id);
 		return (
 			<StyledModal //open the Dialog box this is the part that makes everything else around darker
 				open={this.props.open}
