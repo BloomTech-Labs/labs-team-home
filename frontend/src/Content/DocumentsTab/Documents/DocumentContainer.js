@@ -165,7 +165,7 @@ class DocumentContainer extends React.Component {
 										);
 									});
 							} else {
-								return <Error>No Documents Available For This Team</Error>;
+								return <Error>No documents yet, trying adding some. </Error>;
 							}
 						}}
 					</Query>

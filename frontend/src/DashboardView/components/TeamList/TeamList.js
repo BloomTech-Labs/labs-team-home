@@ -52,28 +52,21 @@ class TeamList extends React.Component {
 			/* NOTE: anything with <style.name> is essentially a styled component */
 			<style.Container>
 				{/* specifies what mutation you want to use */}
-				<Mutation
-					mutation={mutation.ADD_TEAM}
-					update={(cache, { data: { addTeam } }) => {
-						//  data is the result of the mutation. In this case it is addTeam from below
-						const { findTeamsByUser } = cache.readQuery({
-							query: query.FIND_TEAMS_BY_USER
-						});
-						cache.writeQuery({
-							query: query.FIND_TEAMS_BY_USER,
-							data: { findTeamsByUser: [...findTeamsByUser, addTeam] }
-						});
-					}} /* updates the cache after the mutation happens */
-				>
-					{(
-						addTeam // on submit
-					) => (
+				<Mutation mutation={mutation.ADD_TEAM}>
+					{addTeam => (
 						<style.Form className={this.state.classes.root} elevation={1}>
 							<form
 								onSubmit={e => {
 									e.preventDefault();
 									this.state.input.length &&
-										addTeam({ variables: { name: this.state.input } });
+										addTeam({
+											variables: { name: this.state.input },
+											refetchQueries: [
+												{
+													query: query.FIND_TEAMS_BY_USER
+												}
+											]
+										});
 									this.setState({ input: '' });
 								}}
 							>
@@ -98,29 +91,21 @@ class TeamList extends React.Component {
 				<h1>My Teams</h1>
 				<style.TeamsList>
 					<Query query={query.FIND_TEAMS_BY_USER} notifyOnNetworkStatusChange>
-						{({
-							loading,
-							error,
-							data: { findTeamsByUser },
-							refetch,
-							networkStatus
-						}) => {
-							if (networkStatus === 4) return <p> Refetching...</p>;
+						{({ loading, error, data: { findTeamsByUser } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error.</p>;
-
 							// Map over the teams
-							if (findTeamsByUser === undefined || findTeamsByUser === null) {
-								refetch();
-								return <> Refetching... </>;
+							if (findTeamsByUser.length) {
+								return findTeamsByUser.map(team => (
+									<div key={team._id}>
+										<style.LinkStyles to={`/${team._id}/home`}>
+											<TeamCard team={team} />
+										</style.LinkStyles>
+									</div>
+								));
+							} else {
+								return <p> You are not on a team yet. Create one! </p>;
 							}
-							return findTeamsByUser.map(team => (
-								<div key={team._id}>
-									<style.LinkStyles to={`/${team._id}/home`}>
-										<TeamCard team={team} />
-									</style.LinkStyles>
-								</div>
-							));
 						}}
 					</Query>
 				</style.TeamsList>

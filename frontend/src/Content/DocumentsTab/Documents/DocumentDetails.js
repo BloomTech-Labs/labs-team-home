@@ -14,6 +14,8 @@ import * as query from '../../../constants/queries';
 import {
 	UPDATE_DOCUMENT,
 	ADD_DOCCOMMENT,
+	UNSUBSCRIBE_DOC,
+	SUBSCRIBE_DOC,
 	DELETE_DOCUMENT
 } from '../../../constants/mutations';
 
@@ -239,15 +241,7 @@ class DocumentDetails extends React.Component {
 	};
 
 	render() {
-		const {
-			deleteDocument,
-			document,
-			currentUser,
-			hideModal,
-			subscribeDoc,
-			unsubscribeDoc,
-			open
-		} = this.props;
+		const { document, currentUser, hideModal, open } = this.props;
 
 		// console.log('All the props from the document modal: ', this.props);
 
@@ -457,25 +451,39 @@ class DocumentDetails extends React.Component {
 									)}
 
 									{/* Subscribe or unsubscribe button */}
-									<StyledModalButton
-										onClick={e => {
-											e.preventDefault();
-											this.setState(prevState => ({
-												subscribed: !prevState.subscribed
-											}));
-											this.state.subscribed
-												? unsubscribeDoc({
-														id: document._id,
-														user: currentUser._id
-												  })
-												: subscribeDoc({
-														id: document._id,
-														user: currentUser._id
-												  });
-										}}
-									>
-										{this.state.subscribed ? 'Unsubscribe' : 'Subscribe'}
-									</StyledModalButton>
+									<Mutation mutation={UNSUBSCRIBE_DOC}>
+										{unsubscribeDoc => (
+											<Mutation mutation={SUBSCRIBE_DOC}>
+												{subscribeDoc => (
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															this.setState(prevState => ({
+																subscribed: !prevState.subscribed
+															}));
+															this.state.subscribed
+																? unsubscribeDoc({
+																		variables: {
+																			id: document._id,
+																			user: currentUser._id
+																		}
+																  })
+																: subscribeDoc({
+																		variables: {
+																			id: document._id,
+																			user: currentUser._id
+																		}
+																  });
+														}}
+													>
+														{this.state.subscribed
+															? 'Unsubscribe'
+															: 'Subscribe'}
+													</StyledModalButton>
+												)}
+											</Mutation>
+										)}
+									</Mutation>
 								</StyledModalCardAction>
 							</CardContent>
 						)}

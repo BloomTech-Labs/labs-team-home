@@ -16,6 +16,13 @@ query FindDocumentsByTeam($teamID: ID!){
         }
         title
         textContent
+        tag {
+            _id
+            name
+            team{
+                _id
+            }
+        }
         images
         comments
         subscribedUsers{

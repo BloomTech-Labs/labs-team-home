@@ -108,7 +108,7 @@ const documentResolver = {
 						})
 							.save()
 							.then(event => {
-								console.log('should be a success', event);
+								// console.log('should be a success', event);
 							});
 					} catch (error) {
 						console.error('Could not add event', error);
@@ -126,19 +126,19 @@ const documentResolver = {
 			)
 				.populate('user team folder tag subscribedUsers')
 				.then(async item => {
-					// console.log(item);
+					// console.log('\n\nthe item to be passed: \n\n', item);
 					if (item) {
 						try {
 							await new Event({
 								team: item.team._id,
-								user: item.user._id,
+								user: _id,
 								action_string: action_str.subscribed,
 								object_string: object_str.document,
 								event_target_id: item._id
 							})
 								.save()
 								.then(event => {
-									// console.log('Event added', event);
+									// console.log('\n\nEvent added: \n\n', event);
 								});
 						} catch (error) {
 							console.error('Could not add event', error);
@@ -160,7 +160,7 @@ const documentResolver = {
 						try {
 							await new Event({
 								team: item.team._id,
-								user: item.user._id,
+								user: _id,
 								action_string: action_str.unsubscribed,
 								object_string: object_str.document,
 								event_target_id: item._id
