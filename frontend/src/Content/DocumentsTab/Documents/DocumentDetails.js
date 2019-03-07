@@ -375,7 +375,6 @@ class DocumentDetails extends React.Component {
 									<span>Notes:</span>
 									{document.textContent}
 								</DocumentContent>
-
 								<StyledModalCardAction>
 									{document.user._id === currentUser._id && (
 										<>

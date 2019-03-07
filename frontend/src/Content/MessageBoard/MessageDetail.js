@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // ------------- gql imports ---------------------- //
-import { Query, compose } from 'react-apollo';
+import { Query, compose, Mutation } from 'react-apollo';
 import {
 	addComment,
 	updateComment,
@@ -45,6 +45,7 @@ import {
 	StyledModalNewCommentInput,
 	StyledModalNewCommentForm
 } from '../Modal.styles';
+import { UPDATE_MESSAGE } from '../../constants/mutations';
 
 // ------------- Styled Components --------------------------- //
 
