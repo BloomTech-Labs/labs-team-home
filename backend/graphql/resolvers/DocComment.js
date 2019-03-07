@@ -122,8 +122,8 @@ const docCommentResolver = {
 					// console.log(deleted);
 					try {
 						await new Event({
-							team: deleted.document.team,
-							user: deleted.user,
+							team: deleted.document.team._id,
+							user: deleted.user._id,
 							action_string: action_str.deleted,
 							object_string: object_str.docComment,
 							event_target_id: null
@@ -156,7 +156,7 @@ const docCommentResolver = {
 					if (item) {
 						try {
 							await new Event({
-								team: item.document.team,
+								team: item.document.team._id,
 								user: item.user._id,
 								action_string: action_str.liked,
 								object_string: object_str.docComment,
@@ -185,7 +185,7 @@ const docCommentResolver = {
 					if (item) {
 						try {
 							await new Event({
-								team: item.document.team,
+								team: item.document.team._id,
 								user: item.user._id,
 								action_string: action_str.unliked,
 								object_string: object_str.docComment,
