@@ -125,6 +125,7 @@ const FormDiv = styled.div`
 
 const SortForm = styled.form`
 	height: 50px;
+	margin: 0 auto;
 	margin-top: 15px;
 	label {
 		color: white;
