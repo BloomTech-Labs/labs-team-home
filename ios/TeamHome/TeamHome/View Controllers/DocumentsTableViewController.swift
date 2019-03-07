@@ -38,7 +38,11 @@ class DocumentsTableViewController: UITableViewController {
             let document = documents?[indexPath.row] else {return UITableViewCell()}
         cell.backgroundColor = .clear
         cell.textLabel?.text = document.title
-        cell.detailTextLabel?.text = document.docUrl
+        if let tag = document.tag {
+            cell.detailTextLabel?.text = "#\(tag.name)"
+        } else {
+            cell.detailTextLabel?.text = ""
+        }
         return cell
         
     }
