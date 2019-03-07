@@ -3,8 +3,6 @@ import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
-import { compose } from 'react-apollo';
-// import { updateDocument } from '../../mutations/documents';
 import styled from 'styled-components';
 import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
@@ -68,16 +66,25 @@ function collect(connect, monitor) {
 }
 
 class DocumentContainer extends React.Component {
-	updateDrop = (id, folderid, updateDocument) => {
+	updateDrop = (docu, folderid, updateDocument) => {
 		if (folderid === undefined) {
 			console.log(
 				'dropped in staging area from staging area; Nothing will happen'
 			);
 		} else {
-			console.log('DocContainer update');
-			console.log('ID: ', id);
-			console.log('folderID: ', folderid);
-			updateDocument({ id: id._id, folder: folderid._id });
+			updateDocument({
+				variables: { id: docu._id, folder: folderid._id },
+				refetchQueries: [
+					{
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: this.props.team }
+					},
+					{
+						query: query.FIND_DOCUMENTS_BY_FOLDER,
+						variables: { folder: folderid._id }
+					}
+				]
+			});
 		}
 		// console.log('Document Update');
 	};
