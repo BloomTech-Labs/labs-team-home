@@ -143,6 +143,13 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
             self.isSubscribed = true
         }
     }
+    private func updateSubscribeButton(){
+        let subscribeText = isSubscribed
+            ? "Unsubscribe"
+            : "Subscribe"
+        
+        subscribeButton.setTitle(subscribeText, for: .normal)
+    }
     private func updateViews() {
         guard let document = document,
             let dateString = document.createdAt,
@@ -232,7 +239,11 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     
     //MARK: - Properties
     
-    private var isSubscribed: Bool = false
+    private var isSubscribed: Bool = false {
+        didSet{
+            updateSubscribeButton()
+        }
+    }
     var documentID: GraphQLID?
     var document: FindDocumentInputQuery.Data.FindDocument? {
         didSet {
