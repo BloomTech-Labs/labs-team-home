@@ -296,6 +296,7 @@ class FolderDetails extends React.Component {
 					document={this.state.currentDocument}
 					currentUser={currentUser}
 					team={this.props.team}
+					folder={this.props.folder}
 				/>
 			</StyledModal>
 		);
@@ -304,5 +305,6 @@ class FolderDetails extends React.Component {
 
 export default compose(
 	deleteFolder,
+
 	updateDocument
 )(FolderDetails);
