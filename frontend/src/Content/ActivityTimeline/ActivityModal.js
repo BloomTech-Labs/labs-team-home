@@ -124,7 +124,7 @@ class EventDetails extends React.Component {
 								{event.user.firstName} {event.action_string} a{' '}
 								{event.object_string} on {event.createdAt.toDateString()}
 							</StyledModalBody>
-							{/* <StyledModalCardAction>
+							<StyledModalCardAction>
 								{event.action_string === 'deleted' ? (
 									<StyledModalTitle>
 										{`This ${event.object_string} no longer exists.`}
@@ -134,7 +134,7 @@ class EventDetails extends React.Component {
 										{`View ${event.object_string}`}
 									</StyledModalButton>
 								)}
-							</StyledModalCardAction> */}
+							</StyledModalCardAction>
 						</CardContent>
 					</StyledModalPaper>
 				</StyledModalOverlay>
