@@ -65,8 +65,9 @@ class DocumentsTableViewController: UITableViewController {
         if segue.identifier == "ViewDocumentDetails"{
             guard let destinationVC = segue.destination as? DocumentDetailViewController,
             let indexPath = tableView.indexPathForSelectedRow,
-            let documents = documents else {return}
-            destinationVC.document = documents[indexPath.row]
+            let documents = documents,
+            let document = documents[indexPath.row] else {return}
+            destinationVC.documentID = document.id
             destinationVC.apollo = apollo
             destinationVC.team = team
             destinationVC.currentUser = currentUser
