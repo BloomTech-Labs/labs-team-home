@@ -52,7 +52,7 @@ const folderResolver = {
 					)
 						.populate('user team')
 						.then(async folder => {
-							console.log('the item in question:', folder);
+							// console.log('the item in question:', folder);
 
 							try {
 								await new Event({
@@ -64,7 +64,7 @@ const folderResolver = {
 								})
 									.save()
 									.then(event => {
-										console.log('this should work yooo ->', event);
+										// console.log('this should work yooo ->', event);
 									});
 							} catch (error) {
 								console.error('Could not add event', error);

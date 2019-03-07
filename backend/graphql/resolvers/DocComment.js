@@ -30,7 +30,7 @@ const docCommentResolver = {
 					)
 						.populate('team subscribedUsers')
 						.then(async DocComment => {
-							// console.log('the item in question:', DocComment);
+							console.log('the item in question:', DocComment);
 							try {
 								await new Event({
 									team: DocComment.team._id,
@@ -41,7 +41,7 @@ const docCommentResolver = {
 								})
 									.save()
 									.then(event => {
-										// console.log('this should work yooo ->', event);
+										console.log('this is the populated event: ', event);
 									});
 							} catch (error) {
 								console.error('Could not add event', error);
