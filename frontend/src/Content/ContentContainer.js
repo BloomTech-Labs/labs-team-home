@@ -169,7 +169,7 @@ class ContentContainer extends React.Component {
 										<ActivityTimeline {...this.props} team={findTeam} />
 									</div>
 									<div dir={theme.direction}>
-										<DocumentsTab {...this.props} team={findTeam} currentTab />
+										<DocumentsTab {...this.props} team={findTeam} />
 									</div>
 								</SwipeableViews>
 								{/* All the FAB buttons are located below */}

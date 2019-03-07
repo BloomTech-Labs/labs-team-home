@@ -106,6 +106,13 @@ const ArrowDiv = styled.button`
 	height: 150px;
 	display: flex;
 	align-items: center;
+	background: none;
+	border: 0;
+	color: inherit;
+
+	:focus {
+		outline: none;
+	}
 
 	&:hover {
 		background-color: #392d40;
@@ -126,6 +133,7 @@ const FormDiv = styled.div`
 
 const SortForm = styled.form`
 	height: 50px;
+	margin: 0 auto;
 	margin-top: 15px;
 	label {
 		color: white;

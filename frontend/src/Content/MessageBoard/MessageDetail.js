@@ -29,6 +29,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 
 import { colors } from '../../colorVariables';
+import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 // import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 // ------------- Modal styling imports ---------------------- //
@@ -71,6 +72,28 @@ const MessageContent = styled(CardContent)`
 `;
 const Image = styled.img`
 	margin-top: 10px;
+`;
+
+const ArrowDiv = styled.button`
+	height: 150px;
+	display: flex;
+	align-items: center;
+	background: none;
+	border: 0;
+	color: inherit;
+
+	:focus {
+		outline: none;
+	}
+
+	&:hover {
+		background-color: #392d40;
+		transition: 0.3s all ease-in-out;
+	}
+`;
+
+const Arrow = styled(KeyboardArrowRight)`
+	height: 25px;
 `;
 
 class MessageDetail extends Component {
@@ -419,9 +442,9 @@ class MessageDetail extends Component {
 											onChange={this.handleChange}
 											placeholder="Leave a comment..."
 										/>
-										<IconButton type="submit">
-											<SendIcon style={{ color: colors.text }} />
-										</IconButton>
+										<ArrowDiv type="submit">
+											<Arrow />
+										</ArrowDiv>
 									</StyledModalNewCommentForm>
 								</>
 							);

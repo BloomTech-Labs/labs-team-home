@@ -21,7 +21,7 @@ import 'filepond/dist/filepond.min.css';
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 
 // ------------- Style Imports ---------------------- //
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 
 // ------------- Modal styling imports ---------------------- //
@@ -47,6 +47,12 @@ const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 const apiKey = process.env.REACT_APP_API_KEY;
 const apiSecret = process.env.REACT_APP_API_SECRET;
 const cloudName = process.env.REACT_APP_CLOUD_NAME;
+
+const StyledForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
 
 class AddMessage extends React.Component {
 	constructor(props) {
@@ -94,7 +100,7 @@ class AddMessage extends React.Component {
 							return (
 								<Mutation mutation={ADD_MESSAGE}>
 									{addMessage => (
-										<form
+										<StyledForm
 											onSubmit={e => {
 												e.preventDefault();
 												//create newMessage object using the variables created in advance
@@ -260,7 +266,7 @@ class AddMessage extends React.Component {
 											<StyledModalButton type="submit" fullWidth>
 												Save
 											</StyledModalButton>
-										</form>
+										</StyledForm>
 									)}
 								</Mutation>
 							);
