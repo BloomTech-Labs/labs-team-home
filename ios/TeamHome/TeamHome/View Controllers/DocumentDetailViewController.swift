@@ -63,6 +63,9 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         }
         commentTextView.text = ""
     }
+    @IBAction func clickedSubscribe(_ sender: Any) {
+        isSubscribed ? unsubscribeFromDocument() : subscribeToDocument()
+    }
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -116,7 +119,12 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         commentTextView.backgroundColor = UIColor.white
         commentTextView.layer.cornerRadius = 4.0
     }
-    
+    private func unsubscribeFromDocument(){
+        
+    }
+    private func subscribeToDocument(){
+        
+    }
     private func updateViews() {
         guard let document = document,
             let dateString = document.createdAt,

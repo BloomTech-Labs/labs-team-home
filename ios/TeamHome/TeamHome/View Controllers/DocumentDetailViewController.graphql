@@ -9,6 +9,8 @@ mutation AddDocumentComment($document: String!, $comment: String!){
     }
 }
 
+
+
 query FindDocumentInput($docID: ID!){
     findDocument(input: {
                  id:$docID
@@ -27,6 +29,10 @@ query FindDocumentInput($docID: ID!){
         }
         title
         textContent
+        tag{
+            _id
+            name
+        }
         images
         comments
         subscribedUsers{
