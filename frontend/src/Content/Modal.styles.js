@@ -132,11 +132,16 @@ export const StyledModalInput = styled(TextField).attrs(() => ({
 	fullWidth: true,
 	variant: 'outlined'
 }))`
-	background: ${palette.plum};
+	background: rgb(143, 136, 150, 0.75);
+	border-radius: 5px;
 	input,
 	textarea,
 	label {
 		color: ${colors.text};
+
+		&::placeholder {
+			color: ${colors.text};
+		}
 	}
 	&:nth-child(2) {
 		margin: 10px 0;
