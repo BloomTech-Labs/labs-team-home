@@ -14,6 +14,9 @@ const IndividualDocument = styled.div`
 	display: ${props => (props.noFolder ? 'block' : 'flex')};
 	align-items: ${props => (props.noFolder ? 'center' : 'start')};
 	cursor: pointer;
+	white-space: ${props => (props.noFolder ? 'normal' : 'nowrap')};
+	overflow: ${props => (props.noFolder ? 'auto' : 'hidden')};
+	text-overflow: ellipsis;
 `;
 
 const Arrow = styled(KeyboardArrowRight)`
