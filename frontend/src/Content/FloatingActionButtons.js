@@ -150,25 +150,25 @@ class FloatingActionButton extends React.Component {
 				</Zoom>
 				{/* Modals */}
 				<AddMessage
-					open={this.state.showAddMessageModal}
 					hideModal={this.toggleAddMessageHandler}
 					stopProp={e => e.stopPropagation()}
+					open={this.state.showAddMessageModal}
 					team={this.props.team._id}
 					user={this.props.currentUser._id}
 				/>
 				<AddFolder
 					hideModal={this.toggleAddFolderHandler}
 					stopProp={e => e.stopPropagation()}
+					open={this.state.showAddFolderModal}
 					team={this.props.team._id}
 					user={this.props.currentUser._id}
-					open={this.state.showAddFolderModal}
 				/>
 				<AddDocument
 					hideModal={this.toggleAddDocHandler}
 					stopProp={e => e.stopPropagation()}
+					open={this.state.showAddDocModal}
 					team={this.props.team._id}
 					user={this.props.currentUser._id}
-					open={this.state.showAddDocModal}
 				/>
 			</>
 		);

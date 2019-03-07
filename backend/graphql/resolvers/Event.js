@@ -22,10 +22,9 @@ const eventResolver = {
 	},
 
 	Mutation: {
-		addEvent: (_, { input }) => {
-			new Event({ ...input }).save().then(event => {
-				event.populate('team user').execPopulate();
-			});
+		addEvent: async (_, { input }) => {
+			const event = await new Event(input).save();
+			return event;
 		},
 		deleteEvent: (_, { input: { id } }) =>
 			Event.findById(id).then(async event => {

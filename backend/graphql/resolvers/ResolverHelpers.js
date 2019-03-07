@@ -8,8 +8,8 @@ const action_str = {
 	joined: 'joined',
 	left: 'left',
 	moved: 'moved',
-	subscribed: 'subscribed',
-	unsubscribed: 'unsubscribed',
+	subscribed: 'subscribed to',
+	unsubscribed: 'unsubscribed from',
 	invited: 'invited',
 	updated: 'updated'
 };
