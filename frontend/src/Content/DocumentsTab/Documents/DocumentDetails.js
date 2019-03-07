@@ -4,16 +4,13 @@ import React from 'react';
 import DocumentCommentDetail from './DocumentCommentDetails';
 
 // ------------- gql Imports ---------------------- //
-import { Query, compose, Mutation } from 'react-apollo';
-import {
-	// deleteDocument,
-	unsubscribeDoc,
-	subscribeDoc
-} from '../../mutations/documents';
+import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
 import {
 	UPDATE_DOCUMENT,
 	ADD_DOCCOMMENT,
+	UNSUBSCRIBE_DOC,
+	SUBSCRIBE_DOC,
 	DELETE_DOCUMENT
 } from '../../../constants/mutations';
 
@@ -239,15 +236,7 @@ class DocumentDetails extends React.Component {
 	};
 
 	render() {
-		const {
-			deleteDocument,
-			document,
-			currentUser,
-			hideModal,
-			subscribeDoc,
-			unsubscribeDoc,
-			open
-		} = this.props;
+		const { document, currentUser, hideModal, open } = this.props;
 
 		// console.log('All the props from the document modal: ', this.props);
 
@@ -386,7 +375,6 @@ class DocumentDetails extends React.Component {
 									<span>Notes:</span>
 									{document.textContent}
 								</DocumentContent>
-
 								<StyledModalCardAction>
 									{document.user._id === currentUser._id && (
 										<>
@@ -414,39 +402,17 @@ class DocumentDetails extends React.Component {
 													<StyledModalButton
 														onClick={e => {
 															e.preventDefault();
-															console.log('FOLDER ID: ', this.props.folder);
-															console.log('TEAM ID:', this.props.team);
-															if (this.props.folder !== undefined) {
-																deleteDocument({
-																	variables: { id: document._id },
-																	refetchQueries: [
-																		{
-																			query: query.FIND_DOCUMENTS_BY_FOLDER,
-																			variables: {
-																				folder: this.props.folder._id
-																			}
-																		},
-																		{
-																			query: query.FIND_DOCUMENTS_BY_TEAM,
-																			variables: { team: this.props.team }
-																		}
-																	]
-																}).then(() => {
-																	hideModal();
-																});
-															} else {
-																deleteDocument({
-																	variables: { id: document._id },
-																	refetchQueries: [
-																		{
-																			query: query.FIND_DOCUMENTS_BY_TEAM,
-																			variables: { team: this.props.team }
-																		}
-																	]
-																}).then(() => {
-																	hideModal();
-																});
-															}
+															deleteDocument({
+																variables: { id: document._id },
+																refetchQueries: [
+																	{
+																		query: query.FIND_DOCUMENTS_BY_TEAM,
+																		variables: { team: this.props.team }
+																	}
+																]
+															}).then(() => {
+																hideModal();
+															});
 														}}
 													>
 														Delete
@@ -457,25 +423,39 @@ class DocumentDetails extends React.Component {
 									)}
 
 									{/* Subscribe or unsubscribe button */}
-									<StyledModalButton
-										onClick={e => {
-											e.preventDefault();
-											this.setState(prevState => ({
-												subscribed: !prevState.subscribed
-											}));
-											this.state.subscribed
-												? unsubscribeDoc({
-														id: document._id,
-														user: currentUser._id
-												  })
-												: subscribeDoc({
-														id: document._id,
-														user: currentUser._id
-												  });
-										}}
-									>
-										{this.state.subscribed ? 'Unsubscribe' : 'Subscribe'}
-									</StyledModalButton>
+									<Mutation mutation={UNSUBSCRIBE_DOC}>
+										{unsubscribeDoc => (
+											<Mutation mutation={SUBSCRIBE_DOC}>
+												{subscribeDoc => (
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															this.setState(prevState => ({
+																subscribed: !prevState.subscribed
+															}));
+															this.state.subscribed
+																? unsubscribeDoc({
+																		variables: {
+																			id: document._id,
+																			user: currentUser._id
+																		}
+																  })
+																: subscribeDoc({
+																		variables: {
+																			id: document._id,
+																			user: currentUser._id
+																		}
+																  });
+														}}
+													>
+														{this.state.subscribed
+															? 'Unsubscribe'
+															: 'Subscribe'}
+													</StyledModalButton>
+												)}
+											</Mutation>
+										)}
+									</Mutation>
 								</StyledModalCardAction>
 							</CardContent>
 						)}
@@ -546,8 +526,4 @@ class DocumentDetails extends React.Component {
 	}
 }
 
-export default compose(
-	// deleteDocument,
-	subscribeDoc,
-	unsubscribeDoc
-)(DocumentDetails);
+export default DocumentDetails;
