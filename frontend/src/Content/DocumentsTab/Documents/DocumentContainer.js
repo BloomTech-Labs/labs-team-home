@@ -66,14 +66,14 @@ function collect(connect, monitor) {
 }
 
 class DocumentContainer extends React.Component {
-	updateDrop = (docu, folderid, updateDocument) => {
+	updateDrop = (documentId, folderId, updateDocument) => {
 		if (folderid === undefined) {
 			console.log(
 				'dropped in staging area from staging area; Nothing will happen'
 			);
 		} else {
 			updateDocument({
-				variables: { id: docu._id, folder: folderid._id },
+				variables: { id: documentId._id, folder: folderId._id },
 				refetchQueries: [
 					{
 						query: query.FIND_DOCUMENTS_BY_TEAM,
@@ -81,7 +81,7 @@ class DocumentContainer extends React.Component {
 					},
 					{
 						query: query.FIND_DOCUMENTS_BY_FOLDER,
-						variables: { folder: folderid._id }
+						variables: { folder: folderId._id }
 					}
 				]
 			});
