@@ -13,7 +13,7 @@ import Photos
 import Material
 import Motion
 
-typealias Document = FindDocumentsByTeamQuery.Data.FindDocumentsByTeam
+typealias Document = FindDocumentInputQuery.Data.FindDocument // FindDocumentsByTeamQuery.Data.FindDocumentsByTeam
 
 class AddEditDocumentViewController: UIViewController {
     

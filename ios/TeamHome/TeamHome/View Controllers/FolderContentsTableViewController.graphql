@@ -1,18 +1,7 @@
-mutation AddDocumentComment($document: String!, $comment: String!){
-    addDocComment(input: {
-        document:$document
-        content: $comment
-        
-    }) {
-        _id
-        content
-    }
-}
-
-query FindDocumentInput($docID: ID!){
-    findDocument(input: {
-                 id:$docID
-                 }) {
+query FindDocumentsByFolder($folderID: ID!){
+    findDocumentsByFolder(input: {
+        folder: $folderID
+    }){
         _id
         doc_url
         user{

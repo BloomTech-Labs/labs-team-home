@@ -15,6 +15,8 @@ import Toucan
 import Material
 import Photos
 
+var watcherDocument: GraphQLQueryWatcher<FindDocumentInputQuery>?
+
 class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     
     override func viewDidLoad() {
@@ -28,13 +30,20 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         
         setUpCommentTextView()
         
-        self.updateViews()
-        
         guard let apollo = apollo else { return }
+        self.loadDocument(with: apollo)
         
+        self.updateViews()
         //  TODO:      loadMessageDetails(with: apollo)
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let watcherDocument = watcherDocument {
+            watcherDocument.refetch()
+        }
     }
     //MARK: - IBActions
     @IBAction func backButton(_ sender: Any) {
@@ -79,6 +88,23 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     }
     
     //MARK: - Private Function
+    
+    private func loadDocument(with apollo: ApolloClient) {
+        
+        guard let documentID = documentID else { return }
+        
+        // Fetch messages using document id from previous VC
+        watcherDocument = apollo.watch(query: FindDocumentInputQuery(docID: documentID)) { (result, error) in
+            if let error = error {
+                NSLog("Error loading Documents\(error)")
+            }
+            
+            guard let result = result,
+                let document = result.data?.findDocument else { return }
+            
+            self.document = document
+        }
+    }
     private func setUpCommentTextView() {
         self.commentTextView.delegate = self
         commentTextView.maxLength = 140
@@ -176,7 +202,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     //MARK: - Properties
     
     private var isSubscribed: Bool = false
-    var document: FindDocumentsByTeamQuery.Data.FindDocumentsByTeam? {
+    var documentID: GraphQLID?
+    var document: FindDocumentInputQuery.Data.FindDocument? {
         didSet {
             DispatchQueue.main.async {
                 if self.isViewLoaded {

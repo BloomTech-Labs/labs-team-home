@@ -126,9 +126,10 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             destinationVC.currentUser = currentUser
         }
         if segue.identifier == "EmbeddedFolders"{
-            let destinationVC = segue.destination as! FoldersTableViewController
-            destinationVC.apollo = apollo
-            destinationVC.team = team
+            let destinationVC = segue.destination as! UINavigationController
+            let childVC = destinationVC.viewControllers[0] as! FoldersTableViewController
+            childVC.apollo = apollo
+            childVC.team = team
         }
     }
     
