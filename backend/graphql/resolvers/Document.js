@@ -57,8 +57,10 @@ const documentResolver = {
 						}
 					})
 			),
-		updateDocument: (_, { input }) => {
+		updateDocument: (_, { input }, { user }) => {
 			const { id } = input;
+			console.log(user);
+
 			return Document.findById(id).then(document => {
 				if (document) {
 					return Document.findOneAndUpdate(
@@ -74,7 +76,7 @@ const documentResolver = {
 								try {
 									await new Event({
 										team: item.team._id,
-										user: item.user._id,
+										user: user._id,
 										action_string: action_str.edited,
 										object_string: object_str.document,
 										event_target_id: item._id
