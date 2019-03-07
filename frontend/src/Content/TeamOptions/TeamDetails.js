@@ -194,7 +194,7 @@ class TeamDetails extends React.Component {
 									<StyledModalCardAction>
 										<Mutation mutation={mutation.DELETE_TEAM}>
 											{deleteTeam => (
-												<Button
+												<StyledModalButton
 													color="secondary"
 													onClick={e => {
 														e.preventDefault();
@@ -209,7 +209,7 @@ class TeamDetails extends React.Component {
 													}}
 												>
 													Delete Team
-												</Button>
+												</StyledModalButton>
 											)}
 										</Mutation>
 										<StyledModalButton
@@ -385,23 +385,23 @@ class TeamDetails extends React.Component {
 												) : user.user._id === currentUser._id ? (
 													<Mutation
 														mutation={mutation.LEAVE_TEAM}
-														update={(cache, { data: { leaveTeam } }) => {
-															cache.writeQuery({
-																query: query.FIND_TEAM,
-																variables: { id: team },
-																data: {
-																	findTeam: leaveTeam
-																}
-															});
-
-															cache.writeQuery({
-																query: query.FIND_TEAMS_BY_USER,
-																variables: { id: team },
-																data: {
-																	findTeamsByUser: leaveTeam
-																}
-															});
-														}}
+														// update={(cache, { data: { leaveTeam } }) => {
+														// 	cache.writeQuery({
+														// 		query: query.FIND_TEAM,
+														// 		variables: { id: team },
+														// 		data: {
+														// 			findTeam: leaveTeam
+														// 		}
+														// 	});
+														// 	//Cache is BROKE not WOKE
+														// 	cache.writeQuery({
+														// 		query: query.FIND_TEAMS_BY_USER,
+														// 		variables: { id: team },
+														// 		data: {
+														// 			findTeamsByUser: leaveTeam
+														// 		}
+														// 	});
+														// }}
 													>
 														{leaveTeam => (
 															<Button
@@ -412,7 +412,12 @@ class TeamDetails extends React.Component {
 																		variables: {
 																			id: team._id,
 																			user: currentUser
-																		}
+																		},
+																		refetchQueries: [
+																			{
+																				query: query.FIND_TEAMS_BY_USER
+																			}
+																		]
 																	});
 																	this.props.history.push('/dashboard');
 																}}
