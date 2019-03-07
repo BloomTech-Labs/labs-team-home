@@ -25,7 +25,7 @@ const styles = {
 		justifyContent: 'flex-end'
 	},
 	bigAvatar: {
-		margin: 10,
+		margin: 5,
 		width: 60,
 		height: 60
 	}
