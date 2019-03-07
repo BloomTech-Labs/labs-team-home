@@ -106,6 +106,13 @@ const ArrowDiv = styled.button`
 	height: 150px;
 	display: flex;
 	align-items: center;
+	background: none;
+	border: 0;
+	color: inherit;
+
+	:focus {
+		outline: none;
+	}
 
 	&:hover {
 		background-color: #392d40;
