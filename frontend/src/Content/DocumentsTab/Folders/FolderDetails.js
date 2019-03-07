@@ -1,10 +1,11 @@
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
-import { compose, Query } from 'react-apollo';
+import { compose, Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
-import { deleteFolder, updateFolder } from '../../mutations/folders';
+import { deleteFolder } from '../../mutations/folders';
 import { updateDocument } from '../../mutations/documents';
+import { UPDATE_DOCUMENT, UPDATE_FOLDER } from '../../../constants/mutations';
 
 // ------------- Component Imports ---------------------- //
 import DocumentDetails from '../Documents/DocumentDetails';
@@ -12,7 +13,6 @@ import DocumentDetails from '../Documents/DocumentDetails';
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
@@ -28,7 +28,8 @@ import {
 	StyledModalButton,
 	StyledModalForm,
 	StyledModalInput,
-	StyledModalIconButton
+	StyledModalIconButton,
+	StyledModalCardAction
 } from '../../Modal.styles';
 
 // ---------------- Styled Components ---------------------- //
@@ -81,15 +82,7 @@ class FolderDetails extends React.Component {
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	render() {
-		const {
-			deleteFolder,
-			updateFolder,
-			folder,
-			hideModal,
-			updateDocument,
-			currentUser,
-			open
-		} = this.props;
+		const { deleteFolder, folder, hideModal, currentUser, open } = this.props;
 
 		if (folder === null) return <></>;
 		return (
@@ -123,39 +116,44 @@ class FolderDetails extends React.Component {
 								<>
 									{this.state.editingFolder ? (
 										<CardContent>
-											<StyledModalForm
-												onSubmit={e => {
-													e.preventDefault();
-													folder.title = this.state.title;
-													updateFolder({
-														id: folder._id,
-														title: this.state.title
-													}).then(() => this.resetState());
-												}}
-											>
-												<StyledModalInput
-													name="title"
-													value={this.state.title}
-													onChange={this.handleChange}
-												/>
-												<StyledModalButton type="submit">
-													Save
-												</StyledModalButton>
-											</StyledModalForm>
+											<Mutation mutation={UPDATE_FOLDER}>
+												{updateFolder => (
+													<StyledModalForm
+														onSubmit={e => {
+															e.preventDefault();
+															folder.title = this.state.title;
+															updateFolder({
+																variables: {
+																	id: folder._id,
+																	title: this.state.title
+																},
+																refetchQueries: [
+																	{
+																		query: query.FIND_FOLDERS_BY_TEAM,
+																		variables: { team: this.props.team }
+																	}
+																]
+															}).then(() => this.resetState());
+														}}
+													>
+														<StyledModalInput
+															name="title"
+															value={this.state.title}
+															onChange={this.handleChange}
+														/>
+														<StyledModalButton type="submit">
+															Save
+														</StyledModalButton>
+													</StyledModalForm>
+												)}
+											</Mutation>
 										</CardContent>
 									) : (
 										<>
 											<ModalTitle>{folder.title}</ModalTitle>
 
 											{/* Load all the images attached to the message */}
-											<CardActions
-												style={{
-													width: '100%',
-													display: 'flex',
-													flexFlow: 'row',
-													justifyContent: 'space-around'
-												}}
-											>
+											<StyledModalCardAction>
 												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
@@ -167,27 +165,39 @@ class FolderDetails extends React.Component {
 												>
 													Edit
 												</StyledModalButton>
-												<StyledModalButton
-													onClick={e => {
-														e.preventDefault();
-														findDocumentsByFolder.map(document =>
-															updateDocument({
-																id: document._id,
-																folder: null
-															})
-														);
-														deleteFolder({
-															id: this.props.folder._id
-														}).then(() => {
-															this.props.hideModal();
-														});
-													}}
-												>
-													Delete
-												</StyledModalButton>
+												<Mutation mutation={UPDATE_DOCUMENT}>
+													{updateDocument => (
+														<StyledModalButton
+															onClick={e => {
+																e.preventDefault();
+																findDocumentsByFolder.map(document =>
+																	updateDocument({
+																		variables: {
+																			id: document._id,
+																			folder: null
+																		},
+																		refetchQueries: [
+																			{
+																				query: query.FIND_DOCUMENTS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			}
+																		]
+																	})
+																);
+																deleteFolder({
+																	id: this.props.folder._id
+																}).then(() => {
+																	this.props.hideModal();
+																});
+															}}
+														>
+															Delete
+														</StyledModalButton>
+													)}
+												</Mutation>
 
 												{/* Subscription for the document stuff goes here */}
-											</CardActions>
+											</StyledModalCardAction>
 										</>
 									)}
 
@@ -222,17 +232,34 @@ class FolderDetails extends React.Component {
 
 											{/* Check to see if the comment is the users and thus can be edited or deleted */}
 											<CardContent>
-												<StyledModalButton
-													onClick={e => {
-														e.preventDefault();
-														updateDocument({
-															id: document._id,
-															folder: null
-														});
-													}}
+												<Mutation
+													mutation={UPDATE_DOCUMENT}
+													variables={{ id: document._id, folder: null }}
 												>
-													Remove from Folder
-												</StyledModalButton>
+													{updateDocument => (
+														<StyledModalButton
+															onClick={e => {
+																e.preventDefault();
+																updateDocument({
+																	refetchQueries: [
+																		{
+																			query: query.FIND_DOCUMENTS_BY_FOLDER,
+																			variables: {
+																				folder: this.props.folder._id
+																			}
+																		},
+																		{
+																			query: query.FIND_DOCUMENTS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		}
+																	]
+																});
+															}}
+														>
+															Remove from Folder
+														</StyledModalButton>
+													)}
+												</Mutation>
 												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
@@ -269,6 +296,7 @@ class FolderDetails extends React.Component {
 					document={this.state.currentDocument}
 					currentUser={currentUser}
 					team={this.props.team}
+					folder={this.props.folder}
 				/>
 			</StyledModal>
 		);
@@ -277,6 +305,6 @@ class FolderDetails extends React.Component {
 
 export default compose(
 	deleteFolder,
-	updateFolder,
+
 	updateDocument
 )(FolderDetails);

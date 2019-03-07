@@ -1,17 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+// ---------------- Components ---------------------- //
 import Message from './Message';
 import AddMessage from './AddMessage';
+import MessageDetail from './MessageDetail';
+
+// ---------------- GQL ---------------------- //
 import { Query } from 'react-apollo';
 import * as query from '../../constants/queries';
+
+// ---------------- Styles ---------------------- //
 import mediaQueryFor from '../../_global_styles/responsive_querie';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import { colors } from '../../colorVariables';
-import MessageDetail from './MessageDetail';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
 	root: {
@@ -63,16 +66,8 @@ const MessagesContainer = styled.div`
 	`}
 `;
 
-const AddMsgBtn = styled(Fab)`
-	background-color: ${colors.button};
-	margin: 25px;
-	color: ${colors.text};
-	height: 75px;
-	width: 75px;
-`;
-
 const FormDiv = styled.div`
-	width: 95%;
+	width: 97%;
 	display: flex;
 	flex-direction: row-reverse;
 `;
@@ -139,24 +134,11 @@ class MessageBoard extends React.Component {
 	};
 
 	render() {
-		const { classes } = this.props;
+		// const { classes } = this.props;
 		return (
 			<Messageboard>
 				{/* List of all the messages */}
 				<MessagesContainer>
-					<Tooltip
-						title="Add Message"
-						aria-label="Add Message"
-						classes={{ tooltip: classes.styledTooltip }}
-					>
-						<AddMsgBtn
-							onClick={this.toggleModalHandler}
-							className={classes.fab}
-						>
-							<AddIcon />
-						</AddMsgBtn>
-					</Tooltip>
-
 					{/* Sorting options */}
 					<FormDiv>
 						<SortForm>

@@ -1,8 +1,10 @@
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
-import { compose } from 'react-apollo';
-import { addFolder } from '../../mutations/folders';
+// import { addFolder } from '../../mutations/folders';
+import { Mutation } from 'react-apollo';
+import * as query from '../../../constants/queries';
+import { ADD_FOLDER } from '../../../constants/mutations';
 
 // ------------- Style Imports ---------------------- //
 // import styled from 'styled-components';
@@ -33,8 +35,6 @@ class AddFolder extends React.Component {
 	};
 
 	render() {
-		const { addFolder } = this.props;
-
 		return (
 			<StyledModal open={this.props.open} onClose={this.props.hideModal}>
 				<StyledModalClose>
@@ -44,33 +44,47 @@ class AddFolder extends React.Component {
 				</StyledModalClose>
 				<StyledModalOverlay>
 					<StyledModalTitle>Add a New Folder</StyledModalTitle>
-					<StyledModalForm
-						onSubmit={e => {
-							e.preventDefault();
-							addFolder({
-								user: this.props.user,
-								title: this.state.title,
-								team: this.props.team
-							})
-								.then(this.props.hideModal())
-								.catch(err => {
-									console.error(err);
-								});
+					<Mutation
+						mutation={ADD_FOLDER}
+						variables={{
+							user: this.props.user,
+							title: this.state.title,
+							team: this.props.team
 						}}
 					>
-						<StyledModalInput
-							name="title"
-							placeholder="title"
-							onChange={this.handleChange}
-						/>
-						<StyledModalButton type="submit" fullWidth>
-							Add
-						</StyledModalButton>
-					</StyledModalForm>
+						{addFolder => (
+							<StyledModalForm
+								onSubmit={e => {
+									e.preventDefault();
+									addFolder({
+										refetchQueries: [
+											{
+												query: query.FIND_FOLDERS_BY_TEAM,
+												variables: { team: this.props.team }
+											}
+										]
+									})
+										.then(this.props.hideModal())
+										.catch(err => {
+											console.error(err);
+										});
+								}}
+							>
+								<StyledModalInput
+									name="title"
+									placeholder="title"
+									onChange={this.handleChange}
+								/>
+								<StyledModalButton type="submit" fullWidth>
+									Add
+								</StyledModalButton>
+							</StyledModalForm>
+						)}
+					</Mutation>
 				</StyledModalOverlay>
 			</StyledModal>
 		);
 	}
 }
 
-export default compose(addFolder)(AddFolder);
+export default AddFolder;

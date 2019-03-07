@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import DocsButtonMenu from './DocsButtonMenu';
 import Folders from './Folders/Folders';
 import Documents from './Documents/Documents';
 
 const MainContainer = styled.div`
 	width: 96%;
-	margin: 0 auto;
+	margin: 10px auto;
 	display: flex;
 	flex-direction: column;
 `;
@@ -15,7 +13,6 @@ const MainContainer = styled.div`
 const TabContainer = props => {
 	return (
 		<MainContainer>
-			<DocsButtonMenu {...props} />
 			<Folders team={props.team} {...props} />
 			<Documents team={props.team} {...props} />
 		</MainContainer>

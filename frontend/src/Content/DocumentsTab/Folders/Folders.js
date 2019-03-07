@@ -144,7 +144,7 @@ class Folders extends Component {
 								</Query>
 							));
 						} else {
-							return <Error>No Folders Available For This Team</Error>;
+							return <Error>Get organized by adding some folders!</Error>;
 						}
 					}}
 				</Query>

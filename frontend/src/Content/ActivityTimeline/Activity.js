@@ -25,7 +25,7 @@ const styles = {
 		justifyContent: 'flex-end'
 	},
 	bigAvatar: {
-		margin: 10,
+		margin: 5,
 		width: 60,
 		height: 60
 	}
@@ -76,37 +76,17 @@ const StyledTypography = styled(Typography)`
 `;
 
 function Activity(props) {
-	console.log('this is the props on the event: ', props);
+	// console.log('this is the props on the event: ', props);
 	const { classes, own } = props;
-	const {
-		user,
-		createdAt,
-		// title,
-		// content,
-		action_string,
-		object_string
-		// createdAt
-	} = props.event;
-	/* activitySwitch changes the message depending on the type of the object */
-	// const objectSwitch = type => {
-	// 	switch (type) {
-	// 		case 'Message':
-	// 			return 'Message';
-	// 		case 'Comment':
-	// 			return 'Comment';
-	// 		case 'Document':
-	// 			return 'Document';
-	// 		case 'Folder':
-	// 			return 'Folder';
-	// 		default:
-	// 			return 'Comment';
-	// 	}
-	// };
+	const { user, createdAt, action_string, object_string } = props.event;
 
 	return (
 		<Container own={own}>
-			<CardActionArea className={classes.cardButton}>
-				{own === 'false' ? ( //if the user is not the user who is logged in
+			<CardActionArea
+				className={classes.cardButton}
+				onClick={props.clickHandler}
+			>
+				{own === 'false' ? ( //if the creator of the activity is not the user who is logged in
 					<Avatar
 						src={user.avatar}
 						alt="User avatar"
@@ -129,12 +109,10 @@ function Activity(props) {
 					<StyledTypography component="p" noWrap className={classes.cardText}>
 						{createdAt.toDateString()}
 					</StyledTypography>
-					<Title component="p" noWrap>
-						{/* {__typename === 'Message' ? title : content} */}
-					</Title>
+					<Title component="p" noWrap />
 				</Info>
 
-				{own === 'true' ? ( //if the user is the user who is logged in
+				{own === 'true' ? ( //if the creator of the activity is the user who is logged in
 					<Avatar
 						src={user.avatar}
 						alt="User avatar"

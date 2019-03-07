@@ -4,33 +4,24 @@ import React from 'react';
 import DocumentCommentDetail from './DocumentCommentDetails';
 
 // ------------- gql Imports ---------------------- //
-import { Query, compose, Mutation } from 'react-apollo';
-import {
-	deleteDocument,
-	unsubscribeDoc,
-	subscribeDoc
-} from '../../mutations/documents';
+import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
-import { addDocComment } from '../../mutations/doccomments';
-import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+import {
+	UPDATE_DOCUMENT,
+	ADD_DOCCOMMENT,
+	UNSUBSCRIBE_DOC,
+	SUBSCRIBE_DOC,
+	DELETE_DOCUMENT
+} from '../../../constants/mutations';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
-// import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-// import { colors } from '../../../colorVariables';
-// import CardHeader from '@material-ui/core/CardHeader';
-// import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
-// import SendIcon from '@material-ui/icons/Send';
 
 // ------------- Icon imports ------------------------------- //
 
 import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
-// import { FileWord } from 'styled-icons/icomoon/FileWord';
-// import { FileExcel } from 'styled-icons/fa-solid/FileExcel';
-// import { FilePlay } from 'styled-icons/icomoon/FilePlay';
-// import { FilePdf } from 'styled-icons/icomoon/FilePdf';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 
 // ------------- Modal styling imports ---------------------- //
@@ -129,6 +120,7 @@ const Arrow = styled(KeyboardArrowRight)`
 const FormDiv = styled.div`
 	width: 95%;
 	display: flex;
+	justify-content: center;
 	flex-direction: row-reverse;
 `;
 
@@ -244,16 +236,9 @@ class DocumentDetails extends React.Component {
 	};
 
 	render() {
-		const {
-			deleteDocument,
-			document,
-			currentUser,
-			hideModal,
-			addDocComment,
-			subscribeDoc,
-			unsubscribeDoc,
-			open
-		} = this.props;
+		const { document, currentUser, hideModal, open } = this.props;
+
+		// console.log('All the props from the document modal: ', this.props);
 
 		if (document === null) return <></>;
 		return (
@@ -371,6 +356,7 @@ class DocumentDetails extends React.Component {
 																	>{`${folder.title}`}</option>
 																));
 															}
+															return <>no folders here</>;
 														}}
 													</Query>
 												</select>
@@ -379,7 +365,7 @@ class DocumentDetails extends React.Component {
 									</SortForm>
 								</FormDiv>
 								<ModalBody>
-									{console.log(document)}
+									{/* {console.log(document)} */}
 									Posted by{' '}
 									{`${document.user.firstName} ${document.user.lastName}`} •
 									Tag:
@@ -389,7 +375,6 @@ class DocumentDetails extends React.Component {
 									<span>Notes:</span>
 									{document.textContent}
 								</DocumentContent>
-
 								<StyledModalCardAction>
 									{document.user._id === currentUser._id && (
 										<>
@@ -412,41 +397,65 @@ class DocumentDetails extends React.Component {
 											>
 												Edit
 											</StyledModalButton>
-											<StyledModalButton
-												onClick={e => {
-													e.preventDefault();
-													deleteDocument({
-														id: document._id
-													}).then(() => {
-														hideModal();
-													});
-												}}
-											>
-												Delete
-											</StyledModalButton>
+											<Mutation mutation={DELETE_DOCUMENT}>
+												{deleteDocument => (
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															deleteDocument({
+																variables: { id: document._id },
+																refetchQueries: [
+																	{
+																		query: query.FIND_DOCUMENTS_BY_TEAM,
+																		variables: { team: this.props.team }
+																	}
+																]
+															}).then(() => {
+																hideModal();
+															});
+														}}
+													>
+														Delete
+													</StyledModalButton>
+												)}
+											</Mutation>
 										</>
 									)}
 
 									{/* Subscribe or unsubscribe button */}
-									<StyledModalButton
-										onClick={e => {
-											e.preventDefault();
-											this.setState(prevState => ({
-												subscribed: !prevState.subscribed
-											}));
-											this.state.subscribed
-												? unsubscribeDoc({
-														id: document._id,
-														user: currentUser._id
-												  })
-												: subscribeDoc({
-														id: document._id,
-														user: currentUser._id
-												  });
-										}}
-									>
-										{this.state.subscribed ? 'Unsubscribe' : 'Subscribe'}
-									</StyledModalButton>
+									<Mutation mutation={UNSUBSCRIBE_DOC}>
+										{unsubscribeDoc => (
+											<Mutation mutation={SUBSCRIBE_DOC}>
+												{subscribeDoc => (
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															this.setState(prevState => ({
+																subscribed: !prevState.subscribed
+															}));
+															this.state.subscribed
+																? unsubscribeDoc({
+																		variables: {
+																			id: document._id,
+																			user: currentUser._id
+																		}
+																  })
+																: subscribeDoc({
+																		variables: {
+																			id: document._id,
+																			user: currentUser._id
+																		}
+																  });
+														}}
+													>
+														{this.state.subscribed
+															? 'Unsubscribe'
+															: 'Subscribe'}
+													</StyledModalButton>
+												)}
+											</Mutation>
+										)}
+									</Mutation>
 								</StyledModalCardAction>
 							</CardContent>
 						)}
@@ -455,7 +464,6 @@ class DocumentDetails extends React.Component {
 					<Query
 						query={query.FIND_COMMENTS_BY_DOCUMENT}
 						variables={{ document: document._id }}
-						//this needs a refetch
 					>
 						{({ loading, error, data: { findDocCommentsByDocument } }) => {
 							if (loading) return <p>Loading...</p>;
@@ -475,26 +483,39 @@ class DocumentDetails extends React.Component {
 										/>
 									))}
 									{/* Add a new comment form  */}
-									<StyledModalNewCommentForm
-										onSubmit={e => {
-											e.preventDefault();
-											addDocComment({
-												document: document._id,
-												content: this.state.newCommentContent
-											}).then(this.resetState());
-										}}
-									>
-										<StyledModalNewCommentInput
-											value={this.state.newCommentContent}
-											name="newCommentContent"
-											onChange={this.handleChange}
-											placeholder="Leave a comment..."
-										/>
+									<Mutation mutation={ADD_DOCCOMMENT}>
+										{addDocComment => (
+											<StyledModalNewCommentForm
+												onSubmit={e => {
+													e.preventDefault();
+													addDocComment({
+														variables: {
+															document: document._id,
+															content: this.state.newCommentContent
+														},
+														refetchQueries: [
+															{
+																query: query.FIND_COMMENTS_BY_DOCUMENT,
+																variables: { document: document._id }
+															}
+														]
+													});
+													this.resetState();
+												}}
+											>
+												<StyledModalNewCommentInput
+													value={this.state.newCommentContent}
+													name="newCommentContent"
+													onChange={this.handleChange}
+													placeholder="Leave a comment..."
+												/>
 
-										<ArrowDiv type="submit">
-											<Arrow />
-										</ArrowDiv>
-									</StyledModalNewCommentForm>
+												<ArrowDiv type="submit">
+													<Arrow />
+												</ArrowDiv>
+											</StyledModalNewCommentForm>
+										)}
+									</Mutation>
 								</>
 							);
 						}}
@@ -505,9 +526,4 @@ class DocumentDetails extends React.Component {
 	}
 }
 
-export default compose(
-	addDocComment,
-	deleteDocument,
-	subscribeDoc,
-	unsubscribeDoc
-)(DocumentDetails);
+export default DocumentDetails;
