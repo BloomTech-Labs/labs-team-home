@@ -108,7 +108,7 @@ const documentResolver = {
 						})
 							.save()
 							.then(event => {
-								console.log('should be a success', event);
+								// console.log('should be a success', event);
 							});
 					} catch (error) {
 						console.error('Could not add event', error);

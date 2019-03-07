@@ -5,14 +5,14 @@ import DocumentCommentDetail from './DocumentCommentDetails';
 
 // ------------- gql Imports ---------------------- //
 import { Query, compose, Mutation } from 'react-apollo';
-import {
-	deleteDocument,
-	unsubscribeDoc,
-	subscribeDoc
-} from '../../mutations/documents';
 import * as query from '../../../constants/queries';
-import { addDocComment } from '../../mutations/doccomments';
-import { UPDATE_DOCUMENT, ADD_DOCCOMMENT } from '../../../constants/mutations';
+import {
+	UPDATE_DOCUMENT,
+	ADD_DOCCOMMENT,
+	UNSUBSCRIBE_DOC,
+	SUBSCRIBE_DOC,
+	DELETE_DOCUMENT
+} from '../../../constants/mutations';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
@@ -236,15 +236,7 @@ class DocumentDetails extends React.Component {
 	};
 
 	render() {
-		const {
-			deleteDocument,
-			document,
-			currentUser,
-			hideModal,
-			subscribeDoc,
-			unsubscribeDoc,
-			open
-		} = this.props;
+		const { document, currentUser, hideModal, open } = this.props;
 
 		// console.log('All the props from the document modal: ', this.props);
 
@@ -405,41 +397,65 @@ class DocumentDetails extends React.Component {
 											>
 												Edit
 											</StyledModalButton>
-											<StyledModalButton
-												onClick={e => {
-													e.preventDefault();
-													deleteDocument({
-														id: document._id
-													}).then(() => {
-														hideModal();
-													});
-												}}
-											>
-												Delete
-											</StyledModalButton>
+											<Mutation mutation={DELETE_DOCUMENT}>
+												{deleteDocument => (
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															deleteDocument({
+																variables: { id: document._id },
+																refetchQueries: [
+																	{
+																		query: query.FIND_DOCUMENTS_BY_TEAM,
+																		variables: { team: this.props.team }
+																	}
+																]
+															}).then(() => {
+																hideModal();
+															});
+														}}
+													>
+														Delete
+													</StyledModalButton>
+												)}
+											</Mutation>
 										</>
 									)}
 
 									{/* Subscribe or unsubscribe button */}
-									<StyledModalButton
-										onClick={e => {
-											e.preventDefault();
-											this.setState(prevState => ({
-												subscribed: !prevState.subscribed
-											}));
-											this.state.subscribed
-												? unsubscribeDoc({
-														id: document._id,
-														user: currentUser._id
-												  })
-												: subscribeDoc({
-														id: document._id,
-														user: currentUser._id
-												  });
-										}}
-									>
-										{this.state.subscribed ? 'Unsubscribe' : 'Subscribe'}
-									</StyledModalButton>
+									<Mutation mutation={UNSUBSCRIBE_DOC}>
+										{unsubscribeDoc => (
+											<Mutation mutation={SUBSCRIBE_DOC}>
+												{subscribeDoc => (
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															this.setState(prevState => ({
+																subscribed: !prevState.subscribed
+															}));
+															this.state.subscribed
+																? unsubscribeDoc({
+																		variables: {
+																			id: document._id,
+																			user: currentUser._id
+																		}
+																  })
+																: subscribeDoc({
+																		variables: {
+																			id: document._id,
+																			user: currentUser._id
+																		}
+																  });
+														}}
+													>
+														{this.state.subscribed
+															? 'Unsubscribe'
+															: 'Subscribe'}
+													</StyledModalButton>
+												)}
+											</Mutation>
+										)}
+									</Mutation>
 								</StyledModalCardAction>
 							</CardContent>
 						)}
@@ -510,8 +526,4 @@ class DocumentDetails extends React.Component {
 	}
 }
 
-export default compose(
-	deleteDocument,
-	subscribeDoc,
-	unsubscribeDoc
-)(DocumentDetails);
+export default DocumentDetails;
