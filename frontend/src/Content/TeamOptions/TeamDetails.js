@@ -351,18 +351,7 @@ class TeamDetails extends React.Component {
 									}}
 									titleTypographyProps={{ style: { color: colors.text } }}
 									action={
-										<Mutation
-											mutation={mutation.KICK_USER}
-											update={(cache, { data: { kickUser } }) => {
-												cache.writeQuery({
-													query: query.FIND_TEAM,
-													variables: { id: team },
-													data: {
-														findTeam: kickUser
-													}
-												});
-											}}
-										>
+										<Mutation mutation={mutation.KICK_USER}>
 											{/* Make sure the user can be kicked before rendering the kick button, then kick */}
 											{kickUser =>
 												admin && user.user._id !== currentUser._id ? (
@@ -374,7 +363,13 @@ class TeamDetails extends React.Component {
 																variables: {
 																	id: team._id,
 																	user: user.user._id
-																}
+																},
+																refetchQueries: [
+																	{
+																		query: query.FIND_TEAM,
+																		variables: { id: team._id }
+																	}
+																]
 															});
 														}}
 													>
@@ -383,26 +378,7 @@ class TeamDetails extends React.Component {
 												) : admin && user.user._id === currentUser._id ? (
 													<AdminUserButton>Admin</AdminUserButton>
 												) : user.user._id === currentUser._id ? (
-													<Mutation
-														mutation={mutation.LEAVE_TEAM}
-														// update={(cache, { data: { leaveTeam } }) => {
-														// 	cache.writeQuery({
-														// 		query: query.FIND_TEAM,
-														// 		variables: { id: team },
-														// 		data: {
-														// 			findTeam: leaveTeam
-														// 		}
-														// 	});
-														// 	//Cache is BROKE not WOKE
-														// 	cache.writeQuery({
-														// 		query: query.FIND_TEAMS_BY_USER,
-														// 		variables: { id: team },
-														// 		data: {
-														// 			findTeamsByUser: leaveTeam
-														// 		}
-														// 	});
-														// }}
-													>
+													<Mutation mutation={mutation.LEAVE_TEAM}>
 														{leaveTeam => (
 															<Button
 																color="secondary"
