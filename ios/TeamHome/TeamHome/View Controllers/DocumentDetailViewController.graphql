@@ -8,3 +8,33 @@ mutation AddDocumentComment($document: String!, $comment: String!){
         content
     }
 }
+
+query FindDocumentInput($docID: ID!){
+    findDocument(input: {
+                 id:$docID
+                 }) {
+        _id
+        doc_url
+        user{
+            firstName
+            lastName
+            avatar
+            _id
+        }
+        folder{
+            _id
+            title
+        }
+        title
+        textContent
+        images
+        comments
+        subscribedUsers{
+            firstName
+            lastName
+            avatar
+        }
+        createdAt
+        updatedAt
+    }
+}

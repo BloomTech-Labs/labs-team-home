@@ -89,6 +89,7 @@ class FoldersTableViewController: UITableViewController {
             guard let indexPath = tableView.indexPathForSelectedRow,
                 let folder = folders?[indexPath.row] else { return }
             destinationVC.title = folder.title
+            destinationVC.folder = folder
         }
     }
     

@@ -70,7 +70,7 @@ class FolderContentsTableViewController: UITableViewController {
             guard let destinationVC = segue.destination as? DocumentDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow,
                 let documents = documents else {return}
-            destinationVC.document = documents[indexPath.row]
+//            destinationVC.document = documents[indexPath.row]
             destinationVC.apollo = apollo
             destinationVC.team = team
             destinationVC.currentUser = currentUser
@@ -81,11 +81,11 @@ class FolderContentsTableViewController: UITableViewController {
     
     private func loadDocuments(with apollo: ApolloClient) {
         
-        guard let team = team,
-            let teamID  = team.id else { return }
+        guard let folder = folder,
+            let folderID = folder.id else { return }
         
         // Fetch messages using team's id
-        watcher = apollo.watch(query: FindDocumentsByFolderQuery(folderID: folderID)) { (result, error) in
+        watcherFolderContents = apollo.watch(query: FindDocumentsByFolderQuery(folderID: folderID)) { (result, error) in
             if let error = error {
                 NSLog("Error loading Documents\(error)")
             }
@@ -107,7 +107,10 @@ class FolderContentsTableViewController: UITableViewController {
     }
     
     // MARK: - Properties
-    var documents: [FindDocumentsByTeamQuery.Data.FindDocumentsByTeam?]?{
+    
+    var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam?
+    
+    var documents: [FindDocumentsByFolderQuery.Data.FindDocumentsByFolder?]?{
         didSet{
             if isViewLoaded {
                 DispatchQueue.main.async {
@@ -126,8 +129,7 @@ class FolderContentsTableViewController: UITableViewController {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var deleteIndexPath: IndexPath?
-    
-    var folderTitle: String?
+
 
 }
 
