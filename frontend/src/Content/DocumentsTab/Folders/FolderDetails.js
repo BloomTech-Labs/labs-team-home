@@ -129,8 +129,8 @@ class FolderDetails extends React.Component {
 																},
 																refetchQueries: [
 																	{
-																		query: query.FIND_FOLDER,
-																		variables: { id: folder._id }
+																		query: query.FIND_FOLDERS_BY_TEAM,
+																		variables: { team: this.props.team }
 																	}
 																]
 															}).then(() => this.resetState());
