@@ -305,5 +305,6 @@ class FolderDetails extends React.Component {
 
 export default compose(
 	deleteFolder,
+
 	updateDocument
 )(FolderDetails);
