@@ -11,7 +11,6 @@ import {
 	subscribeDoc
 } from '../../mutations/documents';
 import * as query from '../../../constants/queries';
-import { addDocComment } from '../../mutations/doccomments';
 import { UPDATE_DOCUMENT, ADD_DOCCOMMENT } from '../../../constants/mutations';
 
 // ------------- Style Imports ---------------------- //
