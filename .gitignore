@@ -22,4 +22,6 @@ profile
 
 build
 .DS_Store
-API.swift
+
+#ignore API.swift since it is auto generated at build time
+ios/TeamHome/TeamHome/API.swift
