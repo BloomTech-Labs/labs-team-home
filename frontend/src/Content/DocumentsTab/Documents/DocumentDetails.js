@@ -12,25 +12,16 @@ import {
 } from '../../mutations/documents';
 import * as query from '../../../constants/queries';
 import { addDocComment } from '../../mutations/doccomments';
-import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+import { UPDATE_DOCUMENT, ADD_DOCCOMMENT } from '../../../constants/mutations';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
-// import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-// import { colors } from '../../../colorVariables';
-// import CardHeader from '@material-ui/core/CardHeader';
-// import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
-// import SendIcon from '@material-ui/icons/Send';
 
 // ------------- Icon imports ------------------------------- //
 
 import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
-// import { FileWord } from 'styled-icons/icomoon/FileWord';
-// import { FileExcel } from 'styled-icons/fa-solid/FileExcel';
-// import { FilePlay } from 'styled-icons/icomoon/FilePlay';
-// import { FilePdf } from 'styled-icons/icomoon/FilePdf';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 
 // ------------- Modal styling imports ---------------------- //
@@ -192,20 +183,47 @@ class DocumentDetails extends React.Component {
 			folderOption: 'Move to Folder'
 		});
 
-	folderChange = e => {
+	folderChange = (e, updateDocument) => {
 		if (e.target.value !== '') {
+			//Moving a doc from the Documents container to a folder by using the drop down menu
 			if (this.props.document.folder === null) {
-				console.log('moving into folder', e.target.value);
-				this.props.updateDocument({
-					id: this.props.document._id,
-					folder: e.target.value
+				// console.log('moving into folder', e.target.value);
+				updateDocument({
+					variables: { id: this.props.document._id, folder: e.target.value },
+					refetchQueries: [
+						{
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: this.props.team }
+						},
+						{
+							query: query.FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: e.target.value }
+						}
+					]
 				});
 			} else if (this.props.document.folder !== null) {
-				console.log('moving folder to folder:', e.target.value);
-				this.props.updateDocument({
-					id: this.props.document._id,
-					folder: e.target.value,
-					previous: this.props.document.folder._id
+				//Moving a doc from a folder container to a another folder by using the drop down menu
+				// console.log('moving folder to folder:', e.target.value);
+				updateDocument({
+					variables: {
+						id: this.props.document._id,
+						folder: e.target.value,
+						previous: this.props.document.folder._id
+					},
+					refetchQueries: [
+						{
+							query: query.FIND_DOCUMENTS_BY_TEAM,
+							variables: { team: this.props.team }
+						},
+						{
+							query: query.FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: e.target.value }
+						},
+						{
+							query: query.FIND_DOCUMENTS_BY_FOLDER,
+							variables: { folder: this.props.document.folder._id }
+						}
+					]
 				});
 			} else {
 				console.log('did we run an update?');
@@ -220,14 +238,14 @@ class DocumentDetails extends React.Component {
 		const {
 			deleteDocument,
 			document,
-
 			currentUser,
 			hideModal,
-			addDocComment,
 			subscribeDoc,
 			unsubscribeDoc,
 			open
 		} = this.props;
+
+		// console.log('All the props from the document modal: ', this.props);
 
 		if (document === null) return <></>;
 		return (
@@ -315,43 +333,45 @@ class DocumentDetails extends React.Component {
 								</a>
 								<FormDiv>
 									<SortForm>
-										<label>
-											<select
-												value={this.state.folderOption}
-												onChange={this.folderChange}
-											>
-												<option value="">Move to ...</option>
-
-												<Query
-													query={query.FIND_FOLDERS_BY_TEAM}
-													variables={{ team: this.props.team }}
+										<Mutation mutation={UPDATE_DOCUMENT}>
+											{updateDocument => (
+												<select
+													value={this.state.folderOption}
+													onChange={e => this.folderChange(e, updateDocument)}
 												>
-													{({
-														loading,
-														error,
-														data: { findFoldersByTeam }
-													}) => {
-														if (loading) return 'Loading...';
-														if (error) return console.error(error);
-														if (
-															findFoldersByTeam &&
-															findFoldersByTeam.length > 0
-														) {
-															return findFoldersByTeam.map(folder => (
-																<option
-																	key={folder._id}
-																	value={`${folder._id}`}
-																>{`${folder.title}`}</option>
-															));
-														}
-													}}
-												</Query>
-											</select>
-										</label>
+													<option value="">Move to ...</option>
+
+													<Query
+														query={query.FIND_FOLDERS_BY_TEAM}
+														variables={{ team: this.props.team }}
+													>
+														{({
+															loading,
+															error,
+															data: { findFoldersByTeam }
+														}) => {
+															if (loading) return 'Loading...';
+															if (error) return console.error(error);
+															if (
+																findFoldersByTeam &&
+																findFoldersByTeam.length > 0
+															) {
+																return findFoldersByTeam.map(folder => (
+																	<option
+																		key={folder._id}
+																		value={`${folder._id}`}
+																	>{`${folder.title}`}</option>
+																));
+															}
+														}}
+													</Query>
+												</select>
+											)}
+										</Mutation>
 									</SortForm>
 								</FormDiv>
 								<ModalBody>
-									{console.log(document)}
+									{/* {console.log(document)} */}
 									Posted by{' '}
 									{`${document.user.firstName} ${document.user.lastName}`} •
 									Tag:
@@ -427,7 +447,6 @@ class DocumentDetails extends React.Component {
 					<Query
 						query={query.FIND_COMMENTS_BY_DOCUMENT}
 						variables={{ document: document._id }}
-						//this needs a refetch
 					>
 						{({ loading, error, data: { findDocCommentsByDocument } }) => {
 							if (loading) return <p>Loading...</p>;
@@ -447,26 +466,39 @@ class DocumentDetails extends React.Component {
 										/>
 									))}
 									{/* Add a new comment form  */}
-									<StyledModalNewCommentForm
-										onSubmit={e => {
-											e.preventDefault();
-											addDocComment({
-												document: document._id,
-												content: this.state.newCommentContent
-											}).then(this.resetState());
-										}}
-									>
-										<StyledModalNewCommentInput
-											value={this.state.newCommentContent}
-											name="newCommentContent"
-											onChange={this.handleChange}
-											placeholder="Leave a comment..."
-										/>
+									<Mutation mutation={ADD_DOCCOMMENT}>
+										{addDocComment => (
+											<StyledModalNewCommentForm
+												onSubmit={e => {
+													e.preventDefault();
+													addDocComment({
+														variables: {
+															document: document._id,
+															content: this.state.newCommentContent
+														},
+														refetchQueries: [
+															{
+																query: query.FIND_COMMENTS_BY_DOCUMENT,
+																variables: { document: document._id }
+															}
+														]
+													});
+													this.resetState();
+												}}
+											>
+												<StyledModalNewCommentInput
+													value={this.state.newCommentContent}
+													name="newCommentContent"
+													onChange={this.handleChange}
+													placeholder="Leave a comment..."
+												/>
 
-										<ArrowDiv type="submit">
-											<Arrow />
-										</ArrowDiv>
-									</StyledModalNewCommentForm>
+												<ArrowDiv type="submit">
+													<Arrow />
+												</ArrowDiv>
+											</StyledModalNewCommentForm>
+										)}
+									</Mutation>
 								</>
 							);
 						}}
@@ -478,9 +510,7 @@ class DocumentDetails extends React.Component {
 }
 
 export default compose(
-	addDocComment,
 	deleteDocument,
-
 	subscribeDoc,
 	unsubscribeDoc
 )(DocumentDetails);

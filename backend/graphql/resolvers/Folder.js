@@ -3,6 +3,8 @@ const Folder = require('../../models/Folder');
 const Event = require('../../models/Event');
 const { ValidationError } = require('apollo-server-express');
 
+const { object_str, action_str } = require('./ResolverHelpers');
+
 const folderResolver = {
 	Query: {
 		folders: () => Folder.find().populate('user team'),
@@ -50,7 +52,7 @@ const folderResolver = {
 					)
 						.populate('user team')
 						.then(async folder => {
-							console.log('the item in question:', folder);
+							// console.log('the item in question:', folder);
 
 							try {
 								await new Event({
@@ -62,7 +64,7 @@ const folderResolver = {
 								})
 									.save()
 									.then(event => {
-										console.log('this should work yooo ->', event);
+										// console.log('this should work yooo ->', event);
 									});
 							} catch (error) {
 								console.error('Could not add event', error);
@@ -80,8 +82,8 @@ const folderResolver = {
 					// console.log('the item in question: ', folder);
 					try {
 						await new Event({
-							team: folder.team,
-							user: folder.user,
+							team: folder.team._id,
+							user: folder.user._id,
 							action_string: action_str.deleted,
 							object_string: object_str.folder,
 							event_target_id: null

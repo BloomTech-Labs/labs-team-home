@@ -1,10 +1,11 @@
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
-import { compose, Query } from 'react-apollo';
+import { compose, Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
-import { deleteFolder, updateFolder } from '../../mutations/folders';
+import { deleteFolder } from '../../mutations/folders';
 import { updateDocument } from '../../mutations/documents';
+import { UPDATE_FOLDER } from '../../../constants/mutations';
 
 // ------------- Component Imports ---------------------- //
 import DocumentDetails from '../Documents/DocumentDetails';
@@ -12,7 +13,6 @@ import DocumentDetails from '../Documents/DocumentDetails';
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
@@ -28,7 +28,8 @@ import {
 	StyledModalButton,
 	StyledModalForm,
 	StyledModalInput,
-	StyledModalIconButton
+	StyledModalIconButton,
+	StyledModalCardAction
 } from '../../Modal.styles';
 
 // ---------------- Styled Components ---------------------- //
@@ -61,8 +62,7 @@ class FolderDetails extends React.Component {
 			title: '',
 			editingFolder: false,
 			documentDetailOpen: false,
-			currentDocument: null,
-			refreshed: false
+			currentDocument: null
 		};
 	}
 
@@ -81,16 +81,9 @@ class FolderDetails extends React.Component {
 
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
-	refreshFolderInfo = e => {
-		this.setState({
-			refreshed: !this.state.refreshed
-		});
-	};
-
 	render() {
 		const {
 			deleteFolder,
-			updateFolder,
 			folder,
 			hideModal,
 			updateDocument,
@@ -121,59 +114,47 @@ class FolderDetails extends React.Component {
 					<Query
 						query={query.FIND_DOCUMENTS_BY_FOLDER}
 						variables={{ folder: folder._id }}
-						notifyOnNetworkStatusChange
 					>
-						{({
-							loading,
-							error,
-							data: { findDocumentsByFolder },
-							refetch,
-							networkStatus
-						}) => {
-							if (networkStatus === 4) return 'Refetching';
+						{({ loading, error, data: { findDocumentsByFolder } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
-							if (this.props.open === true && this.state.refreshed === false) {
-								refetch().then(this.refreshFolderInfo());
-								// .catch(err => console.error(err));
-							}
+
 							return (
 								<>
 									{this.state.editingFolder ? (
 										<CardContent>
-											<StyledModalForm
-												onSubmit={e => {
-													e.preventDefault();
-													folder.title = this.state.title;
-													updateFolder({
-														id: folder._id,
-														title: this.state.title
-													}).then(() => this.resetState());
-												}}
-											>
-												<StyledModalInput
-													name="title"
-													value={this.state.title}
-													onChange={this.handleChange}
-												/>
-												<StyledModalButton type="submit">
-													Save
-												</StyledModalButton>
-											</StyledModalForm>
+											<Mutation mutation={UPDATE_FOLDER}>
+												{updateFolder => (
+													<StyledModalForm
+														onSubmit={e => {
+															e.preventDefault();
+															folder.title = this.state.title;
+															updateFolder({
+																variables: {
+																	id: folder._id,
+																	title: this.state.title
+																}
+															}).then(() => this.resetState());
+														}}
+													>
+														<StyledModalInput
+															name="title"
+															value={this.state.title}
+															onChange={this.handleChange}
+														/>
+														<StyledModalButton type="submit">
+															Save
+														</StyledModalButton>
+													</StyledModalForm>
+												)}
+											</Mutation>
 										</CardContent>
 									) : (
 										<>
 											<ModalTitle>{folder.title}</ModalTitle>
 
 											{/* Load all the images attached to the message */}
-											<CardActions
-												style={{
-													width: '100%',
-													display: 'flex',
-													flexFlow: 'row',
-													justifyContent: 'space-around'
-												}}
-											>
+											<StyledModalCardAction>
 												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
@@ -203,9 +184,7 @@ class FolderDetails extends React.Component {
 												>
 													Delete
 												</StyledModalButton>
-
-												{/* Subscription for the document stuff goes here */}
-											</CardActions>
+											</StyledModalCardAction>
 										</>
 									)}
 
@@ -247,9 +226,6 @@ class FolderDetails extends React.Component {
 															id: document._id,
 															folder: null
 														});
-														refetch()
-															.then(this.refreshFolderInfo())
-															.catch(err => console.error(err));
 													}}
 												>
 													Remove from Folder
@@ -298,6 +274,6 @@ class FolderDetails extends React.Component {
 
 export default compose(
 	deleteFolder,
-	updateFolder,
+
 	updateDocument
 )(FolderDetails);

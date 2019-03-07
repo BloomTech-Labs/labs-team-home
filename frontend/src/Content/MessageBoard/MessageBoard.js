@@ -9,9 +9,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { colors } from '../../colorVariables';
 import MessageDetail from './MessageDetail';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
 	root: {
@@ -63,16 +60,8 @@ const MessagesContainer = styled.div`
 	`}
 `;
 
-const AddMsgBtn = styled(Fab)`
-	background-color: ${colors.button};
-	margin: 25px;
-	color: ${colors.text};
-	height: 75px;
-	width: 75px;
-`;
-
 const FormDiv = styled.div`
-	width: 95%;
+	width: 97%;
 	display: flex;
 	flex-direction: row-reverse;
 `;
@@ -144,19 +133,6 @@ class MessageBoard extends React.Component {
 			<Messageboard>
 				{/* List of all the messages */}
 				<MessagesContainer>
-					<Tooltip
-						title="Add Message"
-						aria-label="Add Message"
-						classes={{ tooltip: classes.styledTooltip }}
-					>
-						<AddMsgBtn
-							onClick={this.toggleModalHandler}
-							className={classes.fab}
-						>
-							<AddIcon />
-						</AddMsgBtn>
-					</Tooltip>
-
 					{/* Sorting options */}
 					<FormDiv>
 						<SortForm>

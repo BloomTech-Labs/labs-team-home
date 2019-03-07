@@ -1,39 +1,38 @@
 import { graphql } from 'react-apollo';
 import * as query from '../../constants/queries';
 import {
-	ADD_DOCCOMMENT,
 	UPDATE_DOCCOMMENT,
 	DELETE_DOCCOMMENT,
 	LIKE_DOCCOMMENT,
 	UNLIKE_DOCCOMMENT
 } from '../../constants/mutations';
 
-const addDocCommentOptions = {
-	props: ({ ownProps: { document }, mutate }) => ({
-		addDocComment: input =>
-			mutate({
-				variables: input,
-				update: (cache, { data: { addDocComment } }) => {
-					const { findDocCommentsByDocument } = cache.readQuery({
-						query: query.FIND_COMMENTS_BY_DOCUMENT,
-						variables: { document: document._id }
-					});
-					cache.writeQuery({
-						query: query.FIND_COMMENTS_BY_DOCUMENT,
-						variables: { document: document._id },
-						data: {
-							findDocCommentsByDocument: [
-								...findDocCommentsByDocument,
-								addDocComment
-							]
-						}
-					});
-				}
-			})
-	})
-};
+// const addDocCommentOptions = {
+// 	props: ({ ownProps: { document }, mutate }) => ({
+// 		addDocComment: input =>
+// 			mutate({
+// 				variables: input,
+// 				update: (cache, { data: { addDocComment } }) => {
+// 					const { findDocCommentsByDocument } = cache.readQuery({
+// 						query: query.FIND_COMMENTS_BY_DOCUMENT,
+// 						variables: { document: document._id }
+// 					});
+// 					cache.writeQuery({
+// 						query: query.FIND_COMMENTS_BY_DOCUMENT,
+// 						variables: { document: document._id },
+// 						data: {
+// 							findDocCommentsByDocument: [
+// 								...findDocCommentsByDocument,
+// 								addDocComment
+// 							]
+// 						}
+// 					});
+// 				}
+// 			})
+// 	})
+// };
 
-export const addDocComment = graphql(ADD_DOCCOMMENT, addDocCommentOptions);
+// export const addDocComment = graphql(ADD_DOCCOMMENT, addDocCommentOptions);
 
 const updateDocCommentOptions = {
 	props: ({ ownProps: { document }, mutate }) => ({

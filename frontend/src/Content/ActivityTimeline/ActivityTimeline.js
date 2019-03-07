@@ -12,26 +12,27 @@ export default class ActivityTimeline extends React.Component {
 		};
 	}
 
-	render() {
-		// let allTheThings = [];
-		/* These Bools make sure that everything is loaded before mapping over all items in
-		 allTheThings and returning Activity components */
-		// let messagesLoaded = false;
-		// let documentsLoaded = false;
-		// let foldersLoaded = false;
-		// let msgCommentsLoaded = false;
-		// let docCommentsLoaded = false;
+	componentDidMount(prevProps) {}
 
+	render() {
 		return (
 			<div>
 				{/* Queries for all Events*/}
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
 					variables={{ team: this.state.team._id }}
+					notifyOnNetworkStatusChange
 				>
-					{({ loading, error, data: { findEventsByTeam } }) => {
+					{({
+						loading,
+						error,
+						data: { findEventsByTeam },
+						refetch,
+						networkStatus
+					}) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error!</p>;
+						if (networkStatus === 4) return <p> Refetching...</p>;
 						console.log('all the events: ', findEventsByTeam);
 						if (findEventsByTeam && findEventsByTeam.length > 0) {
 							findEventsByTeam.map(event => {
@@ -57,6 +58,7 @@ export default class ActivityTimeline extends React.Component {
 								return <div key={index}> nO uSeR</div>;
 							});
 						} else {
+							refetch();
 							return <div> No events </div>;
 						}
 					}}

@@ -1,303 +1,319 @@
-import React from 'react';
+/* activitySwitch changes the message depending on the type of the object */
+// const objectSwitch = type => {
+// 	switch (type) {
+// 		case 'Message':
+// 			return 'Message';
+// 		case 'Comment':
+// 			return 'Comment';
+// 		case 'Document':
+// 			return 'Document';
+// 		case 'Folder':
+// 			return 'Folder';
+// 		default:
+// 			return 'Comment';
+// 	}
+// };
 
-// ------------- gql Imports ---------------------- //
-import { compose, Query } from 'react-apollo';
-import * as query from '../../../constants/queries';
-import { deleteFolder, updateFolder } from '../../mutations/folders';
-import { updateDocument } from '../../mutations/documents';
+// import React from 'react';
 
-// ------------- Component Imports ---------------------- //
-import DocumentDetails from '../Documents/DocumentDetails';
+// // ------------- gql Imports ---------------------- //
+// import { compose, Query } from 'react-apollo';
+// import * as query from '../../../constants/queries';
+// import { deleteFolder, updateFolder } from '../../mutations/folders';
+// import { updateDocument } from '../../mutations/documents';
 
-// ------------- Style Imports ---------------------- //
-import styled from 'styled-components';
-import CloseIcon from '@material-ui/icons/Close';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
-import { colors } from '../../../colorVariables';
+// // ------------- Component Imports ---------------------- //
+// import DocumentDetails from '../Documents/DocumentDetails';
 
-// ------------- Modal styling imports ---------------------- //
-import {
-	StyledModal,
-	StyledModalOverlay,
-	StyledModalClose,
-	StyledModalPaper,
-	StyledModalTitle,
-	StyledModalButton,
-	StyledModalForm,
-	StyledModalInput,
-	StyledModalIconButton
-} from '../../Modal.styles';
+// // ------------- Style Imports ---------------------- //
+// import styled from 'styled-components';
+// import CloseIcon from '@material-ui/icons/Close';
+// import CardActions from '@material-ui/core/CardActions';
+// import CardContent from '@material-ui/core/CardContent';
+// import CardHeader from '@material-ui/core/CardHeader';
+// import Avatar from '@material-ui/core/Avatar';
+// import { colors } from '../../../colorVariables';
 
-// ---------------- Styled Components ---------------------- //
+// // ------------- Modal styling imports ---------------------- //
+// import {
+// 	StyledModal,
+// 	StyledModalOverlay,
+// 	StyledModalClose,
+// 	StyledModalPaper,
+// 	StyledModalTitle,
+// 	StyledModalButton,
+// 	StyledModalForm,
+// 	StyledModalInput,
+// 	StyledModalIconButton
+// } from '../../Modal.styles';
 
-const ModalTitle = styled(StyledModalTitle)`
-	h2 {
-		font-size: 30px;
-		text-align: center;
-		margin-left: 30px;
-	}
-`;
+// // ---------------- Styled Components ---------------------- //
 
-const SmallerTitle = styled(ModalTitle)`
-	h2 {
-		font-size: 18px;
-	}
-`;
+// const ModalTitle = styled(StyledModalTitle)`
+// 	h2 {
+// 		font-size: 30px;
+// 		text-align: center;
+// 		margin-left: 30px;
+// 	}
+// `;
 
-const DocumentTitle = styled(StyledModalTitle)`
-	h2 {
-		font-size: 18px;
-		margin-left: 15px;
-	}
-`;
+// const SmallerTitle = styled(ModalTitle)`
+// 	h2 {
+// 		font-size: 18px;
+// 	}
+// `;
 
-class FolderDetails extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			title: '',
-			editingFolder: false,
-			documentDetailOpen: false,
-			currentDocument: null,
-			refreshed: false
-		};
-	}
+// const DocumentTitle = styled(StyledModalTitle)`
+// 	h2 {
+// 		font-size: 18px;
+// 		margin-left: 15px;
+// 	}
+// `;
 
-	resetState = () =>
-		this.setState({
-			title: '',
-			editingFolder: false
-		});
+// class FolderDetails extends React.Component {
+// 	constructor(props) {
+// 		super(props);
+// 		this.state = {
+// 			title: '',
+// 			editingFolder: false,
+// 			documentDetailOpen: false,
+// 			currentDocument: null,
+// 			refreshed: false
+// 		};
+// 	}
 
-	toggleDocumentDetail = doc => {
-		this.setState(prevState => ({
-			documentDetailOpen: !prevState.documentDetailOpen,
-			currentDocument: doc
-		}));
-	};
+// 	resetState = () =>
+// 		this.setState({
+// 			title: '',
+// 			editingFolder: false
+// 		});
 
-	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+// 	toggleDocumentDetail = doc => {
+// 		this.setState(prevState => ({
+// 			documentDetailOpen: !prevState.documentDetailOpen,
+// 			currentDocument: doc
+// 		}));
+// 	};
 
-	refreshFolderInfo = e => {
-		this.setState({
-			refreshed: !this.state.refreshed
-		});
-	};
+// 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
-	render() {
-		const {
-			deleteFolder,
-			updateFolder,
-			folder,
-			hideModal,
-			updateDocument,
-			currentUser,
-			open
-		} = this.props;
+// 	refreshFolderInfo = e => {
+// 		this.setState({
+// 			refreshed: !this.state.refreshed
+// 		});
+// 	};
 
-		if (folder === null) return <></>;
-		return (
-			<StyledModal
-				open={open}
-				onClose={() => {
-					hideModal();
-					this.resetState();
-				}}
-			>
-				<StyledModalClose>
-					<StyledModalIconButton
-						onClick={() => {
-							hideModal();
-							this.resetState();
-						}}
-					>
-						<CloseIcon />
-					</StyledModalIconButton>
-				</StyledModalClose>
-				<StyledModalOverlay>
-					<Query
-						query={query.FIND_DOCUMENTS_BY_FOLDER}
-						variables={{ folder: folder._id }}
-						notifyOnNetworkStatusChange
-					>
-						{({
-							loading,
-							error,
-							data: { findDocumentsByFolder },
-							refetch,
-							networkStatus
-						}) => {
-							if (networkStatus === 4) return 'Refetching';
-							if (loading) return <p>Loading...</p>;
-							if (error) return <p>Error</p>;
-							if (this.props.open === true && this.state.refreshed === false) {
-								refetch().then(this.refreshFolderInfo());
-								// .catch(err => console.error(err));
-							}
-							return (
-								<>
-									{this.state.editingFolder ? (
-										<CardContent>
-											<StyledModalForm
-												onSubmit={e => {
-													e.preventDefault();
-													folder.title = this.state.title;
-													updateFolder({
-														id: folder._id,
-														title: this.state.title
-													}).then(() => this.resetState());
-												}}
-											>
-												<StyledModalInput
-													name="title"
-													value={this.state.title}
-													onChange={this.handleChange}
-												/>
-												<StyledModalButton type="submit">
-													Save
-												</StyledModalButton>
-											</StyledModalForm>
-										</CardContent>
-									) : (
-										<>
-											<ModalTitle>{folder.title}</ModalTitle>
+// 	render() {
+// 		const {
+// 			deleteFolder,
+// 			updateFolder,
+// 			folder,
+// 			hideModal,
+// 			updateDocument,
+// 			currentUser,
+// 			open
+// 		} = this.props;
 
-											{/* Load all the images attached to the message */}
-											<CardActions
-												style={{
-													width: '100%',
-													display: 'flex',
-													flexFlow: 'row',
-													justifyContent: 'space-around'
-												}}
-											>
-												<StyledModalButton
-													onClick={e => {
-														e.preventDefault();
-														this.setState({
-															editingFolder: true,
-															title: folder.title
-														});
-													}}
-												>
-													Edit
-												</StyledModalButton>
-												<StyledModalButton
-													onClick={e => {
-														e.preventDefault();
-														findDocumentsByFolder.map(document =>
-															updateDocument({
-																id: document._id,
-																folder: null
-															})
-														);
-														deleteFolder({
-															id: this.props.folder._id
-														}).then(() => {
-															this.props.hideModal();
-														});
-													}}
-												>
-													Delete
-												</StyledModalButton>
+// 		if (folder === null) return <></>;
+// 		return (
+// 			<StyledModal
+// 				open={open}
+// 				onClose={() => {
+// 					hideModal();
+// 					this.resetState();
+// 				}}
+// 			>
+// 				<StyledModalClose>
+// 					<StyledModalIconButton
+// 						onClick={() => {
+// 							hideModal();
+// 							this.resetState();
+// 						}}
+// 					>
+// 						<CloseIcon />
+// 					</StyledModalIconButton>
+// 				</StyledModalClose>
+// 				<StyledModalOverlay>
+// 					<Query
+// 						query={query.FIND_DOCUMENTS_BY_FOLDER}
+// 						variables={{ folder: folder._id }}
+// 						notifyOnNetworkStatusChange
+// 					>
+// 						{({
+// 							loading,
+// 							error,
+// 							data: { findDocumentsByFolder },
+// 							refetch,
+// 							networkStatus
+// 						}) => {
+// 							if (networkStatus === 4) return 'Refetching';
+// 							if (loading) return <p>Loading...</p>;
+// 							if (error) return <p>Error</p>;
+// 							if (this.props.open === true && this.state.refreshed === false) {
+// 								refetch().then(this.refreshFolderInfo());
+// 								// .catch(err => console.error(err));
+// 							}
+// 							return (
+// 								<>
+// 									{this.state.editingFolder ? (
+// 										<CardContent>
+// 											<StyledModalForm
+// 												onSubmit={e => {
+// 													e.preventDefault();
+// 													folder.title = this.state.title;
+// 													updateFolder({
+// 														id: folder._id,
+// 														title: this.state.title
+// 													}).then(() => this.resetState());
+// 												}}
+// 											>
+// 												<StyledModalInput
+// 													name="title"
+// 													value={this.state.title}
+// 													onChange={this.handleChange}
+// 												/>
+// 												<StyledModalButton type="submit">
+// 													Save
+// 												</StyledModalButton>
+// 											</StyledModalForm>
+// 										</CardContent>
+// 									) : (
+// 										<>
+// 											<ModalTitle>{folder.title}</ModalTitle>
 
-												{/* Subscription for the document stuff goes here */}
-											</CardActions>
-										</>
-									)}
+// 											{/* Load all the images attached to the message */}
+// 											<CardActions
+// 												style={{
+// 													width: '100%',
+// 													display: 'flex',
+// 													flexFlow: 'row',
+// 													justifyContent: 'space-around'
+// 												}}
+// 											>
+// 												<StyledModalButton
+// 													onClick={e => {
+// 														e.preventDefault();
+// 														this.setState({
+// 															editingFolder: true,
+// 															title: folder.title
+// 														});
+// 													}}
+// 												>
+// 													Edit
+// 												</StyledModalButton>
+// 												<StyledModalButton
+// 													onClick={e => {
+// 														e.preventDefault();
+// 														findDocumentsByFolder.map(document =>
+// 															updateDocument({
+// 																id: document._id,
+// 																folder: null
+// 															})
+// 														);
+// 														deleteFolder({
+// 															id: this.props.folder._id
+// 														}).then(() => {
+// 															this.props.hideModal();
+// 														});
+// 													}}
+// 												>
+// 													Delete
+// 												</StyledModalButton>
 
-									{/* If there are any, display all the documents */}
-									{findDocumentsByFolder.length ? (
-										<StyledModalTitle>Documents</StyledModalTitle>
-									) : (
-										<SmallerTitle>
-											No document at the moment, drag some in!
-										</SmallerTitle>
-									)}
-									{findDocumentsByFolder.map(document => (
-										<StyledModalPaper key={document._id}>
-											<CardHeader
-												avatar={
-													<Avatar
-														src={document.user.avatar}
-														alt="test"
-														style={{ height: '32px', width: '32px' }}
-													/>
-												}
-												title={`${document.user.firstName} ${
-													document.user.lastName
-												}`}
-												titleTypographyProps={{
-													style: { color: colors.text }
-												}}
-											/>
-											<CardContent>
-												<DocumentTitle>{document.title}</DocumentTitle>
-											</CardContent>
+// 												{/* Subscription for the document stuff goes here */}
+// 											</CardActions>
+// 										</>
+// 									)}
 
-											{/* Check to see if the comment is the users and thus can be edited or deleted */}
-											<CardContent>
-												<StyledModalButton
-													onClick={e => {
-														e.preventDefault();
-														updateDocument({
-															id: document._id,
-															folder: null
-														});
-														refetch()
-															.then(this.refreshFolderInfo())
-															.catch(err => console.error(err));
-													}}
-												>
-													Remove from Folder
-												</StyledModalButton>
-												<StyledModalButton
-													onClick={e => {
-														e.preventDefault();
-														this.resetState();
-														this.toggleDocumentDetail(document);
-													}}
-												>
-													Details
-												</StyledModalButton>
-												<a
-													href={
-														document.doc_url.includes('http://') ||
-														document.doc_url.includes('https://')
-															? document.doc_url
-															: `http://www.${document.doc_url}`
-													}
-													target="_blank"
-													rel="noopener noreferrer"
-												>
-													<StyledModalButton>View</StyledModalButton>
-												</a>
-											</CardContent>
-										</StyledModalPaper>
-									))}
-								</>
-							);
-						}}
-					</Query>
-				</StyledModalOverlay>
-				{/* // Modals */}
-				<DocumentDetails
-					open={this.state.documentDetailOpen}
-					hideModal={() => this.toggleDocumentDetail(null)}
-					document={this.state.currentDocument}
-					currentUser={currentUser}
-					team={this.props.team}
-				/>
-			</StyledModal>
-		);
-	}
-}
+// 									{/* If there are any, display all the documents */}
+// 									{findDocumentsByFolder.length ? (
+// 										<StyledModalTitle>Documents</StyledModalTitle>
+// 									) : (
+// 										<SmallerTitle>
+// 											No document at the moment, drag some in!
+// 										</SmallerTitle>
+// 									)}
+// 									{findDocumentsByFolder.map(document => (
+// 										<StyledModalPaper key={document._id}>
+// 											<CardHeader
+// 												avatar={
+// 													<Avatar
+// 														src={document.user.avatar}
+// 														alt="test"
+// 														style={{ height: '32px', width: '32px' }}
+// 													/>
+// 												}
+// 												title={`${document.user.firstName} ${
+// 													document.user.lastName
+// 												}`}
+// 												titleTypographyProps={{
+// 													style: { color: colors.text }
+// 												}}
+// 											/>
+// 											<CardContent>
+// 												<DocumentTitle>{document.title}</DocumentTitle>
+// 											</CardContent>
 
-export default compose(
-	deleteFolder,
-	updateFolder,
-	updateDocument
-)(FolderDetails);
+// 											{/* Check to see if the comment is the users and thus can be edited or deleted */}
+// 											<CardContent>
+// 												<StyledModalButton
+// 													onClick={e => {
+// 														e.preventDefault();
+// 														updateDocument({
+// 															id: document._id,
+// 															folder: null
+// 														});
+// 														refetch()
+// 															.then(this.refreshFolderInfo())
+// 															.catch(err => console.error(err));
+// 													}}
+// 												>
+// 													Remove from Folder
+// 												</StyledModalButton>
+// 												<StyledModalButton
+// 													onClick={e => {
+// 														e.preventDefault();
+// 														this.resetState();
+// 														this.toggleDocumentDetail(document);
+// 													}}
+// 												>
+// 													Details
+// 												</StyledModalButton>
+// 												<a
+// 													href={
+// 														document.doc_url.includes('http://') ||
+// 														document.doc_url.includes('https://')
+// 															? document.doc_url
+// 															: `http://www.${document.doc_url}`
+// 													}
+// 													target="_blank"
+// 													rel="noopener noreferrer"
+// 												>
+// 													<StyledModalButton>View</StyledModalButton>
+// 												</a>
+// 											</CardContent>
+// 										</StyledModalPaper>
+// 									))}
+// 								</>
+// 							);
+// 						}}
+// 					</Query>
+// 				</StyledModalOverlay>
+// 				{/* // Modals */}
+// 				<DocumentDetails
+// 					open={this.state.documentDetailOpen}
+// 					hideModal={() => this.toggleDocumentDetail(null)}
+// 					document={this.state.currentDocument}
+// 					currentUser={currentUser}
+// 					team={this.props.team}
+// 				/>
+// 			</StyledModal>
+// 		);
+// 	}
+// }
+
+// export default compose(
+// 	deleteFolder,
+// 	updateFolder,
+// 	updateDocument
+// )(FolderDetails);

@@ -4,6 +4,8 @@ const DocComment = require('../../models/DocComment');
 const Event = require('../../models/Event');
 const { ValidationError } = require('apollo-server-express');
 
+const { object_str, action_str } = require('./ResolverHelpers');
+
 const documentResolver = {
 	Query: {
 		documents: () =>
@@ -35,7 +37,7 @@ const documentResolver = {
 					.populate('user team tag subscribedUsers folder')
 					.execPopulate()
 					.then(async item => {
-						console.log('item before event is called: ', item);
+						// console.log('item before event is called: ', item);
 						if (item) {
 							try {
 								await new Event({
@@ -47,7 +49,7 @@ const documentResolver = {
 								})
 									.save()
 									.then(event => {
-										console.log('Event added', event);
+										// console.log('Event added', event);
 									});
 							} catch (error) {
 								console.error('Could not add event', error);
@@ -98,10 +100,10 @@ const documentResolver = {
 					await DocComment.deleteMany({ document: document._id });
 					try {
 						await new Event({
-							team: document.team,
-							user: document.user,
-							action_string: 'deleted',
-							object_string: 'document',
+							team: document.team._id,
+							user: document.user._id,
+							action_string: action_str.deleted,
+							object_string: object_str.document,
 							event_target_id: null
 						})
 							.save()
@@ -130,9 +132,9 @@ const documentResolver = {
 							await new Event({
 								team: item.team._id,
 								user: item.user._id,
-								action_string: 'subscribed',
-								object_string: 'document',
-								event_target_id: null
+								action_string: action_str.subscribed,
+								object_string: object_str.document,
+								event_target_id: item._id
 							})
 								.save()
 								.then(event => {
@@ -159,9 +161,9 @@ const documentResolver = {
 							await new Event({
 								team: item.team._id,
 								user: item.user._id,
-								action_string: 'unsubscribed',
-								object_string: 'document',
-								event_target_id: null
+								action_string: action_str.unsubscribed,
+								object_string: object_str.document,
+								event_target_id: item._id
 							})
 								.save()
 								.then(event => {
