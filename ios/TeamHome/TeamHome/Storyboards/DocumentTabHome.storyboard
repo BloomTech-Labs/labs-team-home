@@ -118,6 +118,9 @@
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0g-HJ-nrO">
                                                         <rect key="frame" x="278" y="0.0" width="22" height="30"/>
+                                                        <connections>
+                                                            <action selector="createTag:" destination="Gjh-D1-vhX" eventType="touchUpInside" id="oqt-xz-zUc"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -127,6 +130,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vks-v4-e09" customClass="FlatButton" customModule="Material">
                                                         <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
                                                         <state key="normal" title="Cancel"/>
+                                                        <connections>
+                                                            <action selector="cancelNewMessage:" destination="Gjh-D1-vhX" eventType="touchUpInside" id="fO9-SJ-LxT"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jdc-Gj-j0w" customClass="RaisedButton" customModule="Material">
                                                         <rect key="frame" x="153" y="0.0" width="147" height="30"/>
@@ -169,7 +175,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="cancelButton" destination="vks-v4-e09" id="doA-TA-K9H"/>
+                        <outlet property="cancelButton" destination="vks-v4-e09" id="HoP-V8-Dqy"/>
                         <outlet property="collectionView" destination="Tqk-wu-jEX" id="upd-8T-l84"/>
                         <outlet property="documentLinkTextField" destination="wNb-Lw-uj0" id="uaP-Gu-5TL"/>
                         <outlet property="documentNotesTextView" destination="BHQ-Px-4pc" id="Y1I-4P-ZOV"/>

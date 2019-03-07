@@ -19,6 +19,8 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.dataSource = self
+        collectionView.delegate = self
         setupViews()
     }
     
@@ -54,8 +56,37 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
 //        navigationController?.popViewController(animated: true)
         
     }
-    
-
+    @IBAction func cancelNewMessage(_ sender: Any) {
+        
+        navigationController?.popViewController(animated: true)
+    }
+    @IBAction func createTag(_ sender: Any) {
+        guard let apollo = apollo,
+            let team = team,
+            let teamId = team.id,
+            let tag = tagsTextField.text else { return }
+        
+        apollo.perform(mutation: CreateNewTagMutation(name: tag, teamId: teamId), queue: DispatchQueue.global()) { (result, error) in
+            if let error = error {
+                print("\(error)")
+                return
+            }
+            
+            guard let result = result,
+                let data = result.data,
+                let tag = data.addTag else { return }
+            
+            print(tag)
+            
+            self.tagsWatcher?.refetch()
+            
+            DispatchQueue.main.async {
+                self.tagsTextField.text = ""
+                
+                // Show tag alert?
+            }
+        }
+    }
     @IBAction func addToFolder(_ sender: Any) {
         
     }
@@ -184,6 +215,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             
         })
     }
+
     private func findSelectedTag() -> GraphQLID? {
         
         // Unwrap tag selection or recently created tag.
