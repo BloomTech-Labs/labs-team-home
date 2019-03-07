@@ -34,8 +34,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 					return <Redirect to="/" />;
 				}
 			} else {
-				// removed alert, future refactor area
-				// alert('You must login to access that page.');
 				return <Redirect to="/" />;
 			}
 		}}
