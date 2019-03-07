@@ -108,6 +108,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         documentNotesLabel.text = document.textContent
         if let tagText = document.tag?.name {
             tagTextLabel.text = "#\(tagText)"
+        } else {
+            tagTextLabel.text = ""
         }
         
         // Download image and display as user avatar

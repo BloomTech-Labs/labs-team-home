@@ -42,19 +42,21 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     //MARK: - IBActions
     @IBAction func submitDocument(_ sender: Any) {
         guard let title = documentTitleTextField.text,
-            let link = documentLinkTextField.text,
-        let tagID = findSelectedTag() else { return}
+            let link = documentLinkTextField.text
+            //            ,
+            //        let tagID = findSelectedTag()
+            else { return}
         let note = documentNotesTextView.text ?? ""
         
         if let document = document {
-            performEditMutation(document: document, title: title, doc_url: link, textContent: note, tagID: tagID)
+            performEditMutation(document: document, title: title, doc_url: link, textContent: note, tagID: findSelectedTag())
         } else {
-            performAddMutation(title: title, doc_url: link, team: team.id!, textContent: note, tagID:  tagID)
+            performAddMutation(title: title, doc_url: link, team: team.id!, textContent: note, tagID:  findSelectedTag())
         }
         
         watcher?.refetch()
         navigationController?.popToRootViewController(animated: true)
-//        navigationController?.popViewController(animated: true)
+        //        navigationController?.popViewController(animated: true)
         
     }
     @IBAction func cancelNewMessage(_ sender: Any) {
@@ -127,7 +129,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         
         cell?.backgroundColor = Appearance.mauveColor
     }
-
+    
     //MARK: - Private Properties
     private func setupViews(){
         setUpViewAppearance()
@@ -165,22 +167,20 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         documentNotesTextView.text = ""
     }
     
-    private func performEditMutation(document: Document, title: String, doc_url: String, textContent: String, tagID: String){
-        apollo.perform(mutation: UpdateDocumentMutation(id: document.id!, title: title, doc_url: doc_url, textContent: textContent, tag: tagID)) { (result, error) in
-            if let error = error {
-                NSLog("Error updating document: \(error)")
-            }
-            print("Edit Document Successful: \(result?.data?.updateDocument?.title ?? "No Title")")
+    private func performEditMutation(document: Document, title: String, doc_url: String, textContent: String, tagID: String?){
+        if let tagID = tagID {
+            apollo.perform(mutation: UpdateDocumentMutation(id: document.id!, title: title, doc_url: doc_url, textContent: textContent, tag: tagID))
+            
+        } else {
+            apollo.perform(mutation: UpdateDocumentMutation(id: document.id!, title: title, doc_url: doc_url, textContent: textContent))
         }
     }
     
-    private func performAddMutation(title: String, doc_url: String, team: String, textContent: String, tagID: String){
-        apollo.perform(mutation: AddNewDocumentMutation(title: title, doc_url: doc_url, team: team, textContent: textContent, tag: tagID)) { (result, error) in
-            if let error = error{
-                NSLog("Error adding document: \(error)")
-                return
-            }
-            print("Add Document Successful: \(result?.data?.addDocument?.title ?? "No Title")")
+    private func performAddMutation(title: String, doc_url: String, team: String, textContent: String, tagID: String?){
+        if let tagID = tagID {
+            apollo.perform(mutation: AddNewDocumentMutation(title: title, doc_url: doc_url, team: team, textContent: textContent, tag: tagID))
+        } else {
+            apollo.perform(mutation: AddNewDocumentMutation(title: title, doc_url: doc_url, team: team, textContent: textContent))
         }
     }
     
@@ -216,7 +216,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             
         })
     }
-
+    
     private func findSelectedTag() -> GraphQLID? {
         
         // Unwrap tag selection or recently created tag.
