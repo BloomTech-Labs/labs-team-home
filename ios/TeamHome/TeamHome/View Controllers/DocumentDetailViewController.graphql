@@ -9,6 +9,21 @@ mutation AddDocumentComment($document: String!, $comment: String!){
     }
 }
 
+mutation SubscribeToDocument($documentID: ID!){
+    subscribeDoc(input: {
+                 id: $documentID
+                 }){
+        _id
+    }
+}
+mutation UnsubscribeFromDocument($documentID: ID!){
+    unsubscribeDoc(input: {
+                 id: $documentID
+                 }){
+        _id
+    }
+}
+
 query FindDocumentInput($docID: ID!){
     findDocument(input: {
                  id:$docID
@@ -27,9 +42,14 @@ query FindDocumentInput($docID: ID!){
         }
         title
         textContent
+        tag{
+            _id
+            name
+        }
         images
         comments
         subscribedUsers{
+            _id
             firstName
             lastName
             avatar

@@ -315,7 +315,7 @@
             <objects>
                 <tableViewController id="qfn-G3-rx9" customClass="DocumentsTableViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fCb-hq-SUw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -384,7 +384,7 @@
                                                         <rect key="frame" x="126" y="0.0" width="217" height="20.5"/>
                                                         <state key="normal" title="Subscribe"/>
                                                         <connections>
-                                                            <action selector="clickedSubscribe:" destination="PI0-00-t65" eventType="touchUpInside" id="2iD-Ro-rWF"/>
+                                                            <action selector="clickedSubscribe:" destination="PI0-00-t65" eventType="touchUpInside" id="pA2-UT-Roo"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -714,8 +714,7 @@
         <image name="User Avatar Image" width="32.810127258300781" height="32.810127258300781"/>
     </resources>
     <inferredMetricsTieBreakers>
-
         <segue reference="R6w-rk-308"/>
-        <segue reference="2HZ-Sp-MoN"/>
+        <segue reference="q4k-aO-cWI"/>
     </inferredMetricsTieBreakers>
 </document>
