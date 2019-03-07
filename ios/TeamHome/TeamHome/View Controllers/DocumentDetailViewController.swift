@@ -106,6 +106,9 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         dateLabel.text = date
         documentURLLabel.text = document.docUrl
         documentNotesLabel.text = document.textContent
+        if let tagText = document.tag?.name {
+            tagTextLabel.text = "#\(tagText)"
+        }
         
         // Download image and display as user avatar
         guard let avatar = document.user.avatar else { return }
@@ -207,6 +210,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     @IBOutlet weak var commentContainerView: UIView!
     @IBOutlet weak var commentTextView: GrowingTextView!
     
+    @IBOutlet weak var tagTextLabel: UILabel!
     
     
 }
