@@ -192,23 +192,7 @@ class TeamDetails extends React.Component {
 								{/* If the user is the admin on a team, give them a delete button */}
 								{!editingTeamName ? (
 									<StyledModalCardAction>
-										<Mutation
-											mutation={mutation.DELETE_TEAM}
-											// update={(cache, { data: { deleteTeam } }) => {
-											// 	const { findTeamsByUser } = cache.readQuery({
-											// 		query: query.FIND_TEAMS_BY_USER
-											// 	});
-											// 	cache.writeQuery({
-											// 		query: query.FIND_TEAMS_BY_USER,
-											// 		variables: { team: team },
-											// 		data: {
-											// 			findTeamsByUser: findTeamsByUser.filter(
-											// 				({ _id }) => _id !== deleteTeam._id
-											// 			)
-											// 		}
-											// 	});
-											// }
-										>
+										<Mutation mutation={mutation.DELETE_TEAM}>
 											{deleteTeam => (
 												<StyledModalButton
 													color="secondary"

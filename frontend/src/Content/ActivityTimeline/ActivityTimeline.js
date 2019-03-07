@@ -21,18 +21,19 @@ export default class ActivityTimeline extends React.Component {
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
 					variables={{ team: this.state.team._id }}
-					notifyOnNetworkStatusChange
+					pollInterval={5000}
+					// notifyOnNetworkStatusChange
 				>
 					{({
 						loading,
 						error,
-						data: { findEventsByTeam },
-						refetch,
-						networkStatus
+						data: { findEventsByTeam }
+						// refetch,
+						// networkStatus
 					}) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error!</p>;
-						if (networkStatus === 4) return <p> Refetching...</p>;
+						// if (networkStatus === 4) return <p> Refetching...</p>;
 						// console.log('all the events: ', findEventsByTeam);
 						if (findEventsByTeam && findEventsByTeam.length > 0) {
 							findEventsByTeam.map(event => {
@@ -58,7 +59,7 @@ export default class ActivityTimeline extends React.Component {
 								return <div key={index}> nO uSeR</div>;
 							});
 						} else {
-							refetch();
+							// refetch();
 							return <div> No events </div>;
 						}
 					}}

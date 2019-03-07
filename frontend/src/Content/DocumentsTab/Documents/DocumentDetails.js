@@ -4,7 +4,7 @@ import React from 'react';
 import DocumentCommentDetail from './DocumentCommentDetails';
 
 // ------------- gql Imports ---------------------- //
-import { Query, compose, Mutation } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
 import {
 	UPDATE_DOCUMENT,

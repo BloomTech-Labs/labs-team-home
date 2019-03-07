@@ -76,7 +76,7 @@ const StyledTypography = styled(Typography)`
 `;
 
 function Activity(props) {
-	console.log('this is the props on the event: ', props);
+	// console.log('this is the props on the event: ', props);
 	const { classes, own } = props;
 	const { user, createdAt, action_string, object_string } = props.event;
 
