@@ -12,29 +12,19 @@ export default class ActivityTimeline extends React.Component {
 		};
 	}
 
-	componentDidMount(prevProps) {}
-
 	render() {
 		return (
 			<div>
-				{/* Queries for all Events*/}
+				{/* Queries for all Events, refected every 5000ms (5 seconds)*/}
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
 					variables={{ team: this.state.team._id }}
 					pollInterval={5000}
-					// notifyOnNetworkStatusChange
 				>
-					{({
-						loading,
-						error,
-						data: { findEventsByTeam }
-						// refetch,
-						// networkStatus
-					}) => {
+					{({ loading, error, data: { findEventsByTeam } }) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error!</p>;
-						// if (networkStatus === 4) return <p> Refetching...</p>;
-						// console.log('all the events: ', findEventsByTeam);
+
 						if (findEventsByTeam && findEventsByTeam.length > 0) {
 							findEventsByTeam.map(event => {
 								if (typeof event.createdAt === 'string' && event.createdAt) {
@@ -59,7 +49,6 @@ export default class ActivityTimeline extends React.Component {
 								return <div key={index}> nO uSeR</div>;
 							});
 						} else {
-							// refetch();
 							return <div> No events </div>;
 						}
 					}}

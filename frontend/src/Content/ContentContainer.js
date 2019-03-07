@@ -75,7 +75,7 @@ class ContentContainer extends React.Component {
 		super(props);
 
 		this.state = {
-			value: 0,
+			value: 1,
 			isAdmin: false,
 			showFABMenu: false
 		};

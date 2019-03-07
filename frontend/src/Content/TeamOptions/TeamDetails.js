@@ -194,7 +194,7 @@ class TeamDetails extends React.Component {
 									<StyledModalCardAction>
 										<Mutation mutation={mutation.DELETE_TEAM}>
 											{deleteTeam => (
-												<StyledModalButton
+												<Button
 													color="secondary"
 													onClick={e => {
 														e.preventDefault();
@@ -209,7 +209,7 @@ class TeamDetails extends React.Component {
 													}}
 												>
 													Delete Team
-												</StyledModalButton>
+												</Button>
 											)}
 										</Mutation>
 										<StyledModalButton
@@ -393,7 +393,7 @@ class TeamDetails extends React.Component {
 																	findTeam: leaveTeam
 																}
 															});
-															//Cache is BROKE not WOKE
+
 															cache.writeQuery({
 																query: query.FIND_TEAMS_BY_USER,
 																variables: { id: team },
