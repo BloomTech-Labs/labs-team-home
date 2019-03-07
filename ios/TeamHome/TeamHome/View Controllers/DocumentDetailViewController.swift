@@ -64,7 +64,12 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         commentTextView.text = ""
     }
     @IBAction func clickedSubscribe(_ sender: Any) {
-        isSubscribed ? unsubscribeFromDocument() : subscribeToDocument()
+        guard let apollo = apollo,
+            let documentID = documentID else {return}
+        
+        isSubscribed
+            ? unsubscribeFromDocument(apollo: apollo, documentID: documentID)
+            : subscribeToDocument(apollo: apollo, documentID: documentID)
     }
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -119,11 +124,24 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         commentTextView.backgroundColor = UIColor.white
         commentTextView.layer.cornerRadius = 4.0
     }
-    private func unsubscribeFromDocument(){
-        
+    private func unsubscribeFromDocument(apollo:ApolloClient, documentID: GraphQLID){
+
+        apollo.perform(mutation: UnsubscribeFromDocumentMutation(documentID: documentID)) { (result, error) in
+            if let error = error {
+                NSLog("Error unsubscribing: \(error)")
+                return
+            }
+            self.isSubscribed = false
+        }
     }
-    private func subscribeToDocument(){
-        
+    private func subscribeToDocument(apollo:ApolloClient, documentID: GraphQLID){
+        apollo.perform(mutation: SubscribeToDocumentMutation(documentID: documentID)) { (result, error) in
+            if let error = error {
+                NSLog("Error unsubscribing: \(error)")
+                return
+            }
+            self.isSubscribed = true
+        }
     }
     private func updateViews() {
         guard let document = document,
