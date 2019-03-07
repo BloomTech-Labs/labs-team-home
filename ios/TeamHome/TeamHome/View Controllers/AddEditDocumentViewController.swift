@@ -130,6 +130,17 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         cell?.backgroundColor = Appearance.mauveColor
     }
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ChooseFolder" {
+            let destVC = segue.destination as! FolderManagementViewController
+            destVC.apollo = apollo
+            destVC.team = team
+            destVC.document = document
+        }
+    }
+    
     //MARK: - Private Properties
     private func setupViews(){
         setUpViewAppearance()

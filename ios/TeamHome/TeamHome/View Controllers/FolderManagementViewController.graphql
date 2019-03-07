@@ -1,7 +1,7 @@
-mutation MoveToFolder($id: ID!, $title: String!){
-    updateFolder(input: {
+mutation MoveDocumentToFolder($id: ID!, $folder: String){
+    updateDocument(input: {
                   id: $id
-                  title: $title
+                  folder: $folder
                   
                   }) {
         _id

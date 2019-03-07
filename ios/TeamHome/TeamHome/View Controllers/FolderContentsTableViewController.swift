@@ -15,16 +15,16 @@ class FolderContentsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = .clear
         setUpViewAppearance()
         createGradientLayer()
+        tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let watcher = watcher{
-            watcher.refetch()
+        if let watcherFolderContents = watcherFolderContents{
+            watcherFolderContents.refetch()
         }
 //        showNavigationBar()
     }
@@ -62,8 +62,6 @@ class FolderContentsTableViewController: UITableViewController {
         }
     }
 
-
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -71,8 +69,9 @@ class FolderContentsTableViewController: UITableViewController {
         if segue.identifier == "ViewDocumentDetails"{
             guard let destinationVC = segue.destination as? DocumentDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow,
-                let documents = documents else {return}
-//            destinationVC.document = documents[indexPath.row]
+                let documents = documents,
+                let documentID = documents[indexPath.row]?.id else {return}
+            destinationVC.documentID = documentID
             destinationVC.apollo = apollo
             destinationVC.team = team
             destinationVC.currentUser = currentUser
