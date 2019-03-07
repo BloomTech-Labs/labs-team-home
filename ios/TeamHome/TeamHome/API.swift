@@ -2928,31 +2928,33 @@ public final class InviteUserToTeamWithPhoneMutation: GraphQLMutation {
 
 public final class AddNewDocumentMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation AddNewDocument($title: String!, $doc_url: String!, $team: String!, $folder: String, $textContent: String!) {\n  addDocument(input: {title: $title, doc_url: $doc_url, team: $team, folder: $folder, textContent: $textContent}) {\n    __typename\n    title\n    _id\n  }\n}"
+    "mutation AddNewDocument($title: String!, $doc_url: String!, $team: String!, $folder: String, $textContent: String!, $tag: String) {\n  addDocument(input: {title: $title, doc_url: $doc_url, team: $team, folder: $folder, textContent: $textContent, tag: $tag}) {\n    __typename\n    title\n    _id\n  }\n}"
 
   public var title: String
   public var doc_url: String
   public var team: String
   public var folder: String?
   public var textContent: String
+  public var tag: String?
 
-  public init(title: String, doc_url: String, team: String, folder: String? = nil, textContent: String) {
+  public init(title: String, doc_url: String, team: String, folder: String? = nil, textContent: String, tag: String? = nil) {
     self.title = title
     self.doc_url = doc_url
     self.team = team
     self.folder = folder
     self.textContent = textContent
+    self.tag = tag
   }
 
   public var variables: GraphQLMap? {
-    return ["title": title, "doc_url": doc_url, "team": team, "folder": folder, "textContent": textContent]
+    return ["title": title, "doc_url": doc_url, "team": team, "folder": folder, "textContent": textContent, "tag": tag]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("addDocument", arguments: ["input": ["title": GraphQLVariable("title"), "doc_url": GraphQLVariable("doc_url"), "team": GraphQLVariable("team"), "folder": GraphQLVariable("folder"), "textContent": GraphQLVariable("textContent")]], type: .object(AddDocument.selections)),
+      GraphQLField("addDocument", arguments: ["input": ["title": GraphQLVariable("title"), "doc_url": GraphQLVariable("doc_url"), "team": GraphQLVariable("team"), "folder": GraphQLVariable("folder"), "textContent": GraphQLVariable("textContent"), "tag": GraphQLVariable("tag")]], type: .object(AddDocument.selections)),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -3025,31 +3027,33 @@ public final class AddNewDocumentMutation: GraphQLMutation {
 
 public final class UpdateDocumentMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation UpdateDocument($id: ID!, $title: String, $doc_url: String, $folder: String, $textContent: String) {\n  updateDocument(input: {id: $id, title: $title, doc_url: $doc_url, folder: $folder, textContent: $textContent}) {\n    __typename\n    title\n    _id\n  }\n}"
+    "mutation UpdateDocument($id: ID!, $title: String, $doc_url: String, $folder: String, $textContent: String, $tag: String) {\n  updateDocument(input: {id: $id, title: $title, doc_url: $doc_url, folder: $folder, textContent: $textContent, tag: $tag}) {\n    __typename\n    title\n    _id\n  }\n}"
 
   public var id: GraphQLID
   public var title: String?
   public var doc_url: String?
   public var folder: String?
   public var textContent: String?
+  public var tag: String?
 
-  public init(id: GraphQLID, title: String? = nil, doc_url: String? = nil, folder: String? = nil, textContent: String? = nil) {
+  public init(id: GraphQLID, title: String? = nil, doc_url: String? = nil, folder: String? = nil, textContent: String? = nil, tag: String? = nil) {
     self.id = id
     self.title = title
     self.doc_url = doc_url
     self.folder = folder
     self.textContent = textContent
+    self.tag = tag
   }
 
   public var variables: GraphQLMap? {
-    return ["id": id, "title": title, "doc_url": doc_url, "folder": folder, "textContent": textContent]
+    return ["id": id, "title": title, "doc_url": doc_url, "folder": folder, "textContent": textContent, "tag": tag]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("updateDocument", arguments: ["input": ["id": GraphQLVariable("id"), "title": GraphQLVariable("title"), "doc_url": GraphQLVariable("doc_url"), "folder": GraphQLVariable("folder"), "textContent": GraphQLVariable("textContent")]], type: .object(UpdateDocument.selections)),
+      GraphQLField("updateDocument", arguments: ["input": ["id": GraphQLVariable("id"), "title": GraphQLVariable("title"), "doc_url": GraphQLVariable("doc_url"), "folder": GraphQLVariable("folder"), "textContent": GraphQLVariable("textContent"), "tag": GraphQLVariable("tag")]], type: .object(UpdateDocument.selections)),
     ]
 
     public private(set) var resultMap: ResultMap

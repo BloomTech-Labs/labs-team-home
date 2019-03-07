@@ -42,13 +42,14 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     //MARK: - IBActions
     @IBAction func submitDocument(_ sender: Any) {
         guard let title = documentTitleTextField.text,
-            let link = documentLinkTextField.text else { return}
+            let link = documentLinkTextField.text,
+        let tagID = findSelectedTag() else { return}
         let note = documentNotesTextView.text ?? ""
         
         if let document = document {
-            performEditMutation(document: document, title: title, doc_url: link, textContent: note)
+            performEditMutation(document: document, title: title, doc_url: link, textContent: note, tagID: tagID)
         } else {
-            performAddMutation(title: title, doc_url: link, team: team.id!, textContent: note)
+            performAddMutation(title: title, doc_url: link, team: team.id!, textContent: note, tagID:  tagID)
         }
         
         watcher?.refetch()
@@ -164,8 +165,8 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         documentNotesTextView.text = ""
     }
     
-    private func performEditMutation(document: Document, title: String, doc_url: String, textContent: String){
-        apollo.perform(mutation: UpdateDocumentMutation(id: document.id!, title: title, doc_url: doc_url, textContent: textContent)) { (result, error) in
+    private func performEditMutation(document: Document, title: String, doc_url: String, textContent: String, tagID: String){
+        apollo.perform(mutation: UpdateDocumentMutation(id: document.id!, title: title, doc_url: doc_url, textContent: textContent, tag: tagID)) { (result, error) in
             if let error = error {
                 NSLog("Error updating document: \(error)")
             }
@@ -173,8 +174,8 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         }
     }
     
-    private func performAddMutation(title: String, doc_url: String, team: String, textContent: String){
-        apollo.perform(mutation: AddNewDocumentMutation(title: title, doc_url: doc_url, team: team, textContent: textContent)) { (result, error) in
+    private func performAddMutation(title: String, doc_url: String, team: String, textContent: String, tagID: String){
+        apollo.perform(mutation: AddNewDocumentMutation(title: title, doc_url: doc_url, team: team, textContent: textContent, tag: tagID)) { (result, error) in
             if let error = error{
                 NSLog("Error adding document: \(error)")
                 return
