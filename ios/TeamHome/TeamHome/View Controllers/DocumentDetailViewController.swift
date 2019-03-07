@@ -124,6 +124,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         commentTextView.backgroundColor = UIColor.white
         commentTextView.layer.cornerRadius = 4.0
     }
+    
+    //unsubscribes to document by performing a mutation
     private func unsubscribeFromDocument(apollo:ApolloClient, documentID: GraphQLID){
 
         apollo.perform(mutation: UnsubscribeFromDocumentMutation(documentID: documentID)) { (result, error) in
@@ -134,6 +136,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
             self.isSubscribed = false
         }
     }
+    //subscribes to document by performing a mutation
     private func subscribeToDocument(apollo:ApolloClient, documentID: GraphQLID){
         apollo.perform(mutation: SubscribeToDocumentMutation(documentID: documentID)) { (result, error) in
             if let error = error {
@@ -143,6 +146,21 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
             self.isSubscribed = true
         }
     }
+    //updates isSubscribe to make sure it is accurate to the current document
+    private func updateIsSubscribed(){
+        if let document = document,
+            let currentUser = currentUser,
+            let subscribers = document.subscribedUsers {
+            
+            let names = subscribers.compactMap{
+                $0?.id
+            }
+            isSubscribed = names.contains(currentUser.id)
+        } else {
+            isSubscribed = false
+        }
+    }
+    //udpates subscribe button title based on isSubscribed property
     private func updateSubscribeButton(){
         let subscribeText = isSubscribed
             ? "Unsubscribe"
@@ -170,7 +188,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         } else {
             tagTextLabel.text = ""
         }
-        
+        updateIsSubscribed()
+        updateSubscribeButton()
         // Download image and display as user avatar
         guard let avatar = document.user.avatar else { return }
         
@@ -239,11 +258,18 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     
     //MARK: - Properties
     
-    private var isSubscribed: Bool = false {
+//    private var isSubscribed: Bool = false {
+//        didSet{
+//            updateSubscribeButton()
+//        }
+//    }
+    
+    private var isSubscribed = false {
         didSet{
-            updateSubscribeButton()
+        updateSubscribeButton()
         }
-    }
+        }
+    
     var documentID: GraphQLID?
     var document: FindDocumentInputQuery.Data.FindDocument? {
         didSet {

@@ -49,6 +49,7 @@ query FindDocumentInput($docID: ID!){
         images
         comments
         subscribedUsers{
+            _id
             firstName
             lastName
             avatar
