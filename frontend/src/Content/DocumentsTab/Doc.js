@@ -31,7 +31,7 @@ const docSource = {
 		}
 		const dropResult = monitor.getDropResult();
 		// console.log('dropResult: ', dropResult);
-		return props.handleDrop(props.document, dropResult.folder);
+		return props.handleDrop(props.document, dropResult.folder, props.update);
 	}
 };
 
