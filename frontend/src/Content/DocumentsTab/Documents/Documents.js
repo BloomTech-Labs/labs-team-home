@@ -12,7 +12,7 @@ class Documents extends Component {
 		};
 	}
 
-	Detail = doc => {
+	toggleDocumentDetail = doc => {
 		this.setState(prevState => ({
 			documentDetailOpen: !prevState.documentDetailOpen,
 			currentDocument: doc
@@ -28,7 +28,7 @@ class Documents extends Component {
 			<div>
 				<div>
 					<DocContainer
-						toggleDocumentDetail={this.Detail}
+						toggleDocumentDetail={this.toggleDocumentDetail}
 						team={this.props.team._id}
 						sortOption={this.state.sortOption}
 						sortChange={this.sortChange}
@@ -36,7 +36,7 @@ class Documents extends Component {
 				</div>
 				<DocumentDetails
 					open={this.state.documentDetailOpen}
-					hideModal={() => this.Detail(null)}
+					hideModal={() => this.toggleDocumentDetail(null)}
 					document={this.state.currentDocument}
 					currentUser={this.props.currentUser}
 					team={this.props.team._id}

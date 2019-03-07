@@ -245,7 +245,7 @@ class DocumentDetails extends React.Component {
 			open
 		} = this.props;
 
-		console.log('All the props from the document modal: ', this.props);
+		// console.log('All the props from the document modal: ', this.props);
 
 		if (document === null) return <></>;
 		return (
@@ -447,7 +447,6 @@ class DocumentDetails extends React.Component {
 					<Query
 						query={query.FIND_COMMENTS_BY_DOCUMENT}
 						variables={{ document: document._id }}
-						//this needs a refetch
 					>
 						{({ loading, error, data: { findDocCommentsByDocument } }) => {
 							if (loading) return <p>Loading...</p>;
@@ -476,8 +475,15 @@ class DocumentDetails extends React.Component {
 														variables: {
 															document: document._id,
 															content: this.state.newCommentContent
-														}
-													}).then(this.resetState());
+														},
+														refetchQueries: [
+															{
+																query: query.FIND_COMMENTS_BY_DOCUMENT,
+																variables: { document: document._id }
+															}
+														]
+													});
+													this.resetState();
 												}}
 											>
 												<StyledModalNewCommentInput
