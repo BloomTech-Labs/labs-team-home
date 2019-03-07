@@ -16,6 +16,8 @@ class FolderContentsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
+        setUpViewAppearance()
+        createGradientLayer()
         loadDocuments(with: apollo!)
     }
     
@@ -24,7 +26,7 @@ class FolderContentsTableViewController: UITableViewController {
         if let watcher = watcher{
             watcher.refetch()
         }
-        showNavigationBar()
+//        showNavigationBar()
     }
     
 
@@ -106,6 +108,21 @@ class FolderContentsTableViewController: UITableViewController {
         nc?.isNavigationBarHidden = false
     }
     
+    private func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
+        
+        
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
     // MARK: - Properties
     
     var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam?
@@ -124,6 +141,8 @@ class FolderContentsTableViewController: UITableViewController {
             }
         }
     }
+    
+    private var gradientLayer: CAGradientLayer!
     
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
