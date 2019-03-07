@@ -5,6 +5,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import Fab from '@material-ui/core/Fab';
 import { colors } from '../colorVariables';
+import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
+import NoteAdd from '@material-ui/icons/NoteAdd';
 
 // ---------------- Modals --------------------------------- //
 import AddMessage from './MessageBoard/AddMessage';
@@ -12,7 +14,7 @@ import AddFolder from './DocumentsTab/Folders/AddFolder';
 import AddDocument from './DocumentsTab/Documents/AddDocument';
 
 // ---------------- Styled Components ---------------------- //
-const AddMsgBtn = styled(Fab)`
+const AddContentBtn = styled(Fab)`
 	height: 75px;
 	width: 75px;
 	position: fixed;
@@ -21,7 +23,20 @@ const AddMsgBtn = styled(Fab)`
 	background-color: #faed26;
 	margin: 25px;
 	color: ${colors.button};
-	display: ${props => (props.noShow ? 'none' : 'inline')};
+
+	:focus {
+		outline: none;
+	}
+`;
+
+const MiniBtn = styled(Fab)`
+	height: 50px;
+	width: 50px;
+	background-color: ${colors.text};
+	color: ${colors.button};
+	position: fixed;
+	bottom: ${props => (props.bottom ? props.bottom : 0)};
+	right: 3.3rem;
 
 	:focus {
 		outline: none;
@@ -57,7 +72,13 @@ class FloatingActionButton extends React.Component {
 	};
 
 	render() {
-		const { classes, value, transitionDuration } = this.props;
+		const {
+			classes,
+			value,
+			transitionDuration,
+			showFABMenu,
+			toggleShowFABMenu
+		} = this.props;
 
 		return (
 			<>
@@ -77,9 +98,9 @@ class FloatingActionButton extends React.Component {
 						aria-label={'Add Message'}
 						classes={{ tooltip: classes.styledTooltip }}
 					>
-						<AddMsgBtn onClick={this.toggleAddMessageHandler}>
+						<AddContentBtn onClick={this.toggleAddMessageHandler}>
 							<AddIcon />
-						</AddMsgBtn>
+						</AddContentBtn>
 					</Tooltip>
 				</Zoom>
 				<Zoom
@@ -95,10 +116,37 @@ class FloatingActionButton extends React.Component {
 						aria-label={'Add Folder or Document'}
 						classes={{ tooltip: classes.styledTooltip }}
 					>
-						<AddMsgBtn>
+						<AddContentBtn onClick={toggleShowFABMenu}>
 							<AddIcon />
-						</AddMsgBtn>
+						</AddContentBtn>
 					</Tooltip>
+				</Zoom>
+				{/* Mini FAB Menu  */}
+				<Zoom
+					in={showFABMenu && value === 2}
+					timeout={transitionDuration}
+					style={{
+						transitionDelay: `${
+							showFABMenu ? transitionDuration.exit + 100 : 0
+						}ms`
+					}}
+					unmountOnExit
+				>
+					<MiniBtn bottom={'14rem'} onClick={this.toggleAddFolderHandler}>
+						<CreateNewFolder />
+					</MiniBtn>
+				</Zoom>
+				<Zoom
+					in={showFABMenu && value === 2}
+					timeout={transitionDuration}
+					style={{
+						transitionDelay: `${showFABMenu ? transitionDuration.exit : 0}ms`
+					}}
+					unmountOnExit
+				>
+					<MiniBtn bottom={'9rem'} onClick={this.toggleAddDocHandler}>
+						<NoteAdd />
+					</MiniBtn>
 				</Zoom>
 				{/* Modals */}
 				<AddMessage
@@ -109,18 +157,18 @@ class FloatingActionButton extends React.Component {
 					user={this.props.currentUser._id}
 				/>
 				<AddFolder
-					hideModal={this.toggleNewFolderModal}
+					hideModal={this.toggleAddFolderHandler}
 					stopProp={e => e.stopPropagation()}
 					team={this.props.team._id}
 					user={this.props.currentUser._id}
-					open={this.state.toggleAddFolderHandler}
+					open={this.state.showAddFolderModal}
 				/>
 				<AddDocument
-					hideModal={this.toggleNewDocumentModal}
+					hideModal={this.toggleAddDocHandler}
 					stopProp={e => e.stopPropagation()}
 					team={this.props.team._id}
 					user={this.props.currentUser._id}
-					open={this.state.toggleAddDocHandler}
+					open={this.state.showAddDocModal}
 				/>
 			</>
 		);
