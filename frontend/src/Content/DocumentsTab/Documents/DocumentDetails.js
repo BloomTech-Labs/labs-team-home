@@ -356,6 +356,7 @@ class DocumentDetails extends React.Component {
 																	>{`${folder.title}`}</option>
 																));
 															}
+															return <>no folders here</>;
 														}}
 													</Query>
 												</select>

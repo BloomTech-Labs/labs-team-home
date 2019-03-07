@@ -2,17 +2,28 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { FIND_EVENTS_BY_TEAM } from '../../constants/queries';
 import Activity from './Activity';
+import ActivityModal from './ActivityModal';
 
 export default class ActivityTimeline extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			team: props.team
+			team: props.team,
+			eventDetailOpen: false,
+			currentEvent: null
 		};
 	}
 
+	toggleEventDetail = event => {
+		this.setState(prevState => ({
+			eventDetailOpen: !prevState.eventDetailOpen,
+			currentEvent: event
+		}));
+	};
+
 	render() {
+		console.log('currenct props from activity timeline: ', this.props);
 		return (
 			<div>
 				{/* Queries for all Events, refected every 5000ms (5 seconds)*/}
@@ -42,17 +53,49 @@ export default class ActivityTimeline extends React.Component {
 							return findEventsByTeam.map((event, index) => {
 								if (event.user !== null) {
 									if (event.user._id === this.props.currentUser._id) {
-										return <Activity event={event} key={index} own="true" />;
+										return (
+											<Activity
+												event={event}
+												key={index}
+												own="true"
+												clickHandler={e => {
+													e.preventDefault();
+													this.toggleEventDetail(event);
+												}}
+											/>
+										);
 									}
-									return <Activity event={event} key={index} own="false" />;
+									return (
+										<Activity
+											event={event}
+											key={index}
+											own="false"
+											clickHandler={e => {
+												e.preventDefault();
+												this.toggleEventDetail(event);
+											}}
+										/>
+									);
 								}
-								return <div key={index}> nO uSeR</div>;
+								return (
+									<div key={index}>
+										There is an event here but it was not recorded properly
+									</div>
+								);
 							});
 						} else {
 							return <div> No events </div>;
 						}
 					}}
 				</Query>
+				<ActivityModal
+					open={this.state.eventDetailOpen}
+					hideModal={() => this.toggleEventDetail(null)}
+					event={this.state.currentEvent}
+					currentUser={this.props.currentUser}
+					team={this.props.team}
+					stopProp={e => e.stopPropagation()}
+				/>
 			</div>
 		);
 	}

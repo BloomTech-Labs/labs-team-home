@@ -126,7 +126,7 @@ const documentResolver = {
 			)
 				.populate('user team folder tag subscribedUsers')
 				.then(async item => {
-					console.log('\n\nthe item to be passed: \n\n', item);
+					// console.log('\n\nthe item to be passed: \n\n', item);
 					if (item) {
 						try {
 							await new Event({
@@ -138,7 +138,7 @@ const documentResolver = {
 							})
 								.save()
 								.then(event => {
-									console.log('\n\nEvent added: \n\n', event);
+									// console.log('\n\nEvent added: \n\n', event);
 								});
 						} catch (error) {
 							console.error('Could not add event', error);

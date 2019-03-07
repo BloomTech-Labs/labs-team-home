@@ -82,7 +82,10 @@ function Activity(props) {
 
 	return (
 		<Container own={own}>
-			<CardActionArea className={classes.cardButton}>
+			<CardActionArea
+				className={classes.cardButton}
+				onClick={props.clickHandler}
+			>
 				{own === 'false' ? ( //if the creator of the activity is not the user who is logged in
 					<Avatar
 						src={user.avatar}
