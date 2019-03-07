@@ -73,7 +73,7 @@ class AddMessage extends React.Component {
 	render() {
 		let { team, user, addTag } = this.props;
 		let images = [];
-		console.log('team: ', team);
+		// console.log('team: ', team);
 
 		return (
 			<StyledModal open={this.props.open} onClose={this.props.hideModal}>

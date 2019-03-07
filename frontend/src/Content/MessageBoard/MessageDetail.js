@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // ------------- gql imports ---------------------- //
-import { Query, compose } from 'react-apollo';
+import { Query, compose, Mutation } from 'react-apollo';
 import {
 	addComment,
 	updateComment,
@@ -10,12 +10,14 @@ import {
 	unLike
 } from '../mutations/comments';
 import {
-	updateMessage,
+	// updateMessage,
 	deleteMessage,
 	subscribe,
 	unsubscribe
 } from '../mutations/messages';
 import * as query from '../../constants/queries';
+import { FIND_MESSAGES_BY_TEAM } from '../../constants/queries';
+import { UPDATE_MESSAGE } from '../../constants/mutations';
 
 // ------------- styling libraries ---------------------- //
 import styled from 'styled-components';
@@ -127,6 +129,7 @@ class MessageDetail extends Component {
 		} = this.props;
 
 		if (message === null) return <> </>;
+		console.log('MessageID: ', message._id);
 		return (
 			<StyledModal //open the Dialog box this is the part that makes everything else around darker
 				open={this.props.open}
@@ -164,32 +167,44 @@ class MessageDetail extends Component {
 					<StyledModalPaper>
 						{/* Render the message, UNLESS someone has hit the Edit Button */}
 						{this.state.editingMessage ? (
-							<StyledModalForm
-								onSubmit={e => {
-									e.preventDefault();
-									message.title = this.state.title;
-									message.content = this.state.content;
-									updateMessage({
-										id: message._id,
-										title: this.state.title,
-										content: this.state.content
-									}).then(() => this.resetState());
-								}}
-							>
-								<StyledModalInput
-									name="title"
-									value={this.state.title}
-									onChange={this.handleChange}
-								/>
+							<Mutation mutation={UPDATE_MESSAGE}>
+								{updateMessage => (
+									<StyledModalForm
+										onSubmit={e => {
+											e.preventDefault();
+											message.title = this.state.title;
+											message.content = this.state.content;
+											updateMessage({
+												variables: {
+													id: message._id,
+													title: this.state.title,
+													content: this.state.content
+												},
+												refetchQueries: [
+													{
+														query: query.FIND_MESSAGES_BY_TEAM,
+														variables: { team: this.props.team }
+													}
+												]
+											}).then(() => this.resetState());
+										}}
+									>
+										<StyledModalInput
+											name="title"
+											value={this.state.title}
+											onChange={this.handleChange}
+										/>
 
-								<StyledModalInput
-									name="content"
-									value={this.state.content}
-									onChange={this.handleChange}
-									multiline
-								/>
-								<StyledModalButton type="submit">Save</StyledModalButton>
-							</StyledModalForm>
+										<StyledModalInput
+											name="content"
+											value={this.state.content}
+											onChange={this.handleChange}
+											multiline
+										/>
+										<StyledModalButton type="submit">Save</StyledModalButton>
+									</StyledModalForm>
+								)}
+							</Mutation>
 						) : (
 							<MessageContent>
 								<MessageTitle>{message.title}</MessageTitle>
@@ -422,7 +437,7 @@ export default compose(
 	addComment,
 	updateComment,
 	deleteComment,
-	updateMessage,
+	// updateMessage,
 	deleteMessage,
 	like,
 	unLike,

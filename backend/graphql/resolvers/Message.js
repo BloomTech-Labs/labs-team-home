@@ -63,7 +63,7 @@ const messageResolvers = {
 									user: message.user._id,
 									action_string: action_str.edited,
 									object_string: object_str.message,
-									event_target_id: message_id
+									event_target_id: message._id
 								})
 									.save()
 									.then(event => {
