@@ -22,6 +22,7 @@ import * as query from '../../constants/queries';
 
 // // ------------- Component Imports ---------------------- //
 // import DocumentDetails from '../Documents/DocumentDetails';
+//Needed modals: folderDetails, messageDetails, teamDetails, documentDetails,
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
@@ -39,8 +40,6 @@ import {
 	StyledModalPaper,
 	StyledModalTitle,
 	StyledModalButton,
-	StyledModalForm,
-	StyledModalInput,
 	StyledModalCardAction,
 	StyledModalBody,
 	StyledModalIconButton
