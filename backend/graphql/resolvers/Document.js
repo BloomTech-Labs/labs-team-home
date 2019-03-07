@@ -41,8 +41,8 @@ const documentResolver = {
 						if (item) {
 							try {
 								await new Event({
-									team: item.team,
-									user: item.user,
+									team: item.team._id,
+									user: item.user._id,
 									action_string: action_str.created,
 									object_string: object_str.document,
 									event_target_id: item._id

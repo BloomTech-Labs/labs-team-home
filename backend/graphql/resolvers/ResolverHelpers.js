@@ -1,4 +1,5 @@
 const action_str = {
+	added: 'added',
 	created: 'created',
 	edited: 'edited',
 	deleted: 'deleted',

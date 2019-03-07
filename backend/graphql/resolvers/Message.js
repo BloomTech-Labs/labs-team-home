@@ -33,7 +33,7 @@ const messageResolvers = {
 						await new Event({
 							team: message.team._id,
 							user: message.user._id,
-							action_string: action_str.add,
+							action_string: action_str.added,
 							object_string: object_str.message,
 							event_target_id: message._id
 						})
