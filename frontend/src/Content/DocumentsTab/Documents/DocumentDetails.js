@@ -120,6 +120,7 @@ const Arrow = styled(KeyboardArrowRight)`
 const FormDiv = styled.div`
 	width: 95%;
 	display: flex;
+	justify-content: center;
 	flex-direction: row-reverse;
 `;
 
