@@ -665,6 +665,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="PI0-00-t65" kind="show" identifier="ViewDocumentDetails" id="R6w-rk-308"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -701,6 +704,7 @@
         <image name="User Avatar Image" width="32.810127258300781" height="32.810127258300781"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="R6w-rk-308"/>
         <segue reference="2HZ-Sp-MoN"/>
     </inferredMetricsTieBreakers>
 </document>

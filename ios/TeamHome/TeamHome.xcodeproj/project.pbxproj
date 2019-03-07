@@ -77,6 +77,7 @@
 		F877E0B8221F859A00A78D08 /* FolderConcept.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */; };
 		F877E0BA221F873A00A78D08 /* FolderManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */; };
 		F8A527812230861900E715E8 /* FolderContentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */; };
+		F8A527832230972500E715E8 /* FolderContentsTableViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = F8A527822230972500E715E8 /* FolderContentsTableViewController.graphql */; };
 		F8BEA7F5222D035D0003C352 /* FolderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */; };
 		F8BEA7F7222D03860003C352 /* FoldersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */; };
 		F8E77CDA2214DB3B00E12C8B /* DocumentTabHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */; };
@@ -158,6 +159,7 @@
 		F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FolderConcept.storyboard; sourceTree = "<group>"; };
 		F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManagementViewController.swift; sourceTree = "<group>"; };
 		F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentsTableViewController.swift; sourceTree = "<group>"; };
+		F8A527822230972500E715E8 /* FolderContentsTableViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = FolderContentsTableViewController.graphql; sourceTree = "<group>"; };
 		F8BEA7F4222D035D0003C352 /* FolderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderDetailViewController.swift; sourceTree = "<group>"; };
 		F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersTableViewController.swift; sourceTree = "<group>"; };
 		F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DocumentTabHome.storyboard; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */,
 				F8BEA7F6222D03860003C352 /* FoldersTableViewController.swift */,
 				F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */,
+				F8A527822230972500E715E8 /* FolderContentsTableViewController.graphql */,
 				10295B6822274F92002C8940 /* DocumentDetailViewController.swift */,
 				103E72F62227A81000F54B0F /* DocumentDetailViewController.graphql */,
 				103E72FC222DEE4000F54B0F /* DocumentsDetailCollectionViewController.swift */,
@@ -526,6 +529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A527832230972500E715E8 /* FolderContentsTableViewController.graphql in Sources */,
 				7BA77EC021E950BB00C862C1 /* SubscriberCollectionViewCell.swift in Sources */,
 				10E2A19C2216153F007EC662 /* AddEditDocumentViewController.swift in Sources */,
 				103E72FD222DEE4100F54B0F /* DocumentsDetailCollectionViewController.swift in Sources */,

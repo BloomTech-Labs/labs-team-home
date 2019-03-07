@@ -17,7 +17,6 @@ class FoldersTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
         loadFolders(with: apollo!)
-//        hideNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +86,9 @@ class FoldersTableViewController: UITableViewController {
             destinationVC.apollo = apollo
             destinationVC.team = team
             destinationVC.currentUser = currentUser
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                let folder = folders?[indexPath.row] else { return }
+            destinationVC.title = folder.title
         }
     }
     

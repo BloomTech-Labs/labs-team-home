@@ -9,7 +9,7 @@
 import UIKit
 import Apollo
 
-//var watcher: GraphQLQueryWatcher<FindDocumentsByTeamQuery>?
+var watcherFolderContents: GraphQLQueryWatcher<FindDocumentsByFolderQuery>?
 
 class FolderContentsTableViewController: UITableViewController {
 
@@ -17,7 +17,6 @@ class FolderContentsTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
-//        showNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,13 +85,13 @@ class FolderContentsTableViewController: UITableViewController {
             let teamID  = team.id else { return }
         
         // Fetch messages using team's id
-        watcher = apollo.watch(query: FindDocumentsByTeamQuery(teamID: teamID)) { (result, error) in
+        watcher = apollo.watch(query: FindDocumentsByFolderQuery(folderID: folderID)) { (result, error) in
             if let error = error {
                 NSLog("Error loading Documents\(error)")
             }
             
             guard let result = result,
-                let documents = result.data?.findDocumentsByTeam else { return }
+                let documents = result.data?.findDocumentsByFolder else { return }
             
             self.documents = documents
             
@@ -127,6 +126,8 @@ class FolderContentsTableViewController: UITableViewController {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var deleteIndexPath: IndexPath?
+    
+    var folderTitle: String?
 
 }
 
