@@ -1,14 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+// ---------------- Components ---------------------- //
 import Message from './Message';
 import AddMessage from './AddMessage';
+import MessageDetail from './MessageDetail';
+
+// ---------------- GQL ---------------------- //
 import { Query } from 'react-apollo';
 import * as query from '../../constants/queries';
+
+// ---------------- Styles ---------------------- //
 import mediaQueryFor from '../../_global_styles/responsive_querie';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import { colors } from '../../colorVariables';
-import MessageDetail from './MessageDetail';
 
 const styles = theme => ({
 	root: {
@@ -128,7 +134,7 @@ class MessageBoard extends React.Component {
 	};
 
 	render() {
-		const { classes } = this.props;
+		// const { classes } = this.props;
 		return (
 			<Messageboard>
 				{/* List of all the messages */}

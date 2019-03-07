@@ -5,6 +5,7 @@ const User = require('../../models/User');
 const Document = require('../../models/Document');
 const DocComment = require('../../models/DocComment');
 const Folder = require('../../models/Folder');
+const Event = require('../../models/Event');
 const {
 	ForbiddenError,
 	ValidationError,
@@ -14,6 +15,8 @@ const {
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+const { object_str, action_str } = require('./ResolverHelpers');
 
 const teamResolvers = {
 	Query: {
@@ -26,7 +29,29 @@ const teamResolvers = {
 		addTeam: (_, { input }, { user: { _id } }) =>
 			new Team({ ...input, users: [{ user: _id, admin: true }] })
 				.save()
-				.then(team => team.populate('users.user').execPopulate()),
+				.then(team => team.populate('users.user').execPopulate())
+				.then(async item => {
+					console.log('\n\n The item to be passed: \n\n', item);
+					if (item) {
+						try {
+							await new Event({
+								team: item._id,
+								user: _id,
+								action_string: action_str.created,
+								object_string: object_str.team,
+								event_target_id: item._id
+							})
+								.save()
+								.then(event => {
+									console.log('\n\nEvent added: \n\n', event);
+								});
+						} catch (error) {
+							console.error('Could not add event', error);
+						}
+					} else {
+						throw new ValidationError("Message doesn't exist");
+					}
+				}),
 		updateTeam: (_, { input }) => {
 			const { id } = input;
 			return Team.findById(id).then(team => {

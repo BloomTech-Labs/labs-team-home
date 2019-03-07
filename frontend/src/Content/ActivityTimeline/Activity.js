@@ -25,7 +25,7 @@ const styles = {
 		justifyContent: 'flex-end'
 	},
 	bigAvatar: {
-		margin: 10,
+		margin: 5,
 		width: 60,
 		height: 60
 	}
@@ -76,13 +76,16 @@ const StyledTypography = styled(Typography)`
 `;
 
 function Activity(props) {
-	console.log('this is the props on the event: ', props);
+	// console.log('this is the props on the event: ', props);
 	const { classes, own } = props;
 	const { user, createdAt, action_string, object_string } = props.event;
 
 	return (
 		<Container own={own}>
-			<CardActionArea className={classes.cardButton}>
+			<CardActionArea
+				className={classes.cardButton}
+				onClick={props.clickHandler}
+			>
 				{own === 'false' ? ( //if the creator of the activity is not the user who is logged in
 					<Avatar
 						src={user.avatar}

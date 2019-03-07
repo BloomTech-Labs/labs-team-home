@@ -192,25 +192,9 @@ class TeamDetails extends React.Component {
 								{/* If the user is the admin on a team, give them a delete button */}
 								{!editingTeamName ? (
 									<StyledModalCardAction>
-										<Mutation
-											mutation={mutation.DELETE_TEAM}
-											// update={(cache, { data: { deleteTeam } }) => {
-											// 	const { findTeamsByUser } = cache.readQuery({
-											// 		query: query.FIND_TEAMS_BY_USER
-											// 	});
-											// 	cache.writeQuery({
-											// 		query: query.FIND_TEAMS_BY_USER,
-											// 		variables: { team: team },
-											// 		data: {
-											// 			findTeamsByUser: findTeamsByUser.filter(
-											// 				({ _id }) => _id !== deleteTeam._id
-											// 			)
-											// 		}
-											// 	});
-											// }
-										>
+										<Mutation mutation={mutation.DELETE_TEAM}>
 											{deleteTeam => (
-												<StyledModalButton
+												<Button
 													color="secondary"
 													onClick={e => {
 														e.preventDefault();
@@ -225,7 +209,7 @@ class TeamDetails extends React.Component {
 													}}
 												>
 													Delete Team
-												</StyledModalButton>
+												</Button>
 											)}
 										</Mutation>
 										<StyledModalButton
@@ -409,7 +393,7 @@ class TeamDetails extends React.Component {
 																	findTeam: leaveTeam
 																}
 															});
-															//Cache is BROKE not WOKE
+
 															cache.writeQuery({
 																query: query.FIND_TEAMS_BY_USER,
 																variables: { id: team },
