@@ -8,6 +8,7 @@ import {
 	DELETE_DOCCOMMENT
 } from '../../../constants/mutations';
 import { Mutation } from 'react-apollo';
+import * as query from '../../../constants/queries';
 
 // ------------- Style Imports ---------------------- //
 import { colors } from '../../../colorVariables';
@@ -162,7 +163,14 @@ class DocumentDetails extends React.Component {
 										<StyledModalButton
 											onClick={e => {
 												e.preventDefault();
-												deleteDocComment();
+												deleteDocComment({
+													refetchQueries: [
+														{
+															query: query.FIND_COMMENTS_BY_DOCUMENT,
+															variables: { document: this.props.document._id }
+														}
+													]
+												});
 											}}
 										>
 											Delete

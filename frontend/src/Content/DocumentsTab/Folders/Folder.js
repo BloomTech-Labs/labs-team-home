@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
-import { compose } from 'react-apollo';
-import { updateDocument } from '../../mutations/documents';
+import { Mutation } from 'react-apollo';
+import * as query from '../../../constants/queries';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
 const IndividualFolder = styled.div`
 	height: 200px;
@@ -58,7 +59,7 @@ class Folder extends React.Component {
 		};
 	}
 
-	updateDrop = (id, folderid) => {
+	updateDrop = (id, folderid, updateDocument) => {
 		// console.log('DOC : ', id);
 		// console.log('FOLDER : ', folderid._id);
 		// console.log("folder team id: ", this.props.team)
@@ -66,17 +67,45 @@ class Folder extends React.Component {
 
 		if (folderid !== undefined) {
 			console.log('UpdateDrop-Folder, folderID not available: ', folderid);
-			this.props.updateDocument({
-				id: id._id,
-				folder: folderid._id,
-				previous: this.props.folder._id
+			updateDocument({
+				variables: {
+					id: id._id,
+					folder: folderid._id,
+					previous: this.props.folder._id
+				},
+				refetchQueries: [
+					{
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: this.props.team }
+					},
+					{
+						query: query.FIND_DOCUMENTS_BY_FOLDER,
+						variables: { folder: folderid._id }
+					},
+					{
+						query: query.FIND_DOCUMENTS_BY_FOLDER,
+						variables: { folder: this.props.folder._id }
+					}
+				]
 			});
 		} else {
 			// console.log('UpdateDrop-Folder, folderID available: ', folderid)
-			this.props.updateDocument({
-				id: id._id,
-				folder: null,
-				previous: this.props.folder._id
+			updateDocument({
+				variables: {
+					id: id._id,
+					folder: null,
+					previous: this.props.folder._id
+				},
+				refetchQueries: [
+					{
+						query: query.FIND_DOCUMENTS_BY_TEAM,
+						variables: { team: this.props.team }
+					},
+					{
+						query: query.FIND_DOCUMENTS_BY_FOLDER,
+						variables: { folder: this.props.folder._id }
+					}
+				]
 			});
 		}
 		// console.log('Folder Update');
@@ -97,11 +126,17 @@ class Folder extends React.Component {
 						{this.props.findDocumentsByFolder.length ? (
 							this.props.findDocumentsByFolder.map(doc => {
 								return (
-									<Doc
-										key={doc._id}
-										document={doc}
-										handleDrop={(id, folderId) => this.updateDrop(id, folderId)}
-									/>
+									<Mutation mutation={UPDATE_DOCUMENT} key={doc._id}>
+										{updateDocument => (
+											<Doc
+												document={doc}
+												handleDrop={(id, folderId, update) =>
+													this.updateDrop(id, folderId, update)
+												}
+												update={updateDocument}
+											/>
+										)}
+									</Mutation>
 								);
 							})
 						) : (
@@ -121,7 +156,4 @@ const target = {
 	}
 };
 
-export default compose(
-	DropTarget('item', target, collect),
-	updateDocument
-)(Folder);
+export default DropTarget('item', target, collect)(Folder);
