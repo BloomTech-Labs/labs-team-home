@@ -12,25 +12,16 @@ import {
 } from '../../mutations/documents';
 import * as query from '../../../constants/queries';
 import { addDocComment } from '../../mutations/doccomments';
-import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+import { UPDATE_DOCUMENT, ADD_DOCCOMMENT } from '../../../constants/mutations';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
-// import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-// import { colors } from '../../../colorVariables';
-// import CardHeader from '@material-ui/core/CardHeader';
-// import Avatar from '@material-ui/core/Avatar';
 import CardContent from '@material-ui/core/CardContent';
-// import SendIcon from '@material-ui/icons/Send';
 
 // ------------- Icon imports ------------------------------- //
 
 import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
-// import { FileWord } from 'styled-icons/icomoon/FileWord';
-// import { FileExcel } from 'styled-icons/fa-solid/FileExcel';
-// import { FilePlay } from 'styled-icons/icomoon/FilePlay';
-// import { FilePdf } from 'styled-icons/icomoon/FilePdf';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 
 // ------------- Modal styling imports ---------------------- //
@@ -249,11 +240,12 @@ class DocumentDetails extends React.Component {
 			document,
 			currentUser,
 			hideModal,
-			addDocComment,
 			subscribeDoc,
 			unsubscribeDoc,
 			open
 		} = this.props;
+
+		// console.log('All the props from the document modal: ', this.props);
 
 		if (document === null) return <></>;
 		return (
@@ -379,7 +371,7 @@ class DocumentDetails extends React.Component {
 									</SortForm>
 								</FormDiv>
 								<ModalBody>
-									{console.log(document)}
+									{/* {console.log(document)} */}
 									Posted by{' '}
 									{`${document.user.firstName} ${document.user.lastName}`} •
 									Tag:
@@ -455,7 +447,6 @@ class DocumentDetails extends React.Component {
 					<Query
 						query={query.FIND_COMMENTS_BY_DOCUMENT}
 						variables={{ document: document._id }}
-						//this needs a refetch
 					>
 						{({ loading, error, data: { findDocCommentsByDocument } }) => {
 							if (loading) return <p>Loading...</p>;
@@ -475,26 +466,39 @@ class DocumentDetails extends React.Component {
 										/>
 									))}
 									{/* Add a new comment form  */}
-									<StyledModalNewCommentForm
-										onSubmit={e => {
-											e.preventDefault();
-											addDocComment({
-												document: document._id,
-												content: this.state.newCommentContent
-											}).then(this.resetState());
-										}}
-									>
-										<StyledModalNewCommentInput
-											value={this.state.newCommentContent}
-											name="newCommentContent"
-											onChange={this.handleChange}
-											placeholder="Leave a comment..."
-										/>
+									<Mutation mutation={ADD_DOCCOMMENT}>
+										{addDocComment => (
+											<StyledModalNewCommentForm
+												onSubmit={e => {
+													e.preventDefault();
+													addDocComment({
+														variables: {
+															document: document._id,
+															content: this.state.newCommentContent
+														},
+														refetchQueries: [
+															{
+																query: query.FIND_COMMENTS_BY_DOCUMENT,
+																variables: { document: document._id }
+															}
+														]
+													});
+													this.resetState();
+												}}
+											>
+												<StyledModalNewCommentInput
+													value={this.state.newCommentContent}
+													name="newCommentContent"
+													onChange={this.handleChange}
+													placeholder="Leave a comment..."
+												/>
 
-										<ArrowDiv type="submit">
-											<Arrow />
-										</ArrowDiv>
-									</StyledModalNewCommentForm>
+												<ArrowDiv type="submit">
+													<Arrow />
+												</ArrowDiv>
+											</StyledModalNewCommentForm>
+										)}
+									</Mutation>
 								</>
 							);
 						}}
@@ -506,7 +510,6 @@ class DocumentDetails extends React.Component {
 }
 
 export default compose(
-	addDocComment,
 	deleteDocument,
 	subscribeDoc,
 	unsubscribeDoc

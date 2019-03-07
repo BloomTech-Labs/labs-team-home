@@ -194,20 +194,20 @@ class TeamDetails extends React.Component {
 									<StyledModalCardAction>
 										<Mutation
 											mutation={mutation.DELETE_TEAM}
-											update={(cache, { data: { deleteTeam } }) => {
-												const { findTeamsByUser } = cache.readQuery({
-													query: query.FIND_TEAMS_BY_USER
-												});
-												cache.writeQuery({
-													query: query.FIND_TEAMS_BY_USER,
-													variables: { team: team },
-													data: {
-														findTeamsByUser: findTeamsByUser.filter(
-															({ _id }) => _id !== deleteTeam._id
-														)
-													}
-												});
-											}}
+											// update={(cache, { data: { deleteTeam } }) => {
+											// 	const { findTeamsByUser } = cache.readQuery({
+											// 		query: query.FIND_TEAMS_BY_USER
+											// 	});
+											// 	cache.writeQuery({
+											// 		query: query.FIND_TEAMS_BY_USER,
+											// 		variables: { team: team },
+											// 		data: {
+											// 			findTeamsByUser: findTeamsByUser.filter(
+											// 				({ _id }) => _id !== deleteTeam._id
+											// 			)
+											// 		}
+											// 	});
+											// }
 										>
 											{deleteTeam => (
 												<StyledModalButton
@@ -215,7 +215,12 @@ class TeamDetails extends React.Component {
 													onClick={e => {
 														e.preventDefault();
 														deleteTeam({
-															variables: { id: team._id }
+															variables: { id: team._id },
+															refetchQueries: [
+																{
+																	query: query.FIND_TEAMS_BY_USER
+																}
+															]
 														}).then(this.props.history.push('/dashboard'));
 													}}
 												>

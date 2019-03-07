@@ -1,10 +1,11 @@
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
-import { compose, Query } from 'react-apollo';
+import { compose, Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
-import { deleteFolder, updateFolder } from '../../mutations/folders';
+import { deleteFolder } from '../../mutations/folders';
 import { updateDocument } from '../../mutations/documents';
+import { UPDATE_FOLDER } from '../../../constants/mutations';
 
 // ------------- Component Imports ---------------------- //
 import DocumentDetails from '../Documents/DocumentDetails';
@@ -12,7 +13,6 @@ import DocumentDetails from '../Documents/DocumentDetails';
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
@@ -28,7 +28,8 @@ import {
 	StyledModalButton,
 	StyledModalForm,
 	StyledModalInput,
-	StyledModalIconButton
+	StyledModalIconButton,
+	StyledModalCardAction
 } from '../../Modal.styles';
 
 // ---------------- Styled Components ---------------------- //
@@ -83,7 +84,6 @@ class FolderDetails extends React.Component {
 	render() {
 		const {
 			deleteFolder,
-			updateFolder,
 			folder,
 			hideModal,
 			updateDocument,
@@ -123,39 +123,38 @@ class FolderDetails extends React.Component {
 								<>
 									{this.state.editingFolder ? (
 										<CardContent>
-											<StyledModalForm
-												onSubmit={e => {
-													e.preventDefault();
-													folder.title = this.state.title;
-													updateFolder({
-														id: folder._id,
-														title: this.state.title
-													}).then(() => this.resetState());
-												}}
-											>
-												<StyledModalInput
-													name="title"
-													value={this.state.title}
-													onChange={this.handleChange}
-												/>
-												<StyledModalButton type="submit">
-													Save
-												</StyledModalButton>
-											</StyledModalForm>
+											<Mutation mutation={UPDATE_FOLDER}>
+												{updateFolder => (
+													<StyledModalForm
+														onSubmit={e => {
+															e.preventDefault();
+															folder.title = this.state.title;
+															updateFolder({
+																variables: {
+																	id: folder._id,
+																	title: this.state.title
+																}
+															}).then(() => this.resetState());
+														}}
+													>
+														<StyledModalInput
+															name="title"
+															value={this.state.title}
+															onChange={this.handleChange}
+														/>
+														<StyledModalButton type="submit">
+															Save
+														</StyledModalButton>
+													</StyledModalForm>
+												)}
+											</Mutation>
 										</CardContent>
 									) : (
 										<>
 											<ModalTitle>{folder.title}</ModalTitle>
 
 											{/* Load all the images attached to the message */}
-											<CardActions
-												style={{
-													width: '100%',
-													display: 'flex',
-													flexFlow: 'row',
-													justifyContent: 'space-around'
-												}}
-											>
+											<StyledModalCardAction>
 												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
@@ -185,9 +184,7 @@ class FolderDetails extends React.Component {
 												>
 													Delete
 												</StyledModalButton>
-
-												{/* Subscription for the document stuff goes here */}
-											</CardActions>
+											</StyledModalCardAction>
 										</>
 									)}
 
@@ -277,6 +274,6 @@ class FolderDetails extends React.Component {
 
 export default compose(
 	deleteFolder,
-	updateFolder,
+
 	updateDocument
 )(FolderDetails);
