@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Query, compose, Mutation } from 'react-apollo';
 import {
 	addComment,
-	updateComment,
+	// updateComment,
 	deleteComment,
 	like,
 	unLike
@@ -473,7 +473,7 @@ class MessageDetail extends Component {
 
 export default compose(
 	addComment,
-	updateComment,
+	// updateComment,
 	deleteComment,
 	// updateMessage,
 	deleteMessage,
