@@ -197,7 +197,7 @@ const teamResolvers = {
 									)
 										.populate('users.user')
 										.then(async item => {
-											console.log('\n\n The item to be passed: \n\n', item);
+											// console.log('\n\n The item to be passed: \n\n', item);
 											if (item) {
 												try {
 													await new Event({
@@ -209,7 +209,7 @@ const teamResolvers = {
 													})
 														.save()
 														.then(event => {
-															console.log('\n\n Event added: \n\n', event);
+															// console.log('\n\n Event added: \n\n', event);
 														});
 												} catch (error) {
 													console.error(
@@ -245,7 +245,7 @@ const teamResolvers = {
 			)
 				.populate('users.user')
 				.then(async item => {
-					console.log('\n\n The item to be passed: \n\n', item);
+					// console.log('\n\n The item to be passed: \n\n', item);
 					if (item) {
 						try {
 							console.log(
@@ -261,7 +261,7 @@ const teamResolvers = {
 							})
 								.save()
 								.then(event => {
-									console.log('\n\nEvent added', event);
+									// console.log('\n\nEvent added', event);
 								});
 						} catch (error) {
 							console.error('Could not add "kick user" event', error);
