@@ -9,9 +9,13 @@ import {
 	like,
 	unLike
 } from '../mutations/comments';
-import { deleteMessage, subscribe, unsubscribe } from '../mutations/messages';
+import { subscribe, unsubscribe } from '../mutations/messages';
 import * as query from '../../constants/queries';
-import { UPDATE_MESSAGE, UPDATE_COMMENT } from '../../constants/mutations';
+import {
+	UPDATE_MESSAGE,
+	UPDATE_COMMENT,
+	DELETE_MESSAGE
+} from '../../constants/mutations';
 
 // ------------- styling libraries ---------------------- //
 import styled from 'styled-components';
@@ -134,10 +138,10 @@ class MessageDetail extends Component {
 		const {
 			message,
 			currentUser,
-			updateMsgComment,
+			// updateMsgComment,
 			addMsgComment,
 			deleteMsgComment,
-			deleteMessage,
+			// deleteMessage,
 			like,
 			unLike,
 			subscribe,
@@ -196,12 +200,10 @@ class MessageDetail extends Component {
 													title: this.state.title,
 													content: this.state.content
 												},
-												refetchQueries: [
-													{
-														query: query.FIND_MESSAGES_BY_TEAM,
-														variables: { team: this.props.team }
-													}
-												]
+												refetchQueries: {
+													query: query.FIND_MESSAGES_BY_TEAM,
+													variables: { team: this.props.team }
+												}
 											}).then(() => this.resetState());
 										}}
 									>
@@ -269,19 +271,27 @@ class MessageDetail extends Component {
 											>
 												Edit
 											</StyledModalButton>
-											<StyledModalButton
-												onClick={e => {
-													e.preventDefault();
-													deleteMessage({
-														id: message._id
-													}).then(() => {
-														this.resetState();
-														this.props.hideModal();
-													});
-												}}
-											>
-												Delete
-											</StyledModalButton>
+											<Mutation mutation={DELETE_MESSAGE}>
+												{deleteMessage => (
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															deleteMessage({
+																variables: { id: message._id },
+																refetchQueries: {
+																	query: query.FIND_MESSAGES_BY_TEAM,
+																	variables: { team: this.props.team }
+																}
+															}).then(() => {
+																this.resetState();
+																this.props.hideModal();
+															});
+														}}
+													>
+														Delete
+													</StyledModalButton>
+												)}
+											</Mutation>
 										</>
 									)}
 									{/* Subscribe or unsubscribe button */}
@@ -469,7 +479,7 @@ export default compose(
 	addComment,
 	// updateComment,
 	deleteComment,
-	deleteMessage,
+	// deleteMessage,
 	like,
 	unLike,
 	subscribe,
