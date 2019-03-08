@@ -271,15 +271,7 @@ class DocumentDetails extends React.Component {
 					<StyledModalPaper>
 						{this.state.editingDocument ? (
 							<CardContent>
-								<Mutation
-									mutation={UPDATE_DOCUMENT}
-									variables={{
-										id: document._id,
-										title: this.state.title,
-										doc_url: this.state.doc_url,
-										textContent: this.state.textContent
-									}}
-								>
+								<Mutation mutation={UPDATE_DOCUMENT}>
 									{updateDocument => (
 										<StyledModalForm
 											onSubmit={e => {
@@ -287,7 +279,20 @@ class DocumentDetails extends React.Component {
 												document.title = this.state.title;
 												document.textContent = this.state.textContent;
 												document.doc_url = this.state.doc_url;
-												updateDocument();
+												updateDocument({
+													variables: {
+														id: document._id,
+														title: this.state.title,
+														doc_url: this.state.doc_url,
+														textContent: this.state.textContent
+													},
+													refetchQueries: [
+														{
+															query: query.FIND_DOCUMENTS_BY_TEAM,
+															variables: { team: this.props.team }
+														}
+													]
+												});
 												this.resetState();
 											}}
 										>
@@ -416,6 +421,14 @@ class DocumentDetails extends React.Component {
 																	{
 																		query: query.FIND_DOCUMENTS_BY_TEAM,
 																		variables: { team: this.props.team }
+																	},
+																	{
+																		query: query.FIND_FOLDERS_BY_TEAM,
+																		variables: { team: this.props.team }
+																	},
+																	{
+																		query: query.FIND_DOCUMENTS_BY_FOLDER,
+																		variables: { folder: this.props.folder._id }
 																	}
 																]
 															}).then(() => {

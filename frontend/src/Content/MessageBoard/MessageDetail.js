@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Query, compose, Mutation } from 'react-apollo';
 import {
 	addComment,
-	updateComment,
+	// updateComment,
 	deleteComment,
 	like,
 	unLike
@@ -16,8 +16,7 @@ import {
 	unsubscribe
 } from '../mutations/messages';
 import * as query from '../../constants/queries';
-import { FIND_MESSAGES_BY_TEAM } from '../../constants/queries';
-import { UPDATE_MESSAGE } from '../../constants/mutations';
+import { UPDATE_MESSAGE, UPDATE_COMMENT } from '../../constants/mutations';
 
 // ------------- styling libraries ---------------------- //
 import styled from 'styled-components';
@@ -346,25 +345,41 @@ class MessageDetail extends Component {
 											/>
 											{/* check to see if the user can edit the comments */}
 											{this.state.editing && this.state.edited === comment ? (
-												<StyledModalForm
-													onSubmit={e => {
-														e.preventDefault();
-														updateMsgComment({
-															id: this.state.edited._id,
-															content: this.state.commentContent
-														}).then(() => this.resetState());
-													}}
-												>
-													<StyledModalInput
-														name="commentContent"
-														value={this.state.commentContent}
-														onChange={this.handleChange}
-														multiline
-													/>
-													<StyledModalButton type="submit">
-														Save
-													</StyledModalButton>
-												</StyledModalForm>
+												<Mutation mutation={UPDATE_COMMENT}>
+													{updateMsgComment => (
+														<StyledModalForm
+															onSubmit={e => {
+																e.preventDefault();
+																updateMsgComment({
+																	variables: {
+																		id: this.state.edited._id,
+																		content: this.state.commentContent
+																	},
+																	refetchQueries: [
+																		{
+																			query: query.FIND_COMMENTS_BY_MESSAGE,
+																			variables: { message: message._id }
+																		},
+																		{
+																			query: query.FIND_MESSAGES_BY_TEAM,
+																			variables: { team: this.props.team }
+																		}
+																	]
+																}).then(() => this.resetState());
+															}}
+														>
+															<StyledModalInput
+																name="commentContent"
+																value={this.state.commentContent}
+																onChange={this.handleChange}
+																multiline
+															/>
+															<StyledModalButton type="submit">
+																Save
+															</StyledModalButton>
+														</StyledModalForm>
+													)}
+												</Mutation>
 											) : (
 												<CardContent>
 													<StyledModalBody component="p">
@@ -458,7 +473,7 @@ class MessageDetail extends Component {
 
 export default compose(
 	addComment,
-	updateComment,
+	// updateComment,
 	deleteComment,
 	// updateMessage,
 	deleteMessage,
