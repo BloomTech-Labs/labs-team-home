@@ -416,6 +416,14 @@ class DocumentDetails extends React.Component {
 																	{
 																		query: query.FIND_DOCUMENTS_BY_TEAM,
 																		variables: { team: this.props.team }
+																	},
+																	{
+																		query: query.FIND_FOLDERS_BY_TEAM,
+																		variables: { team: this.props.team }
+																	},
+																	{
+																		query: query.FIND_DOCUMENTS_BY_FOLDER,
+																		variables: { folder: this.props.folder._id }
 																	}
 																]
 															}).then(() => {
