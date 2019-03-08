@@ -34,6 +34,7 @@
     - [Material-UI](#material-ui)
     - [Stripe](#stripe)
     - [React Swipeable Views](#react-swipeable-views)
+    - [React DnD](#react-dnd)
   - [Front-End Development Dependencies](#front-end-development-dependencies)
     - [Husky](#husky)
     - [Prettier](#prettier)
@@ -91,6 +92,10 @@ The Stripe API is used for payments. It is predictable, resource oriented, and o
 ### React Swipeable Views
 
 Provides Swipeable Views along with animation support.<br/>[React Swipeable Views info](https://react-swipeable-views.com/)
+
+### React DnD
+
+React DnD is a set of React higher-order components to help you build complex drag and drop interfaces while keeping your components decoupled.<br/>[React-dnd](http://react-dnd.github.io/react-dnd/about)
 
 ## Front-End Development Dependencies
 
