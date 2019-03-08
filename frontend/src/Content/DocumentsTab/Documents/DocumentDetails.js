@@ -378,7 +378,6 @@ class DocumentDetails extends React.Component {
 									</SortForm>
 								</FormDiv>
 								<ModalBody>
-									{/* {console.log(document)} */}
 									Posted by{' '}
 									{`${document.user.firstName} ${document.user.lastName}`} •
 									Tag:
@@ -514,12 +513,10 @@ class DocumentDetails extends React.Component {
 															document: document._id,
 															content: this.state.newCommentContent
 														},
-														refetchQueries: [
-															{
-																query: query.FIND_COMMENTS_BY_DOCUMENT,
-																variables: { document: document._id }
-															}
-														]
+														refetchQueries: {
+															query: query.FIND_COMMENTS_BY_DOCUMENT,
+															variables: { document: document._id }
+														}
 													});
 													this.resetState();
 												}}

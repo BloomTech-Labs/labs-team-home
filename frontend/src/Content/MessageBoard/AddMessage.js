@@ -1,10 +1,6 @@
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
-import {
-	FIND_TAGS_BY_TEAM,
-	FIND_MESSAGES_BY_TEAM
-} from '../../constants/queries';
 import { compose, Query, Mutation } from 'react-apollo';
 import { addTag } from '../mutations/messages';
 import * as query from '../../constants/queries';
@@ -79,7 +75,6 @@ class AddMessage extends React.Component {
 	render() {
 		let { team, user, addTag } = this.props;
 		let images = [];
-		// console.log('team: ', team);
 
 		return (
 			<StyledModal open={this.props.open} onClose={this.props.hideModal}>
@@ -89,11 +84,10 @@ class AddMessage extends React.Component {
 						<CloseIcon />
 					</StyledModalIconButton>
 				</StyledModalClose>
-				{/* Overlay is the dark area that the message and comments fill */}
 				<StyledModalOverlay>
 					{/* The header information: name, avatar */}
 					<StyledModalTitle>Add a New Message</StyledModalTitle>
-					<Query query={FIND_TAGS_BY_TEAM} variables={{ team }}>
+					<Query query={query.FIND_TAGS_BY_TEAM} variables={{ team }}>
 						{({ loading, error, data: { findTagsByTeam } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error</p>;
@@ -120,12 +114,10 @@ class AddMessage extends React.Component {
 														newMessage.tag = exists._id;
 														addMessage({
 															variables: newMessage,
-															refetchQueries: [
-																{
-																	query: query.FIND_MESSAGES_BY_TEAM,
-																	variables: { team: team }
-																}
-															]
+															refetchQueries: {
+																query: query.FIND_MESSAGES_BY_TEAM,
+																variables: { team: team }
+															}
 														});
 														this.props.hideModal();
 													} else {
@@ -135,12 +127,10 @@ class AddMessage extends React.Component {
 																	await (newMessage.tag = _id);
 																	await addMessage({
 																		variables: newMessage,
-																		refetchQueries: [
-																			{
-																				query: query.FIND_MESSAGES_BY_TEAM,
-																				variables: { team: team }
-																			}
-																		]
+																		refetchQueries: {
+																			query: query.FIND_MESSAGES_BY_TEAM,
+																			variables: { team: team }
+																		}
 																	});
 																	await this.props.hideModal();
 																} catch (err) {
@@ -154,12 +144,10 @@ class AddMessage extends React.Component {
 												else {
 													addMessage({
 														variables: newMessage,
-														refetchQueries: [
-															{
-																query: query.FIND_MESSAGES_BY_TEAM,
-																variables: { team: team }
-															}
-														]
+														refetchQueries: {
+															query: query.FIND_MESSAGES_BY_TEAM,
+															variables: { team: team }
+														}
 													})
 														.then(() => {
 															this.props.hideModal();

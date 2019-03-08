@@ -9,12 +9,7 @@ import {
 	like,
 	unLike
 } from '../mutations/comments';
-import {
-	// updateMessage,
-	deleteMessage,
-	subscribe,
-	unsubscribe
-} from '../mutations/messages';
+import { deleteMessage, subscribe, unsubscribe } from '../mutations/messages';
 import * as query from '../../constants/queries';
 import { UPDATE_MESSAGE, UPDATE_COMMENT } from '../../constants/mutations';
 
@@ -23,9 +18,9 @@ import styled from 'styled-components';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import SendIcon from '@material-ui/icons/Send';
+// import SendIcon from '@material-ui/icons/Send';
 
 import { colors } from '../../colorVariables';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
@@ -142,7 +137,6 @@ class MessageDetail extends Component {
 			updateMsgComment,
 			addMsgComment,
 			deleteMsgComment,
-			updateMessage,
 			deleteMessage,
 			like,
 			unLike,
@@ -475,7 +469,6 @@ export default compose(
 	addComment,
 	// updateComment,
 	deleteComment,
-	// updateMessage,
 	deleteMessage,
 	like,
 	unLike,
