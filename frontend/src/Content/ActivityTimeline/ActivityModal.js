@@ -55,18 +55,18 @@ const ModalTitle = styled(StyledModalTitle)`
 	}
 `;
 
-const SmallerTitle = styled(ModalTitle)`
-	h2 {
-		font-size: 18px;
-	}
-`;
+// const SmallerTitle = styled(ModalTitle)`
+// 	h2 {
+// 		font-size: 18px;
+// 	}
+// `;
 
-const DocumentTitle = styled(StyledModalTitle)`
-	h2 {
-		font-size: 18px;
-		margin-left: 15px;
-	}
-`;
+// const DocumentTitle = styled(StyledModalTitle)`
+// 	h2 {
+// 		font-size: 18px;
+// 		margin-left: 15px;
+// 	}
+// `;
 
 class EventDetails extends React.Component {
 	constructor(props) {

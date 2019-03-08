@@ -104,7 +104,7 @@ function Activity(props) {
 					>
 						{user.firstName} {user.lastName.slice(0, 1)}
 						{'. '}
-						{action_string} a {object_string}
+						{action_string} {object_string}
 					</StyledTypography>
 					<StyledTypography component="p" noWrap className={classes.cardText}>
 						{createdAt.toDateString()}

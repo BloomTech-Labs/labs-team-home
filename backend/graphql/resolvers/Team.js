@@ -197,26 +197,30 @@ const teamResolvers = {
 									)
 										.populate('users.user')
 										.then(async item => {
-											// console.log('\n\n The item to be passed: \n\n', item);
+											console.log('\n\n The item to be passed: \n\n', item);
 											if (item) {
 												try {
 													await new Event({
 														team: item._id,
-														user: item.users.find(u => u.admin)._id,
+														user: item.users.find(u => u.admin).user._id,
 														action_string: action_str.invited,
 														object_string: object_str.user,
 														event_target_id: item._id
 													})
 														.save()
 														.then(event => {
-															// console.log('Event added', event);
+															console.log('\n\n Event added: \n\n', event);
 														});
 												} catch (error) {
-													console.error('Could not add event', error);
+													console.error(
+														'Could not add event "Invite User" ',
+														error
+													);
 												}
 											} else {
-												throw new ValidationError("Message doesn't exist");
+												throw new ValidationError("Item doesn't exist");
 											}
+											return item;
 										});
 								} else
 									throw new UserInputError('The user is already on the team.');
@@ -241,25 +245,29 @@ const teamResolvers = {
 			)
 				.populate('users.user')
 				.then(async item => {
-					// console.log('\n\n The item to be passed: \n\n', item);
+					console.log('\n\n The item to be passed: \n\n', item);
 					if (item) {
 						try {
+							console.log(
+								'\n\nfind logic',
+								item.users.find(u => u.admin).user._id
+							);
 							await new Event({
 								team: item._id,
-								user: item.users.find(u => u.admin)._id,
+								user: item.users.find(u => u.admin).user._id,
 								action_string: action_str.removed,
 								object_string: object_str.user,
 								event_target_id: item._id
 							})
 								.save()
 								.then(event => {
-									// console.log('Event added', event);
+									console.log('\n\nEvent added', event);
 								});
 						} catch (error) {
-							console.error('Could not add event', error);
+							console.error('Could not add "kick user" event', error);
 						}
 					} else {
-						throw new ValidationError("Message doesn't exist");
+						throw new ValidationError('kickUser failed');
 					}
 				}),
 

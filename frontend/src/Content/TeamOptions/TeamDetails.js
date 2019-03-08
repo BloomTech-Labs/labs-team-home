@@ -139,22 +139,22 @@ class TeamDetails extends React.Component {
 							<CardContent>
 								<Mutation
 									mutation={mutation.UPDATE_TEAM}
-									update={(cache, { data: { updateTeam } }) => {
-										const { findTeamsByUser } = cache.readQuery({
-											query: query.FIND_TEAMS_BY_USER
-										});
-										cache.writeQuery({
-											query: query.FIND_TEAMS_BY_USER,
-											variables: { team: team },
-											data: {
-												findTeamsByUser: findTeamsByUser.map(team => {
-													return team._id === updateTeam._id
-														? updateTeam
-														: team;
-												})
-											}
-										});
-									}}
+									// update={(cache, { data: { updateTeam } }) => {
+									// 	const { findTeamsByUser } = cache.readQuery({
+									// 		query: query.FIND_TEAMS_BY_USER
+									// 	});
+									// 	cache.writeQuery({
+									// 		query: query.FIND_TEAMS_BY_USER,
+									// 		variables: { team: team },
+									// 		data: {
+									// 			findTeamsByUser: findTeamsByUser.map(team => {
+									// 				return team._id === updateTeam._id
+									// 					? updateTeam
+									// 					: team;
+									// 			})
+									// 		}
+									// 	});
+									// }}
 								>
 									{updateTeam => (
 										<StyledModalForm
@@ -164,7 +164,8 @@ class TeamDetails extends React.Component {
 													variables: {
 														id: team._id,
 														name: this.state.editTeamName
-													}
+													},
+													refetchQueries: { query: query.FIND_TEAMS_BY_USER }
 												}).then(
 													this.setState({
 														editTeamName: '',
@@ -200,11 +201,9 @@ class TeamDetails extends React.Component {
 														e.preventDefault();
 														deleteTeam({
 															variables: { id: team._id },
-															refetchQueries: [
-																{
-																	query: query.FIND_TEAMS_BY_USER
-																}
-															]
+															refetchQueries: {
+																query: query.FIND_TEAMS_BY_USER
+															}
 														}).then(this.props.history.push('/dashboard'));
 													}}
 												>
@@ -237,19 +236,19 @@ class TeamDetails extends React.Component {
 									{admin ? (
 										<Mutation
 											mutation={STRIPE_SOURCE}
-											update={(cache, { data: { setPremium } }) => {
-												const { findTeamsByUser } = cache.readQuery({
-													query: query.FIND_TEAMS_BY_USER
-												});
-												cache.writeQuery({
-													query: query.FIND_TEAMS_BY_USER,
-													data: {
-														findTeamsByUser: findTeamsByUser.map(team =>
-															team._id === setPremium._id ? setPremium : team
-														)
-													}
-												});
-											}}
+											// update={(cache, { data: { setPremium } }) => {
+											// 	const { findTeamsByUser } = cache.readQuery({
+											// 		query: query.FIND_TEAMS_BY_USER
+											// 	});
+											// 	cache.writeQuery({
+											// 		query: query.FIND_TEAMS_BY_USER,
+											// 		data: {
+											// 			findTeamsByUser: findTeamsByUser.map(team =>
+											// 				team._id === setPremium._id ? setPremium : team
+											// 			)
+											// 		}
+											// 	});
+											// }}
 										>
 											{(setPremium, { data }) => (
 												// this stripe component is a button and a modal
@@ -266,6 +265,9 @@ class TeamDetails extends React.Component {
 																team: team._id,
 																amount: 999,
 																token: token.id
+															},
+															refetchQueries: {
+																query: query.FIND_TEAMS_BY_USER
 															}
 														})
 															.then(res => {
@@ -303,7 +305,13 @@ class TeamDetails extends React.Component {
 										if (this.state.email.length) input.email = this.state.email;
 										if (this.state.number.length)
 											input.phoneNumber = this.state.number;
-										inviteUser({ variables: input })
+										inviteUser({
+											variables: input,
+											refetchQueries: {
+												query: query.FIND_TEAM,
+												variables: { id: team._id }
+											}
+										})
 											.then(() => {
 												this.resetState();
 												alert('Invitation sent');

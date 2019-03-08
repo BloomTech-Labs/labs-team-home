@@ -11,16 +11,17 @@ const action_str = {
 	subscribed: 'subscribed to',
 	unsubscribed: 'unsubscribed from',
 	invited: 'invited',
-	updated: 'updated'
+	updated: 'updated',
+	removed: 'removed'
 };
 const object_str = {
-	message: 'message',
-	msgComment: 'message comment',
-	folder: 'folder',
-	document: 'document',
-	docComment: 'document comment',
-	team: 'team',
-	user: 'user'
+	message: 'a message',
+	msgComment: 'a message comment',
+	folder: 'a folder',
+	document: 'a document',
+	docComment: 'a document comment',
+	team: 'the team',
+	user: 'a user'
 };
 
 module.exports = { action_str, object_str };

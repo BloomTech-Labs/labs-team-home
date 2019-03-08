@@ -1,20 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+// ---------------- Components ---------------------- //
 import MessageBoard from './MessageBoard/MessageBoard';
 import ActivityTimeline from './ActivityTimeline/ActivityTimeline';
+import FABComponent from './FloatingActionButtons';
+import DocumentsTab from './DocumentsTab/TabContainer';
+
+// ---------------- gql ---------------------- //
 import mediaQueryFor from '../_global_styles/responsive_querie';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { Query } from 'react-apollo';
+import * as queries from '../constants/queries';
+
+// ---------------- MUI components ---------------------- //
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { Query } from 'react-apollo';
-import * as queries from '../constants/queries';
+
+// ---------------- Styles ---------------------- //
 import TeamInfo from './TeamOptions/TeamInfo';
-import DocumentsTab from './DocumentsTab/TabContainer';
 import SwipeableViews from 'react-swipeable-views';
-import FABComponent from './FloatingActionButtons';
 import { colors } from '../colorVariables';
+import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 const styles = {
 	root: {
