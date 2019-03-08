@@ -62,7 +62,9 @@ export default class ActivityTimeline extends React.Component {
 													e.preventDefault();
 													this.toggleEventDetail(event);
 												}}
-											/>
+											>
+												{/* {console.log('Good Event: ', event)} */}
+											</Activity>
 										);
 									}
 									return (
@@ -80,6 +82,7 @@ export default class ActivityTimeline extends React.Component {
 								return (
 									<div key={index}>
 										There is an event here but it was not recorded properly
+										{/* {console.log('BAD Event: ', event)} */}
 									</div>
 								);
 							});

@@ -55,18 +55,18 @@ const ModalTitle = styled(StyledModalTitle)`
 	}
 `;
 
-const SmallerTitle = styled(ModalTitle)`
-	h2 {
-		font-size: 18px;
-	}
-`;
+// const SmallerTitle = styled(ModalTitle)`
+// 	h2 {
+// 		font-size: 18px;
+// 	}
+// `;
 
-const DocumentTitle = styled(StyledModalTitle)`
-	h2 {
-		font-size: 18px;
-		margin-left: 15px;
-	}
-`;
+// const DocumentTitle = styled(StyledModalTitle)`
+// 	h2 {
+// 		font-size: 18px;
+// 		margin-left: 15px;
+// 	}
+// `;
 
 class EventDetails extends React.Component {
 	constructor(props) {
@@ -124,7 +124,7 @@ class EventDetails extends React.Component {
 								{event.user.firstName} {event.action_string} a{' '}
 								{event.object_string} on {event.createdAt.toDateString()}
 							</StyledModalBody>
-							{/* <StyledModalCardAction>
+							<StyledModalCardAction>
 								{event.action_string === 'deleted' ? (
 									<StyledModalTitle>
 										{`This ${event.object_string} no longer exists.`}
@@ -134,7 +134,7 @@ class EventDetails extends React.Component {
 										{`View ${event.object_string}`}
 									</StyledModalButton>
 								)}
-							</StyledModalCardAction> */}
+							</StyledModalCardAction>
 						</CardContent>
 					</StyledModalPaper>
 				</StyledModalOverlay>
