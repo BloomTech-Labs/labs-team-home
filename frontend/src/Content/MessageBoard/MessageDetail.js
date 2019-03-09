@@ -3,15 +3,16 @@ import React, { Component } from 'react';
 import MessageBoardCommentDetails from './MessageBoadCommentDetail';
 
 // ------------- gql imports ---------------------- //
-import { Query, compose, Mutation } from 'react-apollo';
-import { addComment } from '../mutations/comments';
+import { Query, Mutation } from 'react-apollo';
+
 // import { subscribe, unsubscribe } from '../mutations/messages';
 import * as query from '../../constants/queries';
 import {
 	UPDATE_MESSAGE,
 	DELETE_MESSAGE,
 	SUBSCRIBE,
-	UNSUBSCRIBE
+	UNSUBSCRIBE,
+	ADD_COMMENT
 } from '../../constants/mutations';
 
 // ------------- styling libraries ---------------------- //
@@ -135,7 +136,7 @@ class MessageDetail extends Component {
 	}
 
 	render() {
-		const { message, currentUser, addMsgComment } = this.props;
+		const { message, currentUser } = this.props;
 
 		if (message === null) return <> </>;
 		// console.log('Props from Message: ', this.props);
@@ -362,29 +363,41 @@ class MessageDetail extends Component {
 						}}
 					</Query>
 					{/* Add a new comment form */}
-					<StyledModalNewCommentForm
-						onSubmit={e => {
-							e.preventDefault();
-							addMsgComment({
-								message: message._id,
-								content: this.state.newComment
-							}).then(this.resetState());
-						}}
-					>
-						<StyledModalNewCommentInput
-							value={this.state.newComment}
-							name="newComment"
-							onChange={this.handleChange}
-							placeholder="Leave a comment..."
-						/>
-						<ArrowDiv type="submit">
-							<Arrow />
-						</ArrowDiv>
-					</StyledModalNewCommentForm>
+					<Mutation mutation={ADD_COMMENT}>
+						{addMsgComment => (
+							<StyledModalNewCommentForm
+								onSubmit={e => {
+									e.preventDefault();
+									addMsgComment({
+										variables: {
+											message: message._id,
+											content: this.state.newComment
+										},
+										refetchQueries: [
+											{
+												query: query.FIND_COMMENTS_BY_MESSAGE,
+												variables: { message: message._id }
+											}
+										]
+									}).then(this.resetState());
+								}}
+							>
+								<StyledModalNewCommentInput
+									value={this.state.newComment}
+									name="newComment"
+									onChange={this.handleChange}
+									placeholder="Leave a comment..."
+								/>
+								<ArrowDiv type="submit">
+									<Arrow />
+								</ArrowDiv>
+							</StyledModalNewCommentForm>
+						)}
+					</Mutation>
 				</StyledModalOverlay>
 			</StyledModal>
 		);
 	}
 }
 
-export default compose(addComment)(MessageDetail);
+export default MessageDetail;
