@@ -89,6 +89,10 @@ class ContentContainer extends React.Component {
 		};
 	}
 
+	componentDidUpdate() {
+		console.log('component Updated');
+	}
+
 	handleChange = (event, value) => {
 		this.setState({ value });
 	};
@@ -113,17 +117,20 @@ class ContentContainer extends React.Component {
 			enter: theme.transitions.duration.enteringScreen,
 			exit: theme.transitions.duration.leavingScreen
 		};
-
+		// console.log('Team id from props: ', this.props.match.params.team);
 		return (
 			<MsgContainer>
 				<Query
 					query={queries.FIND_TEAM}
 					variables={{ id: this.props.match.params.team }}
 				>
-					{({ loading, error, data: { findTeam } }) => {
+					{({ loading, error, data: { findTeam }, data }) => {
 						if (loading) return <p>Loading...</p>;
 						if (error) return <p>Error!</p>;
-
+						// console.log('Data from CC: ', data);
+						// console.log('Find team from CC: ', findTeam);
+						console.log('Props from CC: ', this.props);
+						console.log('State form CC: ', this.state);
 						return (
 							<>
 								{/* Team users name*/}

@@ -458,13 +458,25 @@ class DocumentDetails extends React.Component {
 																		variables: {
 																			id: document._id,
 																			user: currentUser._id
-																		}
+																		},
+																		refetchQueries: [
+																			{
+																				query: query.FIND_DOCUMENTS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			}
+																		]
 																  })
 																: subscribeDoc({
 																		variables: {
 																			id: document._id,
 																			user: currentUser._id
-																		}
+																		},
+																		refetchQueries: [
+																			{
+																				query: query.FIND_DOCUMENTS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			}
+																		]
 																  });
 														}}
 													>
@@ -481,6 +493,7 @@ class DocumentDetails extends React.Component {
 						)}
 					</StyledModalPaper>
 					{/* View all the comments of the document */}
+					<StyledModalTitle>Discussion</StyledModalTitle>
 					<Query
 						query={query.FIND_COMMENTS_BY_DOCUMENT}
 						variables={{ document: document._id }}
@@ -490,7 +503,6 @@ class DocumentDetails extends React.Component {
 							if (error) return <p>Error</p>;
 							return (
 								<>
-									<StyledModalTitle>Discussion</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
 										<DocumentCommentDetail
@@ -498,46 +510,47 @@ class DocumentDetails extends React.Component {
 											comment={comment}
 											currentUser={currentUser}
 											editingDocument={this.state.editingDocument}
-											//this needs to be passed a function which triggers a refetch on all comments, when a comment is deleted
 											{...this.props}
 										/>
 									))}
-									{/* Add a new comment form  */}
-									<Mutation mutation={ADD_DOCCOMMENT}>
-										{addDocComment => (
-											<StyledModalNewCommentForm
-												onSubmit={e => {
-													e.preventDefault();
-													addDocComment({
-														variables: {
-															document: document._id,
-															content: this.state.newCommentContent
-														},
-														refetchQueries: {
-															query: query.FIND_COMMENTS_BY_DOCUMENT,
-															variables: { document: document._id }
-														}
-													});
-													this.resetState();
-												}}
-											>
-												<StyledModalNewCommentInput
-													value={this.state.newCommentContent}
-													name="newCommentContent"
-													onChange={this.handleChange}
-													placeholder="Leave a comment..."
-												/>
-
-												<ArrowDiv type="submit">
-													<Arrow />
-												</ArrowDiv>
-											</StyledModalNewCommentForm>
-										)}
-									</Mutation>
 								</>
 							);
 						}}
 					</Query>
+					<Mutation mutation={ADD_DOCCOMMENT}>
+						{/* Add a new comment form */}
+						{addDocComment => (
+							<StyledModalNewCommentForm
+								onSubmit={e => {
+									e.preventDefault();
+									addDocComment({
+										variables: {
+											document: document._id,
+											content: this.state.newCommentContent
+										},
+										refetchQueries: [
+											{
+												query: query.FIND_COMMENTS_BY_DOCUMENT,
+												variables: { document: document._id }
+											}
+										]
+									});
+									this.resetState();
+								}}
+							>
+								<StyledModalNewCommentInput
+									value={this.state.newCommentContent}
+									name="newCommentContent"
+									onChange={this.handleChange}
+									placeholder="Leave a comment..."
+								/>
+
+								<ArrowDiv type="submit">
+									<Arrow />
+								</ArrowDiv>
+							</StyledModalNewCommentForm>
+						)}
+					</Mutation>
 				</StyledModalOverlay>
 			</StyledModal>
 		);

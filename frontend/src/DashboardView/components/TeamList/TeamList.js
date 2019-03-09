@@ -90,7 +90,7 @@ class TeamList extends React.Component {
 				</Mutation>
 				<h1>My Teams</h1>
 				<style.TeamsList>
-					<Query query={query.FIND_TEAMS_BY_USER} notifyOnNetworkStatusChange>
+					<Query query={query.FIND_TEAMS_BY_USER}>
 						{({ loading, error, data: { findTeamsByUser } }) => {
 							if (loading) return <p>Loading...</p>;
 							if (error) return <p>Error.</p>;

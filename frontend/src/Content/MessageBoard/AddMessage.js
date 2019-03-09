@@ -114,10 +114,12 @@ class AddMessage extends React.Component {
 														newMessage.tag = exists._id;
 														addMessage({
 															variables: newMessage,
-															refetchQueries: {
-																query: query.FIND_MESSAGES_BY_TEAM,
-																variables: { team: team }
-															}
+															refetchQueries: [
+																{
+																	query: query.FIND_MESSAGES_BY_TEAM,
+																	variables: { team: team }
+																}
+															]
 														});
 														this.props.hideModal();
 													} else {
@@ -127,10 +129,12 @@ class AddMessage extends React.Component {
 																	await (newMessage.tag = _id);
 																	await addMessage({
 																		variables: newMessage,
-																		refetchQueries: {
-																			query: query.FIND_MESSAGES_BY_TEAM,
-																			variables: { team: team }
-																		}
+																		refetchQueries: [
+																			{
+																				query: query.FIND_MESSAGES_BY_TEAM,
+																				variables: { team: team }
+																			}
+																		]
 																	});
 																	await this.props.hideModal();
 																} catch (err) {
@@ -144,10 +148,12 @@ class AddMessage extends React.Component {
 												else {
 													addMessage({
 														variables: newMessage,
-														refetchQueries: {
-															query: query.FIND_MESSAGES_BY_TEAM,
-															variables: { team: team }
-														}
+														refetchQueries: [
+															{
+																query: query.FIND_MESSAGES_BY_TEAM,
+																variables: { team: team }
+															}
+														]
 													})
 														.then(() => {
 															this.props.hideModal();

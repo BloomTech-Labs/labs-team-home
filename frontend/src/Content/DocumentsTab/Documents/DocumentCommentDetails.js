@@ -195,11 +195,23 @@ class DocumentDetails extends React.Component {
 						<Mutation
 							mutation={LIKE_DOCCOMMENT}
 							variables={{ id: comment._id }}
+							refetchQueries={[
+								{
+									query: query.FIND_COMMENTS_BY_MESSAGE,
+									variables: { message: this.props.message._id }
+								}
+							]}
 						>
 							{likeDocComment => (
 								<Mutation
 									mutation={UNLIKE_DOCCOMMENT}
 									variables={{ id: comment._id }}
+									refetchQueries={[
+										{
+											query: query.FIND_COMMENTS_BY_MESSAGE,
+											variables: { message: this.props.message._id }
+										}
+									]}
 								>
 									{unLikeDocComment => (
 										<StyledModalButton
