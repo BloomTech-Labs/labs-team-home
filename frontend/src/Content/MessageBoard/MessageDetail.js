@@ -4,8 +4,6 @@ import MessageBoardCommentDetails from './MessageBoadCommentDetail';
 
 // ------------- gql imports ---------------------- //
 import { Query, Mutation } from 'react-apollo';
-
-// import { subscribe, unsubscribe } from '../mutations/messages';
 import * as query from '../../constants/queries';
 import {
 	UPDATE_MESSAGE,
@@ -20,13 +18,10 @@ import styled from 'styled-components';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-// import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-// import SendIcon from '@material-ui/icons/Send';
 
 import { colors } from '../../colorVariables';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
-// import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 // ------------- Modal styling imports ---------------------- //
 import {

@@ -78,9 +78,7 @@ class MessageBoardCommentDetails extends React.Component {
 			editingComment: false,
 			commentContent: '',
 			editedComment: null,
-			newCommentContent: '',
-			like: null,
-			likes: null
+			newCommentContent: ''
 		});
 
 	render() {
@@ -103,7 +101,7 @@ class MessageBoardCommentDetails extends React.Component {
 					}}
 				/>
 				{/* check to see if the user can edit the comments */}
-				{this.state.editing && this.state.edited === comment ? (
+				{this.state.editing && this.state.edited === comment ? ( //<-- this check can be refactored. No longer nesesarry becasue this component does not live on its parent component anymore
 					<Mutation mutation={UPDATE_COMMENT}>
 						{updateMsgComment => (
 							<StyledModalForm
