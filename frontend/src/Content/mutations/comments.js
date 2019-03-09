@@ -35,6 +35,8 @@ const addCommentOptions = {
 
 export const addComment = graphql(ADD_COMMENT, addCommentOptions);
 
+//////////////
+
 const updateCommentOptions = {
 	props: ({ ownProps: { message }, mutate }) => ({
 		updateMsgComment: input =>
