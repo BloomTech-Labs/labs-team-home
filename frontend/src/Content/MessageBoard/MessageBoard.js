@@ -127,7 +127,6 @@ class MessageBoard extends React.Component {
 	};
 
 	render() {
-		// const { classes } = this.props;
 		return (
 			<Messageboard>
 				{/* List of all the messages */}

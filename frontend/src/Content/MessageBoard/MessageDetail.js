@@ -133,9 +133,10 @@ class MessageDetail extends Component {
 
 	render() {
 		const { message, currentUser } = this.props;
-
-		if (message === null) return <> </>;
+		// console.log('State from Message: ', this.props);
 		// console.log('Props from Message: ', this.props);
+		if (message === null) return <> </>;
+
 		return (
 			<StyledModal //open the Dialog box this is the part that makes everything else around darker
 				open={this.props.open}

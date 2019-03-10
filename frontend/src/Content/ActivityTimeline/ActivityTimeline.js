@@ -23,7 +23,7 @@ export default class ActivityTimeline extends React.Component {
 	};
 
 	render() {
-		// console.log('currenct props from activity timeline: ', this.props);
+		// console.log('current props from activity timeline: ', this.props);
 		return (
 			<div>
 				{/* Queries for all Events, refected every 5000ms (5 seconds)*/}
@@ -52,28 +52,18 @@ export default class ActivityTimeline extends React.Component {
 
 							return findEventsByTeam.map((event, index) => {
 								if (event.user !== null) {
-									if (event.user._id === this.props.currentUser._id) {
-										return (
-											<Activity
-												event={event}
-												key={index}
-												own="true"
-												clickHandler={e => {
-													e.preventDefault();
-													this.toggleEventDetail(event);
-												}}
-											>
-												{/* {console.log('Good Event: ', event)} */}
-											</Activity>
-										);
-									}
 									return (
 										<Activity
 											event={event}
 											key={index}
-											own="false"
+											own={
+												event.user._id === this.props.currentUser._id
+													? 'true'
+													: 'false'
+											}
 											clickHandler={e => {
 												e.preventDefault();
+												e.stopPropagation();
 												this.toggleEventDetail(event);
 											}}
 										/>
@@ -97,6 +87,7 @@ export default class ActivityTimeline extends React.Component {
 					currentUser={this.props.currentUser}
 					team={this.props.team}
 					stopProp={e => e.stopPropagation()}
+					{...this.props}
 				/>
 			</div>
 		);

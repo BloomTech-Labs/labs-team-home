@@ -248,7 +248,7 @@ class DocumentDetails extends React.Component {
 
 		// console.log('All the props from the document modal: ', this.props);
 
-		if (document === null) return <></>;
+		if (document === null || document === undefined) return <></>;
 		return (
 			<StyledModal
 				open={open}

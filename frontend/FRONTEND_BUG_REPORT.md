@@ -17,3 +17,5 @@
 - Settings + does not save when deselecting checkbox on "Receive Emails"
 
 - Subscribe/Unsubscribe on documents does not maintain state -- click subscribe and then it show unsubscribe, but if you click out and back in, it is not updated. -- Fixed by Bondor on Sat 3/9
+
+- When deleting a document that IS NOT in a folder, a refectQuery around line 430 on document details fails. --If the folder is Null, the refetch Folder fails.

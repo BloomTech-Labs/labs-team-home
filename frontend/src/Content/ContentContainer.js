@@ -133,7 +133,7 @@ class ContentContainer extends React.PureComponent {
 								<TeamInfo
 									currentUser={this.props.currentUser}
 									team={findTeam}
-									{...this.props}
+									{...this.props} //needed to get all the routing information to this component
 								/>
 
 								{/* List of content sections the user can choose to view */}
