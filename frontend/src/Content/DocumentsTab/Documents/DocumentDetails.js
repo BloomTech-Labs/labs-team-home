@@ -169,7 +169,7 @@ class DocumentDetails extends React.Component {
 				if (
 					this.props.document.subscribedUsers.find(
 						user => user._id === this.props.currentUser._id
-					) !== null
+					)
 				) {
 					this.setState({ subscribed: true });
 				} else this.setState({ subscribed: false });

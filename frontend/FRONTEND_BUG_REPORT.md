@@ -1,6 +1,6 @@
 ### Bug and Glitch Reports
 
-- Message + deleting comment does not reset counter for Reply -- what is Reply (number of users???) + reply count does not refresh
+- Message + deleting comment does not reset counter for Reply -- what is Reply (number of users???) + reply count does not refresh -- Fixed by Bondor on Sat 3/9
 
 - MsgComment + editing comment does not reflect the changes until refreshed - DONE + console log error [Cannot read property '_id' of null] - DONE
 
@@ -15,3 +15,5 @@
 - Activity Timeline + inviting member to team does not record the Event - says "There is an event here but it was not recorded properly" on screen
 
 - Settings + does not save when deselecting checkbox on "Receive Emails"
+
+- Subscribe/Unsubscribe on documents does not maintain state -- click subscribe and then it show unsubscribe, but if you click out and back in, it is not updated.
