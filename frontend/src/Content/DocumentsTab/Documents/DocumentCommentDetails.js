@@ -197,8 +197,8 @@ class DocumentDetails extends React.Component {
 							variables={{ id: comment._id }}
 							refetchQueries={[
 								{
-									query: query.FIND_COMMENTS_BY_MESSAGE,
-									variables: { message: this.props.message._id }
+									query: query.FIND_COMMENTS_BY_DOCUMENT,
+									variables: { document: this.props.document._id }
 								}
 							]}
 						>
@@ -208,8 +208,8 @@ class DocumentDetails extends React.Component {
 									variables={{ id: comment._id }}
 									refetchQueries={[
 										{
-											query: query.FIND_COMMENTS_BY_MESSAGE,
-											variables: { message: this.props.message._id }
+											query: query.FIND_COMMENTS_BY_DOCUMENT,
+											variables: { document: this.props.document._id }
 										}
 									]}
 								>
