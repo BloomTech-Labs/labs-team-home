@@ -124,7 +124,7 @@ const messageResolvers = {
 							})
 								.save()
 								.then(event => {
-									console.log('\n\nSubscribe Event added\n\n', event);
+									// console.log('\n\nSubscribe Event added\n\n', event);
 								});
 						} catch (error) {
 							console.error('Could not add event', error);
@@ -153,7 +153,7 @@ const messageResolvers = {
 							})
 								.save()
 								.then(event => {
-									console.log('\n\n Unsubscribe Event added\n\n', event);
+									// console.log('\n\n Unsubscribe Event added\n\n', event);
 								});
 						} catch (error) {
 							console.error('Could not add event', error);

@@ -129,8 +129,8 @@ class ContentContainer extends React.Component {
 						if (error) return <p>Error!</p>;
 						// console.log('Data from CC: ', data);
 						// console.log('Find team from CC: ', findTeam);
-						console.log('Props from CC: ', this.props);
-						console.log('State form CC: ', this.state);
+						// console.log('Props from CC: ', this.props);
+						// console.log('State form CC: ', this.state);
 						return (
 							<>
 								{/* Team users name*/}

@@ -97,23 +97,6 @@ class TeamDetails extends React.Component {
 		});
 	};
 
-	componentDidUpdate = prevProps => {
-		// console.log("CDU: ",  )
-		// if (this.props.team.users.length > 1)
-		// 	if (
-		// 		this.props.team.users.find(u => !u.admin)._id !==
-		// 		prevProps.team.users.find(u => !u.admin)._id
-		// 	)
-		// 		this.props.team.users = prevProps.team.users;
-		// this.props.team.users.map(user => {
-		// 	console.log(' Users from inside component did mount: ', user);
-		// 	if (user.user._id === this.props.currentUser._id) {
-		// 		if (user.admin) this.setState({ admin: true });
-		// 	}
-		// 	return null;
-		// });
-	};
-
 	resetState = () => {
 		this.setState({
 			number: '',
@@ -133,7 +116,7 @@ class TeamDetails extends React.Component {
 		const { open, team, hideModal, currentUser } = this.props;
 		const { admin, editingTeamName } = this.state;
 		const publishableKey = 'pk_test_GedRIIhEwHrV1xzzkxMsRuUX';
-		console.log(' Users from inside props: ', this.props.team.users);
+		// console.log(' Users from inside props: ', this.props.team.users);
 		return (
 			<StyledModal
 				open={open}
