@@ -248,10 +248,6 @@ const teamResolvers = {
 					// console.log('\n\n The item to be passed: \n\n', item);
 					if (item) {
 						try {
-							console.log(
-								'\n\nfind logic',
-								item.users.find(u => u.admin).user._id
-							);
 							await new Event({
 								team: item._id,
 								user: item.users.find(u => u.admin).user._id,

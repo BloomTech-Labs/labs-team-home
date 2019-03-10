@@ -124,9 +124,9 @@ class SettingsView extends Component {
 		return currentUser ? (
 			<Mutation
 				mutation={mutation.UPDATE_USER}
-				update={(cache, { data: { updateUser } }) =>
-					cache.writeQuery({ query: query.CURRENT_USER, data: updateUser })
-				}
+				// update={(cache, { data: { updateUser } }) =>
+				// 	cache.writeQuery({ query: query.CURRENT_USER, data: updateUser })
+				// }
 			>
 				{(updateUser, { data }) => (
 					<SettingsContainer>
@@ -145,7 +145,8 @@ class SettingsView extends Component {
 										phoneNumber: this.state.phoneNumber,
 										toggles: this.state.toggles,
 										avatar: this.state.avatar
-									}
+									},
+									refetchQueries: [{ query: query.CURRENT_USER }]
 								});
 								this.pond.removeFile();
 							}}

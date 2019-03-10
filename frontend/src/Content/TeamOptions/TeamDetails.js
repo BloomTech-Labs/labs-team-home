@@ -71,6 +71,8 @@ const AdminUserButton = styled(UserButton)`
 	color: white;
 `;
 
+// ---------------- Main Exported Component ---------------------- //
+
 class TeamDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -87,6 +89,7 @@ class TeamDetails extends React.Component {
 	//set admin to true, if the currentUser is the admin
 	componentDidMount = () => {
 		this.props.team.users.map(user => {
+			// console.log(' Users from inside component did mount: ', user);
 			if (user.user._id === this.props.currentUser._id) {
 				if (user.admin) this.setState({ admin: true });
 			}
@@ -113,7 +116,7 @@ class TeamDetails extends React.Component {
 		const { open, team, hideModal, currentUser } = this.props;
 		const { admin, editingTeamName } = this.state;
 		const publishableKey = 'pk_test_GedRIIhEwHrV1xzzkxMsRuUX';
-
+		// console.log(' Users from inside props: ', this.props.team.users);
 		return (
 			<StyledModal
 				open={open}
@@ -137,25 +140,7 @@ class TeamDetails extends React.Component {
 						{editingTeamName ? (
 							// {/* If the user is the admin on a team, give them a edit button */}
 							<CardContent>
-								<Mutation
-									mutation={mutation.UPDATE_TEAM}
-									// update={(cache, { data: { updateTeam } }) => {
-									// 	const { findTeamsByUser } = cache.readQuery({
-									// 		query: query.FIND_TEAMS_BY_USER
-									// 	});
-									// 	cache.writeQuery({
-									// 		query: query.FIND_TEAMS_BY_USER,
-									// 		variables: { team: team },
-									// 		data: {
-									// 			findTeamsByUser: findTeamsByUser.map(team => {
-									// 				return team._id === updateTeam._id
-									// 					? updateTeam
-									// 					: team;
-									// 			})
-									// 		}
-									// 	});
-									// }}
-								>
+								<Mutation mutation={mutation.UPDATE_TEAM}>
 									{updateTeam => (
 										<StyledModalForm
 											onSubmit={e => {
@@ -234,22 +219,7 @@ class TeamDetails extends React.Component {
 										Free teams can only have up to 5 users.
 									</StyledModalBody>
 									{admin ? (
-										<Mutation
-											mutation={STRIPE_SOURCE}
-											// update={(cache, { data: { setPremium } }) => {
-											// 	const { findTeamsByUser } = cache.readQuery({
-											// 		query: query.FIND_TEAMS_BY_USER
-											// 	});
-											// 	cache.writeQuery({
-											// 		query: query.FIND_TEAMS_BY_USER,
-											// 		data: {
-											// 			findTeamsByUser: findTeamsByUser.map(team =>
-											// 				team._id === setPremium._id ? setPremium : team
-											// 			)
-											// 		}
-											// 	});
-											// }}
-										>
+										<Mutation mutation={STRIPE_SOURCE}>
 											{(setPremium, { data }) => (
 												// this stripe component is a button and a modal
 												<StripeCheckout
@@ -307,10 +277,12 @@ class TeamDetails extends React.Component {
 											input.phoneNumber = this.state.number;
 										inviteUser({
 											variables: input,
-											refetchQueries: {
-												query: query.FIND_TEAM,
-												variables: { id: team._id }
-											}
+											refetchQueries: [
+												{
+													query: query.FIND_TEAM,
+													variables: { id: team._id }
+												}
+											]
 										})
 											.then(() => {
 												this.resetState();
@@ -372,12 +344,10 @@ class TeamDetails extends React.Component {
 																	id: team._id,
 																	user: user.user._id
 																},
-																refetchQueries: [
-																	{
-																		query: query.FIND_TEAM,
-																		variables: { id: team._id }
-																	}
-																]
+																refetchQueries: {
+																	query: query.FIND_TEAM,
+																	variables: { id: team._id }
+																}
 															});
 														}}
 													>
@@ -397,11 +367,9 @@ class TeamDetails extends React.Component {
 																			id: team._id,
 																			user: currentUser
 																		},
-																		refetchQueries: [
-																			{
-																				query: query.FIND_TEAMS_BY_USER
-																			}
-																		]
+																		refetchQueries: {
+																			query: query.FIND_TEAMS_BY_USER
+																		}
 																	});
 																	this.props.history.push('/dashboard');
 																}}

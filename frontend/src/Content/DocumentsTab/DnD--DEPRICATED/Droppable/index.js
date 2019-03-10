@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'react-apollo';
-import { updateDocument } from '../../../mutations/documents';
-import { updateFolder } from '../../../mutations/folders';
+// import { compose } from 'react-apollo';
+// import { updateDocument } from '../../../mutations/documents';
+// import { updateFolder } from '../../../mutations/folders';
 
 class Droppable extends React.Component {
 	constructor(props) {
