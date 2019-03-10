@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import * as query from '../../../constants/queries';
 import FolderDetails from './FolderDetails';
 import Folder from './Folder';
-// import { compose } from 'react-apollo';
-// import { updateDocument } from '../mutations/documents';
 
 const FolderContainer = styled.div`
 	display: flex;

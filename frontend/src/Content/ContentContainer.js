@@ -90,7 +90,7 @@ class ContentContainer extends React.Component {
 	}
 
 	componentDidUpdate() {
-		console.log('component Updated');
+		// console.log('component Updated');
 	}
 
 	handleChange = (event, value) => {
