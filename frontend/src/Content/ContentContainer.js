@@ -78,7 +78,7 @@ const StyledTab = styled(Tab)`
 	}
 `;
 
-class ContentContainer extends React.Component {
+class ContentContainer extends React.PureComponent {
 	constructor(props) {
 		super(props);
 
@@ -87,10 +87,6 @@ class ContentContainer extends React.Component {
 			isAdmin: false,
 			showFABMenu: false
 		};
-	}
-
-	componentDidUpdate() {
-		// console.log('component Updated');
 	}
 
 	handleChange = (event, value) => {

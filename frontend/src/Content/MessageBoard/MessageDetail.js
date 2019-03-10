@@ -372,6 +372,10 @@ class MessageDetail extends Component {
 											{
 												query: query.FIND_COMMENTS_BY_MESSAGE,
 												variables: { message: message._id }
+											},
+											{
+												query: query.FIND_MESSAGES_BY_TEAM,
+												variables: { team: this.props.team }
 											}
 										]
 									}).then(this.resetState());
