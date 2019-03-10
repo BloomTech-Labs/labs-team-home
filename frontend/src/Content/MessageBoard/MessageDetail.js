@@ -97,7 +97,8 @@ class MessageDetail extends Component {
 			title: '',
 			content: '',
 			commentContent: '',
-			newComment: ''
+			newComment: '',
+			subscribed: null
 		};
 	}
 
