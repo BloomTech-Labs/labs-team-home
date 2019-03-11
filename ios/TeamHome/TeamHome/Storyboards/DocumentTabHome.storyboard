@@ -370,7 +370,7 @@
                                 <rect key="frame" x="16" y="32" width="343" height="438"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="300" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="X2e-ia-pQw">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="161"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="148"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="300" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="LvL-rh-KOa">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -451,7 +451,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="259" verticalCompressionResistancePriority="756" text="Documment Notes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIe-sG-jz5">
-                                                <rect key="frame" x="0.0" y="127.5" width="343" height="33.5"/>
+                                                <rect key="frame" x="0.0" y="127.5" width="343" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -459,10 +459,7 @@
                                         </subviews>
                                     </stackView>
                                     <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" translatesAutoresizingMaskIntoConstraints="NO" id="CqT-Pa-d28">
-                                        <rect key="frame" x="0.0" y="173" width="343" height="220"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="220" id="3Xb-s2-TpX"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="160" width="343" height="233"/>
                                         <connections>
                                             <segue destination="cNA-SP-I5F" kind="embed" identifier="EmbeddedComments" id="eUz-eI-eEZ"/>
                                         </connections>
@@ -546,7 +543,7 @@
             <objects>
                 <collectionViewController id="cNA-SP-I5F" customClass="DocumentsDetailCollectionViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="elr-py-tQo">
-                        <rect key="frame" x="0.0" y="0.0" width="343" height="220"/>
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="233"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Prg-uW-UJX">
@@ -750,7 +747,7 @@
         <image name="User Avatar Image" width="32.810127258300781" height="32.810127258300781"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="R6w-rk-308"/>
+        <segue reference="jm3-hQ-VqR"/>
         <segue reference="q4k-aO-cWI"/>
     </inferredMetricsTieBreakers>
 </document>
