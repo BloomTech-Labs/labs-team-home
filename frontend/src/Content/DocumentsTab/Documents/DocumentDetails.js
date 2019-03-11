@@ -20,7 +20,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import CardContent from '@material-ui/core/CardContent';
 
 // ------------- Icon imports ------------------------------- //
-
 import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 
@@ -245,9 +244,7 @@ class DocumentDetails extends React.Component {
 
 	render() {
 		const { document, currentUser, hideModal, open } = this.props;
-
 		// console.log('All the props from the document modal: ', this.props);
-
 		if (document === null || document === undefined) return <></>;
 		return (
 			<StyledModal
@@ -269,6 +266,7 @@ class DocumentDetails extends React.Component {
 				</StyledModalClose>
 				<StyledModalOverlay>
 					<StyledModalPaper>
+						{/* toggle editing document */}
 						{this.state.editingDocument ? (
 							<CardContent>
 								<Mutation mutation={UPDATE_DOCUMENT}>
@@ -319,6 +317,7 @@ class DocumentDetails extends React.Component {
 							</CardContent>
 						) : (
 							<CardContent>
+								{/* View document info */}
 								<ModalTitle>{document.title}</ModalTitle>
 								<DocumentIconDiv>
 									<DocumentIcon />
@@ -338,6 +337,7 @@ class DocumentDetails extends React.Component {
 									</DocUrl>
 								</a>
 								<FormDiv>
+									{/* Move the doc to a new folder via drop down menu */}
 									<SortForm>
 										<Mutation mutation={UPDATE_DOCUMENT}>
 											{updateDocument => (
@@ -377,6 +377,7 @@ class DocumentDetails extends React.Component {
 										</Mutation>
 									</SortForm>
 								</FormDiv>
+								{/* All the document content */}
 								<ModalBody>
 									Posted by{' '}
 									{`${document.user.firstName} ${document.user.lastName}`} •
@@ -387,6 +388,7 @@ class DocumentDetails extends React.Component {
 									<span>Notes:</span>
 									{document.textContent}
 								</DocumentContent>
+								{/* All the document options buttons */}
 								<StyledModalCardAction>
 									{document.user._id === currentUser._id && (
 										<>
@@ -414,25 +416,45 @@ class DocumentDetails extends React.Component {
 													<StyledModalButton
 														onClick={e => {
 															e.preventDefault();
-															deleteDocument({
-																variables: { id: document._id },
-																refetchQueries: [
-																	{
-																		query: query.FIND_DOCUMENTS_BY_TEAM,
-																		variables: { team: this.props.team }
-																	},
-																	{
-																		query: query.FIND_FOLDERS_BY_TEAM,
-																		variables: { team: this.props.team }
-																	},
-																	{
-																		query: query.FIND_DOCUMENTS_BY_FOLDER,
-																		variables: { folder: this.props.folder._id }
-																	}
-																]
-															}).then(() => {
-																hideModal();
-															});
+															if (document.folder) {
+																deleteDocument({
+																	variables: { id: document._id },
+																	refetchQueries: [
+																		{
+																			query: query.FIND_DOCUMENTS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		},
+																		{
+																			query: query.FIND_FOLDERS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		},
+																		{
+																			query: query.FIND_DOCUMENTS_BY_FOLDER,
+																			variables: {
+																				folder: this.props.folder._id
+																			}
+																		}
+																	]
+																}).then(() => {
+																	hideModal();
+																});
+															} else {
+																deleteDocument({
+																	variables: { id: document._id },
+																	refetchQueries: [
+																		{
+																			query: query.FIND_DOCUMENTS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		},
+																		{
+																			query: query.FIND_FOLDERS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		}
+																	]
+																}).then(() => {
+																	hideModal();
+																});
+															}
 														}}
 													>
 														Delete
