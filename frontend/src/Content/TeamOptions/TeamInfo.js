@@ -1,33 +1,32 @@
 import { colors } from '../../colorVariables';
-import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import React from 'react';
 import TeamDetails from './TeamDetails';
+import { Settings } from 'styled-icons/material/Settings';
 
 const TeamOptions = styled.div`
 	display: flex;
-	flex-direction: column;
+	/* flex-direction: column; */
 	align-items: center;
+	justify-content: center;
 	color: ${colors.header};
 	text-align: center;
 	font-size: 2rem;
-
-	${mediaQueryFor.xsDevice`
-        font-size: 1rem;
-    `}
 `;
 
-const TeamActions = styled.div`
-	display: flex;
-	align-items: center;
-	flex-flow: column;
-`;
-
-const StyledButton = styled(Button)`
-	background-color: ${colors.button};
+const SettingsIcon = styled(Settings)`
+	height: 1.2rem;
 	color: ${colors.text};
-	margin: 5px;
+	margin-top: 0.6rem;
+	margin-left: 5px;
+	cursor: pointer;
+
+	${mediaQueryFor.smDevice`
+		height: 1.8rem;
+		margin-top: 0;
+		margin-left: 10px;
+    `}
 `;
 
 class TeamInfo extends React.Component {
@@ -61,7 +60,13 @@ class TeamInfo extends React.Component {
 				{/* Team Name and action buttons */}
 				<TeamOptions>
 					<h1>{this.props.team.name}</h1>
-					<TeamActions>
+					<SettingsIcon
+						onClick={e => {
+							e.preventDefault();
+							this.toggleTeamDetails();
+						}}
+					/>
+					{/* <TeamActions>
 						<StyledButton
 							variant="contained"
 							onClick={e => {
@@ -71,7 +76,7 @@ class TeamInfo extends React.Component {
 						>
 							Team Details
 						</StyledButton>
-					</TeamActions>
+					</TeamActions> */}
 				</TeamOptions>
 
 				{/* click on the user list and view its contents modal */}
