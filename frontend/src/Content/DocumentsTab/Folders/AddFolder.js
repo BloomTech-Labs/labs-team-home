@@ -1,7 +1,6 @@
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
-// import { addFolder } from '../../mutations/folders';
 import { Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
 import { ADD_FOLDER } from '../../../constants/mutations';

@@ -1,8 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
+
+// ------------- DnD Imports ---------------------- //
 import { DragSource } from 'react-dnd';
+
+// ------------- Style Imports ---------------------- //
 import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
+import styled from 'styled-components';
 
 // ---------------- Styled Components ---------------------- //
 

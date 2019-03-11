@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import MessageBoardCommentDetails from './MessageBoadCommentDetail';
+// ------------- Component Imports ---------------------- //
+import MessageBoardCommentDetails from './MessageBoardCommentDetail';
 
 // ------------- gql imports ---------------------- //
 import { Query, Mutation } from 'react-apollo';
@@ -13,13 +14,14 @@ import {
 	ADD_COMMENT
 } from '../../constants/mutations';
 
-// ------------- styling libraries ---------------------- //
-import styled from 'styled-components';
+// ------------- MUI Imports ---------------------- //
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import CloseIcon from '@material-ui/icons/Close';
 
+// ------------- styling libraries ---------------------- //
+import styled from 'styled-components';
 import { colors } from '../../colorVariables';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 

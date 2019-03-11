@@ -1,10 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+
+// ------------- gql Imports ---------------------- //
+import * as query from '../../../constants/queries';
+import { Mutation } from 'react-apollo';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+
+// ------------- DnD Imports ---------------------- //
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
-import { Mutation } from 'react-apollo';
-import * as query from '../../../constants/queries';
-import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+
+// ------------- Styled Imports ---------------------- //
+import styled from 'styled-components';
 
 const IndividualFolder = styled.div`
 	height: 200px;
@@ -63,11 +69,6 @@ class Folder extends React.Component {
 	}
 
 	updateDrop = (id, folderid, updateDocument) => {
-		// console.log('DOC : ', id);
-		// console.log('FOLDER : ', folderid._id);
-		// console.log("folder team id: ", this.props.team)
-		// console.log('previous folder: ', this.props.folder._id)
-
 		if (folderid !== undefined) {
 			// console.log('UpdateDrop-Folder, folderID not available: ', folderid);
 			updateDocument({

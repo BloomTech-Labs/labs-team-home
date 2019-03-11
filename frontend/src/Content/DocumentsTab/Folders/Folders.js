@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { Query } from 'react-apollo';
-import styled from 'styled-components';
 import * as query from '../../../constants/queries';
+
+// ------------- Component Imports ---------------------- //
 import FolderDetails from './FolderDetails';
 import Folder from './Folder';
+
+// ------------- Style Imports ---------------------- //
+import styled from 'styled-components';
 
 const FolderContainer = styled.div`
 	display: flex;

@@ -1,14 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+// ------------- Style Imports ---------------------- //
+import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
+import { colors } from '../../colorVariables';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
+
+// ------------- MUI Imports ---------------------- //
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import { colors } from '../../colorVariables';
-import mediaQueryFor from '../../_global_styles/responsive_querie';
 import Grid from '@material-ui/core/Grid';
 
 const styles = {

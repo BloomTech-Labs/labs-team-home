@@ -1,6 +1,10 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { Query } from 'react-apollo';
 import { FIND_EVENTS_BY_TEAM } from '../../constants/queries';
+
+// ------------- Component Imports ---------------------- //
 import Activity from './Activity';
 import ActivityModal from './ActivityModal';
 

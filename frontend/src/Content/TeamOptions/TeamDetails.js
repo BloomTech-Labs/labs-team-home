@@ -14,11 +14,13 @@ import Logo from '../../assets/TH_favicon.png';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
+import { colors } from '../../colorVariables';
+
+// ------------- MUI Imports ---------------------- //
 import CloseIcon from '@material-ui/icons/Close';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import { colors } from '../../colorVariables';
 import DialogActions from '@material-ui/core/DialogActions';
 
 // ------------- Modal styling imports ---------------------- //

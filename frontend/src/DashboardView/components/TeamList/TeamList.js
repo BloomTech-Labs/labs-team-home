@@ -1,12 +1,16 @@
 import React from 'react';
-import { Query, Mutation } from 'react-apollo';
+import PropTypes from 'prop-types';
 
+// ------------- gql Imports ---------------------- //
+import { Query, Mutation } from 'react-apollo';
 import * as style from './TeamList.styles';
 import * as query from '../../../constants/queries';
 import * as mutation from '../../../constants/mutations';
 
+// ------------- Component Imports ---------------------- //
 import TeamCard from './TeamCard/TeamCard';
-import PropTypes from 'prop-types';
+
+// ------------- MUI Imports ---------------------- //
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 

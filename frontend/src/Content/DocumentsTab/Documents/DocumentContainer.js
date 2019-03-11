@@ -1,10 +1,16 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+
+// ------------- DnD Imports ---------------------- //
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
+
+// ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
-import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
 const Container = styled.div`
 	display: flex;

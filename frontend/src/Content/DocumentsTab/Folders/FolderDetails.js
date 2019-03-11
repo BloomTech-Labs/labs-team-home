@@ -12,13 +12,11 @@ import {
 // ------------- Component Imports ---------------------- //
 import DocumentDetails from '../Documents/DocumentDetails';
 
-// ------------- Style Imports ---------------------- //
-import styled from 'styled-components';
+// ------------- MI Imports ---------------------- //
 import CloseIcon from '@material-ui/icons/Close';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import { colors } from '../../../colorVariables';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -34,7 +32,9 @@ import {
 	StyledModalCardAction
 } from '../../Modal.styles';
 
-// ---------------- Styled Components ---------------------- //
+// ---------------- Styled Imports ---------------------- //
+import styled from 'styled-components';
+import { colors } from '../../../colorVariables';
 
 const ModalContents = styled.div`
 	height: 700px;

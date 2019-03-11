@@ -4,7 +4,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import * as query from '../../constants/queries';
 
-// // ------------- Component Imports ---------------------- //
+// ------------- Component Imports ---------------------- //
 import DocumentDetails from '../DocumentsTab/Documents/DocumentDetails';
 import FolderDetails from '../DocumentsTab/Folders/FolderDetails';
 import MessageDetails from '../MessageBoard/MessageDetail';
@@ -32,7 +32,6 @@ import {
 } from '../Modal.styles';
 
 // ---------------- Styled Components ---------------------- //
-
 const ModalTitle = styled(StyledModalTitle)`
 	h2 {
 		font-size: 30px;
