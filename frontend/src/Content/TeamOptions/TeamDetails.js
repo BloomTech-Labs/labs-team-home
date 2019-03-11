@@ -38,6 +38,22 @@ import {
 
 // ---------------- Styled Components ---------------------- //
 
+const ModalContents = styled.div`
+	height: 700px;
+	width: 565px;
+	overflow-y: auto;
+	padding-right: 1.3em;
+	margin-top: 1rem;
+
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: white;
+	}
+`;
+
 const UserCard = styled(CardHeader)`
 	@media (max-width: 400px) {
 		display: flex;
@@ -136,7 +152,7 @@ class TeamDetails extends React.Component {
 					</StyledModalIconButton>
 				</StyledModalClose>
 				<StyledModalOverlay>
-					<div>
+					<ModalContents>
 						{editingTeamName ? (
 							// {/* If the user is the admin on a team, give them a edit button */}
 							<CardContent>
@@ -385,7 +401,7 @@ class TeamDetails extends React.Component {
 								/>
 							</StyledModalPaper>
 						))}
-					</div>
+					</ModalContents>
 				</StyledModalOverlay>
 			</StyledModal>
 		);
