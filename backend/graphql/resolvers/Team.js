@@ -195,7 +195,6 @@ const teamResolvers = {
 										{ $set: { users: [...team.users, ...addedUsers] } },
 										{ new: true }
 									)
-
 										.populate('users.user')
 										.then(async item => {
 											// console.log('\n\n The item to be passed: \n\n', item);
@@ -203,7 +202,6 @@ const teamResolvers = {
 												try {
 													await new Event({
 														team: item._id,
-
 														user: item.users.find(u => u.admin)._id,
 														action_string: action_str.invited,
 														object_string: object_str.user,
@@ -211,7 +209,6 @@ const teamResolvers = {
 													})
 														.save()
 														.then(event => {
-
 															// console.log('Event added', event);
 														});
 												} catch (error) {
