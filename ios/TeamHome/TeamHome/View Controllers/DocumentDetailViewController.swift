@@ -78,7 +78,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         
         if segue.identifier == "EmbeddedComments" {
             guard let destinationVC = segue.destination as? DocumentsDetailCollectionViewController,
-                let documentID = document?.id,
+                let documentID = documentID,
                 let currentUser = currentUser else {return}
             
             destinationVC.apollo = apollo
@@ -239,21 +239,21 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
             }
         }
         
-        var heightConstraint: NSLayoutConstraint!
-        
-        heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
-        
-        guard let comments = document.comments else { return }
-        
-        if comments.count == 0 {
-            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
-        } else if comments.count == 1 {
-            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
-        } else if comments.count > 2 {
-            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
-        }
-        
-        NSLayoutConstraint.activate([heightConstraint])
+//        var heightConstraint: NSLayoutConstraint!
+//        
+//        heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
+//        
+//        guard let comments = document.comments else { return }
+//        
+//        if comments.count == 0 {
+//            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+//        } else if comments.count == 1 {
+//            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
+//        } else if comments.count > 2 {
+//            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
+//        }
+//        
+//        NSLayoutConstraint.activate([heightConstraint])
     }
     
     //MARK: - Properties

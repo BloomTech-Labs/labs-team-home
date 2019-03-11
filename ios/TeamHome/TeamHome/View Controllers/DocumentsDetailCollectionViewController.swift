@@ -50,7 +50,7 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
         cell.delegate = self
         
 //        let height = cell.card.frame.height
-        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: 160)
+//        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: 160)
         
         return cell
     }
