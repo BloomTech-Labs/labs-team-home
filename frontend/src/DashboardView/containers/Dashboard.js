@@ -1,13 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TeamList from '../components/TeamList/TeamList';
 
-class Dashboard extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return <TeamList {...this.props} />;
-	}
-}
+const Dashboard = props => {
+	return <TeamList {...props} />;
+};
 
 export default Dashboard;

@@ -112,7 +112,6 @@ class DocumentDetails extends React.Component {
 							<StyledModalForm
 								action="submit"
 								onSubmit={e => {
-									console.log(this.props.document);
 									e.preventDefault();
 									updateDocComment({
 										variables: {
