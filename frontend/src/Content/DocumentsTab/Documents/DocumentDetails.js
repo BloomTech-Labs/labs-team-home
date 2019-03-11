@@ -51,6 +51,22 @@ const ModalTitle = styled(StyledModalTitle)`
 	}
 `;
 
+const ModalContents = styled.div`
+	height: 700px;
+	width: 565px;
+	overflow-y: auto;
+	padding-right: 1.3em;
+	margin-top: 1rem;
+
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: white;
+	}
+`;
+
 const ModalBody = styled(StyledModalBody)`
 	text-align: center;
 	margin: 10px 0;
@@ -268,289 +284,295 @@ class DocumentDetails extends React.Component {
 					</StyledModalIconButton>
 				</StyledModalClose>
 				<StyledModalOverlay>
-					<StyledModalPaper>
-						{this.state.editingDocument ? (
-							<CardContent>
-								<Mutation mutation={UPDATE_DOCUMENT}>
-									{updateDocument => (
-										<StyledModalForm
-											onSubmit={e => {
-												e.preventDefault();
-												document.title = this.state.title;
-												document.textContent = this.state.textContent;
-												document.doc_url = this.state.doc_url;
-												updateDocument({
-													variables: {
-														id: document._id,
-														title: this.state.title,
-														doc_url: this.state.doc_url,
-														textContent: this.state.textContent
-													},
-													refetchQueries: [
-														{
-															query: query.FIND_DOCUMENTS_BY_TEAM,
-															variables: { team: this.props.team }
-														}
-													]
-												});
-												this.resetState();
-											}}
-										>
-											<StyledModalInput
-												name="title"
-												value={this.state.title}
-												onChange={this.handleChange}
-											/>
-											<StyledModalInput
-												name="doc_url"
-												value={this.state.doc_url}
-												onChange={this.handleChange}
-											/>
-											<StyledModalInput
-												name="textContent"
-												value={this.state.textContent}
-												onChange={this.handleChange}
-												multiline
-											/>
-											<StyledModalButton type="submit">Save</StyledModalButton>
-										</StyledModalForm>
-									)}
-								</Mutation>
-							</CardContent>
-						) : (
-							<CardContent>
-								<ModalTitle>{document.title}</ModalTitle>
-								<DocumentIconDiv>
-									<DocumentIcon />
-								</DocumentIconDiv>
-								<a
-									href={
-										document.doc_url.includes('http://') ||
-										document.doc_url.includes('https://')
-											? document.doc_url
-											: `http://www.${document.doc_url}`
-									}
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<DocUrl paragraph component="p">
-										VIEW
-									</DocUrl>
-								</a>
-								<FormDiv>
-									<SortForm>
-										<Mutation mutation={UPDATE_DOCUMENT}>
-											{updateDocument => (
-												<select
-													value={this.state.folderOption}
-													onChange={e => this.folderChange(e, updateDocument)}
-												>
-													<option value="">Move to ...</option>
-
-													<Query
-														query={query.FIND_FOLDERS_BY_TEAM}
-														variables={{ team: this.props.team }}
-													>
-														{({
-															loading,
-															error,
-															data: { findFoldersByTeam }
-														}) => {
-															if (loading) return 'Loading...';
-															if (error) return console.error(error);
-															if (
-																findFoldersByTeam &&
-																findFoldersByTeam.length > 0
-															) {
-																return findFoldersByTeam.map(folder => (
-																	<option
-																		key={folder._id}
-																		value={`${folder._id}`}
-																	>{`${folder.title}`}</option>
-																));
-															}
-															return <>no folders here</>;
-														}}
-													</Query>
-												</select>
-											)}
-										</Mutation>
-									</SortForm>
-								</FormDiv>
-								<ModalBody>
-									Posted by{' '}
-									{`${document.user.firstName} ${document.user.lastName}`} •
-									Tag:
-									{` ${document.tag ? document.tag.name : 'none'}`}
-								</ModalBody>
-								<DocumentContent paragraph component="p">
-									<span>Notes:</span>
-									{document.textContent}
-								</DocumentContent>
-								<StyledModalCardAction>
-									{document.user._id === currentUser._id && (
-										<>
-											<StyledModalButton
-												onClick={e => {
+					<ModalContents>
+						<StyledModalPaper>
+							{this.state.editingDocument ? (
+								<CardContent>
+									<Mutation mutation={UPDATE_DOCUMENT}>
+										{updateDocument => (
+											<StyledModalForm
+												onSubmit={e => {
 													e.preventDefault();
-													if (!this.state.editingComment) {
-														this.setState({
-															editingDocument: true,
-															title: document.title,
-															textContent: document.textContent,
-															doc_url: document.doc_url
-														});
-													} else {
-														alert(
-															"Please finish editing your comment by clicking 'SAVE' before editing the document."
-														);
-													}
+													document.title = this.state.title;
+													document.textContent = this.state.textContent;
+													document.doc_url = this.state.doc_url;
+													updateDocument({
+														variables: {
+															id: document._id,
+															title: this.state.title,
+															doc_url: this.state.doc_url,
+															textContent: this.state.textContent
+														},
+														refetchQueries: [
+															{
+																query: query.FIND_DOCUMENTS_BY_TEAM,
+																variables: { team: this.props.team }
+															}
+														]
+													});
+													this.resetState();
 												}}
 											>
-												Edit
-											</StyledModalButton>
-											<Mutation mutation={DELETE_DOCUMENT}>
-												{deleteDocument => (
-													<StyledModalButton
-														onClick={e => {
-															e.preventDefault();
-															deleteDocument({
-																variables: { id: document._id },
-																refetchQueries: [
-																	{
-																		query: query.FIND_DOCUMENTS_BY_TEAM,
-																		variables: { team: this.props.team }
-																	},
-																	{
-																		query: query.FIND_FOLDERS_BY_TEAM,
-																		variables: { team: this.props.team }
-																	},
-																	{
-																		query: query.FIND_DOCUMENTS_BY_FOLDER,
-																		variables: { folder: this.props.folder._id }
-																	}
-																]
-															}).then(() => {
-																hideModal();
-															});
-														}}
-													>
-														Delete
-													</StyledModalButton>
-												)}
-											</Mutation>
-										</>
-									)}
-
-									{/* Subscribe or unsubscribe button */}
-									<Mutation mutation={UNSUBSCRIBE_DOC}>
-										{unsubscribeDoc => (
-											<Mutation mutation={SUBSCRIBE_DOC}>
-												{subscribeDoc => (
-													<StyledModalButton
-														onClick={e => {
-															e.preventDefault();
-															this.setState(prevState => ({
-																subscribed: !prevState.subscribed
-															}));
-															this.state.subscribed
-																? unsubscribeDoc({
-																		variables: {
-																			id: document._id,
-																			user: currentUser._id
-																		},
-																		refetchQueries: [
-																			{
-																				query: query.FIND_DOCUMENTS_BY_TEAM,
-																				variables: { team: this.props.team }
-																			}
-																		]
-																  })
-																: subscribeDoc({
-																		variables: {
-																			id: document._id,
-																			user: currentUser._id
-																		},
-																		refetchQueries: [
-																			{
-																				query: query.FIND_DOCUMENTS_BY_TEAM,
-																				variables: { team: this.props.team }
-																			}
-																		]
-																  });
-														}}
-													>
-														{this.state.subscribed
-															? 'Unsubscribe'
-															: 'Subscribe'}
-													</StyledModalButton>
-												)}
-											</Mutation>
+												<StyledModalInput
+													name="title"
+													value={this.state.title}
+													onChange={this.handleChange}
+												/>
+												<StyledModalInput
+													name="doc_url"
+													value={this.state.doc_url}
+													onChange={this.handleChange}
+												/>
+												<StyledModalInput
+													name="textContent"
+													value={this.state.textContent}
+													onChange={this.handleChange}
+													multiline
+												/>
+												<StyledModalButton type="submit">
+													Save
+												</StyledModalButton>
+											</StyledModalForm>
 										)}
 									</Mutation>
-								</StyledModalCardAction>
-							</CardContent>
-						)}
-					</StyledModalPaper>
-					{/* View all the comments of the document */}
-					<StyledModalTitle>Discussion</StyledModalTitle>
-					<Query
-						query={query.FIND_COMMENTS_BY_DOCUMENT}
-						variables={{ document: document._id }}
-					>
-						{({ loading, error, data: { findDocCommentsByDocument } }) => {
-							if (loading) return <p>Loading...</p>;
-							if (error) return <p>Error</p>;
-							return (
-								<>
-									{/* Display all the comments */}
-									{findDocCommentsByDocument.map(comment => (
-										<DocumentCommentDetail
-											key={comment._id}
-											comment={comment}
-											currentUser={currentUser}
-											editingDocument={this.state.editingDocument}
-											{...this.props}
-										/>
-									))}
-								</>
-							);
-						}}
-					</Query>
-					<Mutation mutation={ADD_DOCCOMMENT}>
-						{/* Add a new comment form */}
-						{addDocComment => (
-							<StyledModalNewCommentForm
-								onSubmit={e => {
-									e.preventDefault();
-									addDocComment({
-										variables: {
-											document: document._id,
-											content: this.state.newCommentContent
-										},
-										refetchQueries: [
-											{
-												query: query.FIND_COMMENTS_BY_DOCUMENT,
-												variables: { document: document._id }
-											}
-										]
-									});
-									this.resetState();
-								}}
-							>
-								<StyledModalNewCommentInput
-									value={this.state.newCommentContent}
-									name="newCommentContent"
-									onChange={this.handleChange}
-									placeholder="Leave a comment..."
-								/>
+								</CardContent>
+							) : (
+								<CardContent>
+									<ModalTitle>{document.title}</ModalTitle>
+									<DocumentIconDiv>
+										<DocumentIcon />
+									</DocumentIconDiv>
+									<a
+										href={
+											document.doc_url.includes('http://') ||
+											document.doc_url.includes('https://')
+												? document.doc_url
+												: `http://www.${document.doc_url}`
+										}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<DocUrl paragraph component="p">
+											VIEW
+										</DocUrl>
+									</a>
+									<FormDiv>
+										<SortForm>
+											<Mutation mutation={UPDATE_DOCUMENT}>
+												{updateDocument => (
+													<select
+														value={this.state.folderOption}
+														onChange={e => this.folderChange(e, updateDocument)}
+													>
+														<option value="">Move to ...</option>
 
-								<ArrowDiv type="submit">
-									<Arrow />
-								</ArrowDiv>
-							</StyledModalNewCommentForm>
-						)}
-					</Mutation>
+														<Query
+															query={query.FIND_FOLDERS_BY_TEAM}
+															variables={{ team: this.props.team }}
+														>
+															{({
+																loading,
+																error,
+																data: { findFoldersByTeam }
+															}) => {
+																if (loading) return 'Loading...';
+																if (error) return console.error(error);
+																if (
+																	findFoldersByTeam &&
+																	findFoldersByTeam.length > 0
+																) {
+																	return findFoldersByTeam.map(folder => (
+																		<option
+																			key={folder._id}
+																			value={`${folder._id}`}
+																		>{`${folder.title}`}</option>
+																	));
+																}
+																return <>no folders here</>;
+															}}
+														</Query>
+													</select>
+												)}
+											</Mutation>
+										</SortForm>
+									</FormDiv>
+									<ModalBody>
+										Posted by{' '}
+										{`${document.user.firstName} ${document.user.lastName}`} •
+										Tag:
+										{` ${document.tag ? document.tag.name : 'none'}`}
+									</ModalBody>
+									<DocumentContent paragraph component="p">
+										<span>Notes:</span>
+										{document.textContent}
+									</DocumentContent>
+									<StyledModalCardAction>
+										{document.user._id === currentUser._id && (
+											<>
+												<StyledModalButton
+													onClick={e => {
+														e.preventDefault();
+														if (!this.state.editingComment) {
+															this.setState({
+																editingDocument: true,
+																title: document.title,
+																textContent: document.textContent,
+																doc_url: document.doc_url
+															});
+														} else {
+															alert(
+																"Please finish editing your comment by clicking 'SAVE' before editing the document."
+															);
+														}
+													}}
+												>
+													Edit
+												</StyledModalButton>
+												<Mutation mutation={DELETE_DOCUMENT}>
+													{deleteDocument => (
+														<StyledModalButton
+															onClick={e => {
+																e.preventDefault();
+																deleteDocument({
+																	variables: { id: document._id },
+																	refetchQueries: [
+																		{
+																			query: query.FIND_DOCUMENTS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		},
+																		{
+																			query: query.FIND_FOLDERS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		},
+																		{
+																			query: query.FIND_DOCUMENTS_BY_FOLDER,
+																			variables: {
+																				folder: this.props.folder._id
+																			}
+																		}
+																	]
+																}).then(() => {
+																	hideModal();
+																});
+															}}
+														>
+															Delete
+														</StyledModalButton>
+													)}
+												</Mutation>
+											</>
+										)}
+
+										{/* Subscribe or unsubscribe button */}
+										<Mutation mutation={UNSUBSCRIBE_DOC}>
+											{unsubscribeDoc => (
+												<Mutation mutation={SUBSCRIBE_DOC}>
+													{subscribeDoc => (
+														<StyledModalButton
+															onClick={e => {
+																e.preventDefault();
+																this.setState(prevState => ({
+																	subscribed: !prevState.subscribed
+																}));
+																this.state.subscribed
+																	? unsubscribeDoc({
+																			variables: {
+																				id: document._id,
+																				user: currentUser._id
+																			},
+																			refetchQueries: [
+																				{
+																					query: query.FIND_DOCUMENTS_BY_TEAM,
+																					variables: { team: this.props.team }
+																				}
+																			]
+																	  })
+																	: subscribeDoc({
+																			variables: {
+																				id: document._id,
+																				user: currentUser._id
+																			},
+																			refetchQueries: [
+																				{
+																					query: query.FIND_DOCUMENTS_BY_TEAM,
+																					variables: { team: this.props.team }
+																				}
+																			]
+																	  });
+															}}
+														>
+															{this.state.subscribed
+																? 'Unsubscribe'
+																: 'Subscribe'}
+														</StyledModalButton>
+													)}
+												</Mutation>
+											)}
+										</Mutation>
+									</StyledModalCardAction>
+								</CardContent>
+							)}
+						</StyledModalPaper>
+						{/* View all the comments of the document */}
+						<StyledModalTitle>Discussion</StyledModalTitle>
+						<Query
+							query={query.FIND_COMMENTS_BY_DOCUMENT}
+							variables={{ document: document._id }}
+						>
+							{({ loading, error, data: { findDocCommentsByDocument } }) => {
+								if (loading) return <p>Loading...</p>;
+								if (error) return <p>Error</p>;
+								return (
+									<>
+										{/* Display all the comments */}
+										{findDocCommentsByDocument.map(comment => (
+											<DocumentCommentDetail
+												key={comment._id}
+												comment={comment}
+												currentUser={currentUser}
+												editingDocument={this.state.editingDocument}
+												{...this.props}
+											/>
+										))}
+									</>
+								);
+							}}
+						</Query>
+						<Mutation mutation={ADD_DOCCOMMENT}>
+							{/* Add a new comment form */}
+							{addDocComment => (
+								<StyledModalNewCommentForm
+									onSubmit={e => {
+										e.preventDefault();
+										addDocComment({
+											variables: {
+												document: document._id,
+												content: this.state.newCommentContent
+											},
+											refetchQueries: [
+												{
+													query: query.FIND_COMMENTS_BY_DOCUMENT,
+													variables: { document: document._id }
+												}
+											]
+										});
+										this.resetState();
+									}}
+								>
+									<StyledModalNewCommentInput
+										value={this.state.newCommentContent}
+										name="newCommentContent"
+										onChange={this.handleChange}
+										placeholder="Leave a comment..."
+									/>
+
+									<ArrowDiv type="submit">
+										<Arrow />
+									</ArrowDiv>
+								</StyledModalNewCommentForm>
+							)}
+						</Mutation>
+					</ModalContents>
 				</StyledModalOverlay>
 			</StyledModal>
 		);
