@@ -54,14 +54,16 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         guard let apollo = apollo,
             let documentID = document?.id,
             let comment = commentTextView.text else {return}
-        apollo.perform(mutation: AddDocumentCommentMutation(document: documentID , comment: comment), queue: .global()) { (result, error) in
+        apollo.perform(mutation: AddDocumentCommentMutation(document: documentID , comment: comment)) { (result, error) in
             if let error = error {
                 NSLog("Error adding comment: \(error)")
                 return
             }
 //            print(result?.data?.addDocComment?.content)
+            self.commentTextView.text = ""
+            self.delegate?.didAddNewComment()
         }
-        commentTextView.text = ""
+        
     }
     @IBAction func clickedSubscribe(_ sender: Any) {
         guard let apollo = apollo,
@@ -81,6 +83,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
                 let documentID = documentID,
                 let currentUser = currentUser else {return}
             
+            self.delegate = destinationVC
             destinationVC.apollo = apollo
             destinationVC.documentID = documentID
             destinationVC.currentUser = currentUser
@@ -283,9 +286,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
-    
+    var delegate: AddNewCommentDelegate?
     //    var imageData: Data?
-    //    var delegate: AddNewCommentDelegate?
     
     @IBOutlet weak var documentTitleLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!

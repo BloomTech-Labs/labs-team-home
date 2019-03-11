@@ -17,6 +17,7 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
         if label != nil {
             self.label.removeFromSuperview()
         }
+        documentCommentWatcher?.refetch()
     }
     
 
