@@ -37,7 +37,7 @@ const documentResolver = {
 					.populate('user team tag subscribedUsers folder')
 					.execPopulate()
 					.then(async item => {
-						console.log('item before event is called: ', item);
+						// console.log('item before event is called: ', item);
 						if (item) {
 							try {
 								await new Event({
@@ -49,7 +49,7 @@ const documentResolver = {
 								})
 									.save()
 									.then(event => {
-										console.log('Event added', event);
+										// console.log('Event added', event);
 									});
 							} catch (error) {
 								console.error('Could not add event', error);
