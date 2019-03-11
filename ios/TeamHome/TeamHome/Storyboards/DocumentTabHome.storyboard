@@ -467,20 +467,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="260" verticalCompressionResistancePriority="800" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QiS-gJ-wEv">
                                         <rect key="frame" x="0.0" y="405" width="343" height="33"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="258" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOo-SR-xAN">
-                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="33"/>
-                                                <connections>
-                                                    <action selector="addImage:" destination="PI0-00-t65" eventType="touchUpInside" id="LBE-hP-l6n"/>
-                                                </connections>
-                                            </button>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="259" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6EX-IN-IJM" customClass="GrowingTextView" customModule="GrowingTextView">
-                                                <rect key="frame" x="8" y="0.0" width="327" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="327" height="33"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="259" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plk-lp-dER" customClass="RaisedButton" customModule="Material">
-                                                <rect key="frame" x="343" y="0.0" width="0.0" height="33"/>
+                                                <rect key="frame" x="335" y="0.0" width="8" height="33"/>
                                                 <state key="normal" title="Send"/>
                                                 <connections>
                                                     <action selector="submitComment:" destination="PI0-00-t65" eventType="touchUpInside" id="2Fb-2c-tkg"/>
