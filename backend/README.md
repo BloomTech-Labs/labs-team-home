@@ -15,10 +15,17 @@
 9. Run server `yarn server`
 10. Go to http://localhost:5000 the view the GraphQL documentation and http://localhost:5000/graphql to view GraphQL playground.
 
+## How to utlize the tests
+
+1. Currently, file stucture allows for tests to be created in the `__tests__` folder. Good practice to keep the tests in there.
+2. GraphQL-tools has mocking functions inside that greatly speed up testing.
+3. Import
+
 ## File structure
 
 ```javascript
 backend
+├── _tests_ // tests utilize the graphql tools
 ├── docs // `graphql` schema, query and mutation documentation
 ├── models // the MongoDB database models
 ├── `graphql`
