@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 // ---------------- Components ---------------------- //
 import Message from './Message';
-import AddMessage from './AddMessage';
 import MessageDetail from './MessageDetail';
 
 // ---------------- GQL ---------------------- //
@@ -120,12 +119,6 @@ class MessageBoard extends React.Component {
 		this.setState({ sortOption: e.target.value });
 	};
 
-	toggleModalHandler = () => {
-		this.setState(prevState => ({
-			showModal: !prevState.showModal
-		}));
-	};
-
 	toggleMessageDetail = msg => {
 		this.setState(prevState => ({
 			messageDetailOpen: !prevState.messageDetailOpen,
@@ -134,7 +127,6 @@ class MessageBoard extends React.Component {
 	};
 
 	render() {
-		// const { classes } = this.props;
 		return (
 			<Messageboard>
 				{/* List of all the messages */}
@@ -191,15 +183,6 @@ class MessageBoard extends React.Component {
 					</Query>
 				</MessagesContainer>
 				{/* All modals */}
-				{/* Add a message modal*/}
-				<AddMessage
-					open={this.state.showModal}
-					hideModal={this.toggleModalHandler}
-					stopProp={e => e.stopPropagation()}
-					team={this.props.team._id}
-					user={this.props.currentUser._id}
-				/>
-
 				{/* Click on a message and view its contents modal */}
 				<MessageDetail
 					open={this.state.messageDetailOpen}

@@ -31,7 +31,7 @@ const teamResolvers = {
 				.save()
 				.then(team => team.populate('users.user').execPopulate())
 				.then(async item => {
-					console.log('\n\n The item to be passed: \n\n', item);
+					// console.log('\n\n The item to be passed: \n\n', item);
 					if (item) {
 						try {
 							await new Event({
@@ -43,7 +43,7 @@ const teamResolvers = {
 							})
 								.save()
 								.then(event => {
-									console.log('\n\nEvent added: \n\n', event);
+									// console.log('\n\nEvent added: \n\n', event);
 								});
 						} catch (error) {
 							console.error('Could not add event', error);

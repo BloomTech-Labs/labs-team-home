@@ -169,7 +169,7 @@ class DocumentDetails extends React.Component {
 				if (
 					this.props.document.subscribedUsers.find(
 						user => user._id === this.props.currentUser._id
-					) !== null
+					)
 				) {
 					this.setState({ subscribed: true });
 				} else this.setState({ subscribed: false });
@@ -248,7 +248,7 @@ class DocumentDetails extends React.Component {
 
 		// console.log('All the props from the document modal: ', this.props);
 
-		if (document === null) return <></>;
+		if (document === null || document === undefined) return <></>;
 		return (
 			<StyledModal
 				open={open}

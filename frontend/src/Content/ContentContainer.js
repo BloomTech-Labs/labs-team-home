@@ -78,7 +78,7 @@ const StyledTab = styled(Tab)`
 	}
 `;
 
-class ContentContainer extends React.Component {
+class ContentContainer extends React.PureComponent {
 	constructor(props) {
 		super(props);
 
@@ -87,10 +87,6 @@ class ContentContainer extends React.Component {
 			isAdmin: false,
 			showFABMenu: false
 		};
-	}
-
-	componentDidUpdate() {
-		// console.log('component Updated');
 	}
 
 	handleChange = (event, value) => {
@@ -137,7 +133,7 @@ class ContentContainer extends React.Component {
 								<TeamInfo
 									currentUser={this.props.currentUser}
 									team={findTeam}
-									{...this.props}
+									{...this.props} //needed to get all the routing information to this component
 								/>
 
 								{/* List of content sections the user can choose to view */}

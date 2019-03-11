@@ -76,8 +76,8 @@ export const CURRENT_USER = gql`
 `;
 
 export const FIND_FOLDER = gql`
-	query findFolders($id: ID!) {
-		findFolders(input: { id: $id }) {
+	query findFolder($id: ID!) {
+		findFolder(input: { id: $id }) {
 			...FullFolder
 		}
 	}

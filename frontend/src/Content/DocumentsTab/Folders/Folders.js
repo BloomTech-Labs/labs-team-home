@@ -153,7 +153,6 @@ class Folders extends Component {
 					folder={this.state.currentFolder}
 					currentUser={this.props.currentUser}
 					team={this.props.team._id}
-					// updateState={this.state.updateState}
 				/>
 			</FolderContainer>
 		);

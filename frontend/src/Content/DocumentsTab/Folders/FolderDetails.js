@@ -85,7 +85,7 @@ class FolderDetails extends React.Component {
 
 	render() {
 		const { folder, hideModal, currentUser, open } = this.props;
-
+		// console.log('the props from the folder modal: ', this.props);
 		if (folder === null) return <></>;
 		return (
 			<StyledModal
@@ -197,7 +197,7 @@ class FolderDetails extends React.Component {
 																			})
 																		);
 																		deleteFolder({
-																			id: this.props.folder._id
+																			variables: { id: this.props.folder._id }
 																		}).then(() => {
 																			this.props.hideModal();
 																		});

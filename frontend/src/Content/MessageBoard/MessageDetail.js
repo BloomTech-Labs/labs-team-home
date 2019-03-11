@@ -97,7 +97,8 @@ class MessageDetail extends Component {
 			title: '',
 			content: '',
 			commentContent: '',
-			newComment: ''
+			newComment: '',
+			subscribed: null
 		};
 	}
 
@@ -132,9 +133,10 @@ class MessageDetail extends Component {
 
 	render() {
 		const { message, currentUser } = this.props;
-
-		if (message === null) return <> </>;
+		// console.log('State from Message: ', this.props);
 		// console.log('Props from Message: ', this.props);
+		if (message === null) return <> </>;
+
 		return (
 			<StyledModal //open the Dialog box this is the part that makes everything else around darker
 				open={this.props.open}
@@ -372,6 +374,10 @@ class MessageDetail extends Component {
 											{
 												query: query.FIND_COMMENTS_BY_MESSAGE,
 												variables: { message: message._id }
+											},
+											{
+												query: query.FIND_MESSAGES_BY_TEAM,
+												variables: { team: this.props.team }
 											}
 										]
 									}).then(this.resetState());
