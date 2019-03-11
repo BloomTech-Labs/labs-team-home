@@ -35,7 +35,6 @@ import {
 } from '../../Modal.styles';
 
 // ---------------- Styled Components ---------------------- //
-
 const ModalTitle = styled(StyledModalTitle)`
 	h2 {
 		font-size: 30px;
@@ -106,6 +105,7 @@ class FolderDetails extends React.Component {
 					</StyledModalIconButton>
 				</StyledModalClose>
 				<StyledModalOverlay>
+					{/* show all the folder details */}
 					<Query
 						query={query.FIND_DOCUMENTS_BY_FOLDER}
 						variables={{ folder: folder._id }}
@@ -118,6 +118,7 @@ class FolderDetails extends React.Component {
 								<>
 									{this.state.editingFolder ? (
 										<CardContent>
+											{/* edit the fodler options */}
 											<Mutation mutation={UPDATE_FOLDER}>
 												{updateFolder => (
 													<StyledModalForm
@@ -154,7 +155,7 @@ class FolderDetails extends React.Component {
 										<>
 											<ModalTitle>{folder.title}</ModalTitle>
 
-											{/* Load all the images attached to the message */}
+											{/* All the folder options */}
 											<StyledModalCardAction>
 												<StyledModalButton
 													onClick={e => {
@@ -209,8 +210,6 @@ class FolderDetails extends React.Component {
 														</Mutation>
 													)}
 												</Mutation>
-
-												{/* Subscription for the document stuff goes here */}
 											</StyledModalCardAction>
 										</>
 									)}
@@ -244,7 +243,7 @@ class FolderDetails extends React.Component {
 												<DocumentTitle>{document.title}</DocumentTitle>
 											</CardContent>
 
-											{/* Check to see if the comment is the users and thus can be edited or deleted */}
+											{/* Option to remove document from the folder */}
 											<CardContent>
 												<Mutation
 													mutation={UPDATE_DOCUMENT}
@@ -274,6 +273,8 @@ class FolderDetails extends React.Component {
 														</StyledModalButton>
 													)}
 												</Mutation>
+
+												{/* option to view the document details modal */}
 												<StyledModalButton
 													onClick={e => {
 														e.preventDefault();
