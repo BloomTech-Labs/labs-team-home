@@ -100,7 +100,7 @@ const docCommentResolver = {
 
 							try {
 								await new Event({
-									team: DocComment.team._id,
+									team: DocComment.document.team,
 									user: DocComment.user._id,
 									action_string: action_str.edited,
 									object_string: object_str.docComment,
