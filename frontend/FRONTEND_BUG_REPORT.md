@@ -14,7 +14,7 @@
 
 - Activity Timeline + inviting member to team does not record the Event - says "There is an event here but it was not recorded properly" on screen -- Fixed by Bondor on Sat 3/9
 
-- Settings + does not save when deselecting checkbox on "Receive Emails"
+- Settings + does not save when deselecting checkbox on "Receive Emails" -- Hmm... this is working for me Bondor 3/11
 
 - Subscribe/Unsubscribe on documents does not maintain state -- click subscribe and then it show unsubscribe, but if you click out and back in, it is not updated. -- Fixed by Bondor on Sat 3/9
 

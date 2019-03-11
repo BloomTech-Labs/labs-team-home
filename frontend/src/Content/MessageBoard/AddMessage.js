@@ -258,7 +258,7 @@ class AddMessage extends React.Component {
 																		const response = JSON.parse(
 																			request.response
 																		);
-																		console.log(response);
+																		// console.log(response);
 																		//add new url to the images array in preparation of creating new message
 																		images.push(response.secure_url);
 																		load(request.responseText);

@@ -69,9 +69,9 @@ function collect(connect, monitor) {
 class DocumentContainer extends React.Component {
 	updateDrop = (documentId, folderId, updateDocument) => {
 		if (folderId === undefined) {
-			console.log(
-				'dropped in staging area from staging area; Nothing will happen'
-			);
+			// console.log(
+			// 	'dropped in staging area from staging area; Nothing will happen'
+			// );
 		} else {
 			updateDocument({
 				variables: { id: documentId._id, folder: folderId._id },

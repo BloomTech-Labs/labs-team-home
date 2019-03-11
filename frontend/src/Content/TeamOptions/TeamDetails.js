@@ -257,11 +257,11 @@ class TeamDetails extends React.Component {
 															}
 														})
 															.then(res => {
-																console.log(res);
+																// console.log(res);
 																alert('Payment Success');
 															})
 															.catch(err => {
-																console.log(err);
+																// console.log(err);
 																alert('Payment Error');
 															})
 													}
