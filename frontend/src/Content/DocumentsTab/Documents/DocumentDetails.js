@@ -245,10 +245,10 @@ class DocumentDetails extends React.Component {
 					]
 				});
 			} else {
-				console.log('did we run an update?');
+				// console.log('did we run an update?');
 			}
 		} else {
-			console.log('pick a folder');
+			// console.log('pick a folder');
 		}
 		this.props.hideModal();
 	};

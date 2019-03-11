@@ -3,7 +3,6 @@ import LogoBanner from '../components/LandingLogoBanner'; // component
 import Particles from 'react-particles-js'; // fancy animations
 import particles from '../../animated/particles.json'; // settings for fancy animations
 import RespNavBAr from '../../Nav/NavResp'; // component
-import axios from 'axios';
 
 const styles = {
 	position: 'fixed',
@@ -18,19 +17,6 @@ export default class LandingView extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
-	}
-
-	componentDidMount() {
-		axios({
-			method: 'get',
-			url: 'https://tipsease-backend.herokuapp.com/'
-		})
-			.then(res => {
-				console.log({ res });
-			})
-			.catch(err => {
-				console.log({ err });
-			});
 	}
 
 	render() {
