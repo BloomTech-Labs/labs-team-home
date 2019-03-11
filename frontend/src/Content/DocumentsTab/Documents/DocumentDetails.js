@@ -20,7 +20,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import CardContent from '@material-ui/core/CardContent';
 
 // ------------- Icon imports ------------------------------- //
-import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 
 // ------------- Modal styling imports ---------------------- //
@@ -102,15 +101,6 @@ const DocUrl = styled(StyledModalBody)`
 		background-color: #392d40;
 		transition: 0.3s all ease-in-out;
 	}
-`;
-const DocumentIconDiv = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-`;
-
-const DocumentIcon = styled(FileAlt)`
-	height: 100px;
 `;
 
 // this needs to be a button for functionality purposes
@@ -333,9 +323,6 @@ class DocumentDetails extends React.Component {
 								<CardContent>
 									{/* View document info */}
 									<ModalTitle>{document.title}</ModalTitle>
-									<DocumentIconDiv>
-										<DocumentIcon />
-									</DocumentIconDiv>
 									<a
 										href={
 											document.doc_url.includes('http://') ||
