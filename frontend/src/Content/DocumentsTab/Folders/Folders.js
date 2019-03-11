@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import * as query from '../../../constants/queries';
 import FolderDetails from './FolderDetails';
 import Folder from './Folder';
-// import { compose } from 'react-apollo';
-// import { updateDocument } from '../mutations/documents';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -155,7 +153,6 @@ class Folders extends Component {
 					folder={this.state.currentFolder}
 					currentUser={this.props.currentUser}
 					team={this.props.team._id}
-					// updateState={this.state.updateState}
 				/>
 			</FolderContainer>
 		);

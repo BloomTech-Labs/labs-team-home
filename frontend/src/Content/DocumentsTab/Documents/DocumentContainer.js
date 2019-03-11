@@ -14,6 +14,7 @@ const Container = styled.div`
 	min-width: 300px;
 	min-height: 50px;
 	position: relative;
+	padding-bottom: 20px;
 `;
 
 const ContainerTitle = styled.div`

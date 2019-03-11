@@ -106,6 +106,13 @@ const ArrowDiv = styled.button`
 	height: 150px;
 	display: flex;
 	align-items: center;
+	background: none;
+	border: 0;
+	color: inherit;
+
+	:focus {
+		outline: none;
+	}
 
 	&:hover {
 		background-color: #392d40;
@@ -126,6 +133,7 @@ const FormDiv = styled.div`
 
 const SortForm = styled.form`
 	height: 50px;
+	margin: 0 auto;
 	margin-top: 15px;
 	label {
 		color: white;
@@ -161,7 +169,7 @@ class DocumentDetails extends React.Component {
 				if (
 					this.props.document.subscribedUsers.find(
 						user => user._id === this.props.currentUser._id
-					) !== null
+					)
 				) {
 					this.setState({ subscribed: true });
 				} else this.setState({ subscribed: false });
@@ -240,7 +248,7 @@ class DocumentDetails extends React.Component {
 
 		// console.log('All the props from the document modal: ', this.props);
 
-		if (document === null) return <></>;
+		if (document === null || document === undefined) return <></>;
 		return (
 			<StyledModal
 				open={open}
@@ -263,15 +271,7 @@ class DocumentDetails extends React.Component {
 					<StyledModalPaper>
 						{this.state.editingDocument ? (
 							<CardContent>
-								<Mutation
-									mutation={UPDATE_DOCUMENT}
-									variables={{
-										id: document._id,
-										title: this.state.title,
-										doc_url: this.state.doc_url,
-										textContent: this.state.textContent
-									}}
-								>
+								<Mutation mutation={UPDATE_DOCUMENT}>
 									{updateDocument => (
 										<StyledModalForm
 											onSubmit={e => {
@@ -279,7 +279,20 @@ class DocumentDetails extends React.Component {
 												document.title = this.state.title;
 												document.textContent = this.state.textContent;
 												document.doc_url = this.state.doc_url;
-												updateDocument();
+												updateDocument({
+													variables: {
+														id: document._id,
+														title: this.state.title,
+														doc_url: this.state.doc_url,
+														textContent: this.state.textContent
+													},
+													refetchQueries: [
+														{
+															query: query.FIND_DOCUMENTS_BY_TEAM,
+															variables: { team: this.props.team }
+														}
+													]
+												});
 												this.resetState();
 											}}
 										>
@@ -365,7 +378,6 @@ class DocumentDetails extends React.Component {
 									</SortForm>
 								</FormDiv>
 								<ModalBody>
-									{/* {console.log(document)} */}
 									Posted by{' '}
 									{`${document.user.firstName} ${document.user.lastName}`} •
 									Tag:
@@ -408,6 +420,14 @@ class DocumentDetails extends React.Component {
 																	{
 																		query: query.FIND_DOCUMENTS_BY_TEAM,
 																		variables: { team: this.props.team }
+																	},
+																	{
+																		query: query.FIND_FOLDERS_BY_TEAM,
+																		variables: { team: this.props.team }
+																	},
+																	{
+																		query: query.FIND_DOCUMENTS_BY_FOLDER,
+																		variables: { folder: this.props.folder._id }
 																	}
 																]
 															}).then(() => {
@@ -438,13 +458,25 @@ class DocumentDetails extends React.Component {
 																		variables: {
 																			id: document._id,
 																			user: currentUser._id
-																		}
+																		},
+																		refetchQueries: [
+																			{
+																				query: query.FIND_DOCUMENTS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			}
+																		]
 																  })
 																: subscribeDoc({
 																		variables: {
 																			id: document._id,
 																			user: currentUser._id
-																		}
+																		},
+																		refetchQueries: [
+																			{
+																				query: query.FIND_DOCUMENTS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			}
+																		]
 																  });
 														}}
 													>
@@ -461,6 +493,7 @@ class DocumentDetails extends React.Component {
 						)}
 					</StyledModalPaper>
 					{/* View all the comments of the document */}
+					<StyledModalTitle>Discussion</StyledModalTitle>
 					<Query
 						query={query.FIND_COMMENTS_BY_DOCUMENT}
 						variables={{ document: document._id }}
@@ -470,7 +503,6 @@ class DocumentDetails extends React.Component {
 							if (error) return <p>Error</p>;
 							return (
 								<>
-									<StyledModalTitle>Discussion</StyledModalTitle>
 									{/* Display all the comments */}
 									{findDocCommentsByDocument.map(comment => (
 										<DocumentCommentDetail
@@ -478,48 +510,47 @@ class DocumentDetails extends React.Component {
 											comment={comment}
 											currentUser={currentUser}
 											editingDocument={this.state.editingDocument}
-											//this needs to be passed a function which triggers a refetch on all comments, when a comment is deleted
 											{...this.props}
 										/>
 									))}
-									{/* Add a new comment form  */}
-									<Mutation mutation={ADD_DOCCOMMENT}>
-										{addDocComment => (
-											<StyledModalNewCommentForm
-												onSubmit={e => {
-													e.preventDefault();
-													addDocComment({
-														variables: {
-															document: document._id,
-															content: this.state.newCommentContent
-														},
-														refetchQueries: [
-															{
-																query: query.FIND_COMMENTS_BY_DOCUMENT,
-																variables: { document: document._id }
-															}
-														]
-													});
-													this.resetState();
-												}}
-											>
-												<StyledModalNewCommentInput
-													value={this.state.newCommentContent}
-													name="newCommentContent"
-													onChange={this.handleChange}
-													placeholder="Leave a comment..."
-												/>
-
-												<ArrowDiv type="submit">
-													<Arrow />
-												</ArrowDiv>
-											</StyledModalNewCommentForm>
-										)}
-									</Mutation>
 								</>
 							);
 						}}
 					</Query>
+					<Mutation mutation={ADD_DOCCOMMENT}>
+						{/* Add a new comment form */}
+						{addDocComment => (
+							<StyledModalNewCommentForm
+								onSubmit={e => {
+									e.preventDefault();
+									addDocComment({
+										variables: {
+											document: document._id,
+											content: this.state.newCommentContent
+										},
+										refetchQueries: [
+											{
+												query: query.FIND_COMMENTS_BY_DOCUMENT,
+												variables: { document: document._id }
+											}
+										]
+									});
+									this.resetState();
+								}}
+							>
+								<StyledModalNewCommentInput
+									value={this.state.newCommentContent}
+									name="newCommentContent"
+									onChange={this.handleChange}
+									placeholder="Leave a comment..."
+								/>
+
+								<ArrowDiv type="submit">
+									<Arrow />
+								</ArrowDiv>
+							</StyledModalNewCommentForm>
+						)}
+					</Mutation>
 				</StyledModalOverlay>
 			</StyledModal>
 		);

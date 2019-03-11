@@ -11,7 +11,8 @@ const action_str = {
 	subscribed: 'subscribed to',
 	unsubscribed: 'unsubscribed from',
 	invited: 'invited',
-	updated: 'updated'
+	updated: 'updated',
+	removed: 'removed'
 };
 const object_str = {
 	message: 'message',

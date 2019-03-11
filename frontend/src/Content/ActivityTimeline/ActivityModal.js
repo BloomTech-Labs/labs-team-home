@@ -1,19 +1,3 @@
-/* activitySwitch changes the message depending on the type of the object */
-// const objectSwitch = type => {
-// 	switch (type) {
-// 		case 'Message':
-// 			return 'Message';
-// 		case 'Comment':
-// 			return 'Comment';
-// 		case 'Document':
-// 			return 'Document';
-// 		case 'Folder':
-// 			return 'Folder';
-// 		default:
-// 			return 'Comment';
-// 	}
-// };
-
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
@@ -21,8 +5,10 @@ import { Query } from 'react-apollo';
 import * as query from '../../constants/queries';
 
 // // ------------- Component Imports ---------------------- //
-// import DocumentDetails from '../Documents/DocumentDetails';
-//Needed modals: folderDetails, messageDetails, teamDetails, documentDetails,
+import DocumentDetails from '../DocumentsTab/Documents/DocumentDetails';
+import FolderDetails from '../DocumentsTab/Folders/FolderDetails';
+import MessageDetails from '../MessageBoard/MessageDetail';
+import TeamDetails from '../TeamOptions/TeamDetails';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
@@ -55,48 +41,64 @@ const ModalTitle = styled(StyledModalTitle)`
 	}
 `;
 
-const SmallerTitle = styled(ModalTitle)`
-	h2 {
-		font-size: 18px;
-	}
-`;
-
-const DocumentTitle = styled(StyledModalTitle)`
-	h2 {
-		font-size: 18px;
-		margin-left: 15px;
-	}
-`;
-
 class EventDetails extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: '',
-			editingFolder: false,
-			documentDetailOpen: false,
-			currentDocument: null,
-			refreshed: false
+			modal: null,
+			modalOpen: false
 		};
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props.event !== null) {
+			if (this.props.event !== prevProps.event) {
+				let modal;
+				switch (this.props.event.object_string) {
+					case 'message':
+					case 'message comment':
+						modal = 'Message';
+						break;
+					case 'folder':
+						modal = 'Folder';
+						break;
+					case 'document':
+					case 'document comment':
+						modal = 'Document';
+						break;
+					case 'team':
+					case 'user':
+						modal = 'Team';
+						break;
+					default:
+						break;
+				}
+				this.setState({ modal: modal });
+			}
+		}
+	}
+
+	innerToggleHandler = () => {
+		this.setState(prevState => ({
+			modalOpen: !prevState.modalOpen
+		}));
+	};
+
 	render() {
 		const { hideModal, open, event } = this.props;
-
+		// console.log('from event modal', this.props);
 		if (event === null) return <></>;
 		return (
 			<StyledModal
 				open={open}
 				onClose={() => {
 					hideModal();
-					// this.resetState();
 				}}
 			>
 				<StyledModalClose>
 					<StyledModalIconButton
 						onClick={() => {
 							hideModal();
-							// this.resetState();
 						}}
 					>
 						<CloseIcon />
@@ -124,28 +126,183 @@ class EventDetails extends React.Component {
 								{event.user.firstName} {event.action_string} a{' '}
 								{event.object_string} on {event.createdAt.toDateString()}
 							</StyledModalBody>
-							{/* <StyledModalCardAction>
-								{event.action_string === 'deleted' ? (
+							<StyledModalCardAction>
+								{event.action_string !== 'deleted' ? (
+									<>
+										{this.state.modal === 'Document' ? (
+											<Query
+												query={query.FIND_DOCUMENT}
+												variables={{ id: this.props.event.event_target_id }}
+											>
+												{({ loading, error, data: { findDocument } }) => {
+													if (loading)
+														return (
+															<StyledModalTitle>
+																Searching for event...
+															</StyledModalTitle>
+														);
+													if (error) return <p>Error</p>;
+													if (
+														findDocument === null ||
+														findDocument === undefined
+													) {
+														return (
+															<StyledModalTitle>
+																{`This ${
+																	event.object_string
+																} no longer exists.`}
+															</StyledModalTitle>
+														);
+													}
+													return (
+														<>
+															<StyledModalButton
+																onClick={e => {
+																	e.preventDefault();
+																	e.stopPropagation();
+																	this.innerToggleHandler();
+																}}
+															>
+																{`View ${event.object_string}`}
+															</StyledModalButton>
+															<DocumentDetails
+																open={this.state.modalOpen}
+																hideModal={this.innerToggleHandler}
+																team={this.props.team._id}
+																currentUser={this.props.currentUser}
+																document={findDocument}
+															/>
+														</>
+													);
+												}}
+											</Query>
+										) : null}
+										{this.state.modal === 'Folder' ? (
+											<Query
+												query={query.FIND_FOLDER}
+												variables={{ id: event.event_target_id }}
+											>
+												{({ loading, error, data: { findFolder } }) => {
+													if (loading)
+														return (
+															<StyledModalTitle>
+																Searching for event...
+															</StyledModalTitle>
+														);
+													if (error) return <p>Error</p>;
+													if (findFolder === null || findFolder === undefined) {
+														return (
+															<StyledModalTitle>
+																{`This ${
+																	event.object_string
+																} no longer exists.`}
+															</StyledModalTitle>
+														);
+													}
+													return (
+														<>
+															<StyledModalButton
+																onClick={e => {
+																	e.preventDefault();
+																	e.stopPropagation();
+																	this.innerToggleHandler();
+																}}
+															>
+																{`View ${event.object_string}`}
+															</StyledModalButton>
+															<FolderDetails
+																open={this.state.modalOpen}
+																hideModal={this.innerToggleHandler}
+																team={this.props.team._id}
+																currentUser={this.props.currentUser}
+																folder={findFolder}
+															/>
+														</>
+													);
+												}}
+											</Query>
+										) : null}
+										{this.state.modal === 'Message' ? (
+											<Query
+												query={query.FIND_MESSAGE}
+												variables={{ id: event.event_target_id }}
+											>
+												{({ loading, error, data: { findMessage } }) => {
+													if (loading)
+														return (
+															<StyledModalTitle>
+																Searching for event...
+															</StyledModalTitle>
+														);
+													if (error) return <p>Error</p>;
+													if (
+														findMessage === null ||
+														findMessage === undefined
+													) {
+														return (
+															<StyledModalTitle>
+																{`This ${
+																	event.object_string
+																} no longer exists.`}
+															</StyledModalTitle>
+														);
+													}
+													return (
+														<>
+															<StyledModalButton
+																onClick={e => {
+																	e.preventDefault();
+																	e.stopPropagation();
+																	this.innerToggleHandler();
+																}}
+															>
+																{`View ${event.object_string}`}
+															</StyledModalButton>
+															<MessageDetails
+																open={this.state.modalOpen}
+																hideModal={this.innerToggleHandler}
+																team={this.props.team._id}
+																currentUser={this.props.currentUser}
+																message={findMessage}
+															/>
+														</>
+													);
+												}}
+											</Query>
+										) : null}
+										{this.state.modal === 'Team' ? (
+											<>
+												<StyledModalButton
+													onClick={e => {
+														e.preventDefault();
+														e.stopPropagation();
+														this.innerToggleHandler();
+													}}
+												>
+													{`View ${event.object_string}`}
+												</StyledModalButton>
+												<TeamDetails
+													open={this.state.modalOpen}
+													hideModal={this.innerToggleHandler}
+													team={this.props.team}
+													currentUser={this.props.currentUser}
+													admin={this.props.isAdmin}
+													history={this.props.history}
+													location={this.props.location}
+													match={this.props.match}
+												/>
+											</>
+										) : null}
+									</>
+								) : (
 									<StyledModalTitle>
 										{`This ${event.object_string} no longer exists.`}
 									</StyledModalTitle>
-								) : (
-									<StyledModalButton>
-										{`View ${event.object_string}`}
-									</StyledModalButton>
 								)}
-							</StyledModalCardAction> */}
+							</StyledModalCardAction>
 						</CardContent>
 					</StyledModalPaper>
 				</StyledModalOverlay>
-				{/* // Modals */}
-				{/* <DocumentDetails
-					open={this.state.documentDetailOpen}
-					hideModal={() => this.toggleDocumentDetail(null)}
-					document={this.state.currentDocument}
-					currentUser={currentUser}
-					team={this.props.team}
-				/> */}
 			</StyledModal>
 		);
 	}

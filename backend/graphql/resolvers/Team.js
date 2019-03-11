@@ -31,7 +31,7 @@ const teamResolvers = {
 				.save()
 				.then(team => team.populate('users.user').execPopulate())
 				.then(async item => {
-					console.log('\n\n The item to be passed: \n\n', item);
+					// console.log('\n\n The item to be passed: \n\n', item);
 					if (item) {
 						try {
 							await new Event({
@@ -43,7 +43,7 @@ const teamResolvers = {
 							})
 								.save()
 								.then(event => {
-									console.log('\n\nEvent added: \n\n', event);
+									// console.log('\n\nEvent added: \n\n', event);
 								});
 						} catch (error) {
 							console.error('Could not add event', error);
@@ -195,28 +195,34 @@ const teamResolvers = {
 										{ $set: { users: [...team.users, ...addedUsers] } },
 										{ new: true }
 									)
-									.then(async item => {
-										// console.log('\n\n The item to be passed: \n\n', item);
-										if (item) {
-											try {
-												await new Event({
-													team: item._id,
-													user: item.users.find(u => u.admin)._id,
-													action_string: action_str.invited,
-													object_string: object_str.user,
-													event_target_id: item._id
-												})
-													.save()
-													.then(event => {
-														// console.log('Event added', event);
-													});
-											} catch (error) {
-												console.error('Could not add event', error);
+
+										.populate('users.user')
+										.then(async item => {
+											// console.log('\n\n The item to be passed: \n\n', item);
+											if (item) {
+												try {
+													await new Event({
+														team: item._id,
+														user: item.users.find(u => u.admin).user._id,
+														action_string: action_str.invited,
+														object_string: object_str.user,
+														event_target_id: item._id
+													})
+														.save()
+														.then(event => {
+															// console.log('\n\n Event added: \n\n', event);
+														});
+												} catch (error) {
+													console.error(
+														'Could not add event "Invite User" ',
+														error
+													);
+												}
+											} else {
+												throw new ValidationError("Item doesn't exist");
 											}
-										} else {
-											throw new ValidationError("Message doesn't exist");
-										}
-									});
+											return item;
+										});
 								} else
 									throw new UserInputError('The user is already on the team.');
 							} else
@@ -245,20 +251,20 @@ const teamResolvers = {
 						try {
 							await new Event({
 								team: item._id,
-								user: item.users.find(u => u.admin)._id,
+								user: item.users.find(u => u.admin).user._id,
 								action_string: action_str.removed,
 								object_string: object_str.user,
 								event_target_id: item._id
 							})
 								.save()
 								.then(event => {
-									// console.log('Event added', event);
+									// console.log('\n\nEvent added', event);
 								});
 						} catch (error) {
-							console.error('Could not add event', error);
+							console.error('Could not add "kick user" event', error);
 						}
 					} else {
-						throw new ValidationError("Message doesn't exist");
+						throw new ValidationError('kickUser failed');
 					}
 				}),
 

@@ -71,6 +71,8 @@ const AdminUserButton = styled(UserButton)`
 	color: white;
 `;
 
+// ---------------- Main Exported Component ---------------------- //
+
 class TeamDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -87,6 +89,7 @@ class TeamDetails extends React.Component {
 	//set admin to true, if the currentUser is the admin
 	componentDidMount = () => {
 		this.props.team.users.map(user => {
+			// console.log(' Users from inside component did mount: ', user);
 			if (user.user._id === this.props.currentUser._id) {
 				if (user.admin) this.setState({ admin: true });
 			}
@@ -113,7 +116,7 @@ class TeamDetails extends React.Component {
 		const { open, team, hideModal, currentUser } = this.props;
 		const { admin, editingTeamName } = this.state;
 		const publishableKey = 'pk_test_GedRIIhEwHrV1xzzkxMsRuUX';
-
+		// console.log(' Users from inside props: ', this.props.team.users);
 		return (
 			<StyledModal
 				open={open}
@@ -137,25 +140,7 @@ class TeamDetails extends React.Component {
 						{editingTeamName ? (
 							// {/* If the user is the admin on a team, give them a edit button */}
 							<CardContent>
-								<Mutation
-									mutation={mutation.UPDATE_TEAM}
-									update={(cache, { data: { updateTeam } }) => {
-										const { findTeamsByUser } = cache.readQuery({
-											query: query.FIND_TEAMS_BY_USER
-										});
-										cache.writeQuery({
-											query: query.FIND_TEAMS_BY_USER,
-											variables: { team: team },
-											data: {
-												findTeamsByUser: findTeamsByUser.map(team => {
-													return team._id === updateTeam._id
-														? updateTeam
-														: team;
-												})
-											}
-										});
-									}}
-								>
+								<Mutation mutation={mutation.UPDATE_TEAM}>
 									{updateTeam => (
 										<StyledModalForm
 											onSubmit={e => {
@@ -164,7 +149,8 @@ class TeamDetails extends React.Component {
 													variables: {
 														id: team._id,
 														name: this.state.editTeamName
-													}
+													},
+													refetchQueries: { query: query.FIND_TEAMS_BY_USER }
 												}).then(
 													this.setState({
 														editTeamName: '',
@@ -194,22 +180,20 @@ class TeamDetails extends React.Component {
 									<StyledModalCardAction>
 										<Mutation mutation={mutation.DELETE_TEAM}>
 											{deleteTeam => (
-												<Button
+												<StyledModalButton
 													color="secondary"
 													onClick={e => {
 														e.preventDefault();
 														deleteTeam({
 															variables: { id: team._id },
-															refetchQueries: [
-																{
-																	query: query.FIND_TEAMS_BY_USER
-																}
-															]
+															refetchQueries: {
+																query: query.FIND_TEAMS_BY_USER
+															}
 														}).then(this.props.history.push('/dashboard'));
 													}}
 												>
 													Delete Team
-												</Button>
+												</StyledModalButton>
 											)}
 										</Mutation>
 										<StyledModalButton
@@ -235,22 +219,7 @@ class TeamDetails extends React.Component {
 										Free teams can only have up to 5 users.
 									</StyledModalBody>
 									{admin ? (
-										<Mutation
-											mutation={STRIPE_SOURCE}
-											update={(cache, { data: { setPremium } }) => {
-												const { findTeamsByUser } = cache.readQuery({
-													query: query.FIND_TEAMS_BY_USER
-												});
-												cache.writeQuery({
-													query: query.FIND_TEAMS_BY_USER,
-													data: {
-														findTeamsByUser: findTeamsByUser.map(team =>
-															team._id === setPremium._id ? setPremium : team
-														)
-													}
-												});
-											}}
-										>
+										<Mutation mutation={STRIPE_SOURCE}>
 											{(setPremium, { data }) => (
 												// this stripe component is a button and a modal
 												<StripeCheckout
@@ -266,6 +235,9 @@ class TeamDetails extends React.Component {
 																team: team._id,
 																amount: 999,
 																token: token.id
+															},
+															refetchQueries: {
+																query: query.FIND_TEAMS_BY_USER
 															}
 														})
 															.then(res => {
@@ -303,7 +275,15 @@ class TeamDetails extends React.Component {
 										if (this.state.email.length) input.email = this.state.email;
 										if (this.state.number.length)
 											input.phoneNumber = this.state.number;
-										inviteUser({ variables: input })
+										inviteUser({
+											variables: input,
+											refetchQueries: [
+												{
+													query: query.FIND_TEAM,
+													variables: { id: team._id }
+												}
+											]
+										})
 											.then(() => {
 												this.resetState();
 												alert('Invitation sent');
@@ -351,18 +331,7 @@ class TeamDetails extends React.Component {
 									}}
 									titleTypographyProps={{ style: { color: colors.text } }}
 									action={
-										<Mutation
-											mutation={mutation.KICK_USER}
-											update={(cache, { data: { kickUser } }) => {
-												cache.writeQuery({
-													query: query.FIND_TEAM,
-													variables: { id: team },
-													data: {
-														findTeam: kickUser
-													}
-												});
-											}}
-										>
+										<Mutation mutation={mutation.KICK_USER}>
 											{/* Make sure the user can be kicked before rendering the kick button, then kick */}
 											{kickUser =>
 												admin && user.user._id !== currentUser._id ? (
@@ -374,6 +343,10 @@ class TeamDetails extends React.Component {
 																variables: {
 																	id: team._id,
 																	user: user.user._id
+																},
+																refetchQueries: {
+																	query: query.FIND_TEAM,
+																	variables: { id: team._id }
 																}
 															});
 														}}
@@ -383,26 +356,7 @@ class TeamDetails extends React.Component {
 												) : admin && user.user._id === currentUser._id ? (
 													<AdminUserButton>Admin</AdminUserButton>
 												) : user.user._id === currentUser._id ? (
-													<Mutation
-														mutation={mutation.LEAVE_TEAM}
-														update={(cache, { data: { leaveTeam } }) => {
-															cache.writeQuery({
-																query: query.FIND_TEAM,
-																variables: { id: team },
-																data: {
-																	findTeam: leaveTeam
-																}
-															});
-
-															cache.writeQuery({
-																query: query.FIND_TEAMS_BY_USER,
-																variables: { id: team },
-																data: {
-																	findTeamsByUser: leaveTeam
-																}
-															});
-														}}
-													>
+													<Mutation mutation={mutation.LEAVE_TEAM}>
 														{leaveTeam => (
 															<Button
 																color="secondary"
@@ -412,6 +366,9 @@ class TeamDetails extends React.Component {
 																		variables: {
 																			id: team._id,
 																			user: currentUser
+																		},
+																		refetchQueries: {
+																			query: query.FIND_TEAMS_BY_USER
 																		}
 																	});
 																	this.props.history.push('/dashboard');

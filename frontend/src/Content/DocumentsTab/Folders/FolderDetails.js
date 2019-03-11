@@ -1,11 +1,13 @@
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
-import { compose, Query, Mutation } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
-import { deleteFolder } from '../../mutations/folders';
-import { updateDocument } from '../../mutations/documents';
-import { UPDATE_DOCUMENT, UPDATE_FOLDER } from '../../../constants/mutations';
+import {
+	UPDATE_DOCUMENT,
+	UPDATE_FOLDER,
+	DELETE_FOLDER
+} from '../../../constants/mutations';
 
 // ------------- Component Imports ---------------------- //
 import DocumentDetails from '../Documents/DocumentDetails';
@@ -82,8 +84,8 @@ class FolderDetails extends React.Component {
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	render() {
-		const { deleteFolder, folder, hideModal, currentUser, open } = this.props;
-
+		const { folder, hideModal, currentUser, open } = this.props;
+		// console.log('the props from the folder modal: ', this.props);
 		if (folder === null) return <></>;
 		return (
 			<StyledModal
@@ -167,32 +169,44 @@ class FolderDetails extends React.Component {
 												</StyledModalButton>
 												<Mutation mutation={UPDATE_DOCUMENT}>
 													{updateDocument => (
-														<StyledModalButton
-															onClick={e => {
-																e.preventDefault();
-																findDocumentsByFolder.map(document =>
-																	updateDocument({
-																		variables: {
-																			id: document._id,
-																			folder: null
-																		},
-																		refetchQueries: [
-																			{
-																				query: query.FIND_DOCUMENTS_BY_TEAM,
-																				variables: { team: this.props.team }
-																			}
-																		]
-																	})
-																);
-																deleteFolder({
-																	id: this.props.folder._id
-																}).then(() => {
-																	this.props.hideModal();
-																});
-															}}
+														<Mutation
+															mutation={DELETE_FOLDER}
+															refetchQueries={[
+																{
+																	query: query.FIND_FOLDERS_BY_TEAM,
+																	variables: { team: this.props.team }
+																}
+															]}
 														>
-															Delete
-														</StyledModalButton>
+															{deleteFolder => (
+																<StyledModalButton
+																	onClick={e => {
+																		e.preventDefault();
+																		findDocumentsByFolder.map(document =>
+																			updateDocument({
+																				variables: {
+																					id: document._id,
+																					folder: null
+																				},
+																				refetchQueries: [
+																					{
+																						query: query.FIND_DOCUMENTS_BY_TEAM,
+																						variables: { team: this.props.team }
+																					}
+																				]
+																			})
+																		);
+																		deleteFolder({
+																			variables: { id: this.props.folder._id }
+																		}).then(() => {
+																			this.props.hideModal();
+																		});
+																	}}
+																>
+																	Delete
+																</StyledModalButton>
+															)}
+														</Mutation>
 													)}
 												</Mutation>
 
@@ -303,8 +317,4 @@ class FolderDetails extends React.Component {
 	}
 }
 
-export default compose(
-	deleteFolder,
-
-	updateDocument
-)(FolderDetails);
+export default FolderDetails;

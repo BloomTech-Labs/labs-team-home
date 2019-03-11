@@ -112,8 +112,20 @@ class DocumentDetails extends React.Component {
 							<StyledModalForm
 								action="submit"
 								onSubmit={e => {
+									console.log(this.props.document);
 									e.preventDefault();
-									updateDocComment();
+									updateDocComment({
+										variables: {
+											id: comment._id,
+											content: this.state.commentContent
+										},
+										refetchQueries: [
+											{
+												query: query.FIND_COMMENTS_BY_DOCUMENT,
+												variables: { document: this.props.document._id }
+											}
+										]
+									});
 									comment.content = this.state.commentContent;
 									this.resetState();
 								}}
@@ -183,11 +195,23 @@ class DocumentDetails extends React.Component {
 						<Mutation
 							mutation={LIKE_DOCCOMMENT}
 							variables={{ id: comment._id }}
+							refetchQueries={[
+								{
+									query: query.FIND_COMMENTS_BY_DOCUMENT,
+									variables: { document: this.props.document._id }
+								}
+							]}
 						>
 							{likeDocComment => (
 								<Mutation
 									mutation={UNLIKE_DOCCOMMENT}
 									variables={{ id: comment._id }}
+									refetchQueries={[
+										{
+											query: query.FIND_COMMENTS_BY_DOCUMENT,
+											variables: { document: this.props.document._id }
+										}
+									]}
 								>
 									{unLikeDocComment => (
 										<StyledModalButton
