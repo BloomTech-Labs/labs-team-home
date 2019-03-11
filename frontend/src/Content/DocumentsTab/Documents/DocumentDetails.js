@@ -20,7 +20,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import CardContent from '@material-ui/core/CardContent';
 
 // ------------- Icon imports ------------------------------- //
-
 import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
 
@@ -43,14 +42,6 @@ import {
 
 // ---------------- Styled Components ---------------------- //
 
-const ModalTitle = styled(StyledModalTitle)`
-	h2 {
-		font-size: 30px;
-		text-align: center;
-		margin-left: 30px;
-	}
-`;
-
 const ModalContents = styled.div`
 	height: 700px;
 	width: 565px;
@@ -67,6 +58,14 @@ const ModalContents = styled.div`
 	}
 `;
 
+const ModalTitle = styled(StyledModalTitle)`
+	h2 {
+		font-size: 30px;
+		text-align: center;
+		margin-left: 30px;
+	}
+`;
+
 const ModalBody = styled(StyledModalBody)`
 	text-align: center;
 	margin: 10px 0;
@@ -78,7 +77,6 @@ const DocumentContent = styled(StyledModalBody)`
 	margin: 20px auto;
 	padding-top: 20px;
 	border-top: 1px solid white;
-
 	span {
 		display: block;
 		font-weight: bold;
@@ -95,13 +93,11 @@ const DocUrl = styled(StyledModalBody)`
 	border-bottom: 1px solid #ecff26;
 	width: 65px;
 	cursor: pointer;
-
 	a,
 	a:hover {
 		color: white;
 		text-decoration: none;
 	}
-
 	&:hover {
 		background-color: #392d40;
 		transition: 0.3s all ease-in-out;
@@ -125,11 +121,9 @@ const ArrowDiv = styled.button`
 	background: none;
 	border: 0;
 	color: inherit;
-
 	:focus {
 		outline: none;
 	}
-
 	&:hover {
 		background-color: #392d40;
 		transition: 0.3s all ease-in-out;
@@ -261,9 +255,7 @@ class DocumentDetails extends React.Component {
 
 	render() {
 		const { document, currentUser, hideModal, open } = this.props;
-
 		// console.log('All the props from the document modal: ', this.props);
-
 		if (document === null || document === undefined) return <></>;
 		return (
 			<StyledModal
@@ -286,6 +278,7 @@ class DocumentDetails extends React.Component {
 				<StyledModalOverlay>
 					<ModalContents>
 						<StyledModalPaper>
+							{/* toggle editing document */}
 							{this.state.editingDocument ? (
 								<CardContent>
 									<Mutation mutation={UPDATE_DOCUMENT}>
@@ -338,6 +331,7 @@ class DocumentDetails extends React.Component {
 								</CardContent>
 							) : (
 								<CardContent>
+									{/* View document info */}
 									<ModalTitle>{document.title}</ModalTitle>
 									<DocumentIconDiv>
 										<DocumentIcon />
@@ -357,6 +351,7 @@ class DocumentDetails extends React.Component {
 										</DocUrl>
 									</a>
 									<FormDiv>
+										{/* Move the doc to a new folder via drop down menu */}
 										<SortForm>
 											<Mutation mutation={UPDATE_DOCUMENT}>
 												{updateDocument => (
@@ -396,6 +391,7 @@ class DocumentDetails extends React.Component {
 											</Mutation>
 										</SortForm>
 									</FormDiv>
+									{/* All the document content */}
 									<ModalBody>
 										Posted by{' '}
 										{`${document.user.firstName} ${document.user.lastName}`} •
@@ -406,6 +402,7 @@ class DocumentDetails extends React.Component {
 										<span>Notes:</span>
 										{document.textContent}
 									</DocumentContent>
+									{/* All the document options buttons */}
 									<StyledModalCardAction>
 										{document.user._id === currentUser._id && (
 											<>
@@ -433,27 +430,45 @@ class DocumentDetails extends React.Component {
 														<StyledModalButton
 															onClick={e => {
 																e.preventDefault();
-																deleteDocument({
-																	variables: { id: document._id },
-																	refetchQueries: [
-																		{
-																			query: query.FIND_DOCUMENTS_BY_TEAM,
-																			variables: { team: this.props.team }
-																		},
-																		{
-																			query: query.FIND_FOLDERS_BY_TEAM,
-																			variables: { team: this.props.team }
-																		},
-																		{
-																			query: query.FIND_DOCUMENTS_BY_FOLDER,
-																			variables: {
-																				folder: this.props.folder._id
+																if (document.folder) {
+																	deleteDocument({
+																		variables: { id: document._id },
+																		refetchQueries: [
+																			{
+																				query: query.FIND_DOCUMENTS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			},
+																			{
+																				query: query.FIND_FOLDERS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			},
+																			{
+																				query: query.FIND_DOCUMENTS_BY_FOLDER,
+																				variables: {
+																					folder: this.props.folder._id
+																				}
 																			}
-																		}
-																	]
-																}).then(() => {
-																	hideModal();
-																});
+																		]
+																	}).then(() => {
+																		hideModal();
+																	});
+																} else {
+																	deleteDocument({
+																		variables: { id: document._id },
+																		refetchQueries: [
+																			{
+																				query: query.FIND_DOCUMENTS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			},
+																			{
+																				query: query.FIND_FOLDERS_BY_TEAM,
+																				variables: { team: this.props.team }
+																			}
+																		]
+																	}).then(() => {
+																		hideModal();
+																	});
+																}
 															}}
 														>
 															Delete
