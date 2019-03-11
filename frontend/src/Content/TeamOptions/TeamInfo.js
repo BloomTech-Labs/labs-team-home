@@ -7,7 +7,6 @@ import { Settings } from 'styled-icons/material/Settings';
 
 const TeamOptions = styled.div`
 	display: flex;
-	/* flex-direction: column; */
 	align-items: center;
 	justify-content: center;
 	color: ${colors.header};
@@ -66,17 +65,6 @@ class TeamInfo extends React.Component {
 							this.toggleTeamDetails();
 						}}
 					/>
-					{/* <TeamActions>
-						<StyledButton
-							variant="contained"
-							onClick={e => {
-								e.preventDefault();
-								this.toggleTeamDetails();
-							}}
-						>
-							Team Details
-						</StyledButton>
-					</TeamActions> */}
 				</TeamOptions>
 
 				{/* click on the user list and view its contents modal */}
