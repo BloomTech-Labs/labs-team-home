@@ -18,14 +18,15 @@ const FolderContainer = styled.div`
 const ContainerTitle = styled.div`
 	position: absolute;
 	width: 150px;
+	height: 40px;
 	text-align: center;
-	top: -20px;
+	top: -15px;
 	left: 20px;
 	background-color: #5a5560;
 
 	p {
 		color: white;
-		font-size: 25px;
+		font-size: 18px;
 		letter-spacing: 1px;
 	}
 `;
