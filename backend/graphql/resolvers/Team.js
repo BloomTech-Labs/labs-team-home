@@ -195,29 +195,28 @@ const teamResolvers = {
 										{ $set: { users: [...team.users, ...addedUsers] } },
 										{ new: true }
 									)
-										.populate('users.user')
-										.then(async item => {
-											// console.log('\n\n The item to be passed: \n\n', item);
-											if (item) {
-												try {
-													await new Event({
-														team: item._id,
-														user: item.users.find(u => u.admin)._id,
-														action_string: action_str.invited,
-														object_string: object_str.user,
-														event_target_id: item._id
-													})
-														.save()
-														.then(event => {
-															// console.log('Event added', event);
-														});
-												} catch (error) {
-													console.error('Could not add event', error);
-												}
-											} else {
-												throw new ValidationError("Message doesn't exist");
+									.then(async item => {
+										// console.log('\n\n The item to be passed: \n\n', item);
+										if (item) {
+											try {
+												await new Event({
+													team: item._id,
+													user: item.users.find(u => u.admin)._id,
+													action_string: action_str.invited,
+													object_string: object_str.user,
+													event_target_id: item._id
+												})
+													.save()
+													.then(event => {
+														// console.log('Event added', event);
+													});
+											} catch (error) {
+												console.error('Could not add event', error);
 											}
-										});
+										} else {
+											throw new ValidationError("Message doesn't exist");
+										}
+									});
 								} else
 									throw new UserInputError('The user is already on the team.');
 							} else
