@@ -59,7 +59,7 @@ const documentResolver = {
 			),
 		updateDocument: (_, { input }, { user }) => {
 			const { id } = input;
-			console.log(user);
+			// console.log(user);
 
 			return Document.findById(id).then(document => {
 				if (document) {
