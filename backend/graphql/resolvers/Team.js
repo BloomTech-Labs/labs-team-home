@@ -203,25 +203,23 @@ const teamResolvers = {
 												try {
 													await new Event({
 														team: item._id,
-														user: item.users.find(u => u.admin).user._id,
+
+														user: item.users.find(u => u.admin)._id,
 														action_string: action_str.invited,
 														object_string: object_str.user,
 														event_target_id: item._id
 													})
 														.save()
 														.then(event => {
-															// console.log('\n\n Event added: \n\n', event);
+
+															// console.log('Event added', event);
 														});
 												} catch (error) {
-													console.error(
-														'Could not add event "Invite User" ',
-														error
-													);
+													console.error('Could not add event', error);
 												}
 											} else {
-												throw new ValidationError("Item doesn't exist");
+												throw new ValidationError("Message doesn't exist");
 											}
-											return item;
 										});
 								} else
 									throw new UserInputError('The user is already on the team.');
