@@ -186,11 +186,6 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         dateLabel.text = date
         documentURLLabel.text = document.docUrl
         documentNotesLabel.text = document.textContent
-//        if let tagText = document.tag?.name {
-//            tagTextLabel.text = "#\(tagText)"
-//        } else {
-//            tagTextLabel.text = ""
-//        }
         tagTextLabel.text = DocumentHelper.displayTagText(tag: document.tag?.name)
         updateIsSubscribed()
         updateSubscribeButton()
