@@ -14,6 +14,8 @@ import { colors } from '../../colorVariables';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import styled from 'styled-components';
 
+import ActivityCartoon from './ActivityCartoon';
+
 const styles = {
 	root: {
 		backgroundColor: colors.background
@@ -38,16 +40,16 @@ const styles = {
 const Container = styled(Card)`
 	display: flex;
 	justify-content: center;
-
-	width: 70%;
+	width: 55%;
+	max-width: 325px;
 	color: white;
 	margin: 5px 3%;
 	background-color: #3e3145;
 
-	${props => (props.own === 'true' ? 'position: relative' : null)};
-	${props => (props.own === 'true' ? 'float: right' : null)};
+	${props => (props.own === 'false' ? 'margin-right: 30%;' : null)};
+	${props => (props.own === 'true' ? 'margin-left: 30%;' : null)};
 
-	${mediaQueryFor.mdDevice`
+	${mediaQueryFor.smDevice`
 		width: 100%;
 		margin: 0;
 		padding: 0 5px;
@@ -61,19 +63,8 @@ const Info = styled(CardContent)`
 	width: 100%;
 	height: 45px;
 	padding: 10px 0px;
-
-	/* border: 1px solid blue; */
-
-	justify-content: ${props => (props.own === 'true' ? 'flex-end' : 'flex-start')};
-/* 
-	padding-right: ${props => (props.own === 'true' ? '0' : '15px')};
-	padding-left: ${props => (props.own === 'true' ? '15px' : '0')}; */
-
-	/* text-align: ${props => (props.own === 'true' ? 'right' : 'left')}; */
-
-	/* ${mediaQueryFor.smDevice`
-		max-width: 80%;
-	`} */
+	justify-content: ${props =>
+		props.own === 'true' ? 'flex-end' : 'flex-start'};
 `;
 
 const Title = styled(Typography)`
@@ -84,9 +75,6 @@ const Title = styled(Typography)`
 const StyledTypography = styled(Typography)`
 	color: ${colors.text};
 	margin: 0;
-	/* border: 1px solid yellow; */
-	/* width: 100%; */
-	/* height: 50px; */
 	padding-top: 2px;
 	${mediaQueryFor.smDevice`
 		font-size: .95rem;
@@ -105,11 +93,14 @@ function Activity(props) {
 				onClick={props.clickHandler}
 			>
 				{own === 'false' ? ( //if the creator of the activity is not the user who is logged in
-					<Avatar
-						src={user.avatar}
-						alt="User avatar"
-						className={classes.bigAvatar}
-					/>
+					<>
+						<Avatar
+							src={user.avatar}
+							alt="User avatar"
+							className={classes.bigAvatar}
+						/>
+						<ActivityCartoon action={action_string} object={object_string} />
+					</>
 				) : null}
 
 				<Info own={own}>
@@ -118,24 +109,25 @@ function Activity(props) {
 						gutterBottom
 						noWrap
 						variant={'body1'}
-						// component="h5"
+						component="h5"
 						className={classes.cardText}
 					>
 						{user.firstName} {user.lastName.slice(0, 1)}
 						{'. '}
-						{action_string}{' '}
-						{object_string === 'team' ? 'the team' : `a ${object_string}`}{' '}
 						{createdAt.toDateString()}
 					</StyledTypography>
 					<Title component="p" noWrap />
 				</Info>
 
 				{own === 'true' ? ( //if the creator of the activity is the user who is logged in
-					<Avatar
-						src={user.avatar}
-						alt="User avatar"
-						className={classes.bigAvatar}
-					/>
+					<>
+						<Avatar
+							src={user.avatar}
+							alt="User avatar"
+							className={classes.bigAvatar}
+						/>
+						<ActivityCartoon action={action_string} object={object_string} />{' '}
+					</>
 				) : null}
 			</CardActionArea>
 		</Container>

@@ -8,6 +8,14 @@ import { FIND_EVENTS_BY_TEAM } from '../../constants/queries';
 import Activity from './Activity';
 import ActivityModal from './ActivityModal';
 import { StyledProgressSpinner } from '../../app-styles';
+import styled from 'styled-components';
+
+const ContainerDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`;
 
 export default class ActivityTimeline extends React.Component {
 	constructor(props) {
@@ -29,7 +37,7 @@ export default class ActivityTimeline extends React.Component {
 	render() {
 		// console.log('current props from activity timeline: ', this.props);
 		return (
-			<div>
+			<ContainerDiv>
 				{/* Queries for all Events, reflected every 5000ms (5 seconds)*/}
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
@@ -93,7 +101,7 @@ export default class ActivityTimeline extends React.Component {
 					stopProp={e => e.stopPropagation()}
 					{...this.props}
 				/>
-			</div>
+			</ContainerDiv>
 		);
 	}
 }
