@@ -14,6 +14,7 @@ import styled from 'styled-components';
 import { colors } from '../../../colorVariables';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { MenuItem } from '@material-ui/core';
 
 const Container = styled.div`
 	display: flex;
@@ -60,7 +61,9 @@ const SortForm = styled.form`
 	color: white;
 `;
 
-const StyledOutline = styled(OutlinedInput)`
+const StyledOutline = styled(OutlinedInput).attrs(() => ({
+	labelWidth: 10
+}))`
 	height: 30px;
 	border-radius: 5px;
 `;
@@ -122,8 +125,8 @@ class DocumentContainer extends React.Component {
 									onChange={this.props.sortChange}
 									input={<StyledOutline name="Sort" />}
 								>
-									<option value="newest">Newest First</option>
-									<option value="oldest">Oldest First</option>
+									<MenuItem value="newest">Newest First</MenuItem>
+									<MenuItem value="oldest">Oldest First</MenuItem>
 								</StyledSelect>
 							</label>
 						</SortForm>

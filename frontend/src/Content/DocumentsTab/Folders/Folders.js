@@ -14,6 +14,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
 import { StyledProgressSpinner } from '../../../app-styles';
+import { MenuItem } from '@material-ui/core';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -58,7 +59,9 @@ const SortForm = styled.form`
 	color: white;
 `;
 
-const StyledOutline = styled(OutlinedInput)`
+const StyledOutline = styled(OutlinedInput).attrs(() => ({
+	labelWidth: 10
+}))`
 	height: 30px;
 	border-radius: 5px;
 `;
@@ -106,8 +109,8 @@ class Folders extends Component {
 								onChange={this.sortChange}
 								input={<StyledOutline name="Sort" />}
 							>
-								<option value="newest">Newest First</option>
-								<option value="oldest">Oldest First</option>
+								<MenuItem value="newest">Newest First</MenuItem>
+								<MenuItem value="oldest">Oldest First</MenuItem>
 							</StyledSelect>
 						</label>
 					</SortForm>
