@@ -1,10 +1,14 @@
-import styled from 'styled-components';
-import mediaQueryFor from '../../../_global_styles/responsive_querie';
+import { Link } from 'react-router-dom';
+
+// ------------- MUI Imports ---------------------- //
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
+
+// ------------- Style Imports ---------------------- //
+import styled from 'styled-components';
 import { colors } from '../../../colorVariables';
-import { Link } from 'react-router-dom';
+import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
 const Container = styled.div`
 	position: relative;

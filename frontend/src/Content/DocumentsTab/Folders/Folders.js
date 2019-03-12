@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { Query } from 'react-apollo';
-import styled from 'styled-components';
 import * as query from '../../../constants/queries';
+
+// ------------- Component Imports ---------------------- //
 import FolderDetails from './FolderDetails';
 import Folder from './Folder';
+
+// ------------- Style Imports ---------------------- //
+import styled from 'styled-components';
+import { StyledProgressSpinner } from '../../../app-styles';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -18,14 +25,15 @@ const FolderContainer = styled.div`
 const ContainerTitle = styled.div`
 	position: absolute;
 	width: 150px;
+	height: 40px;
 	text-align: center;
-	top: -20px;
+	top: -15px;
 	left: 20px;
 	background-color: #5a5560;
 
 	p {
 		color: white;
-		font-size: 25px;
+		font-size: 18px;
 		letter-spacing: 1px;
 	}
 `;
@@ -99,7 +107,7 @@ class Folders extends Component {
 					variables={{ team: this.props.team._id }}
 				>
 					{({ loading, error, data: { findFoldersByTeam } }) => {
-						if (loading) return <p>Loading...</p>;
+						if (loading) return <StyledProgressSpinner />;
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
 							switch (this.state.sortOption) {
@@ -127,7 +135,7 @@ class Folders extends Component {
 									key={folder._id}
 								>
 									{({ loading, error, data: { findDocumentsByFolder } }) => {
-										if (loading) return <p>Loading...</p>;
+										if (loading) return <StyledProgressSpinner />;
 										if (error) return console.error(error);
 										return (
 											<div onClick={() => this.toggleFolderDetail(folder)}>

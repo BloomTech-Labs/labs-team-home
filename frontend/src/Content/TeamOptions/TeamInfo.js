@@ -1,8 +1,12 @@
+import React from 'react';
+
+// ------------- Component Imports ---------------------- //
+import TeamDetails from './TeamDetails';
+
+// ------------- Style Imports ---------------------- //
 import { colors } from '../../colorVariables';
 import styled from 'styled-components';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
-import React from 'react';
-import TeamDetails from './TeamDetails';
 import { Settings } from 'styled-icons/material/Settings';
 
 const TeamOptions = styled.div`

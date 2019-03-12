@@ -1,12 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+
+// ------------- MUI Imports ---------------------- //
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import Fab from '@material-ui/core/Fab';
-import { colors } from '../colorVariables';
 import CreateNewFolder from '@material-ui/icons/CreateNewFolder';
 import NoteAdd from '@material-ui/icons/NoteAdd';
+
+// ------------- Style Imports ---------------------- //
+import styled from 'styled-components';
+import { colors } from '../colorVariables';
 
 // ---------------- Modals --------------------------------- //
 import AddMessage from './MessageBoard/AddMessage';

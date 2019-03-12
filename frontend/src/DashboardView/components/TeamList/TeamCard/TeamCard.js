@@ -1,8 +1,10 @@
 import React from 'react';
+
 // ------------- Material UI -------------- //
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+
 // --------- imported styles/ JSS --------- //
 import * as style from './TeamCard.styles';
 

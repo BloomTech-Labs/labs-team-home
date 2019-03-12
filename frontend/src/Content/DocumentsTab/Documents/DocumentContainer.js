@@ -1,10 +1,16 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+
+// ------------- DnD Imports ---------------------- //
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
+
+// ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
-import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
 const Container = styled.div`
 	display: flex;
@@ -22,14 +28,14 @@ const ContainerTitle = styled.div`
 	text-align: center;
 	height: 40px;
 	width: 180px;
-	top: -20px;
+	top: -15px;
 	left: 20px;
 	background-color: #4a4550;
 	/* background-color: #5a5560; */
 
 	p {
 		color: white;
-		font-size: 25px;
+		font-size: 18px;
 		letter-spacing: 1px;
 	}
 `;
@@ -69,9 +75,9 @@ function collect(connect, monitor) {
 class DocumentContainer extends React.Component {
 	updateDrop = (documentId, folderId, updateDocument) => {
 		if (folderId === undefined) {
-			console.log(
-				'dropped in staging area from staging area; Nothing will happen'
-			);
+			// console.log(
+			// 	'dropped in staging area from staging area; Nothing will happen'
+			// );
 		} else {
 			updateDocument({
 				variables: { id: documentId._id, folder: folderId._id },

@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
+import Auth0 from '../../Auth/Auth';
+
+// ------------- gql Imports ---------------------- //
 import { Mutation } from 'react-apollo';
-// import SettingsTabs from '../components/tabs/SettingsTabs--DEPRECATED';
-import FormInput from '../components/forms/FormInput';
-import FormCheckbox from '../components/forms/FormCheckbox';
-import FormButton from '../components/forms/FormButton';
-// import BillingView from '../BillingView/BillingView';
 import * as mutation from '../../constants/mutations';
 import * as query from '../../constants/queries';
+
+// ------------- Filepond Imports ---------------------- //
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginFileTypeValidation from 'filepond-plugin-file-validate-type';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
+import 'filepond/dist/filepond.min.css';
 // image preview not working
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond/dist/filepond.min.css';
 
+// ------------- Component Imports ---------------------- //
+import FormInput from '../components/forms/FormInput';
+import FormCheckbox from '../components/forms/FormCheckbox';
+import FormButton from '../components/forms/FormButton';
+
+// ------------- Styled Imports ---------------------- //
 import SettingsContainer, {
 	StyledAvatar,
 	ImageFigure,
 	AvatarUploadContainer,
 	StyledForm
 } from '../styles/container.styles';
-import Auth0 from '../../Auth/Auth';
 
 registerPlugin(
 	FilePondPluginImageExifOrientation,
@@ -122,20 +127,12 @@ class SettingsView extends Component {
 	render() {
 		const { currentUser, history } = this.props;
 		return currentUser ? (
-			<Mutation
-				mutation={mutation.UPDATE_USER}
-				// update={(cache, { data: { updateUser } }) =>
-				// 	cache.writeQuery({ query: query.CURRENT_USER, data: updateUser })
-				// }
-			>
-				{(updateUser, { data }) => (
+			<Mutation mutation={mutation.UPDATE_USER}>
+				{updateUser => (
 					<SettingsContainer>
 						<h1>User Settings</h1>
-						{/* <SettingsTabs>
-							<div label="Account Settings"> */}
 						<StyledForm
 							onSubmit={e => {
-								console.log('submitted');
 								e.preventDefault();
 								updateUser({
 									variables: {
@@ -149,6 +146,7 @@ class SettingsView extends Component {
 									refetchQueries: [{ query: query.CURRENT_USER }]
 								});
 								this.pond.removeFile();
+								alert('User settings Saved.');
 							}}
 						>
 							<AvatarUploadContainer>
@@ -267,7 +265,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormInput
-								inputtype={'text'}
+								inputtype={'email'}
 								title={'Email'}
 								name={'email'}
 								value={this.state.email}
@@ -280,7 +278,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormInput
-								inputtype="text"
+								inputtype="tel"
 								title={'Phone Number'}
 								name={'phoneNumber'}
 								value={this.state.phoneNumber}
@@ -306,16 +304,6 @@ class SettingsView extends Component {
 							/>
 							<FormButton type="submit" title="save" />
 						</StyledForm>
-						{/* </div>
-							{/* <div>{` `}</div>
-							<div label="Team Billing">
-								<BillingView
-									teamId={this.state.teamId}
-									handlePickTeam={this.handlePickTeam}
-									currentUser={currentUser}
-								/>
-							</div> 
-						</SettingsTabs> */}
 					</SettingsContainer>
 				)}
 			</Mutation>
@@ -328,9 +316,7 @@ class SettingsView extends Component {
 				{addUser => (
 					<SettingsContainer>
 						<h1>Create Account</h1>
-						{/* <SettingsTabs>
-							<div label="Account Settings"> */}
-						<form
+						<StyledForm
 							onSubmit={e => {
 								e.preventDefault();
 								if (
@@ -367,7 +353,7 @@ class SettingsView extends Component {
 							/>
 							<FormInput
 								inputtype="text"
-								title={'Phone Number'}
+								title={'Last Name'}
 								name={'lastName'}
 								value={this.state.lastName}
 								autoComplete="off"
@@ -375,7 +361,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormInput
-								inputtype={'text'}
+								inputtype={'email'}
 								title={'Email'}
 								name={'email'}
 								value={this.state.email}
@@ -393,7 +379,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormInput
-								inputtype="text"
+								inputtype="tel"
 								title={'Phone Number'}
 								name={'phoneNumber'}
 								value={this.state.phoneNumber}
@@ -402,16 +388,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormButton title={'Save'} />
-						</form>
-						{/* </div>
-							{/* <div label="Team Billing">
-								<BillingView
-									teamId={this.state.teamId}
-									handlePickTeam={this.handlePickTeam}
-									currentUser={currentUser}
-								/>
-							</div> 
-						</SettingsTabs> */}
+						</StyledForm>
 					</SettingsContainer>
 				)}
 			</Mutation>
