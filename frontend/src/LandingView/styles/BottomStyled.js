@@ -2,12 +2,18 @@ import styled from 'styled-components';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import { colors, palette } from '../../colorVariables';
 
-const BtmContentStyles = styled.div`
+export const LandingContentContainer = styled.div`
+	display: flex;
+	margin: 200px auto 0px auto;
+	justify-content: space-between;
+`;
+
+export const LandingContent = styled.div`
 	display: flex;
 	flex-flow: column;
 	font-size: 1rem;
-	margin: 0 auto;
-  width: 90%;
+	margin: 200px 10px 0px 10px;
+  width: 35%;
 	color: ${colors.text};
   z-index:11;
 	/* background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 49% ,rgba(0,0,0,0) 100%); */
@@ -15,7 +21,7 @@ const BtmContentStyles = styled.div`
 	h1 {
 		/* width: 60%; */
     margin: 0 4%;
-    font-size: 9rem;
+    font-size: 5rem;
 		line-height: 0.8;
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
 			Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -23,7 +29,7 @@ const BtmContentStyles = styled.div`
 		text-shadow: 5px 5px 20px #111;
 	}
 	p {
-    width: 390px;
+    
     margin: 10px 11%;
     font-size: 1.4rem;
     font-weight:400;
@@ -101,5 +107,3 @@ const BtmContentStyles = styled.div`
 	}
   `}
 `;
-
-export default BtmContentStyles;
