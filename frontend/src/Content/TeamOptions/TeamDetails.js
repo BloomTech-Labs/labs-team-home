@@ -16,6 +16,7 @@ import Logo from '../../assets/TH_favicon.png';
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
 import { colors } from '../../colorVariables';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 // ------------- MUI Imports ---------------------- //
 import CloseIcon from '@material-ui/icons/Close';
@@ -42,8 +43,8 @@ import {
 // ---------------- Styled Components ---------------------- //
 
 const ModalContents = styled.div`
-	height: 700px;
-	width: 565px;
+	height: ${mediaQueryFor.smDevice ? 'auto' : '700px'};
+	width: ${mediaQueryFor.smDevice ? 'auto' : '565px'};
 	overflow-y: auto;
 	padding-right: 1.3em;
 	margin-top: 1rem;

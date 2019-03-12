@@ -16,6 +16,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { colors } from '../../colorVariables';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { MenuItem } from '@material-ui/core';
 
 const styles = theme => ({
 	root: {
@@ -99,7 +100,9 @@ const SortForm = styled.form`
 	font-size: 16px;
 `;
 
-const StyledOutline = styled(OutlinedInput)`
+const StyledOutline = styled(OutlinedInput).attrs(() => ({
+	labelWidth: 10
+}))`
 	height: 30px;
 	border-radius: 5px;
 `;
@@ -164,13 +167,13 @@ class MessageBoard extends React.Component {
 							<label>
 								Sort:
 								<StyledSelect
-									outlined
+									outlined="true"
 									value={this.state.sortOption}
 									onChange={this.sortChange}
 									input={<StyledOutline name="Sort" />}
 								>
-									<option value="newest">Newest First</option>
-									<option value="oldest">Oldest First</option>
+									<MenuItem value="newest">Newest First</MenuItem>
+									<MenuItem value="oldest">Oldest First</MenuItem>
 								</StyledSelect>
 							</label>
 						</SortForm>

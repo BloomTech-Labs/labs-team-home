@@ -74,7 +74,7 @@ const Button = styled(IconButton)`
 `;
 
 const TeamsList = styled.div`
-	width: 100%;
+	width: ${mediaQueryFor.smDevice ? '95%' : '100%'};
 	margin: 0 auto;
 	display: flex;
 	flex-flow: column;

@@ -14,6 +14,7 @@ import CardActions from '@material-ui/core/CardActions';
 // ------------- global styles imports ---------------------- //
 import { palette, colors } from '../colorVariables';
 import { Paper } from '@material-ui/core';
+import mediaQueryFor from '../_global_styles/responsive_querie';
 // import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 // All modals basically follow this structure ... basically ... :
@@ -42,6 +43,7 @@ import { Paper } from '@material-ui/core';
 export const StyledModal = styled(Dialog).attrs(() => ({
 	fullWidth: true, //<--- BTW the weird `attrs` format is how you pass new props using styled components to MUI components.
 	// ={mediaQueryFor.smDevice}
+	fullScreen: window.innerWidth <= 576 ? true : false,
 	scroll: 'body',
 	PaperProps: {
 		style: {
