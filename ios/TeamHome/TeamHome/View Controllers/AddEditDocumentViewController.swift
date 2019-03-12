@@ -103,7 +103,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCollectionViewCell
         
         guard let tag = tags?[indexPath.row] else { return UICollectionViewCell() }
-        cell.tagLabel.text = tag.name
+        cell.tagLabel.text = DocumentHelper.displayTagText(tag: tag.name)
         cell.backgroundColor = Appearance.darkMauveColor
         cell.layer.cornerRadius = cell.frame.height / 2
         
