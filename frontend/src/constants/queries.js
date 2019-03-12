@@ -139,8 +139,8 @@ export const FIND_DOCUMENTS_BY_FOLDER = gql`
 `;
 
 export const FIND_EVENTS_BY_TEAM = gql`
-	query findEventsByTeam($team: ID!) {
-		findEventsByTeam(input: { team: $team }) {
+	query findEventsByTeam($team: ID!, $limit: Int, $offset: Int) {
+		findEventsByTeam(input: { team: $team, limit: $limit, offset: $offset }) {
 			...FullEvent
 		}
 	}
