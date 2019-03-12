@@ -14,7 +14,6 @@ import styled from 'styled-components';
 import { colors } from '../../../colorVariables';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
 const Container = styled.div`
 	display: flex;
