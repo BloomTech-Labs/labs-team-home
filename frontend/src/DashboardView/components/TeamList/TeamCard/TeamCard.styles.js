@@ -19,6 +19,7 @@ const Container = styled(Card)`
 	border-radius: 3px;
 	margin: 5px 0;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	margin: 3px;
 
 	h3 {
 		font-size: 1.2rem;

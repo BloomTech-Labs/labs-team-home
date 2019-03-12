@@ -7,6 +7,7 @@ import * as query from '../../constants/queries';
 import * as mutation from '../../constants/mutations';
 import Avatar from '@material-ui/core/Avatar';
 import { FULL_TEAM } from '../../constants/fragments';
+import { ApolloConsumer } from 'react-apollo';
 
 // ------------- Component Imports ---------------------- //
 import StripeCheckout from 'react-stripe-checkout';
@@ -168,7 +169,7 @@ class TeamDetails extends React.Component {
 														id: team._id,
 														name: this.state.editTeamName
 													},
-													refetchQueries: { query: query.FIND_TEAMS_BY_USER }
+													refetchQueries: [{ query: query.FIND_TEAMS_BY_USER }]
 												}).then(
 													this.setState({
 														editTeamName: '',
@@ -204,8 +205,13 @@ class TeamDetails extends React.Component {
 														e.preventDefault();
 														deleteTeam({
 															variables: { id: team._id },
-															refetchQueries: {
-																query: query.FIND_TEAMS_BY_USER
+															refetchQueries: [
+																{
+																	query: query.FIND_TEAMS_BY_USER
+																}
+															],
+															options: {
+																awaitRefetchQueries: true
 															}
 														}).then(this.props.history.push('/dashboard'));
 													}}
@@ -254,9 +260,11 @@ class TeamDetails extends React.Component {
 																amount: 999,
 																token: token.id
 															},
-															refetchQueries: {
-																query: query.FIND_TEAMS_BY_USER
-															}
+															refetchQueries: [
+																{
+																	query: query.FIND_TEAMS_BY_USER
+																}
+															]
 														})
 															.then(res => {
 																// console.log(res);
@@ -286,49 +294,67 @@ class TeamDetails extends React.Component {
 						<StyledModalTitle>Invite User</StyledModalTitle>
 						<Mutation mutation={mutation.INVITE_USER}>
 							{inviteUser => (
-								<StyledModalForm
-									onSubmit={e => {
-										e.preventDefault();
-										let input = { id: this.props.team._id };
-										if (this.state.email.length) input.email = this.state.email;
-										if (this.state.number.length)
-											input.phoneNumber = this.state.number;
-										inviteUser({
-											variables: input,
-											refetchQueries: [
-												{
-													query: query.FIND_TEAM,
-													variables: { id: team._id }
-												}
-											]
-										})
-											.then(() => {
-												this.resetState();
-												alert('Invitation sent');
-											})
-											.catch(err => {
-												console.error(err);
-											});
-									}}
-								>
-									<StyledModalInput
-										type="email"
-										name="email"
-										placeholder="email"
-										onChange={this.changeHandler}
-										value={this.state.email}
-									/>
-									<StyledModalInput
-										placeholder="phone number"
-										type="text"
-										name="number"
-										onChange={this.changeHandler}
-										value={this.state.number}
-									/>
-									<DialogActions>
-										<StyledModalButton type="submit">Submit</StyledModalButton>
-									</DialogActions>
-								</StyledModalForm>
+								<ApolloConsumer>
+									{client => (
+										<StyledModalForm
+											onSubmit={e => {
+												e.preventDefault();
+												let input = { id: team._id };
+												if (this.state.email.length)
+													input.email = this.state.email;
+												if (this.state.number.length)
+													input.phoneNumber = this.state.number;
+												inviteUser({
+													variables: input,
+													refetchQueries: [
+														{
+															query: query.FIND_TEAM,
+															variables: { id: team._id }
+														},
+														{
+															query: query.FIND_TEAMS_BY_USER
+														}
+													]
+												}) //This is an unsuccessful attempt to fix the null null null bug... Unfortunately, I am beginning to thing that the error stems from the database being designed improperly. Ie, Users do not have a field for which teams they belong to, but only teams know who their users are. This is a violation of a many to many relationship.
+													.then(item => {
+														this.resetState();
+														// console.log('item from after invite: ', item);
+														item.data.inviteUser.users.forEach(u => {
+															// console.log('u=> ', u);
+															client.query({
+																query: query.FIND_USER,
+																variables: { id: u.user._id }
+															});
+														});
+														alert('Invitation sent');
+													})
+													.catch(err => {
+														console.error(err);
+													});
+											}}
+										>
+											<StyledModalInput
+												type="email"
+												name="email"
+												placeholder="email"
+												onChange={this.changeHandler}
+												value={this.state.email}
+											/>
+											<StyledModalInput
+												placeholder="phone number"
+												type="text"
+												name="number"
+												onChange={this.changeHandler}
+												value={this.state.number}
+											/>
+											<DialogActions>
+												<StyledModalButton type="submit">
+													Submit
+												</StyledModalButton>
+											</DialogActions>
+										</StyledModalForm>
+									)}
+								</ApolloConsumer>
 							)}
 						</Mutation>
 
@@ -362,10 +388,12 @@ class TeamDetails extends React.Component {
 																	id: team._id,
 																	user: user.user._id
 																},
-																refetchQueries: {
-																	query: query.FIND_TEAM,
-																	variables: { id: team._id }
-																}
+																refetchQueries: [
+																	{
+																		query: query.FIND_TEAM,
+																		variables: { id: team._id }
+																	}
+																]
 															});
 														}}
 													>
@@ -385,9 +413,11 @@ class TeamDetails extends React.Component {
 																			id: team._id,
 																			user: currentUser
 																		},
-																		refetchQueries: {
-																			query: query.FIND_TEAMS_BY_USER
-																		}
+																		refetchQueries: [
+																			{
+																				query: query.FIND_TEAMS_BY_USER
+																			}
+																		]
 																	});
 																	this.props.history.push('/dashboard');
 																}}
