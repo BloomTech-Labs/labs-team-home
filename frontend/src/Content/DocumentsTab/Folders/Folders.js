@@ -7,6 +7,9 @@ import * as query from '../../../constants/queries';
 // ------------- Component Imports ---------------------- //
 import FolderDetails from './FolderDetails';
 import Folder from './Folder';
+import { colors } from '../../../colorVariables';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
@@ -43,23 +46,27 @@ const Error = styled.p`
 `;
 
 const FormDiv = styled.div`
-	width: 95%;
+	width: 97%;
 	display: flex;
 	flex-direction: row-reverse;
 `;
 
 const SortForm = styled.form`
 	height: 50px;
-	margin-top: 15px;
-	label {
-		color: white;
-	}
-	select {
-		margin-left: 10px;
-	}
-	option {
-		height: 25px;
-	}
+	margin-top: 20px;
+	font-size: 16px;
+	color: white;
+`;
+
+const StyledOutline = styled(OutlinedInput)`
+	height: 30px;
+	border-radius: 5px;
+`;
+
+const StyledSelect = styled(Select)`
+	background-color: rgb(143, 136, 150, 0.75);
+	margin-left: 10px;
+	color: ${colors.text};
 `;
 
 class Folders extends Component {
@@ -94,10 +101,14 @@ class Folders extends Component {
 					<SortForm>
 						<label>
 							Sort:
-							<select value={this.state.sortOption} onChange={this.sortChange}>
+							<StyledSelect
+								value={this.state.sortOption}
+								onChange={this.sortChange}
+								input={<StyledOutline name="Sort" />}
+							>
 								<option value="newest">Newest First</option>
 								<option value="oldest">Oldest First</option>
-							</select>
+							</StyledSelect>
 						</label>
 					</SortForm>
 				</FormDiv>

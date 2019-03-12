@@ -14,6 +14,8 @@ import mediaQueryFor from '../../_global_styles/responsive_querie';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import { colors } from '../../colorVariables';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 const styles = theme => ({
 	root: {
@@ -48,6 +50,10 @@ const Messageboard = styled.div`
 `;
 
 const MessagesContainer = styled.div`
+	padding: 10px;
+	padding-bottom: 20px;
+	border: 2px solid #4a4550;
+	position: relative;
 	margin: 0;
 	form {
 		height: 50px;
@@ -65,6 +71,22 @@ const MessagesContainer = styled.div`
 	`}
 `;
 
+const ContainerTitle = styled.div`
+	position: absolute;
+	width: 200px;
+	height: 40px;
+	text-align: center;
+	top: -15px;
+	left: 20px;
+	background-color: #5a5560;
+
+	p {
+		color: white;
+		font-size: 18px;
+		letter-spacing: 1px;
+	}
+`;
+
 const FormDiv = styled.div`
 	width: 97%;
 	display: flex;
@@ -75,15 +97,17 @@ const SortForm = styled.form`
 	height: 50px;
 	margin-top: 20px;
 	font-size: 16px;
-	label {
-		color: white;
-	}
-	select {
-		margin-left: 10px;
-	}
-	option {
-		height: 30px;
-	}
+`;
+
+const StyledOutline = styled(OutlinedInput)`
+	height: 30px;
+	border-radius: 5px;
+`;
+
+const StyledSelect = styled(Select)`
+	background-color: rgb(143, 136, 150, 0.75);
+	margin-left: 10px;
+	color: ${colors.text};
 `;
 
 class MessageBoard extends React.Component {
@@ -132,17 +156,22 @@ class MessageBoard extends React.Component {
 				{/* List of all the messages */}
 				<MessagesContainer>
 					{/* Sorting options */}
+					<ContainerTitle>
+						<p>MESSAGE BOARD</p>
+					</ContainerTitle>
 					<FormDiv>
 						<SortForm>
 							<label>
 								Sort:
-								<select
+								<StyledSelect
+									outlined
 									value={this.state.sortOption}
 									onChange={this.sortChange}
+									input={<StyledOutline name="Sort" />}
 								>
 									<option value="newest">Newest First</option>
 									<option value="oldest">Oldest First</option>
-								</select>
+								</StyledSelect>
 							</label>
 						</SortForm>
 					</FormDiv>

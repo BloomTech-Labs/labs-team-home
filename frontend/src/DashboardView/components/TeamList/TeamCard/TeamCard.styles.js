@@ -17,6 +17,7 @@ const Container = styled(Card)`
 	color: ${colors.text};
 	background-color: ${colors.button};
 	border-radius: 3px;
+	margin: 5px 0;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
 	margin: 3px;
 

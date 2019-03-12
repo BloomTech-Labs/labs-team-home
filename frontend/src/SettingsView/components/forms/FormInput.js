@@ -8,7 +8,7 @@ const FormInput = props => {
 				{props.title}
 			</label>
 			<StyledInput
-				className="form-control"
+				fullWidth
 				id={props.name}
 				name={props.name}
 				type={props.inputtype}
