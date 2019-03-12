@@ -83,13 +83,17 @@ class FoldersTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PresentFolderContents" {
             let destinationVC = segue.destination as! FolderContentsTableViewController
-            destinationVC.apollo = apollo
-            destinationVC.team = team
-            destinationVC.currentUser = currentUser
             guard let indexPath = tableView.indexPathForSelectedRow,
                 let folder = folders?[indexPath.row] else { return }
             destinationVC.title = folder.title
             destinationVC.folder = folder
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+            destinationVC.currentUser = currentUser
+            
+//            let parentVC = self.parent as! DocumentsViewController
+//            parentVC.foldersContainerView.isHidden = true
+//            navigationController?.pushViewController(destinationVC, animated: true)
         }
     }
     

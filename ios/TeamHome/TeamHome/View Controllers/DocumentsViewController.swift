@@ -127,12 +127,28 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         }
         if segue.identifier == "EmbeddedFolders"{
             let destinationVC = segue.destination as! FoldersTableViewController //UINavigationController
-           // let childVC = destinationVC.viewControllers[0] as! //
-            
-//            childVC
+//           // let childVC = destinationVC.viewControllers[0] as! //
+//
+////            childVC
                 destinationVC.apollo = apollo
-//            childVC
+////            childVC
                 destinationVC.team = team
+//            self.addChild(destinationVC)
+//            let folderTable = self.children[0] as! FoldersTableViewController
+//            folderTable.apollo = apollo
+//            folderTable.team = team
+//            folderTable.removeFromParent()
+        }
+        if segue.identifier == "PresentFolderContents" {
+            let destinationVC = segue.destination as! FolderContentsTableViewController
+            let folderTable = segue.source as! FoldersTableViewController
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+            destinationVC.currentUser = currentUser
+            guard let indexPath = folderTable.tableView.indexPathForSelectedRow,
+                let folder = folderTable.folders?[indexPath.row] else { return }
+            destinationVC.title = folder.title
+            destinationVC.folder = folder
         }
     }
     

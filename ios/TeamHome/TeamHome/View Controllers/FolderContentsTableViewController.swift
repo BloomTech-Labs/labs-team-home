@@ -16,9 +16,9 @@ class FolderContentsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViewAppearance()
-        createGradientLayer()
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
+        createGradientLayer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,7 +37,7 @@ class FolderContentsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentCell"),
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContentsCell"),
             let document = documents?[indexPath.row] else {return UITableViewCell()}
         cell.backgroundColor = .clear
         cell.textLabel?.text = document.title
@@ -55,7 +55,7 @@ class FolderContentsTableViewController: UITableViewController {
                     NSLog("Error deleting document: \(error)")
                     return
                 }
-                watcher?.refetch()
+                watcherFolderContents?.refetch()
                 self.deleteIndexPath = indexPath
                 print("delete success")
             }
@@ -98,7 +98,10 @@ class FolderContentsTableViewController: UITableViewController {
             
             //prevents extra call to reload data if deleting is called
             guard self.deleteIndexPath == nil else { return }
-            self.tableView.reloadData()
+//            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            
+//            }
         }
     }
     
@@ -110,6 +113,7 @@ class FolderContentsTableViewController: UITableViewController {
     private func createGradientLayer() {
         gradientLayer = CAGradientLayer()
         
+//        guard let parentView = self.parent else { return }
         gradientLayer.frame = self.view.bounds
         
         gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
@@ -119,7 +123,12 @@ class FolderContentsTableViewController: UITableViewController {
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
         
+//        self.view.layer.addSublayer(gradientLayer)
+//        self.view.layer.insertSublayer(gradientLayer, below: tableView.layer)
+//        tableView.layer.isOpaque = true
+//        self.view.layer.
         self.view.layer.insertSublayer(gradientLayer, at: 0)
+//        self.view.layoutSublayers(of: self.view.layer)
     }
     
     // MARK: - Properties
@@ -130,12 +139,12 @@ class FolderContentsTableViewController: UITableViewController {
         didSet{
             if isViewLoaded {
                 DispatchQueue.main.async {
-                    if let indexPath = self.deleteIndexPath {
-                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                        self.deleteIndexPath = nil
-                    } else {
+//                    if let indexPath = self.deleteIndexPath {
+//                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+//                        self.deleteIndexPath = nil
+//                    } else {
                         self.tableView.reloadData()
-                    }
+//                    }
                 }
             }
         }
