@@ -4,6 +4,9 @@ import * as query from '../../../constants/queries';
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
 import styled from 'styled-components';
+import { colors } from '../../../colorVariables';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { UPDATE_DOCUMENT } from '../../../constants/mutations';
 
 const Container = styled.div`
@@ -39,23 +42,27 @@ const Error = styled.p`
 `;
 
 const FormDiv = styled.div`
-	width: 92%;
+	width: 97%;
 	display: flex;
 	flex-direction: row-reverse;
 `;
 
 const SortForm = styled.form`
 	height: 50px;
-	margin-top: 15px;
-	label {
-		color: white;
-	}
-	select {
-		margin-left: 10px;
-	}
-	option {
-		height: 25px;
-	}
+	margin-top: 20px;
+	font-size: 16px;
+	color: white;
+`;
+
+const StyledOutline = styled(OutlinedInput)`
+	height: 30px;
+	border-radius: 5px;
+`;
+
+const StyledSelect = styled(Select)`
+	background-color: rgb(143, 136, 150, 0.75);
+	margin-left: 10px;
+	color: ${colors.text};
 `;
 
 function collect(connect, monitor) {
@@ -104,13 +111,14 @@ class DocumentContainer extends React.Component {
 						<SortForm>
 							<label>
 								Sort:
-								<select
+								<StyledSelect
 									value={this.props.sortOption}
 									onChange={this.props.sortChange}
+									input={<StyledOutline name="Sort" />}
 								>
 									<option value="newest">Newest First</option>
 									<option value="oldest">Oldest First</option>
-								</select>
+								</StyledSelect>
 							</label>
 						</SortForm>
 					</FormDiv>
