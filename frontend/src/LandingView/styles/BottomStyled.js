@@ -4,11 +4,24 @@ import { colors, palette } from '../../colorVariables';
 
 export const LandingContentContainer = styled.div`
 	display: flex;
-	margin: 100px auto 0px auto;
-	justify-content: space-between;
+	margin: 0 auto 0px auto;
+	justify-content: space-around;
+	height: 100vh;
+	padding-top: 60px;
+	align-items: center;
 
+	${mediaQueryFor.lgDevice`
+  
+  flex-flow: column;
+  `}
+`;
+
+export const VideoContainer = styled.div`
 	video {
+		margin-top: 100px;
 		width: 400px;
+		border: 2px solid black;
+		z-index: 1000;
 	}
 `;
 
@@ -16,7 +29,7 @@ export const LandingContent = styled.div`
 	display: flex;
 	flex-flow: column;
 	font-size: 1rem;
-	margin: 200px 10px 0px 10px;
+	margin: 100px 10px 0px 10px;
   width: 35%;
 	color: ${colors.text};
   z-index:11;
