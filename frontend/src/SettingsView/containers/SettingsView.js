@@ -26,7 +26,8 @@ import SettingsContainer, {
 	StyledAvatar,
 	ImageFigure,
 	AvatarUploadContainer,
-	StyledForm
+	StyledForm,
+	SettingsTitle
 } from '../styles/container.styles';
 
 registerPlugin(
@@ -130,7 +131,9 @@ class SettingsView extends Component {
 			<Mutation mutation={mutation.UPDATE_USER}>
 				{updateUser => (
 					<SettingsContainer>
-						<h1>User Settings</h1>
+						<SettingsTitle>
+							<h1>USER SETTINGS</h1>
+						</SettingsTitle>
 						<StyledForm
 							onSubmit={e => {
 								e.preventDefault();
