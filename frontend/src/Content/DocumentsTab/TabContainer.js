@@ -1,7 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+
+// ------------- Component Imports ---------------------- //
 import Folders from './Folders/Folders';
 import Documents from './Documents/Documents';
+
+// ------------- Style Imports ---------------------- //
+import styled from 'styled-components';
 
 const MainContainer = styled.div`
 	width: 96%;

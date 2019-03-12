@@ -4,7 +4,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import * as query from '../../constants/queries';
 
-// // ------------- Component Imports ---------------------- //
+// ------------- Component Imports ---------------------- //
 import DocumentDetails from '../DocumentsTab/Documents/DocumentDetails';
 import FolderDetails from '../DocumentsTab/Folders/FolderDetails';
 import MessageDetails from '../MessageBoard/MessageDetail';
@@ -17,6 +17,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import { colors } from '../../colorVariables';
+import { StyledProgressSpinnerSecondary } from '../../app-styles';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -32,7 +33,6 @@ import {
 } from '../Modal.styles';
 
 // ---------------- Styled Components ---------------------- //
-
 const ModalTitle = styled(StyledModalTitle)`
 	h2 {
 		font-size: 30px;
@@ -136,11 +136,7 @@ class EventDetails extends React.Component {
 											>
 												{({ loading, error, data: { findDocument } }) => {
 													if (loading)
-														return (
-															<StyledModalTitle>
-																Searching for event...
-															</StyledModalTitle>
-														);
+														return <StyledProgressSpinnerSecondary />;
 													if (error) return <p>Error</p>;
 													if (
 														findDocument === null ||
@@ -184,11 +180,7 @@ class EventDetails extends React.Component {
 											>
 												{({ loading, error, data: { findFolder } }) => {
 													if (loading)
-														return (
-															<StyledModalTitle>
-																Searching for event...
-															</StyledModalTitle>
-														);
+														return <StyledProgressSpinnerSecondary />;
 													if (error) return <p>Error</p>;
 													if (findFolder === null || findFolder === undefined) {
 														return (
@@ -229,11 +221,7 @@ class EventDetails extends React.Component {
 											>
 												{({ loading, error, data: { findMessage } }) => {
 													if (loading)
-														return (
-															<StyledModalTitle>
-																Searching for event...
-															</StyledModalTitle>
-														);
+														return <StyledProgressSpinnerSecondary />;
 													if (error) return <p>Error</p>;
 													if (
 														findMessage === null ||

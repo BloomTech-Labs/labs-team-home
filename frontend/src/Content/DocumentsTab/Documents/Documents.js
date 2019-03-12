@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+// ------------- Component Imports ---------------------- //
 import DocumentDetails from './DocumentDetails';
 import DocContainer from './DocumentContainer';
 

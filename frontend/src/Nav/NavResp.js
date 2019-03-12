@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import Auth0 from '../Auth/Auth';
+
+// ------------- Component Imports ---------------------- //
 import { Navbar } from 'reactstrap';
 import { TextIMG, RespNav } from '../Nav/styles/index';
 import { Spin } from 'react-burgers';
-import Auth0 from '../Auth/Auth';
 import textLogo from '../assets/Sveza_white.svg';
 import LandingNavOptions from './components/LandingNavOptions';
 import { NavBarTogglerDiv } from './styles/index';
