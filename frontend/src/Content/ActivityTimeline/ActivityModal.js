@@ -17,6 +17,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import { colors } from '../../colorVariables';
+import { StyledProgressSpinnerSecondary } from '../../app-styles';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -135,11 +136,7 @@ class EventDetails extends React.Component {
 											>
 												{({ loading, error, data: { findDocument } }) => {
 													if (loading)
-														return (
-															<StyledModalTitle>
-																Searching for event...
-															</StyledModalTitle>
-														);
+														return <StyledProgressSpinnerSecondary />;
 													if (error) return <p>Error</p>;
 													if (
 														findDocument === null ||
@@ -183,11 +180,7 @@ class EventDetails extends React.Component {
 											>
 												{({ loading, error, data: { findFolder } }) => {
 													if (loading)
-														return (
-															<StyledModalTitle>
-																Searching for event...
-															</StyledModalTitle>
-														);
+														return <StyledProgressSpinnerSecondary />;
 													if (error) return <p>Error</p>;
 													if (findFolder === null || findFolder === undefined) {
 														return (
@@ -228,11 +221,7 @@ class EventDetails extends React.Component {
 											>
 												{({ loading, error, data: { findMessage } }) => {
 													if (loading)
-														return (
-															<StyledModalTitle>
-																Searching for event...
-															</StyledModalTitle>
-														);
+														return <StyledProgressSpinnerSecondary />;
 													if (error) return <p>Error</p>;
 													if (
 														findMessage === null ||

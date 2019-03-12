@@ -35,6 +35,7 @@ import {
 // ---------------- Styled Imports ---------------------- //
 import styled from 'styled-components';
 import { colors } from '../../../colorVariables';
+import { StyledProgressSpinnerSecondary } from '../../../app-styles';
 
 const ModalContents = styled.div`
 	height: 700px;
@@ -129,7 +130,7 @@ class FolderDetails extends React.Component {
 							variables={{ folder: folder._id }}
 						>
 							{({ loading, error, data: { findDocumentsByFolder } }) => {
-								if (loading) return <p>Loading...</p>;
+								if (loading) return <StyledProgressSpinnerSecondary />;
 								if (error) return <p>Error</p>;
 
 								return (

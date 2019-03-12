@@ -18,6 +18,7 @@ import 'filepond/dist/filepond.min.css';
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
+import { StyledProgressSpinnerSecondary } from '../../app-styles';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -88,7 +89,7 @@ class AddMessage extends React.Component {
 					<StyledModalTitle>Add a New Message</StyledModalTitle>
 					<Query query={query.FIND_TAGS_BY_TEAM} variables={{ team }}>
 						{({ loading, error, data: { findTagsByTeam } }) => {
-							if (loading) return <p>Loading...</p>;
+							if (loading) return <StyledProgressSpinnerSecondary />;
 							if (error) return <p>Error</p>;
 							return (
 								<Mutation mutation={ADD_MESSAGE}>

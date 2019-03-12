@@ -24,6 +24,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import styled from 'styled-components';
 import { colors } from '../../colorVariables';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
+import { StyledProgressSpinnerSecondary } from '../../app-styles';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -361,7 +362,7 @@ class MessageDetail extends Component {
 							variables={{ message: message._id }}
 						>
 							{({ loading, error, data: { findMsgCommentsByMessage } }) => {
-								if (loading) return <p>Loading...</p>;
+								if (loading) return <StyledProgressSpinnerSecondary />;
 								if (error) return <p>Error</p>;
 								return (
 									<>

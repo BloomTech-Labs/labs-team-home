@@ -23,6 +23,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { colors } from '../colorVariables';
 import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
+import { StyledProgressSpinner } from '../app-styles';
 
 const styles = {
 	root: {
@@ -121,7 +122,7 @@ class ContentContainer extends React.PureComponent {
 					variables={{ id: this.props.match.params.team }}
 				>
 					{({ loading, error, data: { findTeam }, data }) => {
-						if (loading) return <p>Loading...</p>;
+						if (loading) return <StyledProgressSpinner />;
 						if (error) return <p>Error!</p>;
 						return (
 							<>

@@ -10,6 +10,7 @@ import Folder from './Folder';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
+import { StyledProgressSpinner } from '../../../app-styles';
 
 const FolderContainer = styled.div`
 	display: flex;
@@ -106,7 +107,7 @@ class Folders extends Component {
 					variables={{ team: this.props.team._id }}
 				>
 					{({ loading, error, data: { findFoldersByTeam } }) => {
-						if (loading) return <p>Loading...</p>;
+						if (loading) return <StyledProgressSpinner />;
 						if (error) return console.error(error);
 						if (findFoldersByTeam && findFoldersByTeam.length > 0) {
 							switch (this.state.sortOption) {
@@ -134,7 +135,7 @@ class Folders extends Component {
 									key={folder._id}
 								>
 									{({ loading, error, data: { findDocumentsByFolder } }) => {
-										if (loading) return <p>Loading...</p>;
+										if (loading) return <StyledProgressSpinner />;
 										if (error) return console.error(error);
 										return (
 											<div onClick={() => this.toggleFolderDetail(folder)}>

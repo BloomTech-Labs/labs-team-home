@@ -18,6 +18,7 @@ import {
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import CardContent from '@material-ui/core/CardContent';
+import { StyledProgressSpinnerSecondary } from '../../../app-styles';
 
 // ------------- Icon imports ------------------------------- //
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
@@ -347,7 +348,6 @@ class DocumentDetails extends React.Component {
 														onChange={e => this.folderChange(e, updateDocument)}
 													>
 														<option value="">Move to ...</option>
-
 														<Query
 															query={query.FIND_FOLDERS_BY_TEAM}
 															variables={{ team: this.props.team }}
@@ -522,7 +522,7 @@ class DocumentDetails extends React.Component {
 							variables={{ document: document._id }}
 						>
 							{({ loading, error, data: { findDocCommentsByDocument } }) => {
-								if (loading) return <p>Loading...</p>;
+								if (loading) return <StyledProgressSpinnerSecondary />;
 								if (error) return <p>Error</p>;
 								return (
 									<>

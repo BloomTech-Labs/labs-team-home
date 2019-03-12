@@ -9,6 +9,7 @@ import * as mutation from '../../../constants/mutations';
 
 // ------------- Component Imports ---------------------- //
 import TeamCard from './TeamCard/TeamCard';
+import { StyledProgressSpinner } from '../../../app-styles';
 
 // ------------- MUI Imports ---------------------- //
 import { withStyles } from '@material-ui/core/styles';
@@ -96,7 +97,7 @@ class TeamList extends React.Component {
 				<style.TeamsList>
 					<Query query={query.FIND_TEAMS_BY_USER}>
 						{({ loading, error, data: { findTeamsByUser } }) => {
-							if (loading) return <p>Loading...</p>;
+							if (loading) return <StyledProgressSpinner />;
 							if (error) return <p>Error.</p>;
 							// Map over the teams
 							if (findTeamsByUser.length) {

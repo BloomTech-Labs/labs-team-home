@@ -7,6 +7,7 @@ import { FIND_EVENTS_BY_TEAM } from '../../constants/queries';
 // ------------- Component Imports ---------------------- //
 import Activity from './Activity';
 import ActivityModal from './ActivityModal';
+import { StyledProgressSpinner } from '../../app-styles';
 
 export default class ActivityTimeline extends React.Component {
 	constructor(props) {
@@ -37,7 +38,7 @@ export default class ActivityTimeline extends React.Component {
 					pollInterval={5000}
 				>
 					{({ loading, error, data: { findEventsByTeam } }) => {
-						if (loading) return <p>Loading...</p>;
+						if (loading) return <StyledProgressSpinner />;
 						if (error) return <p>Error!</p>;
 
 						if (findEventsByTeam && findEventsByTeam.length > 0) {
