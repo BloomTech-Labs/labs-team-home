@@ -19,6 +19,7 @@ import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import CardContent from '@material-ui/core/CardContent';
 import { StyledProgressSpinnerSecondary } from '../../../app-styles';
+import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
 // ------------- Icon imports ------------------------------- //
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
@@ -43,8 +44,8 @@ import {
 // ---------------- Styled Components ---------------------- //
 
 const ModalContents = styled.div`
-	height: 700px;
-	width: 565px;
+	height: ${mediaQueryFor.smDevice ? 'auto' : '700px'};
+	width: ${mediaQueryFor.smDevice ? 'auto' : '565px'};
 	overflow-y: auto;
 	padding-right: 1.3em;
 	margin-top: 1rem;
