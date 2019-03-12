@@ -9,11 +9,14 @@
 import Foundation
 
 enum DocumentHelper {
-    static func displayTagText(tag: String) -> String{
+    static func displayTagText(tag: String?) -> String{
+        guard let tag = tag else { return "" }
+        
         if tag.first == "#"{
             return tag
         } else {
             return "#\(tag)"
         }
+        
     }
 }
