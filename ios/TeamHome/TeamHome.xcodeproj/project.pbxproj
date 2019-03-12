@@ -14,6 +14,7 @@
 		103E7301222DEEA200F54B0F /* DocumentsDetailCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 103E7300222DEEA100F54B0F /* DocumentsDetailCollectionViewController.graphql */; };
 		10409404221E265F00EC4389 /* AddEditDocumentViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 10409403221E265F00EC4389 /* AddEditDocumentViewController.graphql */; };
 		1060AA0C221E6416008A72A2 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */; };
+		109292902238605E00F137CD /* DocumentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092928F2238605E00F137CD /* DocumentHelper.swift */; };
 		1092D5B1221E8A5300579B34 /* DocumentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */; };
 		1092D5B3221E8B7D00579B34 /* DocumentsTableViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */; };
 		10E2A19C2216153F007EC662 /* AddEditDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E2A19B2216153F007EC662 /* AddEditDocumentViewController.swift */; };
@@ -92,6 +93,7 @@
 		103E7300222DEEA100F54B0F /* DocumentsDetailCollectionViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DocumentsDetailCollectionViewController.graphql; sourceTree = "<group>"; };
 		10409403221E265F00EC4389 /* AddEditDocumentViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AddEditDocumentViewController.graphql; sourceTree = "<group>"; };
 		1060AA0B221E6416008A72A2 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
+		1092928F2238605E00F137CD /* DocumentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentHelper.swift; sourceTree = "<group>"; };
 		1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewController.swift; sourceTree = "<group>"; };
 		1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DocumentsTableViewController.graphql; sourceTree = "<group>"; };
 		10E2A19B2216153F007EC662 /* AddEditDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditDocumentViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */,
 				7B734DF621FF6E3900F56C5F /* Appearance.swift */,
 				7B734E022200F21600F56C5F /* DateFormatter.swift */,
+				1092928F2238605E00F137CD /* DocumentHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				7BA77E8C21E7F5BE00C862C1 /* Team.swift in Sources */,
 				7BA77EAC21E9376E00C862C1 /* AddEditMessageViewController.swift in Sources */,
 				103E72FF222DEE5F00F54B0F /* DocumentCommentCollectionViewCell.swift in Sources */,
+				109292902238605E00F137CD /* DocumentHelper.swift in Sources */,
 				7BA77E8521E7B2B500C862C1 /* User.swift in Sources */,
 				7BA77EBE21E93D5600C862C1 /* SettingsViewController.swift in Sources */,
 				F8A527812230861900E715E8 /* FolderContentsTableViewController.swift in Sources */,

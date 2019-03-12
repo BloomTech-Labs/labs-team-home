@@ -43,7 +43,7 @@ class DocumentsTableViewController: UITableViewController {
 //        } else {
 //            cell.detailTextLabel?.text = ""
 //        }
-        cell.detailTextLabel?.text = displayTagText(tag: document.title)
+        cell.detailTextLabel?.text = DocumentHelper.displayTagText(tag: document.title)
         return cell
         
     }
@@ -80,14 +80,6 @@ class DocumentsTableViewController: UITableViewController {
     }
     //MARK: - Private Functions
     
-    //Adds hashtag to tag for display if it's not part of the tag already
-    private func displayTagText(tag: String) -> String{
-        if tag.first == "#"{
-            return tag
-        } else {
-            return "#\(tag)"
-        }
-    }
     private func loadDocuments(with apollo: ApolloClient) {
         
         guard let team = team,
