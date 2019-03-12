@@ -84,6 +84,15 @@ export const FIND_FOLDER = gql`
 	${f.FULL_FOLDER}
 `;
 
+export const FIND_USER = gql`
+	query findUser($id: ID!) {
+		findUser(input: { id: $id }) {
+			...FullUser
+		}
+	}
+	${f.FULL_USER}
+`;
+
 export const FIND_FOLDERS_BY_TEAM = gql`
 	query findFoldersByTeam($team: ID!) {
 		findFoldersByTeam(input: { team: $team }) {

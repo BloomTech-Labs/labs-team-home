@@ -18,6 +18,7 @@ const Container = styled(Card)`
 	background-color: ${colors.button};
 	border-radius: 3px;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	margin: 3px;
 
 	h3 {
 		font-size: 1.2rem;

@@ -134,8 +134,10 @@ class AddMessage extends React.Component {
 																this.props.hideModal();
 															} else {
 																return addTag({
-																	name: this.state.tag,
-																	team: team
+																	variables: {
+																		name: this.state.tag,
+																		team: team
+																	}
 																})
 																	.then(
 																		async ({
