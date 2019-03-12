@@ -168,7 +168,7 @@ class TeamDetails extends React.Component {
 														id: team._id,
 														name: this.state.editTeamName
 													},
-													refetchQueries: { query: query.FIND_TEAMS_BY_USER }
+													refetchQueries: [{ query: query.FIND_TEAMS_BY_USER }]
 												}).then(
 													this.setState({
 														editTeamName: '',
@@ -256,9 +256,11 @@ class TeamDetails extends React.Component {
 																amount: 999,
 																token: token.id
 															},
-															refetchQueries: {
-																query: query.FIND_TEAMS_BY_USER
-															}
+															refetchQueries: [
+																{
+																	query: query.FIND_TEAMS_BY_USER
+																}
+															]
 														})
 															.then(res => {
 																// console.log(res);
@@ -364,10 +366,12 @@ class TeamDetails extends React.Component {
 																	id: team._id,
 																	user: user.user._id
 																},
-																refetchQueries: {
-																	query: query.FIND_TEAM,
-																	variables: { id: team._id }
-																}
+																refetchQueries: [
+																	{
+																		query: query.FIND_TEAM,
+																		variables: { id: team._id }
+																	}
+																]
 															});
 														}}
 													>
@@ -387,9 +391,11 @@ class TeamDetails extends React.Component {
 																			id: team._id,
 																			user: currentUser
 																		},
-																		refetchQueries: {
-																			query: query.FIND_TEAMS_BY_USER
-																		}
+																		refetchQueries: [
+																			{
+																				query: query.FIND_TEAMS_BY_USER
+																			}
+																		]
 																	});
 																	this.props.history.push('/dashboard');
 																}}
