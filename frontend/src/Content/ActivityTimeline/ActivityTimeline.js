@@ -14,7 +14,6 @@ export default class ActivityTimeline extends React.Component {
 		super(props);
 
 		this.state = {
-			team: props.team,
 			eventDetailOpen: false,
 			currentEvent: null
 		};
@@ -34,7 +33,7 @@ export default class ActivityTimeline extends React.Component {
 				{/* Queries for all Events, refected every 5000ms (5 seconds)*/}
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
-					variables={{ team: this.state.team._id }}
+					variables={{ team: this.props.team._id }}
 					pollInterval={5000}
 				>
 					{({ loading, error, data: { findEventsByTeam } }) => {

@@ -11,6 +11,10 @@ import Doc from '../Doc';
 
 // ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
+import { colors } from '../../../colorVariables';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { MenuItem } from '@material-ui/core';
 
 const Container = styled.div`
 	display: flex;
@@ -45,23 +49,29 @@ const Error = styled.p`
 `;
 
 const FormDiv = styled.div`
-	width: 92%;
+	width: 97%;
 	display: flex;
 	flex-direction: row-reverse;
 `;
 
 const SortForm = styled.form`
 	height: 50px;
-	margin-top: 15px;
-	label {
-		color: white;
-	}
-	select {
-		margin-left: 10px;
-	}
-	option {
-		height: 25px;
-	}
+	margin-top: 20px;
+	font-size: 16px;
+	color: white;
+`;
+
+const StyledOutline = styled(OutlinedInput).attrs(() => ({
+	labelWidth: 10
+}))`
+	height: 30px;
+	border-radius: 5px;
+`;
+
+const StyledSelect = styled(Select)`
+	background-color: rgb(143, 136, 150, 0.75);
+	margin-left: 10px;
+	color: ${colors.text};
 `;
 
 function collect(connect, monitor) {
@@ -110,13 +120,14 @@ class DocumentContainer extends React.Component {
 						<SortForm>
 							<label>
 								Sort:
-								<select
+								<StyledSelect
 									value={this.props.sortOption}
 									onChange={this.props.sortChange}
+									input={<StyledOutline name="Sort" />}
 								>
-									<option value="newest">Newest First</option>
-									<option value="oldest">Oldest First</option>
-								</select>
+									<MenuItem value="newest">Newest First</MenuItem>
+									<MenuItem value="oldest">Oldest First</MenuItem>
+								</StyledSelect>
 							</label>
 						</SortForm>
 					</FormDiv>

@@ -102,8 +102,10 @@ class AddDocument extends React.Component {
 																this.props.hideModal();
 															} else {
 																return addTag({
-																	name: this.state.tag,
-																	team: this.props.team
+																	variables: {
+																		name: this.state.tag,
+																		team: this.props.team
+																	}
 																})
 																	.then(
 																		async ({

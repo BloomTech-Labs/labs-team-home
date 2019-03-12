@@ -124,7 +124,8 @@ class EventDetails extends React.Component {
 						<CardContent>
 							<StyledModalBody paragraph component="p">
 								{event.user.firstName} {event.action_string} a{' '}
-								{event.object_string} on {event.createdAt.toDateString()}
+								{event.object_string} on {event.createdAt.toDateString()} at{' '}
+								{event.createdAt.toLocaleTimeString()}
 							</StyledModalBody>
 							<StyledModalCardAction>
 								{event.action_string !== 'deleted' ? (

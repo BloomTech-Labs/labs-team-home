@@ -1,8 +1,12 @@
 import React from 'react';
-import { StyledButton } from '../../styles/container.styles';
+import { StyledButton, ButtonDiv } from '../../styles/container.styles';
 
 const FormButton = props => {
-	return <StyledButton type="submit">{props.title}</StyledButton>;
+	return (
+		<ButtonDiv>
+			<StyledButton type="submit">{props.title}</StyledButton>
+		</ButtonDiv>
+	);
 };
 
 export default FormButton;
