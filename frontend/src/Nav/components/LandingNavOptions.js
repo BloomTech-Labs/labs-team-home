@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { Collapse, Nav, NavItem } from 'reactstrap';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 
-// REMOVED: LandingButton was condensed into this file
-// import LandingButton from '../components/LandingButton';
-
 const LandBtn = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
 	font-family: Comfortaa;

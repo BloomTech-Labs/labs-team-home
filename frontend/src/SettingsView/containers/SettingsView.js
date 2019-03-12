@@ -12,9 +12,9 @@ import FilePondPluginFileTypeValidation from 'filepond-plugin-file-validate-type
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
+import 'filepond/dist/filepond.min.css';
 // image preview not working
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond/dist/filepond.min.css';
 
 // ------------- Component Imports ---------------------- //
 import FormInput from '../components/forms/FormInput';

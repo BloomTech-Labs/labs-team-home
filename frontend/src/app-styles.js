@@ -1,5 +1,39 @@
+import React from 'react';
+
 import styled from 'styled-components';
 import mediaQueryFor from './_global_styles/responsive_querie';
+import { colors } from './colorVariables';
+
+// ------------- MUI imports ---------------------- //
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+//Lading Spinner styles
+const LoadingDiv = styled.div`
+	color: ${props => props.color};
+	margin: 0 auto;
+	padding: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
+//loading Spinner Component: Purple
+export const StyledProgressSpinner = () => {
+	return (
+		<LoadingDiv color={colors.button}>
+			<CircularProgress color="inherit" />
+		</LoadingDiv>
+	);
+};
+
+//loading Spinner Component: Yellow
+export const StyledProgressSpinnerSecondary = () => {
+	return (
+		<LoadingDiv color={colors.header}>
+			<CircularProgress color="inherit" />
+		</LoadingDiv>
+	);
+};
 
 const AppStyles = styled.div`
 	margin: 0 auto;

@@ -12,6 +12,7 @@ import { ADD_DOCUMENT, ADD_TAG } from '../../../constants/mutations';
 // ------------- Style Imports ---------------------- //
 // import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
+import { StyledProgressSpinnerSecondary } from '../../../app-styles';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -55,7 +56,7 @@ class AddDocument extends React.Component {
 						variables={{ team: this.props.team }}
 					>
 						{({ loading, error, data: { findTagsByTeam } }) => {
-							if (loading) return <p>Loading...</p>;
+							if (loading) return <StyledProgressSpinnerSecondary />;
 							if (error) return <p>Error</p>;
 							return (
 								<Mutation mutation={ADD_DOCUMENT}>

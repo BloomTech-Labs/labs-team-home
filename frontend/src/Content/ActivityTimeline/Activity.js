@@ -1,14 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+// ------------- MUI Imports ---------------------- //
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+
+// ------------- Style Imports ---------------------- //
 import { colors } from '../../colorVariables';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
+import styled from 'styled-components';
 
 const styles = {
 	root: {
