@@ -139,6 +139,7 @@ const ReplySubtext = styled(StyledTypography)`
 
 const TagDiv = styled.div`
 	p {
+		width: 100px;
 		padding: 5px;
 		font-size: 16px;
 		border: 2px solid white;
