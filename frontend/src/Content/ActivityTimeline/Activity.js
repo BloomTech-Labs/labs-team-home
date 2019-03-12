@@ -30,40 +30,50 @@ const styles = {
 	},
 	bigAvatar: {
 		margin: 5,
-		width: 60,
-		height: 60
+		width: 30,
+		height: 30
 	}
 };
 
 const Container = styled(Card)`
+	display: flex;
+	justify-content: center;
+
 	width: 70%;
 	color: white;
 	margin: 5px 3%;
 	background-color: #3e3145;
+
 	${props => (props.own === 'true' ? 'position: relative' : null)};
 	${props => (props.own === 'true' ? 'float: right' : null)};
 
 	${mediaQueryFor.mdDevice`
 		width: 100%;
 		margin: 0;
+		padding: 0 5px;
 		border-bottom: 1px solid ${colors.border};
 	`}
 `;
 
 const Info = styled(CardContent)`
 	display: flex;
-	flex-direction: column;
-	max-width: 740px;
-	margin: 5px 10px;
-	justify-content: ${props =>
-		props.own === 'true' ? 'flex-start' : 'flex-end'};
-	width: ${props => (props.own === 'true' ? '90%' : '85%')};
-	${props =>
-		props.own === 'true' ? 'text-align: right' : 'padding-right: 85px'};
+	flex-direction: row;
+	width: 100%;
+	height: 45px;
+	padding: 10px 0px;
 
-	${mediaQueryFor.smDevice`
+	/* border: 1px solid blue; */
+
+	justify-content: ${props => (props.own === 'true' ? 'flex-end' : 'flex-start')};
+/* 
+	padding-right: ${props => (props.own === 'true' ? '0' : '15px')};
+	padding-left: ${props => (props.own === 'true' ? '15px' : '0')}; */
+
+	/* text-align: ${props => (props.own === 'true' ? 'right' : 'left')}; */
+
+	/* ${mediaQueryFor.smDevice`
 		max-width: 80%;
-	`}
+	`} */
 `;
 
 const Title = styled(Typography)`
@@ -73,7 +83,11 @@ const Title = styled(Typography)`
 
 const StyledTypography = styled(Typography)`
 	color: ${colors.text};
-
+	margin: 0;
+	/* border: 1px solid yellow; */
+	/* width: 100%; */
+	/* height: 50px; */
+	padding-top: 2px;
 	${mediaQueryFor.smDevice`
 		font-size: .95rem;
 	`}
@@ -98,20 +112,19 @@ function Activity(props) {
 					/>
 				) : null}
 
-				<Info>
+				<Info own={own}>
 					<StyledTypography
+						own={own}
 						gutterBottom
 						noWrap
-						variant={'title'}
-						component="h4"
+						variant={'body1'}
+						// component="h5"
 						className={classes.cardText}
 					>
 						{user.firstName} {user.lastName.slice(0, 1)}
 						{'. '}
 						{action_string}{' '}
-						{object_string === 'team' ? 'the team' : `a ${object_string}`}
-					</StyledTypography>
-					<StyledTypography component="p" noWrap className={classes.cardText}>
+						{object_string === 'team' ? 'the team' : `a ${object_string}`}{' '}
 						{createdAt.toDateString()}
 					</StyledTypography>
 					<Title component="p" noWrap />

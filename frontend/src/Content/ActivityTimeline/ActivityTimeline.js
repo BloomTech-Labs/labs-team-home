@@ -30,7 +30,7 @@ export default class ActivityTimeline extends React.Component {
 		// console.log('current props from activity timeline: ', this.props);
 		return (
 			<div>
-				{/* Queries for all Events, refected every 5000ms (5 seconds)*/}
+				{/* Queries for all Events, reflected every 5000ms (5 seconds)*/}
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
 					variables={{ team: this.props.team._id }}

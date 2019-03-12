@@ -27,7 +27,27 @@ const msgCommentResolvers = {
 						{ _id: input.message },
 						{ $push: { comments: [comment._id] } },
 						{ new: true }
-					).populate('team subscribedUsers');
+					)
+						.populate('team subscribedUsers message')
+						.then(async item => {
+							// console.log('\n\nItem to be passed: \n\n', item);
+							try {
+								await new Event({
+									team: item.team._id,
+									user: item.user,
+									action_string: action_str.created,
+									object_string: object_str.msgComment,
+									event_target_id: item._id
+								})
+									.save()
+									.then(event => {
+										// console.log('\n\nshould be a success: \n\n', event);
+									});
+							} catch (error) {
+								console.error('Could not add event', error);
+							}
+							return item;
+						});
 					const emails = message.subscribedUsers
 						.filter(
 							// creates an array of emails of subscribed users, if their email is on file and the user isn't the one adding the message
