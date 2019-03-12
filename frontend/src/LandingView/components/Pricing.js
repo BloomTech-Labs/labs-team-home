@@ -64,7 +64,11 @@ const tiers = [
 	{
 		title: 'Free',
 		price: '0',
-		description: ['10 users included', 'Help center access', 'Email support'],
+		description: [
+			'Up to 5 users per team',
+			'Help center access',
+			'Email support'
+		],
 		buttonText: 'Sign up for free',
 		buttonVariant: 'outlined'
 	},
