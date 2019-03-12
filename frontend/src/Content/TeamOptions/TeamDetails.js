@@ -204,9 +204,11 @@ class TeamDetails extends React.Component {
 														e.preventDefault();
 														deleteTeam({
 															variables: { id: team._id },
-															refetchQueries: {
-																query: query.FIND_TEAMS_BY_USER
-															}
+															refetchQueries: [
+																{
+																	query: query.FIND_TEAMS_BY_USER
+																}
+															]
 														}).then(this.props.history.push('/dashboard'));
 													}}
 												>
