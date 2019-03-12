@@ -4,8 +4,12 @@ import { colors, palette } from '../../colorVariables';
 
 export const LandingContentContainer = styled.div`
 	display: flex;
-	margin: 200px auto 0px auto;
+	margin: 100px auto 0px auto;
 	justify-content: space-between;
+
+	video {
+		width: 400px;
+	}
 `;
 
 export const LandingContent = styled.div`
@@ -34,6 +38,8 @@ export const LandingContent = styled.div`
     font-size: 1.4rem;
     font-weight:400;
 	}
+
+  
   ${mediaQueryFor.lgDevice`
     position:absolute;
     display:flex;

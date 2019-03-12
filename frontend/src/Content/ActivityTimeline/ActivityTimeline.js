@@ -35,7 +35,7 @@ export default class ActivityTimeline extends React.Component {
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
 					variables={{ team: this.state.team._id }}
-					pollInterval={5000}
+					pollInterval={5000000}
 				>
 					{({ loading, error, data: { findEventsByTeam } }) => {
 						if (loading) return <StyledProgressSpinner />;

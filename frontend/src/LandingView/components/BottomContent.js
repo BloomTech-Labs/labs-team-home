@@ -3,7 +3,7 @@ import {
 	LandingContent,
 	LandingContentContainer
 } from '../styles/BottomStyled';
-import frontpage from '../../assets/cutiedog.mp4';
+import frontpage from '../../assets/demo.mp4';
 
 const BottomContent = props => {
 	return (
