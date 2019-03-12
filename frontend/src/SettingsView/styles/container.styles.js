@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
 import { colors } from '../../colorVariables';
-import { Button, Input } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
 	root: {
@@ -18,21 +19,49 @@ const styles = theme => ({
 	}
 });
 
+// const SettingsContainer = styled.div`
+// 	position: relative;
+// 	top: 85px;
+// 	width: 80%;
+// 	display: flex;
+// 	flex-direction: column;
+// 	margin: 0 auto;
+// 	/* margin-left: 0 5% 0 5%; */
+// 	color: white;
+// 	/* font-family: Comfortaa; */
+
 const SettingsContainer = styled.div`
-	position: relative;
-	top: 85px;
 	width: 80%;
 	display: flex;
 	flex-direction: column;
-	margin: 0 auto;
-	/* margin-left: 0 5% 0 5%; */
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	margin: 125px 10% 0 10%;
+	border: 2px solid #4a4550;
+	position: relative;
 	color: white;
-	/* font-family: Comfortaa; */
 
 	${mediaQueryFor.smDevice`
     display: flex;
 	  flex-direction: column;
     `}
+`;
+
+const SettingsTitle = styled.div`
+	position: absolute;
+	width: 150px;
+	height: 40px;
+	text-align: center;
+	top: -13px;
+	left: 20px;
+	background-color: #5a5560;
+
+	h1 {
+		color: white;
+		font-size: 18px;
+		letter-spacing: 1px;
+	}
 `;
 
 const StyledForm = styled.form`
@@ -44,7 +73,7 @@ const AvatarUploadContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 20px 0;
+	margin: 20px auto;
 	${mediaQueryFor.smDevice`
 		display: flex;
 		flex-direction: column;
@@ -64,14 +93,26 @@ const ImageFigure = styled.figure`
 `;
 
 const StyledAvatar = styled.img`
-	max-width: 50px;
-	height: 50px;
+	max-width: 250px;
+	height: 250px;
 	border-radius: 50%;
 	margin-bottom: 5px;
 `;
 
+const ButtonDiv = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: row-reverse;
+
+	${mediaQueryFor.smDevice`
+    justify-content: center;
+    `}
+`;
+
 const StyledButton = styled(Button)`
 	color: ${colors.text};
+	height: 40px;
+	width: 100px;
 	background-color: ${colors.button};
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
 	&:hover {
@@ -83,10 +124,12 @@ const FormInputStyles = styled.div`
 	display: flex;
 	flex-flow: row;
 	justify-content: space-between;
+	align-items: center;
 	padding: 10px 1%;
 	label {
 		width: 25%;
 		margin-right: 5px;
+		margin-bottom: 0;
 	}
 	${mediaQueryFor.smDevice`
 		display: flex;
@@ -97,18 +140,15 @@ const FormInputStyles = styled.div`
 		}
 		`}
 `;
-
-const StyledInput = styled(Input)`
-max-width: 70%;
-/* color: ${colors.text}; */
-padding: 10px;
-/* border-radius: 5px; */
-/* border-bottom: 1px solid ${colors.text}; */
-
-	${mediaQueryFor.smDevice`
-		width: 98%;
-	`}
-	/* transition: background-color 250ms ease-in-out, transform 150ms ease; */
+const StyledInput = styled(TextField).attrs(() => ({
+	fullWidth: true,
+	variant: 'outlined'
+}))`
+	border-radius: 5px;
+	background-color: rgb(143, 136, 150, 0.75);
+	input {
+		color: ${colors.text};
+	}
 `;
 
 const FormCheckboxStyles = styled.div`
@@ -146,6 +186,10 @@ const StyledCheckbox = styled.input`
 	border: 2px solid ${colors.header};
 	padding: 0;
 	margin-left: 10%;
+
+	${mediaQueryFor.smDevice`
+    margin-left: 0
+    `}
 `;
 
 const StyledBillingContainer = styled.div``;
@@ -207,5 +251,7 @@ export {
 	// StyledTeamCardDiv,
 	// StyledTeamCardH3,
 	// StyledTeamCardP,
-	StyledForm
+	StyledForm,
+	SettingsTitle,
+	ButtonDiv
 };
