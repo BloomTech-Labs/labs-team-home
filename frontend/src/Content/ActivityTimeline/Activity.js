@@ -1,14 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+// ------------- MUI Imports ---------------------- //
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+
+// ------------- Style Imports ---------------------- //
 import { colors } from '../../colorVariables';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
+import styled from 'styled-components';
+
+import ActivityCartoon from './ActivityCartoon';
 
 const styles = {
 	root: {
@@ -26,40 +32,39 @@ const styles = {
 	},
 	bigAvatar: {
 		margin: 5,
-		width: 60,
-		height: 60
+		width: 30,
+		height: 30
 	}
 };
 
 const Container = styled(Card)`
-	width: 70%;
+	display: flex;
+	justify-content: center;
+	width: 55%;
+	max-width: 325px;
 	color: white;
 	margin: 5px 3%;
 	background-color: #3e3145;
-	${props => (props.own === 'true' ? 'position: relative' : null)};
-	${props => (props.own === 'true' ? 'float: right' : null)};
 
-	${mediaQueryFor.mdDevice`
+	${props => (props.own === 'false' ? 'margin-right: 30%;' : null)};
+	${props => (props.own === 'true' ? 'margin-left: 30%;' : null)};
+
+	${mediaQueryFor.smDevice`
 		width: 100%;
 		margin: 0;
+		padding: 0 5px;
 		border-bottom: 1px solid ${colors.border};
 	`}
 `;
 
 const Info = styled(CardContent)`
 	display: flex;
-	flex-direction: column;
-	max-width: 740px;
-	margin: 5px 10px;
+	flex-direction: row;
+	width: 100%;
+	height: 45px;
+	padding: 10px 0px;
 	justify-content: ${props =>
-		props.own === 'true' ? 'flex-start' : 'flex-end'};
-	width: ${props => (props.own === 'true' ? '90%' : '85%')};
-	${props =>
-		props.own === 'true' ? 'text-align: right' : 'padding-right: 85px'};
-
-	${mediaQueryFor.smDevice`
-		max-width: 80%;
-	`}
+		props.own === 'true' ? 'flex-end' : 'flex-start'};
 `;
 
 const Title = styled(Typography)`
@@ -69,7 +74,8 @@ const Title = styled(Typography)`
 
 const StyledTypography = styled(Typography)`
 	color: ${colors.text};
-
+	margin: 0;
+	padding-top: 2px;
 	${mediaQueryFor.smDevice`
 		font-size: .95rem;
 	`}
@@ -87,37 +93,41 @@ function Activity(props) {
 				onClick={props.clickHandler}
 			>
 				{own === 'false' ? ( //if the creator of the activity is not the user who is logged in
-					<Avatar
-						src={user.avatar}
-						alt="User avatar"
-						className={classes.bigAvatar}
-					/>
+					<>
+						<Avatar
+							src={user.avatar}
+							alt="User avatar"
+							className={classes.bigAvatar}
+						/>
+						<ActivityCartoon action={action_string} object={object_string} />
+					</>
 				) : null}
 
-				<Info>
+				<Info own={own}>
 					<StyledTypography
+						own={own}
 						gutterBottom
 						noWrap
-						variant={'title'}
-						component="h4"
+						variant={'body1'}
+						component="h5"
 						className={classes.cardText}
 					>
 						{user.firstName} {user.lastName.slice(0, 1)}
 						{'. '}
-						{action_string} a {object_string}
-					</StyledTypography>
-					<StyledTypography component="p" noWrap className={classes.cardText}>
 						{createdAt.toDateString()}
 					</StyledTypography>
 					<Title component="p" noWrap />
 				</Info>
 
 				{own === 'true' ? ( //if the creator of the activity is the user who is logged in
-					<Avatar
-						src={user.avatar}
-						alt="User avatar"
-						className={classes.bigAvatar}
-					/>
+					<>
+						<Avatar
+							src={user.avatar}
+							alt="User avatar"
+							className={classes.bigAvatar}
+						/>
+						<ActivityCartoon action={action_string} object={object_string} />{' '}
+					</>
 				) : null}
 			</CardActionArea>
 		</Container>

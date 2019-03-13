@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 // ---------------- Components ---------------------- //
 import Message from './Message';
-import AddMessage from './AddMessage';
 import MessageDetail from './MessageDetail';
 
 // ---------------- GQL ---------------------- //
@@ -15,6 +14,9 @@ import mediaQueryFor from '../../_global_styles/responsive_querie';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import { colors } from '../../colorVariables';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { MenuItem } from '@material-ui/core';
 
 const styles = theme => ({
 	root: {
@@ -49,6 +51,10 @@ const Messageboard = styled.div`
 `;
 
 const MessagesContainer = styled.div`
+	padding: 10px;
+	padding-bottom: 20px;
+	border: 2px solid #4a4550;
+	position: relative;
 	margin: 0;
 	form {
 		height: 50px;
@@ -66,6 +72,22 @@ const MessagesContainer = styled.div`
 	`}
 `;
 
+const ContainerTitle = styled.div`
+	position: absolute;
+	width: 200px;
+	height: 40px;
+	text-align: center;
+	top: -15px;
+	left: 20px;
+	background-color: #5a5560;
+
+	p {
+		color: white;
+		font-size: 18px;
+		letter-spacing: 1px;
+	}
+`;
+
 const FormDiv = styled.div`
 	width: 97%;
 	display: flex;
@@ -76,15 +98,19 @@ const SortForm = styled.form`
 	height: 50px;
 	margin-top: 20px;
 	font-size: 16px;
-	label {
-		color: white;
-	}
-	select {
-		margin-left: 10px;
-	}
-	option {
-		height: 30px;
-	}
+`;
+
+const StyledOutline = styled(OutlinedInput).attrs(() => ({
+	labelWidth: 10
+}))`
+	height: 30px;
+	border-radius: 5px;
+`;
+
+const StyledSelect = styled(Select)`
+	background-color: rgb(143, 136, 150, 0.75);
+	margin-left: 10px;
+	color: ${colors.text};
 `;
 
 class MessageBoard extends React.Component {
@@ -120,12 +146,6 @@ class MessageBoard extends React.Component {
 		this.setState({ sortOption: e.target.value });
 	};
 
-	toggleModalHandler = () => {
-		this.setState(prevState => ({
-			showModal: !prevState.showModal
-		}));
-	};
-
 	toggleMessageDetail = msg => {
 		this.setState(prevState => ({
 			messageDetailOpen: !prevState.messageDetailOpen,
@@ -134,23 +154,27 @@ class MessageBoard extends React.Component {
 	};
 
 	render() {
-		// const { classes } = this.props;
 		return (
 			<Messageboard>
 				{/* List of all the messages */}
 				<MessagesContainer>
 					{/* Sorting options */}
+					<ContainerTitle>
+						<p>MESSAGE BOARD</p>
+					</ContainerTitle>
 					<FormDiv>
 						<SortForm>
 							<label>
 								Sort:
-								<select
+								<StyledSelect
+									outlined="true"
 									value={this.state.sortOption}
 									onChange={this.sortChange}
+									input={<StyledOutline name="Sort" />}
 								>
-									<option value="newest">Newest First</option>
-									<option value="oldest">Oldest First</option>
-								</select>
+									<MenuItem value="newest">Newest First</MenuItem>
+									<MenuItem value="oldest">Oldest First</MenuItem>
+								</StyledSelect>
 							</label>
 						</SortForm>
 					</FormDiv>
@@ -191,15 +215,6 @@ class MessageBoard extends React.Component {
 					</Query>
 				</MessagesContainer>
 				{/* All modals */}
-				{/* Add a message modal*/}
-				<AddMessage
-					open={this.state.showModal}
-					hideModal={this.toggleModalHandler}
-					stopProp={e => e.stopPropagation()}
-					team={this.props.team._id}
-					user={this.props.currentUser._id}
-				/>
-
 				{/* Click on a message and view its contents modal */}
 				<MessageDetail
 					open={this.state.messageDetailOpen}

@@ -1,28 +1,34 @@
 import React, { Component } from 'react';
+import Auth0 from '../../Auth/Auth';
+
+// ------------- gql Imports ---------------------- //
 import { Mutation } from 'react-apollo';
-// import SettingsTabs from '../components/tabs/SettingsTabs--DEPRECATED';
-import FormInput from '../components/forms/FormInput';
-import FormCheckbox from '../components/forms/FormCheckbox';
-import FormButton from '../components/forms/FormButton';
-// import BillingView from '../BillingView/BillingView';
 import * as mutation from '../../constants/mutations';
 import * as query from '../../constants/queries';
+
+// ------------- Filepond Imports ---------------------- //
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginFileTypeValidation from 'filepond-plugin-file-validate-type';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
+import 'filepond/dist/filepond.min.css';
 // image preview not working
 // import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond/dist/filepond.min.css';
 
+// ------------- Component Imports ---------------------- //
+import FormInput from '../components/forms/FormInput';
+import FormCheckbox from '../components/forms/FormCheckbox';
+import FormButton from '../components/forms/FormButton';
+
+// ------------- Styled Imports ---------------------- //
 import SettingsContainer, {
 	StyledAvatar,
 	ImageFigure,
 	AvatarUploadContainer,
-	StyledForm
+	StyledForm,
+	SettingsTitle
 } from '../styles/container.styles';
-import Auth0 from '../../Auth/Auth';
 
 registerPlugin(
 	FilePondPluginImageExifOrientation,
@@ -56,6 +62,7 @@ class SettingsView extends Component {
 
 	componentDidMount() {
 		const { currentUser } = this.props;
+		console.log('Current User: ', currentUser);
 		if (currentUser) {
 			const { email, firstName, lastName, avatar, phoneNumber } = currentUser;
 			const { receiveEmails, receiveTexts } = currentUser.toggles;
@@ -122,21 +129,16 @@ class SettingsView extends Component {
 	render() {
 		const { currentUser, history } = this.props;
 		return currentUser ? (
-			<Mutation
-				mutation={mutation.UPDATE_USER}
-				update={(cache, { data: { updateUser } }) =>
-					cache.writeQuery({ query: query.CURRENT_USER, data: updateUser })
-				}
-			>
-				{(updateUser, { data }) => (
+			<Mutation mutation={mutation.UPDATE_USER}>
+				{updateUser => (
 					<SettingsContainer>
-						<h1>User Settings</h1>
-						{/* <SettingsTabs>
-							<div label="Account Settings"> */}
+						<SettingsTitle>
+							<h1>USER SETTINGS</h1>
+						</SettingsTitle>
 						<StyledForm
 							onSubmit={e => {
-								console.log('submitted');
 								e.preventDefault();
+								console.log('user toggles: ', this.state.toggles);
 								updateUser({
 									variables: {
 										firstName: this.state.firstName,
@@ -145,9 +147,11 @@ class SettingsView extends Component {
 										phoneNumber: this.state.phoneNumber,
 										toggles: this.state.toggles,
 										avatar: this.state.avatar
-									}
+									},
+									refetchQueries: [{ query: query.CURRENT_USER }]
 								});
 								this.pond.removeFile();
+								alert('User settings Saved.');
 							}}
 						>
 							<AvatarUploadContainer>
@@ -266,7 +270,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormInput
-								inputtype={'text'}
+								inputtype={'email'}
 								title={'Email'}
 								name={'email'}
 								value={this.state.email}
@@ -279,7 +283,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormInput
-								inputtype="text"
+								inputtype="tel"
 								title={'Phone Number'}
 								name={'phoneNumber'}
 								value={this.state.phoneNumber}
@@ -295,26 +299,16 @@ class SettingsView extends Component {
 								title={'Receive emails?'}
 								name="receiveEmails"
 								handleSelect={this.handleSelect}
-								checked={this.state.toggles.receiveEmails}
+								checked={currentUser.toggles.receiveEmails}
 							/>
 							<FormCheckbox
 								title={'Receive texts?'}
 								name="receiveTexts"
 								handleSelect={this.handleSelect}
-								checked={this.state.toggles.receiveTexts}
+								checked={currentUser.toggles.receiveTexts}
 							/>
 							<FormButton type="submit" title="save" />
 						</StyledForm>
-						{/* </div>
-							{/* <div>{` `}</div>
-							<div label="Team Billing">
-								<BillingView
-									teamId={this.state.teamId}
-									handlePickTeam={this.handlePickTeam}
-									currentUser={currentUser}
-								/>
-							</div> 
-						</SettingsTabs> */}
 					</SettingsContainer>
 				)}
 			</Mutation>
@@ -327,9 +321,7 @@ class SettingsView extends Component {
 				{addUser => (
 					<SettingsContainer>
 						<h1>Create Account</h1>
-						{/* <SettingsTabs>
-							<div label="Account Settings"> */}
-						<form
+						<StyledForm
 							onSubmit={e => {
 								e.preventDefault();
 								if (
@@ -366,7 +358,7 @@ class SettingsView extends Component {
 							/>
 							<FormInput
 								inputtype="text"
-								title={'Phone Number'}
+								title={'Last Name'}
 								name={'lastName'}
 								value={this.state.lastName}
 								autoComplete="off"
@@ -374,7 +366,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormInput
-								inputtype={'text'}
+								inputtype={'email'}
 								title={'Email'}
 								name={'email'}
 								value={this.state.email}
@@ -392,7 +384,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormInput
-								inputtype="text"
+								inputtype="tel"
 								title={'Phone Number'}
 								name={'phoneNumber'}
 								value={this.state.phoneNumber}
@@ -401,16 +393,7 @@ class SettingsView extends Component {
 								onChange={this.handleChange}
 							/>
 							<FormButton title={'Save'} />
-						</form>
-						{/* </div>
-							{/* <div label="Team Billing">
-								<BillingView
-									teamId={this.state.teamId}
-									handlePickTeam={this.handlePickTeam}
-									currentUser={currentUser}
-								/>
-							</div> 
-						</SettingsTabs> */}
+						</StyledForm>
 					</SettingsContainer>
 				)}
 			</Mutation>

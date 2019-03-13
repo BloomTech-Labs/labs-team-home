@@ -96,11 +96,11 @@ const docCommentResolver = {
 					)
 						.populate('user document likes')
 						.then(async DocComment => {
-							console.log('the item in question:', DocComment);
+							// console.log('the item in question:', DocComment);
 
 							try {
 								await new Event({
-									team: DocComment.team._id,
+									team: DocComment.document.team,
 									user: DocComment.user._id,
 									action_string: action_str.edited,
 									object_string: object_str.docComment,
@@ -108,7 +108,7 @@ const docCommentResolver = {
 								})
 									.save()
 									.then(event => {
-										console.log('this should work ->', event);
+										// console.log('this should work ->', event);
 									});
 							} catch (error) {
 								console.error('Could not add event', error);
@@ -158,7 +158,7 @@ const docCommentResolver = {
 			)
 				.populate('user document likes')
 				.then(async item => {
-					console.log('\n\n the item before it hits EVENTS: \n\n', item);
+					// console.log('\n\n the item before it hits EVENTS: \n\n', item);
 					if (item) {
 						try {
 							await new Event({
@@ -170,7 +170,7 @@ const docCommentResolver = {
 							})
 								.save()
 								.then(event => {
-									console.log('\n\nEvent added\n\n', event);
+									// console.log('\n\nEvent added\n\n', event);
 								});
 						} catch (error) {
 							console.error('\n\nCould not add event\n\n', error);
@@ -187,7 +187,7 @@ const docCommentResolver = {
 			)
 				.populate('user document likes')
 				.then(async item => {
-					console.log('\n\n the item before it hits EVENTS: \n\n', item);
+					// console.log('\n\n the item before it hits EVENTS: \n\n', item);
 					if (item) {
 						try {
 							await new Event({
@@ -199,7 +199,7 @@ const docCommentResolver = {
 							})
 								.save()
 								.then(event => {
-									console.log('\n\nEvent added\n\n', event);
+									// console.log('\n\nEvent added\n\n', event);
 								});
 						} catch (error) {
 							console.error('\n\nCould not add event\n\n', error);

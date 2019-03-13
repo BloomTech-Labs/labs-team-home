@@ -1,12 +1,17 @@
 import React from 'react';
-import { Query, Mutation } from 'react-apollo';
+import PropTypes from 'prop-types';
 
+// ------------- gql Imports ---------------------- //
+import { Query, Mutation } from 'react-apollo';
 import * as style from './TeamList.styles';
 import * as query from '../../../constants/queries';
 import * as mutation from '../../../constants/mutations';
 
+// ------------- Component Imports ---------------------- //
 import TeamCard from './TeamCard/TeamCard';
-import PropTypes from 'prop-types';
+import { StyledProgressSpinner } from '../../../app-styles';
+
+// ------------- MUI Imports ---------------------- //
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -90,9 +95,9 @@ class TeamList extends React.Component {
 				</Mutation>
 				<h1>My Teams</h1>
 				<style.TeamsList>
-					<Query query={query.FIND_TEAMS_BY_USER} notifyOnNetworkStatusChange>
+					<Query query={query.FIND_TEAMS_BY_USER}>
 						{({ loading, error, data: { findTeamsByUser } }) => {
-							if (loading) return <p>Loading...</p>;
+							if (loading) return <StyledProgressSpinner />;
 							if (error) return <p>Error.</p>;
 							// Map over the teams
 							if (findTeamsByUser.length) {

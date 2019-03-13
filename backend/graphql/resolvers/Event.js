@@ -10,13 +10,16 @@ const eventResolver = {
 			Event.findById(id)
 				.populate('team user')
 				.then(event => event),
-		findEventsByTeam: async (_, { input: { team } }) => {
-			const events = await Event.find({ team: team }).populate('team user');
+		findEventsByTeam: async (_, { input: { team, limit, offset } }) => {
+			const events = await Event.find({ team: team })
+				.sort({ createdAt: -1 })
+				.limit(limit)
+				.skip(offset)
+				.populate('team user');
 			return events;
 		},
 		findEventsByUser: async (_, { input: { user } }) => {
 			const events = await Event.find({ user: user }).populate('team user');
-
 			return events;
 		}
 	},

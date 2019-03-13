@@ -17,6 +17,8 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
         if label != nil {
             self.label.removeFromSuperview()
         }
+        wasCommentAdded = true
+        documentCommentWatcher?.refetch()
     }
     
 
@@ -50,11 +52,11 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
         cell.delegate = self
         
 //        let height = cell.card.frame.height
-        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: 160)
+//        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: cell.frame.width, height: 160)
         
         return cell
     }
-    
+
 //    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 //        let headerView = collectionView.dequeueReusableSupplementaryView(
 //            ofKind: kind,
@@ -120,6 +122,11 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
     
     // MARK: - Private Methods
     
+    private func scrollToBottom(animated: Bool = false){
+        let lastItemIndex = self.collectionView.numberOfItems(inSection: 0) - 1
+        let indexPath:IndexPath = IndexPath(item: lastItemIndex, section: 0)
+        self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: animated)
+    }
     private func loadComments(from documentID: GraphQLID, with apollo: ApolloClient) {
         documentCommentWatcher = apollo.watch(query: FindCommentsByDocumentQuery(documentID: documentID), resultHandler: { (result, error) in
             if let error = error {
@@ -160,11 +167,16 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
     var documentID: GraphQLID?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var label: UILabel!
+    private var wasCommentAdded = false
     
     var comments: [FindCommentsByDocumentQuery.Data.FindDocCommentsByDocument?]? {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                self.collectionView.performBatchUpdates(nil, completion: { (_) in
+                    self.scrollToBottom(animated: self.wasCommentAdded)
+                    self.wasCommentAdded = false
+                })
                 self.handleEmptyComments()
             }
         }

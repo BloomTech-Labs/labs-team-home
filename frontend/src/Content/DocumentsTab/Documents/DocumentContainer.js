@@ -1,10 +1,20 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+
+// ------------- DnD Imports ---------------------- //
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
+
+// ------------- Style Imports ---------------------- //
 import styled from 'styled-components';
-import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+import { colors } from '../../../colorVariables';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { MenuItem } from '@material-ui/core';
 
 const Container = styled.div`
 	display: flex;
@@ -22,14 +32,14 @@ const ContainerTitle = styled.div`
 	text-align: center;
 	height: 40px;
 	width: 180px;
-	top: -20px;
+	top: -15px;
 	left: 20px;
 	background-color: #4a4550;
 	/* background-color: #5a5560; */
 
 	p {
 		color: white;
-		font-size: 25px;
+		font-size: 18px;
 		letter-spacing: 1px;
 	}
 `;
@@ -39,23 +49,29 @@ const Error = styled.p`
 `;
 
 const FormDiv = styled.div`
-	width: 92%;
+	width: 97%;
 	display: flex;
 	flex-direction: row-reverse;
 `;
 
 const SortForm = styled.form`
 	height: 50px;
-	margin-top: 15px;
-	label {
-		color: white;
-	}
-	select {
-		margin-left: 10px;
-	}
-	option {
-		height: 25px;
-	}
+	margin-top: 20px;
+	font-size: 16px;
+	color: white;
+`;
+
+const StyledOutline = styled(OutlinedInput).attrs(() => ({
+	labelWidth: 10
+}))`
+	height: 30px;
+	border-radius: 5px;
+`;
+
+const StyledSelect = styled(Select)`
+	background-color: rgb(143, 136, 150, 0.75);
+	margin-left: 10px;
+	color: ${colors.text};
 `;
 
 function collect(connect, monitor) {
@@ -69,9 +85,9 @@ function collect(connect, monitor) {
 class DocumentContainer extends React.Component {
 	updateDrop = (documentId, folderId, updateDocument) => {
 		if (folderId === undefined) {
-			console.log(
-				'dropped in staging area from staging area; Nothing will happen'
-			);
+			// console.log(
+			// 	'dropped in staging area from staging area; Nothing will happen'
+			// );
 		} else {
 			updateDocument({
 				variables: { id: documentId._id, folder: folderId._id },
@@ -104,13 +120,14 @@ class DocumentContainer extends React.Component {
 						<SortForm>
 							<label>
 								Sort:
-								<select
+								<StyledSelect
 									value={this.props.sortOption}
 									onChange={this.props.sortChange}
+									input={<StyledOutline name="Sort" />}
 								>
-									<option value="newest">Newest First</option>
-									<option value="oldest">Oldest First</option>
-								</select>
+									<MenuItem value="newest">Newest First</MenuItem>
+									<MenuItem value="oldest">Oldest First</MenuItem>
+								</StyledSelect>
 							</label>
 						</SortForm>
 					</FormDiv>

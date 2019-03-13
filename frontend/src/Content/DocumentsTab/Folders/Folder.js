@@ -1,37 +1,46 @@
 import React from 'react';
-import styled from 'styled-components';
+
+// ------------- gql Imports ---------------------- //
+import * as query from '../../../constants/queries';
+import { Mutation } from 'react-apollo';
+import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+
+// ------------- DnD Imports ---------------------- //
 import { DropTarget } from 'react-dnd';
 import Doc from '../Doc';
-import { Mutation } from 'react-apollo';
-import * as query from '../../../constants/queries';
-import { UPDATE_DOCUMENT } from '../../../constants/mutations';
+
+// ------------- Styled Imports ---------------------- //
+import styled from 'styled-components';
 
 const IndividualFolder = styled.div`
 	height: 200px;
-	width: 175px;
-	color: black;
+	width: 300px;
 	background-color: #a9a4b0;
 	text-align: center;
 	padding: 40px 10px 10px 10px;
 	border: 2px solid white;
 	border-radius: 5px;
 	margin: 10px;
+	cursor: pointer;
 	clip-path: polygon(
 		0% 0%,
-		45% 0%,
-		55% 10%,
+		25% 0%,
+		30% 10%,
 		100% 10%,
 		99% 10%,
 		100% 11%,
 		100% 100%,
 		0% 100%
 	);
-	cursor: pointer;
+
+	p {
+		margin: 0;
+	}
 `;
 
 const DocumentDiv = styled.div`
 	height: 90%;
-	width: 159px;
+	width: 279px;
 	overflow-y: auto;
 
 	&::-webkit-scrollbar {
@@ -60,13 +69,8 @@ class Folder extends React.Component {
 	}
 
 	updateDrop = (id, folderid, updateDocument) => {
-		// console.log('DOC : ', id);
-		// console.log('FOLDER : ', folderid._id);
-		// console.log("folder team id: ", this.props.team)
-		// console.log('previous folder: ', this.props.folder._id)
-
 		if (folderid !== undefined) {
-			console.log('UpdateDrop-Folder, folderID not available: ', folderid);
+			// console.log('UpdateDrop-Folder, folderID not available: ', folderid);
 			updateDocument({
 				variables: {
 					id: id._id,
@@ -119,9 +123,11 @@ class Folder extends React.Component {
 		return connectDropTarget(
 			<div>
 				<IndividualFolder style={{ background: backgroundColor }}>
-					{folder.title.length > 18
-						? `${folder.title.substring(0, 18)}...`
-						: folder.title}
+					<p>
+						{folder.title.length > 18
+							? `${folder.title.substring(0, 18)}...`
+							: folder.title}
+					</p>
 					<DocumentDiv>
 						{this.props.findDocumentsByFolder.length ? (
 							this.props.findDocumentsByFolder.map(doc => {

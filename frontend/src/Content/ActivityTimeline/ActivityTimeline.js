@@ -1,15 +1,27 @@
 import React from 'react';
+
+// ------------- gql Imports ---------------------- //
 import { Query } from 'react-apollo';
 import { FIND_EVENTS_BY_TEAM } from '../../constants/queries';
+
+// ------------- Component Imports ---------------------- //
 import Activity from './Activity';
 import ActivityModal from './ActivityModal';
+import { StyledProgressSpinner } from '../../app-styles';
+import styled from 'styled-components';
+
+const ContainerDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`;
 
 export default class ActivityTimeline extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			team: props.team,
 			eventDetailOpen: false,
 			currentEvent: null
 		};
@@ -23,17 +35,17 @@ export default class ActivityTimeline extends React.Component {
 	};
 
 	render() {
-		// console.log('currenct props from activity timeline: ', this.props);
+		// console.log('current props from activity timeline: ', this.props);
 		return (
-			<div>
-				{/* Queries for all Events, refected every 5000ms (5 seconds)*/}
+			<ContainerDiv>
+				{/* Queries for all Events, reflected every 5000ms (5 seconds)*/}
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
-					variables={{ team: this.state.team._id }}
+					variables={{ team: this.props.team._id, limit: 50 }}
 					pollInterval={5000}
 				>
-					{({ loading, error, data: { findEventsByTeam } }) => {
-						if (loading) return <p>Loading...</p>;
+					{({ loading, error, data: { findEventsByTeam }, fetchMore }) => {
+						if (loading) return <StyledProgressSpinner />;
 						if (error) return <p>Error!</p>;
 
 						if (findEventsByTeam && findEventsByTeam.length > 0) {
@@ -50,39 +62,57 @@ export default class ActivityTimeline extends React.Component {
 								return 0;
 							});
 
-							return findEventsByTeam.map((event, index) => {
-								if (event.user !== null) {
-									if (event.user._id === this.props.currentUser._id) {
+							return (
+								<>
+									{findEventsByTeam.map((event, index) => {
+										if (event.user !== null) {
+											return (
+												<Activity
+													event={event}
+													key={index}
+													own={
+														event.user._id === this.props.currentUser._id
+															? 'true'
+															: 'false'
+													}
+													clickHandler={e => {
+														e.preventDefault();
+														e.stopPropagation();
+														this.toggleEventDetail(event);
+													}}
+												/>
+											);
+										}
 										return (
-											<Activity
-												event={event}
-												key={index}
-												own="true"
-												clickHandler={e => {
-													e.preventDefault();
-													this.toggleEventDetail(event);
-												}}
-											/>
+											<div key={index}>
+												There is an event here but it was not recorded properly
+											</div>
 										);
-									}
-									return (
-										<Activity
-											event={event}
-											key={index}
-											own="false"
-											clickHandler={e => {
-												e.preventDefault();
-												this.toggleEventDetail(event);
-											}}
-										/>
-									);
-								}
-								return (
-									<div key={index}>
-										There is an event here but it was not recorded properly
-									</div>
-								);
-							});
+									})}
+									{/* Code Below is to Enable Pagination - Query above needs pollInterval commented out 
+										to prevent refetching of data and override the pagination fetched*/}
+
+									{/* <button
+										onClick={e => {
+											e.preventDefault();
+											fetchMore({
+												variables: { offset: findEventsByTeam.length },
+												updateQuery: (prev, { fetchMoreResult }) => {
+													if (!fetchMoreResult) return prev;
+													return Object.assign({}, prev, {
+														findEventsByTeam: [
+															...prev.findEventsByTeam,
+															...fetchMoreResult.findEventsByTeam
+														]
+													});
+												}
+											});
+										}}
+									>
+										More ...
+									</button> */}
+								</>
+							);
 						} else {
 							return <div> No events </div>;
 						}
@@ -95,8 +125,9 @@ export default class ActivityTimeline extends React.Component {
 					currentUser={this.props.currentUser}
 					team={this.props.team}
 					stopProp={e => e.stopPropagation()}
+					{...this.props}
 				/>
-			</div>
+			</ContainerDiv>
 		);
 	}
 }

@@ -1,20 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+// ---------------- Components ---------------------- //
 import MessageBoard from './MessageBoard/MessageBoard';
 import ActivityTimeline from './ActivityTimeline/ActivityTimeline';
+import FABComponent from './FloatingActionButtons';
+import DocumentsTab from './DocumentsTab/TabContainer';
+
+// ---------------- gql ---------------------- //
 import mediaQueryFor from '../_global_styles/responsive_querie';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { Query } from 'react-apollo';
+import * as queries from '../constants/queries';
+
+// ---------------- MUI components ---------------------- //
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { Query } from 'react-apollo';
-import * as queries from '../constants/queries';
+
+// ---------------- Styles ---------------------- //
 import TeamInfo from './TeamOptions/TeamInfo';
-import DocumentsTab from './DocumentsTab/TabContainer';
 import SwipeableViews from 'react-swipeable-views';
-import FABComponent from './FloatingActionButtons';
 import { colors } from '../colorVariables';
+import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
+import { StyledProgressSpinner } from '../app-styles';
 
 const styles = {
 	root: {
@@ -70,7 +79,7 @@ const StyledTab = styled(Tab)`
 	}
 `;
 
-class ContentContainer extends React.Component {
+class ContentContainer extends React.PureComponent {
 	constructor(props) {
 		super(props);
 
@@ -105,24 +114,23 @@ class ContentContainer extends React.Component {
 			enter: theme.transitions.duration.enteringScreen,
 			exit: theme.transitions.duration.leavingScreen
 		};
-
+		// console.log('Team id from props: ', this.props.match.params.team);
 		return (
 			<MsgContainer>
 				<Query
 					query={queries.FIND_TEAM}
 					variables={{ id: this.props.match.params.team }}
 				>
-					{({ loading, error, data: { findTeam } }) => {
-						if (loading) return <p>Loading...</p>;
+					{({ loading, error, data: { findTeam }, data }) => {
+						if (loading) return <StyledProgressSpinner />;
 						if (error) return <p>Error!</p>;
-
 						return (
 							<>
 								{/* Team users name*/}
 								<TeamInfo
 									currentUser={this.props.currentUser}
 									team={findTeam}
-									{...this.props}
+									{...this.props} //needed to get all the routing information to this component
 								/>
 
 								{/* List of content sections the user can choose to view */}

@@ -14,6 +14,8 @@ const Event = /* GraphQL */ `
 	}
 	input FindEventsByTeamInput {
 		team: ID!
+		limit: Int
+		offset: Int
 	}
 	input FindEventsByUserInput {
 		user: ID!

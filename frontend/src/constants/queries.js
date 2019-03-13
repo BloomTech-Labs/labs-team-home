@@ -76,12 +76,21 @@ export const CURRENT_USER = gql`
 `;
 
 export const FIND_FOLDER = gql`
-	query findFolders($id: ID!) {
-		findFolders(input: { id: $id }) {
+	query findFolder($id: ID!) {
+		findFolder(input: { id: $id }) {
 			...FullFolder
 		}
 	}
 	${f.FULL_FOLDER}
+`;
+
+export const FIND_USER = gql`
+	query findUser($id: ID!) {
+		findUser(input: { id: $id }) {
+			...FullUser
+		}
+	}
+	${f.FULL_USER}
 `;
 
 export const FIND_FOLDERS_BY_TEAM = gql`
@@ -130,8 +139,8 @@ export const FIND_DOCUMENTS_BY_FOLDER = gql`
 `;
 
 export const FIND_EVENTS_BY_TEAM = gql`
-	query findEventsByTeam($team: ID!) {
-		findEventsByTeam(input: { team: $team }) {
+	query findEventsByTeam($team: ID!, $limit: Int, $offset: Int) {
+		findEventsByTeam(input: { team: $team, limit: $limit, offset: $offset }) {
 			...FullEvent
 		}
 	}

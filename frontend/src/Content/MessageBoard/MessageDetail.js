@@ -1,37 +1,31 @@
 import React, { Component } from 'react';
 
-// ------------- gql imports ---------------------- //
-import { Query, compose, Mutation } from 'react-apollo';
-import {
-	addComment,
-	updateComment,
-	deleteComment,
-	like,
-	unLike
-} from '../mutations/comments';
-import {
-	// updateMessage,
-	deleteMessage,
-	subscribe,
-	unsubscribe
-} from '../mutations/messages';
-import * as query from '../../constants/queries';
-import { FIND_MESSAGES_BY_TEAM } from '../../constants/queries';
-import { UPDATE_MESSAGE } from '../../constants/mutations';
+// ------------- Component Imports ---------------------- //
+import MessageBoardCommentDetails from './MessageBoardCommentDetail';
 
-// ------------- styling libraries ---------------------- //
-import styled from 'styled-components';
+// ------------- gql imports ---------------------- //
+import { Query, Mutation } from 'react-apollo';
+import * as query from '../../constants/queries';
+import {
+	UPDATE_MESSAGE,
+	DELETE_MESSAGE,
+	SUBSCRIBE,
+	UNSUBSCRIBE,
+	ADD_COMMENT
+} from '../../constants/mutations';
+
+// ------------- MUI Imports ---------------------- //
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import SendIcon from '@material-ui/icons/Send';
 
+// ------------- styling libraries ---------------------- //
+import styled from 'styled-components';
 import { colors } from '../../colorVariables';
 import { KeyboardArrowRight } from 'styled-icons/material/KeyboardArrowRight';
-// import mediaQueryFor from '../../_global_styles/responsive_querie';
-
+import { StyledProgressSpinnerSecondary } from '../../app-styles';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 // ------------- Modal styling imports ---------------------- //
 import {
 	StyledModal,
@@ -58,6 +52,22 @@ const MessageTitle = styled(StyledModalTitle)`
 
 	h2 {
 		font-size: 25px;
+	}
+`;
+
+const ModalContents = styled.div`
+	height: ${mediaQueryFor.smDevice ? 'auto' : '700px'};
+	width: ${mediaQueryFor.smDevice ? 'auto' : '565px'};
+	overflow-y: auto;
+	padding-right: 1.3em;
+	margin-top: 1rem;
+
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: white;
 	}
 `;
 
@@ -106,7 +116,8 @@ class MessageDetail extends Component {
 			title: '',
 			content: '',
 			commentContent: '',
-			newComment: ''
+			newComment: '',
+			subscribed: null
 		};
 	}
 
@@ -125,34 +136,26 @@ class MessageDetail extends Component {
 		});
 
 	//set subscribed to true, if the currentUser is subscribed
-	componentDidUpdate = prevProps =>
-		this.props.message !== prevProps.message
-			? this.props.message !== null
-				? this.props.message.subscribedUsers.find(user =>
-						user._id === this.props.currentUser._id
-							? this.setState({ subscribed: true })
-							: this.setState({ subscribed: false })
-				  )
-				: null
-			: null;
+	componentDidUpdate(prevProps) {
+		if (this.props.message !== prevProps.message) {
+			if (this.props.message !== null && this.props.message !== undefined) {
+				if (
+					this.props.message.subscribedUsers.find(
+						user => user._id === this.props.currentUser._id
+					)
+				) {
+					this.setState({ subscribed: true });
+				} else this.setState({ subscribed: false });
+			}
+		}
+	}
 
 	render() {
-		const {
-			message,
-			currentUser,
-			updateMsgComment,
-			addMsgComment,
-			deleteMsgComment,
-			updateMessage,
-			deleteMessage,
-			like,
-			unLike,
-			subscribe,
-			unsubscribe
-		} = this.props;
-
+		const { message, currentUser } = this.props;
+		// console.log('State from Message: ', this.props);
+		// console.log('Props from Message: ', this.props);
 		if (message === null) return <> </>;
-		// console.log('MessageID: ', message._id);
+
 		return (
 			<StyledModal //open the Dialog box this is the part that makes everything else around darker
 				open={this.props.open}
@@ -173,297 +176,250 @@ class MessageDetail extends Component {
 					</StyledModalIconButton>
 				</StyledModalClose>
 				<StyledModalOverlay>
-					{/* The header information: name, avatar */}
-					<CardHeader
-						avatar={
-							<Avatar
-								src={message.user.avatar}
-								alt="avatar"
-								style={{ height: '50px', width: '50px' }}
-							/>
-						}
-						title={`${message.user.firstName} ${message.user.lastName}`}
-						titleTypographyProps={{
-							style: { color: colors.text }
-						}}
-					/>
-					<StyledModalPaper>
-						{/* Render the message, UNLESS someone has hit the Edit Button */}
-						{this.state.editingMessage ? (
-							<Mutation mutation={UPDATE_MESSAGE}>
-								{updateMessage => (
-									<StyledModalForm
-										onSubmit={e => {
-											e.preventDefault();
-											message.title = this.state.title;
-											message.content = this.state.content;
-											updateMessage({
-												variables: {
-													id: message._id,
-													title: this.state.title,
-													content: this.state.content
-												},
-												refetchQueries: [
-													{
-														query: query.FIND_MESSAGES_BY_TEAM,
-														variables: { team: this.props.team }
-													}
-												]
-											}).then(() => this.resetState());
-										}}
-									>
-										<StyledModalInput
-											name="title"
-											value={this.state.title}
-											onChange={this.handleChange}
-										/>
-
-										<StyledModalInput
-											name="content"
-											value={this.state.content}
-											onChange={this.handleChange}
-											multiline
-										/>
-										<StyledModalButton type="submit">Save</StyledModalButton>
-									</StyledModalForm>
-								)}
-							</Mutation>
-						) : (
-							<MessageContent>
-								<MessageTitle>{message.title}</MessageTitle>
-								<StyledModalBody paragraph component="p">
-									{message.content}
-								</StyledModalBody>
-								{/* Load all the images attached to the message */}
-								{message.images.map((image, index) => (
-									<Image
-										key={index}
-										src={image}
-										alt="message-img"
-										style={{ maxWidth: '50%', height: 'auto' }}
-									/>
-								))}
-								{/* Displays the tag associated with message. Includes a hashtag if not already present. */}
-								{message.tag ? (
-									message.tag.name.charAt(0).includes('#') ? (
-										<Tags>Tag: {message.tag.name}</Tags>
-									) : (
-										<Tags>Tag: #{message.tag.name}</Tags>
-									)
-								) : (
-									<></>
-								)}
-
-								{/* Display all the button actions (edit, delete, subscribe) */}
-								<StyledModalCardAction>
-									{message.user._id === currentUser._id && (
-										<>
-											<StyledModalButton
-												onClick={e => {
-													e.preventDefault();
-													if (!this.state.editing) {
-														this.setState({
-															editingMessage: true,
-															title: message.title,
-															content: message.content
-														});
-													} else {
-														alert(
-															"Please finish editing your comment by clicking 'SAVE' before editing the message."
-														);
-													}
-												}}
-											>
-												Edit
-											</StyledModalButton>
-											<StyledModalButton
-												onClick={e => {
-													e.preventDefault();
-													deleteMessage({
-														id: message._id
-													}).then(() => {
-														this.resetState();
-														this.props.hideModal();
-													});
-												}}
-											>
-												Delete
-											</StyledModalButton>
-										</>
-									)}
-									{/* Subscribe or unsubscribe button */}
-									<StyledModalButton
-										onClick={e => {
-											e.preventDefault();
-											this.setState(prevState => ({
-												subscribed: !prevState.subscribed
-											}));
-											this.state.subscribed
-												? unsubscribe({
+					<ModalContents>
+						{/* The header information: name, avatar */}
+						<CardHeader
+							avatar={
+								<Avatar
+									src={message.user.avatar}
+									alt="avatar"
+									style={{ height: '50px', width: '50px' }}
+								/>
+							}
+							title={`${message.user.firstName} ${message.user.lastName}`}
+							titleTypographyProps={{
+								style: { color: colors.text }
+							}}
+						/>
+						<StyledModalPaper>
+							{/* Render the message, UNLESS someone has hit the Edit Button */}
+							{this.state.editingMessage ? (
+								<Mutation mutation={UPDATE_MESSAGE}>
+									{updateMessage => (
+										<StyledModalForm
+											onSubmit={e => {
+												e.preventDefault();
+												message.title = this.state.title;
+												message.content = this.state.content;
+												updateMessage({
+													variables: {
 														id: message._id,
-														user: currentUser._id
-												  })
-												: subscribe({
-														id: message._id,
-														user: currentUser._id
-												  });
-										}}
-									>
-										{this.state.subscribed ? 'Unsubscribe' : 'Subscribe'}
-									</StyledModalButton>
-								</StyledModalCardAction>
-							</MessageContent>
-						)}
-					</StyledModalPaper>
-					{/* Get the comments for the message */}
-					<Query
-						query={query.FIND_COMMENTS_BY_MESSAGE}
-						variables={{ message: message._id }}
-					>
-						{({ loading, error, data: { findMsgCommentsByMessage } }) => {
-							if (loading) return <p>Loading...</p>;
-							if (error) return <p>Error</p>;
-							return (
-								<>
-									{/* display all the comments */}
-									<StyledModalTitle>Comments</StyledModalTitle>
-									{findMsgCommentsByMessage.map(comment => (
-										<StyledModalPaper key={comment._id}>
-											<CardHeader
-												avatar={
-													<Avatar
-														src={comment.user.avatar}
-														alt="test"
-														style={{ height: '32px', width: '32px' }}
-													/>
-												}
-												title={`${comment.user.firstName} ${
-													comment.user.lastName
-												}`}
-												titleTypographyProps={{
-													style: { color: colors.text }
-												}}
+														title: this.state.title,
+														content: this.state.content
+													},
+													refetchQueries: [
+														{
+															query: query.FIND_MESSAGES_BY_TEAM,
+															variables: { team: this.props.team }
+														}
+													]
+												}).then(() => this.resetState());
+											}}
+										>
+											<StyledModalInput
+												name="title"
+												value={this.state.title}
+												onChange={this.handleChange}
 											/>
-											{/* check to see if the user can edit the comments */}
-											{this.state.editing && this.state.edited === comment ? (
-												<StyledModalForm
-													onSubmit={e => {
+
+											<StyledModalInput
+												name="content"
+												value={this.state.content}
+												onChange={this.handleChange}
+												multiline
+											/>
+											<StyledModalButton type="submit">Save</StyledModalButton>
+										</StyledModalForm>
+									)}
+								</Mutation>
+							) : (
+								<MessageContent>
+									<MessageTitle>{message.title}</MessageTitle>
+									<StyledModalBody paragraph component="p">
+										{message.content}
+									</StyledModalBody>
+									{/* Load all the images attached to the message */}
+									{message.images.map((image, index) => (
+										<Image
+											key={index}
+											src={image}
+											alt="message-img"
+											style={{ maxWidth: '50%', height: 'auto' }}
+										/>
+									))}
+									{/* Displays the tag associated with message. Includes a hashtag if not already present. */}
+									{message.tag ? (
+										message.tag.name.charAt(0).includes('#') ? (
+											<Tags>Tag: {message.tag.name}</Tags>
+										) : (
+											<Tags>Tag: #{message.tag.name}</Tags>
+										)
+									) : (
+										<></>
+									)}
+
+									{/* Display all the button actions (edit, delete, subscribe) */}
+									<StyledModalCardAction>
+										{message.user._id === currentUser._id && (
+											<>
+												<StyledModalButton
+													onClick={e => {
 														e.preventDefault();
-														updateMsgComment({
-															id: this.state.edited._id,
-															content: this.state.commentContent
-														}).then(() => this.resetState());
+														if (!this.state.editing) {
+															this.setState({
+																editingMessage: true,
+																title: message.title,
+																content: message.content
+															});
+														} else {
+															alert(
+																"Please finish editing your comment by clicking 'SAVE' before editing the message."
+															);
+														}
 													}}
 												>
-													<StyledModalInput
-														name="commentContent"
-														value={this.state.commentContent}
-														onChange={this.handleChange}
-														multiline
-													/>
-													<StyledModalButton type="submit">
-														Save
-													</StyledModalButton>
-												</StyledModalForm>
-											) : (
-												<CardContent>
-													<StyledModalBody component="p">
-														{comment.content}
-													</StyledModalBody>
-													{/* Check to see if the comment is the users and thus can be edited or deleted */}
-													<StyledModalCardAction>
-														{comment.user._id === currentUser._id && (
-															<>
-																<StyledModalButton
-																	onClick={e => {
-																		e.preventDefault();
-																		if (!this.state.editingMessage) {
-																			this.setState({
-																				editing: true,
-																				edited: comment,
-																				commentContent: comment.content
-																			});
-																		} else {
-																			alert(
-																				"Please finish editing your message by clicking 'SAVE' before editing a comment."
-																			);
-																		}
-																	}}
-																>
-																	Edit
-																</StyledModalButton>
-																<StyledModalButton
-																	onClick={e => {
-																		e.preventDefault();
-																		deleteMsgComment({
-																			id: comment._id
-																		});
-																	}}
-																>
-																	Delete
-																</StyledModalButton>
-															</>
-														)}
-														{/* Like button */}
+													Edit
+												</StyledModalButton>
+												<Mutation mutation={DELETE_MESSAGE}>
+													{deleteMessage => (
 														<StyledModalButton
 															onClick={e => {
 																e.preventDefault();
-																comment.likes.find(
-																	({ _id }) => _id === currentUser._id
-																)
-																	? unLike({
-																			id: comment._id
+																deleteMessage({
+																	variables: { id: message._id },
+																	refetchQueries: [
+																		{
+																			query: query.FIND_MESSAGES_BY_TEAM,
+																			variables: { team: this.props.team }
+																		}
+																	]
+																}).then(() => {
+																	this.resetState();
+																	this.props.hideModal();
+																});
+															}}
+														>
+															Delete
+														</StyledModalButton>
+													)}
+												</Mutation>
+											</>
+										)}
+										{/* Subscribe or unsubscribe button */}
+										<Mutation mutation={UNSUBSCRIBE}>
+											{unsubscribe => (
+												<Mutation mutation={SUBSCRIBE}>
+													{subscribe => (
+														<StyledModalButton
+															onClick={e => {
+																e.preventDefault();
+																this.setState(prevState => ({
+																	subscribed: !prevState.subscribed
+																}));
+																this.state.subscribed
+																	? unsubscribe({
+																			variables: {
+																				id: message._id,
+																				user: currentUser._id
+																			},
+																			refetchQueries: [
+																				{
+																					query: query.FIND_MESSAGES_BY_TEAM,
+																					variables: { team: this.props.team }
+																				}
+																			]
 																	  })
-																	: like({
-																			id: comment._id
+																	: subscribe({
+																			variables: {
+																				id: message._id,
+																				user: currentUser._id
+																			},
+																			refetchQueries: [
+																				{
+																					query: query.FIND_MESSAGES_BY_TEAM,
+																					variables: { team: this.props.team }
+																				}
+																			]
 																	  });
 															}}
 														>
-															{`${comment.likes.length} likes`}
+															{this.state.subscribed
+																? 'Unsubscribe'
+																: 'Subscribe'}
 														</StyledModalButton>
-													</StyledModalCardAction>
-												</CardContent>
+													)}
+												</Mutation>
 											)}
-										</StyledModalPaper>
-									))}
-									{/* Add a new comment form  */}
-									<StyledModalNewCommentForm
-										onSubmit={e => {
-											e.preventDefault();
-											addMsgComment({
+										</Mutation>
+									</StyledModalCardAction>
+								</MessageContent>
+							)}
+						</StyledModalPaper>
+						{/* Get the comments for the message */}
+						<StyledModalTitle>Comments</StyledModalTitle>
+						<Query
+							query={query.FIND_COMMENTS_BY_MESSAGE}
+							variables={{ message: message._id }}
+						>
+							{({ loading, error, data: { findMsgCommentsByMessage } }) => {
+								if (loading) return <StyledProgressSpinnerSecondary />;
+								if (error) return <p>Error</p>;
+								return (
+									<>
+										{findMsgCommentsByMessage.map(comment => (
+											<MessageBoardCommentDetails
+												key={comment._id}
+												comment={comment}
+												currentUser={currentUser}
+												editingDocument={this.state.editingMessage}
+												{...this.props}
+											/>
+										))}
+									</>
+								);
+							}}
+						</Query>
+						{/* Add a new comment form */}
+						<Mutation mutation={ADD_COMMENT}>
+							{addMsgComment => (
+								<StyledModalNewCommentForm
+									onSubmit={e => {
+										e.preventDefault();
+										addMsgComment({
+											variables: {
 												message: message._id,
 												content: this.state.newComment
-											}).then(this.resetState());
-										}}
-									>
-										<StyledModalNewCommentInput
-											value={this.state.newComment}
-											name="newComment"
-											onChange={this.handleChange}
-											placeholder="Leave a comment..."
-										/>
-										<ArrowDiv type="submit">
-											<Arrow />
-										</ArrowDiv>
-									</StyledModalNewCommentForm>
-								</>
-							);
-						}}
-					</Query>
+											},
+											refetchQueries: [
+												{
+													query: query.FIND_COMMENTS_BY_MESSAGE,
+													variables: { message: message._id }
+												},
+												{
+													query: query.FIND_MESSAGES_BY_TEAM,
+													variables: { team: this.props.team }
+												}
+											]
+										}).then(this.resetState());
+									}}
+								>
+									<StyledModalNewCommentInput
+										value={this.state.newComment}
+										name="newComment"
+										onChange={this.handleChange}
+										placeholder="Leave a comment..."
+									/>
+									<ArrowDiv type="submit">
+										<Arrow />
+									</ArrowDiv>
+								</StyledModalNewCommentForm>
+							)}
+						</Mutation>
+					</ModalContents>
 				</StyledModalOverlay>
 			</StyledModal>
 		);
 	}
 }
 
-export default compose(
-	addComment,
-	updateComment,
-	deleteComment,
-	// updateMessage,
-	deleteMessage,
-	like,
-	unLike,
-	subscribe,
-	unsubscribe
-)(MessageDetail);
+export default MessageDetail;

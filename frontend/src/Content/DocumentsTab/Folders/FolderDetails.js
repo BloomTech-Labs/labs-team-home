@@ -1,22 +1,22 @@
 import React from 'react';
 
 // ------------- gql Imports ---------------------- //
-import { compose, Query, Mutation } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import * as query from '../../../constants/queries';
-import { deleteFolder } from '../../mutations/folders';
-import { updateDocument } from '../../mutations/documents';
-import { UPDATE_DOCUMENT, UPDATE_FOLDER } from '../../../constants/mutations';
+import {
+	UPDATE_DOCUMENT,
+	UPDATE_FOLDER,
+	DELETE_FOLDER
+} from '../../../constants/mutations';
 
 // ------------- Component Imports ---------------------- //
 import DocumentDetails from '../Documents/DocumentDetails';
 
-// ------------- Style Imports ---------------------- //
-import styled from 'styled-components';
+// ------------- MI Imports ---------------------- //
 import CloseIcon from '@material-ui/icons/Close';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import { colors } from '../../../colorVariables';
 
 // ------------- Modal styling imports ---------------------- //
 import {
@@ -32,7 +32,27 @@ import {
 	StyledModalCardAction
 } from '../../Modal.styles';
 
-// ---------------- Styled Components ---------------------- //
+// ---------------- Styled Imports ---------------------- //
+import styled from 'styled-components';
+import { colors } from '../../../colorVariables';
+import { StyledProgressSpinnerSecondary } from '../../../app-styles';
+import mediaQueryFor from '../../../_global_styles/responsive_querie';
+
+const ModalContents = styled.div`
+	height: ${mediaQueryFor.smDevice ? 'auto' : '700px'};
+	width: ${mediaQueryFor.smDevice ? 'auto' : '565px'};
+	overflow-y: auto;
+	padding-right: 1.3em;
+	margin-top: 1rem;
+
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: white;
+	}
+`;
 
 const ModalTitle = styled(StyledModalTitle)`
 	h2 {
@@ -82,8 +102,8 @@ class FolderDetails extends React.Component {
 	handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
 	render() {
-		const { deleteFolder, folder, hideModal, currentUser, open } = this.props;
-
+		const { folder, hideModal, currentUser, open } = this.props;
+		// console.log('the props from the folder modal: ', this.props);
 		if (folder === null) return <></>;
 		return (
 			<StyledModal
@@ -104,190 +124,209 @@ class FolderDetails extends React.Component {
 					</StyledModalIconButton>
 				</StyledModalClose>
 				<StyledModalOverlay>
-					<Query
-						query={query.FIND_DOCUMENTS_BY_FOLDER}
-						variables={{ folder: folder._id }}
-					>
-						{({ loading, error, data: { findDocumentsByFolder } }) => {
-							if (loading) return <p>Loading...</p>;
-							if (error) return <p>Error</p>;
+					<ModalContents>
+						{/* show all the folder details */}
+						<Query
+							query={query.FIND_DOCUMENTS_BY_FOLDER}
+							variables={{ folder: folder._id }}
+						>
+							{({ loading, error, data: { findDocumentsByFolder } }) => {
+								if (loading) return <StyledProgressSpinnerSecondary />;
+								if (error) return <p>Error</p>;
 
-							return (
-								<>
-									{this.state.editingFolder ? (
-										<CardContent>
-											<Mutation mutation={UPDATE_FOLDER}>
-												{updateFolder => (
-													<StyledModalForm
-														onSubmit={e => {
+								return (
+									<>
+										{this.state.editingFolder ? (
+											<CardContent>
+												{/* edit the fodler options */}
+												<Mutation mutation={UPDATE_FOLDER}>
+													{updateFolder => (
+														<StyledModalForm
+															onSubmit={e => {
+																e.preventDefault();
+																folder.title = this.state.title;
+																updateFolder({
+																	variables: {
+																		id: folder._id,
+																		title: this.state.title
+																	},
+																	refetchQueries: [
+																		{
+																			query: query.FIND_FOLDERS_BY_TEAM,
+																			variables: { team: this.props.team }
+																		}
+																	]
+																}).then(() => this.resetState());
+															}}
+														>
+															<StyledModalInput
+																name="title"
+																value={this.state.title}
+																onChange={this.handleChange}
+															/>
+															<StyledModalButton type="submit">
+																Save
+															</StyledModalButton>
+														</StyledModalForm>
+													)}
+												</Mutation>
+											</CardContent>
+										) : (
+											<>
+												<ModalTitle>{folder.title}</ModalTitle>
+
+												{/* All the folder options */}
+												<StyledModalCardAction>
+													<StyledModalButton
+														onClick={e => {
 															e.preventDefault();
-															folder.title = this.state.title;
-															updateFolder({
-																variables: {
-																	id: folder._id,
-																	title: this.state.title
-																},
-																refetchQueries: [
+															this.setState({
+																editingFolder: true,
+																title: folder.title
+															});
+														}}
+													>
+														Edit
+													</StyledModalButton>
+													<Mutation mutation={UPDATE_DOCUMENT}>
+														{updateDocument => (
+															<Mutation
+																mutation={DELETE_FOLDER}
+																refetchQueries={[
 																	{
 																		query: query.FIND_FOLDERS_BY_TEAM,
 																		variables: { team: this.props.team }
 																	}
-																]
-															}).then(() => this.resetState());
-														}}
-													>
-														<StyledModalInput
-															name="title"
-															value={this.state.title}
-															onChange={this.handleChange}
-														/>
-														<StyledModalButton type="submit">
-															Save
-														</StyledModalButton>
-													</StyledModalForm>
-												)}
-											</Mutation>
-										</CardContent>
-									) : (
-										<>
-											<ModalTitle>{folder.title}</ModalTitle>
+																]}
+															>
+																{deleteFolder => (
+																	<StyledModalButton
+																		onClick={e => {
+																			e.preventDefault();
+																			findDocumentsByFolder.map(document =>
+																				updateDocument({
+																					variables: {
+																						id: document._id,
+																						folder: null
+																					},
+																					refetchQueries: [
+																						{
+																							query:
+																								query.FIND_DOCUMENTS_BY_TEAM,
+																							variables: {
+																								team: this.props.team
+																							}
+																						}
+																					]
+																				})
+																			);
+																			deleteFolder({
+																				variables: { id: this.props.folder._id }
+																			}).then(() => {
+																				this.props.hideModal();
+																			});
+																		}}
+																	>
+																		Delete
+																	</StyledModalButton>
+																)}
+															</Mutation>
+														)}
+													</Mutation>
+												</StyledModalCardAction>
+											</>
+										)}
 
-											{/* Load all the images attached to the message */}
-											<StyledModalCardAction>
-												<StyledModalButton
-													onClick={e => {
-														e.preventDefault();
-														this.setState({
-															editingFolder: true,
-															title: folder.title
-														});
+										{/* If there are any, display all the documents */}
+										{findDocumentsByFolder.length ? (
+											<StyledModalTitle>Documents</StyledModalTitle>
+										) : (
+											<SmallerTitle>
+												No document at the moment, drag some in!
+											</SmallerTitle>
+										)}
+										{findDocumentsByFolder.map(document => (
+											<StyledModalPaper key={document._id}>
+												<CardHeader
+													avatar={
+														<Avatar
+															src={document.user.avatar}
+															alt="test"
+															style={{ height: '32px', width: '32px' }}
+														/>
+													}
+													title={`${document.user.firstName} ${
+														document.user.lastName
+													}`}
+													titleTypographyProps={{
+														style: { color: colors.text }
 													}}
-												>
-													Edit
-												</StyledModalButton>
-												<Mutation mutation={UPDATE_DOCUMENT}>
-													{updateDocument => (
-														<StyledModalButton
-															onClick={e => {
-																e.preventDefault();
-																findDocumentsByFolder.map(document =>
+												/>
+												<CardContent>
+													<DocumentTitle>{document.title}</DocumentTitle>
+												</CardContent>
+
+												{/* Option to remove document from the folder */}
+												<CardContent>
+													<Mutation
+														mutation={UPDATE_DOCUMENT}
+														variables={{ id: document._id, folder: null }}
+													>
+														{updateDocument => (
+															<StyledModalButton
+																onClick={e => {
+																	e.preventDefault();
 																	updateDocument({
-																		variables: {
-																			id: document._id,
-																			folder: null
-																		},
 																		refetchQueries: [
+																			{
+																				query: query.FIND_DOCUMENTS_BY_FOLDER,
+																				variables: {
+																					folder: this.props.folder._id
+																				}
+																			},
 																			{
 																				query: query.FIND_DOCUMENTS_BY_TEAM,
 																				variables: { team: this.props.team }
 																			}
 																		]
-																	})
-																);
-																deleteFolder({
-																	id: this.props.folder._id
-																}).then(() => {
-																	this.props.hideModal();
-																});
-															}}
-														>
-															Delete
-														</StyledModalButton>
-													)}
-												</Mutation>
+																	});
+																}}
+															>
+																Remove from Folder
+															</StyledModalButton>
+														)}
+													</Mutation>
 
-												{/* Subscription for the document stuff goes here */}
-											</StyledModalCardAction>
-										</>
-									)}
-
-									{/* If there are any, display all the documents */}
-									{findDocumentsByFolder.length ? (
-										<StyledModalTitle>Documents</StyledModalTitle>
-									) : (
-										<SmallerTitle>
-											No document at the moment, drag some in!
-										</SmallerTitle>
-									)}
-									{findDocumentsByFolder.map(document => (
-										<StyledModalPaper key={document._id}>
-											<CardHeader
-												avatar={
-													<Avatar
-														src={document.user.avatar}
-														alt="test"
-														style={{ height: '32px', width: '32px' }}
-													/>
-												}
-												title={`${document.user.firstName} ${
-													document.user.lastName
-												}`}
-												titleTypographyProps={{
-													style: { color: colors.text }
-												}}
-											/>
-											<CardContent>
-												<DocumentTitle>{document.title}</DocumentTitle>
-											</CardContent>
-
-											{/* Check to see if the comment is the users and thus can be edited or deleted */}
-											<CardContent>
-												<Mutation
-													mutation={UPDATE_DOCUMENT}
-													variables={{ id: document._id, folder: null }}
-												>
-													{updateDocument => (
-														<StyledModalButton
-															onClick={e => {
-																e.preventDefault();
-																updateDocument({
-																	refetchQueries: [
-																		{
-																			query: query.FIND_DOCUMENTS_BY_FOLDER,
-																			variables: {
-																				folder: this.props.folder._id
-																			}
-																		},
-																		{
-																			query: query.FIND_DOCUMENTS_BY_TEAM,
-																			variables: { team: this.props.team }
-																		}
-																	]
-																});
-															}}
-														>
-															Remove from Folder
-														</StyledModalButton>
-													)}
-												</Mutation>
-												<StyledModalButton
-													onClick={e => {
-														e.preventDefault();
-														this.resetState();
-														this.toggleDocumentDetail(document);
-													}}
-												>
-													Details
-												</StyledModalButton>
-												<a
-													href={
-														document.doc_url.includes('http://') ||
-														document.doc_url.includes('https://')
-															? document.doc_url
-															: `http://www.${document.doc_url}`
-													}
-													target="_blank"
-													rel="noopener noreferrer"
-												>
-													<StyledModalButton>View</StyledModalButton>
-												</a>
-											</CardContent>
-										</StyledModalPaper>
-									))}
-								</>
-							);
-						}}
-					</Query>
+													{/* option to view the document details modal */}
+													<StyledModalButton
+														onClick={e => {
+															e.preventDefault();
+															this.resetState();
+															this.toggleDocumentDetail(document);
+														}}
+													>
+														Details
+													</StyledModalButton>
+													<a
+														href={
+															document.doc_url.includes('http://') ||
+															document.doc_url.includes('https://')
+																? document.doc_url
+																: `http://www.${document.doc_url}`
+														}
+														target="_blank"
+														rel="noopener noreferrer"
+													>
+														<StyledModalButton>View</StyledModalButton>
+													</a>
+												</CardContent>
+											</StyledModalPaper>
+										))}
+									</>
+								);
+							}}
+						</Query>
+					</ModalContents>
 				</StyledModalOverlay>
 				{/* // Modals */}
 				<DocumentDetails
@@ -303,8 +342,4 @@ class FolderDetails extends React.Component {
 	}
 }
 
-export default compose(
-	deleteFolder,
-
-	updateDocument
-)(FolderDetails);
+export default FolderDetails;

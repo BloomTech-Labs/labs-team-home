@@ -67,7 +67,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         guard let apollo = apollo,
             let team = team,
             let teamId = team.id,
-            let tag = tagsTextField.text else { return }
+            let tag = processTagText(tag: tagsTextField.text)  else { return }
         
         apollo.perform(mutation: CreateNewTagMutation(name: tag, teamId: teamId), queue: DispatchQueue.global()) { (result, error) in
             if let error = error {
@@ -103,7 +103,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCollectionViewCell
         
         guard let tag = tags?[indexPath.row] else { return UICollectionViewCell() }
-        cell.tagLabel.text = tag.name
+        cell.tagLabel.text = DocumentHelper.displayTagText(tag: tag.name)
         cell.backgroundColor = Appearance.darkMauveColor
         cell.layer.cornerRadius = cell.frame.height / 2
         
@@ -142,6 +142,17 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     
     //MARK: - Private Properties
+    
+    private func processTagText(tag: String?) -> String? {
+        guard let tag = tag,
+            let first = tag.first else {return nil}
+        
+        if first == "#"{
+            return tag
+        } else {
+            return "#\(tag)"
+        }
+    }
     private func setupViews(){
         setUpViewAppearance()
         newDocumentView.backgroundColor = Appearance.plumColor
