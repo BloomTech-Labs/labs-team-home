@@ -19,20 +19,13 @@ class FolderContentsTableViewController: UITableViewController {
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
         createGradientLayer()
-//        loadViewIfNeeded()
-//        parent?.removeFromParent()
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        loadDocuments(with: apollo!)
         if let watcherFolderContents = watcherFolderContents{
             watcherFolderContents.refetch()
         }
-//        showNavigationBar()
     }
     
 
@@ -48,25 +41,24 @@ class FolderContentsTableViewController: UITableViewController {
         cell.backgroundColor = .clear
         cell.textLabel?.text = document.title
         cell.detailTextLabel?.text = document.docUrl
-//        tableView.layer.layer
         return cell
     }
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        guard let document = documents?[indexPath.row],
-//            let id = document.id else {return}
-//        if editingStyle == .delete {
-//            apollo.perform(mutation: DeleteDocumentMutation(docID: id)) { (_, error) in
-//                if let error = error {
-//                    NSLog("Error deleting document: \(error)")
-//                    return
-//                }
-//                watcherFolderContents?.refetch()
-//                self.deleteIndexPath = indexPath
-//                print("delete success")
-//            }
-//        }
+        guard let document = documents?[indexPath.row],
+            let id = document.id else {return}
+        if editingStyle == .delete {
+            apollo.perform(mutation: DeleteDocumentMutation(docID: id)) { (_, error) in
+                if let error = error {
+                    NSLog("Error deleting document: \(error)")
+                    return
+                }
+                watcherFolderContents?.refetch()
+                self.deleteIndexPath = indexPath
+                print("delete success")
+            }
+        }
     }
 
     // MARK: - Navigation
@@ -105,10 +97,7 @@ class FolderContentsTableViewController: UITableViewController {
             
             //prevents extra call to reload data if deleting is called
             guard self.deleteIndexPath == nil else { return }
-//            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            
-//            }
+            self.tableView.reloadData()
         }
     }
     
@@ -120,27 +109,14 @@ class FolderContentsTableViewController: UITableViewController {
     private func createGradientLayer() {
         gradientLayer = CAGradientLayer()
         
-//        guard let parentView = self.parent else { return }
         gradientLayer.frame = self.view.bounds
         
         gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
         
-        
         gradientLayer.locations = [0.0, 0.5]
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        
-//        self.view.layer.addSublayer(gradientLayer)
-//        self.view.layer.insertSublayer(gradientLayer, below: tableView.layer)
-//        tableView.layer.isOpaque = true
-//        self.view.layer.
-//        tableView.backgroundView?.layerWillDraw(gradientLayer)
-//        self.view.layer.insertSublayer(gradientLayer, at: 0)
-//        self.view.layer.layoutSublayers()
-//        guard let layer = tableView?.backgroundView?.layer else { return }
-//        tableView.layer.insertSublayer(gradientLayer, at: 0) // .addSublayer(gradientLayer)
-//        self.view.layoutSublayers(of: layer)
-        
+      
         let backgroundView = UIView(frame: self.tableView.bounds)
         backgroundView.layer.insertSublayer(gradientLayer, at: 0)
         self.tableView.backgroundView = backgroundView
@@ -154,12 +130,12 @@ class FolderContentsTableViewController: UITableViewController {
         didSet{
             if isViewLoaded {
                 DispatchQueue.main.async {
-//                    if let indexPath = self.deleteIndexPath {
-//                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-//                        self.deleteIndexPath = nil
-//                    } else {
+                    if let indexPath = self.deleteIndexPath {
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        self.deleteIndexPath = nil
+                    } else {
                         self.tableView.reloadData()
-//                    }
+                    }
                 }
             }
         }
@@ -167,8 +143,8 @@ class FolderContentsTableViewController: UITableViewController {
     
     private var gradientLayer: CAGradientLayer!
     
-    var apollo: ApolloClient?
-    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
+    var apollo: ApolloClient!
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var deleteIndexPath: IndexPath?
 

@@ -9,21 +9,7 @@
 import UIKit
 import Apollo
 
-class DocumentsViewController: UIViewController, TabBarChildrenProtocol /*, FolderContentsSegueDelegate */ {
-//    func folderContentsSegue() {
-////        let destinationVC = navigationController?.children[1] as! FolderContentsTableViewController
-////        destinationVC.apollo = apollo
-////        destinationVC.team = team
-////        destinationVC.currentUser = currentUser
-////        guard let folder = self.folder else { return }
-////        destinationVC.title = folder.title
-////        destinationVC.folder = folder
-//        self.performSegue(withIdentifier: "PresentFolderContents", sender: self)
-////        navigationController?.pushViewController(destinationVC, animated: true)
-//    }
-    
-
-    
+class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +27,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol /*, Fold
         // Segmented Control action pattern
         setupEmbeddedViews()
         documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
-        
-        delegate?.apollo = apollo
-        delegate?.team = team
-        delegate?.currentUser = currentUser
     }
 
     // MARK: - IBActions
@@ -131,8 +113,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol /*, Fold
             let destinationVC = segue.destination as! AddEditDocumentViewController
             destinationVC.apollo = apollo
             destinationVC.team = team
-
-            
         }
         if segue.identifier == "EmbeddedTable"{
             let destinationVC = segue.destination as! DocumentsTableViewController
@@ -141,37 +121,17 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol /*, Fold
             destinationVC.currentUser = currentUser
         }
         if segue.identifier == "EmbeddedFolders"{
-            let destinationVC = segue.destination as! FoldersTableViewController //UINavigationController
-//           // let childVC = destinationVC.viewControllers[0] as! //
-//
-////            childVC
+            let destinationVC = segue.destination as! FoldersTableViewController
                 destinationVC.apollo = apollo
-////            childVC
                 destinationVC.team = team
-//            self.addChild(destinationVC)
-//            let folderTable = self.children[0] as! FoldersTableViewController
-//            folderTable.apollo = apollo
-//            folderTable.team = team
-//            folderTable.removeFromParent()
         }
-//        if segue.identifier == "PresentFolderContents" {
-//            let destinationVC = segue.destination as! FolderContentsTableViewController
-////            let folderTable = segue.source as! FoldersTableViewController
-//            destinationVC.apollo = apollo
-//            destinationVC.team = team
-//            destinationVC.currentUser = currentUser
-//            guard let folder = self.folder else { return }
-//            destinationVC.title = folder.title
-//            destinationVC.folder = folder
-//        }
     }
     
 
     // MARK: - Properties
 
     private var gradientLayer: CAGradientLayer!
-    private var delegate: FolderContentsSegueDelegate?
-    var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam?
+//    var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam?
     
     
     var apollo: ApolloClient?
@@ -187,9 +147,4 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol /*, Fold
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var containerView: UIView!
-}
-
-protocol FolderContentsSegueDelegate: TabBarChildrenProtocol {
-    func folderContentsSegue()
-    var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam? { get set }
 }

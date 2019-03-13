@@ -24,7 +24,6 @@ class FoldersTableViewController: UITableViewController {
         if let watcherFolder = watcherFolder {
             watcherFolder.refetch()
         }
-//        hideNavigationBar()
     }
 
     // MARK: - Table view data source
@@ -53,16 +52,6 @@ class FoldersTableViewController: UITableViewController {
         }    
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let parent = parent as? DocumentsViewController,
-        let folder = folders?[indexPath.row] else { return }
-        parent.folder = folder
-        parent.apollo = apollo
-        parent.currentUser = currentUser
-        parent.team = team
-//        parent.folderContentsSegue()
-    }
-    
     // MARK: - Private Functions
     
     private func loadFolders(with apollo: ApolloClient) {
@@ -82,14 +71,8 @@ class FoldersTableViewController: UITableViewController {
         }
     }
 
-    private func hideNavigationBar() {
-        let nc = self.navigationController
-        nc?.isNavigationBarHidden = true
-    }
-    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PresentFolderContents" {
             let destinationVC = segue.destination as! FolderContentsTableViewController
@@ -100,18 +83,6 @@ class FoldersTableViewController: UITableViewController {
             destinationVC.apollo = apollo
             destinationVC.team = team
             destinationVC.currentUser = currentUser
-
-//////            let parentVC = self.parent as! DocumentsViewController
-//////            parentVC.foldersContainerView.isHidden = true
-//////            navigationController?.pushViewController(destinationVC, animated: true)
-////
-////
-//////             set delegate properties locally
-//////             pop navigation stack and set delegate
-//////            navigationController?.popViewController(animated: <#T##Bool#>)
-//////             push new VC and set delegate
-////
-////
         }
     }
 
