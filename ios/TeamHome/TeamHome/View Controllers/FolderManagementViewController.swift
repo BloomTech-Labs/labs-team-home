@@ -8,6 +8,7 @@
 
 import UIKit
 import Apollo
+import Material
 
 class FolderManagementViewController: UIViewController, TabBarChildrenProtocol, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -15,6 +16,8 @@ class FolderManagementViewController: UIViewController, TabBarChildrenProtocol, 
         super.viewDidLoad()
 
         setUpViewAppearance()
+        createGradientLayer()
+        
         if let apollo = apollo {
             loadFolders(with: apollo)
         }
@@ -37,13 +40,6 @@ class FolderManagementViewController: UIViewController, TabBarChildrenProtocol, 
         guard let id = document?.id,
             let folderID = folders?[row]?.id else { return }
         moveDocumentFunction(to: folderID, withID: id)
-        // unwrap variables for use in network client
-
-        // perform fetch with apollo
-
-            // error handling
-
-        // pop the navigation stack
         navigationController?.popViewController(animated: true)
     }
     
@@ -73,25 +69,18 @@ class FolderManagementViewController: UIViewController, TabBarChildrenProtocol, 
                     NSLog("Error moving document to new folder: \(error)")
                     return
                 }
-//                watcherFolder?.refetch()
             }
         }
-//        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Picker View Delegate Methods
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let folderTitle = folders?[row]?.title else { return "" }
-        return folderTitle
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        guard let folderTitle = folders?[row]?.title else { return NSAttributedString(string: "") }
+        let formattedFolderTitle = NSAttributedString(string: folderTitle, attributes: [NSAttributedString.Key.foregroundColor: Color.white])
+        return formattedFolderTitle
     }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        guard let id = folders?[row]?.id,
-//            let folderTitle = folders?[row]?.title else { return }
-//        moveDocumentFunction(to: folderTitle, withID: id)
-    }
-    
+
     // MARK: - Picker View Data Source Methods
     
     // number of "wheels" in the pickdr view -- one for folder title in this case
@@ -104,14 +93,36 @@ class FolderManagementViewController: UIViewController, TabBarChildrenProtocol, 
         return folders?.count ?? 0
     }
     
+    // MARK: - Private Functions
     
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        // I'm not sure we need this; everything handled within navigation controller or popped from moveDocument
+    private func updateViews() {
+        if let document = document {
+            documentTitle.text = document.title
+            documentURL.text = document.docUrl
+           
+            documentTitle.backgroundColor = Appearance.plumColor
+            documentURL.backgroundColor = Appearance.plumColor
+            chooseFolderLabel.backgroundColor = Appearance.plumColor
+            
+            guard let folder = document.folder else { return }
+            chooseFolderLabel.text = folder.title
+        }
     }
     
+    private func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
+        
+        
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    } 
     
     // MARK: - Properties
     
@@ -122,6 +133,7 @@ class FolderManagementViewController: UIViewController, TabBarChildrenProtocol, 
             if isViewLoaded {
                 DispatchQueue.main.async {
                     self.folderSelectPicker.reloadAllComponents()
+                    self.updateViews()
                 }
             }
         }
@@ -129,6 +141,10 @@ class FolderManagementViewController: UIViewController, TabBarChildrenProtocol, 
 
     @IBOutlet weak var folderSelectPicker: UIPickerView!
     @IBOutlet weak var chooseFolderLabel: UILabel!
+    @IBOutlet weak var documentTitle: UILabel!
+    @IBOutlet weak var documentURL: UILabel!
+    
+    private var gradientLayer: CAGradientLayer!
     
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var apollo: ApolloClient?
