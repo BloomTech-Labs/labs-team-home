@@ -8,7 +8,11 @@ import { FIND_EVENTS_BY_TEAM } from '../../constants/queries';
 import Activity from './Activity';
 import ActivityModal from './ActivityModal';
 import { StyledProgressSpinner } from '../../app-styles';
+import Select from '@material-ui/core/Select';
 import styled from 'styled-components';
+import { MenuItem } from '@material-ui/core';
+import { colors } from '../../colorVariables';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 const ContainerDiv = styled.div`
 	display: flex;
@@ -17,13 +21,39 @@ const ContainerDiv = styled.div`
 	align-items: center;
 `;
 
+const FormDiv = styled.div`
+	width: 97%;
+	display: flex;
+	flex-direction: row-reverse;
+`;
+const StyledOutline = styled(OutlinedInput).attrs(() => ({
+	labelWidth: 10
+}))`
+	height: 30px;
+	border-radius: 5px;
+`;
+
+const StyledSelect = styled(Select)`
+	background-color: rgb(143, 136, 150, 0.75);
+	margin-left: 10px;
+	color: ${colors.text};
+`;
+
+const SortForm = styled.form`
+	height: 50px;
+	margin-top: 20px;
+	font-size: 16px;
+	color: white;
+`;
+
 export default class ActivityTimeline extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			eventDetailOpen: false,
-			currentEvent: null
+			currentEvent: null,
+			sortOption: 'all'
 		};
 	}
 
@@ -34,14 +64,39 @@ export default class ActivityTimeline extends React.Component {
 		}));
 	};
 
+	sortChange = e => {
+		this.setState({ sortOption: e.target.value });
+	};
+
 	render() {
 		// console.log('current props from activity timeline: ', this.props);
 		return (
 			<ContainerDiv>
+				<FormDiv>
+					<SortForm>
+						<label>
+							Sort:
+							<StyledSelect
+								value={this.state.sortOption}
+								onChange={this.sortChange}
+								input={<StyledOutline name="Sort" />}
+							>
+								<MenuItem value="all">All</MenuItem>
+								<MenuItem value="message">Message</MenuItem>
+								<MenuItem value="message comment">Message Comment</MenuItem>
+								<MenuItem value="folder">Folder</MenuItem>
+								<MenuItem value="document">Document</MenuItem>
+								<MenuItem value="document comment">Document Comment</MenuItem>
+								<MenuItem value="team">Team</MenuItem>
+								<MenuItem value="user">User</MenuItem>
+							</StyledSelect>
+						</label>
+					</SortForm>
+				</FormDiv>
 				{/* Queries for all Events, reflected every 5000ms (5 seconds)*/}
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
-					variables={{ team: this.props.team._id, limit: 50 }}
+					variables={{ team: this.props.team._id }} // limit: Int and offset: Int --available as variables
 					pollInterval={5000}
 				>
 					{({ loading, error, data: { findEventsByTeam }, fetchMore }) => {
@@ -56,15 +111,28 @@ export default class ActivityTimeline extends React.Component {
 								return event;
 							});
 
-							findEventsByTeam.sort((a, b) => {
-								if (a.createdAt < b.createdAt) return 1;
-								if (a.createdAt > b.createdAt) return -1;
-								return 0;
+							// findEventsByTeam.sort((a, b) => {
+							// 	if (a.createdAt < b.createdAt) return 1;
+							// 	if (a.createdAt > b.createdAt) return -1;
+							// 	return 0;
+							// });
+
+							const sortedEvents = findEventsByTeam.filter(event => {
+								if (event.object_string === this.state.sortOption) {
+									console.log('Event Object: ', event.object_string);
+									return event;
+								} else {
+									if (this.state.sortOption === 'all') {
+										return event;
+									} else {
+										return null;
+									}
+								}
 							});
 
 							return (
 								<>
-									{findEventsByTeam.map((event, index) => {
+									{sortedEvents.map((event, index) => {
 										if (event.user !== null) {
 											return (
 												<Activity
