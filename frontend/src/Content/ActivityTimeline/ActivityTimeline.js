@@ -41,10 +41,10 @@ export default class ActivityTimeline extends React.Component {
 				{/* Queries for all Events, reflected every 5000ms (5 seconds)*/}
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
-					variables={{ team: this.props.team._id }}
+					variables={{ team: this.props.team._id, limit: 50 }}
 					pollInterval={5000}
 				>
-					{({ loading, error, data: { findEventsByTeam } }) => {
+					{({ loading, error, data: { findEventsByTeam }, fetchMore }) => {
 						if (loading) return <StyledProgressSpinner />;
 						if (error) return <p>Error!</p>;
 
@@ -62,31 +62,57 @@ export default class ActivityTimeline extends React.Component {
 								return 0;
 							});
 
-							return findEventsByTeam.map((event, index) => {
-								if (event.user !== null) {
-									return (
-										<Activity
-											event={event}
-											key={index}
-											own={
-												event.user._id === this.props.currentUser._id
-													? 'true'
-													: 'false'
-											}
-											clickHandler={e => {
-												e.preventDefault();
-												e.stopPropagation();
-												this.toggleEventDetail(event);
-											}}
-										/>
-									);
-								}
-								return (
-									<div key={index}>
-										There is an event here but it was not recorded properly
-									</div>
-								);
-							});
+							return (
+								<>
+									{findEventsByTeam.map((event, index) => {
+										if (event.user !== null) {
+											return (
+												<Activity
+													event={event}
+													key={index}
+													own={
+														event.user._id === this.props.currentUser._id
+															? 'true'
+															: 'false'
+													}
+													clickHandler={e => {
+														e.preventDefault();
+														e.stopPropagation();
+														this.toggleEventDetail(event);
+													}}
+												/>
+											);
+										}
+										return (
+											<div key={index}>
+												There is an event here but it was not recorded properly
+											</div>
+										);
+									})}
+									{/* Code Below is to Enable Pagination - Query above needs pollInterval commented out 
+										to prevent refetching of data and override the pagination fetched*/}
+
+									{/* <button
+										onClick={e => {
+											e.preventDefault();
+											fetchMore({
+												variables: { offset: findEventsByTeam.length },
+												updateQuery: (prev, { fetchMoreResult }) => {
+													if (!fetchMoreResult) return prev;
+													return Object.assign({}, prev, {
+														findEventsByTeam: [
+															...prev.findEventsByTeam,
+															...fetchMoreResult.findEventsByTeam
+														]
+													});
+												}
+											});
+										}}
+									>
+										More ...
+									</button> */}
+								</>
+							);
 						} else {
 							return <div> No events </div>;
 						}
