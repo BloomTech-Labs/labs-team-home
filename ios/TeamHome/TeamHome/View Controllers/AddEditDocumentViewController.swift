@@ -142,6 +142,14 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     
     //MARK: - Private Properties
+    
+    private func processTagText(tag: String) -> String {
+        if tag.first == "#"{
+            return tag
+        } else {
+            return "#\(tag)"
+        }
+    }
     private func setupViews(){
         setUpViewAppearance()
         newDocumentView.backgroundColor = Appearance.plumColor
