@@ -159,7 +159,7 @@ const msgCommentResolvers = {
 						try {
 							await new Event({
 								team: item.message.team._id,
-								user: item.user._id,
+								user: _id,
 								action_string: action_str.liked,
 								object_string: object_str.msgComment,
 								event_target_id: item.message._id
@@ -188,7 +188,7 @@ const msgCommentResolvers = {
 						try {
 							await new Event({
 								team: item.message.team._id,
-								user: item.user._id,
+								user: _id,
 								action_string: action_str.unliked,
 								object_string: object_str.msgComment,
 								event_target_id: item.message._id
