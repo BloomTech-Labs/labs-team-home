@@ -107,7 +107,7 @@ const DocUrl = styled(StyledModalBody)`
 
 // this needs to be a button for functionality purposes
 const ArrowDiv = styled.button`
-	height: 150px;
+	/* height: 150px; */
 	display: flex;
 	align-items: center;
 	background: none;

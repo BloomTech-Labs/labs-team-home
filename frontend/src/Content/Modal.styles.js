@@ -14,7 +14,7 @@ import CardActions from '@material-ui/core/CardActions';
 // ------------- global styles imports ---------------------- //
 import { palette, colors } from '../colorVariables';
 import { Paper } from '@material-ui/core';
-import mediaQueryFor from '../_global_styles/responsive_querie';
+// import mediaQueryFor from '../_global_styles/responsive_querie';
 // import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 // All modals basically follow this structure ... basically ... :
@@ -166,9 +166,7 @@ export const StyledModalNewCommentInput = styled(TextField).attrs(() => ({
 	inputProps: {
 		style: {
 			color: '#000',
-			height: '100px',
-			backgroundColor: '#fff', //<-- why?
-			padding: '0px' //<-- why?
+			height: '100px'
 		}
 	},
 	fullWidth: true,
@@ -177,9 +175,10 @@ export const StyledModalNewCommentInput = styled(TextField).attrs(() => ({
 	width: 100%;
 	background-color: #fff;
 	padding: 5px;
-	.MuiInputBase-root-320 {
+	height: 100%;
+	/* .MuiInputBase-root-320 {
 		padding: 0px;
-	}
+	} */
 `;
 
 // The buttons that have a yellow underline
