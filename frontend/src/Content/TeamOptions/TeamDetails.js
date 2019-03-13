@@ -109,7 +109,7 @@ class TeamDetails extends React.Component {
 	//set admin to true, if the currentUser is the admin
 	componentDidMount = () => {
 		this.props.team.users.map(user => {
-			// console.log(' Users from inside component did mount: ', user);
+			//console.log(' Users from inside component did mount: ', user);
 			if (user.user._id === this.props.currentUser._id) {
 				if (user.admin) this.setState({ admin: true });
 			}

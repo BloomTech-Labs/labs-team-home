@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import { Create } from 'styled-icons/material/Create';
 import { TrashAlt } from 'styled-icons/fa-solid/TrashAlt';
-import { AddCircle } from 'styled-icons/material/AddCircle';
 import { MinusCircle } from 'styled-icons/boxicons-regular/MinusCircle';
 import { Like } from 'styled-icons/boxicons-solid/Like';
 import { Dislike } from 'styled-icons/boxicons-solid/Dislike';
@@ -19,22 +18,6 @@ import { Note } from 'styled-icons/material/Note';
 import { Users } from 'styled-icons/fa-solid/Users';
 import { Add } from 'styled-icons/material/Add';
 
-// left: 'left', Exit
-// moved: 'moved', -- not used
-// subscribed: 'subscribed to',
-// unsubscribed: 'unsubscribed from',
-// invited: 'invited', AddCircle
-// updated: 'updated', Create
-// removed: 'removed' minuscircle
-
-// message: 'message', envelop
-// msgComment: 'message comment', comment
-// folder: 'folder', fodler
-// document: 'document', note
-// docComment: 'document comment', comment
-// team: 'team', Users
-// user: 'user' UserCircle
-
 const StyledEdit = styled(Create)`
 	color: white;
 	height: 1.3rem;
@@ -43,7 +26,7 @@ const StyledEdit = styled(Create)`
 const StyledTrashAlt = styled(TrashAlt)`
 	color: white;
 	height: 1rem;
-	margin-top: 2px;
+	margin-bottom: 2px;
 `;
 
 const StyledAdd = styled(Add)`
@@ -84,6 +67,7 @@ const StyledNotificationsOff = styled(NotificationsOff)`
 const StyledEnvelope = styled(Envelope)`
 	color: white;
 	height: 1.5rem;
+	margin-bottom: 2px;
 `;
 
 const StyledComment = styled(Comment)`

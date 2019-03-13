@@ -74,7 +74,7 @@ const MessagesContainer = styled.div`
 
 const ContainerTitle = styled.div`
 	position: absolute;
-	width: 200px;
+	width: 150px;
 	height: 40px;
 	text-align: center;
 	top: -15px;
@@ -160,7 +160,7 @@ class MessageBoard extends React.Component {
 				<MessagesContainer>
 					{/* Sorting options */}
 					<ContainerTitle>
-						<p>MESSAGE BOARD</p>
+						<p>MESSAGES</p>
 					</ContainerTitle>
 					<FormDiv>
 						<SortForm>

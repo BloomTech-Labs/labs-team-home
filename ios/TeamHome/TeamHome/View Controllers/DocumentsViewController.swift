@@ -11,8 +11,6 @@ import Apollo
 
 class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
 
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +27,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         // Segmented Control action pattern
         setupEmbeddedViews()
         documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
-        
     }
 
     // MARK: - IBActions
@@ -116,8 +113,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             let destinationVC = segue.destination as! AddEditDocumentViewController
             destinationVC.apollo = apollo
             destinationVC.team = team
-
-            
         }
         if segue.identifier == "EmbeddedTable"{
             let destinationVC = segue.destination as! DocumentsTableViewController
@@ -126,12 +121,8 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             destinationVC.currentUser = currentUser
         }
         if segue.identifier == "EmbeddedFolders"{
-            let destinationVC = segue.destination as! FoldersTableViewController //UINavigationController
-           // let childVC = destinationVC.viewControllers[0] as! //
-            
-//            childVC
+            let destinationVC = segue.destination as! FoldersTableViewController
                 destinationVC.apollo = apollo
-//            childVC
                 destinationVC.team = team
         }
     }

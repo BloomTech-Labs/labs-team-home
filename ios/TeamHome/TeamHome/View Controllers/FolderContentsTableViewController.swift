@@ -16,9 +16,9 @@ class FolderContentsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViewAppearance()
-        createGradientLayer()
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
+        createGradientLayer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,7 +26,6 @@ class FolderContentsTableViewController: UITableViewController {
         if let watcherFolderContents = watcherFolderContents{
             watcherFolderContents.refetch()
         }
-//        showNavigationBar()
     }
     
 
@@ -37,7 +36,7 @@ class FolderContentsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentCell"),
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContentsCell"),
             let document = documents?[indexPath.row] else {return UITableViewCell()}
         cell.backgroundColor = .clear
         cell.textLabel?.text = document.title
@@ -55,7 +54,7 @@ class FolderContentsTableViewController: UITableViewController {
                     NSLog("Error deleting document: \(error)")
                     return
                 }
-                watcher?.refetch()
+                watcherFolderContents?.refetch()
                 self.deleteIndexPath = indexPath
                 print("delete success")
             }
@@ -114,12 +113,13 @@ class FolderContentsTableViewController: UITableViewController {
         
         gradientLayer.colors = [Appearance.grayColor.cgColor, Appearance.likeGrayColor.cgColor, Appearance.grayColor.cgColor]
         
-        
         gradientLayer.locations = [0.0, 0.5]
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
+      
+        let backgroundView = UIView(frame: self.tableView.bounds)
+        backgroundView.layer.insertSublayer(gradientLayer, at: 0)
+        self.tableView.backgroundView = backgroundView
     }
     
     // MARK: - Properties

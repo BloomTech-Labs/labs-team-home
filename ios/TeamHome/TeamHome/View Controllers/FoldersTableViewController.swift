@@ -24,7 +24,6 @@ class FoldersTableViewController: UITableViewController {
         if let watcherFolder = watcherFolder {
             watcherFolder.refetch()
         }
-//        hideNavigationBar()
     }
 
     // MARK: - Table view data source
@@ -72,27 +71,21 @@ class FoldersTableViewController: UITableViewController {
         }
     }
 
-    private func hideNavigationBar() {
-        let nc = self.navigationController
-        nc?.isNavigationBarHidden = true
-    }
-    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PresentFolderContents" {
             let destinationVC = segue.destination as! FolderContentsTableViewController
-            destinationVC.apollo = apollo
-            destinationVC.team = team
-            destinationVC.currentUser = currentUser
             guard let indexPath = tableView.indexPathForSelectedRow,
                 let folder = folders?[indexPath.row] else { return }
             destinationVC.title = folder.title
             destinationVC.folder = folder
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+            destinationVC.currentUser = currentUser
         }
     }
-    
+
     
     // MARK: - Properties
     

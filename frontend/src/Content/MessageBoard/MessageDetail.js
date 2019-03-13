@@ -85,7 +85,7 @@ const Image = styled.img`
 `;
 
 const ArrowDiv = styled.button`
-	height: 150px;
+	/* height: 150px; */
 	display: flex;
 	align-items: center;
 	background: none;
@@ -152,8 +152,6 @@ class MessageDetail extends Component {
 
 	render() {
 		const { message, currentUser } = this.props;
-		// console.log('State from Message: ', this.props);
-		// console.log('Props from Message: ', this.props);
 		if (message === null) return <> </>;
 
 		return (
