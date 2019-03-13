@@ -155,6 +155,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     private func setupViews(){
         setUpViewAppearance()
+        hideKeyboardWhenTappedAround()
         newDocumentView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
@@ -259,6 +260,16 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         }
         
         return nil
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     //MARK: - Properties
     var apollo: ApolloClient!
