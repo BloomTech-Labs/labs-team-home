@@ -10,6 +10,7 @@ import UIKit
 import Apollo
 
 var watcherFolder: GraphQLQueryWatcher<FindFoldersByTeamQuery>?
+typealias Folder = FindFoldersByTeamQuery.Data.FindFoldersByTeam
 
 class FoldersTableViewController: UITableViewController {
 
@@ -70,6 +71,15 @@ class FoldersTableViewController: UITableViewController {
             self.folders = folders
         }
     }
+    
+//    private func delete(folder: Folder, with apollo: ApolloClient) {
+//        
+//        guard let documents =  else { return }
+//        
+//        for folder in folders {
+//            
+//        }
+//    }
 
     // MARK: - Navigation
 
