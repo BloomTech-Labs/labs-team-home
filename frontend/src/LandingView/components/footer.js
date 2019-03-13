@@ -39,7 +39,7 @@ const Footer = () => {
 				<Link to="/privacy">Privacy</Link>
 			</div>
 			<div>
-				<p id="copy">&copy; 2019 Sveza Inc.</p>
+				<p id="copy">&copy; 2019 Arq Inc.</p>
 			</div>
 		</StyledFooter>
 	);
