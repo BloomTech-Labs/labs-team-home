@@ -53,7 +53,8 @@ export default class ActivityTimeline extends React.Component {
 		this.state = {
 			eventDetailOpen: false,
 			currentEvent: null,
-			sortOption: 'all'
+			objectOption: 'all',
+			actionOption: 'all'
 		};
 	}
 
@@ -64,8 +65,12 @@ export default class ActivityTimeline extends React.Component {
 		}));
 	};
 
-	sortChange = e => {
-		this.setState({ sortOption: e.target.value });
+	objectChange = e => {
+		this.setState({ objectOption: e.target.value });
+	};
+
+	actionChange = e => {
+		this.setState({ actionOption: e.target.value });
 	};
 
 	render() {
@@ -75,10 +80,36 @@ export default class ActivityTimeline extends React.Component {
 				<FormDiv>
 					<SortForm>
 						<label>
-							Sort:
+							Action Sort:
 							<StyledSelect
-								value={this.state.sortOption}
-								onChange={this.sortChange}
+								value={this.state.actionOption}
+								onChange={this.actionChange}
+								input={<StyledOutline name="Sort" />}
+							>
+								<MenuItem value="all">All</MenuItem>
+								<MenuItem value="added">Added</MenuItem>
+								<MenuItem value="created">Created</MenuItem>
+								<MenuItem value="edited">Edited</MenuItem>
+								<MenuItem value="deleted">Deleted</MenuItem>
+								<MenuItem value="liked">Liked</MenuItem>
+								<MenuItem value="unliked">Unliked</MenuItem>
+								<MenuItem value="joined">Joined</MenuItem>
+								<MenuItem value="left">Left</MenuItem>
+								<MenuItem value="moved">Moved</MenuItem>
+								<MenuItem value="subscribed to">Subscribed to</MenuItem>
+								<MenuItem value="unsubscribed from">Unsubscribed from</MenuItem>
+								<MenuItem value="invited">Invited</MenuItem>
+								<MenuItem value="updated">Updated</MenuItem>
+								<MenuItem value="removed">Removed</MenuItem>
+							</StyledSelect>
+						</label>
+					</SortForm>
+					<SortForm>
+						<label>
+							Object Sort:
+							<StyledSelect
+								value={this.state.objectOption}
+								onChange={this.objectChange}
 								input={<StyledOutline name="Sort" />}
 							>
 								<MenuItem value="all">All</MenuItem>
@@ -117,18 +148,29 @@ export default class ActivityTimeline extends React.Component {
 							// 	return 0;
 							// });
 
-							const sortedEvents = findEventsByTeam.filter(event => {
-								if (event.object_string === this.state.sortOption) {
-									console.log('Event Object: ', event.object_string);
-									return event;
-								} else {
-									if (this.state.sortOption === 'all') {
+							const sortedEvents = findEventsByTeam
+								.filter(event => {
+									if (event.object_string === this.state.objectOption) {
 										return event;
 									} else {
-										return null;
+										if (this.state.objectOption === 'all') {
+											return event;
+										} else {
+											return null;
+										}
 									}
-								}
-							});
+								})
+								.filter(event => {
+									if (event.action_string === this.state.actionOption) {
+										return event;
+									} else {
+										if (this.state.actionOption === 'all') {
+											return event;
+										} else {
+											return null;
+										}
+									}
+								});
 
 							return (
 								<>
