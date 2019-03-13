@@ -156,6 +156,7 @@ class FolderContentsTableViewController: UITableViewController {
                 }
             }
         }
+        navigationController?.popViewController(animated: true)
     }
 
     // MARK: - Properties
