@@ -53,6 +53,16 @@ class FoldersTableViewController: UITableViewController {
         }    
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let parent = parent as? DocumentsViewController,
+        let folder = folders?[indexPath.row] else { return }
+        parent.folder = folder
+        parent.apollo = apollo
+        parent.currentUser = currentUser
+        parent.team = team
+//        parent.folderContentsSegue()
+    }
+    
     // MARK: - Private Functions
     
     private func loadFolders(with apollo: ApolloClient) {
@@ -90,13 +100,21 @@ class FoldersTableViewController: UITableViewController {
             destinationVC.apollo = apollo
             destinationVC.team = team
             destinationVC.currentUser = currentUser
-            
-//            let parentVC = self.parent as! DocumentsViewController
-//            parentVC.foldersContainerView.isHidden = true
-//            navigationController?.pushViewController(destinationVC, animated: true)
+
+//////            let parentVC = self.parent as! DocumentsViewController
+//////            parentVC.foldersContainerView.isHidden = true
+//////            navigationController?.pushViewController(destinationVC, animated: true)
+////
+////
+//////             set delegate properties locally
+//////             pop navigation stack and set delegate
+//////            navigationController?.popViewController(animated: <#T##Bool#>)
+//////             push new VC and set delegate
+////
+////
         }
     }
-    
+
     
     // MARK: - Properties
     

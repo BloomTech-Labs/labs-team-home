@@ -9,7 +9,19 @@
 import UIKit
 import Apollo
 
-class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
+class DocumentsViewController: UIViewController, TabBarChildrenProtocol /*, FolderContentsSegueDelegate */ {
+//    func folderContentsSegue() {
+////        let destinationVC = navigationController?.children[1] as! FolderContentsTableViewController
+////        destinationVC.apollo = apollo
+////        destinationVC.team = team
+////        destinationVC.currentUser = currentUser
+////        guard let folder = self.folder else { return }
+////        destinationVC.title = folder.title
+////        destinationVC.folder = folder
+//        self.performSegue(withIdentifier: "PresentFolderContents", sender: self)
+////        navigationController?.pushViewController(destinationVC, animated: true)
+//    }
+    
 
     
 
@@ -30,6 +42,9 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         setupEmbeddedViews()
         documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
         
+        delegate?.apollo = apollo
+        delegate?.team = team
+        delegate?.currentUser = currentUser
     }
 
     // MARK: - IBActions
@@ -139,23 +154,25 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
 //            folderTable.team = team
 //            folderTable.removeFromParent()
         }
-        if segue.identifier == "PresentFolderContents" {
-            let destinationVC = segue.destination as! FolderContentsTableViewController
-            let folderTable = segue.source as! FoldersTableViewController
-            destinationVC.apollo = apollo
-            destinationVC.team = team
-            destinationVC.currentUser = currentUser
-            guard let indexPath = folderTable.tableView.indexPathForSelectedRow,
-                let folder = folderTable.folders?[indexPath.row] else { return }
-            destinationVC.title = folder.title
-            destinationVC.folder = folder
-        }
+//        if segue.identifier == "PresentFolderContents" {
+//            let destinationVC = segue.destination as! FolderContentsTableViewController
+////            let folderTable = segue.source as! FoldersTableViewController
+//            destinationVC.apollo = apollo
+//            destinationVC.team = team
+//            destinationVC.currentUser = currentUser
+//            guard let folder = self.folder else { return }
+//            destinationVC.title = folder.title
+//            destinationVC.folder = folder
+//        }
     }
     
 
     // MARK: - Properties
 
     private var gradientLayer: CAGradientLayer!
+    private var delegate: FolderContentsSegueDelegate?
+    var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam?
+    
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
@@ -170,4 +187,9 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var containerView: UIView!
+}
+
+protocol FolderContentsSegueDelegate: TabBarChildrenProtocol {
+    func folderContentsSegue()
+    var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam? { get set }
 }

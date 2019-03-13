@@ -19,10 +19,16 @@ class FolderContentsTableViewController: UITableViewController {
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
         createGradientLayer()
+//        loadViewIfNeeded()
+//        parent?.removeFromParent()
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        loadDocuments(with: apollo!)
         if let watcherFolderContents = watcherFolderContents{
             watcherFolderContents.refetch()
         }
@@ -42,24 +48,25 @@ class FolderContentsTableViewController: UITableViewController {
         cell.backgroundColor = .clear
         cell.textLabel?.text = document.title
         cell.detailTextLabel?.text = document.docUrl
+//        tableView.layer.layer
         return cell
     }
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let document = documents?[indexPath.row],
-            let id = document.id else {return}
-        if editingStyle == .delete {
-            apollo.perform(mutation: DeleteDocumentMutation(docID: id)) { (_, error) in
-                if let error = error {
-                    NSLog("Error deleting document: \(error)")
-                    return
-                }
-                watcherFolderContents?.refetch()
-                self.deleteIndexPath = indexPath
-                print("delete success")
-            }
-        }
+//        guard let document = documents?[indexPath.row],
+//            let id = document.id else {return}
+//        if editingStyle == .delete {
+//            apollo.perform(mutation: DeleteDocumentMutation(docID: id)) { (_, error) in
+//                if let error = error {
+//                    NSLog("Error deleting document: \(error)")
+//                    return
+//                }
+//                watcherFolderContents?.refetch()
+//                self.deleteIndexPath = indexPath
+//                print("delete success")
+//            }
+//        }
     }
 
     // MARK: - Navigation
@@ -127,8 +134,16 @@ class FolderContentsTableViewController: UITableViewController {
 //        self.view.layer.insertSublayer(gradientLayer, below: tableView.layer)
 //        tableView.layer.isOpaque = true
 //        self.view.layer.
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
-//        self.view.layoutSublayers(of: self.view.layer)
+//        tableView.backgroundView?.layerWillDraw(gradientLayer)
+//        self.view.layer.insertSublayer(gradientLayer, at: 0)
+//        self.view.layer.layoutSublayers()
+//        guard let layer = tableView?.backgroundView?.layer else { return }
+//        tableView.layer.insertSublayer(gradientLayer, at: 0) // .addSublayer(gradientLayer)
+//        self.view.layoutSublayers(of: layer)
+        
+        let backgroundView = UIView(frame: self.tableView.bounds)
+        backgroundView.layer.insertSublayer(gradientLayer, at: 0)
+        self.tableView.backgroundView = backgroundView
     }
     
     // MARK: - Properties
@@ -152,8 +167,8 @@ class FolderContentsTableViewController: UITableViewController {
     
     private var gradientLayer: CAGradientLayer!
     
-    var apollo: ApolloClient!
-    var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
+    var apollo: ApolloClient?
+    var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var deleteIndexPath: IndexPath?
 

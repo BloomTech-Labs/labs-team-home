@@ -632,7 +632,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="lfa-LU-LVT" kind="show" identifier="PresentFolderContents" id="vGc-NQ-E8h"/>
+                                    <segue destination="lfa-LU-LVT" kind="show" identifier="PresentFolderContents" id="uoW-sF-Vei"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -645,7 +645,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v7p-9l-ZbQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="569" y="612"/>
+            <point key="canvasLocation" x="569" y="611"/>
         </scene>
         <!--FolderContentsView-->
         <scene sceneID="9y9-pQ-Hbb">
@@ -693,20 +693,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVF-Iq-Y33" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1609" y="612"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="QcX-FI-tpe">
-            <objects>
-                <navigationController id="0re-id-Ttf" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OgH-WI-81Y">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hpB-mm-7RS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-714" y="611"/>
+            <point key="canvasLocation" x="1609" y="609"/>
         </scene>
         <!--Choose a Folder:-->
         <scene sceneID="hkI-kx-QDY">
