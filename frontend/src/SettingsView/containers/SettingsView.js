@@ -62,6 +62,7 @@ class SettingsView extends Component {
 
 	componentDidMount() {
 		const { currentUser } = this.props;
+		console.log('Current User: ', currentUser);
 		if (currentUser) {
 			const { email, firstName, lastName, avatar, phoneNumber } = currentUser;
 			const { receiveEmails, receiveTexts } = currentUser.toggles;
@@ -137,6 +138,7 @@ class SettingsView extends Component {
 						<StyledForm
 							onSubmit={e => {
 								e.preventDefault();
+								console.log('user toggles: ', this.state.toggles);
 								updateUser({
 									variables: {
 										firstName: this.state.firstName,
@@ -297,13 +299,13 @@ class SettingsView extends Component {
 								title={'Receive emails?'}
 								name="receiveEmails"
 								handleSelect={this.handleSelect}
-								checked={this.state.toggles.receiveEmails}
+								checked={currentUser.toggles.receiveEmails}
 							/>
 							<FormCheckbox
 								title={'Receive texts?'}
 								name="receiveTexts"
 								handleSelect={this.handleSelect}
-								checked={this.state.toggles.receiveTexts}
+								checked={currentUser.toggles.receiveTexts}
 							/>
 							<FormButton type="submit" title="save" />
 						</StyledForm>
