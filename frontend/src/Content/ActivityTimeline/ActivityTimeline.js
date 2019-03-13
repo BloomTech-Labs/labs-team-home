@@ -54,7 +54,8 @@ export default class ActivityTimeline extends React.Component {
 			eventDetailOpen: false,
 			currentEvent: null,
 			objectOption: 'all',
-			actionOption: 'all'
+			actionOption: 'all',
+			userOption: 'all'
 		};
 	}
 
@@ -73,6 +74,10 @@ export default class ActivityTimeline extends React.Component {
 		this.setState({ actionOption: e.target.value });
 	};
 
+	userChange = e => {
+		this.setState({ userOption: e.target.value });
+	};
+
 	render() {
 		// console.log('current props from activity timeline: ', this.props);
 		return (
@@ -80,7 +85,24 @@ export default class ActivityTimeline extends React.Component {
 				<FormDiv>
 					<SortForm>
 						<label>
-							Action Sort:
+							User:
+							<StyledSelect
+								value={this.state.userOption}
+								onChange={this.userChange}
+								input={<StyledOutline name="Sort" />}
+							>
+								<MenuItem value="all">All</MenuItem>
+								{this.props.team.users.map((user, index) => (
+									<MenuItem key={index} value={`${user.user._id}`}>{`${
+										user.user.firstName
+									}`}</MenuItem>
+								))}
+							</StyledSelect>
+						</label>
+					</SortForm>
+					<SortForm>
+						<label>
+							Action:
 							<StyledSelect
 								value={this.state.actionOption}
 								onChange={this.actionChange}
@@ -106,7 +128,7 @@ export default class ActivityTimeline extends React.Component {
 					</SortForm>
 					<SortForm>
 						<label>
-							Object Sort:
+							Object:
 							<StyledSelect
 								value={this.state.objectOption}
 								onChange={this.objectChange}
@@ -165,6 +187,20 @@ export default class ActivityTimeline extends React.Component {
 										return event;
 									} else {
 										if (this.state.actionOption === 'all') {
+											return event;
+										} else {
+											return null;
+										}
+									}
+								})
+								.filter(event => {
+									if (
+										event.user !== null &&
+										event.user._id === this.state.userOption
+									) {
+										return event;
+									} else {
+										if (this.state.userOption === 'all') {
 											return event;
 										} else {
 											return null;
