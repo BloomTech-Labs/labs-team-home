@@ -210,31 +210,36 @@ export default class ActivityTimeline extends React.Component {
 
 							return (
 								<>
-									{sortedEvents.map((event, index) => {
-										if (event.user !== null) {
+									{sortedEvents.length > 0 ? (
+										sortedEvents.map((event, index) => {
+											if (event.user !== null) {
+												return (
+													<Activity
+														event={event}
+														key={index}
+														own={
+															event.user._id === this.props.currentUser._id
+																? 'true'
+																: 'false'
+														}
+														clickHandler={e => {
+															e.preventDefault();
+															e.stopPropagation();
+															this.toggleEventDetail(event);
+														}}
+													/>
+												);
+											}
 											return (
-												<Activity
-													event={event}
-													key={index}
-													own={
-														event.user._id === this.props.currentUser._id
-															? 'true'
-															: 'false'
-													}
-													clickHandler={e => {
-														e.preventDefault();
-														e.stopPropagation();
-														this.toggleEventDetail(event);
-													}}
-												/>
+												<div key={index}>
+													There is an event here but it was not recorded
+													properly
+												</div>
 											);
-										}
-										return (
-											<div key={index}>
-												There is an event here but it was not recorded properly
-											</div>
-										);
-									})}
+										})
+									) : (
+										<div>No Results Found</div>
+									)}
 									{/* Code Below is to Enable Pagination - Query above needs pollInterval commented out 
 										to prevent refetching of data and override the pagination fetched*/}
 
