@@ -15,11 +15,7 @@ import AppNavBar from './Nav/Nav'; // component
 // ------------- styling libraries ---------------------- //
 import JssProvider from 'react-jss/lib/JssProvider'; // lets you write style sheets in javascript
 import { create } from 'jss'; // lets you write style sheets in javascript
-import {
-	createGenerateClassName,
-	jssPreset,
-	withTheme
-} from '@material-ui/core/styles'; // gets styling from material-ui
+import { createGenerateClassName, jssPreset } from '@material-ui/core/styles'; // gets styling from material-ui
 import { CSSTransition, TransitionGroup } from 'react-transition-group'; // some transitions
 
 import HTML5Backend from 'react-dnd-html5-backend';

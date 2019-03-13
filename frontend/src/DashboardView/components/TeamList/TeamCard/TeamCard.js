@@ -49,7 +49,6 @@ function TeamCard(props) {
 						>
 							{' '}
 							{/* emoji were used here */}
-							{console.log('USER: ', props.team.users)}
 							{props.user._id ===
 							props.team.users.find(u => u.admin).user._id ? (
 								<>
