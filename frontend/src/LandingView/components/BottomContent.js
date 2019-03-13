@@ -22,7 +22,7 @@ import { Dropbox } from 'styled-icons/boxicons-logos/Dropbox';
 import { GoogleDrive } from 'styled-icons/fa-brands/GoogleDrive';
 import { Apple } from 'styled-icons/boxicons-logos/Apple';
 import { Onedrive } from 'styled-icons/icomoon/Onedrive';
-import Footer from './footer';
+// import Footer from './footer';
 import { colors } from '../../colorVariables';
 
 const StyledDropbox = styled(Dropbox)`
@@ -146,7 +146,6 @@ const BottomContent = props => {
 				</CircleDiv>
 			</IntegrationDiv>
 			<Pricing />
-			<Footer />
 		</>
 	);
 };

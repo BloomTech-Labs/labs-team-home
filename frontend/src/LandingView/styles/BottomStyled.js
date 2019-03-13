@@ -9,7 +9,7 @@ export const LandingContentContainer = styled.div`
 	height: 100vh;
 	padding-top: 60px;
 	align-items: center;
-
+	border: 1px solid pink;
 	${mediaQueryFor.lgDevice`
     flex-direction: column;
     justify-content: center;
