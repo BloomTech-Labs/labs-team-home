@@ -53,7 +53,7 @@ const StyledTypography = styled(Typography)`
 `;
 
 const Prem = styled(Typography)`
-	color: ${colors.text};
+	color: ${colors.header};
 
 	${mediaQueryFor.xsDevice`
 		display: none;

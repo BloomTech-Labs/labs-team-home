@@ -8,6 +8,9 @@ import { FIND_EVENTS_BY_TEAM } from '../../constants/queries';
 import Activity from './Activity';
 import ActivityModal from './ActivityModal';
 import { StyledProgressSpinner } from '../../app-styles';
+
+// ------------- Style Imports ---------------------- //
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 import styled from 'styled-components';
 
 const ContainerDiv = styled.div`
@@ -15,6 +18,35 @@ const ContainerDiv = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	width: 96%;
+	max-width: 1100px;
+
+	padding: 20px;
+	border: 2px solid #4a4550;
+	position: relative;
+	margin: 15px auto;
+
+	${mediaQueryFor.mdDevice`
+		padding-top: 25px;
+		width: 100%;
+	`};
+`;
+
+const ContainerTitle = styled.div`
+	position: absolute;
+	width: 150px;
+	height: 40px;
+	text-align: center;
+	top: -15px;
+	left: 20px;
+	background-color: #5a5560;
+
+	p {
+		color: white;
+		font-size: 18px;
+		letter-spacing: 1px;
+	}
 `;
 
 export default class ActivityTimeline extends React.Component {
@@ -38,6 +70,9 @@ export default class ActivityTimeline extends React.Component {
 		// console.log('current props from activity timeline: ', this.props);
 		return (
 			<ContainerDiv>
+				<ContainerTitle>
+					<p>ACTIVITY</p>
+				</ContainerTitle>
 				{/* Queries for all Events, reflected every 5000ms (5 seconds)*/}
 				<Query
 					query={FIND_EVENTS_BY_TEAM}
