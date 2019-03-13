@@ -39,8 +39,8 @@ import { StyledProgressSpinnerSecondary } from '../../../app-styles';
 import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
 const ModalContents = styled.div`
-	height: ${mediaQueryFor.smDevice ? 'auto' : '700px'};
-	width: ${mediaQueryFor.smDevice ? 'auto' : '565px'};
+	height: 700px;
+	width: 565px;
 	overflow-y: auto;
 	padding-right: 1.3em;
 	margin-top: 1rem;
@@ -52,6 +52,11 @@ const ModalContents = styled.div`
 	&::-webkit-scrollbar-thumb {
 		background-color: white;
 	}
+
+	${mediaQueryFor.smDevice`
+		height: auto;
+		width: auto;
+	`}
 `;
 
 const ModalTitle = styled(StyledModalTitle)`
