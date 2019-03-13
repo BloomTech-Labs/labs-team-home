@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Auth0 from '../Auth/Auth';
+import styled from 'styled-components';
 
 // ------------- Component Imports ---------------------- //
 import { Navbar } from 'reactstrap';
-import { TextIMG, RespNav } from '../Nav/styles/index';
+import { RespNav } from '../Nav/styles/index';
 import { Spin } from 'react-burgers';
-import textLogo from '../assets/Sveza_white.svg';
 import LandingNavOptions from './components/LandingNavOptions';
 import { NavBarTogglerDiv } from './styles/index';
+
+const Logo = styled.h1`
+	color: white;
+	margin-left: 60px;
+	margin-top: 10px;
+	margin-bottom: 0;
+	font-family: 'Comfortaa';
+	font-weight: 400;
+
+	span {
+		font-size: 1.8rem;
+		font-weight: 700;
+	}
+`;
 
 class RespNavBar extends Component {
 	constructor(props) {
@@ -54,7 +68,9 @@ class RespNavBar extends Component {
 			<div>
 				<RespNav>
 					<Navbar expand="md">
-						<TextIMG className="text-img" src={textLogo} />
+						<Logo>
+							Ar<span>Q</span>
+						</Logo>
 						<NavBarTogglerDiv onClick={this.toggle}>
 							<Spin active={this.state.isOpen} color="#fff" />
 						</NavBarTogglerDiv>

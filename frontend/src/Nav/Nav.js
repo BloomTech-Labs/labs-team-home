@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
 import { Collapse, Navbar, Nav, NavItem } from 'reactstrap';
-import { StyledLink, TextIMG, RespNav, NavBarTogglerDiv } from './styles/index';
+import { StyledLink, RespNav, NavBarTogglerDiv } from './styles/index';
 import { Spin } from 'react-burgers';
 import textLogo from '../assets/Sveza_white.svg';
+import styled from 'styled-components';
+
+const Logo = styled.h1`
+	color: white;
+	margin-left: 60px;
+	margin-top: 10px;
+	margin-bottom: 0;
+	font-family: 'Comfortaa';
+	font-weight: 400;
+
+	span {
+		font-size: 1.8rem;
+		font-weight: 700;
+	}
+`;
 
 export default class AppNavBar extends Component {
 	constructor(props) {
@@ -27,7 +42,9 @@ export default class AppNavBar extends Component {
 			<div>
 				<RespNav>
 					<Navbar expand="md">
-						<TextIMG className="text-img" src={textLogo} />
+						<Logo>
+							Ar<span>Q</span>
+						</Logo>
 						<NavBarTogglerDiv onClick={this.toggle}>
 							{/* This was  originally a NavbarToggler 
 						imported from React-strap, but threw errors on the console ('can not 
