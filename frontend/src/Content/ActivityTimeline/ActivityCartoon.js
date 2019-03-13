@@ -20,95 +20,92 @@ import { Add } from 'styled-icons/material/Add';
 
 const StyledEdit = styled(Create)`
 	color: white;
-	height: 1.3rem;
+	height: 25px;
 `;
 
 const StyledTrashAlt = styled(TrashAlt)`
 	color: white;
-	height: 1rem;
-	margin-bottom: 2px;
+	height: 18px;
+	margin-top: 5px;
+	/* margin-top: 2px; */
 `;
 
 const StyledAdd = styled(Add)`
 	color: white;
-	height: 1.3rem;
+	height: 25px;
 `;
 
 const StyledLike = styled(Like)`
 	color: white;
-	height: 1.6rem;
+	height: 25px;
 `;
 
 const StyledDislike = styled(Dislike)`
 	color: white;
-	height: 1.6rem;
+	height: 25px;
 `;
 
 const StyledMinusCircle = styled(MinusCircle)`
 	color: white;
-	height: 1.6rem;
+	height: 25px;
 `;
 
 const StyledExit = styled(Exit)`
 	color: white;
-	height: 1.6rem;
+	height: 20px;
 `;
 
 const StyledNotificationsActive = styled(NotificationsActive)`
 	color: white;
-	height: 1.6rem;
+	height: 25px;
 `;
 
 const StyledNotificationsOff = styled(NotificationsOff)`
 	color: white;
-	height: 1.6rem;
+	height: 25px;
 `;
 
 const StyledEnvelope = styled(Envelope)`
 	color: white;
-	height: 1.5rem;
-	margin-bottom: 2px;
+	height: 25px;
 `;
 
 const StyledComment = styled(Comment)`
 	color: white;
-	height: 1.4rem;
+	height: 25px;
+	margin-top: 5px;
 `;
 
 const StyledFolder = styled(Folder)`
 	color: white;
-	height: 1.2rem;
+	height: 25px;
+	margin-top: 5px;
 `;
 
 const StyledNote = styled(Note)`
 	color: white;
-	height: 1.4rem;
+	height: 25px;
 `;
 
 const StyledUserAlt = styled(UserAlt)`
 	color: white;
-	height: 1.1rem;
+	height: 25px;
 `;
 
 const StyledUsers = styled(Users)`
 	color: white;
-	height: 1.4rem;
+	height: 25px;
+	margin-top: 5px;
 `;
 
-const WarpperDiv = styled.div`
-	display: flex;
-	margin: 3px;
-	margin-right: 5px;
-	margin-left: 0;
-`;
 const InnerDiv = styled.div`
-	margin: 3px;
+	margin: 5px;
 `;
 
 const ActivityCartoon = props => {
 	let { action, object } = props;
 	return (
-		<WarpperDiv>
+		<>
 			<InnerDiv>
 				{action === 'added' || action === 'created' || action === 'invited' ? (
 					<StyledAdd />
@@ -132,7 +129,7 @@ const ActivityCartoon = props => {
 				{object === 'user' ? <StyledUserAlt /> : null}
 				{object === 'team' ? <StyledUsers /> : null}
 			</InnerDiv>
-		</WarpperDiv>
+		</>
 	);
 };
 

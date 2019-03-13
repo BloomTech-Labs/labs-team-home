@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -90,35 +89,6 @@ const tiers = [
 		description: ['Multiple teams?', 'Special requirements?', 'Contact us!'],
 		buttonText: 'Contact us',
 		buttonVariant: 'outlined'
-	}
-];
-const footers = [
-	{
-		title: 'Company',
-		description: ['Team', 'History', 'Contact us', 'Locations']
-	},
-	{
-		title: 'Features',
-		description: [
-			'Cool stuff',
-			'Random feature',
-			'Team feature',
-			'Developer stuff',
-			'Another one'
-		]
-	},
-	{
-		title: 'Resources',
-		description: [
-			'Resource',
-			'Resource name',
-			'Another resource',
-			'Final resource'
-		]
-	},
-	{
-		title: 'Legal',
-		description: ['Privacy policy', 'Terms of use']
 	}
 ];
 
@@ -226,28 +196,6 @@ function Pricing(props) {
 					))}
 				</Grid>
 			</main>
-			{/* Footer */}
-			<footer className={classNames(classes.footer, classes.layout)}>
-				<Grid container spacing={32} justify="space-evenly">
-					{footers.map(footer => (
-						<Grid item xs key={footer.title}>
-							<ModifiedTypography variant="h6" color="textPrimary" gutterBottom>
-								{footer.title}
-							</ModifiedTypography>
-							{footer.description.map(item => (
-								<ModifiedTypography
-									key={item}
-									variant="subtitle1"
-									color="textSecondary"
-								>
-									{item}
-								</ModifiedTypography>
-							))}
-						</Grid>
-					))}
-				</Grid>
-			</footer>
-			{/* End footer */}
 		</React.Fragment>
 	);
 }

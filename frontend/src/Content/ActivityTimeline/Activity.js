@@ -41,9 +41,9 @@ const Container = styled(Card)`
 	display: flex;
 	justify-content: center;
 	width: 55%;
-	max-width: 325px;
+	max-width: 625px;
 	color: white;
-	margin: 5px 3%;
+	margin: 6px 3%;
 	background-color: #3e3145;
 
 	${props => (props.own === 'false' ? 'margin-right: 30%;' : null)};
@@ -65,6 +65,7 @@ const Info = styled(CardContent)`
 	padding: 10px 0px;
 	justify-content: ${props =>
 		props.own === 'true' ? 'flex-end' : 'flex-start'};
+	align-items: center;
 `;
 
 const Title = styled(Typography)`
@@ -81,6 +82,13 @@ const StyledTypography = styled(Typography)`
 	`}
 `;
 
+const IconContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 10px;
+`;
+
 function Activity(props) {
 	// console.log('this is the props on the event: ', props);
 	const { classes, own } = props;
@@ -93,14 +101,14 @@ function Activity(props) {
 				onClick={props.clickHandler}
 			>
 				{own === 'false' ? ( //if the creator of the activity is not the user who is logged in
-					<>
+					<IconContainer>
 						<Avatar
 							src={user.avatar}
 							alt="User avatar"
 							className={classes.bigAvatar}
 						/>
 						<ActivityCartoon action={action_string} object={object_string} />
-					</>
+					</IconContainer>
 				) : null}
 
 				<Info own={own}>
@@ -120,14 +128,14 @@ function Activity(props) {
 				</Info>
 
 				{own === 'true' ? ( //if the creator of the activity is the user who is logged in
-					<>
+					<IconContainer>
 						<Avatar
 							src={user.avatar}
 							alt="User avatar"
 							className={classes.bigAvatar}
 						/>
 						<ActivityCartoon action={action_string} object={object_string} />{' '}
-					</>
+					</IconContainer>
 				) : null}
 			</CardActionArea>
 		</Container>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
-import { colors, palette } from '../../colorVariables';
+import { colors } from '../../colorVariables';
 
 export const LandingContentContainer = styled.div`
 	display: flex;
@@ -17,11 +17,13 @@ export const LandingContentContainer = styled.div`
 `;
 
 export const VideoContainer = styled.div`
+	/* REMOVING THIS WILL CRASH THE SITE */
+	z-index: 1000;
+
 	video {
 		margin-top: 100px;
 		width: 400px;
 		border: 2px solid black;
-		z-index: 1000;
 
 		${mediaQueryFor.lgDevice`
       margin-top: 30px;
@@ -43,10 +45,10 @@ export const LandingContent = styled.div`
 		/* width: 60%; */
 		margin: 0 4%;
 		font-size: 5rem;
-		line-height: 0.8;
+		line-height: 0.9;
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
 			Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-		color: ${palette.gold};
+		color: gold
 		text-shadow: 5px 5px 20px #111;
 	}
 	p {
@@ -78,4 +80,136 @@ export const LandingContent = styled.div`
       display: block;
     }
   `}
+`;
+
+export const Placeholder = styled.div`
+	height: 550px;
+	width: 300px;
+	border: 1px solid white;
+`;
+
+export const TextPane = styled.div`
+	color: white;
+	display: flex;
+	flex-direction: column;
+	height: 80vh;
+
+	p {
+		font-size: 1.4rem;
+		font-weight: 400;
+	}
+`;
+
+export const FirstPane = styled(TextPane)`
+	flex-direction: row-reverse;
+	justify-content: space-evenly;
+	align-items: center;
+`;
+
+export const TextDiv = styled.div`
+	width: 40%;
+
+	p {
+		margin: 75px 0;
+	}
+`;
+
+export const IntegrationDiv = styled(TextPane)`
+	p {
+		margin: 125px 11%;
+		text-align: center;
+	}
+`;
+
+export const Circle = styled.div`
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 11;
+	margin: 10px 0;
+	color: ${colors.button};
+
+	@media (max-width: 650px) {
+		margin: 10px 30px;
+	}
+`;
+
+export const CircleDiv = styled.div`
+	display: flex;
+	justify-content: space-evenly;
+	position: relative;
+	flex-wrap: wrap;
+`;
+
+export const LineDiv = styled.div`
+	height: 1px;
+	width: 80%;
+	border: 1px solid white;
+	position: absolute;
+	top: 75px;
+
+	@media (max-width: 650px) {
+		height: 200px;
+		max-width: 45%;
+	}
+`;
+
+export const BenefitsDiv = styled(TextPane)`
+	justify-content: center;
+	align-items: center;
+
+	h2 {
+		margin: 25px 0 125px 0;
+		font-size: 2.5rem;
+	}
+`;
+
+export const BenefitsContainer = styled.div`
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+
+	h2 {
+		display: block;
+	}
+`;
+
+export const BenefitsCard = styled.div`
+	background-color: rgb(143, 136, 150, 1);
+	border-radius: 5px;
+	height: 250px;
+	padding: 0 25px 25px 25px;
+	z-index: 11;
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	h3 {
+		font-size: 1.4rem;
+	}
+
+	h3,
+	p {
+		color: ${colors.button};
+	}
+
+	div {
+		padding-top: 10px;
+		border-bottom: 1px solid ${colors.button};
+
+		&:last-child {
+			margin: 20px 0;
+			border-bottom: none;
+		}
+	}
+`;
+
+export const TestimonialsDiv = styled(TextPane)`
+	height: 80vh;
+	border: 1px solid blue;
 `;
