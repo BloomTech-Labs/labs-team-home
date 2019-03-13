@@ -16,6 +16,7 @@ class FolderContentsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViewAppearance()
+        setUpNavigationBarButton()
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
         createGradientLayer()
@@ -122,6 +123,41 @@ class FolderContentsTableViewController: UITableViewController {
         self.tableView.backgroundView = backgroundView
     }
     
+    private func setUpNavigationBarButton() {
+        subscribeBarButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteFolder))
+        navigationItem.rightBarButtonItem = subscribeBarButton
+    }
+    
+    @objc func deleteFolder() {
+        
+        guard let documents = documents,
+            let folder = folder,
+            let folderID = folder.id else { return }
+        
+        for document in documents {
+            guard let document = document,
+                let id = document.id else { return }
+            
+            if let apollo = apollo {
+                apollo.perform(mutation: MoveDocumentToFolderMutation(id: id, folder: nil)) { (_, error) in
+                    if let error = error {
+                        NSLog("Error removing documents from folder: \(error)")
+                        return
+                    }
+                }
+            }
+        }
+        
+        if let apollo = apollo {
+            apollo.perform(mutation: DeleteFolderMutation(folderID: folderID)) { (_, error) in
+                if let error = error {
+                    NSLog("Error while deleting folder: \(error)")
+                    return
+                }
+            }
+        }
+    }
+
     // MARK: - Properties
     
     var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam?
@@ -142,6 +178,8 @@ class FolderContentsTableViewController: UITableViewController {
     }
     
     private var gradientLayer: CAGradientLayer!
+    
+    private var subscribeBarButton: UIBarButtonItem!
     
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!

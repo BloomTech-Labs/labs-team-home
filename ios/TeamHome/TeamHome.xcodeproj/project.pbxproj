@@ -75,7 +75,6 @@
 		7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */; };
 		7BF8736221FA6B4B00737729 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8736121FA6B4B00737729 /* Activity.swift */; };
 		C4D48ED210903108208DB396 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */; };
-		F877E0B8221F859A00A78D08 /* FolderConcept.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */; };
 		F877E0BA221F873A00A78D08 /* FolderManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */; };
 		F8A527812230861900E715E8 /* FolderContentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */; };
 		F8A527832230972500E715E8 /* FolderContentsTableViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = F8A527822230972500E715E8 /* FolderContentsTableViewController.graphql */; };
@@ -158,7 +157,6 @@
 		7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CommentsCollectionViewController.graphql; sourceTree = "<group>"; };
 		7BF8736121FA6B4B00737729 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		DE4B1FF0DF331C25C53901F0 /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
-		F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FolderConcept.storyboard; sourceTree = "<group>"; };
 		F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManagementViewController.swift; sourceTree = "<group>"; };
 		F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentsTableViewController.swift; sourceTree = "<group>"; };
 		F8A527822230972500E715E8 /* FolderContentsTableViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = FolderContentsTableViewController.graphql; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 				7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */,
 				7B6BE7D921E5733E0099E42C /* LaunchScreen.storyboard */,
 				F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */,
-				F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -411,7 +408,6 @@
 				7B734DFF22000EFF00F56C5F /* Montserrat-Regular.ttf in Resources */,
 				103E7301222DEEA200F54B0F /* DocumentsDetailCollectionViewController.graphql in Resources */,
 				7BA77ED021ED50BB00C862C1 /* MessagesCollectionViewController.graphql in Resources */,
-				F877E0B8221F859A00A78D08 /* FolderConcept.storyboard in Resources */,
 				7BE481C7220401DC00F518F9 /* Comfortaa-Regular.ttf in Resources */,
 				7BF8735A21F7BA8400737729 /* MessageDetailViewController.graphql in Resources */,
 				7BA77E9921E8033C00C862C1 /* TeamExample.json in Resources */,

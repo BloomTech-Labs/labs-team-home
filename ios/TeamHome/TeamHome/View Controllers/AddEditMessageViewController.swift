@@ -29,6 +29,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         super.viewDidLoad()
         
         setUpViewAppearance()
+        hideKeyboardWhenTappedAround()
         newMessageView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
