@@ -12,7 +12,9 @@ const BottomContent = props => {
 			<LandingContentContainer>
 				<LandingContent>
 					{/* This is where the homepage basically lies. Hopefully, we can style this to look slightly better.  */}
-					<h1>Share. Work. Congregate.</h1>
+					<h1>
+						Share. <span>Work.</span> Congregate.
+					</h1>
 					<br />
 					<p>
 						Communicating within a team can be a pain. Let's fix that for you.

@@ -12,6 +12,7 @@ import StarIcon from '@material-ui/icons/StarBorder';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
+import { colors } from '../../colorVariables';
 
 const styles = theme => ({
 	'@global': {
@@ -55,7 +56,6 @@ const styles = theme => ({
 
 	footer: {
 		marginTop: theme.spacing.unit * 8,
-		borderTop: `1px solid ${theme.palette.divider}`,
 		padding: `${theme.spacing.unit * 6}px 0`
 	}
 });
@@ -65,9 +65,9 @@ const tiers = [
 		title: 'Free',
 		price: '0',
 		description: [
-			'Up to 5 users per team',
-			'Help center access',
-			'Email support'
+			'Unlimited Documents',
+			'Unlimited Folders',
+			'Up to 5 users per team'
 		],
 		buttonText: 'Sign up for free',
 		buttonVariant: 'outlined'
@@ -77,9 +77,9 @@ const tiers = [
 		subheader: 'Most popular',
 		price: '10',
 		description: [
-			'Unlimited Users (per team)',
-			'Help center access',
-			'Priority email support'
+			'Unlimited Documents',
+			'Unlimited Folders',
+			'Unlimited users for 1 team'
 		],
 		buttonText: 'Get started',
 		buttonVariant: 'contained'
@@ -127,8 +127,21 @@ const ModifiedTypography = styled(Typography)`
 `;
 
 const ModifiedButton = styled(Button)`
-	background-color: purple;
-	color: #ffffff;
+	background-color: ${props =>
+		props.buttontype === 'primary' ? `${colors.button}` : `white`};
+	border: ${props =>
+		props.buttontype === 'primary' ? 'none' : '1px solid #3E3145'};
+	color: ${props =>
+		props.buttontype === 'primary' ? `${colors.text}` : 'black'};
+	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	&:hover {
+		background-color: ${props =>
+			props.buttontype === 'primary'
+				? 'rgba(255, 255, 255, 0.7)'
+				: `${colors.button}`};
+		color: ${props =>
+			props.buttontype === 'primary' ? 'black' : `${colors.text}`};
+	}
 `;
 
 function Pricing(props) {
@@ -201,7 +214,9 @@ function Pricing(props) {
 									<ModifiedButton
 										fullWidth
 										variant={tier.buttonVariant}
-										color="primary"
+										buttontype={
+											tier.title === 'Premium' ? 'primary' : 'secondary'
+										}
 									>
 										{tier.buttonText}
 									</ModifiedButton>
