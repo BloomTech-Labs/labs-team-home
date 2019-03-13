@@ -50,6 +50,11 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func clickURL(_ sender: Any) {
+        if let documentURL = documentURL{
+            UIApplication.shared.open(documentURL)
+        }
+    }
     @IBAction func submitComment(_ sender: Any) {
         guard let apollo = apollo,
             let documentID = document?.id,

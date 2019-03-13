@@ -447,6 +447,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="300" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsQ-Q6-Tej">
                                                 <rect key="frame" x="0.0" y="98" width="343" height="30"/>
                                                 <state key="normal" title="Document URL"/>
+                                                <connections>
+                                                    <action selector="clickURL:" destination="PI0-00-t65" eventType="touchUpInside" id="aKo-dW-xOC"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="256" verticalCompressionResistancePriority="753" text="Documment Notes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIe-sG-jz5">
                                                 <rect key="frame" x="0.0" y="137" width="343" height="20.5"/>
