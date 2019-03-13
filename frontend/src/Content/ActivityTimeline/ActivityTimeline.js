@@ -68,6 +68,7 @@ const StyledOutline = styled(OutlinedInput).attrs(() => ({
 const StyledSelect = styled(Select)`
 	background-color: rgb(143, 136, 150, 0.75);
 	margin-left: 10px;
+	margin-right: 10px;
 	color: ${colors.text};
 `;
 
