@@ -163,7 +163,7 @@ const docCommentResolver = {
 						try {
 							await new Event({
 								team: item.document.team._id,
-								user: item.user._id,
+								user: _id,
 								action_string: action_str.liked,
 								object_string: object_str.docComment,
 								event_target_id: item.document._id
@@ -192,7 +192,7 @@ const docCommentResolver = {
 						try {
 							await new Event({
 								team: item.document.team._id,
-								user: item.user._id,
+								user: _id,
 								action_string: action_str.unliked,
 								object_string: object_str.docComment,
 								event_target_id: item.document._id
