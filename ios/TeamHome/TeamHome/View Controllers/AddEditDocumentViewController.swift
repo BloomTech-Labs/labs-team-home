@@ -132,10 +132,14 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         
         
         if cell == tagCellSelected {
-        //user is unselecting cell so remove selection
+        //user is unselecting a tag so remove selection
             cell.backgroundColor = Appearance.darkMauveColor
             tagCellSelected = nil
         } else {
+        // user is selecting a new tag
+            if tagCellSelected != nil {
+                tagCellSelected?.backgroundColor = Appearance.darkMauveColor
+            }
             cell.backgroundColor = Appearance.mauveColor
             tagCellSelected = cell
         }
