@@ -57,7 +57,7 @@ function TeamCard(props) {
 											PREMIUM
 										</style.Prem>
 									) : (
-										<StyledTypography>Go Premium</StyledTypography>
+										<StyledTypography>Go Premium...</StyledTypography>
 									)}
 								</>
 							) : null}
