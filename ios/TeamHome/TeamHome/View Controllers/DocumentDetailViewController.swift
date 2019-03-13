@@ -50,6 +50,11 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func clickURL(_ sender: Any) {
+        if let documentURL = documentURL{
+            UIApplication.shared.open(documentURL)
+        }
+    }
     @IBAction func submitComment(_ sender: Any) {
         guard let apollo = apollo,
             let documentID = document?.id,
@@ -128,6 +133,16 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         commentTextView.layer.cornerRadius = 4.0
     }
     
+    //sets up documentURLButton title depending on URL
+    private func setupDocURL(document: Document){
+        if let documentURL = URL(string: document.docUrl) {
+            self.documentURL = documentURL
+            documentURLButton.setTitle(document.docUrl, for: .normal)
+        } else {
+            documentURLButton.setTitle(document.docUrl, for: .disabled)
+        }
+        
+    }
     //unsubscribes to document by performing a mutation
     private func unsubscribeFromDocument(apollo:ApolloClient, documentID: GraphQLID){
 
@@ -184,7 +199,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         firstNameLabel.text = document.user.firstName
         lastNameLabel.text = document.user.lastName
         dateLabel.text = date
-        documentURLLabel.text = document.docUrl
+        setupDocURL(document: document)
         documentNotesLabel.text = document.textContent
         tagTextLabel.text = DocumentHelper.displayTagText(tag: document.tag?.name)
         updateIsSubscribed()
@@ -237,32 +252,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
                 }
             }
         }
-        
-//        var heightConstraint: NSLayoutConstraint!
-//        
-//        heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
-//        
-//        guard let comments = document.comments else { return }
-//        
-//        if comments.count == 0 {
-//            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
-//        } else if comments.count == 1 {
-//            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 165)
-//        } else if comments.count > 2 {
-//            heightConstraint = NSLayoutConstraint(item: commentContainerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
-//        }
-//        
-//        NSLayoutConstraint.activate([heightConstraint])
+
     }
-    
-    //MARK: - Properties
-    
-//    private var isSubscribed: Bool = false {
-//        didSet{
-//            updateSubscribeButton()
-//        }
-//    }
-    
     private var isSubscribed = false {
         didSet{
         updateSubscribeButton()
@@ -284,17 +275,18 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var delegate: AddNewCommentDelegate?
     //    var imageData: Data?
+    private var documentURL: URL?
     
     @IBOutlet weak var documentTitleLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var documentURLLabel: UILabel!
     @IBOutlet weak var documentNotesLabel: UILabel!
     
     @IBOutlet weak var sendCommentButton: UIButton!
     @IBOutlet weak var subscribeButton: UIButton!
     
+    @IBOutlet weak var documentURLButton: UIButton!
     @IBOutlet weak var userAvatarImageView: UIImageView!
     @IBOutlet weak var imageHolderView: UIView!
     @IBOutlet weak var commentContainerView: UIView!
