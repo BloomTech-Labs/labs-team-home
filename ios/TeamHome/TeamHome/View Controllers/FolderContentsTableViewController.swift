@@ -16,6 +16,7 @@ class FolderContentsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViewAppearance()
+        setUpNavigationBarButton()
         tableView.backgroundColor = .clear
         loadDocuments(with: apollo!)
         createGradientLayer()
@@ -122,6 +123,18 @@ class FolderContentsTableViewController: UITableViewController {
         self.tableView.backgroundView = backgroundView
     }
     
+    private func setUpNavigationBarButton() {
+        subscribeBarButton = UIBarButtonItem(title: "Subscribe", style: .plain, target: self, action: #selector(subscribeFolder))
+        navigationItem.rightBarButtonItem = subscribeBarButton
+    }
+    
+    @objc func subscribeFolder() {
+        isSubscribed ? (isSubscribed = false) : (isSubscribed = true)
+        print("Unsubscribe toggled successfully.")
+    }
+    
+    private var isSubscribed: Bool = false
+    
     // MARK: - Properties
     
     var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam?
@@ -142,6 +155,8 @@ class FolderContentsTableViewController: UITableViewController {
     }
     
     private var gradientLayer: CAGradientLayer!
+    
+    private var subscribeBarButton: UIBarButtonItem!
     
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
