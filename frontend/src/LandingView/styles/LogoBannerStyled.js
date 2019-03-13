@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 const LogoBannerStyles = styled.div`
 	width: 100%;
