@@ -71,15 +71,6 @@ class FoldersTableViewController: UITableViewController {
             self.folders = folders
         }
     }
-    
-//    private func delete(folder: Folder, with apollo: ApolloClient) {
-//        
-//        guard let documents =  else { return }
-//        
-//        for folder in folders {
-//            
-//        }
-//    }
 
     // MARK: - Navigation
 
