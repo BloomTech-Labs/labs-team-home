@@ -131,8 +131,6 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     // MARK: - Properties
 
     private var gradientLayer: CAGradientLayer!
-//    var folder: FindFoldersByTeamQuery.Data.FindFoldersByTeam?
-    
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?

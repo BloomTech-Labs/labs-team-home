@@ -695,7 +695,7 @@
             </objects>
             <point key="canvasLocation" x="1609" y="609"/>
         </scene>
-        <!--Choose a Folder:-->
+        <!--Choose a New Folder-->
         <scene sceneID="hkI-kx-QDY">
             <objects>
                 <viewController id="9p6-xa-bSi" customClass="FolderManagementViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
@@ -706,14 +706,26 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qf3-se-oSM">
                                 <rect key="frame" x="16" y="96" width="343" height="555"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a Folder:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcA-QR-SvM">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPX-EJ-bmh">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvV-BS-wRo">
+                                        <rect key="frame" x="0.0" y="24" width="343" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Containing Folder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcA-QR-SvM">
+                                        <rect key="frame" x="0.0" y="43.5" width="343" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hmZ-Ff-PK0">
-                                        <rect key="frame" x="0.0" y="24" width="343" height="501"/>
+                                        <rect key="frame" x="0.0" y="63" width="343" height="462"/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLS-Vj-jDx">
                                         <rect key="frame" x="0.0" y="525" width="343" height="30"/>
@@ -734,11 +746,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cQm-X3-uOR"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Choose a Folder:" id="ILX-Kk-1bz"/>
+                    <navigationItem key="navigationItem" title="Choose a New Folder" id="ILX-Kk-1bz"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="chooseFolderLabel" destination="EcA-QR-SvM" id="oLk-Hp-6jV"/>
+                        <outlet property="documentTitle" destination="WPX-EJ-bmh" id="VP5-PI-48b"/>
+                        <outlet property="documentURL" destination="bvV-BS-wRo" id="S5J-l0-Xaf"/>
                         <outlet property="folderSelectPicker" destination="hmZ-Ff-PK0" id="Mq5-FD-094"/>
                     </connections>
                 </viewController>
