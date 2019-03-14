@@ -93,12 +93,6 @@ export const LandingContent = styled.div`
   `}
 `;
 
-export const Placeholder = styled.div`
-	height: 550px;
-	width: 300px;
-	border: 1px solid white;
-`;
-
 export const TextPane = styled.div`
 	color: white;
 	display: flex;

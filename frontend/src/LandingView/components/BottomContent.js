@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components'; //{ css } will be added once necessar
+import styled, { css } from 'styled-components'; // will be added once necessar
 import {
 	LandingContent,
 	LandingContentContainer,
@@ -10,7 +10,6 @@ import {
 	BenefitsDiv,
 	IntegrationDiv,
 	BenefitsContainer,
-	Placeholder,
 	FirstPane,
 	TextDiv,
 	BenefitsCard
@@ -25,6 +24,12 @@ import { Onedrive } from 'styled-icons/icomoon/Onedrive';
 import Footer from './footer';
 import { colors } from '../../colorVariables';
 import Auth0 from '../../Auth/Auth';
+import makeCarousel from 'react-reveal/makeCarousel';
+import Slide from 'react-reveal/Slide';
+import iOSDocument from '../../assets/iOS_documents.png';
+import iOSDocument2 from '../../assets/iOS_documents2.png';
+import iOSMainScreen from '../../assets/iOS_mainScreen.png';
+import iOSAddDocument from '../../assets/iOS_addDocuments.png';
 
 const StyledDropbox = styled(Dropbox)`
 	height: 75px;
@@ -52,6 +57,57 @@ const ModifiedButton = styled(Button)`
 		color: black;
 	}
 `;
+//some variables necessary for this to be reactive
+const width = '350px',
+	height = '650px';
+const Container = styled.div`
+	position: relative;
+	overflow: hidden;
+	width: ${width};
+	height: ${height};
+	border-radius: 25px;
+`;
+const Children = styled.div`
+	img {
+		height: ${height};
+	}
+`;
+const Arrow = styled.div`
+	text-shadow: 1px 1px 1px #fff;
+	z-index: 100;
+	line-height: ${height};
+	text-align: center;
+	position: absolute;
+	top: 0;
+	width: 10%;
+	font-size: 2rem;
+	cursor: pointer;
+	user-select: none;
+	${props =>
+		props.right
+			? css`
+					left: 90%;
+			  `
+			: css`
+					left: 0%;
+			  `}
+`;
+
+// makeCarousel injects the props `position` and `handleClick` so we don't need to worry about this being stateful yet!
+const CarouselUI = ({ position, handleClick, children, swipe }) => (
+	<Container>
+		<Children>
+			{children}
+			<Arrow onClick={handleClick} data-position={position - 1}>
+				{'<'}
+			</Arrow>
+			<Arrow right onClick={handleClick} data-position={position + 1}>
+				{'>'}
+			</Arrow>
+		</Children>
+	</Container>
+);
+const Carousel = makeCarousel(CarouselUI);
 
 class BottomContent extends React.Component {
 	constructor(props) {
@@ -116,7 +172,31 @@ class BottomContent extends React.Component {
 							working in.{' '}
 						</p>
 					</TextDiv>
-					<Placeholder />
+					<Carousel
+						defaultWait={5000}
+						swipe={true} /*wait for 1000 milliseconds*/
+					>
+						<Slide right>
+							<div>
+								<img src={iOSMainScreen} alt="iPhone main screen" />
+							</div>
+						</Slide>
+						<Slide right>
+							<div>
+								<img src={iOSAddDocument} alt="iPhone add document document" />
+							</div>
+						</Slide>
+						<Slide right>
+							<div>
+								<img src={iOSDocument} alt="iPhone document screen" />
+							</div>
+						</Slide>
+						<Slide right>
+							<div>
+								<img src={iOSDocument2} alt="iPhone document screen two" />
+							</div>
+						</Slide>
+					</Carousel>
 				</FirstPane>
 				<BenefitsDiv>
 					<h2>Benefits</h2>
