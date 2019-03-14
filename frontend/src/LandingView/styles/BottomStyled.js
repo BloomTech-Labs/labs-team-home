@@ -150,7 +150,7 @@ export const LineDiv = styled.div`
 	width: 80%;
 	border: 1px solid white;
 	position: absolute;
-	top: 75px;
+	top: 82px;
 
 	@media (max-width: 650px) {
 		height: 200px;
