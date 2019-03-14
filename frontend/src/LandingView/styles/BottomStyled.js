@@ -11,8 +11,12 @@ export const LandingContentContainer = styled.div`
 	align-items: center;
 	${mediaQueryFor.lgDevice`
     flex-direction: column;
-    justify-content: center;
-  `}
+		justify-content: center;
+	`}
+
+	${mediaQueryFor.smDevice`
+		margin-bottom: 30px;
+	`}
 `;
 
 export const VideoContainer = styled.div`
@@ -56,6 +60,14 @@ export const LandingContent = styled.div`
 		font-weight: 400;
 	}
 
+	a {
+		color: white;
+		&:hover {
+		color: black;
+		text-decoration: none;
+		}
+	}
+
 	${mediaQueryFor.lgDevice`
     align-items: center;
     justify-content: center;
@@ -97,6 +109,12 @@ export const FirstPane = styled(TextPane)`
 	flex-direction: row-reverse;
 	justify-content: space-evenly;
 	align-items: center;
+
+	${mediaQueryFor.mdDevice`
+		  flex-direction: column;
+			justify-content: center;
+			margin-bottom: 50px;
+	`}
 `;
 
 export const TextDiv = styled.div`
@@ -105,6 +123,14 @@ export const TextDiv = styled.div`
 	p {
 		margin: 75px 0;
 	}
+
+	${mediaQueryFor.mdDevice`
+		width: 90%;
+
+		p:first-child {
+			margin-top: 25px;
+		}
+	`}
 `;
 
 export const IntegrationDiv = styled(TextPane)`
@@ -112,6 +138,10 @@ export const IntegrationDiv = styled(TextPane)`
 		margin: 125px 11%;
 		text-align: center;
 	}
+
+	${mediaQueryFor.smDevice`
+		  margin-bottom: 100px;
+	`}
 `;
 
 export const Circle = styled.div`
@@ -158,6 +188,10 @@ export const BenefitsDiv = styled(TextPane)`
 	h2 {
 		margin: 25px 0 125px 0;
 		font-size: 2.5rem;
+
+		${mediaQueryFor.smDevice`
+		  margin-bottom: 50px;
+	`}
 	}
 `;
 
@@ -169,6 +203,10 @@ export const BenefitsContainer = styled.div`
 	h2 {
 		display: block;
 	}
+	${mediaQueryFor.mdDevice`
+		  flex-direction: column;
+			justify-content: center;
+	`}
 `;
 
 export const BenefitsCard = styled.div`
@@ -199,9 +237,16 @@ export const BenefitsCard = styled.div`
 			border-bottom: none;
 		}
 	}
-`;
 
-export const TestimonialsDiv = styled(TextPane)`
-	height: 80vh;
-	border: 1px solid blue;
+	${mediaQueryFor.mdDevice`
+			width: 90%;
+			height: 300px;
+			margin: 20px 0;
+
+			div {
+				&:last-child {
+					margin-top: 0;
+				}
+			}
+	`}
 `;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 const StyledFooter = styled.footer`
 	max-width: none;
@@ -30,6 +31,12 @@ const StyledFooter = styled.footer`
 		color: white;
 		font-size: 1rem;
 	}
+
+	${mediaQueryFor.smDevice`
+		div {
+			width: 35%;
+		}
+	`}
 `;
 
 const Footer = () => {
