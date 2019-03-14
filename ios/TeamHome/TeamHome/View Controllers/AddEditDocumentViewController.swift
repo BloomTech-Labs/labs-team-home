@@ -26,6 +26,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         if let document = document {
             updateViewsForEdit(document: document)
         } else {
@@ -82,7 +83,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             print(tag)
             
             self.tagsWatcher?.refetch()
-            
+            self.tagButtonWasClicked = true
             DispatchQueue.main.async {
                 self.tagsTextField.text = ""
                 
@@ -179,13 +180,22 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
         
+        documentLinkTextField.placeholderNormalColor = .white
         documentLinkTextField.textColor = .white
         documentLinkTextField.placeholder = "Add a link"
+        documentLinkTextField.placeholderActiveColor = Appearance.yellowColor
+        documentLinkTextField.dividerActiveColor = Appearance.yellowColor
+        
+        
         documentNotesTextView.textColor = .white
         documentNotesTextView.placeholder = "Add a note"
-        
+    
         documentNotesTextView.dividerColor = Appearance.yellowColor
+        
         documentTitleTextField.textColor = .white
+        documentTitleTextField.placeholderNormalColor = .white
+        documentTitleTextField.placeholderActiveColor = Appearance.yellowColor
+        documentTitleTextField.dividerActiveColor = Appearance.yellowColor
         
         tagsTextField.textColor = .white
         documentTitleTextField.placeholderAnimation = .hidden
@@ -243,20 +253,12 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             
             self.tags = tags
             self.collectionView.reloadData()
-        }
-    }
-    private func createNewTag(with apollo: ApolloClient,under teamId: GraphQLID, for string: String) {
-        apollo.perform(mutation: CreateNewTagMutation(name: string, teamId: teamId), queue: DispatchQueue.global(), resultHandler: { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
+            if self.tagButtonWasClicked{
+                self.collectionView.scrollToBottom(animated: true)
+                self.tagButtonWasClicked = false
             }
             
-            guard let result = result,
-                let newTagId = result.data?.addTag?.id else { return }
-            
-            print(newTagId)
-            
-        })
+        }
     }
     
     private func findSelectedTag() -> GraphQLID? {
@@ -295,6 +297,8 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     
     var document: Document?
+    
+    private var tagButtonWasClicked = false
     
     private var tagSelected: String?
     private var tagSelectedId: GraphQLID?

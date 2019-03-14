@@ -37,6 +37,7 @@ import styled from 'styled-components';
 import { colors } from '../../../colorVariables';
 import { StyledProgressSpinnerSecondary } from '../../../app-styles';
 import mediaQueryFor from '../../../_global_styles/responsive_querie';
+import { FileAlt } from 'styled-icons/fa-solid/FileAlt';
 
 const ModalContents = styled.div`
 	height: 700px;
@@ -57,6 +58,11 @@ const ModalContents = styled.div`
 		height: auto;
 		width: auto;
 	`}
+`;
+
+const FileIcon = styled(FileAlt)`
+	height: 24px;
+	margin-right: 10px;
 `;
 
 const ModalTitle = styled(StyledModalTitle)`
@@ -268,7 +274,10 @@ class FolderDetails extends React.Component {
 													}}
 												/>
 												<CardContent>
-													<DocumentTitle>{document.title}</DocumentTitle>
+													<DocumentTitle>
+														<FileIcon />
+														{document.title}
+													</DocumentTitle>
 												</CardContent>
 
 												{/* Option to remove document from the folder */}

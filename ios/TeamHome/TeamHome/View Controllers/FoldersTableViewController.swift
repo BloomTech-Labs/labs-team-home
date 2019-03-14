@@ -12,7 +12,7 @@ import Apollo
 var watcherFolder: GraphQLQueryWatcher<FindFoldersByTeamQuery>?
 typealias Folder = FindFoldersByTeamQuery.Data.FindFoldersByTeam
 
-class FoldersTableViewController: UITableViewController {
+class FoldersTableViewController: UITableViewController, FoldersFilterDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +72,24 @@ class FoldersTableViewController: UITableViewController {
     private func setUpNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadFolders), name: .addedNewFolder, object: nil)
     }
+    
+    func didClickFolderFilter() {
+        filter()
+    }
+    
+    private func filter() {
+        guard let folders = folders else { return }
+        
+        if newestToOldest {
+            let sortedFolders = folders.sorted(by: { ($0?.createdAt)! < ($1?.createdAt)!})
+            self.folders = sortedFolders
+            newestToOldest = false
+        } else {
+            let sortedFolders = folders.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
+            self.folders = sortedFolders
+            newestToOldest = true
+        }
+    }
 
     // MARK: - Navigation
 
@@ -110,8 +128,7 @@ class FoldersTableViewController: UITableViewController {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var deleteIndexPath: IndexPath?
-    
-//    private var notificationCenter = NotificationCenter.default
+    var newestToOldest: Bool = false
 
 }
 
