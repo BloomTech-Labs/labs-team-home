@@ -251,19 +251,19 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             
         }
     }
-    private func createNewTag(with apollo: ApolloClient,under teamId: GraphQLID, for string: String) {
-        apollo.perform(mutation: CreateNewTagMutation(name: string, teamId: teamId), queue: DispatchQueue.global(), resultHandler: { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
-            }
-            
-            guard let result = result,
-                let newTagId = result.data?.addTag?.id else { return }
-            
-            print(newTagId)
-            
-        })
-    }
+//    private func createNewTag(with apollo: ApolloClient,under teamId: GraphQLID, for string: String) {
+//        apollo.perform(mutation: CreateNewTagMutation(name: string, teamId: teamId), queue: DispatchQueue.global(), resultHandler: { (result, error) in
+//            if let error = error {
+//                NSLog("\(error)")
+//            }
+//            
+//            guard let result = result,
+//                let newTagId = result.data?.addTag?.id else { return }
+//            
+//            print(newTagId)
+//            
+//        })
+//    }
     
     private func findSelectedTag() -> GraphQLID? {
         
