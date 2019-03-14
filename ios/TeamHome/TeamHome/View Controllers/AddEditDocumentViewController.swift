@@ -175,7 +175,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     private func setupViews(){
         setUpViewAppearance()
-        hideKeyboardWhenTappedAround()
+//        hideKeyboardWhenTappedAround()
         newDocumentView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
