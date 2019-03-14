@@ -18,6 +18,13 @@
 ## Back End Deployment
 
 - backend/config/apollo-server.js needs to have url changed with new deployment url
+- If using Heroku for deployment; will need to install add-on `mLab MongoDB` and `Auth0`
+
+`Auth0`: requires to have Callback URLs configured (example of some callbacks for both the deployed and local)
+
+`http://localhost:3000/, http://team-home-2.netlify.com`
+
+`Auth0`: an API needs to be created pointing to deployed backend
 
 ## How to utlize the tests
 
