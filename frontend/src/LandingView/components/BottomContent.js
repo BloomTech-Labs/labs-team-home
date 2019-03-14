@@ -64,8 +64,8 @@ const BottomContent = props => {
 					<br />
 					<p>
 						{' '}
-						No more missing a conversation. No more missed opportunities. Sveza
-						is here.{' '}
+						No more missing a conversation. No more missed opportunities. Arq is
+						here.{' '}
 					</p>
 					<ModifiedButton>Sign Up Now</ModifiedButton>
 				</LandingContent>
@@ -84,7 +84,7 @@ const BottomContent = props => {
 					</p>
 					<p>
 						{' '}
-						At Sveza, our aim is to get your team operating from one place, so
+						At Arq, our aim is to get your team operating from one place, so
 						that no member of the team is left behind, while each member gets to
 						operate out of the environment they are most comfortable working in.{' '}
 					</p>
@@ -99,7 +99,7 @@ const BottomContent = props => {
 							<h3>Ease of use</h3>
 						</div>
 						<div>
-							<p>Sveza is out of the box and ready to use. Right now. </p>
+							<p>Arq is out of the box and ready to use. Right now. </p>
 						</div>
 					</BenefitsCard>
 					<BenefitsCard>
@@ -108,8 +108,7 @@ const BottomContent = props => {
 						</div>
 						<div>
 							<p>
-								Sveza distills out the noise and keeps the information load
-								light.{' '}
+								Arq distills out the noise and keeps the information load light.{' '}
 							</p>
 						</div>
 					</BenefitsCard>
@@ -118,7 +117,7 @@ const BottomContent = props => {
 							<h3>Adaptability</h3>
 						</div>
 						<div>
-							<p>Sveza can incorporate a wide range workplace environments. </p>
+							<p>Arq can incorporate a wide range workplace environments. </p>
 						</div>
 					</BenefitsCard>
 				</BenefitsContainer>
@@ -126,7 +125,7 @@ const BottomContent = props => {
 			<IntegrationDiv>
 				<p>
 					In addition to its own built in tracking, commenting, and messaging
-					system, Sveza integrates with everything from the Creative Cloud, to
+					system, Arq integrates with everything from the Creative Cloud, to
 					Drop Box, to Google Docs and more.{' '}
 				</p>
 				<CircleDiv>
