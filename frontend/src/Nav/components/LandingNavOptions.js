@@ -40,7 +40,9 @@ const LandingNavOptions = ({ handleLogin, handleSignUp, isOpen }) => {
 							handleLogin();
 						}}
 					>
-						Login
+						<a href="#root" style={{ color: 'white' }}>
+							Login
+						</a>
 					</LandBtn>
 				</NavItem>
 				<NavItem>
@@ -50,7 +52,9 @@ const LandingNavOptions = ({ handleLogin, handleSignUp, isOpen }) => {
 							handleSignUp();
 						}}
 					>
-						Sign Up
+						<a href="#root" style={{ color: 'white' }}>
+							Sign Up
+						</a>
 					</LandBtn>
 				</NavItem>
 			</Nav>
