@@ -15,6 +15,10 @@
 9. Run server `yarn server`
 10. Go to http://localhost:5000 the view the GraphQL documentation and http://localhost:5000/graphql to view GraphQL playground.
 
+## Back End Deployment
+
+- backend/config/apollo-server.js needs to have url changed with new deployment url
+
 ## How to utlize the tests
 
 1. Currently, file stucture allows for tests to be created in the `__tests__` folder. Good practice to keep the tests in there.
