@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
-	position: relative;
-
+	max-width: none;
 	margin-top: 50px;
 	display: flex;
 	justify-content: space-around;
@@ -13,7 +12,6 @@ const StyledFooter = styled.footer`
 	background: black;
 	z-index: 11;
 	width: 100%;
-	border: 1px solid yellow;
 	div {
 		width: 15%;
 		display: flex;
