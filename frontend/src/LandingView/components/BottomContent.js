@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components'; //{ css } will be added once necessar
 import {
 	LandingContent,
 	LandingContentContainer,
@@ -24,9 +24,10 @@ import { Apple } from 'styled-icons/boxicons-logos/Apple';
 import { Onedrive } from 'styled-icons/icomoon/Onedrive';
 import Footer from './footer';
 import { colors } from '../../colorVariables';
-import Fade from 'react-reveal/Fade';
-import makeCarousel from 'react-reveal/makeCarousel';
-import Slide from 'react-reveal/Slide';
+// starting integration of carousel for iOS images
+// import Fade from 'react-reveal/Fade';
+// import makeCarousel from 'react-reveal/makeCarousel';
+// import Slide from 'react-reveal/Slide';
 
 const StyledDropbox = styled(Dropbox)`
 	height: 75px;
@@ -115,8 +116,11 @@ const BottomContent = props => {
 						</div>
 						<div>
 							<p>
-								Sveza distills out the noise and keeps the information load
-								light. Never worry
+								Arq distills out the noise and keeps the information load light.
+							</p>
+							<p>
+								Forget informational overload. Concentrate on what really
+								matters: getting your team ready to ship world class product.
 							</p>
 						</div>
 					</BenefitsCard>
@@ -125,7 +129,11 @@ const BottomContent = props => {
 							<h3>Adaptability</h3>
 						</div>
 						<div>
-							<p>Arq can incorporate a wide range workplace environments. </p>
+							<p>Arq can integrate a wide range of workplace environments. </p>
+							<p>
+								Collegues half-way across the world? Not to worry, our help
+								staff are here for you, 24/7.
+							</p>
 						</div>
 					</BenefitsCard>
 				</BenefitsContainer>

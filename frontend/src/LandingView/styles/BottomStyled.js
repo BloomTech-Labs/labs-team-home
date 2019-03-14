@@ -180,7 +180,7 @@ export const BenefitsContainer = styled.div`
 export const BenefitsCard = styled.div`
 	background-color: rgb(143, 136, 150, 1);
 	border-radius: 5px;
-	height: 300px;
+	height: 350px;
 	padding: 40px;
 	z-index: 11;
 	width: 30%;
@@ -193,7 +193,7 @@ export const BenefitsCard = styled.div`
 	}
 
 	p {
-		font-size: 1.3rem;
+		font-size: 1.2rem;
 		color: white;
 	}
 
