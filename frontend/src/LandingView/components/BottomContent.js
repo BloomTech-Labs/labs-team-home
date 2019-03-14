@@ -11,6 +11,7 @@ import {
 	IntegrationDiv,
 	BenefitsContainer,
 	FirstPane,
+	TextDiv,
 	BenefitsCard
 } from '../styles/BottomStyled';
 import frontpage from '../../assets/demo.mp4';
