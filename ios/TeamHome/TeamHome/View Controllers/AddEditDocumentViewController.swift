@@ -180,13 +180,22 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
         
+        documentLinkTextField.placeholderNormalColor = .white
         documentLinkTextField.textColor = .white
         documentLinkTextField.placeholder = "Add a link"
+        documentLinkTextField.placeholderActiveColor = Appearance.yellowColor
+        documentLinkTextField.dividerActiveColor = Appearance.yellowColor
+        
+        
         documentNotesTextView.textColor = .white
         documentNotesTextView.placeholder = "Add a note"
-        
+    
         documentNotesTextView.dividerColor = Appearance.yellowColor
+        
         documentTitleTextField.textColor = .white
+        documentTitleTextField.placeholderNormalColor = .white
+        documentTitleTextField.placeholderActiveColor = Appearance.yellowColor
+        documentTitleTextField.dividerActiveColor = Appearance.yellowColor
         
         tagsTextField.textColor = .white
         documentTitleTextField.placeholderAnimation = .hidden
