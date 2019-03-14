@@ -244,6 +244,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             
             self.tags = tags
             self.collectionView.reloadData()
+            
         }
     }
     private func createNewTag(with apollo: ApolloClient,under teamId: GraphQLID, for string: String) {
