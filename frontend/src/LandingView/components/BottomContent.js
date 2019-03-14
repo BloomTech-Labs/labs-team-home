@@ -30,7 +30,7 @@ import iOSDocument from '../../assets/iOS_documents.png';
 import iOSDocument2 from '../../assets/iOS_documents2.png';
 import iOSMainScreen from '../../assets/iOS_mainScreen.png';
 import iOSAddDocument from '../../assets/iOS_addDocuments.png';
-
+// import Fade from 'react-reveal/Fade';
 const StyledDropbox = styled(Dropbox)`
 	height: 75px;
 `;
@@ -141,8 +141,8 @@ class BottomContent extends React.Component {
 						<br />
 						<p>
 							{' '}
-							No more missing a conversation. No more missed opportunities.
-							Sveza is here.{' '}
+							No more missing a conversation. No more missed opportunities. Arq
+							is here.{' '}
 						</p>
 						<a href="#root">
 							<ModifiedButton onClick={this.handleSignUp}>
@@ -166,7 +166,7 @@ class BottomContent extends React.Component {
 						</p>
 						<p>
 							{' '}
-							At Sveza, our aim is to get your team operating from one place, so
+							At Arq, our aim is to get your team operating from one place, so
 							that no member of the team is left behind, while each member gets
 							to operate out of the environment they are most comfortable
 							working in.{' '}
@@ -206,7 +206,11 @@ class BottomContent extends React.Component {
 								<h3>Ease of use</h3>
 							</div>
 							<div>
-								<p>Sveza is out of the box and ready to use. Right now. </p>
+								<p>Arq is out of the box and ready to use. Right now. </p>
+								<p>
+									With native iOS integration, Arq allows for total team
+									integration, from mobile to desktop.
+								</p>
 							</div>
 						</BenefitsCard>
 						<BenefitsCard>
@@ -215,8 +219,12 @@ class BottomContent extends React.Component {
 							</div>
 							<div>
 								<p>
-									Sveza distills out the noise and keeps the information load
-									light.{' '}
+									Arq distills out the noise and keeps the information load
+									light.
+								</p>
+								<p>
+									Concentrate on what really matters: getting your team ready to
+									ship world class product.
 								</p>
 							</div>
 						</BenefitsCard>
@@ -225,8 +233,10 @@ class BottomContent extends React.Component {
 								<h3>Adaptability</h3>
 							</div>
 							<div>
+								<p>Arq can incorporate a wide range workplace environments. </p>
 								<p>
-									Sveza can incorporate a wide range workplace environments.{' '}
+									Collegues half-way across the world? Not to worry, our help
+									staff are here for you, 24/7.
 								</p>
 							</div>
 						</BenefitsCard>
@@ -235,8 +245,8 @@ class BottomContent extends React.Component {
 				<IntegrationDiv>
 					<p>
 						In addition to its own built in tracking, commenting, and messaging
-						system, Sveza integrates with everything from the Creative Cloud, to
-						Drop Box, to Google Docs and more.{' '}
+						system, Arq integrates with everything from the Creative Cloud, to
+						Drop Box, to Google Docs and more.
 					</p>
 					<CircleDiv>
 						<LineDiv />
