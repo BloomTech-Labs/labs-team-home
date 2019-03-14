@@ -9,9 +9,10 @@ const StyledFooter = styled.footer`
 	justify-content: space-around;
 	align-items: center;
 	height: 50px;
-	background: black;
 	z-index: 11;
 	width: 100%;
+	border-top: 2px solid black;
+
 	div {
 		width: 15%;
 		display: flex;

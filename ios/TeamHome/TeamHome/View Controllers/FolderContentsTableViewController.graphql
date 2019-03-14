@@ -27,3 +27,12 @@ query FindDocumentsByFolder($folderID: ID!){
         updatedAt
     }
 }
+
+mutation DeleteFolder($folderID: ID!) {
+    deleteFolder(input: {
+                 id: $folderID
+                 }) {
+        _id
+        title
+    }
+}

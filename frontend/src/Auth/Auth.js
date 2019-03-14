@@ -5,7 +5,7 @@ import { colors } from '../colorVariables';
 const options = {
 	theme: {
 		logo:
-			'https://res.cloudinary.com/massamb/image/upload/v1549565867/TH_favicon.png',
+			'https://res.cloudinary.com/ddr545gbo/image/upload/v1552520382/arq-logo.png',
 		primaryColor: colors.button
 	},
 	languageDictionary: {
