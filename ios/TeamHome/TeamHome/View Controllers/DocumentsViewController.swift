@@ -27,6 +27,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         // Segmented Control action pattern
         setupEmbeddedViews()
         documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
+//        notificationCenter = NotificationCenter()
     }
 
     // MARK: - IBActions
@@ -49,6 +50,9 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
                     return
                 }
                 print("Add Folder Successful: \(result?.data?.addFolder?.title ?? "No Title")")
+//                guard let nc = self.notificationCenter else { return }
+//                nc.post(name: .addedNewFolder, object: self)
+                NotificationCenter.default.post(name: .addedNewFolder, object: nil)
             }
             
         }))
@@ -56,6 +60,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
+        
     }
 
     // MARK: - Private Functions
@@ -131,6 +136,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     // MARK: - Properties
 
     private var gradientLayer: CAGradientLayer!
+//    private var notificationCenter: NotificationCenter?
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
