@@ -26,7 +26,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = nil
+
         if let document = document {
             updateViewsForEdit(document: document)
         } else {

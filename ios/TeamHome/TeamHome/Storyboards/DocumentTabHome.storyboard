@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--Add Edit Document View Controller-->
         <scene sceneID="9u2-Io-UhV">
             <objects>
                 <viewController id="Gjh-D1-vhX" customClass="AddEditDocumentViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
@@ -167,7 +167,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vcF-Se-sQx"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="5r9-4S-leb">
+                    <navigationItem key="navigationItem" id="5r9-4S-leb">
                         <barButtonItem key="rightBarButtonItem" systemItem="organize" id="AXr-d8-g8k">
                             <connections>
                                 <action selector="addToFolder:" destination="Gjh-D1-vhX" id="nDu-Wx-ztQ"/>
