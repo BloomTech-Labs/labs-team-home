@@ -68,8 +68,8 @@ const BottomContent = props => {
 					<br />
 					<p>
 						{' '}
-						No more missing a conversation. No more missed opportunities. Sveza
-						is here.{' '}
+						No more missing a conversation. No more missed opportunities. Arq is
+						here.{' '}
 					</p>
 					<ModifiedButton>Sign Up Now</ModifiedButton>
 				</LandingContent>
@@ -119,8 +119,8 @@ const BottomContent = props => {
 								Arq distills out the noise and keeps the information load light.
 							</p>
 							<p>
-								Forget informational overload. Concentrate on what really
-								matters: getting your team ready to ship world class product.
+								Concentrate on what really matters: getting your team ready to
+								ship world class product.
 							</p>
 						</div>
 					</BenefitsCard>
