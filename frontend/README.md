@@ -74,6 +74,9 @@ Instructions below on how to get the key for each variable.
 
 Be sure to add the remaining ENV variables (outlined above) to the Netlify as well.
 
+- `Auth/Auth.js` change url (auth0 audience) on line 16 with your own backend deployment
+- `index.js` change url within URI variable, on line 13 with your own deployed backend
+
 ## File structure
 
 ```javascript
