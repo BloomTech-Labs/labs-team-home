@@ -26,13 +26,12 @@
 ```javascript
 backend
 ├── _tests_ // tests utilize the graphql tools
-├── docs // `graphql` schema, query and mutation documentation
-├── models // the MongoDB database models
-├── `graphql`
-|   ├── schema // type definitions for `graphql` queries and mutations
-|   └── resolvers // functions executed for `graphql` queries and mutations
 ├── config
 |   └── index.js // server configuration for all middleware used
+├── docs // `graphql` schema, query and mutation documentation
+├── graphql
+|   ├── schema // type definitions for `graphql` queries and mutations
+|   └── resolvers // functions executed for `graphql` queries and mutations
+├── models // the MongoDB database models
 ├── index.js // the server is started from here
-
 ```
