@@ -503,19 +503,11 @@
                         <viewLayoutGuide key="safeArea" id="GwI-Hu-2nL"/>
                     </view>
                     <navigationItem key="navigationItem" id="TRt-ih-oiK">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="Wye-1p-dqc">
-                            <connections>
-                                <action selector="backButton:" destination="PI0-00-t65" id="myG-LV-6ti"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Yfg-x0-zyi">
                             <connections>
                                 <segue destination="Gjh-D1-vhX" kind="show" identifier="EditDocument" id="q4k-aO-cWI"/>
                             </connections>
                         </barButtonItem>
-                        <connections>
-                            <outlet property="backBarButtonItem" destination="Wye-1p-dqc" id="eEI-mM-ogY"/>
-                        </connections>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <connections>
