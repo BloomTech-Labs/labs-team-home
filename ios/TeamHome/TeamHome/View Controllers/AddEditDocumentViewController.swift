@@ -83,7 +83,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             print(tag)
             
             self.tagsWatcher?.refetch()
-            
+            self.tagButtonWasClicked = true
             DispatchQueue.main.async {
                 self.tagsTextField.text = ""
                 
@@ -244,6 +244,10 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             
             self.tags = tags
             self.collectionView.reloadData()
+            if self.tagButtonWasClicked{
+                self.collectionView.scrollToBottom(animated: true)
+                self.tagButtonWasClicked = false
+            }
             
         }
     }
@@ -297,6 +301,8 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     
     var document: Document?
+    
+    private var tagButtonWasClicked = false
     
     private var tagSelected: String?
     private var tagSelectedId: GraphQLID?
