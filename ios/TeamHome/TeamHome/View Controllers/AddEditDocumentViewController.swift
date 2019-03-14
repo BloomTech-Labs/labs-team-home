@@ -26,6 +26,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         if let document = document {
             updateViewsForEdit(document: document)
         } else {
@@ -82,7 +83,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             print(tag)
             
             self.tagsWatcher?.refetch()
-            
+            self.tagButtonWasClicked = true
             DispatchQueue.main.async {
                 self.tagsTextField.text = ""
                 
@@ -115,6 +116,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
                 if tag.name == this {
                     self.tagSelected = documentTag.name
                     cell.backgroundColor = Appearance.mauveColor
+                    self.tagCellSelected = cell
                 }
             }
         }
@@ -122,12 +124,30 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:
+        IndexPath) {
+        
         guard let tag = tags?[indexPath.row] else { return }
         self.tagSelected = tag.name
-        let cell = collectionView.cellForItem(at: indexPath)
+        let cell = collectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         
-        cell?.backgroundColor = Appearance.mauveColor
+        
+        if cell == tagCellSelected {
+        //user is unselecting a tag so remove selection
+            cell.backgroundColor = Appearance.darkMauveColor
+            tagCellSelected = nil
+            tagSelected = nil
+        } else {
+        // user is selecting a new tag
+            if tagCellSelected != nil {
+                tagCellSelected?.backgroundColor = Appearance.darkMauveColor
+            }
+            cell.backgroundColor = Appearance.mauveColor
+            tagCellSelected = cell
+        }
+        
+        //
+        //        cell?.backgroundColor = Appearance.mauveColor
     }
     
     // MARK: - Navigation
@@ -155,17 +175,27 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     private func setupViews(){
         setUpViewAppearance()
+        hideKeyboardWhenTappedAround()
         newDocumentView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
         
+        documentLinkTextField.placeholderNormalColor = .white
         documentLinkTextField.textColor = .white
         documentLinkTextField.placeholder = "Add a link"
+        documentLinkTextField.placeholderActiveColor = Appearance.yellowColor
+        documentLinkTextField.dividerActiveColor = Appearance.yellowColor
+        
+        
         documentNotesTextView.textColor = .white
         documentNotesTextView.placeholder = "Add a note"
-        
+    
         documentNotesTextView.dividerColor = Appearance.yellowColor
+        
         documentTitleTextField.textColor = .white
+        documentTitleTextField.placeholderNormalColor = .white
+        documentTitleTextField.placeholderActiveColor = Appearance.yellowColor
+        documentTitleTextField.dividerActiveColor = Appearance.yellowColor
         
         tagsTextField.textColor = .white
         documentTitleTextField.placeholderAnimation = .hidden
@@ -223,20 +253,12 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             
             self.tags = tags
             self.collectionView.reloadData()
-        }
-    }
-    private func createNewTag(with apollo: ApolloClient,under teamId: GraphQLID, for string: String) {
-        apollo.perform(mutation: CreateNewTagMutation(name: string, teamId: teamId), queue: DispatchQueue.global(), resultHandler: { (result, error) in
-            if let error = error {
-                NSLog("\(error)")
+            if self.tagButtonWasClicked{
+                self.collectionView.scrollToBottom(animated: true)
+                self.tagButtonWasClicked = false
             }
             
-            guard let result = result,
-                let newTagId = result.data?.addTag?.id else { return }
-            
-            print(newTagId)
-            
-        })
+        }
     }
     
     private func findSelectedTag() -> GraphQLID? {
@@ -260,14 +282,27 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         
         return nil
     }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
     //MARK: - Properties
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     
     var document: Document?
     
+    private var tagButtonWasClicked = false
+    
     private var tagSelected: String?
     private var tagSelectedId: GraphQLID?
+    private var tagCellSelected: TagCollectionViewCell?
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
     private var tagsWatcher: GraphQLQueryWatcher<FindTagsByTeamQuery>?
     

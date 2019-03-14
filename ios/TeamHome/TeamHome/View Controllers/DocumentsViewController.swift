@@ -9,6 +9,16 @@
 import UIKit
 import Apollo
 
+protocol DocumentBoardFilterDelegate: class {
+    func didClickFilter()
+    var newestToOldest: Bool { get set }
+}
+
+protocol FoldersFilterDelegate: class {
+    func didClickFolderFilter()
+    var newestToOldest: Bool { get set }
+}
+
 class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
 
     override func viewDidLoad() {
@@ -27,6 +37,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         // Segmented Control action pattern
         setupEmbeddedViews()
         documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
+//        notificationCenter = NotificationCenter()
     }
 
     // MARK: - IBActions
@@ -49,6 +60,9 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
                     return
                 }
                 print("Add Folder Successful: \(result?.data?.addFolder?.title ?? "No Title")")
+//                guard let nc = self.notificationCenter else { return }
+//                nc.post(name: .addedNewFolder, object: self)
+                NotificationCenter.default.post(name: .addedNewFolder, object: nil)
             }
             
         }))
@@ -56,6 +70,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
+        
     }
 
     // MARK: - Private Functions
@@ -105,6 +120,50 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         }
     }
     
+    @IBAction func filterDocuments(_ sender: Any) {
+
+        switch documentsFoldersSegmentedIndex.selectedSegmentIndex {
+        case 0:
+            guard let delegate = delegateDocs else { return }
+            
+            // Call delegate to filter documents.
+            delegate.didClickFilter()
+            
+            // Update button based on order of documents.
+            if delegate.newestToOldest {
+                let image = UIImage(named: "Arrow Up")!
+                filterButton.setImage(image, for: .normal)
+            } else {
+                let image = UIImage(named: "Arrow Down")!
+                filterButton.setImage(image, for: .normal)
+            }
+        case 1:
+            guard let delegate = delegateFolders else { return }
+            
+            // Call delegate to filter folders.
+            delegate.didClickFolderFilter()
+            
+            // Update button based on order of folders.
+            if delegate.newestToOldest {
+                let image = UIImage(named: "Arrow Up")!
+                filterButton.setImage(image, for: .normal)
+            } else {
+                let image = UIImage(named: "Arrow Down")!
+                filterButton.setImage(image, for: .normal)
+            }
+        default:
+            guard let delegate = delegateDocs else { return }
+            delegate.didClickFilter()
+            if delegate.newestToOldest {
+                let image = UIImage(named: "Arrow Up")!
+                filterButton.setImage(image, for: .normal)
+            } else {
+                let image = UIImage(named: "Arrow Down")!
+                filterButton.setImage(image, for: .normal)
+            }
+        }
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -119,11 +178,13 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             destinationVC.apollo = apollo
             destinationVC.team = team
             destinationVC.currentUser = currentUser
+            self.delegateDocs = destinationVC
         }
         if segue.identifier == "EmbeddedFolders"{
             let destinationVC = segue.destination as! FoldersTableViewController
-                destinationVC.apollo = apollo
-                destinationVC.team = team
+            destinationVC.apollo = apollo
+            destinationVC.team = team
+            self.delegateFolders = destinationVC
         }
     }
     
@@ -131,6 +192,8 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     // MARK: - Properties
 
     private var gradientLayer: CAGradientLayer!
+    private var delegateDocs: DocumentBoardFilterDelegate?
+    private var delegateFolders: FoldersFilterDelegate?
     
     var apollo: ApolloClient?
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?

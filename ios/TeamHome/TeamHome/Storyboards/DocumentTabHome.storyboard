@@ -11,19 +11,21 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--Add Edit Document View Controller-->
         <scene sceneID="9u2-Io-UhV">
             <objects>
                 <viewController id="Gjh-D1-vhX" customClass="AddEditDocumentViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WHs-eC-9fZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="451.5"/>
+ 
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAZ-4k-C2y">
-                                <rect key="frame" x="16" y="64" width="343" height="323.5"/>
+                                <rect key="frame" x="16" y="64" width="343" height="364"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gHi-jW-i5M">
-                                        <rect key="frame" x="21.5" y="16" width="300" height="291.5"/>
+                                        <rect key="frame" x="21.5" y="16" width="300" height="332"/>
+ 
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Add Document" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qd-mG-lC4">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="31.5"/>
@@ -40,14 +42,16 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Document Title"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wNb-Lw-uj0" customClass="TextField" customModule="Material">
+                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wNb-Lw-uj0" customClass="TextField" customModule="Material">
+ 
                                                 <rect key="frame" x="0.0" y="77.5" width="300" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BHQ-Px-4pc" customClass="TextView" customModule="Material">
-                                                <rect key="frame" x="0.0" y="115.5" width="300" height="21.5"/>
+                                                <rect key="frame" x="0.0" y="115.5" width="300" height="22"/>
+
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -57,22 +61,26 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textView>
                                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="TYs-h8-hHN">
-                                                <rect key="frame" x="0.0" y="141" width="300" height="133"/>
+
+                                                <rect key="frame" x="0.0" y="141.5" width="300" height="133"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="133" id="cTP-09-db3"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select one tag from the list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAP-U0-s6E">
-                                                <rect key="frame" x="0.0" y="145" width="300" height="20.5"/>
+
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Select one tag from the list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAP-U0-s6E">
+                                                <rect key="frame" x="0.0" y="145.5" width="300" height="20.5"/>
+
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tqk-wu-jEX">
-                                                <rect key="frame" x="0.0" y="173.5" width="300" height="50"/>
+                                                <rect key="frame" x="0.0" y="174" width="300" height="90"/>
+
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="IJb-Yb-36M"/>
+                                                    <constraint firstAttribute="height" constant="90" id="IJb-Yb-36M"/>
                                                 </constraints>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xS2-Ah-1wv">
                                                     <size key="itemSize" width="96" height="29"/>
@@ -108,16 +116,17 @@
                                                 </cells>
                                             </collectionView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="n1f-BZ-37Q">
-                                                <rect key="frame" x="0.0" y="231.5" width="300" height="22"/>
+                                                <rect key="frame" x="0.0" y="272" width="300" height="22"/>
+
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Or you can create a new tag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l8Z-hU-z1g" customClass="TextField" customModule="Material">
-                                                        <rect key="frame" x="0.0" y="0.0" width="264" height="22"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="264" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0g-HJ-nrO">
-                                                        <rect key="frame" x="278" y="0.0" width="22" height="22"/>
+                                                        <rect key="frame" x="278" y="0.0" width="22" height="30"/>
                                                         <connections>
                                                             <action selector="createTag:" destination="Gjh-D1-vhX" eventType="touchUpInside" id="oqt-xz-zUc"/>
                                                         </connections>
@@ -125,7 +134,8 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="YgU-S2-2Nv">
-                                                <rect key="frame" x="0.0" y="261.5" width="300" height="30"/>
+                                                <rect key="frame" x="0.0" y="302" width="300" height="30"/>
+
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vks-v4-e09" customClass="FlatButton" customModule="Material">
                                                         <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
@@ -167,7 +177,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vcF-Se-sQx"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="5r9-4S-leb">
+                    <navigationItem key="navigationItem" id="5r9-4S-leb">
                         <barButtonItem key="rightBarButtonItem" systemItem="organize" id="AXr-d8-g8k">
                             <connections>
                                 <action selector="addToFolder:" destination="Gjh-D1-vhX" id="nDu-Wx-ztQ"/>
@@ -175,6 +185,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <size key="freeformSize" width="375" height="600"/>
                     <connections>
                         <outlet property="cancelButton" destination="vks-v4-e09" id="HoP-V8-Dqy"/>
                         <outlet property="collectionView" destination="Tqk-wu-jEX" id="upd-8T-l84"/>
@@ -259,7 +270,7 @@
                                                 <rect key="frame" x="158.5" y="0.0" width="184.5" height="31.5"/>
                                                 <state key="normal" image="Arrow Down"/>
                                                 <connections>
-                                                    <action selector="filterMessages:" destination="fDV-sB-tgI" eventType="touchUpInside" id="HwC-ow-TNc"/>
+                                                    <action selector="filterDocuments:" destination="fDV-sB-tgI" eventType="touchUpInside" id="yU5-60-SFA"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -300,7 +311,7 @@
                         <outlet property="containerView" destination="FOx-SN-I5G" id="9BN-ON-Kib"/>
                         <outlet property="documentsContainerView" destination="FOx-SN-I5G" id="7XP-Hi-Utk"/>
                         <outlet property="documentsFoldersSegmentedIndex" destination="mT3-Xk-wof" id="5xQ-eZ-sL5"/>
-                        <outlet property="filterButton" destination="eKf-q4-mce" id="7P4-6Z-hcy"/>
+                        <outlet property="filterButton" destination="eKf-q4-mce" id="ziV-2C-zhr"/>
                         <outlet property="foldersContainerView" destination="xyg-Zd-yKN" id="zeE-U3-6zZ"/>
                         <outlet property="newFolderButton" destination="hCP-Ad-IEK" id="ERC-Uh-MTh"/>
                         <outlet property="teamNameLabel" destination="GHn-Px-kkQ" id="zoU-R5-1cb"/>
@@ -502,19 +513,11 @@
                         <viewLayoutGuide key="safeArea" id="GwI-Hu-2nL"/>
                     </view>
                     <navigationItem key="navigationItem" id="TRt-ih-oiK">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="Wye-1p-dqc">
-                            <connections>
-                                <action selector="backButton:" destination="PI0-00-t65" id="myG-LV-6ti"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Yfg-x0-zyi">
                             <connections>
                                 <segue destination="Gjh-D1-vhX" kind="show" identifier="EditDocument" id="q4k-aO-cWI"/>
                             </connections>
                         </barButtonItem>
-                        <connections>
-                            <outlet property="backBarButtonItem" destination="Wye-1p-dqc" id="eEI-mM-ogY"/>
-                        </connections>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <connections>
@@ -668,7 +671,9 @@
                             <outlet property="delegate" destination="lfa-LU-LVT" id="dAK-QD-fCS"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="4Me-WI-Cs1"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="T56-t4-3aY"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVF-Iq-Y33" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -679,11 +684,11 @@
             <objects>
                 <viewController id="9p6-xa-bSi" customClass="FolderManagementViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b4K-RX-aqj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="515.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qf3-se-oSM">
-                                <rect key="frame" x="16" y="96" width="343" height="403.5"/>
+                                <rect key="frame" x="16" y="96" width="343" height="555"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPX-EJ-bmh">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="24"/>
@@ -697,17 +702,17 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Containing Folder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcA-QR-SvM">
-                                        <rect key="frame" x="0.0" y="43.5" width="343" height="19.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcA-QR-SvM">
+                                        <rect key="frame" x="0.0" y="43.5" width="343" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hmZ-Ff-PK0">
-                                        <rect key="frame" x="0.0" y="63" width="343" height="310.5"/>
+                                        <rect key="frame" x="0.0" y="93.5" width="343" height="431.5"/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLS-Vj-jDx">
-                                        <rect key="frame" x="0.0" y="373.5" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="525" width="343" height="30"/>
                                         <state key="normal" title="Move Document"/>
                                         <connections>
                                             <action selector="moveDocument:" destination="9p6-xa-bSi" eventType="touchUpInside" id="dzN-6s-8YV"/>
@@ -746,7 +751,7 @@
         <image name="User Avatar Image" width="32.810127258300781" height="32.810127258300781"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jm3-hQ-VqR"/>
-        <segue reference="q4k-aO-cWI"/>
+        <segue reference="R6w-rk-308"/>
+        <segue reference="2HZ-Sp-MoN"/>
     </inferredMetricsTieBreakers>
 </document>

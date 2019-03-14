@@ -15,6 +15,17 @@
 9. Run server `yarn server`
 10. Go to http://localhost:5000 the view the GraphQL documentation and http://localhost:5000/graphql to view GraphQL playground.
 
+## Back End Deployment
+
+- backend/config/apollo-server.js needs to have url changed with new deployment url
+- If using Heroku for deployment; will need to install add-on `mLab MongoDB` and `Auth0`
+
+`Auth0`: requires to have Callback URLs configured (example of some callbacks for both the deployed and local)
+
+`http://localhost:3000/, http://team-home-2.netlify.com`
+
+`Auth0`: an API needs to be created pointing to deployed backend
+
 ## How to utlize the tests
 
 1. Currently, file stucture allows for tests to be created in the `__tests__` folder. Good practice to keep the tests in there.
@@ -26,13 +37,12 @@
 ```javascript
 backend
 ├── _tests_ // tests utilize the graphql tools
-├── docs // `graphql` schema, query and mutation documentation
-├── models // the MongoDB database models
-├── `graphql`
-|   ├── schema // type definitions for `graphql` queries and mutations
-|   └── resolvers // functions executed for `graphql` queries and mutations
 ├── config
 |   └── index.js // server configuration for all middleware used
+├── docs // `graphql` schema, query and mutation documentation
+├── graphql
+|   ├── schema // type definitions for `graphql` queries and mutations
+|   └── resolvers // functions executed for `graphql` queries and mutations
+├── models // the MongoDB database models
 ├── index.js // the server is started from here
-
 ```

@@ -194,7 +194,6 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         let dateDouble2 = dateDouble / 1000.0
         let date = dateDouble2.getDateStringFromUTC()
         
-        
         documentTitleLabel.text = document.title
         firstNameLabel.text = document.user.firstName
         lastNameLabel.text = document.user.lastName

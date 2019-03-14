@@ -97,6 +97,10 @@ Provides Swipeable Views along with animation support.<br/>[React Swipeable View
 
 React DnD is a set of React higher-order components to help you build complex drag and drop interfaces while keeping your components decoupled.<br/>[React-dnd](http://react-dnd.github.io/react-dnd/about)
 
+### React Scrollable Anchor
+
+Lightweight library for smooth scrolling anchors in React, tied to URL hash.<br/>[React Scrollable Anchor](https://www.npmjs.com/package/react-scrollable-anchor)
+
 ## Front-End Development Dependencies
 
 ### Husky

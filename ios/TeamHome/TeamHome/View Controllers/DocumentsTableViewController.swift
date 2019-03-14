@@ -11,7 +11,7 @@ import Apollo
 
 var watcher: GraphQLQueryWatcher<FindDocumentsByTeamQuery>?
 
-class DocumentsTableViewController: UITableViewController {
+class DocumentsTableViewController: UITableViewController, DocumentBoardFilterDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +102,24 @@ class DocumentsTableViewController: UITableViewController {
         }
     }
     
+    func didClickFilter() {
+        filter()
+    }
+    
+    private func filter() {
+        guard let documents = documents else { return }
+        
+        if newestToOldest {
+            let sortedDocuments = documents.sorted(by: { ($0?.createdAt)! < ($1?.createdAt)!})
+            self.documents = sortedDocuments
+            newestToOldest = false
+        } else {
+            let sortedDocuments = documents.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
+            self.documents = sortedDocuments
+            newestToOldest = true
+        }
+    }
+    
     //MARK: - Properties
     var documents: [FindDocumentsByTeamQuery.Data.FindDocumentsByTeam?]?{
         didSet{
@@ -122,4 +140,5 @@ class DocumentsTableViewController: UITableViewController {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var deleteIndexPath: IndexPath?
+    var newestToOldest: Bool = false
 }

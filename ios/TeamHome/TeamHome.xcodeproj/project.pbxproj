@@ -18,6 +18,7 @@
 		1092D5B1221E8A5300579B34 /* DocumentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */; };
 		1092D5B3221E8B7D00579B34 /* DocumentsTableViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */; };
 		10E2A19C2216153F007EC662 /* AddEditDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E2A19B2216153F007EC662 /* AddEditDocumentViewController.swift */; };
+		10ECE089223A0FF20064D558 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ECE088223A0FF20064D558 /* Extensions.swift */; };
 		7B2C51EC220B2CF7004990BB /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C51EB220B2CF7004990BB /* TagCollectionViewCell.swift */; };
 		7B2C51F2220CB563004990BB /* CommentsCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C51F1220CB563004990BB /* CommentsCollectionReusableView.swift */; };
 		7B6BE7D121E5733D0099E42C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6BE7D021E5733D0099E42C /* AppDelegate.swift */; };
@@ -75,7 +76,6 @@
 		7BF8735C21F7D0F500737729 /* CommentsCollectionViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */; };
 		7BF8736221FA6B4B00737729 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8736121FA6B4B00737729 /* Activity.swift */; };
 		C4D48ED210903108208DB396 /* Pods_TeamHome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */; };
-		F877E0B8221F859A00A78D08 /* FolderConcept.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */; };
 		F877E0BA221F873A00A78D08 /* FolderManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */; };
 		F8A527812230861900E715E8 /* FolderContentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */; };
 		F8A527832230972500E715E8 /* FolderContentsTableViewController.graphql in Sources */ = {isa = PBXBuildFile; fileRef = F8A527822230972500E715E8 /* FolderContentsTableViewController.graphql */; };
@@ -97,6 +97,7 @@
 		1092D5B0221E8A5300579B34 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewController.swift; sourceTree = "<group>"; };
 		1092D5B2221E8B7D00579B34 /* DocumentsTableViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DocumentsTableViewController.graphql; sourceTree = "<group>"; };
 		10E2A19B2216153F007EC662 /* AddEditDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditDocumentViewController.swift; sourceTree = "<group>"; };
+		10ECE088223A0FF20064D558 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		465546B36BE62E5867C66338 /* Pods-TeamHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.release.xcconfig"; sourceTree = "<group>"; };
 		5E7A942D57C28DA6353E0A10 /* Pods_TeamHome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamHome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B2C51EB220B2CF7004990BB /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -158,7 +159,6 @@
 		7BF8735B21F7D0F500737729 /* CommentsCollectionViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CommentsCollectionViewController.graphql; sourceTree = "<group>"; };
 		7BF8736121FA6B4B00737729 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		DE4B1FF0DF331C25C53901F0 /* Pods-TeamHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamHome/Pods-TeamHome.debug.xcconfig"; sourceTree = "<group>"; };
-		F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FolderConcept.storyboard; sourceTree = "<group>"; };
 		F877E0B9221F873A00A78D08 /* FolderManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManagementViewController.swift; sourceTree = "<group>"; };
 		F8A527802230861900E715E8 /* FolderContentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderContentsTableViewController.swift; sourceTree = "<group>"; };
 		F8A527822230972500E715E8 /* FolderContentsTableViewController.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = FolderContentsTableViewController.graphql; sourceTree = "<group>"; };
@@ -232,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				7BA77E8221E798A800C862C1 /* TabBarChildrenProtocol.swift */,
+				10ECE088223A0FF20064D558 /* Extensions.swift */,
 				7B734DF621FF6E3900F56C5F /* Appearance.swift */,
 				7B734E022200F21600F56C5F /* DateFormatter.swift */,
 				1092928F2238605E00F137CD /* DocumentHelper.swift */,
@@ -248,7 +249,6 @@
 				7BA77EA321E914BE00C862C1 /* TeamDetailView.storyboard */,
 				7B6BE7D921E5733E0099E42C /* LaunchScreen.storyboard */,
 				F8E77CD92214DB3B00E12C8B /* DocumentTabHome.storyboard */,
-				F877E0B7221F859A00A78D08 /* FolderConcept.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -411,7 +411,6 @@
 				7B734DFF22000EFF00F56C5F /* Montserrat-Regular.ttf in Resources */,
 				103E7301222DEEA200F54B0F /* DocumentsDetailCollectionViewController.graphql in Resources */,
 				7BA77ED021ED50BB00C862C1 /* MessagesCollectionViewController.graphql in Resources */,
-				F877E0B8221F859A00A78D08 /* FolderConcept.storyboard in Resources */,
 				7BE481C7220401DC00F518F9 /* Comfortaa-Regular.ttf in Resources */,
 				7BF8735A21F7BA8400737729 /* MessageDetailViewController.graphql in Resources */,
 				7BA77E9921E8033C00C862C1 /* TeamExample.json in Resources */,
@@ -575,6 +574,7 @@
 				F877E0BA221F873A00A78D08 /* FolderManagementViewController.swift in Sources */,
 				F8BEA7F5222D035D0003C352 /* FolderDetailViewController.swift in Sources */,
 				7B2C51EC220B2CF7004990BB /* TagCollectionViewCell.swift in Sources */,
+				10ECE089223A0FF20064D558 /* Extensions.swift in Sources */,
 				7BF8736221FA6B4B00737729 /* Activity.swift in Sources */,
 				7B2C51F2220CB563004990BB /* CommentsCollectionReusableView.swift in Sources */,
 				10295B6922274F92002C8940 /* DocumentDetailViewController.swift in Sources */,

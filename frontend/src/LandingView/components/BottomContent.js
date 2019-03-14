@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components'; //{ css } will be added once necessar
 import {
 	LandingContent,
 	LandingContentContainer,
@@ -24,6 +24,10 @@ import { Apple } from 'styled-icons/boxicons-logos/Apple';
 import { Onedrive } from 'styled-icons/icomoon/Onedrive';
 import Footer from './footer';
 import { colors } from '../../colorVariables';
+// starting integration of carousel for iOS images
+// import Fade from 'react-reveal/Fade';
+// import makeCarousel from 'react-reveal/makeCarousel';
+// import Slide from 'react-reveal/Slide';
 
 const StyledDropbox = styled(Dropbox)`
 	height: 75px;
@@ -64,8 +68,8 @@ const BottomContent = props => {
 					<br />
 					<p>
 						{' '}
-						No more missing a conversation. No more missed opportunities. Sveza
-						is here.{' '}
+						No more missing a conversation. No more missed opportunities. Arq is
+						here.{' '}
 					</p>
 					<ModifiedButton>Sign Up Now</ModifiedButton>
 				</LandingContent>
@@ -84,7 +88,7 @@ const BottomContent = props => {
 					</p>
 					<p>
 						{' '}
-						At Sveza, our aim is to get your team operating from one place, so
+						At Arq, our aim is to get your team operating from one place, so
 						that no member of the team is left behind, while each member gets to
 						operate out of the environment they are most comfortable working in.{' '}
 					</p>
@@ -99,7 +103,11 @@ const BottomContent = props => {
 							<h3>Ease of use</h3>
 						</div>
 						<div>
-							<p>Sveza is out of the box and ready to use. Right now. </p>
+							<p>Arq is out of the box and ready to use. Right now. </p>
+							<p>
+								With native iOS integration, Arq allows for total team
+								integration, from mobile to desktop.
+							</p>
 						</div>
 					</BenefitsCard>
 					<BenefitsCard>
@@ -108,8 +116,11 @@ const BottomContent = props => {
 						</div>
 						<div>
 							<p>
-								Sveza distills out the noise and keeps the information load
-								light.{' '}
+								Arq distills out the noise and keeps the information load light.
+							</p>
+							<p>
+								Concentrate on what really matters: getting your team ready to
+								ship world class product.
 							</p>
 						</div>
 					</BenefitsCard>
@@ -118,7 +129,11 @@ const BottomContent = props => {
 							<h3>Adaptability</h3>
 						</div>
 						<div>
-							<p>Sveza can incorporate a wide range workplace environments. </p>
+							<p>Arq can integrate a wide range of workplace environments. </p>
+							<p>
+								Collegues half-way across the world? Not to worry, our help
+								staff are here for you, 24/7.
+							</p>
 						</div>
 					</BenefitsCard>
 				</BenefitsContainer>
@@ -126,7 +141,7 @@ const BottomContent = props => {
 			<IntegrationDiv>
 				<p>
 					In addition to its own built in tracking, commenting, and messaging
-					system, Sveza integrates with everything from the Creative Cloud, to
+					system, Arq integrates with everything from the Creative Cloud, to
 					Drop Box, to Google Docs and more.{' '}
 				</p>
 				<CircleDiv>

@@ -150,7 +150,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My teams" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4M-uB-xAH">
-                                    <rect key="frame" x="163" y="27.666666666666671" width="88" height="23"/>
+                                    <rect key="frame" x="157.33333333333334" y="27.666666666666671" width="99.666666666666657" height="23"/>
                                     <fontDescription key="fontDescription" name="Comfortaa-Regular" family="Comfortaa" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -198,19 +198,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="F8s-FV-Ag3">
-                                <rect key="frame" x="32" y="124.00000000000003" width="350" height="509.66666666666674"/>
+                                <rect key="frame" x="32" y="124" width="350" height="516"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo With Nodes" translatesAutoresizingMaskIntoConstraints="NO" id="fw1-pX-lZQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="350" height="179.33333333333334"/>
+                                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arq-ios-transparent" translatesAutoresizingMaskIntoConstraints="NO" id="fw1-pX-lZQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="224"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team communication in one home" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHu-Vw-4eh">
-                                        <rect key="frame" x="0.0" y="197.33333333333331" width="350" height="20.333333333333343"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team communication in one home" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHu-Vw-4eh">
+                                        <rect key="frame" x="0.0" y="233" width="350" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="iJc-8e-XuT">
-                                        <rect key="frame" x="0.0" y="235.66666666666669" width="350" height="78"/>
+                                        <rect key="frame" x="0.0" y="242" width="350" height="78"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="97d-Sv-ggA" customClass="TextField" customModule="Material">
                                                 <rect key="frame" x="0.0" y="0.0" width="350" height="30"/>
@@ -227,7 +227,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gC-AW-qWR">
-                                        <rect key="frame" x="0.0" y="331.66666666666669" width="350" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="338" width="350" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -235,7 +235,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7ru-ct-wla">
-                                        <rect key="frame" x="0.0" y="349.66666666666669" width="350" height="30"/>
+                                        <rect key="frame" x="0.0" y="356" width="350" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nyR-HD-gxC">
                                                 <rect key="frame" x="0.0" y="0.0" width="170" height="30"/>
@@ -254,7 +254,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="dB3-qk-L3j">
-                                        <rect key="frame" x="0.0" y="397.66666666666663" width="350" height="112"/>
+                                        <rect key="frame" x="0.0" y="404" width="350" height="112"/>
                                         <subviews>
                                             <stackView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzG-Ty-lYc">
                                                 <rect key="frame" x="0.0" y="0.0" width="350" height="50"/>
@@ -324,7 +324,7 @@
                                         </subviews>
                                     </stackView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYJ-Vp-4Df">
-                                        <rect key="frame" x="0.0" y="509.66666666666663" width="350" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="516" width="350" height="0.0"/>
                                         <state key="normal" title="Lock external sign up"/>
                                         <connections>
                                             <action selector="lockLogIn:" destination="Kyj-50-e8Q" eventType="touchUpInside" id="DIT-wa-hIs"/>
@@ -336,7 +336,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fw1-pX-lZQ" firstAttribute="height" secondItem="Vkk-2B-JkD" secondAttribute="height" multiplier="1/5" id="cZ5-KP-Fxc"/>
+                            <constraint firstItem="fw1-pX-lZQ" firstAttribute="height" secondItem="Vkk-2B-JkD" secondAttribute="height" multiplier="1/4" id="cZ5-KP-Fxc"/>
                             <constraint firstItem="aGJ-nG-xNo" firstAttribute="trailing" secondItem="F8s-FV-Ag3" secondAttribute="trailing" constant="32" id="fje-V6-Mtq"/>
                             <constraint firstItem="F8s-FV-Ag3" firstAttribute="leading" secondItem="aGJ-nG-xNo" secondAttribute="leading" constant="32" id="nH9-fu-7wm"/>
                             <constraint firstItem="F8s-FV-Ag3" firstAttribute="top" secondItem="aGJ-nG-xNo" secondAttribute="top" constant="80" id="yRi-RA-ApJ"/>
@@ -976,11 +976,11 @@
         <image name="Arrow Down" width="13.60629940032959" height="13.60629940032959"/>
         <image name="Change Team" width="50.823528289794922" height="50.823528289794922"/>
         <image name="Documents" width="54" height="54"/>
-        <image name="Logo With Nodes" width="246" height="245"/>
         <image name="Messages Tab" width="46.285713195800781" height="46.285713195800781"/>
         <image name="Settings Tab" width="94.254547119140625" height="94.254547119140625"/>
         <image name="Team Tab" width="54" height="54"/>
         <image name="User Avatar Image" width="233.31645202636719" height="233.31645202636719"/>
+        <image name="arq-ios-transparent" width="58.799999237060547" height="58.799999237060547"/>
         <image name="facebook" width="365" height="365"/>
         <image name="google-plus" width="365" height="365"/>
     </resources>
