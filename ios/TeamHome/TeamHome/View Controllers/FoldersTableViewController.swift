@@ -12,12 +12,13 @@ import Apollo
 var watcherFolder: GraphQLQueryWatcher<FindFoldersByTeamQuery>?
 typealias Folder = FindFoldersByTeamQuery.Data.FindFoldersByTeam
 
-class FoldersTableViewController: UITableViewController {
+class FoldersTableViewController: UITableViewController, FoldersFilterDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
         loadFolders(with: apollo!)
+        setUpNotificationCenter()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,16 +43,6 @@ class FoldersTableViewController: UITableViewController {
             // cell.detailTextLabel?.text = document.docUrl // --> this could list folder contents, e.g.
             return cell
     }
-
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
     
     // MARK: - Private Functions
     
@@ -72,14 +63,33 @@ class FoldersTableViewController: UITableViewController {
         }
     }
     
-//    private func delete(folder: Folder, with apollo: ApolloClient) {
-//        
-//        guard let documents =  else { return }
-//        
-//        for folder in folders {
-//            
-//        }
-//    }
+    @objc private func reloadFolders() {
+        if let watcherFolder = watcherFolder {
+            watcherFolder.refetch()
+        }
+    }
+    
+    private func setUpNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadFolders), name: .addedNewFolder, object: nil)
+    }
+    
+    func didClickFolderFilter() {
+        filter()
+    }
+    
+    private func filter() {
+        guard let folders = folders else { return }
+        
+        if newestToOldest {
+            let sortedFolders = folders.sorted(by: { ($0?.createdAt)! < ($1?.createdAt)!})
+            self.folders = sortedFolders
+            newestToOldest = false
+        } else {
+            let sortedFolders = folders.sorted(by: { ($0?.createdAt)! > ($1?.createdAt)!})
+            self.folders = sortedFolders
+            newestToOldest = true
+        }
+    }
 
     // MARK: - Navigation
 
@@ -118,5 +128,12 @@ class FoldersTableViewController: UITableViewController {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var deleteIndexPath: IndexPath?
+    var newestToOldest: Bool = false
 
+}
+
+extension Notification.Name {
+    static var addedNewFolder: Notification.Name {
+        return Notification.Name(rawValue: "addedNewFolder")
+    }
 }

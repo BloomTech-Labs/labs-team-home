@@ -176,7 +176,7 @@ export default class ActivityTimeline extends React.Component {
 								<MenuItem value="folder">Folder</MenuItem>
 								<MenuItem value="document">Document</MenuItem>
 								<MenuItem value="document comment">Document Comment</MenuItem>
-								<MenuItem value="team">Team</MenuItem>
+								{/* <MenuItem value="team">Team</MenuItem> */}
 								<MenuItem value="user">User</MenuItem>
 							</StyledSelect>
 						</label>

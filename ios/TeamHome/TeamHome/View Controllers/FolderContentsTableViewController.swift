@@ -124,8 +124,8 @@ class FolderContentsTableViewController: UITableViewController {
     }
     
     private func setUpNavigationBarButton() {
-        subscribeBarButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteFolder))
-        navigationItem.rightBarButtonItem = subscribeBarButton
+        trashFolderBarButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteFolder))
+        navigationItem.rightBarButtonItem = trashFolderBarButton
     }
     
     @objc func deleteFolder() {
@@ -156,6 +156,7 @@ class FolderContentsTableViewController: UITableViewController {
                 }
             }
         }
+        navigationController?.popViewController(animated: true)
     }
 
     // MARK: - Properties
@@ -179,7 +180,7 @@ class FolderContentsTableViewController: UITableViewController {
     
     private var gradientLayer: CAGradientLayer!
     
-    private var subscribeBarButton: UIBarButtonItem!
+    private var trashFolderBarButton: UIBarButtonItem!
     
     var apollo: ApolloClient!
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser!
