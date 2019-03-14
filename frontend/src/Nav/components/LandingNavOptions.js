@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Collapse, Nav, NavItem } from 'reactstrap';
 import mediaQueryFor from '../../_global_styles/responsive_querie';
-import { goToAnchor, configureAnchors } from 'react-scrollable-anchor';
 
 const LandBtn = styled.div`
 	@import url('https://fonts.googleapis.com/css?family=Comfortaa|Righteous');
@@ -17,6 +16,13 @@ const LandBtn = styled.div`
 	border: none;
 	border-bottom: 1px solid #ecff26;
 	transition: 0.4s;
+	a {
+		color: white;
+		&:hover {
+			color: #ecff26;
+			text-decoration: none;
+		}
+	}
 	&:hover {
 		color: #ecff26;
 		transform: scale(1.05, 1.05);
@@ -30,8 +36,6 @@ const LandBtn = styled.div`
   `}
 `;
 
-configureAnchors({ scrollDuration: 800 });
-
 const LandingNavOptions = ({ handleLogin, handleSignUp, isOpen }) => {
 	return (
 		<Collapse isOpen={isOpen} navbar>
@@ -41,10 +45,9 @@ const LandingNavOptions = ({ handleLogin, handleSignUp, isOpen }) => {
 					<LandBtn
 						onClick={() => {
 							handleLogin();
-							goToAnchor('topOfPage');
 						}}
 					>
-						Login
+						<a href="#root">Login</a>
 					</LandBtn>
 				</NavItem>
 				<NavItem>
@@ -52,10 +55,9 @@ const LandingNavOptions = ({ handleLogin, handleSignUp, isOpen }) => {
 					<LandBtn
 						onClick={() => {
 							handleSignUp();
-							goToAnchor('topOfPage');
 						}}
 					>
-						Sign Up
+						<a href="#root">Sign Up</a>
 					</LandBtn>
 				</NavItem>
 			</Nav>

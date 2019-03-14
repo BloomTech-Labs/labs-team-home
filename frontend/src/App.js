@@ -11,7 +11,6 @@ import PublicRoute from './utils/PublicRoute'; // higher order component
 import AppStyles from './app-styles'; // styling
 import SettingsView from './SettingsView/containers/SettingsView'; // component
 import AppNavBar from './Nav/Nav'; // component
-import ScrollableAnchor from 'react-scrollable-anchor';
 
 // ------------- styling libraries ---------------------- //
 import JssProvider from 'react-jss/lib/JssProvider'; // lets you write style sheets in javascript
@@ -37,32 +36,25 @@ class App extends Component {
 	render() {
 		return (
 			<JssProvider jss={jss} generateClassName={generateClassName}>
-				<ScrollableAnchor id={'topOfPage'}>
-					<AppStyles>
-						<GlobalStyle />
-						{localStorage.token && (
-							<AppNavBar handleLogout={this.handleLogout} />
-						)}
-						<TransitionGroup>
-							<CSSTransition
-								key={this.props.location.key}
-								timeout={{ enter: 300, exit: 300 }}
-								classNames={'fade'}
-							>
-								{/* Switch renders only the first route that matches the location */}
-								<Switch location={this.props.location}>
-									<PublicRoute exact path="/" component={LandingView} />
-									<PrivateRoute
-										path="/:team/home"
-										component={ContentContainer}
-									/>
-									<PrivateRoute path="/dashboard" component={Dashboard} />
-									<PrivateRoute path="/settings" component={SettingsView} />
-								</Switch>
-							</CSSTransition>
-						</TransitionGroup>
-					</AppStyles>
-				</ScrollableAnchor>
+				<AppStyles>
+					<GlobalStyle />
+					{localStorage.token && <AppNavBar handleLogout={this.handleLogout} />}
+					<TransitionGroup>
+						<CSSTransition
+							key={this.props.location.key}
+							timeout={{ enter: 300, exit: 300 }}
+							classNames={'fade'}
+						>
+							{/* Switch renders only the first route that matches the location */}
+							<Switch location={this.props.location}>
+								<PublicRoute exact path="/" component={LandingView} />
+								<PrivateRoute path="/:team/home" component={ContentContainer} />
+								<PrivateRoute path="/dashboard" component={Dashboard} />
+								<PrivateRoute path="/settings" component={SettingsView} />
+							</Switch>
+						</CSSTransition>
+					</TransitionGroup>
+				</AppStyles>
 			</JssProvider>
 		);
 	}
