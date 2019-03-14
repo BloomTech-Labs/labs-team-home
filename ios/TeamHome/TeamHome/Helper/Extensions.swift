@@ -9,12 +9,10 @@
 import Foundation
 import UIKit
 
-
-extension UICollectionViewController{
+extension UICollectionView{
     func scrollToBottom(animated: Bool = false){
-        let lastItemIndex = self.collectionView.numberOfItems(inSection: 0) - 1
+        let lastItemIndex = self.numberOfItems(inSection: 0) - 1
         let indexPath:IndexPath = IndexPath(item: lastItemIndex, section: 0)
-        self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: animated)
+        self.scrollToItem(at: indexPath, at: .bottom, animated: animated)
     }
 }
-

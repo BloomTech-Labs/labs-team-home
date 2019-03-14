@@ -121,12 +121,7 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
     }
     
     // MARK: - Private Methods
-    
-//    private func scrollToBottom(animated: Bool = false){
-//        let lastItemIndex = self.collectionView.numberOfItems(inSection: 0) - 1
-//        let indexPath:IndexPath = IndexPath(item: lastItemIndex, section: 0)
-//        self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: animated)
-//    }
+
     private func loadComments(from documentID: GraphQLID, with apollo: ApolloClient) {
         documentCommentWatcher = apollo.watch(query: FindCommentsByDocumentQuery(documentID: documentID), resultHandler: { (result, error) in
             if let error = error {
@@ -174,7 +169,7 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
                 self.collectionView.performBatchUpdates(nil, completion: { (_) in
-                    self.scrollToBottom(animated: self.wasCommentAdded)
+                    self.collectionView.scrollToBottom(animated: self.wasCommentAdded)
                     self.wasCommentAdded = false
                 })
                 self.handleEmptyComments()
