@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Collapse, Navbar, Nav, NavItem } from 'reactstrap';
 import { StyledLink, RespNav, NavBarTogglerDiv } from './styles/index';
 import { Spin } from 'react-burgers';
-import textLogo from '../assets/Sveza_white.svg';
 import styled from 'styled-components';
 
 const Logo = styled.h1`
