@@ -96,6 +96,14 @@ const ModifiedTypography = styled(Typography)`
 	color: #ffffff;
 `;
 
+const Anchor = styled.a`
+	width: 100%;
+
+	&:hover {
+		text-decoration: none;
+	}
+`;
+
 const ModifiedButton = styled(Button)`
 	background-color: ${props =>
 		props.buttontype === 'primary' ? `${colors.button}` : `white`};
@@ -115,7 +123,7 @@ const ModifiedButton = styled(Button)`
 `;
 
 function Pricing(props) {
-	const { classes } = props;
+	const { classes, handleSignUp, handleEmail } = props;
 
 	return (
 		<React.Fragment>
@@ -181,15 +189,20 @@ function Pricing(props) {
 									))}
 								</CardContent>
 								<CardActions className={classes.cardActions}>
-									<ModifiedButton
-										fullWidth
-										variant={tier.buttonVariant}
-										buttontype={
-											tier.title === 'Premium' ? 'primary' : 'secondary'
-										}
-									>
-										{tier.buttonText}
-									</ModifiedButton>
+									<Anchor href="#root">
+										<ModifiedButton
+											fullWidth
+											variant={tier.buttonVariant}
+											onClick={
+												tier.title === 'Enterprise' ? handleEmail : handleSignUp
+											}
+											buttontype={
+												tier.title === 'Premium' ? 'primary' : 'secondary'
+											}
+										>
+											{tier.buttonText}
+										</ModifiedButton>
+									</Anchor>
 								</CardActions>
 							</Card>
 						</Grid>

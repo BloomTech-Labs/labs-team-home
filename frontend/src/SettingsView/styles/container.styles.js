@@ -105,7 +105,8 @@ const ButtonDiv = styled.div`
 	flex-direction: row-reverse;
 
 	${mediaQueryFor.smDevice`
-    justify-content: center;
+		justify-content: center;
+		margin-top: 40px;
     `}
 `;
 
@@ -118,6 +119,11 @@ const StyledButton = styled(Button)`
 	&:hover {
 		background-color: rgba(255, 255, 255, 0.7);
 	}
+
+	${mediaQueryFor.smDevice`
+		height: 50px;
+		width: 125px;
+	`}
 `;
 
 const FormInputStyles = styled.div`
