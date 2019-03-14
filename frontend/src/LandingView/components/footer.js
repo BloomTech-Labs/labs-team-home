@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
+	max-width: none;
 	margin-top: 50px;
 	display: flex;
 	justify-content: space-around;
@@ -35,9 +36,9 @@ const Footer = () => {
 	return (
 		<StyledFooter>
 			<div>
-				<Link to="/team">Team</Link>
-				<Link to="/terms">Terms</Link>
-				<Link to="/privacy">Privacy</Link>
+				<Link to="/">Team</Link>
+				<Link to="/">Terms</Link>
+				<Link to="/">Privacy</Link>
 			</div>
 			<div>
 				<p id="copy">&copy; 2019 Arq Inc.</p>

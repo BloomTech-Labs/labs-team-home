@@ -9,7 +9,6 @@ export const LandingContentContainer = styled.div`
 	height: 100vh;
 	padding-top: 60px;
 	align-items: center;
-
 	${mediaQueryFor.lgDevice`
     flex-direction: column;
     justify-content: center;
@@ -181,25 +180,24 @@ export const BenefitsContainer = styled.div`
 export const BenefitsCard = styled.div`
 	background-color: rgb(143, 136, 150, 1);
 	border-radius: 5px;
-	height: 250px;
-	padding: 0 25px 25px 25px;
+	height: 350px;
+	padding: 40px;
 	z-index: 11;
 	width: 30%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	h3 {
-		font-size: 1.4rem;
+		font-size: 2rem;
 	}
 
-	h3,
 	p {
-		color: ${colors.button};
+		font-size: 1.2rem;
+		color: white;
 	}
 
 	div {
-		padding-top: 10px;
 		border-bottom: 1px solid ${colors.button};
 
 		&:last-child {
