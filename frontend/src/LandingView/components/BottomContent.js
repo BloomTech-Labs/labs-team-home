@@ -30,7 +30,7 @@ import iOSDocument from '../../assets/iOS_documents.png';
 import iOSDocument2 from '../../assets/iOS_documents2.png';
 import iOSMainScreen from '../../assets/iOS_mainScreen.png';
 import iOSAddDocument from '../../assets/iOS_addDocuments.png';
-
+// import Fade from 'react-reveal/Fade';
 const StyledDropbox = styled(Dropbox)`
 	height: 75px;
 `;
@@ -207,6 +207,10 @@ class BottomContent extends React.Component {
 							</div>
 							<div>
 								<p>Arq is out of the box and ready to use. Right now. </p>
+								<p>
+									With native iOS integration, Arq allows for total team
+									integration, from mobile to desktop.
+								</p>
 							</div>
 						</BenefitsCard>
 						<BenefitsCard>
@@ -216,7 +220,11 @@ class BottomContent extends React.Component {
 							<div>
 								<p>
 									Arq distills out the noise and keeps the information load
-									light.{' '}
+									light.
+								</p>
+								<p>
+									Concentrate on what really matters: getting your team ready to
+									ship world class product.
 								</p>
 							</div>
 						</BenefitsCard>
@@ -226,6 +234,10 @@ class BottomContent extends React.Component {
 							</div>
 							<div>
 								<p>Arq can incorporate a wide range workplace environments. </p>
+								<p>
+									Collegues half-way across the world? Not to worry, our help
+									staff are here for you, 24/7.
+								</p>
 							</div>
 						</BenefitsCard>
 					</BenefitsContainer>
@@ -234,7 +246,7 @@ class BottomContent extends React.Component {
 					<p>
 						In addition to its own built in tracking, commenting, and messaging
 						system, Arq integrates with everything from the Creative Cloud, to
-						Drop Box, to Google Docs and more.{' '}
+						Drop Box, to Google Docs and more.
 					</p>
 					<CircleDiv>
 						<LineDiv />

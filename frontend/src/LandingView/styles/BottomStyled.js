@@ -4,7 +4,7 @@ import { colors } from '../../colorVariables';
 
 export const LandingContentContainer = styled.div`
 	display: flex;
-	margin: 0 auto 0px auto;
+	margin: 0 auto 50px auto;
 	justify-content: space-around;
 	height: 100vh;
 	padding-top: 60px;
