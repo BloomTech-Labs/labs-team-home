@@ -135,6 +135,7 @@ class DocumentContainer extends React.Component {
 					<Query
 						query={query.FIND_DOCUMENTS_BY_TEAM}
 						variables={{ team: this.props.team }}
+						pollInterval={5000}
 					>
 						{({ loading, error, data: { findDocumentsByTeam } }) => {
 							if (loading) return <p>Loading...</p>;

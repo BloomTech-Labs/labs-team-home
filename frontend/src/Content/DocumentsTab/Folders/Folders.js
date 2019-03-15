@@ -119,6 +119,7 @@ class Folders extends Component {
 				<Query
 					query={query.FIND_FOLDERS_BY_TEAM}
 					variables={{ team: this.props.team._id }}
+					pollInterval={5000}
 				>
 					{({ loading, error, data: { findFoldersByTeam } }) => {
 						if (loading) return <StyledProgressSpinner />;
