@@ -12,7 +12,8 @@ import {
 	BenefitsContainer,
 	FirstPane,
 	TextDiv,
-	BenefitsCard
+	BenefitsCard,
+	BenefitsLineDiv
 } from '../styles/BottomStyled';
 import frontpage from '../../assets/demo.mp4';
 import Pricing from '../components/Pricing';
@@ -30,7 +31,10 @@ import iOSDocument from '../../assets/iOS_documents.png';
 import iOSDocument2 from '../../assets/iOS_documents2.png';
 import iOSMainScreen from '../../assets/iOS_mainScreen.png';
 import iOSAddDocument from '../../assets/iOS_addDocuments.png';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
+
 // import Fade from 'react-reveal/Fade';
+
 const StyledDropbox = styled(Dropbox)`
 	height: 75px;
 `;
@@ -52,6 +56,9 @@ const ModifiedButton = styled(Button)`
 	margin: 10px 11%;
 	color: ${colors.text};
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	${mediaQueryFor.mdDevice`
+		  margin: 0px 0px;
+	`}
 	&:hover {
 		background-color: rgba(255, 255, 255, 0.7);
 		color: black;
@@ -141,8 +148,8 @@ class BottomContent extends React.Component {
 						<br />
 						<p>
 							{' '}
-							No more missing a conversation. No more missed opportunities. Arq
-							is here.{' '}
+							No more missed conversations. No more missed opportunities. Arq is
+							here.{' '}
 						</p>
 						<a href="#root">
 							<ModifiedButton onClick={this.handleSignUp}>
@@ -200,6 +207,7 @@ class BottomContent extends React.Component {
 				</FirstPane>
 				<BenefitsDiv>
 					<h2>Benefits</h2>
+					<BenefitsLineDiv />
 					<BenefitsContainer>
 						<BenefitsCard>
 							<div>
@@ -243,6 +251,9 @@ class BottomContent extends React.Component {
 					</BenefitsContainer>
 				</BenefitsDiv>
 				<IntegrationDiv>
+					<h2>Integration</h2>
+					<BenefitsLineDiv />
+
 					<p>
 						In addition to its own built in tracking, commenting, and messaging
 						system, Arq integrates with everything from the Creative Cloud, to
