@@ -56,7 +56,7 @@ const ModifiedButton = styled(Button)`
 	margin: 10px 11%;
 	color: ${colors.text};
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
-	${mediaQueryFor.mdDevice`
+	${mediaQueryFor.lgDevice`
 		  margin: 0px 0px;
 	`}
 	&:hover {
