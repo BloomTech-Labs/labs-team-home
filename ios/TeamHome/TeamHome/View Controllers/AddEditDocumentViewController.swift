@@ -12,6 +12,7 @@ import Cloudinary
 import Photos
 import Material
 import Motion
+import GrowingTextView
 
 typealias Document = FindDocumentInputQuery.Data.FindDocument // FindDocumentsByTeamQuery.Data.FindDocumentsByTeam
 
@@ -227,8 +228,6 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         
         documentNotesTextView.textColor = .white
         documentNotesTextView.placeholder = "Add a note"
-    
-        documentNotesTextView.dividerColor = Appearance.yellowColor
         
         documentTitleTextField.textColor = .white
         documentTitleTextField.placeholderNormalColor = .white
@@ -354,7 +353,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var documentTitleTextField: TextField!
     
     @IBOutlet weak var documentLinkTextField: TextField!
-    @IBOutlet weak var documentNotesTextView: TextView!
+    @IBOutlet weak var documentNotesTextView: GrowingTextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tagsTextField: TextField!
