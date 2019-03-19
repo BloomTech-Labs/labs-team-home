@@ -15,7 +15,7 @@ import Motion
 
 typealias Document = FindDocumentInputQuery.Data.FindDocument // FindDocumentsByTeamQuery.Data.FindDocumentsByTeam
 
-class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
+class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +24,13 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         documentTitleTextField.delegate = self
         documentLinkTextField.delegate = self
         tagsTextField.delegate = self
+        documentNotesTextView.delegate = self
+        documentNotesTextView.keyboardAppearance = .dark
+        documentNotesTextView.returnKeyType = .done
 //        documentNotesTextView
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification , object: nil)
+        
         setupViews()
     }
     
@@ -93,7 +97,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             DispatchQueue.main.async {
                 self.tagsTextField.text = ""
                 
-                // Show tag alert?
+                self.tagsTextField.resignFirstResponder()
             }
         }
     }
@@ -102,7 +106,14 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        switch textField {
+        case documentTitleTextField:
+            _ = documentLinkTextField.becomeFirstResponder()
+        case documentLinkTextField:
+            _ = documentNotesTextView.becomeFirstResponder()
+        default:
+            textField.resignFirstResponder()
+        }
         return true
     }
     

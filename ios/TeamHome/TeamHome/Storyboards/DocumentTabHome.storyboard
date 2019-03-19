@@ -20,13 +20,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zkr-4C-Y8X">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="492"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="536"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAZ-4k-C2y">
-                                        <rect key="frame" x="18" y="64" width="339" height="364"/>
+                                        <rect key="frame" x="18" y="64" width="339" height="408"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gHi-jW-i5M">
-                                                <rect key="frame" x="19.5" y="16" width="300" height="332"/>
+                                                <rect key="frame" x="19.5" y="16" width="300" height="376"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Add Document" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qd-mG-lC4">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="31.5"/>
@@ -50,7 +50,7 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BHQ-Px-4pc" customClass="TextView" customModule="Material">
-                                                        <rect key="frame" x="0.0" y="115.5" width="300" height="22"/>
+                                                        <rect key="frame" x="0.0" y="115.5" width="300" height="58"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -60,19 +60,19 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textView>
                                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="TYs-h8-hHN">
-                                                        <rect key="frame" x="0.0" y="141.5" width="300" height="133"/>
+                                                        <rect key="frame" x="0.0" y="177.5" width="300" height="133"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="133" id="cTP-09-db3"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Select one tag from the list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAP-U0-s6E">
-                                                        <rect key="frame" x="0.0" y="145.5" width="300" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="181.5" width="300" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tqk-wu-jEX">
-                                                        <rect key="frame" x="0.0" y="174" width="300" height="90"/>
+                                                        <rect key="frame" x="0.0" y="210" width="300" height="90"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="90" id="IJb-Yb-36M"/>
@@ -111,16 +111,16 @@
                                                         </cells>
                                                     </collectionView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="n1f-BZ-37Q">
-                                                        <rect key="frame" x="0.0" y="272" width="300" height="22"/>
+                                                        <rect key="frame" x="0.0" y="308" width="300" height="30"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Or you can create a new tag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l8Z-hU-z1g" customClass="TextField" customModule="Material">
-                                                                <rect key="frame" x="0.0" y="0.0" width="264" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="264" height="30"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0g-HJ-nrO">
-                                                                <rect key="frame" x="278" y="0.0" width="22" height="22"/>
+                                                                <rect key="frame" x="278" y="0.0" width="22" height="30"/>
                                                                 <connections>
                                                                     <action selector="createTag:" destination="Gjh-D1-vhX" eventType="touchUpInside" id="oqt-xz-zUc"/>
                                                                 </connections>
@@ -128,7 +128,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="YgU-S2-2Nv">
-                                                        <rect key="frame" x="0.0" y="302" width="300" height="30"/>
+                                                        <rect key="frame" x="0.0" y="346" width="300" height="30"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vks-v4-e09" customClass="FlatButton" customModule="Material">
                                                                 <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
@@ -688,11 +688,11 @@
             <objects>
                 <viewController id="9p6-xa-bSi" customClass="FolderManagementViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b4K-RX-aqj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="515.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qf3-se-oSM">
-                                <rect key="frame" x="16" y="96" width="343" height="403.5"/>
+                                <rect key="frame" x="16" y="96" width="343" height="555"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPX-EJ-bmh">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="24"/>
@@ -713,10 +713,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hmZ-Ff-PK0">
-                                        <rect key="frame" x="0.0" y="93.5" width="343" height="280"/>
+                                        <rect key="frame" x="0.0" y="93.5" width="343" height="431.5"/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLS-Vj-jDx">
-                                        <rect key="frame" x="0.0" y="373.5" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="525" width="343" height="30"/>
                                         <state key="normal" title="Move Document"/>
                                         <connections>
                                             <action selector="moveDocument:" destination="9p6-xa-bSi" eventType="touchUpInside" id="dzN-6s-8YV"/>
@@ -756,6 +756,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="R6w-rk-308"/>
-        <segue reference="q4k-aO-cWI"/>
+        <segue reference="2HZ-Sp-MoN"/>
     </inferredMetricsTieBreakers>
 </document>
