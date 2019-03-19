@@ -15,7 +15,7 @@ import Motion
 
 typealias Document = FindDocumentInputQuery.Data.FindDocument // FindDocumentsByTeamQuery.Data.FindDocumentsByTeam
 
-class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UITextViewDelegate {
+class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +24,9 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         documentTitleTextField.delegate = self
         documentLinkTextField.delegate = self
         tagsTextField.delegate = self
-        documentNotesTextView.delegate = self
         documentNotesTextView.keyboardAppearance = .dark
-        documentNotesTextView.returnKeyType = .done
+
+        documentNotesTextView.addDoneButtonOnKeyboard()
 //        documentNotesTextView
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification , object: nil)
@@ -116,16 +116,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         }
         return true
     }
-    
-    // MARK: - UITextViewDelegate
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n"{
-            textView.resignFirstResponder()
-            return false;
-        }
-        return true
-    }
-    
+
     // MARK: - UICollectionViewDataSource for tags
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -367,4 +358,38 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tagsTextField: TextField!
+}
+extension UITextView{
+    
+    @IBInspectable var doneAccessory: Bool{
+        get{
+            return self.doneAccessory
+        }
+        set (hasDone) {
+            if hasDone{
+                addDoneButtonOnKeyboard()
+            }
+        }
+    }
+    
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .black
+//        doneToolbar.barTintColor = UIColor.darkGray
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction()
+    {
+        self.resignFirstResponder()
+    }
 }
