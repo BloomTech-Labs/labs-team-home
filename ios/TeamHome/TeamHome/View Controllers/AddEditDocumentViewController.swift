@@ -23,6 +23,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         collectionView.delegate = self
         documentTitleTextField.delegate = self
         documentLinkTextField.delegate = self
+        tagsTextField.delegate = self
 //        documentNotesTextView
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         setupViews()
@@ -99,8 +100,8 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         
     }
     // MARK: - UITextFieldDelegate
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        print("WORKS!")
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
     
@@ -185,7 +186,9 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         
     }
     @objc private func keyboardWillHide(notification:NSNotification){
-        
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
     }
     
     private func processTagText(tag: String?) -> String? {
