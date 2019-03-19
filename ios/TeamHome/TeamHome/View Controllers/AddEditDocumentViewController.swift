@@ -12,15 +12,26 @@ import Cloudinary
 import Photos
 import Material
 import Motion
+import GrowingTextView
 
 typealias Document = FindDocumentInputQuery.Data.FindDocument // FindDocumentsByTeamQuery.Data.FindDocumentsByTeam
 
-class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
+        documentTitleTextField.delegate = self
+        documentLinkTextField.delegate = self
+        tagsTextField.delegate = self
+        documentNotesTextView.keyboardAppearance = .dark
+
+        documentNotesTextView.addDoneButtonOnKeyboard()
+//        documentNotesTextView
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification , object: nil)
+        
         setupViews()
     }
     
@@ -87,13 +98,26 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
             DispatchQueue.main.async {
                 self.tagsTextField.text = ""
                 
-                // Show tag alert?
+                self.tagsTextField.resignFirstResponder()
             }
         }
     }
     @IBAction func addToFolder(_ sender: Any) {
         
     }
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case documentTitleTextField:
+            _ = documentLinkTextField.becomeFirstResponder()
+        case documentLinkTextField:
+            _ = documentNotesTextView.becomeFirstResponder()
+        default:
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+
     // MARK: - UICollectionViewDataSource for tags
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -162,6 +186,21 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     
     //MARK: - Private Properties
+    @objc private func keyboardWillShow(notification:NSNotification){
+        guard let userInfo = notification.userInfo,
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {return}
+        
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
+        
+        
+    }
+    @objc private func keyboardWillHide(notification:NSNotification){
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
+    }
     
     private func processTagText(tag: String?) -> String? {
         guard let tag = tag,
@@ -175,7 +214,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     private func setupViews(){
         setUpViewAppearance()
-        hideKeyboardWhenTappedAround()
+//        hideKeyboardWhenTappedAround()
         newDocumentView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
@@ -189,8 +228,6 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         
         documentNotesTextView.textColor = .white
         documentNotesTextView.placeholder = "Add a note"
-    
-        documentNotesTextView.dividerColor = Appearance.yellowColor
         
         documentTitleTextField.textColor = .white
         documentTitleTextField.placeholderNormalColor = .white
@@ -305,7 +342,9 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     private var tagCellSelected: TagCollectionViewCell?
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
     private var tagsWatcher: GraphQLQueryWatcher<FindTagsByTeamQuery>?
+    private var firstResponder: UIView?
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var folderButton: UIBarButtonItem!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: FlatButton!
@@ -314,8 +353,42 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var documentTitleTextField: TextField!
     
     @IBOutlet weak var documentLinkTextField: TextField!
-    @IBOutlet weak var documentNotesTextView: TextView!
+    @IBOutlet weak var documentNotesTextView: GrowingTextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tagsTextField: TextField!
+}
+extension UITextView{
+    
+    @IBInspectable var doneAccessory: Bool{
+        get{
+            return self.doneAccessory
+        }
+        set (hasDone) {
+            if hasDone{
+                addDoneButtonOnKeyboard()
+            }
+        }
+    }
+    
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .black
+//        doneToolbar.barTintColor = UIColor.darkGray
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction()
+    {
+        self.resignFirstResponder()
+    }
 }
