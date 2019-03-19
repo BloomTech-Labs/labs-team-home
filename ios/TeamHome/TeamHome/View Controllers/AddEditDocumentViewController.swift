@@ -24,7 +24,7 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         documentTitleTextField.delegate = self
         documentLinkTextField.delegate = self
 //        documentNotesTextView
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         setupViews()
     }
     
@@ -103,6 +103,9 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
         print("WORKS!")
         return true
     }
+    
+    
+    
     // MARK: - UICollectionViewDataSource for tags
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -171,6 +174,19 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     
     //MARK: - Private Properties
+    @objc private func keyboardWillShow(notification:NSNotification){
+        guard let userInfo = notification.userInfo,
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {return}
+        
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
+        
+        
+    }
+    @objc private func keyboardWillHide(notification:NSNotification){
+        
+    }
     
     private func processTagText(tag: String?) -> String? {
         guard let tag = tag,
@@ -314,7 +330,9 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     private var tagCellSelected: TagCollectionViewCell?
     private var tags: [FindTagsByTeamQuery.Data.FindTagsByTeam?]?
     private var tagsWatcher: GraphQLQueryWatcher<FindTagsByTeamQuery>?
+    private var firstResponder: UIView?
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var folderButton: UIBarButtonItem!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: FlatButton!

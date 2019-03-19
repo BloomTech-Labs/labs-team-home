@@ -198,6 +198,7 @@
                         <outlet property="folderButton" destination="AXr-d8-g8k" id="If0-ep-m1B"/>
                         <outlet property="imageView" destination="TYs-h8-hHN" id="l8t-By-GjD"/>
                         <outlet property="newDocumentView" destination="rAZ-4k-C2y" id="qGL-RU-Hn5"/>
+                        <outlet property="scrollView" destination="Zkr-4C-Y8X" id="zKK-FF-1SQ"/>
                         <outlet property="submitButton" destination="Jdc-Gj-j0w" id="uK2-jz-NNL"/>
                         <outlet property="tagsTextField" destination="l8Z-hU-z1g" id="EZ8-d2-Qyf"/>
                         <outlet property="titleLabel" destination="6Qd-mG-lC4" id="T7A-ox-Gvi"/>
