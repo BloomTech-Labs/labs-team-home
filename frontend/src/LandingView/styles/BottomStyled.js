@@ -4,15 +4,19 @@ import { colors } from '../../colorVariables';
 
 export const LandingContentContainer = styled.div`
 	display: flex;
-	margin: 0 auto 0px auto;
+	margin: 0 auto 50px auto;
 	justify-content: space-around;
 	height: 100vh;
 	padding-top: 60px;
 	align-items: center;
 	${mediaQueryFor.lgDevice`
     flex-direction: column;
-    justify-content: center;
-  `}
+		justify-content: center;
+	`}
+
+	${mediaQueryFor.smDevice`
+		margin-bottom: 30px;
+	`}
 `;
 
 export const VideoContainer = styled.div`
@@ -47,13 +51,21 @@ export const LandingContent = styled.div`
 		line-height: 0.9;
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
 			Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-		color: gold
+		color: gold;
 		text-shadow: 5px 5px 20px #111;
 	}
 	p {
 		margin: 10px 11%;
 		font-size: 1.4rem;
 		font-weight: 400;
+	}
+
+	a {
+		color: white;
+		&:hover {
+			color: black;
+			text-decoration: none;
+		}
 	}
 
 	${mediaQueryFor.lgDevice`
@@ -81,12 +93,6 @@ export const LandingContent = styled.div`
   `}
 `;
 
-export const Placeholder = styled.div`
-	height: 550px;
-	width: 300px;
-	border: 1px solid white;
-`;
-
 export const TextPane = styled.div`
 	color: white;
 	display: flex;
@@ -103,21 +109,49 @@ export const FirstPane = styled(TextPane)`
 	flex-direction: row-reverse;
 	justify-content: space-evenly;
 	align-items: center;
+
+	${mediaQueryFor.mdDevice`
+		  flex-direction: column;
+			justify-content: center;
+			margin-bottom: 400px;
+			height:100vh;
+	`}
 `;
 
 export const TextDiv = styled.div`
 	width: 40%;
 
 	p {
-		margin: 75px 0;
+		/* margin: 75px 0; */
 	}
+
+	${mediaQueryFor.mdDevice`
+		width: 90%;
+
+		p:first-child {
+			margin-top: 25px;
+		}
+	`}
 `;
 
 export const IntegrationDiv = styled(TextPane)`
+	margin-top: 200px;
+
+	h2 {
+		text-align: center;
+		margin-bottom: 20px;
+		font-size: 2.5rem;
+	}
+
 	p {
-		margin: 125px 11%;
+		margin: 25px 11%;
 		text-align: center;
 	}
+
+	${mediaQueryFor.mdDevice`
+			margin-top:250px;
+			height:100vh;
+	`}
 `;
 
 export const Circle = styled.div`
@@ -162,9 +196,24 @@ export const BenefitsDiv = styled(TextPane)`
 	align-items: center;
 
 	h2 {
-		margin: 25px 0 125px 0;
+		margin: 25px 0 20px 0;
 		font-size: 2.5rem;
+
+		${mediaQueryFor.mdDevice`
+			margin-top: 300px;
+		 
+	`}
+		${mediaQueryFor.smDevice`
+			
+	`}
 	}
+`;
+export const BenefitsLineDiv = styled.div`
+	height: 2px;
+	width: 300px;
+	margin: 0 auto;
+	margin-bottom: 100px;
+	background-color: white;
 `;
 
 export const BenefitsContainer = styled.div`
@@ -175,6 +224,20 @@ export const BenefitsContainer = styled.div`
 	h2 {
 		display: block;
 	}
+
+	${mediaQueryFor.mdDevice`
+		  flex-direction: column;
+			justify-content: center;
+			width: 60%
+
+						&:last-child {
+				margin-bottom: 500px;
+			}
+	`}
+	${mediaQueryFor.smDevice`
+		 
+			width: 80%
+	`}
 `;
 
 export const BenefitsCard = styled.div`
@@ -188,6 +251,9 @@ export const BenefitsCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	${mediaQueryFor.lgDevice`
+		padding: 20px;
+	`}
 	h3 {
 		font-size: 2rem;
 	}
@@ -205,9 +271,17 @@ export const BenefitsCard = styled.div`
 			border-bottom: none;
 		}
 	}
-`;
 
-export const TestimonialsDiv = styled(TextPane)`
-	height: 80vh;
-	border: 1px solid blue;
+	${mediaQueryFor.mdDevice`
+		padding: 40px;
+			width: 90%;
+			height: 300px;
+			margin: 20px 0;
+
+			div {
+				&:last-child {
+					margin-top: 0;
+				}
+			}
+	`}
 `;

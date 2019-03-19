@@ -16,6 +16,13 @@ const LandBtn = styled.div`
 	border: none;
 	border-bottom: 1px solid #ecff26;
 	transition: 0.4s;
+	a {
+		color: white;
+		&:hover {
+			color: #ecff26;
+			text-decoration: none;
+		}
+	}
 	&:hover {
 		color: #ecff26;
 		transform: scale(1.05, 1.05);
@@ -40,7 +47,7 @@ const LandingNavOptions = ({ handleLogin, handleSignUp, isOpen }) => {
 							handleLogin();
 						}}
 					>
-						Login
+						<a href="#root">Login</a>
 					</LandBtn>
 				</NavItem>
 				<NavItem>
@@ -50,7 +57,7 @@ const LandingNavOptions = ({ handleLogin, handleSignUp, isOpen }) => {
 							handleSignUp();
 						}}
 					>
-						Sign Up
+						<a href="#root">Sign Up</a>
 					</LandBtn>
 				</NavItem>
 			</Nav>

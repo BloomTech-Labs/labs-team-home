@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import mediaQueryFor from '../../_global_styles/responsive_querie';
 
 const StyledFooter = styled.footer`
-	max-width: none;
+	
 	margin-top: 50px;
 	display: flex;
 	justify-content: space-around;
@@ -14,11 +15,14 @@ const StyledFooter = styled.footer`
 	border-top: 2px solid black;
 
 	div {
-		width: 15%;
+		width: 25%;
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
 		align-items: center;
+		&:last-child{
+			justify-content: flex-end;
+		}
 	}
 
 	p {
@@ -30,6 +34,22 @@ const StyledFooter = styled.footer`
 		color: white;
 		font-size: 1rem;
 	}
+	${mediaQueryFor.lgDevice`
+		div {
+			width: 30%;
+		}
+	`}
+
+	${mediaQueryFor.mdDevice`
+		div {
+			width: 35%;
+		}
+	`}
+	${mediaQueryFor.smDevice`
+		div {
+			width: 35%;
+		}
+	`}
 `;
 
 const Footer = () => {
