@@ -15,12 +15,16 @@ import Motion
 
 typealias Document = FindDocumentInputQuery.Data.FindDocument // FindDocumentsByTeamQuery.Data.FindDocumentsByTeam
 
-class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
+        documentTitleTextField.delegate = self
+        documentLinkTextField.delegate = self
+//        documentNotesTextView
+        
         setupViews()
     }
     
@@ -93,6 +97,11 @@ class AddEditDocumentViewController: UIViewController, UICollectionViewDelegate,
     }
     @IBAction func addToFolder(_ sender: Any) {
         
+    }
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("WORKS!")
+        return true
     }
     // MARK: - UICollectionViewDataSource for tags
     
