@@ -106,20 +106,18 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     }
     
     //MARK: - Private Function
-    @objc private func keyboardWillShow(notification:NSNotification){
-        guard let userInfo = notification.userInfo,
-            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {return}
-        
-        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
-        scrollView.contentInset = contentInset
-        scrollView.scrollIndicatorInsets = contentInset
-        
-        
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.stackView.frame.origin.y == 0 {
+                self.stackView.frame.origin.y -= keyboardSize.height / 2
+            }
+        }
     }
-    @objc private func keyboardWillHide(notification:NSNotification){
-        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-        scrollView.contentInset = contentInset
-        scrollView.scrollIndicatorInsets = contentInset
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.stackView.frame.origin.y != 0 {
+            self.stackView.frame.origin.y = 0
+        }
     }
     
     
@@ -294,7 +292,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     //    var imageData: Data?
     private var documentURL: URL?
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var stackView: UIStackView!
     
     @IBOutlet weak var documentTitleLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
