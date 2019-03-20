@@ -34,6 +34,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         self.loadDocument(with: apollo)
         
         self.updateViews()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification , object: nil)
         
 //        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: UIResponder.keyboardWillShowNotification, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -104,6 +106,22 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     }
     
     //MARK: - Private Function
+    @objc private func keyboardWillShow(notification:NSNotification){
+        guard let userInfo = notification.userInfo,
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {return}
+        
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
+        
+        
+    }
+    @objc private func keyboardWillHide(notification:NSNotification){
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
+    }
+    
     
     private func loadDocument(with apollo: ApolloClient) {
         
