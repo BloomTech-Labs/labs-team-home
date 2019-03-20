@@ -34,9 +34,9 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         self.loadDocument(with: apollo)
         
         self.updateViews()
-        //  TODO:      loadMessageDetails(with: apollo)
         
-        // Do any additional setup after loading the view.
+//        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -275,6 +275,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     var delegate: AddNewCommentDelegate?
     //    var imageData: Data?
     private var documentURL: URL?
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var documentTitleLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
