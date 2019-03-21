@@ -46,6 +46,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         if let watcherDocument = watcherDocument {
             watcherDocument.refetch()
         }
+        self.stackViewBottomConstraint.constant = 32
     }
     //MARK: - IBActions
     @IBAction func backButton(_ sender: Any) {
@@ -108,15 +109,19 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     //MARK: - Private Function
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.stackView.frame.origin.y == 0 {
-                self.stackView.frame.origin.y -= keyboardSize.height / 2
+            
+            if self.stackViewBottomConstraint.constant == 32 {
+                UIView.animate(withDuration: 1.0) {
+                self.stackViewBottomConstraint.constant = keyboardSize.height
+                }
+                
             }
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.stackView.frame.origin.y != 0 {
-            self.stackView.frame.origin.y = 0
+        if self.stackViewBottomConstraint.constant != 32 {
+            self.stackViewBottomConstraint.constant = 32
         }
     }
     
@@ -312,4 +317,5 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     @IBOutlet weak var tagTextLabel: UILabel!
     
     
+    @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
 }
