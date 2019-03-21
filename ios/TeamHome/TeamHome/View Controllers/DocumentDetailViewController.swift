@@ -36,8 +36,6 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         
         self.updateViews()
         
-        stackViewHeightConstraint.constant = self.view.frame
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification , object: nil)
         
@@ -114,7 +112,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     //MARK: - Private Function
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            stackViewHeightConstraint.
+            
             
 //            if placeholderHeightConstraint.constant == 0 {
 //                UIView.animate(withDuration: 1.0) {
@@ -323,8 +321,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     
     @IBOutlet weak var tagTextLabel: UILabel!
     
+    @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var stackViewHeightConstraint: NSLayoutConstraint!
 }
 
 protocol commentCollectionDelegate {

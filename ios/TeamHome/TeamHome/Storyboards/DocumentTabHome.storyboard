@@ -535,7 +535,8 @@
                         <outlet property="firstNameLabel" destination="qMn-q4-irr" id="CDT-Rf-thh"/>
                         <outlet property="lastNameLabel" destination="9HE-fA-9mU" id="DO0-1o-WkG"/>
                         <outlet property="sendCommentButton" destination="plk-lp-dER" id="e1e-DL-n9D"/>
-                        <outlet property="stackView" destination="6MW-7c-e2C" id="Vx3-Fm-LVg"/>
+                        <outlet property="stackView" destination="6MW-7c-e2C" id="Kvc-tS-LU3"/>
+                        <outlet property="stackViewBottomConstraint" destination="Tma-ci-IBL" id="FAz-9R-WDq"/>
                         <outlet property="subscribeButton" destination="dPh-fe-V7D" id="xAi-Jw-Anj"/>
                         <outlet property="tagTextLabel" destination="eg4-jr-7nr" id="zLA-dr-4tv"/>
                         <outlet property="userAvatarImageView" destination="JWM-Y8-l8v" id="sif-Xv-VAY"/>
