@@ -66,7 +66,7 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
 //        return headerView
 //    }
 //     MARK: - CommentCollectionDelegate
-    func showKeyboard() {
+    func keyboardWillShow() {
         self.collectionView.scrollToBottom()
     }
     
