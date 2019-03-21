@@ -46,7 +46,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         if let watcherDocument = watcherDocument {
             watcherDocument.refetch()
         }
-        self.stackViewBottomConstraint.constant = 32
+        self.stackViewBottomConstraint.constant = 16
     }
     //MARK: - IBActions
     @IBAction func backButton(_ sender: Any) {
@@ -92,6 +92,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
                 let currentUser = currentUser else {return}
             
             self.delegate = destinationVC
+            self.commentCollectionDelegate = destinationVC
             destinationVC.apollo = apollo
             destinationVC.documentID = documentID
             destinationVC.currentUser = currentUser
@@ -110,9 +111,11 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             
-            if self.stackViewBottomConstraint.constant == 32 {
+            if self.stackViewBottomConstraint.constant == 16 {
+                
                 UIView.animate(withDuration: 1.0) {
                 self.stackViewBottomConstraint.constant = keyboardSize.height
+                    self.stackView.layoutIfNeeded()
                 }
                 
             }
@@ -120,8 +123,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.stackViewBottomConstraint.constant != 32 {
-            self.stackViewBottomConstraint.constant = 32
+        if self.stackViewBottomConstraint.constant != 16 {
+            self.stackViewBottomConstraint.constant = 16
         }
     }
     
@@ -294,8 +297,10 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var delegate: AddNewCommentDelegate?
+    var commentCollectionDelegate: commentCollectionDelegate?
     //    var imageData: Data?
     private var documentURL: URL?
+    
     
     @IBOutlet weak var stackView: UIStackView!
     
@@ -318,4 +323,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     
     
     @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
+}
+
+protocol commentCollectionDelegate {
+    func showKeyboard()
 }

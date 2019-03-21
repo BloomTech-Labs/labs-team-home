@@ -11,7 +11,7 @@ import Apollo
 
 var documentCommentWatcher: GraphQLQueryWatcher<FindCommentsByDocumentQuery>?
 
-class DocumentsDetailCollectionViewController: UICollectionViewController, AddNewCommentDelegate, DocumentCommentCollectionCellDelegate {
+class DocumentsDetailCollectionViewController: UICollectionViewController, AddNewCommentDelegate, DocumentCommentCollectionCellDelegate, commentCollectionDelegate {
     
     func didAddNewComment() {
         if label != nil {
@@ -65,6 +65,10 @@ class DocumentsDetailCollectionViewController: UICollectionViewController, AddNe
 //        
 //        return headerView
 //    }
+//     MARK: - CommentCollectionDelegate
+    func showKeyboard() {
+        self.collectionView.scrollToBottom()
+    }
     
     // MARK: - CommentCollectionCellDelegate
     
