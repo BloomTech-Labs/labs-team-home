@@ -22,18 +22,22 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         setUpViewAppearance()
         Appearance.styleOrange(button: sendCommentButton)
         documentTitleLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
         
         dateLabel.font = RobotoFont.regular(with: 12)
-        
         setUpCommentTextView()
+        
         
         guard let apollo = apollo else { return }
         self.loadDocument(with: apollo)
         
         self.updateViews()
+        
+        stackViewHeightConstraint.constant = self.view.frame
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification , object: nil)
         
@@ -46,7 +50,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         if let watcherDocument = watcherDocument {
             watcherDocument.refetch()
         }
-        self.stackViewBottomConstraint.constant = 16
+//        placeholderView.frame.size.height = 0
     }
     //MARK: - IBActions
     @IBAction func backButton(_ sender: Any) {
@@ -110,23 +114,20 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     //MARK: - Private Function
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            stackViewHeightConstraint.
             
-            
-            if self.stackViewBottomConstraint.constant == 16 {
-                
-                UIView.animate(withDuration: 1.0) {
-                    self.stackViewBottomConstraint.constant = keyboardSize.height
-                    self.stackView.layoutIfNeeded()
-                }
-                collectionDelegate?.keyboardWillShow()
-            }
+//            if placeholderHeightConstraint.constant == 0 {
+//                UIView.animate(withDuration: 1.0) {
+//                    self.placeholderHeightConstraint.constant = keyboardSize.height - 32
+//                        self.placeholderView.layoutIfNeeded()
+//                }
+//                collectionDelegate?.keyboardWillShow()
+//            }
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.stackViewBottomConstraint.constant != 16 {
-            self.stackViewBottomConstraint.constant = 16
-        }
+
     }
     
     
@@ -303,7 +304,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     private var documentURL: URL?
     
     
-    @IBOutlet weak var stackView: UIStackView!
+//    @IBOutlet weak var stackView: UIStackView!
     
     @IBOutlet weak var documentTitleLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -322,8 +323,8 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     
     @IBOutlet weak var tagTextLabel: UILabel!
     
-    
-    @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var stackViewHeightConstraint: NSLayoutConstraint!
 }
 
 protocol commentCollectionDelegate {
