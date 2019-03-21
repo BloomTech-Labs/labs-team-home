@@ -114,13 +114,13 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             
             
-//            if placeholderHeightConstraint.constant == 0 {
-//                UIView.animate(withDuration: 1.0) {
-//                    self.placeholderHeightConstraint.constant = keyboardSize.height - 32
-//                        self.placeholderView.layoutIfNeeded()
-//                }
-//                collectionDelegate?.keyboardWillShow()
-//            }
+            if stackViewBottomConstraint.constant == 16 {
+                UIView.animate(withDuration: 1.0) {
+                    self.stackViewBottomConstraint.constant = keyboardSize.height - 32
+                        self.stackView.layoutIfNeeded()
+                }
+                collectionDelegate?.keyboardWillShow()
+            }
         }
     }
     
