@@ -22,21 +22,25 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         setUpViewAppearance()
         Appearance.styleOrange(button: sendCommentButton)
         documentTitleLabel.font = Appearance.setTitleFont(with: .title2, pointSize: 20)
         
         dateLabel.font = RobotoFont.regular(with: 12)
-        
         setUpCommentTextView()
+        
         
         guard let apollo = apollo else { return }
         self.loadDocument(with: apollo)
         
         self.updateViews()
-        //  TODO:      loadMessageDetails(with: apollo)
         
-        // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification , object: nil)
+        
+        //        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: UIResponder.keyboardWillShowNotification, object: nil)
+        //        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +48,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         if let watcherDocument = watcherDocument {
             watcherDocument.refetch()
         }
+//        placeholderView.frame.size.height = 0
     }
     //MARK: - IBActions
     @IBAction func backButton(_ sender: Any) {
@@ -64,7 +69,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
                 NSLog("Error adding comment: \(error)")
                 return
             }
-//            print(result?.data?.addDocComment?.content)
+            //            print(result?.data?.addDocComment?.content)
             self.commentTextView.text = ""
             self.delegate?.didAddNewComment()
         }
@@ -89,14 +94,15 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
                 let currentUser = currentUser else {return}
             
             self.delegate = destinationVC
+            self.collectionDelegate = destinationVC
             destinationVC.apollo = apollo
             destinationVC.documentID = documentID
             destinationVC.currentUser = currentUser
         }
         if segue.identifier == "EditDocument"{
-             guard let destinationVC = segue.destination as? AddEditDocumentViewController,
+            guard let destinationVC = segue.destination as? AddEditDocumentViewController,
                 let document = document,
-            let team = team else {return}
+                let team = team else {return}
             destinationVC.apollo = apollo
             destinationVC.team = team
             destinationVC.document = document
@@ -104,6 +110,24 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     }
     
     //MARK: - Private Function
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            
+            if stackViewBottomConstraint.constant == 16 {
+                UIView.animate(withDuration: 1.0) {
+                    self.stackViewBottomConstraint.constant = keyboardSize.height - 32
+                        self.stackView.layoutIfNeeded()
+                }
+                collectionDelegate?.keyboardWillShow()
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+
+    }
+    
     
     private func loadDocument(with apollo: ApolloClient) {
         
@@ -145,7 +169,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     }
     //unsubscribes to document by performing a mutation
     private func unsubscribeFromDocument(apollo:ApolloClient, documentID: GraphQLID){
-
+        
         apollo.perform(mutation: UnsubscribeFromDocumentMutation(documentID: documentID)) { (result, error) in
             if let error = error {
                 NSLog("Error unsubscribing: \(error)")
@@ -251,13 +275,13 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
                 }
             }
         }
-
+        
     }
     private var isSubscribed = false {
         didSet{
-        updateSubscribeButton()
+            updateSubscribeButton()
         }
-        }
+    }
     
     var documentID: GraphQLID?
     var document: FindDocumentInputQuery.Data.FindDocument? {
@@ -273,8 +297,12 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var delegate: AddNewCommentDelegate?
+    var collectionDelegate: commentCollectionDelegate?
     //    var imageData: Data?
     private var documentURL: URL?
+    
+    
+//    @IBOutlet weak var stackView: UIStackView!
     
     @IBOutlet weak var documentTitleLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -293,5 +321,10 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     
     @IBOutlet weak var tagTextLabel: UILabel!
     
-    
+    @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackView: UIStackView!
+}
+
+protocol commentCollectionDelegate {
+    func keyboardWillShow()
 }
