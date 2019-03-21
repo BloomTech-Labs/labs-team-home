@@ -11,7 +11,7 @@ import Apollo
 
 class DashboardCollectionViewController: UICollectionViewController, TeamCellDelegate, DashboardReusableViewDelegate {
     
-    // MARK - Lifecycle Methods
+    // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
         } 
     }
     
-    // MARK - IBActions
+    // MARK: - IBActions
 
    @IBAction func unwindToDashboard(segue:UIStoryboardSegue) { }
 
@@ -85,7 +85,7 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
         return headerView
     }
     
-    // MARK - DashboardReusableViewDelegate
+    // MARK: - DashboardReusableViewDelegate
     
     func didClickAddTeam() {
         guard let apollo = apollo else { return }
@@ -93,7 +93,7 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
         presentCreateTeamAlert(with: apollo)
     }
     
-    // MARK - TeamCellDelegate
+    // MARK: - TeamCellDelegate
     
     func presentActionSheet(with optionMenu: UIAlertController) {
         self.present(optionMenu, animated: true, completion: nil)
@@ -125,7 +125,7 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
         }
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     // Load all teams that the current user belongs to
     private func loadTeams(with apollo: ApolloClient) {
@@ -211,7 +211,7 @@ class DashboardCollectionViewController: UICollectionViewController, TeamCellDel
         return .lightContent
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     private var watcher: GraphQLQueryWatcher<FindTeamsByUserQuery>?
     var apollo: ApolloClient?

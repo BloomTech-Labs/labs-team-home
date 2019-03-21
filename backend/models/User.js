@@ -13,17 +13,19 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 // 	email: 'john@doe.com',
 // 	avatar: 'https://imgur.com/abcdefg',
 // 	phoneNumber: '111-111-1111',
-// 	toggles: {
-// 		receiveEmails: false,
-// 		receiveTexts: true
+	// toggles: {
+	// 	receiveEmails: false,
+	// 	receiveTexts: true
 // 	}
 // };
+
+
 
 const User = new Schema({
 	authId: {
 		type: String,
-		trim: true,
-		required: true
+		trim: true
+		// required: true
 	},
 	firstName: {
 		type: String,

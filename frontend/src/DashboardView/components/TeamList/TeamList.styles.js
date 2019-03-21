@@ -1,10 +1,14 @@
-import styled from 'styled-components';
-import mediaQueryFor from '../../../_global_styles/responsive_querie';
+import { Link } from 'react-router-dom';
+
+// ------------- MUI Imports ---------------------- //
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
+
+// ------------- Style Imports ---------------------- //
+import styled from 'styled-components';
 import { colors } from '../../../colorVariables';
-import { Link } from 'react-router-dom';
+import mediaQueryFor from '../../../_global_styles/responsive_querie';
 
 const Container = styled.div`
 	position: relative;
@@ -23,14 +27,14 @@ const Container = styled.div`
 	}
 	${mediaQueryFor.mdDevice`
 		margin-bottom: 10px;
-    width:100%;
+    	width:100%;
   `}
 `;
 
 const Form = styled(Paper)`
 	display: flex;
 	flex-flow: row;
-	justify-items: center;
+	justify-items: space-between;
 	width: 100%;
 	margin: 3% auto;
 	font-family: Comfortaa;
@@ -44,16 +48,25 @@ const Form = styled(Paper)`
 		color: ${colors.text};
 		margin: 0 auto;
 	}
+
+	form {
+		width: 100%;
+	}
 `;
 
 const Input = styled(InputBase)`
 	background-color: white;
 	color: black;
+	width: 90%;
+	${mediaQueryFor.smDevice`
+		width: 85%;
+	`}
 `;
 
 const Button = styled(IconButton)`
 	background-color: ${colors.button};
 	color: ${colors.text};
+	margin-left: 1%;
 
 	:hover {
 		background-color: rgba(107, 40, 59, 0.7);
@@ -61,7 +74,7 @@ const Button = styled(IconButton)`
 `;
 
 const TeamsList = styled.div`
-	width: 100%;
+	width: ${mediaQueryFor.smDevice ? '95%' : '100%'};
 	margin: 0 auto;
 	display: flex;
 	flex-flow: column;

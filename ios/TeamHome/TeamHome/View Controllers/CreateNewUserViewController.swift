@@ -26,7 +26,7 @@ class CreateNewUserViewController: UIViewController {
             let email = emailTextField.text,
             let apollo = apollo else { return }
         
-        apollo.perform(mutation: CreateNewUserMutation(firstName: firstName, lastName: lastName, email: email, avatar: ""), queue: DispatchQueue.global()) { (result, error) in
+        apollo.perform(mutation: CreateNewUserMutation(firstName: firstName, lastName: lastName, email: email), queue: DispatchQueue.global()) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
                 return
@@ -55,7 +55,7 @@ class CreateNewUserViewController: UIViewController {
         }
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     var apollo: ApolloClient?
     var user: DatabaseUser?

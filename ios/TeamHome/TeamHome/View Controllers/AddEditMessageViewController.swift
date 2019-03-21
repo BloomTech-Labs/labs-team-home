@@ -23,12 +23,13 @@ protocol EditMessageDelegate: class {
 
 class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
-    // MARK - Lifecycle Methods
+    // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpViewAppearance()
+        hideKeyboardWhenTappedAround()
         newMessageView.backgroundColor = Appearance.plumColor
         cancelButton.tintColor = Appearance.yellowColor
         submitButton.backgroundColor = Appearance.darkMauveColor
@@ -54,7 +55,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         fetchAllTags(with: apollo, for: teamId)
     }
     
-    // MARK - IBActions
+    // MARK: - IBActions
     
     // Let user select photo from photo library to add to new message
     @IBAction func addPhoto(_ sender: Any) {
@@ -154,7 +155,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         navigationController?.popViewController(animated: true)
     }
     
-    // MARK - UICollectionViewDataSource for tags
+    // MARK: - UICollectionViewDataSource for tags
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tags?.count ?? 0
@@ -191,7 +192,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         cell?.backgroundColor = Appearance.mauveColor
     }
     
-    // MARK - UIImagePickerControllerDelegate
+    // MARK: - UIImagePickerControllerDelegate
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -210,7 +211,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         picker.dismiss(animated: true, completion: nil)
     }
     
-    // MARK - Keyboard Animation and Delegate functions
+    // MARK: - Keyboard Animation and Delegate functions
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -241,7 +242,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         view.addGestureRecognizer(tapGesture)
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     private func updateViews() {
         guard isViewLoaded,
@@ -533,7 +534,7 @@ class AddEditMessageViewController: UIViewController,  UIImagePickerControllerDe
         }
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     private var tagSelected: String?
     private var tagSelectedId: GraphQLID?

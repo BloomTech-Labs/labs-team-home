@@ -26,7 +26,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         messageWatcher?.refetch()
     }
 
-    // MARK - Lifecycle Functions
+    // MARK: - Lifecycle Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         loadMessageDetails(with: apollo)
     }
     
-    // MARK - IBActions
+    // MARK: - IBActions
     
     @IBAction func clickedSubscribe(_ sender: Any) {
         guard let currentUser = currentUser,
@@ -210,7 +210,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         }
     }
     
-    // MARK - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return subscribers?.count ?? 0
@@ -273,7 +273,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         performSegue(withIdentifier: "EditMessage", sender: self)
     }
     
-    // MARK - UIImagePickerControllerDelegate
+    // MARK: - UIImagePickerControllerDelegate
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -292,7 +292,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         picker.dismiss(animated: true, completion: nil)
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     private func setUpCommentTextView() {
         self.commentTextView.delegate = self
@@ -458,7 +458,7 @@ class MessageDetailViewController: UIViewController, UICollectionViewDelegate, U
         }
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     private var isSubscribed: Bool = false
     private var message: FindMessageByIdQuery.Data.FindMessage? {

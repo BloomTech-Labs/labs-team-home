@@ -83,3 +83,85 @@ export const FULL_COMMENT = gql`
 	}
 	${FULL_USER}
 `;
+
+export const FULL_FOLDER = gql`
+	fragment FullFolder on Folder {
+		_id
+		title
+		team {
+			name
+		}
+		user {
+			...FullUser
+		}
+		createdAt
+		updatedAt
+	}
+	${FULL_USER}
+`;
+
+export const FULL_DOCUMENT = gql`
+	fragment FullDocument on Document {
+		_id
+		title
+		doc_url
+		tag {
+			...FullTag
+		}
+		team {
+			_id
+		}
+		folder {
+			_id
+		}
+		user {
+			...FullUser
+		}
+		createdAt
+		updatedAt
+		textContent
+		subscribedUsers {
+			_id
+		}
+	}
+	${FULL_USER}
+	${FULL_TAG}
+`;
+
+export const FULL_DOCCOMMENT = gql`
+	fragment FullDocComment on DocComment {
+		_id
+		user {
+			...FullUser
+		}
+		document {
+			_id
+		}
+		content
+		image
+		likes {
+			_id
+		}
+		createdAt
+		updatedAt
+	}
+	${FULL_USER}
+`;
+
+export const FULL_EVENT = gql`
+	fragment FullEvent on Event {
+		_id
+		team {
+			...FullTeam
+		}
+		user {
+			...FullUser
+		}
+		action_string
+		object_string
+		event_target_id
+		createdAt
+	}
+	${FULL_TEAM}
+	${FULL_USER}
+`;

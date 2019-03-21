@@ -63,7 +63,28 @@ class ActivityCollectionViewCell: UICollectionViewCell {
             toolbar.title = "\(comment.user.firstName) \(comment.user.lastName)"
             toolbar.detail = "added a comment"
             
-        } else {
+        }
+        if activity.document != nil {
+            guard let document = activity.document else { return }
+            
+            if document.user.id == currentUser.id {
+                toolbar = Toolbar(rightViews: [avatarImageView])
+                
+                toolbar.titleLabel.textAlignment = .right
+                toolbar.detailLabel.textAlignment = .right
+            } else {
+                toolbar = Toolbar(leftViews: [avatarImageView])
+                
+                toolbar.titleLabel.textAlignment = .left
+                toolbar.detailLabel.textAlignment = .left
+                
+            }
+            
+            toolbar.title = "\(document.user.firstName) \(document.user.lastName)"
+            toolbar.detail = "added a document"
+        }
+        
+        if activity.message != nil {
             guard let message = activity.message else { return }
             
             if message.user.id == currentUser.id {
@@ -100,10 +121,16 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         if activity.comment != nil {
             guard let comment = activity.comment else { return }
           contentLabel.text = comment.content
-        } else {
+        }
+        if activity.message != nil{
             guard let message = activity.message else { return }
             
             contentLabel.text = message.content
+        }
+        if activity.document != nil{
+            guard let document = activity.document else { return }
+            contentLabel.numberOfLines = 0
+            contentLabel.text = "\(document.title)\n\(document.docUrl)"
         }
     }
     
@@ -131,8 +158,12 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         
         if activity.message != nil {
             card.backgroundColor = Appearance.plumColor
-        } else {
+        }
+        if activity.comment != nil {
             card.backgroundColor = Appearance.darkMauveColor
+        }
+        if activity.document != nil {
+            card.backgroundColor = Appearance.plumColor
         }
         
 //        guard let currentUser = currentUser else { return }
@@ -235,6 +266,8 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         }
         
     }
+    
+    // MARK: - Properties
     
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     var activity: Activity? {

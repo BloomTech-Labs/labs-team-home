@@ -1,0 +1,11 @@
+mutation MoveDocumentToFolder($id: ID!, $folder: String){
+    updateDocument(input: {
+                  id: $id
+                  folder: $folder
+                  
+                  }) {
+        _id
+        title
+    }
+}
+

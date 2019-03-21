@@ -2,6 +2,10 @@ const Team = require('../../models/Team');
 const Message = require('../../models/Message');
 const MsgComment = require('../../models/MsgComment');
 const User = require('../../models/User');
+const Document = require('../../models/Document');
+const DocComment = require('../../models/DocComment');
+const Folder = require('../../models/Folder');
+const Event = require('../../models/Event');
 const {
 	ForbiddenError,
 	ValidationError,
@@ -11,6 +15,8 @@ const {
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+const { object_str, action_str } = require('./ResolverHelpers');
 
 const teamResolvers = {
 	Query: {
@@ -23,7 +29,29 @@ const teamResolvers = {
 		addTeam: (_, { input }, { user: { _id } }) =>
 			new Team({ ...input, users: [{ user: _id, admin: true }] })
 				.save()
-				.then(team => team.populate('users.user').execPopulate()),
+				.then(team => team.populate('users.user').execPopulate())
+				.then(async item => {
+					// console.log('\n\n The item to be passed: \n\n', item);
+					if (item) {
+						try {
+							await new Event({
+								team: item._id,
+								user: _id,
+								action_string: action_str.created,
+								object_string: object_str.team,
+								event_target_id: item._id
+							})
+								.save()
+								.then(event => {
+									// console.log('\n\nEvent added: \n\n', event);
+								});
+						} catch (error) {
+							console.error('Could not add event', error);
+						}
+					} else {
+						throw new ValidationError("Message doesn't exist");
+					}
+				}),
 		updateTeam: (_, { input }) => {
 			const { id } = input;
 			return Team.findById(id).then(team => {
@@ -45,14 +73,37 @@ const teamResolvers = {
 						item => item.user.toString() === user._id.toString()
 					); // checks if current user is on the team and admin
 					if (foundUser && foundUser.admin) {
+						//Find all the appropriate team items
 						const team = await Team.findOneAndDelete({ _id: id });
-						const messages = await Message.find({ team: team._id }); // finds all messages on the team
+						const messages = await Message.find({ team: team._id });
+						const documents = await Document.find({ team: team._id });
+
+						// deletes all comments associated with the team messages
 						await Promise.all(
 							messages.map(message =>
 								MsgComment.deleteMany({ message: message._id })
-							) // deletes all comments associated with the messages
+							)
 						);
-						await Message.deleteMany({ team: team._id }); // deletes all messages
+
+						// deletes all team messages
+						await Message.deleteMany({ team: team._id });
+
+						// deletes all comments associated with the team documents
+						await Promise.all(
+							documents.map(document =>
+								DocComment.deleteMany({ document: document._id })
+							)
+						);
+
+						//delete all team documents
+						await Document.deleteMany({ team: team._id });
+
+						//delete folders
+						await Folder.deleteMany({ team: team._id });
+
+						//Delete the Events in the event stack
+						await Event.deleteMany({ team: team._id });
+
 						return team;
 					} else {
 						throw new ForbiddenError('You do not have permission to do that.');
@@ -143,7 +194,34 @@ const teamResolvers = {
 										{ _id: id },
 										{ $set: { users: [...team.users, ...addedUsers] } },
 										{ new: true }
-									).populate('users.user');
+									)
+										.populate('users.user')
+										.then(async item => {
+											// console.log('\n\n The item to be passed: \n\n', item);
+											if (item) {
+												try {
+													await new Event({
+														team: item._id,
+														user: item.users.find(u => u.admin).user._id,
+														action_string: action_str.invited,
+														object_string: object_str.user,
+														event_target_id: item._id
+													})
+														.save()
+														.then(event => {
+															// console.log('\n\n Event added: \n\n', event);
+														});
+												} catch (error) {
+													console.error(
+														'Could not add event "Invite User" ',
+														error
+													);
+												}
+											} else {
+												throw new ValidationError("Item doesn't exist");
+											}
+											return item;
+										});
 								} else
 									throw new UserInputError('The user is already on the team.');
 							} else
@@ -164,13 +242,60 @@ const teamResolvers = {
 				{ _id: id },
 				{ $pull: { users: { user } } },
 				{ new: true }
-			).populate('users.user'),
+			)
+				.populate('users.user')
+				.then(async item => {
+					// console.log('\n\n The item to be passed: \n\n', item);
+					if (item) {
+						try {
+							await new Event({
+								team: item._id,
+								user: item.users.find(u => u.admin).user._id,
+								action_string: action_str.removed,
+								object_string: object_str.user,
+								event_target_id: item._id
+							})
+								.save()
+								.then(event => {
+									// console.log('\n\nEvent added', event);
+								});
+						} catch (error) {
+							console.error('Could not add "kick user" event', error);
+						}
+					} else {
+						throw new ValidationError('kickUser failed');
+					}
+				}),
+
 		leaveTeam: (_, { input: { id } }, { user: { _id } }) =>
 			Team.findOneAndUpdate(
 				{ _id: id },
 				{ $pull: { users: { user: _id } } },
 				{ new: true }
-			).populate('users.user')
+			)
+				.populate('users.user')
+				.then(async item => {
+					// console.log('\n\n The item to be passed: \n\n', item);
+					if (item) {
+						try {
+							await new Event({
+								team: item._id,
+								user: _id,
+								action_string: action_str.left,
+								object_string: object_str.team,
+								event_target_id: item._id
+							})
+								.save()
+								.then(event => {
+									// console.log('Event added', event);
+								});
+						} catch (error) {
+							console.error('Could not add event', error);
+						}
+					} else {
+						throw new ValidationError("Message doesn't exist");
+					}
+				})
 	}
 };
 

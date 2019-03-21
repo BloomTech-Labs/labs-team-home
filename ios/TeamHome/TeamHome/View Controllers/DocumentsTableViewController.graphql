@@ -1,0 +1,72 @@
+query FindDocumentsByTeam($teamID: ID!){
+    findDocumentsByTeam(input: {
+                        team: $teamID
+                        }){
+        _id
+        doc_url
+        user{
+            firstName
+            lastName
+            avatar
+            _id
+        }
+        folder{
+            _id
+            title
+        }
+        title
+        textContent
+        tag {
+            _id
+            name
+            team{
+                _id
+            }
+        }
+        images
+        comments
+        subscribedUsers{
+            firstName
+            lastName
+            avatar
+        }
+        createdAt
+        updatedAt
+    }
+}
+
+query FindFoldersByTeam($teamID: ID!){
+    findFoldersByTeam(input: {
+                        team: $teamID
+                        }){
+        _id
+        user{
+            firstName
+            lastName
+            avatar
+            _id
+        }
+        title
+        createdAt
+        updatedAt
+    }
+}
+
+mutation DeleteDocument($docID: ID!){
+    deleteDocument(input: {
+                   id: $docID
+                   }){
+        _id
+        title
+    }
+}
+
+mutation AddNewFolder($title: String!, $team: String!){
+    addFolder(input: {
+              title: $title
+              team: $team
+              }){
+        _id
+        title
+    }
+}

@@ -12,7 +12,7 @@ import Auth0
 import Material
 
 
-let auth0DomainURLString = "teamhome.auth0.com"
+let auth0DomainURLString = "still-credit-3908.auth0.com"
 let credentialsManager = CredentialsManager.init(authentication: Auth0.authentication())
 
 class LandingPageViewController: UIViewController, UITextFieldDelegate {
@@ -24,6 +24,10 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         
         // Sets up view appearance settings like view background and more.
         setUpAppearance()
+
+        //        Auth0.webAuth().clearSession(federated: true) { (result) in
+//            print("cleared")
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,7 +75,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // MARK - IBActions
+    // MARK: - IBActions
     
     // To unwind to this view from settings view when user logs out.
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
@@ -80,7 +84,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     @IBAction func googleLogIn(_ sender: Any) {
         Auth0
             .webAuth()
-            .audience("https://teamhome.auth0.com/userinfo")
+            .audience("https://still-credit-3908.auth0.com/userinfo")
             .connection("google-oauth2")
             .scope("openid profile email")
             .start { result in
@@ -101,7 +105,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
                         
                         apollo.fetch(query: CurrentUserQuery(), queue: DispatchQueue.global(), resultHandler: { (result, error) in
                             if let error = error {
-                                NSLog("Error logging in with google: \(error)")
+                                NSLog("Error logging in with google: \(error.localizedDescription)")
                                 return
                             }
                             
@@ -132,7 +136,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
     @IBAction func facebookLogIn(_ sender: Any) {
         Auth0
             .webAuth()
-            .audience("https://teamhome.auth0.com/userinfo")
+            .audience("https://still-credit-3908.auth0.com/userinfo")
             .connection("facebook")
             .scope("openid")
             .start { result in
@@ -330,7 +334,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK - Keyboard Animation and Delegate functions
+    // MARK: - Keyboard Animation and Delegate functions
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -361,7 +365,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tapGesture)
     }
     
-    // MARK - Private Methods
+    // MARK: - Private Methods
     
     // Create gradient layer for view background.
     private func createGradientLayer() {
@@ -387,7 +391,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
             // Add additional headers as needed
             configuration.httpAdditionalHeaders = ["Authorization": "\(idToken)"]
 
-            let url = URL(string: "https://team-home.herokuapp.com/graphql")!
+            let url = URL(string: "https://team-home-2-graphql-mongodb.herokuapp.com/graphql")!
 
             return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
         }()
@@ -447,7 +451,7 @@ class LandingPageViewController: UIViewController, UITextFieldDelegate {
         return .lightContent
     }
     
-    // MARK - Properties
+    // MARK: - Properties
 
     private var apollo: ApolloClient?
     private var credentials: Credentials?

@@ -1,0 +1,27 @@
+mutation AddNewDocument($title: String!, $doc_url: String!, $team: String!, $folder: String, $textContent: String!,$tag: String) {
+    addDocument(input: {
+                title: $title
+                doc_url: $doc_url
+                team: $team
+                folder: $folder
+                textContent: $textContent
+                tag: $tag
+                }) {
+        title
+        _id
+    }
+}
+
+mutation UpdateDocument($id: ID!, $title: String, $doc_url: String, $folder: String, $textContent: String,$tag: String) {
+    updateDocument(input: {
+                id: $id
+                title: $title
+                doc_url: $doc_url
+                folder: $folder
+                textContent: $textContent
+                tag: $tag
+                }) {
+        title
+        _id
+    }
+}

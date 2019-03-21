@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import { Switch, withRouter } from 'react-router-dom';
-import GlobalStyle from './GlobalStyles';
-import LandingView from './LandingView/containers/LandingView';
-import MessageBoardContainer from './MessageBoard/containers/MessageBoardContainer';
-import Dashboard from './DashboardView/containers/Dashboard';
-import PrivateRoute from './utils/PrivateRoute';
-import PublicRoute from './utils/PublicRoute';
-import AppStyles, { BackgroundIMG } from './app-styles';
-import SettingsView from './SettingsView/containers/SettingsView';
-import AppNavBar from './Nav/Nav';
-import JssProvider from 'react-jss/lib/JssProvider';
-import { create } from 'jss';
-import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import iconLogo from './assets/Sveza_logo.png';
+
+// --------------------- imports ------------------------- //
+import GlobalStyle from './GlobalStyles'; // styling
+import LandingView from './LandingView/containers/LandingView'; // component
+import ContentContainer from './Content/ContentContainer'; // component
+import Dashboard from './DashboardView/containers/Dashboard'; // component
+import PrivateRoute from './utils/PrivateRoute'; // higher order component
+import PublicRoute from './utils/PublicRoute'; // higher order component
+import AppStyles from './app-styles'; // styling
+import SettingsView from './SettingsView/containers/SettingsView'; // component
+import AppNavBar from './Nav/Nav'; // component
+
+// ------------- styling libraries ---------------------- //
+import JssProvider from 'react-jss/lib/JssProvider'; // lets you write style sheets in javascript
+import { create } from 'jss'; // lets you write style sheets in javascript
+import { createGenerateClassName, jssPreset } from '@material-ui/core/styles'; // gets styling from material-ui
+import { CSSTransition, TransitionGroup } from 'react-transition-group'; // some transitions
+
+import HTML5Backend from 'react-dnd-html5-backend';
+//removed this import and the dependecy from package.json
+import { DragDropContext } from 'react-dnd';
 
 const generateClassName = createGenerateClassName();
 const jss = create({
@@ -31,7 +38,6 @@ class App extends Component {
 			<JssProvider jss={jss} generateClassName={generateClassName}>
 				<AppStyles>
 					<GlobalStyle />
-					<BackgroundIMG alt={'Sveza banner'} src={iconLogo} />
 					{localStorage.token && <AppNavBar handleLogout={this.handleLogout} />}
 					<TransitionGroup>
 						<CSSTransition
@@ -39,12 +45,10 @@ class App extends Component {
 							timeout={{ enter: 300, exit: 300 }}
 							classNames={'fade'}
 						>
+							{/* Switch renders only the first route that matches the location */}
 							<Switch location={this.props.location}>
 								<PublicRoute exact path="/" component={LandingView} />
-								<PrivateRoute
-									path="/:team/home"
-									component={MessageBoardContainer}
-								/>
+								<PrivateRoute path="/:team/home" component={ContentContainer} />
 								<PrivateRoute path="/dashboard" component={Dashboard} />
 								<PrivateRoute path="/settings" component={SettingsView} />
 							</Switch>
@@ -56,4 +60,4 @@ class App extends Component {
 	}
 }
 
-export default withRouter(App);
+export default DragDropContext(HTML5Backend)(withRouter(App));

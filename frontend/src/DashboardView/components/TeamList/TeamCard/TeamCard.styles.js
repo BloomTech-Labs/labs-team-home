@@ -1,9 +1,12 @@
-import styled from 'styled-components';
-import { colors } from '../../../../colorVariables';
+// ------------- MUI Imports ---------------------- //
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+
+// ------------- Style Imports ---------------------- //
+import { colors } from '../../../../colorVariables';
 import mediaQueryFor from '../../../../_global_styles/responsive_querie';
+import styled from 'styled-components';
 
 const Container = styled(Card)`
 	display: flex;
@@ -14,7 +17,9 @@ const Container = styled(Card)`
 	color: ${colors.text};
 	background-color: ${colors.button};
 	border-radius: 3px;
+	margin: 5px 0;
 	transition: background-color 250ms ease-in-out, transform 150ms ease;
+	margin: 3px;
 
 	h3 {
 		font-size: 1.2rem;
@@ -48,7 +53,7 @@ const StyledTypography = styled(Typography)`
 `;
 
 const Prem = styled(Typography)`
-	color: ${colors.text};
+	color: ${colors.header};
 
 	${mediaQueryFor.xsDevice`
 		display: none;

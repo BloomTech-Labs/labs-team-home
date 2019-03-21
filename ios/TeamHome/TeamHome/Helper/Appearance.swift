@@ -45,7 +45,9 @@ enum Appearance {
         
         UITextField.appearance().keyboardAppearance = .dark
         UISwitch.appearance().onTintColor = Appearance.mauveColor
-        
+        UISegmentedControl.appearance().tintColor = Appearance.plumColor
+        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.yellowColor], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Appearance.yellowColor], for: .normal)
     }
     
     // Style button with button background color
@@ -83,7 +85,6 @@ enum Appearance {
 
 extension UIViewController {
     func setUpViewAppearance() {
-        
         view.backgroundColor = Appearance.grayColor
         
         UILabel.appearance().textColor = .white

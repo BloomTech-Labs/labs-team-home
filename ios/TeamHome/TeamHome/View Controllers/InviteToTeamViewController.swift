@@ -126,7 +126,7 @@ class InviteToTeamViewController: UIViewController {
     }
     
 
-    // MARK - Properties
+    // MARK: - Properties
     
     var apollo: ApolloClient?
     var teamId: GraphQLID?

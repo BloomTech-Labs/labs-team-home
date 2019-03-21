@@ -1,0 +1,60 @@
+mutation AddDocumentComment($document: String!, $comment: String!){
+    addDocComment(input: {
+        document:$document
+        content: $comment
+        
+    }) {
+        _id
+        content
+    }
+}
+
+mutation SubscribeToDocument($documentID: ID!){
+    subscribeDoc(input: {
+                 id: $documentID
+                 }){
+        _id
+    }
+}
+mutation UnsubscribeFromDocument($documentID: ID!){
+    unsubscribeDoc(input: {
+                 id: $documentID
+                 }){
+        _id
+    }
+}
+
+query FindDocumentInput($docID: ID!){
+    findDocument(input: {
+                 id:$docID
+                 }) {
+        _id
+        doc_url
+        user{
+            firstName
+            lastName
+            avatar
+            _id
+        }
+        folder{
+            _id
+            title
+        }
+        title
+        textContent
+        tag{
+            _id
+            name
+        }
+        images
+        comments
+        subscribedUsers{
+            _id
+            firstName
+            lastName
+            avatar
+        }
+        createdAt
+        updatedAt
+    }
+}

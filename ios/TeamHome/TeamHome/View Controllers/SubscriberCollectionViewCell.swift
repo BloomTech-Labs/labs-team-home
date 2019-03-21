@@ -34,7 +34,7 @@ class SubscriberCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    // MARK - Properties
+    // MARK: - Properties
     
     var subscriber: FindMessageByIdQuery.Data.FindMessage.SubscribedUser? {
         didSet {

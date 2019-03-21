@@ -14,46 +14,51 @@
 | [<img src="https://avatars1.githubusercontent.com/u/43558517?s=460&v=4" width="80">](https://github.com/StephenBondor) | [<img src="https://avatars0.githubusercontent.com/u/35715213?s=460&v=4" width="80">](https://github.com/eileencuevas) | [<img src="https://avatars1.githubusercontent.com/u/41649103?s=460&v=4" width="80">](https://github.com/jonathantmiles) | [<img src="https://avatars1.githubusercontent.com/u/32802660?s=460&v=4" width="80">](https://github.com/tryingtokeepup) | [<img src="https://avatars1.githubusercontent.com/u/41604046?s=460&v=4" width="80">](https://github.com/ios1-andrew) | [<img src="https://avatars2.githubusercontent.com/u/17812457?s=460&v=4" width="80">](https://github.com/Civoremo) |
 |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/StephenBondor)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/eileencuevas)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/jonathantmiles)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/tryingtokeepup)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/ios1-andrew)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/Civoremo)            |
 
--   [Technical Design Document](https://docs.google.com/document/d/1kNjsQN3wasR7accKpKR836aFewaEpWMwHhahp6uzRIo/)
--   [Asset licenses](assets.md)
--   [iOS Setup](ios/README.md)
--   [Front End Setup](frontend/README.md)
--   [Back End Setup](backend/README.md)
--   [Testing for Web App](misc/README.md)
--   [Security for Web App](misc/SECURITY.md)
+- [Technical Design Document](https://docs.google.com/document/d/1kNjsQN3wasR7accKpKR836aFewaEpWMwHhahp6uzRIo/)
+- [Asset licenses](assets.md)
+- [iOS Setup](ios/README.md)
+- [Front End Setup](frontend/README.md)
+- [Back End Setup](backend/README.md)
+- [Testing for Web App](misc/README.md)
+- [Security for Web App](misc/SECURITY.md)
 
--   [Team Home](#team-home)
-    -   [Team](#team)
--   [Tech-Stack](#tech-stack)
-    -   [Front-End Production Dependencies](#front-end-production-dependencies)
-        -   [React](#react)
-        -   [Apollo Client](#apollo-client)
-        -   [Styled Components](#styled-components)
-        -   [Material UI](#material-ui)
-        -   [Stripe](#stripe)
-    -   [Front-End Development Dependencies](#front-end-development-dependencies)
-        -   [Husky](#husky)
-        -   [Prettier](#prettier)
-        -   [Pretty-Quick](#pretty-quick)
-        -   [Stripe](#stripe)
-    -   [Back-End Production Dependencies](#back-end-production-dependencies)
-        -   [Apollo Server](#apollo-server)
-        -   [Cors](#cors)
-        -   [dotenv](#dotenv)
-        -   [ExpressJS](#expressjs)
-        -   [GraphQL](#graphql)
-        -   [graphql-tools](#graphql-tools)
-        -   [Helmet](#helmet)
-        -   [Lodash](#lodash)
-        -   [MongoDB](#mongodb)
-        -   [Mongoose](#mongoose)
-        -   [Stripe](#stripe)
-        -   [Yup](#yup)
-    -   [Back-End Development Dependencies](#back-end-development-dependencies)
-        -   [Husky](#husky-1)
-        -   [Prettier](#prettier-1)
-        -   [Pretty-Quick](#pretty-quick-1)
-        -   [Nodemon](#nodemon)
+- [Team Home](#team-home)
+  - [Team](#team)
+  - [Team 2](#team-2)
+- [Tech-Stack](#tech-stack)
+  - [Front-End Production Dependencies](#front-end-production-dependencies)
+    - [React](#react)
+    - [Apollo Client](#apollo-client)
+    - [Styled Components](#styled-components)
+    - [Styled Icons](#styled-icons)
+    - [Material-UI](#material-ui)
+    - [Stripe](#stripe)
+    - [React Swipeable Views](#react-swipeable-views)
+    - [React DnD](#react-dnd)
+  - [Front-End Development Dependencies](#front-end-development-dependencies)
+    - [Husky](#husky)
+    - [Prettier](#prettier)
+    - [Pretty-Quick](#pretty-quick)
+    - [Stripe](#stripe-1)
+  - [Back-End Production Dependencies](#back-end-production-dependencies)
+    - [Apollo Server](#apollo-server)
+    - [Cors](#cors)
+    - [dotenv](#dotenv)
+    - [ExpressJS](#expressjs)
+    - [GraphQL](#graphql)
+    - [graphql-tools](#graphql-tools)
+    - [Helmet](#helmet)
+    - [Lodash](#lodash)
+    - [MongoDB](#mongodb)
+    - [Mongoose](#mongoose)
+    - [Yup](#yup)
+    - [Stripe](#stripe-2)
+  - [Back-End Development Dependencies](#back-end-development-dependencies)
+    - [Husky](#husky-1)
+    - [Prettier](#prettier-1)
+    - [Pretty-Quick](#pretty-quick-1)
+    - [Nodemon](#nodemon)
+  - [Note on .env files](#note-on-env-files)
 
 # Tech-Stack
 
@@ -72,6 +77,10 @@ Apollo Client is designed to quickly build a UI that works with GraphQL and inte
 
 Styled Components is a popular CSS-in-JS library that provides flexibility and seamless integration with React allowing for customizable themes and styling that responds to props and JS logic.<br/>[Styled Components info](https://www.styled-components.com/docs/)
 
+### Styled Icons
+
+Styled Icons provides icons from various popular free icon packs as easy-to-use Styled Components.<br/>>[Styled Icons info](https://styled-icons.js.org/)
+
 ### Material-UI
 
 Material-UI is an open source library that uses React components which implement Google's Material Design. It makes using and designing components easier for anyone that uses it.<br/>[Material-UI info](https://material-ui.com/)
@@ -79,6 +88,18 @@ Material-UI is an open source library that uses React components which implement
 ### Stripe
 
 The Stripe API is used for payments. It is predictable, resource oriented, and organized around REST.<br/>[Stripe info](https://stripe.com/docs/api)
+
+### React Swipeable Views
+
+Provides Swipeable Views along with animation support.<br/>[React Swipeable Views info](https://react-swipeable-views.com/)
+
+### React DnD
+
+React DnD is a set of React higher-order components to help you build complex drag and drop interfaces while keeping your components decoupled.<br/>[React-dnd](http://react-dnd.github.io/react-dnd/about)
+
+### React Scrollable Anchor
+
+Lightweight library for smooth scrolling anchors in React, tied to URL hash.<br/>[React Scrollable Anchor](https://www.npmjs.com/package/react-scrollable-anchor)
 
 ## Front-End Development Dependencies
 
@@ -195,3 +216,8 @@ Runs Prettier on changed files
 Nodemon is a utility that will monitor for any changes in your source and automatically restart your server.
 
 [Nodemon info](https://nodemon.io/)
+
+## Note on .env files
+
+For security purposes, we will not post the keys on this repo, but if you need the keys to test the repo out on your
+personal development computer, access to them can be obtained in the slack channel labs10_team_home. Give a DM to any of the labs10 members, and they can probably get you up to speed on that.

@@ -1,6 +1,6 @@
 {
-	"name": "TeamHome",
-	"version": "0.1.0",
+	"name": "TeamHome2",
+	"version": "0.2.0",
 	"private": true,
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.14",
@@ -25,20 +25,26 @@
 		"react": "^16.7.0",
 		"react-apollo": "^2.3.3",
 		"react-burgers": "^1.2.0",
+		"react-dnd": "^7.0.2",
+		"react-dnd-html5-backend": "^7.0.2",
 		"react-dom": "^16.7.0",
 		"react-filepond": "^5.0.0",
 		"react-jss": "^8.6.1",
 		"react-particles-js": "^2.4.2",
 		"react-redux": "^6.0.0",
+		"react-reveal": "^1.2.2",
 		"react-router-dom": "^4.3.1",
 		"react-scripts": "2.1.3",
+		"react-scrollable-anchor": "^0.6.1",
 		"react-stripe-checkout": "^2.6.3",
+		"react-swipeable-views": "^0.13.1",
 		"react-toastify": "^4.5.2",
 		"react-transition-group": "^2.5.3",
 		"reactstrap": "^7.1.0",
-		"styled-components": "^4.1.3"
+		"styled-components": "^4.1.3",
+		"styled-icons": "^7.4.2"
 	},
-	"homepage": "https://team-home.netlify.com/",
+	"homepage": "https://team-home-2.netlify.com/",
 	"devDependencies": {
 		"eslint-config-prettier": "^3.1.0",
 		"eslint-plugin-prettier": "^3.0.0",
