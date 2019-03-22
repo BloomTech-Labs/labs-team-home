@@ -217,7 +217,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="FOx-SN-I5G" userLabel="Documents Container View">
-                                <rect key="frame" x="0.0" y="87.5" width="375" height="515.5"/>
+                                <rect key="frame" x="0.0" y="99.5" width="375" height="503.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="400" id="YgN-iS-LMV">
                                         <variation key="heightClass=regular-widthClass=regular" constant="905.5"/>
@@ -228,7 +228,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xyg-Zd-yKN" userLabel="Folders Container View">
-                                <rect key="frame" x="0.0" y="87.5" width="375" height="515.5"/>
+                                <rect key="frame" x="0.0" y="99.5" width="375" height="503.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="400" id="Itw-OY-PlD"/>
                                 </constraints>
@@ -237,13 +237,10 @@
                                 </connections>
                             </containerView>
                             <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sLw-Ke-Nmi">
-                                <rect key="frame" x="16" y="16" width="343" height="55.5"/>
+                                <rect key="frame" x="16" y="16" width="343" height="67.5"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mT3-Xk-wof">
-                                        <rect key="frame" x="57" y="0.0" width="229" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="16" id="csR-9i-G8O"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="29"/>
                                         <segments>
                                             <segment title="Documents"/>
                                             <segment title="Folders"/>
@@ -253,7 +250,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fFF-fW-LC5">
-                                        <rect key="frame" x="0.0" y="24" width="343" height="31.5"/>
+                                        <rect key="frame" x="0.0" y="36" width="343" height="31.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="253" text="Team home 2" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHn-Px-kkQ">
                                                 <rect key="frame" x="0.0" y="0.0" width="150.5" height="31.5"/>
@@ -272,7 +269,7 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="mT3-Xk-wof" firstAttribute="width" secondItem="sLw-Ke-Nmi" secondAttribute="width" multiplier="2/3" id="Zw4-LO-xvX"/>
+                                    <constraint firstItem="mT3-Xk-wof" firstAttribute="width" secondItem="sLw-Ke-Nmi" secondAttribute="width" id="Zw4-LO-xvX"/>
                                     <constraint firstItem="fFF-fW-LC5" firstAttribute="width" secondItem="sLw-Ke-Nmi" secondAttribute="width" id="qL4-Qd-aeP"/>
                                 </constraints>
                             </stackView>
@@ -326,7 +323,7 @@
             <objects>
                 <tableViewController id="qfn-G3-rx9" customClass="DocumentsTableViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fCb-hq-SUw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="515.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="503.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -592,7 +589,7 @@
             <objects>
                 <tableViewController id="hsB-K1-XSv" customClass="FoldersTableViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="VaF-K1-taD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="515.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="503.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -633,7 +630,7 @@
             <objects>
                 <tableViewController id="lfa-LU-LVT" userLabel="FolderContentsView" customClass="FolderContentsTableViewController" customModule="TeamHome" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tdZ-d7-mZe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="515.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="503.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
