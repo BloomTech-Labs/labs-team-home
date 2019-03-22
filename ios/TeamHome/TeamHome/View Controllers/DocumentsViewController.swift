@@ -42,6 +42,9 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
 
     // MARK: - IBActions
     
+    @IBAction func AddDocumentFolder(_ sender: Any) {
+        performSegue(withIdentifier: "AddDocument", sender: nil)
+    }
     @IBAction func createNewFolder(_ sender: Any) {
         
         let alert = UIAlertController(title: "Add New Folder", message: "Enter the title of your new folder.", preferredStyle: .alert)
