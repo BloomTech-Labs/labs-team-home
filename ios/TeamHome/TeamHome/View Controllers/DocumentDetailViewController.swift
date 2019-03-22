@@ -113,11 +113,11 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             
-            
+            self.view.layoutIfNeeded()
             if stackViewBottomConstraint.constant == 16 {
                 UIView.animate(withDuration: 1.0) {
                     self.stackViewBottomConstraint.constant = keyboardSize.height - 32
-                        self.stackView.layoutIfNeeded()
+                        self.view.layoutIfNeeded()
                 }
                 collectionDelegate?.keyboardWillShow()
             }
