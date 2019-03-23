@@ -20,7 +20,7 @@ protocol FoldersFilterDelegate: class {
 }
 
 class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,12 +37,29 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         // Segmented Control action pattern
         setupEmbeddedViews()
         documentsFoldersSegmentedIndex.addTarget(self, action: #selector(changeDisplay(_:)), for: .valueChanged)
-//        notificationCenter = NotificationCenter()
+        //        notificationCenter = NotificationCenter()
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTitle()
+    }
+    
     // MARK: - IBActions
     
-    @IBAction func createNewFolder(_ sender: Any) {
+    @IBAction func AddDocumentFolder(_ sender: Any) {
+        if documentsFoldersSegmentedIndex.selectedSegmentIndex == 0 {
+            performSegue(withIdentifier: "AddDocument", sender: nil)
+        } else {
+            createNewFolder()
+        }
+    }
+    
+    @IBAction func toggleSegmentedIndex(_ sender: Any) {
+        updateTitle()
+    }
+    // MARK: - Private Functions
+    // Create gradient layer for view background.
+    private func createNewFolder() {
         
         let alert = UIAlertController(title: "Add New Folder", message: "Enter the title of your new folder.", preferredStyle: .alert)
         
@@ -60,8 +77,8 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
                     return
                 }
                 print("Add Folder Successful: \(result?.data?.addFolder?.title ?? "No Title")")
-//                guard let nc = self.notificationCenter else { return }
-//                nc.post(name: .addedNewFolder, object: self)
+                //                guard let nc = self.notificationCenter else { return }
+                //                nc.post(name: .addedNewFolder, object: self)
                 NotificationCenter.default.post(name: .addedNewFolder, object: nil)
             }
             
@@ -72,9 +89,15 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         self.present(alert, animated: true, completion: nil)
         
     }
-
-    // MARK: - Private Functions
-    // Create gradient layer for view background.
+    
+    private func updateTitle(){
+        if documentsFoldersSegmentedIndex.selectedSegmentIndex == 0 {
+            self.title = "Documents"
+        } else {
+            self.title = "Folders"
+        }
+    }
+    
     private func createGradientLayer() {
         gradientLayer = CAGradientLayer()
         
@@ -110,7 +133,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
             DispatchQueue.main.async {
                 self.documentsContainerView.isHidden = true
                 self.foldersContainerView.isHidden = false
-
+                
             }
         default:
             DispatchQueue.main.async {
@@ -121,7 +144,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     }
     
     @IBAction func filterDocuments(_ sender: Any) {
-
+        
         switch documentsFoldersSegmentedIndex.selectedSegmentIndex {
         case 0:
             guard let delegate = delegateDocs else { return }
@@ -165,7 +188,7 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     }
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddDocument"{
@@ -188,9 +211,9 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
         }
     }
     
-
+    
     // MARK: - Properties
-
+    
     private var gradientLayer: CAGradientLayer!
     private var delegateDocs: DocumentBoardFilterDelegate?
     private var delegateFolders: FoldersFilterDelegate?
@@ -199,9 +222,8 @@ class DocumentsViewController: UIViewController, TabBarChildrenProtocol {
     var team: FindTeamsByUserQuery.Data.FindTeamsByUser?
     var currentUser: CurrentUserQuery.Data.CurrentUser?
     
-    @IBOutlet weak var newFolderButton: UIButton!
     @IBOutlet weak var documentsFoldersSegmentedIndex: UISegmentedControl!
-
+    
     @IBOutlet weak var documentsContainerView: UIView!
     @IBOutlet weak var foldersContainerView: UIView!
     
