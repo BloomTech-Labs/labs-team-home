@@ -30,7 +30,7 @@ class DocumentDetailViewController: UIViewController, GrowingTextViewDelegate {
         dateLabel.font = RobotoFont.regular(with: 12)
         setUpCommentTextView()
         
-        
+        commentTextView.keyboardAppearance = .dark
         guard let apollo = apollo else { return }
         self.loadDocument(with: apollo)
         
