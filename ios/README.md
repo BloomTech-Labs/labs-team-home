@@ -8,6 +8,9 @@
 
 Connect with team members across multiple message boards and update each other in an instant.
 
+## Screenshots
+<img src="https://github.com/Lambda-School-Labs/labs-team-home/blob/master/frontend/src/assets/iOS_mainScreen.png" width="250" /> <img src="https://github.com/Lambda-School-Labs/labs-team-home/blob/master/frontend/src/assets/iOS_addDocuments.png" width = 250 /> <img src="https://github.com/Lambda-School-Labs/labs-team-home/blob/master/frontend/src/assets/iOS_documents.png" width = 250 />
+
 ## Features
 
 - [x] Team Dashboard
