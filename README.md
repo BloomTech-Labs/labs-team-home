@@ -15,9 +15,14 @@
 | [<img src="https://avatars1.githubusercontent.com/u/43558517?s=460&v=4" width="80">](https://github.com/StephenBondor) | [<img src="https://avatars0.githubusercontent.com/u/35715213?s=460&v=4" width="80">](https://github.com/eileencuevas) | [<img src="https://avatars1.githubusercontent.com/u/41649103?s=460&v=4" width="80">](https://github.com/jonathantmiles) | [<img src="https://avatars1.githubusercontent.com/u/32802660?s=460&v=4" width="80">](https://github.com/tryingtokeepup) | [<img src="https://avatars1.githubusercontent.com/u/41604046?s=460&v=4" width="80">](https://github.com/ios1-andrew) | [<img src="https://avatars2.githubusercontent.com/u/17812457?s=460&v=4" width="80">](https://github.com/Civoremo) |
 |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/StephenBondor)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/eileencuevas)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/jonathantmiles)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/tryingtokeepup)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/ios1-andrew)            |            [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/Civoremo)            |
 
+## Screenshots
+
+### Web Application
+<img src="https://github.com/Lambda-School-Labs/labs-team-home/blob/master/frontend/Screenshots/web-activity-timeline.png" width = 375 /> <img src="https://github.com/Lambda-School-Labs/labs-team-home/blob/master/frontend/Screenshots/web-documents.png" width = 375 />
+
 **Live link:** https://arq.community
 
-## Screenshots
+### iOS Application
 <img src="https://github.com/Lambda-School-Labs/labs-team-home/blob/master/frontend/src/assets/iOS_mainScreen.png" width="250" /> <img src="https://github.com/Lambda-School-Labs/labs-team-home/blob/master/frontend/src/assets/iOS_addDocuments.png" width = 250 /> <img src="https://github.com/Lambda-School-Labs/labs-team-home/blob/master/frontend/src/assets/iOS_documents.png" width = 250 />
 
 ## Quick links
